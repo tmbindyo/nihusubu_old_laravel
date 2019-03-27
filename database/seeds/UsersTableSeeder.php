@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@argon.com',
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
+            'user_type_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -25,6 +26,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'investor@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
+            'user_type_id' => 3,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -33,6 +35,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'projectmanager@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
+            'user_type_id' => 4,
             'created_at' => now(),
             'updated_at' => now()
         ]);
