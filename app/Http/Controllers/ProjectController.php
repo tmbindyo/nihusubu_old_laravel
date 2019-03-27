@@ -52,6 +52,7 @@ class ProjectController extends Controller
         $project->total_budget = $request->total_budget;
         $project->used_budget = 0;
         $project->remaining_budget = 0;
+        $project->contributed_budget = 0;
         $project->start_date = date('Y-m-d', strtotime($request->start_date));
         $project->end_date = date('Y-m-d', strtotime($request->end_date));
         $project->user_id = Auth::user()->id;
@@ -75,7 +76,7 @@ class ProjectController extends Controller
         elseif (Auth::user()->user_type_id == 3) {
             $projectBids = DB::table('project_bids')->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
         }elseif (Auth::user()->user_type_id == 4) {
-            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
+            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->get();
         }else {
             $projectBids = [];
         }

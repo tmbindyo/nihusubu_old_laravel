@@ -47,7 +47,7 @@ class RequisitionController extends Controller
 
         $project = Project::find($projectTask->id);
         $project->used_budget = (int)$project->used_budget+$request->amount;
-        $project->remaining_budget = (int)$project->total_budget-($project->used_budget+$request->amount);
+        $project->remaining_budget = (int)$project->contributed_budget-($project->used_budget+$request->amount);
         $project->save();
 
         $requsitition = new Requisition;

@@ -34,13 +34,13 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="form-group{{ $errors->has('remaining_budget') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-remaining_budget">{{ __('Remaining budget') }}</label>
-                                    <input type="text" name="remaining_budget" id="input-remaining_budget" class="form-control form-control-alternative{{ $errors->has('remaining_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Remaining budget') }}" value="{{ $project->remaining_budget }}" required autofocus readonly>
+                                <div class="form-group{{ $errors->has('contributed_budget') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-contributed_budget">{{ __('Remaining budget') }}</label>
+                                    <input type="text" name="contributed_budget" id="input-contributed_budget" class="form-control form-control-alternative{{ $errors->has('contributed_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Remaining budget') }}" value="{{ $project->contributed_budget }}" required autofocus readonly>
 
-                                    @if ($errors->has('remaining_budget'))
+                                    @if ($errors->has('contributed_budget'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('remaining_budget') }}</strong>
+                                            <strong>{{ $errors->first('contributed_budget') }}</strong>
                                         </span>
                                     @endif
                                 </div>

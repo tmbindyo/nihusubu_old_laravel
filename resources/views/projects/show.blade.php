@@ -13,7 +13,7 @@
                                 <h3 class="mb-0">{{ __('Project Management') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                @if (Auth::user()->user_id == 4)
+                                @if (Auth::user()->user_type_id == 4)
                                     <a href="{{ route('project.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                                 @endif
                             </div>
@@ -82,20 +82,20 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group{{ $errors->has('remaining_budget') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-remaining_budget">{{ __('Remaining budget') }}</label>
-                                    <input type="text" name="remaining_budget" id="input-remaining_budget" class="form-control form-control-alternative{{ $errors->has('remaining_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Remaining budget') }}" value="{{ old('remaining_budget', $project->remaining_budget) }}" required autofocus readonly>
+                                <div class="form-group{{ $errors->has('contributed_budget') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-contributed_budget">{{ __('Contributed budget') }}</label>
+                                    <input type="text" name="contributed_budget" id="input-contributed_budget" class="form-control form-control-alternative{{ $errors->has('contributed_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Contributed budget') }}" value="{{ old('contributed_budget', $project->contributed_budget) }}" required autofocus readonly>
 
-                                    @if ($errors->has('remaining_budget'))
+                                    @if ($errors->has('contributed_budget'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('remaining_budget') }}</strong>
+                                            <strong>{{ $errors->first('contributed_budget') }}</strong>
                                         </span>
                                     @endif
                                 </div>
 
                                 <div class="text-center">
                                     {{-- <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button> --}}
-                                    @if (Auth::user()->user_id == 4)
+                                    @if (Auth::user()->user_type_id == 4)
                                         <a class="btn btn-success mt-4" href="{{ route('project.show', $project->id ) }}">{{ __('Edit') }}</a>
                                     @endif
 
@@ -120,7 +120,7 @@
                                     <h3 class="mb-0">{{ __('Project task') }}</h3>
                                 </div>
                                 <div class="col-4 text-right">
-                                    @if (Auth::user()->user_id == 4)
+                                    @if (Auth::user()->user_type_id == 4)
                                         <a href="{{ route('project.project_task.create', [$project->id] ) }}" class="btn btn-sm btn-primary">{{ __('Create project tasks') }}</a>
                                     @endif
                                 </div>
@@ -167,7 +167,7 @@
                                                             <td>{{ $projectTask->end_date }}</td>
                                                             <td>{{ $projectTask->total_budget }}</td>
                                                             <td>{{ $projectTask->created_at }}</td>
-                                                            @if (Auth::user()->user_id == 4)
+                                                            @if (Auth::user()->user_type_id == 4)
                                                             <td class="text-right">
                                                                 <div class="dropdown">
                                                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -271,18 +271,12 @@
                                                                         <i class="fas fa-ellipsis-v"></i>
                                                                     </a>
                                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                                        @if (Auth::user()->user_type_id == 3)
+                                                                            <a class="dropdown-item" href="{{ route('project.project_bid.edit', [$project->id,$projectBid->id]) }}">{{ __('Edit') }}</a>
+                                                                        @endif
                                                                         @if (Auth::user()->user_type_id == 4)
-                                                                            <form action="{{ route('project.project_bid.destroy', [$project->id,$projectBid->id]) }}" method="post">
-                                                                                @csrf
-                                                                                @method('delete')
-                                                                                
-                                                                                <a class="dropdown-item" href="{{ route('project.project_bid.edit', [$project->id,$projectBid->id]) }}">{{ __('Edit') }}</a>
-                                                                                <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this project?") }}') ? this.parentElement.submit() : ''">
-                                                                                    {{ __('Delete') }}
-                                                                                </button>
-                                                                            </form>    
-                                                                        @else
-                                                                            <a class="dropdown-item" href="{{ route('project.project_bid.edit', [$project->id,$projectBid->id] ) }}">{{ __('Edit') }}</a>
+
+                                                                            <a class="dropdown-item" href="{{ route('project.bid', [$project->id,$projectBid->id]) }}">{{ __('Approve') }}</a>  
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -313,9 +307,9 @@
                                 <h3 class="mb-0">{{ __('Project investment') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                @if (Auth::user()->user_id == 4)
+                                {{-- @if (Auth::user()->user_type_id == 4)
                                     <a href="{{ route('project.project_investment.create', $project->id ) }}" class="btn btn-sm btn-primary">{{ __('Create project investment') }}</a>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </div>
@@ -353,7 +347,7 @@
                                                         <td>{{ $projectInvestment->amount }}</td>
                                                         <td>{{ Auth::user()->name }}</td>
                                                         <td>{{ $projectInvestment->created_at }}</td>
-                                                        @if (Auth::user()->user_id == 4)
+                                                        @if (Auth::user()->user_type_id == 4)
                                                         <td class="text-right">
                                                             <div class="dropdown">
                                                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

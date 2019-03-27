@@ -41,15 +41,20 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('status', 'StatusController');
 	Route::resource('upload', 'UploadController');
 	Route::resource('upload_type', 'UploadTypeController');
+
 	// User resource
 	Route::resource('user_detail', 'UserDetailController');
 	Route::resource('user_type', 'UserTypeController');
 
-	// Custome controllers
+	// Investor controllers
 	Route::get('/opportunities', 'InvestorProjectsController@opportunity')->name('opportunities');
 	Route::get('/bids', 'InvestorProjectsController@bid')->name('bids');
 	Route::get('/ongoing', 'InvestorProjectsController@ongoing')->name('ongoing');
 	Route::get('/portfolio', 'InvestorProjectsController@portfolio')->name('portfolio');
+
+	// Bid management controllers
+	Route::get('project/{project_id}/bid/{project_bid_id}', 'BidManagementController@approve')->name('project.bid');
+		// $project->id,$projectBid->id
 });
 
 

@@ -38,6 +38,7 @@
                                     <th scope="col">{{ __('Total') }}</th>
                                     <th scope="col">{{ __('Used') }}</th>
                                     <th scope="col">{{ __('Remaining') }}</th>
+                                    <th scope="col">{{ __('Contributed') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -50,6 +51,7 @@
                                         <td>{{ $project->total_budget }}</td>
                                         <td>{{ $project->used_budget }}</td>
                                         <td>{{ $project->remaining_budget }}</td>
+                                        <td>{{ $project->contributed_budget }}</td>
                                         <td>{{ $project->created_at->format('d/m/Y H:i') }}</td>
                                         <td class="text-right">
                                             <div class="dropdown">
@@ -57,7 +59,7 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    @if (Auth::user()->user_id == 4)
+                                                    @if (Auth::user()->user_type_id == 4)
                                                         <form action="{{ route('project.destroy', $project) }}" method="post">
                                                             @csrf
                                                             @method('delete')

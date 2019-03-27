@@ -19,6 +19,7 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->double('total_budget', 8, 2)->nullable();
+            $table->double('contributed_budget', 8, 2)->nullable();
             $table->double('used_budget', 8, 2)->nullable();
             $table->double('remaining_budget', 8, 2)->nullable();
             $table->integer('project_type_id')->unsigned();
