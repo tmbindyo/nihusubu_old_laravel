@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Project task Management')])
+@extends('layouts.app', ['title' => __('User bids Management')])
 
 @section('content')
     @include('layouts.headers.cards')
@@ -11,19 +11,19 @@
                         <div class="card-header bg-white border-0">
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <h3 class="mb-0">{{ __('Project bids') }}</h3>
+                                    <h3 class="mb-0">{{ __('User bids') }}</h3>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <a href="{{ route('project.project_bid.create', $project->id ) }}" class="btn btn-sm btn-primary">{{ __('Create project bids') }}</a>
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('project.project_bid.update', [$project->id,'1']) }}" autocomplete="off">
+                            <form method="post" action="{{ route('project.index') }}" autocomplete="off">
                                 @csrf
                                 @method('put')
     
-                                <h6 class="heading-small text-muted mb-4">{{ __('Project bids') }}</h6>
+                                <h6 class="heading-small text-muted mb-4">{{ __('User bids') }}</h6>
                                 <div class="pl-lg-4">
                                     <div class="col-12">
                                             @if (session('status'))
@@ -47,11 +47,11 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($projectBids as $projectBid)
+                                                    @foreach ($userBids as $userBid)
                                                         <tr>
                                                             <td>{{ Auth::user()->name }}</td>
-                                                            <td>{{ $projectBid->bid_amount }}</td>
-                                                            <td>{{ $projectBid->created_at }}</td>
+                                                            <td>{{ $userBid->bid_amount }}</td>
+                                                            <td>{{ $userBid->created_at }}</td>
                                                             <td class="text-right">
                                                                 <div class="dropdown">
                                                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

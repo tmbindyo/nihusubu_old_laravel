@@ -15,7 +15,6 @@ class CreateProjectBidsTable extends Migration
     {
         Schema::create('project_bids', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
             $table->longText('description');
             $table->double('bid_amount', 8, 2);
             $table->integer('project_id')->unsigned();

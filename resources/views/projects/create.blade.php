@@ -60,13 +60,6 @@
                                     @endif
                                 </div> 
 
-                                <div class="form-group{{ $errors->has('priority') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-priority">{{ __('Priority') }}</label>
-                                    <input type="number" name="priority" id="input-priority" class="form-control form-control-alternative{{ $errors->has('priority') ? ' is-invalid' : '' }}" placeholder="{{ __('Value between 1 and 10') }}" value="{{ old('priority') }}" required>
-
-                                    
-                                </div>
-
                                 <div class="input-daterange datepicker row align-items-center">
                                     <div class="col">
                                         <div class="form-group">

@@ -23,27 +23,37 @@
                             
                             <h6 class="heading-small text-muted mb-4">{{ __('Project bid information') }}</h6>
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>
+                                
+                                <div class="form-group{{ $errors->has('remaining_budget') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-remaining_budget">{{ __('Total budget') }}</label>
+                                    <input type="text" name="remaining_budget" id="input-remaining_budget" class="form-control form-control-alternative{{ $errors->has('remaining_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Total budget') }}" value="{{ $project->total_budget }}" required autofocus readonly>
 
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('remaining_budget'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                            <strong>{{ $errors->first('remaining_budget') }}</strong>
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group{{ $errors->has('remaining_budget') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-remaining_budget">{{ __('Remaining budget') }}</label>
+                                    <input type="text" name="remaining_budget" id="input-remaining_budget" class="form-control form-control-alternative{{ $errors->has('remaining_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Remaining budget') }}" value="{{ $project->remaining_budget }}" required autofocus readonly>
 
-                                <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                    <input type="text" name="description" id="input-description" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description') }}" required>
-
-                                    @if ($errors->has('description'))
+                                    @if ($errors->has('remaining_budget'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('description') }}</strong>
+                                            <strong>{{ $errors->first('remaining_budget') }}</strong>
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group{{ $errors->has('return_rate') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-return_rate">{{ __('Return rate') }}</label>
+                                        <input type="text" name="return_rate" id="input-return_rate" class="form-control form-control-alternative{{ $errors->has('return_rate') ? ' is-invalid' : '' }}" placeholder="{{ __('Return rate') }}" value="{{ $project->return_rate }}" required autofocus readonly>
+    
+                                        @if ($errors->has('return_rate'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('return_rate') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 
                                 <div class="form-group{{ $errors->has('bid_amount') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-bid_amount">{{ __('Bid Amount') }}</label>

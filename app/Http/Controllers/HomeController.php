@@ -27,7 +27,7 @@ class HomeController extends Controller
         } elseif (Auth::user()->user_type_id == 3) {
             return view('investor_dashboard');
         } elseif (Auth::user()->user_type_id == 4) {
-            return view('project_manager.dashboard');
+            return view('project_manager_dashboard');
         } else {
             return redirect('login');
         }

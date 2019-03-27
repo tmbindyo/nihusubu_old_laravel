@@ -15,25 +15,22 @@ class InvestorProjectsController extends Controller
         // Get all projects
         $projects = Project::with(['project_bids'])->get();
         return view('projects.opportunity', ['projects' => $projects]);
-        return view('dashboard');
     }
     public function bid()
     {
         // Get user project bids
-        $bids = DB::table('project_bids')->where('user_id', '=', Auth::user()->id)->get();
-        echo ($bids);
-        // return view('dashboard');
+        $userBids = DB::table('project_bids')->where('user_id', '=', Auth::user()->id)->get();
+        // $projects = Project::findOrFail($userBids->project_id);
+        return view('project_bids.user', ['userBids' => $userBids]);
     }
     public function ongoing()
     {
         $projects = DB::table('projects')->where('status_id', '=', 5)->get();
-        echo ($projects);
-        // return view('dashboard');
+        return view('projects.ongoing', ['projects' => $projects]);
     }
     public function portfolio()
     {
         $projects = DB::table('projects')->where('status_id', '=', 4)->get();
-        echo ($projects);
-        // return view('dashboard');
+        return view('projects.portfolio', ['projects' => $projects]);
     }
 }

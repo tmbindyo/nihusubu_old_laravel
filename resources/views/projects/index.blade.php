@@ -38,7 +38,6 @@
                                     <th scope="col">{{ __('Total') }}</th>
                                     <th scope="col">{{ __('Used') }}</th>
                                     <th scope="col">{{ __('Remaining') }}</th>
-                                    <th scope="col">{{ __('Priority') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -51,7 +50,6 @@
                                         <td>{{ $project->total_budget }}</td>
                                         <td>{{ $project->used_budget }}</td>
                                         <td>{{ $project->remaining_budget }}</td>
-                                        <td>{{ $project->priority }}</td>
                                         <td>{{ $project->created_at->format('d/m/Y H:i') }}</td>
                                         <td class="text-right">
                                             <div class="dropdown">
@@ -59,7 +57,7 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    @if ($project->id != auth()->id())
+                                                    @if (Auth::user()->user_id == 4)
                                                         <form action="{{ route('project.destroy', $project) }}" method="post">
                                                             @csrf
                                                             @method('delete')
@@ -68,6 +66,7 @@
                                                             <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this project?") }}') ? this.parentElement.submit() : ''">
                                                                 {{ __('Delete') }}
                                                             </button>
+                                                            <a class="dropdown-item" href="{{ route('project.show', $project->id ) }}">{{ __('View') }}</a>
                                                         </form>    
                                                     @else
                                                         <a class="dropdown-item" href="{{ route('project.show', $project->id ) }}">{{ __('View') }}</a>

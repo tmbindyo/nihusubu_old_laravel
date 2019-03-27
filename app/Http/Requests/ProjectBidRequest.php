@@ -26,10 +26,7 @@ class ProjectBidRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
-                'required', 'min:3'
-            ],
-            'description' => [
+            'bid_amount' => [
                 'required'
             ]
         ];

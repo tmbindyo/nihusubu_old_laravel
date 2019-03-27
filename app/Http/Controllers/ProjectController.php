@@ -47,9 +47,9 @@ class ProjectController extends Controller
         $project = new Project;
         $project->name = $request->name;
         $project->description = $request->description;
-        $project->priority = $request->priority;
         $project->project_type_id = $request->project_type;
-        $project->total_budget = 0;
+        $project->return_rate = $request->return_rate;
+        $project->total_budget = $request->total_budget;
         $project->used_budget = 0;
         $project->remaining_budget = 0;
         $project->start_date = date('Y-m-d', strtotime($request->start_date));
@@ -70,7 +70,15 @@ class ProjectController extends Controller
     {
         $project = Project::find($project->id);
         // $projectTasks = ProjectTask::all();
-        $projectBids = DB::table('project_bids')->where('project_id', $project->id)->get();
+        if (Auth::user()->user_type_id == 1)
+            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->get();
+        elseif (Auth::user()->user_type_id == 3) {
+            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
+        }elseif (Auth::user()->user_type_id == 4) {
+            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
+        }else {
+            $projectBids = [];
+        }
         $projectTasks = DB::table('project_tasks')->where('project_id', $project->id)->get();
         // echo ($projectTasks);
         $projectInvestments = DB::table('project_investments')->where('project_id', $project->id)->get();

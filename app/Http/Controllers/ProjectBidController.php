@@ -42,8 +42,6 @@ class ProjectBidController extends Controller
         $project = Project::find($id);
 
         $projectBid = new ProjectBid;
-        $projectBid->name = $request->name;
-        $projectBid->description = $request->description;
         $projectBid->project_id = $project->id;
         $projectBid->bid_amount = $request->bid_amount;
         $projectBid->user_id = Auth::user()->id;
@@ -86,10 +84,12 @@ class ProjectBidController extends Controller
      */
     public function update($id, Request $request, ProjectBid $projectBid)
     {
+        if($projectBid->status_id == 2){
+            // Create record for project investment
+        }
         $projectBid = ProjectBid::find($projectBid->id);
-        $projectBid->name = $request->name;
-        $projectBid->description = $request->description;
         $projectBid->bid_amount = $request->bid_amount;
+        $projectBid->status_id = $request->status_id;
         $projectBid->save();
         return redirect()->route('project.index')->withID($id)->withStatus(__('Project task successfully updated.'));
     }

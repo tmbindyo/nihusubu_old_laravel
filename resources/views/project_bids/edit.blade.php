@@ -24,26 +24,6 @@
 
                             <h6 class="heading-small text-muted mb-4">{{ __('Project bid information') }}</h6>
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', $projectBid->name) }}" required autofocus>
-
-                                    @if ($errors->has('name'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                                <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                    <input type="text" name="description" id="input-description" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description', $projectBid->description) }}" required>
-
-                                    @if ($errors->has('description'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('description') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
                                 <div class="form-group{{ $errors->has('bid_amount') ? ' has-danger' : '' }}">
                                         <label class="form-control-label" for="input-bid_amount">{{ __('Bid amount') }}</label>
                                         <input type="text" name="bid_amount" id="input-bid_amount" class="form-control form-control-alternative{{ $errors->has('bid_amount') ? ' is-invalid' : '' }}" placeholder="{{ __('Bid amount') }}" value="{{ old('bid_amount', $projectBid->bid_amount) }}" required>
