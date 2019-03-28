@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Status;
 use App\Project;
 use App\ProjectType;
 use App\ProjectBid;
@@ -82,7 +83,15 @@ class ProjectController extends Controller
         }
         $projectTasks = DB::table('project_tasks')->where('project_id', $project->id)->get();
         // echo ($projectTasks);
+        if (Auth::user()->user_type_id == 1)
         $projectInvestments = DB::table('project_investments')->where('project_id', $project->id)->get();
+        elseif (Auth::user()->user_type_id == 3) {
+            $projectInvestments = DB::table('project_investments')->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
+        }elseif (Auth::user()->user_type_id == 4) {
+            $projectInvestments = DB::table('project_investments')->where('project_id', $project->id)->get();
+        }else {
+            $projectInvestments = [];
+        }
         return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectTasks($projectTasks)->withProjectInvestments($projectInvestments);
     }
 
@@ -95,7 +104,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $project = Project::find($project->id);
-        return view('projects.edit',compact('project'));
+        $statuses = Status::all();
+        return view('projects.edit',compact('project','statuses'));
     }
 
     /**
@@ -110,6 +120,7 @@ class ProjectController extends Controller
         $project = Project::find($project->id);
         $project->name = $request->name;
         $project->description = $request->description;
+        $project->status_id = $request->status;
         $project->save();
         return redirect()->route('project.index')->withStatus(__('Project successfully updated.'));
     }

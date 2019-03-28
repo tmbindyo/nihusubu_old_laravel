@@ -13,24 +13,51 @@ class InvestorProjectsController extends Controller
     public function opportunity()
     {
         // Get all projects
-        $projects = Project::with(['project_bids'])->get();
+        $user_id = Auth::user()->id;
+        $projects = Project::with(['project_bids'])
+            ->whereDoesntHave('project_bids', function($q) use($user_id) {
+            // Query the name field in status table
+            $q->where('user_id', '=', $user_id); // '=' is optional
+        })
+        ->get();
         return view('projects.opportunity', ['projects' => $projects]);
     }
     public function bid()
     {
-        // Get user project bids
-        $userBids = DB::table('project_bids')->where('user_id', '=', Auth::user()->id)->get();
-        // $projects = Project::findOrFail($userBids->project_id);
-        return view('project_bids.user', ['userBids' => $userBids]);
+        // Get projects
+        $user_id = Auth::user()->id;
+        $projects = Project::with(['project_bids'])
+            ->whereHas('project_bids', function($q) use($user_id) {
+            // Query the name field in status table
+            $q->where('user_id', '=', $user_id); // '=' is optional
+        })
+        ->get();
+        return view('projects.pending', ['projects' => $projects]);
     }
     public function ongoing()
     {
-        $projects = DB::table('projects')->where('status_id', '=', 5)->get();
+        // Get projects
+        $user_id = Auth::user()->id;
+        $projects = Project::with(['project_bids'])
+            ->whereHas('project_bids', function($q) use($user_id) {
+            // Query the name field in status table
+            $q->where('user_id', '=', $user_id); // '=' is optional
+        })
+        ->where('status_id', '=', 5)
+        ->get();
         return view('projects.ongoing', ['projects' => $projects]);
     }
     public function portfolio()
     {
-        $projects = DB::table('projects')->where('status_id', '=', 4)->get();
+        $user_id = Auth::user()->id;
+        $projects = Project::with(['project_bids'])
+            ->whereHas('project_bids', function($q) use($user_id) {
+            // Query the name field in status table
+            $q->where('user_id', '=', $user_id); // '=' is optional
+        })
+        ->where('status_id', '=', 4)
+        ->get();
+        // $projects = DB::table('projects')->where('status_id', '=', 4)->get();
         return view('projects.portfolio', ['projects' => $projects]);
     }
 }

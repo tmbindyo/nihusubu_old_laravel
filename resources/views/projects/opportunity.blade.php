@@ -49,7 +49,7 @@
                                         <td>{{ $project->used_budget }}</td>
                                         <td>{{ $project->remaining_budget }}</td>
                                         <td>{{ $project->contributed_budget }}</td>
-                                        <td>{{ $project->created_at->format('d/m/Y H:i') }}</td>
+                                        <td>{{ $project->created_at }}</td>
                                         <td class="text-right">
                                             <div class="dropdown">
                                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

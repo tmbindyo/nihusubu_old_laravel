@@ -123,7 +123,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('portfolio') }}">
-                        <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('Portfolio') }}
+                        <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('My Portfolio') }}
                     </a>
                 </li>
             </ul>

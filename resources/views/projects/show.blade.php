@@ -96,7 +96,7 @@
                                 <div class="text-center">
                                     {{-- <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button> --}}
                                     @if (Auth::user()->user_type_id == 4)
-                                        <a class="btn btn-success mt-4" href="{{ route('project.show', $project->id ) }}">{{ __('Edit') }}</a>
+                                        <a class="btn btn-success mt-4" href="{{ route('project.edit', $project->id ) }}">{{ __('Edit') }}</a>
                                     @endif
 
                                 </div>

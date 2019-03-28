@@ -44,6 +44,21 @@
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-status">{{ __('Industry:') }}</label>
+                                    <select name="status" class="form-control form-control-alternative {{ $errors->has('status') ? ' is-invalid' : '' }}" value="{{ old('status'), $project->description }}" required>
+                                        
+                                        @foreach($statuses as $status)
+                                            <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                    @if ($errors->has('status'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('status') }}</strong>
+                                        </span>
+                                    @endif
+                                </div> 
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                 </div>

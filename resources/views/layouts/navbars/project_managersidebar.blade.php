@@ -105,22 +105,6 @@
                         </ul>
                     </div>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('industry.index') }}">
-                        <i class="fas fa-building text-pink" style="color: #f4645f;"></i> {{ __('Industry') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('institution.index') }}">
-                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Institution') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('project_type.index') }}">
-                        <i class="fas fa-archive text-pink" style="color: #f4645f;"></i> {{ __('Project type') }}
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('project.index') }}">
                         <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('Project') }}
