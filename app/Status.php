@@ -9,7 +9,6 @@ class Status extends Model
 {
     use SoftDeletes;
     
-    
     //
     public function communication()
     {
@@ -27,45 +26,13 @@ class Status extends Model
     {
         return $this->hasMany('App\Institution');
     }
-    public function investor()
-    {
-        return $this->hasMany('App\Investor');
-    }
-    public function project()
-    {
-        return $this->hasMany('App\Project');
-    }
-    public function project_bid()
-    {
-        return $this->hasMany('App\ProjectBid');
-    }
-    public function project_investment()
-    {
-        return $this->hasMany('App\ProjectInvestment');
-    }
-    public function project_task()
-    {
-        return $this->hasMany('App\ProjectTask');
-    }
-    public function project_type()
-    {
-        return $this->hasMany('App\ProjectType');
-    }
-    public function requisition()
-    {
-        return $this->hasMany('App\Requisition');
-    }
-    public function review()
-    {
-        return $this->hasMany('App\Review');
-    }
-    public function review_type()
-    {
-        return $this->hasMany('App\ReviewType');
-    }
     public function upload()
     {
         return $this->hasMany('App\Upload');
+    }
+    public function upload_type()
+    {
+        return $this->hasMany('App\UploadType');
     }
     public function user_type()
     {

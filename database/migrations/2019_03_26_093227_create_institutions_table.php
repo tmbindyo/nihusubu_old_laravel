@@ -15,15 +15,20 @@ class CreateInstitutionsTable extends Migration
     {
         Schema::create('institutions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('slug')->unique();
             $table->string('name');
             $table->longText('description');
-            $table->integer('industry_id')->unsigned();
-            // $table->foreign('industry_id')->references('id')->on('industries');
+            $table->string('email')->unique();
+            $table->string('banner')->nullable();
+            $table->string('tag_line')->nullable();
+            $table->string('websites')->nullable();
+            $table->integer('branches')->nullable();
+            $table->string('logo')->unique()->nullable();
+            $table->integer('institution_type_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            // $table->foreign('user_id')->references('id')->on('users');
             $table->integer('status_id')->unsigned();
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

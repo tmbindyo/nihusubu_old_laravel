@@ -11,7 +11,6 @@ class User extends Authenticatable
 {
     use SoftDeletes;
     
-    
     use Notifiable;
 
     public function industries()
@@ -25,22 +24,6 @@ class User extends Authenticatable
     public function investors()
     {
         return $this->hasMany('App\Investor');
-    }
-    public function project_types()
-    {
-        return $this->hasMany('App\ProjectType');
-    }
-    public function requisitions()
-    {
-        return $this->hasMany('App\Requisition');
-    }
-    public function reviews()
-    {
-        return $this->hasMany('App\Review');
-    }
-    public function review_types()
-    {
-        return $this->hasMany('App\ReviewType');
     }
     public function statuses()
     {
@@ -61,6 +44,10 @@ class User extends Authenticatable
     public function user_types()
     {
         return $this->hasMany('App\UserType');
+    }
+    public function blogs()
+    {
+        return $this->hasMany('App\Blog');
     }
     /**
      * The attributes that are mass assignable.

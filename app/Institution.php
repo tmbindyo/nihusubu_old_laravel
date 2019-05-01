@@ -9,12 +9,7 @@ class Institution extends Model
 {
     use SoftDeletes;
     
-    
     //
-    public function investors()
-    {
-        return $this->hasMany('App\Investor');
-    }
     public function status()
     {
         return $this->belongsTo('App\Status');
@@ -23,8 +18,8 @@ class Institution extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function institution()
+    public function institution_type()
     {
-        return $this->belongsTo('App\Institution');
+        return $this->belongsTo('App\InstitutionType');
     }
 }

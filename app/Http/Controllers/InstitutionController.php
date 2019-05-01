@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Institution;
-use App\Industry;
+use App\InstitutionType;
 use Illuminate\Http\Request;
 use App\Http\Requests\InstitutionRequest;
 
@@ -27,8 +27,8 @@ class InstitutionController extends Controller
      */
     public function create()
     {
-        $industries = Industry::all();
-        return view('institutions.create',compact('industries'));
+        $institution_types = InstitutionType::all();
+        return view('institutions.create',compact('institution_types'));
     }
 
     /**
@@ -41,9 +41,10 @@ class InstitutionController extends Controller
     {
         // echo $request;
         $institution = new Institution;
+        $institution->slug = strtolower(str_replace(' ', '_', $request->name).'_'.rand(1,100));
         $institution->name = $request->name;
         $institution->description = $request->description;
-        $institution->industry_id = $request->industry;
+        $institution->institution_type_id = $request->institution_type;
         $institution->user_id = Auth::user()->id;
         $institution->status_id = 1;
         $institution->save();

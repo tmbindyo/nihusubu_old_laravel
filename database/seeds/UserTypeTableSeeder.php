@@ -12,29 +12,9 @@ class UserTypeTableSeeder extends Seeder
     public function run()
     {
         DB::table('user_types')->insert([
+            'slug' => strtolower(str_replace(' ', '_', 'Admin').'_'.rand(1,100)),
             'name' => 'Admin',
-            'description' => 'Admin',
-            'status_id' => 6,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('user_types')->insert([
-            'name' => 'User',
-            'description' => 'User',
-            'status_id' => 6,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('user_types')->insert([
-            'name' => 'Investor',
-            'description' => 'Investor',
-            'status_id' => 6,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('user_types')->insert([
-            'name' => 'Project Manager',
-            'description' => 'project manager',
+            'description' => 'Administrator',
             'status_id' => 6,
             'created_at' => now(),
             'updated_at' => now()

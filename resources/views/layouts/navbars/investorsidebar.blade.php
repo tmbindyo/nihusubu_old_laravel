@@ -107,25 +107,11 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('opportunities') }}">
+                    <a class="nav-link" href="#">
                         <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('Opportunities') }}
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('bids') }}">
-                        <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('Bids') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('ongoing') }}">
-                        <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('Ongoing Projects') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('portfolio') }}">
-                        <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('My Portfolio') }}
-                    </a>
-                </li>
+
             </ul>
         </div>
     </div>

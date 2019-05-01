@@ -9,7 +9,6 @@ class CommunicationType extends Model
 {
     use SoftDeletes;
     
-    
     //
     public function communications()
     {

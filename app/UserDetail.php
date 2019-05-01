@@ -9,6 +9,5 @@ class UserDetail extends Model
 {
     use SoftDeletes;
     
-    
     //
 }

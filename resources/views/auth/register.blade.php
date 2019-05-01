@@ -41,6 +41,21 @@
                                     </span>
                                 @endif
                             </div>
+
+                            <div class="form-group{{ $errors->has('phone_number') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-mobile"></i></span>
+                                    </div>
+                                    <input class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }}" placeholder="{{ __('Phone number') }}" type="text" name="phone_number" value="{{ old('phone_number') }}" required autofocus>
+                                </div>
+                                @if ($errors->has('phone_number'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('phone_number') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
                             <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                                 <div class="input-group input-group-alternative mb-3">
                                     <div class="input-group-prepend">
@@ -75,9 +90,105 @@
                                     <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation" required>
                                 </div>
                             </div>
+                            
+
+
+
+
+
+
+
+
+
+
+                            <div class="form-group{{ $errors->has('farm_size') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-window-maximize"></i></span>
+                                    </div>
+                                    <input class="form-control{{ $errors->has('farm_size') ? ' is-invalid' : '' }}" placeholder="{{ __('Farm size') }}" type="text" name="farm_size" value="{{ old('farm_size') }}" required autofocus>
+                                </div>
+                                @if ($errors->has('farm_size'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('farm_size') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group{{ $errors->has('topography') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-window-maximize"></i></span>
+                                    </div>
+                                    <input class="form-control{{ $errors->has('topography') ? ' is-invalid' : '' }}" placeholder="{{ __('Topography') }}" type="text" name="topography" value="{{ old('topography') }}" required autofocus>
+                                </div>
+                                @if ($errors->has('topography'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('topography') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group{{ $errors->has('fertility') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-tree"></i></span>
+                                    </div>
+                                    <input class="form-control{{ $errors->has('fertility') ? ' is-invalid' : '' }}" placeholder="{{ __('Fertility') }}" type="text" name="fertility" value="{{ old('fertility') }}" required autofocus>
+                                </div>
+                                @if ($errors->has('fertility'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('fertility') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group{{ $errors->has('family_size') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-users"></i></span>
+                                    </div>
+                                    <input class="form-control{{ $errors->has('family_size') ? ' is-invalid' : '' }}" placeholder="{{ __('Family size') }}" type="text" name="family_size" value="{{ old('family_size') }}" required autofocus>
+                                </div>
+                                @if ($errors->has('family_size'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('family_size') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group{{ $errors->has('sand_type') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-users"></i></span>
+                                    </div>
+                                    <input class="form-control{{ $errors->has('sand_type') ? ' is-invalid' : '' }}" placeholder="{{ __('Sand type') }}" type="text" name="sand_type" value="{{ old('sand_type') }}" required autofocus>
+                                </div>
+                                @if ($errors->has('sand_type'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('sand_type') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            
+                            <div class="form-group{{ $errors->has('location') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-location-arrow"></i></span>
+                                    </div>
+                                    <input class="form-control{{ $errors->has('location') ? ' is-invalid' : '' }}" placeholder="{{ __('Location') }}" type="text" name="location" value="{{ old('location') }}" required autofocus>
+                                </div>
+                                @if ($errors->has('location'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('location') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
                             <div class="text-muted font-italic">
                                 <small>{{ __('password strength') }}: <span class="text-success font-weight-700">{{ __('strong') }}strong</span></small>
                             </div>
+
                             <div class="row my-4">
                                 <div class="col-12">
                                     <div class="custom-control custom-control-alternative custom-checkbox">

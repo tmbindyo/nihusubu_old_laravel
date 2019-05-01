@@ -106,7 +106,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('project.index') }}">
+                    <a class="nav-link" href="#">
                         <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('Project') }}
                     </a>
                 </li>

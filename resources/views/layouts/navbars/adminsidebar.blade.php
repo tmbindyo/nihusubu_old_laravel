@@ -107,25 +107,56 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('industry.index') }}">
-                        <i class="fas fa-building text-pink" style="color: #f4645f;"></i> {{ __('Industry') }}
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{ route('institution.index') }}">
                         <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Institution') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('project_type.index') }}">
-                        <i class="fas fa-archive text-pink" style="color: #f4645f;"></i> {{ __('Project type') }}
+                    <a class="nav-link" href="{{ route('age_cluster.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Age cluster') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('project.index') }}">
-                        <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('Project') }}
+                    <a class="nav-link" href="{{ route('agriculture_type.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Agriculture type') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('farm_size.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Farm size') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('family_size.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Family size') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('sand_type.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Sand type') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('fertility_type.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Fertility type') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('fertility.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Fertility') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('topography.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Topography') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('gender.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Gender') }}
+                    </a>
+                </li>
+                
             </ul>
         </div>
     </div>
