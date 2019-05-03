@@ -23,6 +23,7 @@ class CreateFamiliesTable extends Migration
             $table->integer('order_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('status_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -15,7 +15,15 @@ class CreateClassesTable extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->text('description');
+            $table->text('characterized_by')->nullable();
+            $table->string('thumbnail');
+            $table->integer('phylum_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('status_id')->unsigned();
+            $table->softDeletes();
         });
     }
 

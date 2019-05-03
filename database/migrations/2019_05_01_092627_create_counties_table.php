@@ -22,6 +22,7 @@ class CreateCountiesTable extends Migration
             $table->integer('country_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('status_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

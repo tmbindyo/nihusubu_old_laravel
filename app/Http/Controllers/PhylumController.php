@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Phylum;
+use App\Kingdom;
 use Illuminate\Http\Request;
 
 class PhylumController extends Controller
@@ -12,9 +14,10 @@ class PhylumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Phylum $model)
     {
-        //
+        // Show all phylums
+        return view('phylum.index', ['phylums' => $model->paginate(15)]);
     }
 
     /**
@@ -24,7 +27,10 @@ class PhylumController extends Controller
      */
     public function create()
     {
-        //
+        // Form to create phylums
+        // Get all kingdoms
+        $kingdoms = Kingdom::all();
+        return view('phylum.create')->with('kingdoms', $kingdoms);
     }
 
     /**
@@ -35,7 +41,17 @@ class PhylumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  Function to create phylums
+        $phylum = new Phylum;
+        $phylum->slug = strtolower(str_replace(' ', '_', $request->name).'_'.rand(1,100));
+        $phylum->name = $request->name;
+        $phylum->description = $request->description;
+        $phylum->thumbnail = "";
+        $phylum->kingdom_id = $request->kingdom;
+        $phylum->user_id = Auth::user()->id;
+        $phylum->status_id = 1;
+        $phylum->save();
+        return redirect()->route('phylum.index')->withStatus(__('Phylum successfully created.'));
     }
 
     /**
@@ -46,7 +62,9 @@ class PhylumController extends Controller
      */
     public function show(Phylum $phylum)
     {
-        //
+        // Show phylums
+        $phylum = Phylum::find($phylum->id);
+        return view('phylum.show')->with('phylum', $phylum);
     }
 
     /**
@@ -57,7 +75,9 @@ class PhylumController extends Controller
      */
     public function edit(Phylum $phylum)
     {
-        //
+        // Show single phylums
+        $phylum = Phylum::find($phylum->id);
+        return view('phylum.edit')->with('phylum', $phylum);
     }
 
     /**
@@ -69,7 +89,12 @@ class PhylumController extends Controller
      */
     public function update(Request $request, Phylum $phylum)
     {
-        //
+        // Edit phylums
+        $phylum = Phylum::find($phylum->id);
+        $phylum->name = $request->name;
+        $phylum->description = $request->description;
+        $phylum->save();
+        return redirect()->route('phylum.index')->withStatus(__('Phylum successfully updated.'));
     }
 
     /**
@@ -80,6 +105,8 @@ class PhylumController extends Controller
      */
     public function destroy(Phylum $phylum)
     {
-        //
+        // Delete phylums
+        $phylum->delete();
+        return redirect()->route('phylum.index')->withStatus(__('Phylum successfully deleted.'));
     }
 }

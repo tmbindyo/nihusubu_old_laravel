@@ -22,6 +22,7 @@ class CreateInstitutionTypesTable extends Migration
             $table->string('thumbnail');
             $table->integer('user_id')->unsigned();
             $table->integer('status_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

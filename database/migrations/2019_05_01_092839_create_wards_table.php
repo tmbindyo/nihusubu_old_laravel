@@ -22,6 +22,7 @@ class CreateWardsTable extends Migration
             $table->integer('location_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('status_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

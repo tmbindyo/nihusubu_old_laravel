@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Domain;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,10 @@ class DomainController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Domain $model)
     {
-        //
+        // Show all domains
+        return view('domain.index', ['domains' => $model->paginate(15)]);
     }
 
     /**
@@ -24,7 +26,8 @@ class DomainController extends Controller
      */
     public function create()
     {
-        //
+        // Form to create domains
+        return view('domain.create');
     }
 
     /**
@@ -35,7 +38,16 @@ class DomainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  Function to create domains
+        $domain = new Domain;
+        $domain->slug = strtolower(str_replace(' ', '_', $request->name).'_'.rand(1,100));
+        $domain->name = $request->name;
+        $domain->description = $request->description;
+        $domain->thumbnail = "";
+        $domain->user_id = Auth::user()->id;
+        $domain->status_id = 1;
+        $domain->save();
+        return redirect()->route('domain.index')->withStatus(__('Domain successfully created.'));
     }
 
     /**
@@ -46,7 +58,9 @@ class DomainController extends Controller
      */
     public function show(Domain $domain)
     {
-        //
+        // Show domains
+        $domain = Domain::find($domain->id);
+        return view('domain.show')->with('domain', $domain);
     }
 
     /**
@@ -57,7 +71,9 @@ class DomainController extends Controller
      */
     public function edit(Domain $domain)
     {
-        //
+        // Show single domains
+        $domain = Domain::find($domain->id);
+        return view('domain.edit')->with('domain', $domain);
     }
 
     /**
@@ -69,7 +85,12 @@ class DomainController extends Controller
      */
     public function update(Request $request, Domain $domain)
     {
-        //
+        // Edit domains
+        $domain = Domain::find($domain->id);
+        $domain->name = $request->name;
+        $domain->description = $request->description;
+        $domain->save();
+        return redirect()->route('domain.index')->withStatus(__('Domain successfully updated.'));
     }
 
     /**
@@ -80,6 +101,8 @@ class DomainController extends Controller
      */
     public function destroy(Domain $domain)
     {
-        //
+        // Delete domains
+        $domain->delete();
+        return redirect()->route('domain.index')->withStatus(__('Domain successfully deleted.'));
     }
 }

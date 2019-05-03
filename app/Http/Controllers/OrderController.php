@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Order;
+use App\PhylumClass;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,9 +14,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Order $model)
     {
-        //
+        // Show all orders
+        return view('order.index', ['orders' => $model->paginate(15)]);
     }
 
     /**
@@ -24,7 +27,10 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        // Form to create orders
+        // Get all phylum_classes
+        $phylum_classes = PhylumClass::all();
+        return view('order.create')->with('phylum_classes', $phylum_classes);
     }
 
     /**
@@ -35,7 +41,17 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  Function to create orders
+        $order = new Order;
+        $order->slug = strtolower(str_replace(' ', '_', $request->name).'_'.rand(1,100));
+        $order->name = $request->name;
+        $order->description = $request->description;
+        $order->thumbnail = "";
+        $order->phylum_class_id = $request->phylum_class;
+        $order->user_id = Auth::user()->id;
+        $order->status_id = 1;
+        $order->save();
+        return redirect()->route('order.index')->withStatus(__('Order successfully created.'));
     }
 
     /**
@@ -46,7 +62,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        // Show orders
+        $order = Order::find($order->id);
+        return view('order.show')->with('order', $order);
     }
 
     /**
@@ -57,7 +75,9 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        // Show single orders
+        $order = Order::find($order->id);
+        return view('order.edit')->with('order', $order);
     }
 
     /**
@@ -69,7 +89,12 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        // Edit orders
+        $order = Order::find($order->id);
+        $order->name = $request->name;
+        $order->description = $request->description;
+        $order->save();
+        return redirect()->route('order.index')->withStatus(__('Order successfully updated.'));
     }
 
     /**
@@ -80,6 +105,8 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        // Delete orders
+        $order->delete();
+        return redirect()->route('order.index')->withStatus(__('Order successfully deleted.'));
     }
 }

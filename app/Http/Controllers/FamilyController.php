@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Family;
+use App\Order;
 use Illuminate\Http\Request;
 
 class FamilyController extends Controller
@@ -12,9 +14,10 @@ class FamilyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Family $model)
     {
-        //
+        // Show all families
+        return view('family.index', ['families' => $model->paginate(15)]);
     }
 
     /**
@@ -24,7 +27,10 @@ class FamilyController extends Controller
      */
     public function create()
     {
-        //
+        // Form to create families
+        // Get all orders
+        $orders = Order::all();
+        return view('family.create')->with('orders', $orders);
     }
 
     /**
@@ -35,7 +41,17 @@ class FamilyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  Function to create families
+        $family = new Family;
+        $family->slug = strtolower(str_replace(' ', '_', $request->name).'_'.rand(1,100));
+        $family->name = $request->name;
+        $family->description = $request->description;
+        $family->thumbnail = "";
+        $family->order_id = $request->order;
+        $family->user_id = Auth::user()->id;
+        $family->status_id = 1;
+        $family->save();
+        return redirect()->route('family.index')->withStatus(__('Family successfully created.'));
     }
 
     /**
@@ -46,7 +62,9 @@ class FamilyController extends Controller
      */
     public function show(Family $family)
     {
-        //
+        // Show families
+        $family = Family::find($family->id);
+        return view('family.show')->with('family', $family);
     }
 
     /**
@@ -57,7 +75,9 @@ class FamilyController extends Controller
      */
     public function edit(Family $family)
     {
-        //
+        // Show single families
+        $family = Family::find($family->id);
+        return view('family.edit')->with('family', $family);
     }
 
     /**
@@ -69,7 +89,12 @@ class FamilyController extends Controller
      */
     public function update(Request $request, Family $family)
     {
-        //
+        // Edit families
+        $family = Family::find($family->id);
+        $family->name = $request->name;
+        $family->description = $request->description;
+        $family->save();
+        return redirect()->route('family.index')->withStatus(__('Family successfully updated.'));
     }
 
     /**
@@ -80,6 +105,8 @@ class FamilyController extends Controller
      */
     public function destroy(Family $family)
     {
-        //
+        // Delete families
+        $family->delete();
+        return redirect()->route('family.index')->withStatus(__('Family successfully deleted.'));
     }
 }

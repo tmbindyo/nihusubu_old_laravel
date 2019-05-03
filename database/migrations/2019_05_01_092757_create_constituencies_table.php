@@ -22,6 +22,7 @@ class CreateConstituenciesTable extends Migration
             $table->integer('county_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('status_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

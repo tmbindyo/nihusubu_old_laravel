@@ -23,6 +23,7 @@ class CreateGeneraTable extends Migration
             $table->integer('family_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('status_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

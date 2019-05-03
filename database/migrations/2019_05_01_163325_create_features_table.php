@@ -23,6 +23,7 @@ class CreateFeaturesTable extends Migration
             $table->integer('menu_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('status_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

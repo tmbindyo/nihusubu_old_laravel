@@ -156,6 +156,51 @@
                         <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Gender') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('farm.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Farm') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('domain.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Domain') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('kingdom.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Kingdom') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('phylum.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Phylum') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('phylum_class.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Phylum class') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('order.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Order') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('family.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Family') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('genus.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Genus') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('species.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Species') }}
+                    </a>
+                </li>
                 
             </ul>
         </div>

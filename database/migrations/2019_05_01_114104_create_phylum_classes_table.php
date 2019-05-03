@@ -23,6 +23,7 @@ class CreatePhylumClassesTable extends Migration
             $table->integer('phylum_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('status_id')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
