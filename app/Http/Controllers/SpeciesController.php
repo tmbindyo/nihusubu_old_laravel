@@ -46,7 +46,8 @@ class SpeciesController extends Controller
         $species->slug = strtolower(str_replace(' ', '_', $request->name).'_'.rand(1,100));
         $species->name = $request->name;
         $species->description = $request->description;
-        $species->kingdom_id = $request->kingdom;
+        $species->thumbnail = "";
+        $species->genus_id = $request->genus;
         $species->user_id = Auth::user()->id;
         $species->status_id = 1;
         $species->save();

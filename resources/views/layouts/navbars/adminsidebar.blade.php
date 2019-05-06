@@ -201,6 +201,32 @@
                         <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Species') }}
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('disease.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Diseases') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('causes.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Causes') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('symptom.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Symptoms') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('spread.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Spread') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('management.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Management') }}
+                    </a>
+                </li>
                 
             </ul>
         </div>

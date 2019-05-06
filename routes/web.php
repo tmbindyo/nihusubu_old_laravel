@@ -40,7 +40,12 @@ Route::resource('phylum', 'PhylumController');
 Route::resource('species', 'SpeciesController');
 Route::resource('status', 'StatusController');
 Route::resource('topography', 'TopographyController');
-Route::resource('ward', 'wardController');
+Route::resource('ward', 'WardController');
+Route::resource('disease', 'DiseaseController');
+Route::resource('causes', 'CausesController');
+Route::resource('symptom', 'SymptomController');
+Route::resource('spread', 'SpreadController');
+Route::resource('management', 'ManagementController');
 
 
 
