@@ -1,7 +1,7 @@
-@extends('layouts.app', ['title' => __('Kingdom Management')])
+@extends('layouts.app', ['title' => __('Disease Management')])
 
 @section('content')
-    @include('users.partials.header', ['title' => __('Add Kingdom')])   
+    @include('users.partials.header', ['title' => __('Add Disease')])   
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -10,18 +10,18 @@
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Kingdom Management') }}</h3>
+                                <h3 class="mb-0">{{ __('Disease Management') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('species.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                <a href="{{ route('disease.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('species.store') }}" autocomplete="off">
+                        <form method="post" action="{{ route('disease.store') }}" autocomplete="off">
                             @csrf
                             
-                            <h6 class="heading-small text-muted mb-4">{{ __('Kingdom information') }}</h6>
+                            <h6 class="heading-small text-muted mb-4">{{ __('Disease information') }}</h6>
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
@@ -44,18 +44,18 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group{{ $errors->has('domain') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-domain">{{ __('Domain:') }}</label>
-                                    <select name="domain" class="form-control form-control-alternative {{ $errors->has('domain') ? ' is-invalid' : '' }}" value="{{ old('domain') }}" required>
+                                <div class="form-group{{ $errors->has('specie') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-specie">{{ __('Genus:') }}</label>
+                                    <select name="specie" class="form-control form-control-alternative {{ $errors->has('specie') ? ' is-invalid' : '' }}" value="{{ old('specie') }}" required>
 
-                                        @foreach($genera as $genus)
-                                            <option value="{{ $genus->id }}">{{ $genus->name }}</option>
+                                        @foreach($species as $specie)
+                                            <option value="{{ $specie->id }}">{{ $specie->name }}</option>
                                         @endforeach
 
                                     </select>
-                                    @if ($errors->has('domain'))
+                                    @if ($errors->has('specie'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('domain') }}</strong>
+                                            <strong>{{ $errors->first('specie') }}</strong>
                                         </span>
                                     @endif
                                 </div> 
