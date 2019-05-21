@@ -17,6 +17,10 @@
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+        {{-- Datatables CSS--}}
+        <link rel="stylesheet" href="{{ asset('argon') }}/vendor/datatables.net/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="{{ asset('argon') }}/vendor/datatables.net/css/buttons.bootstrap4.min.css">
+        <link rel="stylesheet" href="{{ asset('argon') }}/vendor/datatables.net/css/select.bootstrap4.min.css"> 
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -24,14 +28,7 @@
                 @csrf
             </form>
             
-            @if (Auth::user()->user_type_id == 1)
-                @include('layouts.navbars.adminsidebar')
-            @elseif (Auth::user()->user_type_id == 3)
-                @include('layouts.navbars.investorsidebar')
-            @elseif (Auth::user()->user_type_id == 4)
-                @include('layouts.navbars.project_managersidebar')
-            @else
-            @endif
+            @include('layouts.navbars.sidebar')
 
         @endauth
         
@@ -48,8 +45,19 @@
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
         <script src="{{ asset('argon') }}/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-        <script src="/assets"></script>
+
+        {{-- Data tables --}}
         
+
+        <script src="{{ asset('argon') }}/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('argon') }}/vendor/datatables.net/js/dataTables.bootstrap4.min.js"></script>
+        <script src="{{ asset('argon') }}/vendor/datatables.net/js/dataTables.buttons.min.js"></script>
+        <script src="{{ asset('argon') }}/vendor/datatables.net/js/buttons.bootstrap4.min.js"></script>
+        <script src="{{ asset('argon') }}/vendor/datatables.net/js/buttons.html5.min.js"></script>
+        <script src="{{ asset('argon') }}/vendor/datatables.net/js/buttons.flash.min.js"></script>
+        <script src="{{ asset('argon') }}/vendor/datatables.net/js/buttons.print.min.js"></script>
+        <script src="{{ asset('argon') }}/vendor/datatables.net/js/dataTables.select.min.js"></script>
+            
         @stack('js')
         
         <!-- Argon JS -->

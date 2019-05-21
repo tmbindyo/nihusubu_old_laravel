@@ -13,8 +13,9 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'Admin Admin',
-            'email' => 'admin@argon.com',
+            'name' => 'Thomas Mbindyo',
+            'email' => 'tmbindyo@nihusubu.com',
+            'phone_number' => '+254708085128',
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
             'user_type_id' => 1,
@@ -22,29 +23,12 @@ class UsersTableSeeder extends Seeder
             'updated_at' => now()
         ]);
         DB::table('users')->insert([
-            'name' => 'User User',
-            'email' => 'user@gmail.com',
+            'name' => 'Elizabeth Ndunge',
+            'email' => 'endunge@nihusubu.com',
+            'phone_number' => '+254740338642',
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
             'user_type_id' => 2,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('users')->insert([
-            'name' => 'Investor Investor',
-            'email' => 'investor@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('secret'),
-            'user_type_id' => 3,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('users')->insert([
-            'name' => 'Ella Martinez',
-            'email' => 'projectmanager@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('secret'),
-            'user_type_id' => 4,
             'created_at' => now(),
             'updated_at' => now()
         ]);

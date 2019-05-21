@@ -13,17 +13,9 @@ class User extends Authenticatable
     
     use Notifiable;
 
-    public function industries()
-    {
-        return $this->hasMany('App\Industry');
-    }
     public function institutions()
     {
         return $this->hasMany('App\Institution');
-    }
-    public function investors()
-    {
-        return $this->hasMany('App\Investor');
     }
     public function statuses()
     {
@@ -41,13 +33,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\UserDetail');
     }
-    public function user_types()
+    public function user_type()
     {
-        return $this->hasMany('App\UserType');
-    }
-    public function blogs()
-    {
-        return $this->hasMany('App\Blog');
+        return $this->belongsTo('App\UserType');
     }
     /**
      * The attributes that are mass assignable.
@@ -55,7 +43,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'phone_number', 'email', 'password', 'user_type', 'timezone',
     ];
 
     /**

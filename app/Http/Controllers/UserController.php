@@ -26,7 +26,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $timezone_select = Timezone::selectForm(
+            'Europe/London', 
+            '', 
+            ['class' => 'form-control', 'name' => 'timezone']
+        );
+
+        return view('users.create', compact('timezone_select'));
     }
 
     /**
