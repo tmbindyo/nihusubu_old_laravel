@@ -11,30 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Auth::routes();
+Route::get('/', 'Landing\LandingController@landing')->name('landing');
+Route::get('/about', 'Landing\LandingController@about')->name('about');
+Route::get('/services', 'Landing\LandingController@services')->name('services');
+Route::get('/contacts', 'Landing\LandingController@contacts')->name('contacts');
+Route::get('/events', 'Landing\LandingController@events')->name('events');
+Route::get('/lawyer', 'Landing\LandingController@lawyer')->name('lawyer');
+Route::get('/event/{event_id}', 'Landing\LandingController@event')->name('event');
+Route::get('/faq', 'Landing\LandingController@faq')->name('faq');
+Route::get('/corporate', 'Landing\LandingController@corporate')->name('corporate');
+Route::get('/team', 'Landing\LandingController@team')->name('team');
+Route::get('/portfolio', 'Landing\LandingController@portfolio')->name('portfolio');
+Route::get('/coming/soon', 'Landing\LandingController@comingSoon')->name('coming.soon');
 
-
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['middleware' => 'auth'], function () {
-
-	// Routes
-	Route::resource('user', 'UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
-
-
-	Route::resource('user_detail', 'UserDetailController');
-
-
-	Route::resource('service', 'ServiceController');
-
-
-});
-
+//TODO create pages for privacy policy and terms and condition
+Route::get('/privacy/policy', 'Landing\LandingController@comingSoon')->name('privacy.policy');
+Route::get('/terms/and/conditions', 'Landing\LandingController@comingSoon')->name('terms.and.condition');
 

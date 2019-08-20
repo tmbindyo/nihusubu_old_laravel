@@ -10,25 +10,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use SoftDeletes;
-    
+
     use Notifiable;
 
-    public function institutions()
-    {
-        return $this->hasMany('App\Institution');
-    }
-    public function statuses()
-    {
-        return $this->hasMany('App\Status');
-    }
-    public function uploads()
-    {
-        return $this->hasMany('App\Upload');
-    }
-    public function upload_types()
-    {
-        return $this->hasMany('App\UploadType');
-    }
+
     public function user_detail()
     {
         return $this->hasOne('App\UserDetail');
