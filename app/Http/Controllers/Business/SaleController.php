@@ -7,14 +7,36 @@ use App\Http\Controllers\Controller;
 
 class SaleController extends Controller
 {
-    public function contacts()
-    {
-        return view('business.contacts');
-    }
     public function clients()
     {
         return view('business.clients');
     }
+    public function clientCreate()
+    {
+        return view('business.client_create');
+    }
+    public function clientStore(Request $request)
+    {
+        return back()->withStatus(__('Client successfully created.'));
+    }
+    public function clientShow($client_id)
+    {
+        return view('business.client_show');
+    }
+    public function clientEdit()
+    {
+        return view('business.client_edit');
+    }
+    public function clientUpdate(Request $request, $client_id)
+    {
+        return back()->withStatus(__('Client successfully updated.'));
+    }
+    public function clientDelete($client_id)
+    {
+        return back()->withStatus(__('Client successfully deleted.'));
+    }
+
+
     public function estimates()
     {
         return view('business.estimates');

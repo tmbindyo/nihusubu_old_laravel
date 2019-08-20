@@ -103,25 +103,62 @@
 
                         {{--  Product  --}}
                         <div class="row">
-                            <div class="col-md-8">
-                                {{--  Product type  --}}
+                            <div class="col-md-12">
+                                {{--  Customer type  --}}
                                 {{--  todo only one should be selectable  --}}
-                                <p>Product Type</p>
+                                <p>Customer Type</p>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="good" value="option1" name="good" checked="">
-                                    <label for="inlineRadio1"> Goods </label>
+                                    <input type="radio" id="good" value="option1" name="business">
+                                    <label for="inlineRadio1"> Business </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="inlineRadio2" value="option2" name="service">
-                                    <label for="inlineRadio2"> Service </label>
+                                    <input type="radio" id="inlineRadio2" value="option2" name="individual">
+                                    <label for="inlineRadio2"> Individual </label>
                                 </div>
-                                <label>  </label>
-                                {{--  Product group name  --}}
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <span><i data-toggle="tooltip" data-placement="left" title="Enable this option if all the items in the group are eligible for sales return." class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                    </div>
+                                    {{--  Salutation  --}}
+                                    <div class="col-md-3">
+                                        <div class="has-warning">
+                                            <select class="select2_demo_3 form-control input-lg">
+                                                <option>Select Salutation</option>
+                                                <option value="Bahamas">Bahamas</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{--  First name  --}}
+                                        <div class="has-warning">
+                                            <input type="text" id="first_name" name="first_name" required="required" class="form-control input-lg" placeholder="First Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{--  Last name  --}}
+                                        <div class="has-warning">
+                                            <input type="text" id="last_name" name="last_name" required="required" class="form-control input-lg" placeholder="Last Name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                {{--  Comapny name  --}}
                                 <div class="has-warning">
-                                    <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" placeholder="Product Group Name">
-                                    <i>Give your product group a name</i>
+                                    <input type="text" id="company_name" name="company_name" required="required" class="form-control input-lg" placeholder="Company Name">
                                 </div>
-                                <label>  </label>
+                                <br>
+                                {{--  Customer email  --}}
+                                <div class="">
+                                    <input type="email" id="customer_email" name="customer_email" required="required" class="form-control input-lg" placeholder="Customer Email">
+                                </div>
+                                <br>
+                                {{--  Customer phone number  --}}
+                                <div class="">
+                                    <input type="text" id="customer_phone_number" name="customer_phone_number" class="form-control" data-mask="(+999) 999-9999" placeholder="">
+                                </div>
+                                <br>
                                 {{--  Product group description  --}}
                                 <div class="has-warning">
                                     <textarea rows="5" id="product_description" name="product_description" required="required" class="form-control input-lg"></textarea>
@@ -150,7 +187,6 @@
                                         <option>Select Unit</option>
                                         <option value="Bahamas">Bahamas</option>
                                     </select>
-
                                 </div>
                             </div>
                             <div class="col-md-6">

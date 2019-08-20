@@ -100,8 +100,14 @@ Route::get('/warehouse/delete/{warehouse_id}', 'Business\InventoryController@war
 
 
 //Sales
-Route::get('/contacts', 'Business\SaleController@contacts')->name('business.contacts');
 Route::get('/clients', 'Business\SaleController@clients')->name('business.clients');
+Route::get('/client/create', 'Business\SaleController@clientCreate')->name('business.client.create');
+Route::post('/client/store', 'Business\SaleController@clientStore')->name('business.client.store');
+Route::get('/client/show/{client_id}', 'Business\SaleController@clientShow')->name('business.client.show');
+Route::get('/client/edit/{client_id}', 'Business\SaleController@clientEdit')->name('business.client.edit');
+Route::post('/client/update/{client_id}', 'Business\SaleController@clientUpdate')->name('business.client.update');
+Route::get('/client/delete/{client_id}', 'Business\SaleController@clientDelete')->name('business.client.delete');
+
 Route::get('/estimates', 'Business\SaleController@estimates')->name('business.estimates');
 Route::get('/estimate/{estimate_id}', 'Business\SaleController@estimate')->name('business.estimate');
 Route::get('/sales', 'Business\SaleController@sales')->name('business.sales');

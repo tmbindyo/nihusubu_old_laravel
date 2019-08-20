@@ -80,11 +80,6 @@
             <li>
                 <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Sales </span><span class="label label-warning pull-right">16/24</span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.contacts' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.contacts')}}">
-                            Contacts
-                        </a>
-                    </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.clients' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'business.clients')}}">
                             Clients
