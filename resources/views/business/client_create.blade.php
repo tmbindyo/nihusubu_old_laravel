@@ -1,11 +1,13 @@
 @extends('business.layouts.app')
 
-@section('title', 'Create Product Group')
+@section('title', 'Create Client')
 
 @section('css')
 
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
@@ -50,19 +52,19 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-8">
-        <h2>Product Groups</h2>
+        <h2>Clients</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="{{route('business.dashboard')}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.products')}}">Products</a>
+                <a href="{{route('business.sales')}}">Sales</a>
             </li>
             <li>
-                <a href="{{route('business.product.groups')}}">Product Groups</a>
+                <a href="{{route('business.clients')}}">Clients</a>
             </li>
             <li class="active">
-                <strong>Product Group Create</strong>
+                <strong>Client Create</strong>
             </li>
         </ol>
     </div>
@@ -78,7 +80,7 @@
         <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Product Groups</h5>
+                <h5>Clients</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -155,102 +157,134 @@
                                 </div>
                                 <br>
                                 {{--  Customer phone number  --}}
-                                <div class="">
-                                    <input type="text" id="customer_phone_number" name="customer_phone_number" class="form-control" data-mask="(+999) 999-9999" placeholder="">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" id="customer_phone_number" name="customer_phone_number" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Work Phone">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" id="customer_phone_number" name="customer_phone_number" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Mobile">
+                                    </div>
                                 </div>
-                                <br>
-                                {{--  Product group description  --}}
-                                <div class="has-warning">
-                                    <textarea rows="5" id="product_description" name="product_description" required="required" class="form-control input-lg"></textarea>
-                                    <i>Describe your product group.</i>
-                                </div>
-                                {{--  Product returnable  --}}
-                                {{--todo description tooltip--}}
-                                <div class="">
-                                    <input id="returnable" name="returnable" type="checkbox">
-                                    <label for="returnable">
-                                        Returnable Product
-                                    </label>
-                                    <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if all the items in the group are eligible for sales return." class="fa fa-question-circle"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                {{--  TODO Thumbnail  --}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                {{--  Product Unit  --}}
-                                <div class="">
-                                    <select class="select2_demo_3 form-control input-lg">
-                                        <option>Select Unit</option>
-                                        <option value="Bahamas">Bahamas</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                {{--  Product Tax  --}}
-                                <select class="select2_demo_3 form-control input-lg">
-                                    <option>Select Tax</option>
-                                    <option value="Bahamas">Bahamas</option>
-                                </select>
                             </div>
                         </div>
                         <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                {{--  Product Manufacturer  --}}
-                                <select class="select2_demo_3 form-control input-lg">
-                                    <option>Select Manufacturer</option>
-                                    <option value="Bahamas">Bahamas</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                {{--  Product Brand  --}}
-                                <select class="select2_demo_3 form-control input-lg">
-                                    <option>Select Brand</option>
-                                    <option value="Bahamas">Bahamas</option>
-                                </select>
-                            </div>
-                        </div>
                         <hr>
-                        <div class="row" id="product_group_attribute">
-                            <div class="col-md-6">
-                                {{--  Product Group attribute  --}}
-                                <div class="row">
-{{--                                    <label class="text-danger">Attribute</label>--}}
-                                    <div class="col-md-1">
-                                        <span><i data-toggle="tooltip" data-placement="right" title="Attributes for the product groups, can be a range of different colors of one product, or sizes. " class="fa fa-question-circle fa-3x text-warning"></i></span>
+                        <div class="row">
+                            <div class="tabs-container">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#other_details"> Other Details</a></li>
+                                    <li class=""><a data-toggle="tab" href="#address">Address</a></li>
+                                    <li class=""><a data-toggle="tab" href="#contact_persons"> Contact Persons </a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="other_details" class="tab-pane active">
+                                        <div class="panel-body">
+                                            <div class="">
+                                                <div class="">
+                                                    {{--  Currency  --}}
+                                                    <label class="text-danger"></label>
+                                                    <select name="currency" class="select2_demo_3 form-control input-lg">
+                                                        <option>Select Currency</option>
+                                                        <option value="Bahamas">Bahamas</option>
+                                                    </select>
+                                                    <br>
+                                                    {{--  Opening balance  --}}
+                                                    <div class="">
+                                                        <input type="text" id="opening_balance" name="opening_balance" class="form-control input-lg" placeholder="Opening balance">
+                                                    </div>
+                                                    <br>
+                                                    {{--  Payment terms  --}}
+                                                    <select name="payment_terms" class="select2_demo_3 form-control input-lg">
+                                                        <option>Select Payment Term</option>
+                                                        <option value="Bahamas">Bahamas</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-11">
-                                        <div class="has-warning">
-                                            <input type="text" name="attribute" class="form-control input-lg" placeholder="e.g Color" required>
+                                    <div id="address" class="tab-pane">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="has-warning">
+                                                        <input type="text" name="location" id="location" class="form-control input-lg" placeholder="Warehouse Location">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="">
+                                                        <input type="text" id="street" name="street" required="required" placeholder="Warehouse Street" class="form-control input-lg">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="">
+                                                        <input type="text" id="email" name="email" required="required" placeholder="Warehouse Email" class="form-control input-lg">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="">
+                                                        <input type="text" name="phone_number" id="phone_number" class="form-control input-lg" placeholder="Warehouse Phone number">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="has-warning">
+                                                        <input type="text" name="city" id="city" class="form-control input-lg" placeholder="Warehouse City">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="contact_persons" class="tab-pane">
+                                        <div class="panel-body">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>Salutation</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone number</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <select class="select2_demo_3 form-control input-lg">
+                                                            <option>Select Item</option>
+                                                            <option value="Bahamas">Bahamas</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control input-lg">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control input-lg">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control input-lg" placeholder="E.g +10, -10">
+                                                    </td>
+                                                    <td width="10px">
+                                                        <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-times-circle fa-2x text-danger"></i></span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    {{--                                    <label class="text-danger">Attribute</label>--}}
-                                    <div class="col-md-1">
-                                        <span><i data-toggle="tooltip" data-placement="right" title="Attributes options, if the attribut is color, we can have a black, blue, green, white or grey variation of the same product." class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                    </div>
-                                    <div class="col-md-11">
-                                        <div class="has-warning">
-                                            <input type="text" name="attribute_options" class="input-lg" name="attribute_options" id="tag-input" required>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
+                        <hr>
                         <br>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label class="text-success"><i class="fa fa-plus" ></i>Add more attributes</label>
-                            </div>
-                        </div>
 
                         <div class="ln_solid"></div>
 
@@ -291,6 +325,8 @@
     <!-- jQuery Tags Input -->
     <script src="{{ asset('js') }}/tagplug-master/index.js"></script>
 
+    <!-- Input Mask-->
+    <script src="{{ asset('js') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
     {{--  Tag script  --}}
     <script>
         $(document).ready(function() {

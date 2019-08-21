@@ -44,7 +44,7 @@
 
                         <div class="col-md-6">
                             <div class="has-warning">
-                                <input type="text" name="city" id="city" class="form-control input-lg" placeholder="Warehouse city">
+                                <input type="text" name="city" id="city" class="form-control input-lg" placeholder="Warehouse City">
                             </div>
                         </div>
                     </div>
