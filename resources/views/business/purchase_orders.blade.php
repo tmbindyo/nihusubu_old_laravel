@@ -203,6 +203,4 @@
 
 </script>
 
-</body>
-
-</html>
+@endsection

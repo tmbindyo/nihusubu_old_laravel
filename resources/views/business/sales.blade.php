@@ -31,7 +31,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="#" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('business.sale.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>

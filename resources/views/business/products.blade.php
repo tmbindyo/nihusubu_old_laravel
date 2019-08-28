@@ -130,8 +130,6 @@
 
 @endsection
 
-@include('business.layouts.modals.product')
-
 @section('js')
 
     <!-- Mainly scripts -->

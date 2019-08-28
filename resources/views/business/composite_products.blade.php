@@ -142,8 +142,6 @@
     </div>
 @endsection
 
-@include('business.layouts.modals.composite_product')
-
 @section('js')
 <!-- Mainly scripts -->
 <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>

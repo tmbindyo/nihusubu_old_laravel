@@ -31,8 +31,8 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.invoice.print',1)}}" target="_blank" class="btn btn-warning btn-outline"><i class="fa fa-check"></i> Process </a>
-                <a href="{{route('business.invoice.print',1)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Order </a>
+                <a href="{{route('business.order.record.payment',1)}}" target="_blank" class="btn btn-warning btn-outline"><i class="fa fa-check"></i> Process </a>
+                <a href="{{route('business.order.print',1)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Order </a>
             </div>
         </div>
     </div>

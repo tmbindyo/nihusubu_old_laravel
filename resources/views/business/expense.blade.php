@@ -29,7 +29,7 @@
             <div class="title-action">
                 <a href="#" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Item </a>
                 <a href="#" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
-                <a href="{{route('business.invoice.print',1)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
+                <a href="{{route('business.expense.print',1)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
             </div>
         </div>
     </div>

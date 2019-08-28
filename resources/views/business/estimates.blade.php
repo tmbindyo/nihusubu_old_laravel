@@ -36,7 +36,7 @@
             </div>
             <div class="col-lg-2">
                 <div class="title-action">
-                    <a href="#" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Estimate </a>
+                    <a href="{{route('business.estimate.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Estimate </a>
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group">
-                                            <a href="{{route('business.estimate',1)}}" class="btn-primary btn btn-xs">View</a>
+                                            <a href="{{route('business.estimate.show',1)}}" class="btn-primary btn btn-xs">View</a>
                                             <button class="btn-warning btn btn-xs">Edit</button>
                                             <button class="btn-danger btn btn-xs">Delete</button>
                                         </div>

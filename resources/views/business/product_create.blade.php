@@ -58,11 +58,6 @@
             </li>
         </ol>
     </div>
-    <div class="col-lg-4">
-        <div class="title-action">
-            <a href="#" data-toggle="modal" data-target="#productRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
-        </div>
-    </div>
 </div>
 
 

@@ -1,6 +1,6 @@
 @extends('business.layouts.app')
 
-@section('title', 'Inventory Adjustments')
+@section('title', 'Transfer Order')
 
 @section('css')
 
@@ -32,7 +32,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.transfer.order.create',1)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> New </a>
+                <a href="{{route('business.transfer.order.create')}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> New </a>
             </div>
         </div>
     </div>

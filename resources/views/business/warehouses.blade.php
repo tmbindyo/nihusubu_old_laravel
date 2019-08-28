@@ -14,6 +14,7 @@
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
 
 @endsection
+
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
@@ -117,12 +118,10 @@
                                 <td class="text-right">
                                     <div class="btn-group">
                                         <a href="{{route('business.warehouse.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
-                                        <a class="btn-success btn-outline btn btn-xs">Edit</a>
+                                        <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                     </div>
                                 </td>
                             </tr>
-
-
 
                             </tbody>
                             <tfoot>
@@ -147,27 +146,27 @@
 @include('business.layouts.modals.warehouse')
 
 @section('js')
-<!-- Mainly scripts -->
-<script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-<script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Mainly scripts -->
+    <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
+    <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-<!-- Custom and plugin javascript -->
-<script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
-<!-- FooTable -->
-<script src="{{ asset('inspinia') }}/js/plugins/footable/footable.all.min.js"></script>
+    <!-- FooTable -->
+    <script src="{{ asset('inspinia') }}/js/plugins/footable/footable.all.min.js"></script>
 
-<!-- Page-Level Scripts -->
-<script>
-    $(document).ready(function() {
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
 
-        $('.footable').footable();
+            $('.footable').footable();
 
-    });
+        });
 
-</script>
+    </script>
 
 @endsection

@@ -109,14 +109,33 @@ Route::post('/client/update/{client_id}', 'Business\SaleController@clientUpdate'
 Route::get('/client/delete/{client_id}', 'Business\SaleController@clientDelete')->name('business.client.delete');
 
 Route::get('/estimates', 'Business\SaleController@estimates')->name('business.estimates');
-Route::get('/estimate/{estimate_id}', 'Business\SaleController@estimate')->name('business.estimate');
+Route::get('/estimate/create', 'Business\SaleController@estimateCreate')->name('business.estimate.create');
+Route::post('/estimate/store', 'Business\SaleController@estimateStore')->name('business.estimate.store');
+Route::get('/estimate/show/{estimate_id}', 'Business\SaleController@estimateShow')->name('business.estimate.show');
+Route::get('/estimate/edit/{estimate_id}', 'Business\SaleController@estimateEdit')->name('business.estimate.edit');
+Route::post('/estimate/update/{estimate_id}', 'Business\SaleController@estimateUpdate')->name('business.estimate.update');
+Route::get('/estimate/delete/{estimate_id}', 'Business\SaleController@estimateDelete')->name('business.estimate.delete');
+
 Route::get('/sales', 'Business\SaleController@sales')->name('business.sales');
+Route::get('/sale/create', 'Business\SaleController@saleCreate')->name('business.sale.create');
+Route::post('/sale/store', 'Business\SaleController@saleStore')->name('business.sale.store');
 Route::get('/sale/{sale_id}', 'Business\SaleController@sale')->name('business.sale');
+
 Route::get('/orders', 'Business\SaleController@orders')->name('business.orders');
+Route::get('/order/create', 'Business\SaleController@orderCreate')->name('business.order.create');
+Route::post('/order/store', 'Business\SaleController@orderStore')->name('business.order.store');
 Route::get('/order/{order_id}', 'Business\SaleController@order')->name('business.order');
+Route::get('/order/edit/{order_id}', 'Business\SaleController@orderEdit')->name('business.order.edit');
+Route::post('/order/update/{order_id}', 'Business\SaleController@orderUpdate')->name('business.order.update');
+Route::get('/order/print/{order_id}', 'Business\SaleController@orderPrint')->name('business.order.print');
+Route::get('/order/record/payment/{order_id}', 'Business\SaleController@orderPrint')->name('business.order.record.payment');
+
 Route::get('/invoices', 'Business\SaleController@invoices')->name('business.invoices');
+Route::get('/invoice/create', 'Business\SaleController@invoiceCreate')->name('business.invoice.create');
+Route::post('/invoice/store', 'Business\SaleController@invoiceStore')->name('business.invoice.store');
 Route::get('/invoice/{invoice_id}', 'Business\SaleController@invoice')->name('business.invoice');
 Route::get('/invoice/print/{invoice_id}', 'Business\SaleController@invoicePrint')->name('business.invoice.print');
+
 Route::get('/payments/received', 'Business\SaleController@paymentsReceived')->name('business.payments.received');
 
 
@@ -124,10 +143,19 @@ Route::get('/payments/received', 'Business\SaleController@paymentsReceived')->na
 Route::get('/purchase/orders', 'Business\PurchaseController@purchaseOrders')->name('business.purchase.orders');
 Route::get('/purchase/order/{purchase_order_id}', 'Business\PurchaseController@purchaseOrder')->name('business.purchase.order');
 Route::get('/vendors', 'Business\PurchaseController@vendors')->name('business.vendors');
+
+
 Route::get('/expenses', 'Business\PurchaseController@expenses')->name('business.expenses');
+Route::get('/expense/create', 'Business\PurchaseController@expenseCreate')->name('business.expense.create');
+Route::post('/expense/store', 'Business\PurchaseController@expenseStore')->name('business.expense.store');
 Route::get('/expense/{expense_id}', 'Business\PurchaseController@expense')->name('business.expense');
+Route::get('/expense/print/{expense_id}', 'Business\PurchaseController@expensePrint')->name('business.expense.print');
+
+
 Route::get('/bills', 'Business\PurchaseController@bills')->name('business.bills');
 Route::get('/bill/{bill_id}', 'Business\PurchaseController@bill')->name('business.bill');
+Route::get('/bill/print/{bill_id}', 'Business\PurchaseController@billPrint')->name('business.bill.print');
+
 Route::get('/payments/made', 'Business\PurchaseController@paymentsMade')->name('business.payments.made');
 
 
