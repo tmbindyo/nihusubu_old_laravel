@@ -20,6 +20,9 @@
                 <li>
                     <a href="{{route('business.dashboard')}}">Home</a>
                 </li>
+                <li>
+                    <a href="{{route('business.expenses')}}">Expenses</a>
+                </li>
                 <li class="active">
                     <strong>Expense</strong>
                 </li>

@@ -1,6 +1,6 @@
 @extends('business.layouts.app')
 
-@section('title', ' Estimate Create')
+@section('title', ' Expense Create')
 
 @section('css')
 
@@ -21,19 +21,16 @@
 
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>Estimates</h2>
+                <h2>Expense</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="{{route('business.dashboard')}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
-                    </li>
-                    <li>
-                        <a href="{{route('business.estimates')}}">Estimates</a>
+                        <a href="{{route('business.expenses')}}">Expenses</a>
                     </li>
                     <li class="active">
-                        <strong>Estimate Create</strong>
+                        <strong>Expense Create</strong>
                     </li>
                 </ol>
             </div>
