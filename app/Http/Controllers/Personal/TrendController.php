@@ -10,20 +10,20 @@ class TrendController extends Controller
 
     public function analysis()
     {
-        return view('business.analysis');
+        return view('personal.analysis');
     }
     public function analysisBreakDown()
     {
-        return view('business.analysis_breakdown');
+        return view('personal.analysis_breakdown');
     }
 
     public function cashFlow()
     {
-        return view('business.cash_flow');
+        return view('personal.cash_flow');
     }
     public function cashFlowBreakDown()
     {
-        return view('business.cash_flow_breakdown');
+        return view('personal.cash_flow_breakdown');
     }
 
 
