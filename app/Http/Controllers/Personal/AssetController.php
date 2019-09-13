@@ -9,11 +9,11 @@ class AssetController extends Controller
 {
     public function assets()
     {
-        return view('business.assets');
+        return view('personal.assets');
     }
     public function assetCreate()
     {
-        return view('business.asset_create');
+        return view('personal.asset_create');
     }
     public function assetStore()
     {
@@ -21,11 +21,11 @@ class AssetController extends Controller
     }
     public function assetShow($asset_id)
     {
-        return view('business.asset_show');
+        return view('personal.asset_show');
     }
     public function assetEdit($asset_id)
     {
-        return view('business.asset_show');
+        return view('personal.asset_show');
     }
     public function assetUpdate($asset_id)
     {

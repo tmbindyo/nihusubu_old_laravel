@@ -1,6 +1,6 @@
-@extends('business.layouts.app')
+@extends('personal.layouts.app')
 
-@section('title', 'Products')
+@section('title', 'Assets')
 
 @section('css')
 
@@ -48,19 +48,19 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-8">
-        <h2>Products</h2>
+        <h2>Assets</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('personal.dashboard')}}">Home</a>
             </li>
             <li class="active">
-                <strong>Products</strong>
+                <strong>Assets</strong>
             </li>
         </ol>
     </div>
     <div class="col-lg-4">
         <div class="title-action">
-            <a href="{{route('business.product.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+            <a href="{{route('personal.asset.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
         </div>
     </div>
 </div>
@@ -71,7 +71,7 @@
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Products</h5>
+                        <h5>Assets</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -99,9 +99,9 @@
                             <td class="center">1.7</td>
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <a href="{{ route('business.product.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                    <a href="{{ route('business.product.edit', 1) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                    <a href="{{ route('business.product.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                    <a href="{{ route('personal.asset.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                    <a href="{{ route('personal.asset.edit', 1) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                    <a href="{{ route('personal.asset.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                 </div>
                             </td>
                         </tr>

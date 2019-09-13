@@ -25,7 +25,7 @@ Route::post('/to/do/store', 'Personal\ToDoController@toDoStore')->name('personal
 
 // Income
 Route::get('/income', 'Personal\IncomeController@income')->name('personal.income');
-Route::post('/income/create', 'Personal\IncomeController@incomeStore')->name('personal.income.create');
+Route::get('/income/create', 'Personal\IncomeController@incomeCreate')->name('personal.income.create');
 Route::post('/income/store', 'Personal\IncomeController@incomeStore')->name('personal.income.store');
 Route::get('/income/show/{income_id}', 'Personal\IncomeController@incomeShow')->name('personal.income.show');
 Route::get('/income/edit/{income_id}', 'Personal\IncomeController@incomeEdit')->name('personal.income.edit');
