@@ -87,7 +87,7 @@
                                 <th data-hide="phone">Price</th>
                                 <th data-hide="phone,tablet" >Quantity</th>
                                 <th data-hide="phone">Status</th>
-                                <th class="text-right" data-sort-ignore="true">Action</th>
+                                <th class="text-right" width="100px" data-sort-ignore="true">Action</th>
 
                             </tr>
                             </thead>
@@ -117,7 +117,7 @@
                                 <td class="text-right">
                                     <div class="btn-group">
                                         <a href="{{route('business.transfer.order.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
-                                        <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                        <a href="{{route('business.transfer.order.edit',1)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                     </div>
                                 </td>
                             </tr>

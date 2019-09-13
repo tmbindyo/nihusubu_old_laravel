@@ -11,6 +11,8 @@
     <meta name="description" content="Nihusubu">
     <meta name="author" content="fluidtechglobal.com">
 
+    <link rel="shortcut icon" href="{{ asset('nihusubu.ico') }}" >
+
     @yield('css')
 
 </head>

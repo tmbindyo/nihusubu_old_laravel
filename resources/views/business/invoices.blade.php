@@ -17,6 +17,7 @@
 
 @endsection
 @section('content')
+
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
             <h2>Invoice</h2>
@@ -38,7 +39,7 @@
             </div>
         </div>
     </div>
-        <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
 
             <div class="ibox-content m-b-sm border-bottom">
@@ -104,7 +105,7 @@
                                     <th data-hide="phone">Date added</th>
                                     <th data-hide="phone,tablet" >Date modified</th>
                                     <th data-hide="phone">Status</th>
-                                    <th class="text-right">Action</th>
+                                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
 
                                 </tr>
                                 </thead>
@@ -130,9 +131,9 @@
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group">
-                                            <a href="{{route('business.invoice',1)}}" class="btn-success btn-outline btn btn-xs">View</a>
-                                            <button class="btn-warning btn-outline btn btn-xs">Edit</button>
-                                            <button class="btn-danger btn-outline btn btn-xs">Delete</button>
+                                            <a href="{{route('business.invoice.show',1)}}" class="btn-success btn-outline btn btn-xs">View</a>
+                                            <a href="{{route('business.invoice.edit',1)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                            <a href="{{route('business.invoice.delete',1)}}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -156,7 +157,7 @@
         </div>
 
 @endsection
-@section('content')
+@section('js')
 
 <!-- Mainly scripts -->
 <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>

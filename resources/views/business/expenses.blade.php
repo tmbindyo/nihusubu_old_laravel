@@ -1,6 +1,6 @@
 @extends('business.layouts.app')
 
-@section('title', ' Expense')
+@section('title', ' Expenses')
 
 @section('css')
 
@@ -27,7 +27,7 @@
                     <a href="{{route('business.dashboard')}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.sales')}}">Sales</a>
+                    <a href="{{route('business.expenses')}}">Expenses</a>
                 </li>
                 <li class="active">
                     <strong>Expense</strong>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-lg-2">
             <div class="title-action">
-                <a href="#" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('business.expense.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -133,9 +133,9 @@
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="{{route('business.expense',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
-                                        <button class="btn-warning btn-outline btn btn-xs">Edit</button>
-                                        <button class="btn-danger btn-outline btn btn-xs">Delete</button>
+                                        <a href="{{route('business.expense.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                        <a href="{{route('business.expense.edit',1)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                        <a href="{{route('business.expense.delete',1)}}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                     </div>
                                 </td>
                             </tr>

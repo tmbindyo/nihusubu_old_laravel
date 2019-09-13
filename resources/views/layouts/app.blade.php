@@ -9,7 +9,7 @@
 
         <title>{{ config('app.name', 'Argon Dashboard') }}</title>
         <!-- Favicon -->
-        <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
+        <link rel="shortcut icon" href="{{ asset('nihusubu.ico') }}" >
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <!-- Icons -->
@@ -20,18 +20,18 @@
         {{-- Datatables CSS--}}
         <link rel="stylesheet" href="{{ asset('argon') }}/vendor/datatables.net/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="{{ asset('argon') }}/vendor/datatables.net/css/buttons.bootstrap4.min.css">
-        <link rel="stylesheet" href="{{ asset('argon') }}/vendor/datatables.net/css/select.bootstrap4.min.css"> 
+        <link rel="stylesheet" href="{{ asset('argon') }}/vendor/datatables.net/css/select.bootstrap4.min.css">
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-            
+
             @include('layouts.navbars.sidebar')
 
         @endauth
-        
+
         <div class="main-content">
             @include('layouts.navbars.navbar')
             @yield('content')
@@ -47,7 +47,7 @@
         <script src="{{ asset('argon') }}/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
         {{-- Data tables --}}
-        
+
 
         <script src="{{ asset('argon') }}/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/datatables.net/js/dataTables.bootstrap4.min.js"></script>
@@ -57,9 +57,9 @@
         <script src="{{ asset('argon') }}/vendor/datatables.net/js/buttons.flash.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/datatables.net/js/buttons.print.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/datatables.net/js/dataTables.select.min.js"></script>
-            
+
         @stack('js')
-        
+
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
     </body>

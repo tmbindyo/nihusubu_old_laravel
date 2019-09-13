@@ -107,7 +107,7 @@
                                     <th data-hide="phone">Date added</th>
                                     <th data-hide="phone,tablet" >Date modified</th>
                                     <th data-hide="phone">Status</th>
-                                    <th class="text-right">Action</th>
+                                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
 
                                 </tr>
                                 </thead>
@@ -133,9 +133,9 @@
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group">
-                                            <a href="{{route('business.estimate.show',1)}}" class="btn-primary btn btn-xs">View</a>
-                                            <button class="btn-warning btn btn-xs">Edit</button>
-                                            <button class="btn-danger btn btn-xs">Delete</button>
+                                            <a href="{{route('business.estimate.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                            <a href="{{route('business.estimate.edit',1)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                            <a href="{{route('business.estimate.delete',1)}}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                         </div>
                                     </td>
                                 </tr>

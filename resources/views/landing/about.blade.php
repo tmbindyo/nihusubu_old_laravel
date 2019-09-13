@@ -30,7 +30,7 @@
     <div class="g-fullheight--md js__parallax-window" style="background: url({{ asset('landing') }}/img/1920x1080/02.jpg) 50% 0 no-repeat fixed;">
         <div class="g-container--md g-text-center--xs g-ver-center--md g-padding-y-150--xs g-padding-y-0--md">
             <div class="g-margin-b-60--xs">
-                <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--white-opacity g-letter-spacing--2 g-margin-b-25--xs">Welcome to Megakit</p>
+                <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--white-opacity g-letter-spacing--2 g-margin-b-25--xs">Welcome to Nihusubu</p>
                 <h1 class="g-font-size-40--xs g-font-size-50--sm g-font-size-60--md g-color--white g-letter-spacing--1">Creative Design</h1>
                 <p class="g-font-size-18--xs g-font-size-26--md g-color--white-opacity g-margin-b-0--xs">We are a creative studio focusing on culture, luxury, editorial &amp; art. Somewhere between sophistication and simplicity.</p>
             </div>

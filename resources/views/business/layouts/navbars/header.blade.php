@@ -108,9 +108,8 @@
                 </ul>
             </li>
 
-
             <li>
-                <a href="{{route('business.logout')}}">
+                <a href="{{route('logout')}}">
                     <i class="fa fa-sign-out"></i> Log out
                 </a>
             </li>

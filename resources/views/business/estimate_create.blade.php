@@ -120,9 +120,8 @@
                                             <tr>
                                                 <th>Item Details</th>
                                                 <th>Quantity</th>
-                                                <th>Last Name</th>
-                                                <th>Email</th>
-                                                <th>Phone number</th>
+                                                <th>Rate</th>
+                                                <th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -132,9 +131,6 @@
                                                         <option>Select Item</option>
                                                         <option value="Bahamas">Bahamas</option>
                                                     </select>
-                                                </td>
-                                                <td>
-                                                    <input type="number" class="form-control input-lg">
                                                 </td>
                                                 <td>
                                                     <input type="number" class="form-control input-lg">

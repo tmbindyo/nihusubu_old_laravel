@@ -88,7 +88,7 @@
                                 <th data-hide="phone">Price</th>
                                 <th data-hide="phone,tablet" >Quantity</th>
                                 <th data-hide="phone">Status</th>
-                                <th class="text-right" data-sort-ignore="true">Action</th>
+                                <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
 
                             </tr>
                             </thead>
@@ -117,7 +117,9 @@
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="{{route('business.composite.product.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                        <a href="{{route('business.composite.product.show',1)}}" class="btn-success btn-outline btn btn-xs">View</a>
+                                        <a href="{{route('business.composite.product.edit',1)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                        <a href="{{route('business.composite.product.delete',1)}}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                     </div>
                                 </td>
                             </tr>

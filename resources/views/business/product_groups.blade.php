@@ -11,6 +11,7 @@
 
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
+
 @endsection
 @section('content')
 
@@ -58,7 +59,7 @@
                     <th>SKU</th>
                     <th>Stock on Hand</th>
                     <th>Reorder Level</th>
-                    <th>Action</th>
+                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,8 +70,9 @@
                     <td class="center">1.7</td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <a href="{{ route('business.product.group.show', 1) }}" class="btn-white btn btn-xs">View</a>
-                            <a href="{{ route('business.product.group.delete', 1) }}" class="btn-danger btn btn-xs">Delete</a>
+                            <a href="{{ route('business.product.group.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                            <a href="{{ route('business.product.group.edit', 1) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                            <a href="{{ route('business.product.group.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                         </div>
                     </td>
                 </tr>

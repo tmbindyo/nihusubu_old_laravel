@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('personal.layouts.app')
 
 @section('title', 'Calendar')
 
@@ -9,6 +9,9 @@
 
     <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
 
+    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+
     <link href="{{ asset('inspinia') }}/css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/plugins/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print'>
 
@@ -17,57 +20,29 @@
 
 @endsection
 @section('content')
-
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>Calendar</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{{route('business.dashboard')}}">Home</a>
+            </li>
+            <li class="active">
+                <strong>Calendar</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="#" data-toggle="modal" data-target="#calendarRegistration" aria-expanded="false" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+        </div>
+    </div>
+</div>
 
 <div class="wrapper wrapper-content">
     <div class="row animated fadeInDown">
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Draggable Events</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content">
-                    <div id='external-events'>
-                        <p>Drag a event and drop into callendar.</p>
-                        <div class='external-event navy-bg'>Go to shop and buy some products.</div>
-                        <div class='external-event navy-bg'>Check the new CI from Corporation.</div>
-                        <div class='external-event navy-bg'>Send documents to John.</div>
-                        <div class='external-event navy-bg'>Phone to Sandra.</div>
-                        <div class='external-event navy-bg'>Chat with Michael.</div>
-                        <p class="m-t">
-                            <input type='checkbox' id='drop-remove' class="i-checks" checked /> <label for='drop-remove'>remove after drop</label>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-                    <h2>FullCalendar</h2> is a jQuery plugin that provides a full-sized, drag & drop calendar like the one below. It uses AJAX to fetch events on-the-fly for each month and is
-                    easily configured to use your own feed format (an extension is provided for Google Calendar).
-                    <p>
-                        <a href="http://arshaw.com/fullcalendar/" target="_blank">FullCalendar documentation</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-9">
+
+        <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Striped Table </h5>
@@ -99,6 +74,8 @@
 
 @endsection
 
+@include('business.layouts.modals.calendar')
+
 @section('js')
 
 <!-- Mainly scripts -->
@@ -112,17 +89,52 @@
 <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
-<!-- jQuery UI custom -->
-<script src="{{ asset('inspinia') }}/js/jquery-ui.custom.min.js"></script>
+<!-- Full Calendar -->
+<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+
+<!-- Date picker -->
+<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
 <!-- iCheck -->
 <script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
 
-<!-- Full Calendar -->
-<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+<!-- Clock picker -->
+<script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
 
+{{--  Get due date to populate   --}}
 <script>
+    $(document).ready(function() {
+        // Set date
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        if (dd < 10){
+            dd = '0'+dd;
+        }
+        if (mm < 10){
+            mm = '0'+mm;
+        }
+        var date_today = mm + '/' + dd + '/' + yyyy;
+        document.getElementById("date_due").value = date_today;
 
+        // Set time
+        var hh = today.getHours();
+        var min = today.getMinutes();
+        if (hh < 10){
+            hh = '0'+hh;
+        }
+        if (min < 10){
+            min = '0'+min;
+        }
+        var time_now = hh + ':' + min;
+        document.getElementById("time_due").value = "14:46";
+    });
+
+</script>
+
+{{--  Calendar  --}}
+<script>
     $(document).ready(function() {
 
             $('.i-checks').iCheck({
@@ -224,6 +236,55 @@
 
 
     });
+
+</script>
+
+{{-- Date and Time picker  --}}
+<script>
+$(document).ready(function(){
+
+    $('#data_1 .input-group.date').datepicker({
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true
+    });
+
+    $('#data_2 .input-group.date').datepicker({
+        startView: 1,
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true,
+        format: "dd/mm/yyyy"
+    });
+
+    $('#data_3 .input-group.date').datepicker({
+        startView: 2,
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true
+    });
+
+    $('#data_4 .input-group.date').datepicker({
+        minViewMode: 1,
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true,
+        todayHighlight: true
+    });
+
+    $('#data_5 .input-daterange').datepicker({
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true
+    });
+
+    $('.clockpicker').clockpicker();
+
+});
 
 </script>
 @endsection

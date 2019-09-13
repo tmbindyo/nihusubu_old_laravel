@@ -88,7 +88,7 @@
                                 <th data-hide="phone">Price</th>
                                 <th data-hide="phone,tablet" >Quantity</th>
                                 <th data-hide="phone">Status</th>
-                                <th class="text-right" data-sort-ignore="true">Action</th>
+                                <th class="text-right" width="100px" data-sort-ignore="true">Action</th>
 
                             </tr>
                             </thead>

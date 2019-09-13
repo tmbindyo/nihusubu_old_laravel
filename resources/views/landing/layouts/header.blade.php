@@ -8,8 +8,8 @@
                     <div class="s-header__logo">
                         <a href="{{route("landing")}}" class="s-header__logo-link">
                             {{--  TODO Change logo  --}}
-                            <img class="s-header__logo-img s-header__logo-img-default" src="{{ asset('landing') }}/img/logo.png" alt="Nihusubu">
-                            <img class="s-header__logo-img s-header__logo-img-shrink" src="{{ asset('landing') }}/img/logo-dark.png" alt="Nihusubu">
+                            <img style="width: 50px;" class="s-header__logo-img s-header__logo-img-default" src="{{ asset('nihusubu.jpg') }}" alt="Nihusubu">
+                            <img class="s-header__logo-img s-header__logo-img-shrink" src="{{ asset('nihusubu.jpg') }}" alt="Nihusubu">
                         </a>
                     </div>
                     <!-- End Logo -->
@@ -70,7 +70,7 @@
         {{--  TODO Create facebook page  --}}
         <ul class="list-inline s-header__action s-header__action--rb">
             <li class="s-header__action-item">
-                <a class="s-header__action-link" href="https://www.behance.net/nihusubu">
+                <a class="s-header__action-link" href="https://www.facobook.com/nihusubu">
                     <i class="g-padding-r-5--xs ti-facebook"></i>
                     <span class="g-display-none--xs g-display-inline-block--sm">Facebook</span>
                 </a>

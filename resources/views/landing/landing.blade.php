@@ -1,6 +1,6 @@
 @extends('landing.layouts.app')
 
-@section('title', 'About')
+@section('title', 'Welcome')
 
 @section('css')
         <!-- Web Fonts -->

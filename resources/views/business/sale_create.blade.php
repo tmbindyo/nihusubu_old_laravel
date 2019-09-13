@@ -64,6 +64,15 @@
                                     {{--  Product  --}}
                                     <div class="row">
                                         <div class="col-md-12">
+                                            {{--todo description tooltip--}}
+                                            <div class="has-success">
+                                                <input id="returnable" name="returnable" type="checkbox">
+                                                <label for="returnable">
+                                                    Sample
+                                                </label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the sale is a sample." class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                            <br>
                                             <div class="row">
                                                 <div class="col-md-1">
                                                     <span><i data-toggle="tooltip" data-placement="left" title="Enable this option if all the items in the group are eligible for sales return." class="fa fa-question-circle fa-3x text-warning"></i></span>

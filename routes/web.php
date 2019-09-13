@@ -28,3 +28,10 @@ Route::get('/coming/soon', 'Landing\LandingController@comingSoon')->name('coming
 Route::get('/privacy/policy', 'Landing\LandingController@comingSoon')->name('privacy.policy');
 Route::get('/terms/and/conditions', 'Landing\LandingController@comingSoon')->name('terms.and.condition');
 
+
+// Authentication
+Route::get('/login', 'Auth\LoginController@login')->name('login');
+Route::get('/logout', 'Auth\LoginController@login')->name('logout');
+Route::get('/register', 'Auth\LoginController@register')->name('register');
+Route::get('/forgot/password', 'Auth\LoginController@forgotPassword')->name('forgot.password');
+

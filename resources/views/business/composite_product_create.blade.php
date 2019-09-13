@@ -83,12 +83,12 @@
                                         {{--  Product returnable  --}}
                                         {{--todo description tooltip--}}
                                         <div class="checkbox">
-
+                                            <input id="returnable" name="returnable" type="checkbox">
                                             <label for="returnable">
                                                 Returnable Product
                                             </label>
                                             <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-question-circle"></i></span>
-                                            <input id="returnable" name="returnable" type="checkbox">
+
                                         </div>
                                     </div>
                                     <div class="col-md-4">

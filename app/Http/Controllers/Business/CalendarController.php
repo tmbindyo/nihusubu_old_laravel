@@ -11,7 +11,7 @@ class CalendarController extends Controller
     {
         return view('business.calendar');
     }
-    public function calendarSave()
+    public function calendarStore()
     {
         return back()->withSuccess('Calender entry successfully created!');
     }

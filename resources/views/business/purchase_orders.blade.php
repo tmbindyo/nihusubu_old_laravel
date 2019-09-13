@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="#" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('business.purchase.order.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -104,7 +104,7 @@
                             <th data-hide="phone">Date added</th>
                             <th data-hide="phone,tablet" >Date modified</th>
                             <th data-hide="phone">Status</th>
-                            <th class="text-right">Action</th>
+                            <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
 
                         </tr>
                         </thead>
@@ -130,9 +130,9 @@
                             </td>
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <a href="{{route('business.purchase.order',1)}}" class="btn-white btn btn-xs">View</a>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                    <button class="btn-white btn btn-xs">Delete</button>
+                                    <a href="{{route('business.purchase.order.show',1)}}" class="btn-success btn-outline btn btn-xs">View</a>
+                                    <a href="{{route('business.purchase.order.edit',1)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                    <a href="{{route('business.purchase.order.delete',1)}}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                 </div>
                             </td>
                         </tr>

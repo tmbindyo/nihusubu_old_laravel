@@ -110,6 +110,7 @@
                                     <input type="radio" id="inlineRadio2" value="option2" name="service">
                                     <label for="inlineRadio2"> Service </label>
                                 </div>
+                                <br>
                                 <label>  </label>
                                 {{--  Product group name  --}}
                                 <div class="has-warning">
@@ -122,9 +123,10 @@
                                     <textarea rows="5" id="product_description" name="product_description" required="required" class="form-control input-lg"></textarea>
                                     <i>Describe your product group.</i>
                                 </div>
+                                <br>
                                 {{--  Product returnable  --}}
                                 {{--todo description tooltip--}}
-                                <div class="">
+                                <div class="has-success">
                                     <input id="returnable" name="returnable" type="checkbox">
                                     <label for="returnable">
                                         Returnable Product

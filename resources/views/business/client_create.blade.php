@@ -84,7 +84,7 @@
             </div>
             <div class="ibox-content">
                 <div class="">
-                    <form method="post" action="{{ route('business.product.group.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                    <form method="post" action="{{ route('business.client.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                         @csrf
 
                         @if ($errors->any())
@@ -263,7 +263,7 @@
                                                         <input type="number" class="form-control input-lg">
                                                     </td>
                                                     <td>
-                                                        <input type="number" class="form-control input-lg" placeholder="E.g +10, -10">
+                                                        <input type="email" class="form-control input-lg">
                                                     </td>
                                                     <td width="10px">
                                                         <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-times-circle fa-2x text-danger"></i></span>

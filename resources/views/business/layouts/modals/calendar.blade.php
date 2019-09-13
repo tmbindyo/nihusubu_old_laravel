@@ -1,11 +1,11 @@
-<div class="modal inmodal" id="calendarRegistration" tabindex="-1" role="dialog" aria-labelledby="categoryRegistrationLabel" aria-hidden="true">
+<div class="modal inmodal" id="calendarRegistration" tabindex="-1" role="dialog" aria-labelledby="calendarRegistrationLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-calendar modal-icon"></i>
                 <h4 class="modal-title">Calender Entry</h4>
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+{{--                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>--}}
             </div>
             <div class="modal-body">
                 <form method="post" action="{{ route('business.calendar.store') }}" autocomplete="off" class="form-horizontal form-label-left">
@@ -76,9 +76,6 @@
 
                 </form>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

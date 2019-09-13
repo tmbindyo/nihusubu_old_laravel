@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Tomulumbi | @yield('title')</title>
+    <link rel="shortcut icon" href="{{ asset('nihusubu.ico') }}" >
+    <title>Nihusubu | @yield('title')</title>
 
     @yield('css')
 
@@ -17,12 +18,12 @@
 <div id="wrapper">
 
     <!-- nav -->
-    @include('admin.layouts.navbars.left_sidebar')
+    @include('personal.layouts.navbars.left_sidebar')
     <!-- nav -->
 
     <div id="page-wrapper" class="gray-bg dashbard-1">
         <!-- top navbar -->
-        @include('admin.layouts.navbars.navbar')
+        @include('personal.layouts.navbars.header')
         <!-- top navbar -->
 
         <!-- page content -->
@@ -30,16 +31,16 @@
         <!-- /page content -->
 
         <!-- footer -->
-    @include('admin.layouts.footers.nav')
+    @include('business.layouts.navbars.footer')
         <!-- /footer -->
 
     </div>
     <!-- chat content -->
-    @include('admin.layouts.navbars.chat')
+    @include('business.layouts.navbars.chat')
     <!-- /chat content -->
 
     <!-- right sidebar content -->
-    @include('admin.layouts.navbars.right_sidebar')
+    @include('business.layouts.navbars.right_sidebar')
     <!-- /right sidebar content -->
 
 </div>

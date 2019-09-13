@@ -15,7 +15,7 @@
 @section('content')
 
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
+            <div class="col-lg-8">
                 <h2>Estimate</h2>
                 <ol class="breadcrumb">
                     <li>
@@ -32,9 +32,9 @@
                     </li>
                 </ol>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-4">
                 <div class="title-action">
-                    <a href="#" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                    <a href="{{route('business.estimate.edit',1)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
                     <a href="{{route('business.invoice.print',1)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
                 </div>
             </div>

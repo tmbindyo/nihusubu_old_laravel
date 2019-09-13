@@ -23,6 +23,14 @@ class SaleController extends Controller
     {
         return view('business.client_show');
     }
+    public function clientContactPersonShow($contact_person_id)
+    {
+        return view('business.client_contact_person_show');
+    }
+    public function clientContactPersonMessage($contact_person_id)
+    {
+        return back()->withStatus(__('Message sent to .'));
+    }
     public function clientEdit()
     {
         return view('business.client_edit');
@@ -76,13 +84,25 @@ class SaleController extends Controller
     {
         return view('business.invoice_create');
     }
-    public function invoice($invoice_id)
-    {
-        return view('business.invoice');
-    }
     public function invoiceStore()
     {
         return back()->withStatus(__('Invoice successfully created.'));
+    }
+    public function invoiceShow($invoice_id)
+    {
+        return view('business.invoice');
+    }
+    public function invoiceEdit($invoice_id)
+    {
+        return view('business.invoice');
+    }
+    public function invoiceUpdate($invoice_id)
+    {
+        return back()->withStatus(__('Invoice successfully updated.'));
+    }
+    public function invoiceDelete($invoice_id)
+    {
+        return back()->withStatus(__('Invoice successfully deleted.'));
     }
     public function invoicePrint()
     {
@@ -104,9 +124,21 @@ class SaleController extends Controller
     {
         return back()->withStatus(__('Order successfully created.'));
     }
-    public function order($order_id)
+    public function orderShow($order_id)
     {
-        return view('business.order');
+        return view('business.order_show');
+    }
+    public function orderEdit($order_id)
+    {
+        return view('business.order_edit');
+    }
+    public function orderUpdate($order_id)
+    {
+        return back()->withStatus(__('Order successfully updated.'));
+    }
+    public function orderDelete($order_id)
+    {
+        return back()->withStatus(__('Order successfully deleted.'));
     }
     public function orderPrint($order_id)
     {
@@ -124,11 +156,23 @@ class SaleController extends Controller
     }
     public function saleStore()
     {
-        return back()->withStatus(__('Order successfully created.'));
+        return back()->withStatus(__('Sale successfully created.'));
     }
-    public function sale($sale_id)
+    public function saleShow($sale_id)
     {
-        return view('business.sale');
+        return view('business.sale_show');
+    }
+    public function saleEdit($sale_id)
+    {
+        return view('business.sale_show');
+    }
+    public function saleUpdate($sale_id)
+    {
+        return back()->withStatus(__('Order successfully updated.'));
+    }
+    public function saleDelete($sale_id)
+    {
+        return view('business.sale_show');
     }
 
 
