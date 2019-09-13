@@ -87,14 +87,14 @@ class GrowthController extends Controller
     {
         return back()->withStatus(__('Goal successfully closed.'));
     }
-    public function goalDelete($investment_id)
+    public function goalDelete($goal_id)
     {
         return back()->withStatus(__('Goal successfully deleted.'));
     }
 
 
     // Ways to save
-    public function waysToSave($investment_id)
+    public function waysToSave()
     {
         return view('personal.ways_to_save');
     }

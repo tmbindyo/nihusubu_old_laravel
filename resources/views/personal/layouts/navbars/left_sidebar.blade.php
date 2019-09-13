@@ -97,7 +97,7 @@
                 <ul class="nav nav-second-level collapse">
                     <li class="nav-item {{ Route::currentRouteNamed( 'personal.investments' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'personal.investments')}}">
-                            Investment
+                            Investments
                         </a>
                     </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'personal.goals' ) ?  'active' : '' }}">
