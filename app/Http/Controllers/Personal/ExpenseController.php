@@ -9,11 +9,11 @@ class ExpenseController extends Controller
 {
     public function expenses()
     {
-        return view('business.expenses');
+        return view('personal.expenses');
     }
     public function expenseCreate()
     {
-        return view('business.expense_create');
+        return view('personal.expense_create');
     }
     public function expenseStore()
     {
@@ -21,11 +21,11 @@ class ExpenseController extends Controller
     }
     public function expenseShow($expense_id)
     {
-        return view('business.expense_show');
+        return view('personal.expense_show');
     }
     public function expenseEdit($expense_id)
     {
-        return view('business.expense_show');
+        return view('personal.expense_show');
     }
     public function expenseUpdate($expense_id)
     {
@@ -42,11 +42,11 @@ class ExpenseController extends Controller
 
     public function bills()
     {
-        return view('business.bills');
+        return view('personal.bills');
     }
     public function billCreate()
     {
-        return view('business.bill_create');
+        return view('personal.bill_create');
     }
     public function billStore()
     {
@@ -54,11 +54,11 @@ class ExpenseController extends Controller
     }
     public function billShow($bill_id)
     {
-        return view('business.bill_show');
+        return view('personal.bill_show');
     }
     public function billEdit($bill_id)
     {
-        return view('business.bill_show');
+        return view('personal.bill_show');
     }
     public function billUpdate($bill_id)
     {
