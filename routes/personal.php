@@ -156,18 +156,10 @@ Route::get('/account/delete/{account_id}', 'Personal\AccountsController@accountD
 
 
 // Settings
-Route::get('/family', 'Personal\SettingController@family')->name('personal.family');
-Route::get('/family/create', 'Personal\SettingController@familyCreate')->name('personal.family.create');
-Route::get('/family/store', 'Personal\SettingController@familyStore')->name('personal.family.store');
-Route::get('/family/member/show/{family_id}', 'Personal\SettingController@familyMemberShow')->name('personal.family.member.show');
-Route::get('/family/member/edit/{family_id}', 'Personal\SettingController@familyMemberEdit')->name('personal.family.member.edit');
-Route::get('/family/member/update/{family_id}', 'Personal\SettingController@familyMemberUpdate')->name('personal.family.member.update');
-Route::get('/family/member/delete/{family_id}', 'Personal\SettingController@familyMemberDelete')->name('personal.family.member.delete');
-
 Route::get('/commitments', 'Personal\SettingController@commitments')->name('personal.commitments');
 Route::get('/commitment/create', 'Personal\SettingController@commitmentCreate')->name('personal.commitment.create');
 Route::get('/commitment/store', 'Personal\SettingController@commitmentStore')->name('personal.commitment.store');
-Route::get('/commitment/show', 'Personal\SettingController@commitmentShow')->name('personal.commitment.show');
-Route::get('/commitment/edit', 'Personal\SettingController@commitmentEdit')->name('personal.commitment.edit');
-Route::get('/commitment/update', 'Personal\SettingController@commitmentUpdate')->name('personal.commitment.update');
-Route::get('/commitment/delete', 'Personal\SettingController@commitmentDelete')->name('personal.commitment.delete');
+Route::get('/commitment/show/{commitment_id}', 'Personal\SettingController@commitmentShow')->name('personal.commitment.show');
+Route::get('/commitment/edit/{commitment_id}', 'Personal\SettingController@commitmentEdit')->name('personal.commitment.edit');
+Route::get('/commitment/update/{commitment_id}', 'Personal\SettingController@commitmentUpdate')->name('personal.commitment.update');
+Route::get('/commitment/delete/{commitment_id}', 'Personal\SettingController@commitmentDelete')->name('personal.commitment.delete');

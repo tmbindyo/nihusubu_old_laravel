@@ -1,6 +1,6 @@
 @extends('personal.layouts.app')
 
-@section('title', ' Goal Create')
+@section('title', ' Account Create')
 
 @section('css')
 
@@ -14,16 +14,16 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2>Goal Create</h2>
+            <h2>Account Create</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('personal.dashboard')}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('personal.investment')}}">Goal</a>
+                    <a href="{{route('personal.accounts')}}">Accounts</a>
                 </li>
                 <li class="active">
-                    <strong>Create Goal</strong>
+                    <strong>Create Account</strong>
                 </li>
             </ol>
         </div>
@@ -36,7 +36,7 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="">
-                            <form method="post" action="{{ route('personal.goal.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" action="{{ route('personal.account.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -51,9 +51,9 @@
                                 {{--  Product  --}}
                                 <div class="row">
                                     <div class="col-md-8">
-                                        {{--  Goal varibale or fixed  --}}
+                                        {{--  Account varibale or fixed  --}}
                                         {{--  todo only one should be selectable  --}}
-                                        <p>Goal Type</p>
+                                        <p>Account Type</p>
                                         <div class="radio radio-inline">
                                             <input type="radio" id="variable" value="option1" name="variable" checked="">
                                             <label for="inlineRadio1"> Variable </label>
@@ -62,19 +62,19 @@
                                             <input type="radio" id="fixed" value="option2" name="fixed">
                                             <label for="inlineRadio2"> Fixed </label>
                                         </div>
-                                        {{--  investment name  --}}
+                                        {{--  account name  --}}
                                         <div class="has-warning">
                                             <label>  </label>
-                                            <input type="text" id="investment_name" name="investment_name" required="required" class="form-control input-lg" placeholder="Goal name">
-                                            <i>Give your investment a name</i>
+                                            <input type="text" id="account_name" name="account_name" required="required" class="form-control input-lg" placeholder="Account name">
+                                            <i>Give your account a name</i>
                                         </div>
-                                        {{--  investment amount  --}}
+                                        {{--  account amount  --}}
                                         <div class="">
                                             <label>  </label>
-                                            <input type="number" id="investment_amount" name="investment_amount" required="required" class="form-control input-lg" placeholder="Goal amount">
-                                            <i>Give your investment amount if fixed</i>
+                                            <input type="number" id="account_amount" name="account_amount" required="required" class="form-control input-lg" placeholder="Account amount">
+                                            <i>Give your account amount if fixed</i>
                                         </div>
-                                        {{--  Goal frequency  --}}
+                                        {{--  Account frequency  --}}
                                         <div class="has-warning">
                                             <label>  </label>
                                             <select class="select2_demo_3 form-control input-lg">
@@ -83,7 +83,7 @@
                                             </select>
                                         </div>
                                         <br>
-                                        {{--  Goal account  --}}
+                                        {{--  Account account  --}}
                                         <div class="row">
                                             <div class="col-md-11">
                                                 <div class="has-warning">
@@ -96,7 +96,7 @@
                                             </div>
                                             <div class="col-md-1">
                                                 <label class="text-danger"></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Account to which this investment will be deposited." class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Account to which this account will be deposited." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
                                         </div>
                                         <br>
@@ -111,9 +111,9 @@
 
                                 </div>
                                 <div class="">
-                                    {{--  Goal description  --}}
+                                    {{--  Account description  --}}
                                     <label>  </label>
-                                    <textarea rows="5" placeholder="Goal description" class="form-control input-lg"></textarea>
+                                    <textarea rows="5" placeholder="Account description" class="form-control input-lg"></textarea>
                                 </div>
                                 <hr>
 

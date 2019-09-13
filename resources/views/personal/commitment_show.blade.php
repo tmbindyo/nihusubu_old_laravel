@@ -1,6 +1,6 @@
 @extends('personal.layouts.app')
 
-@section('title', ' Investment')
+@section('title', ' Commitment')
 
 @section('css')
 
@@ -21,7 +21,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Investment</h2>
+            <h2>Commitment</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('personal.dashboard')}}">Home</a>
@@ -30,7 +30,7 @@
                     <a href="#">Growth</a>
                 </li>
                 <li class="active">
-                    <strong>Investment</strong>
+                    <strong>Commitment</strong>
                 </li>
             </ol>
         </div>

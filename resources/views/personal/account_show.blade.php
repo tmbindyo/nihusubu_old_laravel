@@ -1,6 +1,6 @@
 @extends('personal.layouts.app')
 
-@section('title', ' Investment')
+@section('title', ' Analysis')
 
 @section('css')
 

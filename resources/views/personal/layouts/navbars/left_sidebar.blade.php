@@ -124,11 +124,6 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.family' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'personal.family')}}">
-                            Family
-                        </a>
-                    </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'personal.commitments' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'personal.commitments')}}">
                             Commitments
