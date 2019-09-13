@@ -99,9 +99,9 @@
                             <td class="center">1.7</td>
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <a href="{{ route('personal.asset.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                    <a href="{{ route('personal.asset.edit', 1) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                    <a href="{{ route('personal.asset.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                    <a href="{{ route('personal.sacco.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                    <a href="{{ route('personal.sacco.edit', 1) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                    <a href="{{ route('personal.sacco.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                 </div>
                             </td>
                         </tr>
