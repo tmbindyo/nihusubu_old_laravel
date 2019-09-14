@@ -168,6 +168,18 @@ Route::get('/payments/made', 'Business\PurchaseController@paymentsMade')->name('
 Route::get('/expense/settings', 'Business\PurchaseController@expenseSettings')->name('business.expense.settings');
 
 
+// Accounting
+Route::get('/chart/of/accounts', 'Business\AccountingController@chartOfAccounts')->name('business.chart.of.accounts');
+Route::get('/chart/of/account/store', 'Business\AccountingController@chartOfAccountStore')->name('business.chart.of.account.store');
+Route::get('/chart/of/account/update/{chart_of_account_id}', 'Business\AccountingController@chartOfAccountStore')->name('business.chart.of.account.update');
+Route::get('/chart/of/account/delete/{chart_of_account_id}', 'Business\AccountingController@chartOfAccountStore')->name('business.chart.of.account.delete');
+
+Route::get('/manual/journals', 'Business\AccountingController@manualJournals')->name('business.manual.journals');
+Route::get('/manual/journal/store', 'Business\AccountingController@manualJournalStore')->name('business.manual.journal.store');
+Route::get('/manual/journal/update/{manual_journal_id}', 'Business\AccountingController@manualJournalUpdate')->name('business.manual.journal.update');
+Route::get('/manual/journal/delete/{manual_journal_id}', 'Business\AccountingController@manualJournalDelete')->name('business.manual.journal.delete');
+
+
 // Assets
 Route::get('/assets', 'Business\AssetController@assets')->name('business.assets');
 

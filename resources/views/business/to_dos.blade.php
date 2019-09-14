@@ -99,7 +99,7 @@
     </div>
 
 @endsection
-@include('business.layouts.modals.to_do')
+@include('business.layouts.modals.to_do_create')
 @section('js')
 
 <!-- Mainly scripts -->

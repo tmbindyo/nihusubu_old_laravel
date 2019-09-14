@@ -143,7 +143,7 @@
 
 @endsection
 
-@include('business.layouts.modals.warehouse')
+@include('business.layouts.modals.warehouse_create')
 
 @section('js')
     <!-- Mainly scripts -->

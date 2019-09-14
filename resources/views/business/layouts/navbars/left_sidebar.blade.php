@@ -175,14 +175,14 @@
                     <span class="label label-info pull-right">16</span>
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.purchase.orders' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.purchase.orders')}}">
-                            Income
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.chart.of.accounts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.chart.of.accounts')}}">
+                            Chart Of Accounts
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.purchase.orders' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.purchase.orders')}}">
-                            Purchase Order
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.manual.journals' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.manual.journals')}}">
+                            Manual Journals
                         </a>
                     </li>
 

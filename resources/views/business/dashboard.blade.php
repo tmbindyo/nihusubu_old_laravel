@@ -219,7 +219,7 @@
 
                             <div class="feed-element">
                                 <a href="profile.html" class="pull-left">
-                                    <img alt="image" class="img-circle" src="img/profile.jpg">
+                                    <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/profile.jpg">
                                 </a>
                                 <div class="media-body ">
                                     <small class="pull-right">5m ago</small>
@@ -231,7 +231,7 @@
 
                             <div class="feed-element">
                                 <a href="profile.html" class="pull-left">
-                                    <img alt="image" class="img-circle" src="img/a2.jpg">
+                                    <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a2.jpg">
                                 </a>
                                 <div class="media-body ">
                                     <small class="pull-right">2h ago</small>
@@ -241,7 +241,7 @@
                             </div>
                             <div class="feed-element">
                                 <a href="profile.html" class="pull-left">
-                                    <img alt="image" class="img-circle" src="img/a3.jpg">
+                                    <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a3.jpg">
                                 </a>
                                 <div class="media-body ">
                                     <small class="pull-right">2h ago</small>
@@ -251,7 +251,7 @@
                             </div>
                             <div class="feed-element">
                                 <a href="profile.html" class="pull-left">
-                                    <img alt="image" class="img-circle" src="img/a4.jpg">
+                                    <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a4.jpg">
                                 </a>
                                 <div class="media-body ">
                                     <small class="pull-right text-navy">5h ago</small>
@@ -265,7 +265,7 @@
                             </div>
                             <div class="feed-element">
                                 <a href="profile.html" class="pull-left">
-                                    <img alt="image" class="img-circle" src="img/a5.jpg">
+                                    <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a5.jpg">
                                 </a>
                                 <div class="media-body ">
                                     <small class="pull-right">2h ago</small>
@@ -282,7 +282,7 @@
                             </div>
                             <div class="feed-element">
                                 <a href="profile.html" class="pull-left">
-                                    <img alt="image" class="img-circle" src="img/profile.jpg">
+                                    <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/profile.jpg">
                                 </a>
                                 <div class="media-body ">
                                     <small class="pull-right">23h ago</small>
@@ -292,7 +292,7 @@
                             </div>
                             <div class="feed-element">
                                 <a href="profile.html" class="pull-left">
-                                    <img alt="image" class="img-circle" src="img/a7.jpg">
+                                    <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a7.jpg">
                                 </a>
                                 <div class="media-body ">
                                     <small class="pull-right">46h ago</small>
