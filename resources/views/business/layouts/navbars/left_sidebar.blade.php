@@ -229,38 +229,38 @@
                             Employees
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.projects' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.projects')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.leave' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.leave')}}">
                             Leave
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.projects' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.projects')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.attendance' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.attendance')}}">
                             Attendance
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.projects' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.projects')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.document.workflow' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.document.workflow')}}">
                             Document Workflow
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.projects' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.projects')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.teams' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.teams')}}">
                             Team
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.projects' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.projects')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.payroll' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.payroll')}}">
                             Payroll
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.projects' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.projects')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.employer' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.employer')}}">
                             Employer
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.projects' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.projects')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.human.resource.settings' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.human.resource.settings')}}">
                             Settings
                         </a>
                     </li>

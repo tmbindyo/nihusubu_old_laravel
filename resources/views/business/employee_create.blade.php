@@ -409,7 +409,7 @@
                                                                                             <td>
 
                                                                                                 <a href="{{route('business.project.edit',1)}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> View </a>
+                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
                                                                                             </td>
                                                                                         </tr>
                                                                                         </tbody>
@@ -452,7 +452,7 @@
                                                                                             <td>
 
                                                                                                 <a href="{{route('business.project.edit',1)}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> View </a>
+                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
                                                                                             </td>
                                                                                         </tr>
                                                                                         </tbody>
@@ -495,7 +495,7 @@
                                                                                             <td>
 
                                                                                                 <a href="{{route('business.project.edit',1)}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> View </a>
+                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
                                                                                             </td>
                                                                                         </tr>
                                                                                         </tbody>
@@ -538,7 +538,7 @@
                                                                                             <td>
 
                                                                                                 <a href="{{route('business.project.edit',1)}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> View </a>
+                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
                                                                                             </td>
                                                                                         </tr>
                                                                                         </tbody>
@@ -553,30 +553,237 @@
                                                                 </div>
                                                             </div>
 
+                                                            <div class="">
+                                                                <br>
+                                                                <h3 class="text-center">Payment Details</h3>
+                                                                <hr>
+                                                                <div class="col-md-6">
+                                                                    <div class="has-warning">
+                                                                        <label>  </label>
+                                                                        <select class="select2_demo_3 form-control input-lg">
+                                                                            <option>Select Bank</option>
+                                                                            <option value="Bahamas">Bahamas</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="">
+                                                                        <label class="text-danger"></label>
+                                                                        <select class="select2_demo_3 form-control input-lg">
+                                                                            <option>Select Payment Frequency</option>
+                                                                            <option value="Bahamas">Bahamas</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="has-warning">
+                                                                        <label>  </label>
+                                                                        <input type="text" id="salary" name="salary" required="required" class="form-control input-lg" placeholder="Bank account number">
+                                                                    </div>
+                                                                    <div class="">
+                                                                        <label class="text-danger"></label>
+                                                                        <select class="select2_demo_3 form-control input-lg">
+                                                                            <option>Select Payment Method</option>
+                                                                            <option value="Bahamas">Bahamas</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
 
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div id="family" class="tab-pane">
                                                     <div class="panel-body">
-                                                        <strong>Donec quam felis</strong>
+                                                        <div class="row">
+                                                            <h3 class="text-center">Salary Details</h3>
+                                                            <hr>
+                                                            <div class="col-md-6">
+                                                                <div class="has-warning">
+                                                                    <label>  </label>
+                                                                    <select class="select2_demo_3 form-control input-lg">
+                                                                        <option>Marital Status</option>
+                                                                        <option value="Bahamas">Bahamas</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="">
+                                                                    <label class="text-danger"></label>
+                                                                    <select class="select2_demo_3 form-control input-lg">
+                                                                        <option>Number Of Children</option>
+                                                                        <option value="Bahamas">Bahamas</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="text-danger"></label>
+                                                                <div class="radio radio-inline">
+                                                                    <input type="radio" id="spouse_working" value="option1" name="spouse_working" checked="">
+                                                                    <label for="inlineRadio1"> Spouse Working </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <br>
+                                                            <h3 class="text-center">Spouse Details</h3>
+                                                            <hr>
+                                                            <div class="col-md-6">
+                                                                {{--  first name  --}}
+                                                                <div class="has-warning">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="first_name" name="first_name" required="required" class="form-control input-lg" placeholder="First name">
+                                                                </div>
+                                                                {{--  middle name  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="middle_name" name="middle_name" required="required" class="form-control input-lg" placeholder="Middle name">
+                                                                </div>
+                                                                {{--  nationality  --}}
+                                                                <div class="has-warning">
+                                                                    <label>  </label>
+                                                                    <select class="select2_demo_3 form-control input-lg">
+                                                                        <option>Nationality</option>
+                                                                        <option value="Bahamas">Bahamas</option>
+                                                                    </select>
+                                                                </div>
+                                                                {{--  date of birth  --}}
+                                                                <div class="" id="data_1">
+                                                                    <label class="font-noraml"></label>
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                        <input type="text" class="form-control input-lg" value="03/04/2014">
+                                                                    </div>
+                                                                </div>
 
-                                                        <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                                                            and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
+                                                            </div>
 
-                                                        <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                                            sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
+                                                            <div class="col-md-6">
+                                                                {{--  last name  --}}
+                                                                <div class="has-warning">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="last_name" name="last_name" required="required" class="form-control input-lg" placeholder="Last name">
+                                                                </div>
+                                                                {{--  national id  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="national_id" name="national_id" required="required" class="form-control input-lg" placeholder="National ID">
+                                                                </div>
+                                                                {{--  passport  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="passport" name="passport" required="required" class="form-control input-lg" placeholder="Passport">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="">
+                                                            <br>
+                                                            <h3 class="text-center">Children Details</h3>
+                                                            <hr>
+
+                                                            <div class="col-md-11">
+
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <a href="{{route('business.composite.product.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                                                            </div>
+
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>First Name </th>
+                                                                    <th>Middle Name</th>
+                                                                    <th>Last Name</th>
+                                                                    <th>Birth Date</th>
+                                                                    <th>Gender</th>
+                                                                    <th>Married</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>Michael</td>
+                                                                    <td>Thungu</td>
+                                                                    <td>Wanyoike</td>
+                                                                    <td>1.1.1990</td>
+                                                                    <td>Male</td>
+                                                                    <td>Yes</td>
+                                                                    <td>
+                                                                        <a href="{{route('business.project.edit',1)}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                                                        <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div id="contact" class="tab-pane">
                                                     <div class="panel-body">
-                                                        <strong>Donec quam felis</strong>
-
-                                                        <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                                                            and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
-
-                                                        <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                                            sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
+                                                        <div class="row">
+                                                            <h3 class="text-center">Phone Details</h3>
+                                                            <hr>
+                                                            <div class="col-md-6">
+                                                                {{--  office  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="office" name="office" required="required" class="form-control input-lg" placeholder="Office">
+                                                                </div>
+                                                                {{--  mobile  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="mobile" name="mobile" required="required" class="form-control input-lg" placeholder="Mobile">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{--  office extension  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="office_extension" name="office_extension" required="required" class="form-control input-lg" placeholder="Office Extension">
+                                                                </div>
+                                                                {{--  home  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="home" name="home" required="required" class="form-control input-lg" placeholder="Home">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <br>
+                                                            <h3 class="text-center">Address</h3>
+                                                            <hr>
+                                                            <div class="col-md-6">
+                                                                {{--  address 1  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="address_1" name="address_1" required="required" class="form-control input-lg" placeholder="Address 1">
+                                                                </div>
+                                                                {{--  city  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="city" name="city" required="required" class="form-control input-lg" placeholder="City">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{--  address 2  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="address_2" name="address_2" required="required" class="form-control input-lg" placeholder="Address 2">
+                                                                </div>
+                                                                {{--  postcode  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <input type="text" id="postcode" name="postcode" required="required" class="form-control input-lg" placeholder="Postcode">
+                                                                </div>
+                                                                {{--  country  --}}
+                                                                <div class="">
+                                                                    <label>  </label>
+                                                                    <select class="select2_demo_3 form-control input-lg">
+                                                                        <option>Country</option>
+                                                                        <option value="Bahamas">Bahamas</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div id="directory" class="tab-pane">

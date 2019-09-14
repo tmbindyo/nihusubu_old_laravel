@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 
 //Dashboard
 Route::get('/dashboard', 'Business\DashboardController@dashboard')->name('business.dashboard');
@@ -171,8 +160,8 @@ Route::get('/expense/settings', 'Business\PurchaseController@expenseSettings')->
 // Accounting
 Route::get('/chart/of/accounts', 'Business\AccountingController@chartOfAccounts')->name('business.chart.of.accounts');
 Route::get('/chart/of/account/store', 'Business\AccountingController@chartOfAccountStore')->name('business.chart.of.account.store');
-Route::get('/chart/of/account/update/{chart_of_account_id}', 'Business\AccountingController@chartOfAccountStore')->name('business.chart.of.account.update');
-Route::get('/chart/of/account/delete/{chart_of_account_id}', 'Business\AccountingController@chartOfAccountStore')->name('business.chart.of.account.delete');
+Route::get('/chart/of/account/update/{chart_of_account_id}', 'Business\AccountingController@chartOfAccountUpdate')->name('business.chart.of.account.update');
+Route::get('/chart/of/account/delete/{chart_of_account_id}', 'Business\AccountingController@chartOfAccountDelete')->name('business.chart.of.account.delete');
 
 Route::get('/manual/journals', 'Business\AccountingController@manualJournals')->name('business.manual.journals');
 Route::get('/manual/journal/store', 'Business\AccountingController@manualJournalStore')->name('business.manual.journal.store');
@@ -182,6 +171,12 @@ Route::get('/manual/journal/delete/{manual_journal_id}', 'Business\AccountingCon
 
 // Assets
 Route::get('/assets', 'Business\AssetController@assets')->name('business.assets');
+Route::get('/asset/create', 'Business\AssetController@assetCreate')->name('business.asset.create');
+Route::get('/asset/store', 'Business\AssetController@assetStore')->name('business.asset.store');
+Route::get('/asset/show/{asset_id}', 'Business\AssetController@assetShow')->name('business.asset.show');
+Route::get('/asset/edit/{asset_id}', 'Business\AssetController@assetEdit')->name('business.asset.edit');
+Route::get('/asset/update/{asset_id}', 'Business\AssetController@assetUpdate')->name('business.asset.update');
+Route::get('/asset/delete/{asset_id}', 'Business\AssetController@assetDelete')->name('business.asset.delete');
 
 
 // Projects
@@ -204,7 +199,7 @@ Route::get('/employee/update/{employee_id}', 'Business\EmployeeController@employ
 Route::get('/employee/edit/{employee_id}', 'Business\EmployeeController@employeeEdit')->name('business.employee.edit');
 Route::get('/employee/delete/{employee_id}', 'Business\EmployeeController@employeeDelete')->name('business.employee.delete');
 
-Route::get('/leaves', 'Business\EmployeeController@leaves')->name('business.leaves');
+Route::get('/leave', 'Business\EmployeeController@leave')->name('business.leave');
 Route::get('/leave/create', 'Business\EmployeeController@leaveCreate')->name('business.leave.create');
 Route::post('/leave/store', 'Business\EmployeeController@leaveStore')->name('business.leave.store');
 Route::get('/leave/show/{leave_id}', 'Business\EmployeeController@leaveShow')->name('business.leave.show');
@@ -212,7 +207,7 @@ Route::get('/leave/update/{leave_id}', 'Business\EmployeeController@leaveUpdate'
 Route::get('/leave/edit/{leave_id}', 'Business\EmployeeController@leaveEdit')->name('business.leave.edit');
 Route::get('/leave/delete/{leave_id}', 'Business\EmployeeController@leaveDelete')->name('business.leave.delete');
 
-Route::get('/attendances', 'Business\EmployeeController@attendances')->name('business.attendances');
+Route::get('/attendance', 'Business\EmployeeController@attendance')->name('business.attendance');
 Route::get('/attendance/create', 'Business\EmployeeController@attendanceCreate')->name('business.attendance.create');
 Route::post('/attendance/store', 'Business\EmployeeController@attendanceStore')->name('business.attendance.store');
 Route::get('/attendance/show/{attendance_id}', 'Business\EmployeeController@attendanceShow')->name('business.attendance.show');
@@ -220,13 +215,13 @@ Route::get('/attendance/update/{attendance_id}', 'Business\EmployeeController@at
 Route::get('/attendance/edit/{attendance_id}', 'Business\EmployeeController@attendanceEdit')->name('business.attendance.edit');
 Route::get('/attendance/delete/{attendance_id}', 'Business\EmployeeController@attendanceDelete')->name('business.attendance.delete');
 
-Route::get('/document/flows', 'Business\EmployeeController@documentFlows')->name('business.document.flows');
-Route::get('/document/flow/create', 'Business\EmployeeController@documentFlowCreate')->name('business.document.flow.create');
-Route::post('/document/flow/store', 'Business\EmployeeController@documentFlowStore')->name('business.document.flow.store');
-Route::get('/document/flow/show/{document_flow_id}', 'Business\EmployeeController@documentFlowShow')->name('business.document.flow.show');
-Route::get('/document/flow/update/{document_flow_id}', 'Business\EmployeeController@documentFlowUpdate')->name('business.document.flow.edit');
-Route::get('/document/flow/edit/{document_flow_id}', 'Business\EmployeeController@documentFlowEdit')->name('business.document.flow.edit');
-Route::get('/document/flow/delete/{document_flow_id}', 'Business\EmployeeController@documentFlowDelete')->name('business.document.flow.delete');
+Route::get('/document/workflow', 'Business\EmployeeController@documentWorkflow')->name('business.document.workflow');
+Route::get('/document/workflow/create', 'Business\EmployeeController@documentWorkflowCreate')->name('business.document.workflow.create');
+Route::post('/document/workflow/store', 'Business\EmployeeController@documentWorkflowStore')->name('business.document.workflow.store');
+Route::get('/document/workflow/show/{document_workflow_id}', 'Business\EmployeeController@documentWorkflowShow')->name('business.document.workflow.show');
+Route::get('/document/workflow/update/{document_workflow_id}', 'Business\EmployeeController@documentWorkflowUpdate')->name('business.document.workflow.edit');
+Route::get('/document/workflow/edit/{document_workflow_id}', 'Business\EmployeeController@documentWorkflowEdit')->name('business.document.workflow.edit');
+Route::get('/document/workflow/delete/{document_workflow_id}', 'Business\EmployeeController@documentWorkflowDelete')->name('business.document.workflow.delete');
 
 Route::get('/teams', 'Business\EmployeeController@teams')->name('business.teams');
 Route::get('/team/create', 'Business\EmployeeController@teamCreate')->name('business.team.create');
@@ -236,7 +231,7 @@ Route::get('/team/update/{team_id}', 'Business\EmployeeController@teamUpdate')->
 Route::get('/team/edit/{team_id}', 'Business\EmployeeController@teamEdit')->name('business.team.edit');
 Route::get('/team/delete/{team_id}', 'Business\EmployeeController@teamDelete')->name('business.team.delete');
 
-Route::get('/payrolls', 'Business\EmployeeController@payrolls')->name('business.payrolls');
+Route::get('/payroll', 'Business\EmployeeController@payroll')->name('business.payroll');
 Route::get('/payroll/create', 'Business\EmployeeController@payrollCreate')->name('business.payroll.create');
 Route::post('/payroll/store', 'Business\EmployeeController@payrollStore')->name('business.payroll.store');
 Route::get('/payroll/show/{payroll_id}', 'Business\EmployeeController@payrollShow')->name('business.payroll.show');
@@ -244,6 +239,9 @@ Route::get('/payroll/update/{payroll_id}', 'Business\EmployeeController@payrollU
 Route::get('/payroll/edit/{payroll_id}', 'Business\EmployeeController@payrollEdit')->name('business.payroll.edit');
 Route::get('/payroll/delete/{payroll_id}', 'Business\EmployeeController@payrollDelete')->name('business.payroll.delete');
 
+Route::get('/employer', 'Business\EmployeeController@employer')->name('business.employer');
+
+Route::get('/human/resource/settings', 'Business\EmployeeController@humanResourceSettings')->name('business.human.resource.settings');
 
 // Settings
 Route::get('/organization/profile', 'Business\SettingController@organizationProfile')->name('business.organization.profile');
