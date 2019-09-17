@@ -77,8 +77,8 @@
                     </td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <a href="{{ route('business.employee.show', 1) }}" class="btn-white btn btn-xs">View</a>
-                            <a href="{{ route('business.employee.delete', 1) }}" class="btn-danger btn btn-xs">Delete</a>
+                            <a href="{{ route('business.employee.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                            <a href="{{ route('business.employee.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                         </div>
                     </td>
                 </tr>

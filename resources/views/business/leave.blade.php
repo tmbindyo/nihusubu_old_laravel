@@ -11,6 +11,7 @@
 
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
+
 @endsection
 @section('content')
 
@@ -31,17 +32,19 @@
     </div>
     <div class="col-lg-4">
         <div class="title-action">
-            <a href="{{route('business.leave.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+            <a href="{{route('business.product.group.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
         </div>
     </div>
 </div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
+
+    {{--  transaction summary  --}}
     <div class="row">
         <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Leave</h5>
+                <h5>Transaction Summary</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -56,43 +59,107 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Gender</th>
-                    <th>Position</th>
-                    <th>Department</th>
-                    <th>Date Joined</th>
+                    <th>Applied At</th>
+                    <th>Leave Type</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>For</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Reason</th>
+                    <th>Remark</th>
+                    <th>Department</th>
+                    <th>Branch</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="gradeA">
                     <td>akigen</td>
                     <td>Andrew Kigen Cheruiyot</td>
-                    <td>Male</td>
-                    <td>Head of Creatives</td>
-                    <td>Design and Branding</td>
-                    <td>2018-07-01</td>
+                    <td>2019-10-03</td>
+                    <td>ANNUAL</td>
+                    <td>2019-10-03</td>
+                    <td>2018-10-07</td>
+                    <td>3.00 Days</td>
                     <td>
-                        <span class="label label-primary">Confirmed</span>
+                        <span class="label label-primary">Approved</span>
                     </td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <a href="{{ route('business.leave.show', 1) }}" class="btn-white btn btn-xs">View</a>
-                            <a href="{{ route('business.leave.delete', 1) }}" class="btn-danger btn btn-xs">Delete</a>
-                        </div>
-                    </td>
+                    <td>Personal</td>
+                    <td></td>
+                    <td>Development</td>
+                    <td></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Gender</th>
-                    <th>Position</th>
-                    <th>Department</th>
-                    <th>Date Joined</th>
+                    <th>Applied At</th>
+                    <th>Leave Type</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>For</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Reason</th>
+                    <th>Remark</th>
+                    <th>Department</th>
+                    <th>Branch</th>
+                </tr>
+            </tfoot>
+            </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    {{--  entitlment summary  --}}
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Entitlement Summary</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover dataTables-example" >
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Balance</th>
+                    <th>Earned</th>
+                    <th>Carried Over</th>
+                    <th>Entitled</th>
+                    <th>Taken</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="gradeA">
+                    <td>akigen</td>
+                    <td>Andrew Kigen Cheruiyot</td>
+                    <td>2019-09-17</td>
+                    <td>ANNUAL</td>
+                    <td>2019-10-07</td>
+                    <td>3.00 Days</td>
+                    <td>Ap</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>SKU</th>
+                    <th>Stock on Hand</th>
+                    <th>Reorder Level</th>
+                    <th>Carried Over</th>
+                    <th>Entitled</th>
+                    <th>Taken</th>
                 </tr>
             </tfoot>
             </table>

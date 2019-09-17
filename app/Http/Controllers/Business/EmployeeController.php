@@ -65,93 +65,6 @@ class EmployeeController extends Controller
         return back()->withStatus(__('Leave successfully deleted.'));
     }
 
-    public function attendance()
-    {
-        return view('business.attendance');
-    }
-    public function attendanceCreate()
-    {
-        return view('business.attendance_create');
-    }
-    public function attendanceStore(Request $request)
-    {
-        return back()->withStatus(__('Attendance successfully stored.'));
-    }
-    public function attendanceShow($attendance_id)
-    {
-        return view('business.attendance_show');
-    }
-    public function attendanceEdit($attendance_id)
-    {
-        return view('business.attendance_edit');
-    }
-    public function attendanceUpdate(Request $request)
-    {
-        return back()->withStatus(__('Attendance successfully updated.'));
-    }
-    public function attendanceDelete($attendance_id)
-    {
-        return back()->withStatus(__('Attendance successfully deleted.'));
-    }
-
-    public function documentWorkflow()
-    {
-        return view('business.document_workflow');
-    }
-    public function documentWorkflowCreate()
-    {
-        return view('business.document_workflow_create');
-    }
-    public function documentWorkflowStore(Request $request)
-    {
-        return back()->withStatus(__('Document workflow successfully stored.'));
-    }
-    public function documentWorkflowShow($document_workflow_id)
-    {
-        return view('business.document_workflow_show');
-    }
-    public function documentWorkflowEdit($document_workflow_id)
-    {
-        return view('business.document_workflow_edit');
-    }
-    public function documentWorkflowUpdate(Request $request)
-    {
-        return back()->withStatus(__('Document workflow successfully updated.'));
-    }
-    public function documentWorkflowDelete($document_workflow_id)
-    {
-        return back()->withStatus(__('Document workflow successfully deleted.'));
-    }
-
-    public function teams()
-    {
-        return view('business.teams');
-    }
-    public function teamCreate()
-    {
-        return view('business.team_create');
-    }
-    public function teamStore(Request $request)
-    {
-        return back()->withStatus(__('Team successfully stored.'));
-    }
-    public function teamShow($team_id)
-    {
-        return view('business.team_show');
-    }
-    public function teamEdit($team_id)
-    {
-        return view('business.team_edit');
-    }
-    public function teamUpdate(Request $request)
-    {
-        return back()->withStatus(__('Team successfully updated.'));
-    }
-    public function teamDelete($team_id)
-    {
-        return back()->withStatus(__('Team successfully deleted.'));
-    }
-
     public function payroll()
     {
         return view('business.payroll');
@@ -189,5 +102,49 @@ class EmployeeController extends Controller
     public function humanResourceSettings()
     {
         return view('business.human_resource_settings');
+    }
+
+    public function workdaysUpdate()
+    {
+        return back()->withStatus(__('Workday successfully updated.'));
+    }
+
+    public function holidayStore()
+    {
+        return back()->withStatus(__('Holiday successfully created.'));
+    }
+    public function holidayUpdate()
+    {
+        return back()->withStatus(__('Holiday successfully updated.'));
+    }
+    public function holidayDelete()
+    {
+        return back()->withStatus(__('Holiday successfully deleted.'));
+    }
+
+    public function leaveTypeStore()
+    {
+        return back()->withStatus(__('Leave Type successfully created.'));
+    }
+    public function leaveTypeUpdate()
+    {
+        return back()->withStatus(__('Leave Type successfully updated.'));
+    }
+    public function leaveTypeDelete()
+    {
+        return back()->withStatus(__('Leave Type successfully deleted.'));
+    }
+
+    public function earningPolicyStore()
+    {
+        return back()->withStatus(__('Earning policy successfully created.'));
+    }
+    public function earningPolicyUpdate()
+    {
+        return back()->withStatus(__('Earning policy successfully updated.'));
+    }
+    public function earningPolicyDelete()
+    {
+        return back()->withStatus(__('Earning policy successfully deleted.'));
     }
 }

@@ -234,21 +234,6 @@
                             Leave
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.attendance' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.attendance')}}">
-                            Attendance
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.document.workflow' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.document.workflow')}}">
-                            Document Workflow
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.teams' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.teams')}}">
-                            Team
-                        </a>
-                    </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.payroll' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'business.payroll')}}">
                             Payroll

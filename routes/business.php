@@ -207,30 +207,6 @@ Route::get('/leave/update/{leave_id}', 'Business\EmployeeController@leaveUpdate'
 Route::get('/leave/edit/{leave_id}', 'Business\EmployeeController@leaveEdit')->name('business.leave.edit');
 Route::get('/leave/delete/{leave_id}', 'Business\EmployeeController@leaveDelete')->name('business.leave.delete');
 
-Route::get('/attendance', 'Business\EmployeeController@attendance')->name('business.attendance');
-Route::get('/attendance/create', 'Business\EmployeeController@attendanceCreate')->name('business.attendance.create');
-Route::post('/attendance/store', 'Business\EmployeeController@attendanceStore')->name('business.attendance.store');
-Route::get('/attendance/show/{attendance_id}', 'Business\EmployeeController@attendanceShow')->name('business.attendance.show');
-Route::get('/attendance/update/{attendance_id}', 'Business\EmployeeController@attendanceUpdate')->name('business.attendance.edit');
-Route::get('/attendance/edit/{attendance_id}', 'Business\EmployeeController@attendanceEdit')->name('business.attendance.edit');
-Route::get('/attendance/delete/{attendance_id}', 'Business\EmployeeController@attendanceDelete')->name('business.attendance.delete');
-
-Route::get('/document/workflow', 'Business\EmployeeController@documentWorkflow')->name('business.document.workflow');
-Route::get('/document/workflow/create', 'Business\EmployeeController@documentWorkflowCreate')->name('business.document.workflow.create');
-Route::post('/document/workflow/store', 'Business\EmployeeController@documentWorkflowStore')->name('business.document.workflow.store');
-Route::get('/document/workflow/show/{document_workflow_id}', 'Business\EmployeeController@documentWorkflowShow')->name('business.document.workflow.show');
-Route::get('/document/workflow/update/{document_workflow_id}', 'Business\EmployeeController@documentWorkflowUpdate')->name('business.document.workflow.edit');
-Route::get('/document/workflow/edit/{document_workflow_id}', 'Business\EmployeeController@documentWorkflowEdit')->name('business.document.workflow.edit');
-Route::get('/document/workflow/delete/{document_workflow_id}', 'Business\EmployeeController@documentWorkflowDelete')->name('business.document.workflow.delete');
-
-Route::get('/teams', 'Business\EmployeeController@teams')->name('business.teams');
-Route::get('/team/create', 'Business\EmployeeController@teamCreate')->name('business.team.create');
-Route::post('/team/store', 'Business\EmployeeController@teamStore')->name('business.team.store');
-Route::get('/team/show/{team_id}', 'Business\EmployeeController@teamShow')->name('business.team.show');
-Route::get('/team/update/{team_id}', 'Business\EmployeeController@teamUpdate')->name('business.team.edit');
-Route::get('/team/edit/{team_id}', 'Business\EmployeeController@teamEdit')->name('business.team.edit');
-Route::get('/team/delete/{team_id}', 'Business\EmployeeController@teamDelete')->name('business.team.delete');
-
 Route::get('/payroll', 'Business\EmployeeController@payroll')->name('business.payroll');
 Route::get('/payroll/create', 'Business\EmployeeController@payrollCreate')->name('business.payroll.create');
 Route::post('/payroll/store', 'Business\EmployeeController@payrollStore')->name('business.payroll.store');
@@ -242,6 +218,20 @@ Route::get('/payroll/delete/{payroll_id}', 'Business\EmployeeController@payrollD
 Route::get('/employer', 'Business\EmployeeController@employer')->name('business.employer');
 
 Route::get('/human/resource/settings', 'Business\EmployeeController@humanResourceSettings')->name('business.human.resource.settings');
+
+Route::get('/workdays/update', 'Business\EmployeeController@workdaysUpdate')->name('business.workdays.update');
+
+Route::get('/holiday/store', 'Business\EmployeeController@holidayStore')->name('business.holiday.store');
+Route::get('/holiday/update/{holiday_id}', 'Business\EmployeeController@holidayUpdate')->name('business.holiday.update');
+Route::get('/holiday/delete/{holiday_id}', 'Business\EmployeeController@holidayDelete')->name('business.holiday.delete');
+
+Route::get('/leave/type/store', 'Business\EmployeeController@leaveTypeStore')->name('business.leave.type.store');
+Route::get('/leave/type/update/{holiday_id}', 'Business\EmployeeController@leaveTypeUpdate')->name('business.leave.type.update');
+Route::get('/leave/type/delete/{holiday_id}', 'Business\EmployeeController@leaveTypeDelete')->name('business.leave.type.delete');
+
+Route::get('/earning/policy/store', 'Business\EmployeeController@earningPolicyStore')->name('business.earning.policy.store');
+Route::get('/earning/policy/update/{holiday_id}', 'Business\EmployeeController@earningPolicyUpdate')->name('business.earning.policy.update');
+Route::get('/earning/policy/delete/{holiday_id}', 'Business\EmployeeController@earningPolicyDelete')->name('business.earning.policy.delete');
 
 // Settings
 Route::get('/organization/profile', 'Business\SettingController@organizationProfile')->name('business.organization.profile');
