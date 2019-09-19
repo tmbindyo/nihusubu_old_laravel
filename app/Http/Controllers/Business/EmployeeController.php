@@ -69,29 +69,29 @@ class EmployeeController extends Controller
     {
         return view('business.payroll');
     }
-    public function payrollCreate()
+    public function payrollHistory()
     {
-        return view('business.payroll_create');
+        return view('business.payroll_history');
     }
-    public function payrollStore(Request $request)
+    public function employeePayrollHistory()
     {
-        return back()->withStatus(__('Payroll successfully stored.'));
+        return view('business.employee_payroll_history');
     }
-    public function payrollShow($payroll_id)
+    public function payrollAnnualSalaryStatement()
     {
-        return view('business.payroll_show');
+        return view('business.payroll_annual_salary_statement');
     }
-    public function payrollEdit($payroll_id)
+    public function payrollProcess()
     {
-        return view('business.payroll_edit');
+        return view('business.payroll_process');
     }
-    public function payrollUpdate(Request $request)
+    public function payrollProcessPayment()
     {
-        return back()->withStatus(__('Payroll successfully updated.'));
+        return back()->withStatus(__('Payroll successfully processed.'));
     }
-    public function payrollDelete($payroll_id)
+    public function payrollSalaryAdjustment()
     {
-        return back()->withStatus(__('Payroll successfully deleted.'));
+        return view('business.payroll_salary_adjustment');
     }
 
     public function employer()

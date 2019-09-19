@@ -74,7 +74,7 @@
 
 @endsection
 
-@include('business.layouts.modals.calendar')
+@include('personal.layouts.modals.calendar_create')
 
 @section('js')
 

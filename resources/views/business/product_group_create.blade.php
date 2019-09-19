@@ -100,16 +100,16 @@
                         <div class="row">
                             <div class="col-md-8">
                                 {{--  Product type  --}}
-                                {{--  todo only one should be selectable  --}}
                                 <p>Product Type</p>
-                                <div class="radio radio-inline">
-                                    <input type="radio" id="good" value="option1" name="good" checked="">
+                                <div class="radio radio-info radio-inline">
+                                    <input type="radio" id="inlineRadio1" value="goods" name="radioInline" checked="">
                                     <label for="inlineRadio1"> Goods </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="inlineRadio2" value="option2" name="service">
-                                    <label for="inlineRadio2"> Service </label>
+                                    <input type="radio" id="inlineRadio2" value="services" name="radioInline">
+                                    <label for="inlineRadio2"> Services </label>
                                 </div>
+
                                 <br>
                                 <label>  </label>
                                 {{--  Product group name  --}}
@@ -131,7 +131,7 @@
                                     <label for="returnable">
                                         Returnable Product
                                     </label>
-                                    <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if all the items in the group are eligible for sales return." class="fa fa-question-circle"></i></span>
+                                    <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if all the items in the group are eligible for sales return." class="fa fa-question-circle fa-2x"></i></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -186,7 +186,7 @@
                                     </div>
                                     <div class="col-md-11">
                                         <div class="has-warning">
-                                            <input type="text" name="attribute" class="form-control input-lg" placeholder="e.g Color" required>
+                                            <input type="text" name="attribute" class="form-control input-lg" placeholder="Attributes e.g Color" required>
                                         </div>
                                     </div>
                                 </div>
@@ -196,11 +196,11 @@
                                 <div class="row">
                                     {{--                                    <label class="text-danger">Attribute</label>--}}
                                     <div class="col-md-1">
-                                        <span><i data-toggle="tooltip" data-placement="right" title="Attributes options, if the attribut is color, we can have a black, blue, green, white or grey variation of the same product." class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="Attributes options, if the attribute is color, we can have a black, blue, green, white or grey variation of the same product." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                     </div>
                                     <div class="col-md-11">
                                         <div class="has-warning">
-                                            <input type="text" name="attribute_options" class="input-lg" name="attribute_options" id="tag-input" required>
+                                            <input type="text" name="attribute_options" class="input-lg" name="attribute_options" id="tag-input" required >
                                         </div>
                                     </div>
                                 </div>

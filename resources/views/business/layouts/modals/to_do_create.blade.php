@@ -25,23 +25,25 @@
                     <div class="row">
                         <div class="col-md-7">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" id="name" name="name" required="required" placeholder="To Do Name" class="form-control input-lg">
-                                <i>Give your to do a name</i>
+                                <div class="has-warning">
+                                    <input type="text" id="task" name="task" required="required" placeholder="Task" class="form-control input-lg">
+                                    <i>task</i>
+                                </div>
                             </div>
                         </div>
 
                         <div class="col-md-4 col-md-offset-1">
                             <div class="form-group" id="data_1">
-                                <label>Due Date</label>
-                                <div class="input-group date">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </span>
-                                    <input type="text" name="due_date" id="date_due" class="form-control input-lg">
+                                <div class="has-warning">
+                                    <div class="input-group date">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                        <input type="text" name="due_date" id="due_date" class="form-control input-lg">
+                                    </div>
+                                    <i> due date.</i>
+                                    <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                 </div>
-                                <i> due date.</i>
-                                <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                             </div>
                         </div>
                     </div>
@@ -49,10 +51,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>
-                                    Notes
-                                </label>
-                                <textarea id="notes" rows="6" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="Notes..."></textarea>
+                                <div class="has-warning">
+                                    <textarea id="notes" rows="5" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="Notes..."></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>

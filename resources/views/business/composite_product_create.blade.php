@@ -58,11 +58,11 @@
                                         {{--  todo only one should be selectable  --}}
                                         <p>Product Type</p>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="good" value="option1" name="good" checked="">
+                                            <input type="radio" id="good" value="goods" name="radioInline" checked="">
                                             <label for="inlineRadio1"> Goods </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="inlineRadio2" value="option2" name="service">
+                                            <input type="radio" id="inlineRadio2" value="services" name="radioInline">
                                             <label for="inlineRadio2"> Service </label>
                                         </div>
                                         {{--  Product name  --}}
@@ -82,14 +82,14 @@
                                         <label>  </label>
                                         {{--  Product returnable  --}}
                                         {{--todo description tooltip--}}
-                                        <div class="checkbox">
+                                        <div class="">
                                             <input id="returnable" name="returnable" type="checkbox">
                                             <label for="returnable">
                                                 Returnable Product
                                             </label>
-                                            <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-question-circle"></i></span>
-
+                                            <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-question-circle fa-2x"></i></span>
                                         </div>
+
                                     </div>
                                     <div class="col-md-4">
                                         {{--  TODO Thumbnail  --}}
@@ -107,7 +107,7 @@
                                     <div class="col-md-6">
                                         {{--  Product Weight  --}}
                                         <label></label>
-                                        <input type="text" class="form-control input-lg" data-mask="$ 999999" placeholder="Weight (kg)">
+                                        <input type="number" class="form-control input-lg" data-mask="$ 999999" placeholder="Weight (kg)">
                                         <i>(Length X Width X Height)</i>
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@
                                         {{--  Product Manufacturer  --}}
                                         <label>  </label>
                                         <select class="select2_demo_3 form-control input-lg">
-                                            <option>Select Manufacturer</option>
+                                            <option>Manufacturer</option>
                                             <option value="Bahamas">Bahamas</option>
                                         </select>
                                     </div>
@@ -124,7 +124,7 @@
                                         {{--  Product Brand  --}}
                                         <label>  </label>
                                         <select class="select2_demo_3 form-control input-lg">
-                                            <option>Select Brand</option>
+                                            <option>Brand</option>
                                             <option value="Bahamas">Bahamas</option>
                                         </select>
                                     </div>
@@ -163,7 +163,7 @@
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
                                                     <select class="select2_demo_3 form-control input-lg">
-                                                        <option>Select Account</option>
+                                                        <option>Account</option>
                                                         <option value="Bahamas">Bahamas</option>
                                                     </select>
                                                 </div>

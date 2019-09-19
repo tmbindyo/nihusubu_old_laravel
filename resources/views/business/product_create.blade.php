@@ -98,11 +98,11 @@
                                         {{--  todo only one should be selectable  --}}
                                         <p>Product Type</p>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="good" value="option1" name="good" checked="">
+                                            <input type="radio" id="good" value="goods" name="radioInline" checked="">
                                             <label for="inlineRadio1"> Goods </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="inlineRadio2" value="option2" name="service">
+                                            <input type="radio" id="inlineRadio2" value="services" name="radioInline">
                                             <label for="inlineRadio2"> Service </label>
                                         </div>
                                         {{--  Product name  --}}

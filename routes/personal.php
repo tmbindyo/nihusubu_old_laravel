@@ -15,12 +15,14 @@ Route::get('/profile/update/{profile_id}', 'Personal\ProfileController@profileUp
 
 //Calendar
 Route::get('/calendar', 'Personal\CalendarController@calendar')->name('personal.calendar');
-Route::post('/calendar/update/{calendar_id}', 'Personal\CalendarController@calendarStore')->name('personal.calendar.store');
+Route::post('/calendar/store', 'Personal\CalendarController@calendarStore')->name('personal.calendar.store');
+Route::post('/calendar/update/{calendar_id}', 'Personal\CalendarController@calendarUpdate')->name('personal.calendar.update');
 
 
 // To Do
 Route::get('/to/dos', 'Personal\ToDoController@toDos')->name('personal.to.dos');
 Route::post('/to/do/store', 'Personal\ToDoController@toDoStore')->name('personal.to.do.store');
+Route::post('/to/do/update/{to_do_id}', 'Personal\ToDoController@toDoUpdate')->name('personal.to.do.update');
 
 
 // Income

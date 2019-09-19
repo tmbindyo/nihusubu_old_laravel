@@ -208,12 +208,28 @@ Route::get('/leave/edit/{leave_id}', 'Business\EmployeeController@leaveEdit')->n
 Route::get('/leave/delete/{leave_id}', 'Business\EmployeeController@leaveDelete')->name('business.leave.delete');
 
 Route::get('/payroll', 'Business\EmployeeController@payroll')->name('business.payroll');
-Route::get('/payroll/create', 'Business\EmployeeController@payrollCreate')->name('business.payroll.create');
-Route::post('/payroll/store', 'Business\EmployeeController@payrollStore')->name('business.payroll.store');
-Route::get('/payroll/show/{payroll_id}', 'Business\EmployeeController@payrollShow')->name('business.payroll.show');
-Route::get('/payroll/update/{payroll_id}', 'Business\EmployeeController@payrollUpdate')->name('business.payroll.edit');
-Route::get('/payroll/edit/{payroll_id}', 'Business\EmployeeController@payrollEdit')->name('business.payroll.edit');
-Route::get('/payroll/delete/{payroll_id}', 'Business\EmployeeController@payrollDelete')->name('business.payroll.delete');
+Route::get('/payroll/history', 'Business\EmployeeController@payrollHistory')->name('business.payroll.history');
+Route::get('/payroll/history/{employee_id}', 'Business\EmployeeController@employeePayrollHistory')->name('business.employee.payroll.history');
+Route::get('/payroll/annual/salary/statement', 'Business\EmployeeController@payrollAnnualSalaryStatement')->name('business.payroll.annual.salary.statement');
+Route::get('/payroll/process', 'Business\EmployeeController@payrollProcess')->name('business.payroll.process');
+Route::post('/payroll/process/payment', 'Business\EmployeeController@payrollProcessPayment')->name('business.payroll.process.payment');
+Route::get('/payroll/salary/adjustment/{employee_id}', 'Business\EmployeeController@payrollSalaryAdjustment')->name('business.payroll.salary.adjustment');
+
+Route::post('/variable/pay/store', 'Business\EmployeeController@variablePayStore')->name('business.variable.pay.store');
+Route::get('/variable/pay/update/{variable_pay_id}', 'Business\EmployeeController@variablePayUpdate')->name('business.variable.pay.update');
+Route::get('/variable/pay/delete/{variable_pay_id}', 'Business\EmployeeController@variablePayDelete')->name('business.variable.pay.delete');
+
+Route::post('/variable/deduction/store', 'Business\EmployeeController@variableDeductionStore')->name('business.variable.deduction.store');
+Route::get('/variable/deduction/update/{variable_deduction_id}', 'Business\EmployeeController@variableDeductionUpdate')->name('business.variable.deduction.update');
+Route::get('/variable/deduction/delete/{variable_deduction_id}', 'Business\EmployeeController@variableDeductionDelete')->name('business.variable.deduction.delete');
+
+Route::post('/bonus/store', 'Business\EmployeeController@bonusStore')->name('business.bonus.store');
+Route::get('/bonus/update/{bonus_id}', 'Business\EmployeeController@bonusUpdate')->name('business.bonus.update');
+Route::get('/bonus/delete/{bonus_id}', 'Business\EmployeeController@bonusDelete')->name('business.bonus.delete');
+
+Route::post('/statutory/contribution/store', 'Business\EmployeeController@statutoryContributionStore')->name('business.statutory.contribution.store');
+Route::get('/statutory/contribution/update/{variable_deduction_id}', 'Business\EmployeeController@statutoryContributionUpdate')->name('business.statutory.contribution.update');
+Route::get('/statutory/contribution/delete/{variable_deduction_id}', 'Business\EmployeeController@statutoryContributionDelete')->name('business.statutory.contribution.delete');
 
 Route::get('/employer', 'Business\EmployeeController@employer')->name('business.employer');
 
