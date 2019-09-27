@@ -8,8 +8,8 @@
                     <div class="s-header__logo">
                         <a href="{{route("landing")}}" class="s-header__logo-link">
                             {{--  TODO Change logo  --}}
-                            <img style="width: 50px;" class="s-header__logo-img s-header__logo-img-default" src="{{ asset('nihusubu.jpg') }}" alt="Nihusubu">
-                            <img class="s-header__logo-img s-header__logo-img-shrink" src="{{ asset('nihusubu.jpg') }}" alt="Nihusubu">
+                            <img style="width: 50px;" class="s-header__logo-img s-header__logo-img-default" src="{{ asset('nihusubu.png') }}" alt="Nihusubu">
+                            <img class="s-header__logo-img s-header__logo-img-shrink" src="{{ asset('nihusubu.png') }}" alt="Nihusubu">
                         </a>
                     </div>
                     <!-- End Logo -->

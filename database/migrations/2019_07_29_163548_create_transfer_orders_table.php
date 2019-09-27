@@ -24,7 +24,7 @@ class CreateTransferOrdersTable extends Migration
             $table->uuid('destination_warehouse_id');
 
             $table->integer('user_id')->unsigned();
-            $table->uuid('status_type_id');
+            $table->uuid('status_id');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -34,7 +34,7 @@ class CreateSalesTable extends Migration
             $table->uuid('customer_id');
 
             $table->integer('user_id')->unsigned();
-            $table->uuid('status_type_id');
+            $table->uuid('status_id');
             $table->timestamps();
             $table->softDeletes();
         });

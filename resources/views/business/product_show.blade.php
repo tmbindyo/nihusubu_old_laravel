@@ -116,8 +116,11 @@
                             </dl>
                             <hr>
 
+                            {{--  todo time to complete a service  --}}
+
                             <div>
                                 <div class="btn-group">
+                                    <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button>
                                     <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Update stock</button>
                                     <a href="{{route('business.product.edit',1)}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
                                     <button class="btn btn-white btn-sm"><i class="fa fa-envelope"></i> Contact with author </button>

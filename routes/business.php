@@ -163,6 +163,8 @@ Route::get('/chart/of/account/store', 'Business\AccountingController@chartOfAcco
 Route::get('/chart/of/account/update/{chart_of_account_id}', 'Business\AccountingController@chartOfAccountUpdate')->name('business.chart.of.account.update');
 Route::get('/chart/of/account/delete/{chart_of_account_id}', 'Business\AccountingController@chartOfAccountDelete')->name('business.chart.of.account.delete');
 
+Route::get('/transactions', 'Business\AccountingController@transactions')->name('business.transactions');
+
 Route::get('/manual/journals', 'Business\AccountingController@manualJournals')->name('business.manual.journals');
 Route::get('/manual/journal/store', 'Business\AccountingController@manualJournalStore')->name('business.manual.journal.store');
 Route::get('/manual/journal/update/{manual_journal_id}', 'Business\AccountingController@manualJournalUpdate')->name('business.manual.journal.update');

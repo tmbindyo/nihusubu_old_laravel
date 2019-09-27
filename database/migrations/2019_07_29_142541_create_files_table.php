@@ -23,7 +23,7 @@ class CreateFilesTable extends Migration
             $table->uuid('file_type_id');
 
             $table->integer('user_id')->unsigned();
-            $table->uuid('status_type_id');
+            $table->uuid('status_id');
             $table->timestamps();
             $table->softDeletes();
         });

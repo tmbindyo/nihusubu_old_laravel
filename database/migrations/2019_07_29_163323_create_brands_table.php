@@ -18,7 +18,7 @@ class CreateBrandsTable extends Migration
             $table->string('name', 200);
             $table->longText('description');
             $table->integer('user_id')->unsigned();
-            $table->uuid('status_type_id');
+            $table->uuid('status_id');
             $table->timestamps();
             $table->softDeletes();
         });

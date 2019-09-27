@@ -35,6 +35,7 @@
             <div class="col-lg-4">
                 <div class="title-action">
                     <a href="{{route('business.estimate.edit',1)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                    <a href="{{route('business.estimate.edit',1)}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Invoice </a>
                     <a href="{{route('business.invoice.print',1)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
                 </div>
             </div>

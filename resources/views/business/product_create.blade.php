@@ -176,42 +176,6 @@
                                 <h3 class="text-center">SALES AND PURCHASE INFORMATION</h3>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        {{--  Selling price  --}}
-                                        <div class="has-warning">
-                                            <label class="text-danger"></label>
-                                            <input type="text" id="selling_price" name="selling_price" required="required" placeholder="Selling Price" class="form-control input-lg">
-                                            <i>Give your product a price</i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{--  Purchase price  --}}
-                                        <div class="has-warning">
-                                            <label class="text-danger"></label>
-                                            <input type="text" id="purchase_price" name="purchase_price" required="required" placeholder="Purchase Price" class="form-control input-lg">
-                                            <i>Give your product a price</i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{--  Product selling account  --}}
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <label class="text-danger"></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you sell will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
-                                            <div class="col-md-11">
-                                                <div class="has-warning">
-                                                    <label class="text-danger"></label>
-                                                    <select class="select2_demo_3 form-control input-lg">
-                                                        <option>Select Account</option>
-                                                        <option value="Bahamas">Bahamas</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
                                         {{--  Product purchase account  --}}
                                         <div class="row">
                                             <div class="col-md-1">
@@ -227,8 +191,34 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        {{--  Product selling account  --}}
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label class="text-danger"></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <div class="has-warning">
+                                                    <label class="text-danger"></label>
+                                                    <select class="select2_demo_3 form-control input-lg">
+                                                        <option>Select Account</option>
+                                                        <option value="Bahamas">Bahamas</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        {{--  Selling price  --}}
+                                        <div class="has-warning">
+                                            <label class="text-danger"></label>
+                                            <input type="text" id="selling_price" name="selling_price" required="required" placeholder="Selling Price" class="form-control input-lg">
+                                            <i>Give your product a price</i>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         {{--  Product Tax  --}}
                                         <label></label>
@@ -237,7 +227,27 @@
                                             <option value="Bahamas">Bahamas</option>
                                         </select>
                                     </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
 
+                                            <label for="returnable">
+                                                Product Creation
+                                            </label>
+                                            <span><i data-toggle="tooltip" data-placement="right" title="Check this option if the product is manufactured, created or a period of time is used by this organization to add value to it." class="fa fa-2x fa-question-circle"></i></span>
+                                            <input id="value_addition" name="value_addition" type="checkbox">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" id="creation_time" name="creation_time" required="required" placeholder="Creation/Value addition time" class="form-control input-lg">
+                                        <i>Average time taken to create or add value to it.</i>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="creation_cost" name="creation_cost" required="required" placeholder="Average Creation/Value Addition cost" class="form-control input-lg">
+                                        <i>Average cost of creation or value addition process. Include items acquired and cost of time.</i>
+                                    </div>
                                 </div>
                                 <hr>
 

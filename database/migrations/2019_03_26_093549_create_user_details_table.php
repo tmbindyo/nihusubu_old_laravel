@@ -15,10 +15,9 @@ class CreateUserDetailsTable extends Migration
     {
         Schema::create('user_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('slug')->unique();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('phone_number')->unique();
+            $table->integer('address_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('status_id')->unsigned();
             $table->timestamps();

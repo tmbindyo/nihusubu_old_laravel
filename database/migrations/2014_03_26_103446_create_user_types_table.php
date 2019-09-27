@@ -16,7 +16,6 @@ class CreateUserTypesTable extends Migration
         Schema::create('user_types', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 200);
-            $table->longText('description');
             $table->integer('status_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();

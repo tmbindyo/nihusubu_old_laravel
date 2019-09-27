@@ -17,8 +17,8 @@ class CreateAddressesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name', 200);
-            $table->string('email', 200);
-            $table->string('phone_number', 200);
+            $table->string('mobile', 200);
+            $table->string('phone', 200);
             $table->string('town', 200);
             $table->string('postal_code', 200);
             $table->string('address_line_1', 200);
@@ -26,13 +26,12 @@ class CreateAddressesTable extends Migration
             $table->string('street', 200);
             $table->string('longitude', 200);
             $table->string('latitude', 200);
-            $table->longText('description');
 
             $table->uuid('address_type_id');
             $table->uuid('country_id');
 
             $table->integer('user_id')->unsigned();
-            $table->uuid('status_type_id');
+            $table->uuid('status_id');
             $table->timestamps();
             $table->softDeletes();
         });

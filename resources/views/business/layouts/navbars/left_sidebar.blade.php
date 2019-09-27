@@ -180,6 +180,11 @@
                             Chart Of Accounts
                         </a>
                     </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.transactions' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.transactions')}}">
+                            Transactions
+                        </a>
+                    </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.manual.journals' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'business.manual.journals')}}">
                             Manual Journals
@@ -213,6 +218,10 @@
 
             <li class="nav-item {{ Route::currentRouteNamed( 'business.assets' ) ?  'active' : '' }}">
                 <a href="{{ route('business.assets') }}"><i class="fa fa-archive"></i> <span class="nav-label">Assets</span></a>
+            </li>
+
+            <li class="nav-item {{ Route::currentRouteNamed( 'business.assets' ) ?  'active' : '' }}">
+                <a href="{{ route('business.assets') }}"><i class="fa fa-archive"></i> <span class="nav-label">Investments</span></a>
             </li>
 
 

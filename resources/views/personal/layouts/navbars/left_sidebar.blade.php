@@ -40,14 +40,6 @@
                 <a href="{{ route('personal.budget') }}"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Budgeting</span></a>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'personal.assets' ) ?  'active' : '' }}">
-                <a href="{{ route('personal.assets') }}"><i class="fa fa-archive"></i> <span class="nav-label">Assets</span></a>
-            </li>
-
-            <li class="nav-item {{ Route::currentRouteNamed( 'personal.saccos' ) ?  'active' : '' }}">
-                <a href="{{ route('personal.saccos') }}"><i class="fa fa-database"></i> <span class="nav-label">SACCO</span></a>
-            </li>
-
             <li>
                 <a href="#">
                     <i class="fa fa-dollar"></i>
@@ -68,24 +60,12 @@
                 </ul>
             </li>
 
-            <li>
-                <a href="#">
-                    <i class="fa fa-area-chart"></i>
-                    <span class="nav-label">Trends </span>
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.analysis' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'personal.analysis')}}">
-                            Analysis
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.cash.flow' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'personal.cash.flow')}}">
-                            Cash Flow
-                        </a>
-                    </li>
-                </ul>
+            <li class="nav-item {{ Route::currentRouteNamed( 'personal.assets' ) ?  'active' : '' }}">
+                <a href="{{ route('personal.assets') }}"><i class="fa fa-archive"></i> <span class="nav-label">Assets</span></a>
+            </li>
+
+            <li class="nav-item {{ Route::currentRouteNamed( 'personal.saccos' ) ?  'active' : '' }}">
+                <a href="{{ route('personal.saccos') }}"><i class="fa fa-database"></i> <span class="nav-label">SACCO</span></a>
             </li>
 
             <li>
@@ -108,6 +88,26 @@
                     <li class="nav-item {{ Route::currentRouteNamed( 'personal.ways.to.save' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'personal.ways.to.save')}}">
                             Ways to save
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-area-chart"></i>
+                    <span class="nav-label">Trends </span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.analysis' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.analysis')}}">
+                            Analysis
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.cash.flow' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.cash.flow')}}">
+                            Cash Flow
                         </a>
                     </li>
                 </ul>

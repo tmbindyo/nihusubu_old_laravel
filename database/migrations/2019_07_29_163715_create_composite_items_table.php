@@ -39,7 +39,7 @@ class CreateCompositeItemsTable extends Migration
             $table->boolean('is_item_group');
 
             $table->integer('user_id')->unsigned();
-            $table->uuid('status_type_id');
+            $table->uuid('status_id');
             $table->timestamps();
             $table->softDeletes();
         });

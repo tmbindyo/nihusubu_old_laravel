@@ -59,6 +59,7 @@
                     <th>SKU</th>
                     <th>Stock on Hand</th>
                     <th>Reorder Level</th>
+                    <th>Status</th>
                     <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
                 </tr>
             </thead>
@@ -67,6 +68,7 @@
                     <td>Gecko</td>
                     <td>Firefox 1.0</td>
                     <td>Win 98+ / OSX.2+</td>
+                    <td class="center">1.7</td>
                     <td class="center">1.7</td>
                     <td class="text-right">
                         <div class="btn-group">
@@ -83,6 +85,7 @@
                     <th>SKU</th>
                     <th>Stock on Hand</th>
                     <th>Reorder Level</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </tfoot>
