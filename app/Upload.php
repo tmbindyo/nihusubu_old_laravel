@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FileType extends Model
+class Upload extends Model
 {
     //
 }

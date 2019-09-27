@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFileTypesTable extends Migration
+class CreateUploadTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFileTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('file_types', function (Blueprint $table) {
+        Schema::create('upload_types', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 200);
             $table->longText('description');
@@ -31,6 +31,6 @@ class CreateFileTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file_types');
+        Schema::dropIfExists('upload_types');
     }
 }
