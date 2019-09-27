@@ -27,6 +27,7 @@ class CreateInstitutionsTable extends Migration
             $table->uuid('currency_id');
             $table->uuid('fiscal_year_id');
             $table->uuid('language_id');
+            $table->uuid('currency_id');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
