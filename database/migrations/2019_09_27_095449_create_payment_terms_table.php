@@ -16,7 +16,7 @@ class CreatePaymentTermsTable extends Migration
         Schema::create('payment_terms', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 200)->nullable();
-            $table->double('amount',5,2);
+            $table->integer('number_of_days');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('institution_id');
