@@ -14,8 +14,16 @@ class CreateMilestonesTable extends Migration
     public function up()
     {
         Schema::create('milestones', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+
+            $table->boolean('has_refunded');
+            $table->double('budget',20,2);
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

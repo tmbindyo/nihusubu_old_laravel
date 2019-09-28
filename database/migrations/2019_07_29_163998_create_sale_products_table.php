@@ -16,17 +16,19 @@ class CreateSaleProductsTable extends Migration
         Schema::create('sale_products', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->double('quantity',20,6);
-            $table->double('rate',20,6);
-
-            $table->uuid('sales_id');
-            $table->uuid('sales_item_id');
-            $table->uuid('tax_id');
-
-            $table->boolean('is_returned');
+            $table->double('rate', 20,2);
+            $table->double('quantity', 20,2);
+            $table->double('refund_amount', 20,2);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('estimate_id');
+            $table->uuid('product_id');
+            $table->uuid('warehouse_id');
+
+            $table->boolean('is_returned');
+            $table->boolean('is_refunded');
+
             $table->timestamps();
             $table->softDeletes();
         });

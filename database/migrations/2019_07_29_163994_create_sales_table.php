@@ -16,26 +16,37 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('order_number');
-            $table->string('reference');
+            $table->string('estimate_number');
+            $table->string('reference_number');
             $table->text('customer_notes');
             $table->text('terms_and_conditions');
             $table->date('date');
+            $table->date('expiry_date');
+            $table->date('due_date');
+            $table->date('date_delivered');
 
             $table->double('subtotal', 20,2);
             $table->double('discount', 20,2);
             $table->double('adjustment', 20,2);
             $table->double('total', 20,2);
             $table->double('refund', 20,2);
+            $table->double('adjustment_value', 20,2);
 
-            $table->uuid('warehouse_id');
-            $table->uuid('sales_person_id');
             $table->uuid('delivery_method_id');
-            $table->uuid('discount_type_id');
-            $table->uuid('customer_id');
+            $table->uuid('discount_type_id')->nullable();
+            $table->uuid('customer_id')->nullable();
+            $table->uuid('template_id')->nullable();
+            $table->uuid('project_id')->nullable();
+            $table->uuid('invoice_id')->nullable();
 
             $table->boolean('is_returned');
             $table->boolean('is_refunded');
+            $table->boolean('is_product');
+            $table->boolean('is_project');
+            $table->boolean('has_uploads');
+            $table->boolean('is_paid');
+            $table->boolean('is_cleared');
+            $table->boolean('was_invoice');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

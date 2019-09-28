@@ -14,8 +14,39 @@ class CreateEstimatesTable extends Migration
     public function up()
     {
         Schema::create('estimates', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->string('estimate_number');
+            $table->string('reference_number');
+            $table->text('customer_notes');
+            $table->text('terms_and_conditions');
+            $table->date('date');
+            $table->date('expiry_date');
+            $table->date('due_date');
+
+            $table->double('subtotal', 20,2);
+            $table->double('discount', 20,2);
+            $table->double('adjustment', 20,2);
+            $table->double('total', 20,2);
+            $table->double('refund', 20,2);
+            $table->double('adjustment_value', 20,2);
+
+            $table->uuid('delivery_method_id');
+            $table->uuid('discount_type_id')->nullable();
+            $table->uuid('customer_id')->nullable();
+            $table->uuid('template_id')->nullable();
+            $table->uuid('project_id')->nullable();
+
+            $table->boolean('is_returned');
+            $table->boolean('is_refunded');
+            $table->boolean('is_product');
+            $table->boolean('is_project');
+            $table->boolean('has_uploads');
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
