@@ -14,8 +14,22 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->double('source_account_initial_balance', 20,2);
+            $table->double('source_account_new_balance', 20,2);
+            $table->double('destination_account_initial_balance', 20,2);
+            $table->double('destination_account_new_balance', 20,2);
+            $table->double('transacted_amount', 20,2);
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+            $table->uuid('transaction_type_id');
+            $table->uuid('source_account_id');
+            $table->uuid('destination_account_id');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

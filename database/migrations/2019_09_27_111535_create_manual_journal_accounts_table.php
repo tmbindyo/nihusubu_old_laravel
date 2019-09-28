@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionTypesTable extends Migration
+class CreateManualJournalAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateTransactionTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_types', function (Blueprint $table) {
+        Schema::create('manual_journal_accounts', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name', 200);
-            $table->string('code', 200);
-            $table->longText('description', 200);
+            $table->double('initial_balance', 20,2);
+            $table->double('new_balance', 20,2);
+            $table->double('debit', 20,2);
+            $table->double('credit', 20,2);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('account_id');
 
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +37,6 @@ class CreateTransactionTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction_types');
+        Schema::dropIfExists('manual_journal_accounts');
     }
 }
