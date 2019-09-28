@@ -23,6 +23,8 @@ class CreateSaleProductsTable extends Migration
             $table->uuid('sales_item_id');
             $table->uuid('tax_id');
 
+            $table->boolean('is_returned');
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->timestamps();

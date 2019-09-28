@@ -26,12 +26,16 @@ class CreateSalesTable extends Migration
             $table->double('discount', 20,2);
             $table->double('adjustment', 20,2);
             $table->double('total', 20,2);
+            $table->double('refund', 20,2);
 
             $table->uuid('warehouse_id');
             $table->uuid('sales_person_id');
             $table->uuid('delivery_method_id');
             $table->uuid('discount_type_id');
             $table->uuid('customer_id');
+
+            $table->boolean('is_returned');
+            $table->boolean('is_refunded');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

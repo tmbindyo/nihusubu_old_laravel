@@ -19,11 +19,8 @@ class CreateInventoriesTable extends Migration
             $table->double('quantity',20,6);
             $table->date('date');
 
-            $table->double('reorder_level', 20,2);
-            $table->double('opening_stock', 20,2);
-
             $table->uuid('warehouse_id');
-            $table->uuid('item_id');
+            $table->uuid('product_id');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

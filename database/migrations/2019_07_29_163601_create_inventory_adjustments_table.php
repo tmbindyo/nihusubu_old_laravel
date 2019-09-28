@@ -22,8 +22,10 @@ class CreateInventoryAdjustmentsTable extends Migration
             $table->date('date');
 
             $table->uuid('account_id');
-            $table->uuid('source_warehouse_id');
-            $table->uuid('destination_warehouse_id');
+            $table->uuid('warehouse_id');
+
+            $table->boolean('is_value_adjustment');
+            $table->boolean('is_quantity_adjustment');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

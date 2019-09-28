@@ -17,11 +17,18 @@ class CreateInventoryAdjustmentProductsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('inventory_adjustment_number');
-            $table->double('initial_warehouse_amount',20,6);
+
+            $table->double('initial_warehouse_quantity',20,6);
+            $table->double('subsequent_warehouse_quantity',20,6);
             $table->double('quantity',20,6);
-            $table->double('subsequent_warehouse_amount',20,6);
+
+            $table->double('initial_warehouse_value',20,6);
+            $table->double('subsequent_warehouse_value',20,6);
+            $table->double('value',20,6);
+
             $table->date('date');
 
+            $table->uuid('inventory_adjustment_id');
             $table->uuid('product_id');
 
             $table->integer('user_id')->unsigned();

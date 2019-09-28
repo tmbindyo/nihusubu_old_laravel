@@ -17,11 +17,12 @@ class CreateTransferOrderProductsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('transfer_order_number');
-            $table->double('initial_warehouse_amount',20,6);
-            $table->double('quantity',20,6);
-            $table->double('subsequent_warehouse_amount',20,6);
-            $table->date('date');
 
+            $table->double('initial_warehouse_amount',20,5);
+            $table->double('subsequent_warehouse_amount',20,5);
+            $table->double('quantity',20,6);
+
+            $table->uuid('transfer_order_id');
             $table->uuid('product_id');
 
             $table->integer('user_id')->unsigned();
