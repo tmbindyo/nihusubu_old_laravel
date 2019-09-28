@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExpenseItemsTable extends Migration
+class CreatePurchaseOrderApprovalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreateExpenseItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('expense_items', function (Blueprint $table) {
+        Schema::create('purchase_order_approvals', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name', 200)->nullable();
-            $table->double('quantity',5,2);
-            $table->double('rate',5,2);
-
             $table->integer('user_id')->unsigned();
-            $table->uuid('expense_id');
             $table->uuid('status_id');
+            $table->uuid('purchase_order_id');
+            $table->uuid('status_id');
+            $table->uuid('approver_id');
 
+            $table->boolean('is_approved');
 
             $table->timestamps();
             $table->softDeletes();
@@ -37,6 +36,6 @@ class CreateExpenseItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expense_items');
+        Schema::dropIfExists('purchase_order_approvals');
     }
 }

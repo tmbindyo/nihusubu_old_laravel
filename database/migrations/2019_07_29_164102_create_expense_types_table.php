@@ -14,8 +14,13 @@ class CreateExpenseTypesTable extends Migration
     public function up()
     {
         Schema::create('expense_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+            $table->string('name', 200)->nullable();
+            $table->double('amount',5,2);
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
