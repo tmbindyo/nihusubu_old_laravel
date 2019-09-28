@@ -14,8 +14,15 @@ class CreateTaskUploadsTable extends Migration
     public function up()
     {
         Schema::create('task_uploads', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+            $table->uuid('task_id');
+            $table->uuid('upload_id');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

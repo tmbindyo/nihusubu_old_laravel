@@ -14,8 +14,21 @@ class CreateForumsTable extends Migration
     public function up()
     {
         Schema::create('forums', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->string('name', 200);
+            $table->longText('description');
+            $table->longText('forum_flag');
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+            $table->uuid('project_id');
+
+            $table->boolean('is_q_and_a');
+            $table->boolean('is_sticky_post');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

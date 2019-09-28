@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\PurchaseOrderApproval;
+use App\ProjectRole;
 use Illuminate\Http\Request;
 
-class PurchaseOrderApprovalController extends Controller
+class ProjectRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PurchaseOrderApprovalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PurchaseOrderApproval  $purchaseOrderApproval
+     * @param  \App\ProjectRole  $projectRole
      * @return \Illuminate\Http\Response
      */
-    public function show(PurchaseOrderApproval $purchaseOrderApproval)
+    public function show(ProjectRole $projectRole)
     {
         //
     }
@@ -52,10 +52,10 @@ class PurchaseOrderApprovalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PurchaseOrderApproval  $purchaseOrderApproval
+     * @param  \App\ProjectRole  $projectRole
      * @return \Illuminate\Http\Response
      */
-    public function edit(PurchaseOrderApproval $purchaseOrderApproval)
+    public function edit(ProjectRole $projectRole)
     {
         //
     }
@@ -64,10 +64,10 @@ class PurchaseOrderApprovalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PurchaseOrderApproval  $purchaseOrderApproval
+     * @param  \App\ProjectRole  $projectRole
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PurchaseOrderApproval $purchaseOrderApproval)
+    public function update(Request $request, ProjectRole $projectRole)
     {
         //
     }
@@ -75,10 +75,10 @@ class PurchaseOrderApprovalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PurchaseOrderApproval  $purchaseOrderApproval
+     * @param  \App\ProjectRole  $projectRole
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PurchaseOrderApproval $purchaseOrderApproval)
+    public function destroy(ProjectRole $projectRole)
     {
         //
     }

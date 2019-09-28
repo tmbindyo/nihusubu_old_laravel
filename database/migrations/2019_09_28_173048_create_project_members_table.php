@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateForumUploadsTable extends Migration
+class CreateProjectMembersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateForumUploadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('forum_uploads', function (Blueprint $table) {
+        Schema::create('project_members', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
+            $table->uuid('project_member_role_id');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('forum_id');
-            $table->uuid('upload_id');
+            $table->uuid('project_id');
+            $table->uuid('member_id');
 
             $table->timestamps();
             $table->softDeletes();
@@ -33,6 +35,6 @@ class CreateForumUploadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('forum_uploads');
+        Schema::dropIfExists('project_members');
     }
 }

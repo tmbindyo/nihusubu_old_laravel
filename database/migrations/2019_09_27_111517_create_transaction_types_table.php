@@ -18,7 +18,7 @@ class CreateTransactionTypesTable extends Migration
 
             $table->string('name', 200);
             $table->string('code', 200);
-            $table->longText('description', 200);
+            $table->longText('description');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

@@ -14,8 +14,15 @@ class CreateIssueUploadsTable extends Migration
     public function up()
     {
         Schema::create('issue_uploads', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+            $table->uuid('issue_id');
+            $table->uuid('upload_id');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

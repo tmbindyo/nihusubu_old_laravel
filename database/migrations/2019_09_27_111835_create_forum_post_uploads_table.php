@@ -14,8 +14,15 @@ class CreateForumPostUploadsTable extends Migration
     public function up()
     {
         Schema::create('forum_post_uploads', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+            $table->uuid('forum_post_id');
+            $table->uuid('upload_id');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
