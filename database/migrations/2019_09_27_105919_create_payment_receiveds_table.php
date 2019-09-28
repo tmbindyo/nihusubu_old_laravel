@@ -14,8 +14,18 @@ class CreatePaymentReceivedsTable extends Migration
     public function up()
     {
         Schema::create('payment_receiveds', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->double('initial_balance', 20, 2)->nullable();
+            $table->double('paid', 20, 2)->nullable();
+            $table->double('current_balance', 20, 2)->nullable();
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+            $table->uuid('sale_id');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

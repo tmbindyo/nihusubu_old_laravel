@@ -19,7 +19,6 @@ class CreatePurchaseOrderApprovalsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('purchase_order_id');
-            $table->uuid('status_id');
             $table->uuid('approver_id');
 
             $table->boolean('is_approved');

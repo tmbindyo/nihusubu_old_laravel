@@ -23,7 +23,7 @@ class CreateCompositeProductsTable extends Migration
             $table->string('weight', 200)->nullable();
             $table->double('selling_price', 20,2);
             $table->double('manufacturing_price', 20,2)->nullable();
-            $table->integer('opening_stock', 20)->nullable();
+            $table->integer('opening_stock')->nullable();
             $table->double('opening_stock_value', 20,2)->nullable();
             $table->double('reorder_level', 20,2)->nullable();
 

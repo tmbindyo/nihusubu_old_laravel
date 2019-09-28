@@ -15,11 +15,14 @@ class CreateTaxesTable extends Migration
     {
         Schema::create('taxes', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name', 200)->nullable();
             $table->double('amount',5,2);
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('institution_id');
+
             $table->timestamps();
             $table->softDeletes();
         });
