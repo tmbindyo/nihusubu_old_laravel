@@ -20,7 +20,7 @@ class CreateUploadsTable extends Migration
             $table->longText('file');
             $table->integer('size');
 
-            $table->uuid('file_type_id');
+            $table->uuid('upload_type_id');
             $table->uuid('institution_id');
 
             $table->integer('user_id')->unsigned();

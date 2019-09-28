@@ -19,6 +19,9 @@ class CreateInstitutionRelationshipsTable extends Migration
             $table->uuid('parent_id');
             $table->uuid('child_id');
 
+            $table->boolean('is_partnership');
+            // todo Find a way to handle for partnerships to collaborate
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->timestamps();

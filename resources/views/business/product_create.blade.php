@@ -234,19 +234,19 @@
                                         <div class="checkbox">
 
                                             <label for="returnable">
-                                                Product Creation
+                                                Product Manufacture/Creation
                                             </label>
-                                            <span><i data-toggle="tooltip" data-placement="right" title="Check this option if the product is manufactured, created or a period of time is used by this organization to add value to it." class="fa fa-2x fa-question-circle"></i></span>
+                                            <span><i data-toggle="tooltip" data-placement="right" title="Check this option if the product is manufactured, created or a period of time is used by this business to add value to it." class="fa fa-2x fa-question-circle"></i></span>
                                             <input id="value_addition" name="value_addition" type="checkbox">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <input type="text" id="creation_time" name="creation_time" required="required" placeholder="Creation/Value addition time" class="form-control input-lg">
-                                        <i>Average time taken to create or add value to it.</i>
+                                        <i>Average time taken to manufacture/create or add value to it.</i>
                                     </div>
                                     <div class="col-md-4">
                                         <input type="text" id="creation_cost" name="creation_cost" required="required" placeholder="Average Creation/Value Addition cost" class="form-control input-lg">
-                                        <i>Average cost of creation or value addition process. Include items acquired and cost of time.</i>
+                                        <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
                                     </div>
                                 </div>
                                 <hr>

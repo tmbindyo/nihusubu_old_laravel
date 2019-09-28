@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompositeProductProductsTable extends Migration
+class CreateLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreateCompositeProductProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('composite_product_products', function (Blueprint $table) {
+        Schema::create('languages', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
-            $table->integer('quantity');
-            $table->double('selling_price',20,2);
-            $table->double('purchase_price',20,2);
-
+            $table->string('name');
+            $table->longText('description');
             $table->integer('user_id')->unsigned();
-            $table->uuid('status_id');
-            $table->uuid('composite_product_id');
-            $table->uuid('product_id');
-
+            $table->integer('status_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -37,6 +31,6 @@ class CreateCompositeProductProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('composite_product_products');
+        Schema::dropIfExists('languages');
     }
 }

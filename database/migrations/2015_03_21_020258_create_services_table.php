@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompositeProductProductsTable extends Migration
+class CreateServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateCompositeProductProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('composite_product_products', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('name', 200);
+            $table->longText('description');
+            $table->longText('image');
 
-            $table->integer('quantity');
-            $table->double('selling_price',20,2);
-            $table->double('purchase_price',20,2);
+            $table->uuid('service_type_id');
+            $table->uuid('service_type_pricing_id');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('composite_product_id');
-            $table->uuid('product_id');
-
             $table->timestamps();
             $table->softDeletes();
         });
@@ -37,6 +36,6 @@ class CreateCompositeProductProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('composite_product_products');
+        Schema::dropIfExists('services');
     }
 }
