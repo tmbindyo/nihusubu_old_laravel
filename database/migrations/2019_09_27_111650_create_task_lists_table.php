@@ -22,6 +22,9 @@ class CreateTaskListsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('project_id');
+            $table->uuid('milestone_id')->nullable();
+
+            $table->boolean('is_milestone');
 
             $table->timestamps();
             $table->softDeletes();

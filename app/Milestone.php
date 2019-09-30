@@ -20,4 +20,18 @@ class Milestone extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function tasks()
+    {
+        return $this->hasMany('App\Task');
+    }
+    public function task_list()
+    {
+        return $this->hasMany('App\TaskList');
+    }
+    public function issues()
+    {
+        return $this->hasMany('App\Issue');
+    }
 }

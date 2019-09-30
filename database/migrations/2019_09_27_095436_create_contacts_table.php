@@ -29,9 +29,10 @@ class CreateContactsTable extends Migration
             $table->uuid('status_id');
             $table->uuid('customer_type_id')->nullable();
             $table->uuid('contact_type_id');
-            $table->uuid('primary_contact_salutation_id');
+            $table->uuid('salutation_id');
             $table->uuid('currency_id');
             $table->uuid('payment_term_id');
+            $table->uuid('institution_id');
 
             $table->timestamps();
             $table->softDeletes();

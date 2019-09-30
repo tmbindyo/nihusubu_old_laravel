@@ -18,7 +18,7 @@ class CreatePurchaseOrdersTable extends Migration
 
             $table->uuid('id')->primary();
 
-            $table->string('name', 200)->nullable();
+            $table->string('name', 200)->nuwllable();
 
             $table->double('amount',5,2);
             $table->double('amount_approved',5,2);
@@ -27,9 +27,11 @@ class CreatePurchaseOrdersTable extends Migration
             $table->uuid('status_id');
             $table->uuid('currency_id');
             $table->uuid('tax_id');
+            $table->uuid('institution_id');
 
             $table->timestamps();
             $table->softDeletes();
+
         });
     }
 

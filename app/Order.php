@@ -20,4 +20,10 @@ class Order extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function order_products()
+    {
+        return $this->hasMany('App\OrderProduct');
+    }
 }

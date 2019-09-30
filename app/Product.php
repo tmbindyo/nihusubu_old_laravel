@@ -20,4 +20,50 @@ class Product extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function transfer_order_products()
+    {
+        return $this->hasMany('App\TransferOrderProduct');
+    }
+    public function inventory_adjustment_products()
+    {
+        return $this->hasMany('App\InventoryAdjustmentProduct');
+    }
+    public function inventories()
+    {
+        return $this->hasMany('App\Inventory');
+    }
+    public function product_images()
+    {
+        return $this->hasMany('App\ProductImage');
+    }
+    public function sale_products()
+    {
+        return $this->hasMany('App\SaleProduct');
+    }
+    public function composite_product_products()
+    {
+        return $this->hasMany('App\CompositeProductProduct');
+    }
+    public function product_returns()
+    {
+        return $this->hasMany('App\ProductReturn');
+    }
+    public function restock()
+    {
+        return $this->hasMany('App\Restock');
+    }
+    public function estimate_products()
+    {
+        return $this->hasMany('App\EstimateProduct');
+    }
+    public function invoice_products()
+    {
+        return $this->hasMany('App\InvoiceProduct');
+    }
+    public function order_products()
+    {
+        return $this->hasMany('App\OrderProduct');
+    }
 }

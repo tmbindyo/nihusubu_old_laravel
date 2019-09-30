@@ -15,13 +15,16 @@ class CreateProductGroupsTable extends Migration
     {
         Schema::create('product_groups', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name', 200);
             $table->longText('description')->nullable();
             $table->longText('attributes')->nullable();
             $table->longText('attribute_options')->nullable();
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('institution_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

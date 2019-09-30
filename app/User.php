@@ -14,14 +14,18 @@ class User extends Authenticatable
     use Notifiable;
 
 
-    public function user_detail()
-    {
-        return $this->hasOne('App\UserDetail');
-    }
+    // Parents
     public function user_type()
     {
         return $this->belongsTo('App\UserType');
     }
+
+    // Children
+    public function user_detail()
+    {
+        return $this->hasOne('App\UserDetail');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

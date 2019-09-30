@@ -26,10 +26,12 @@ class CreateTasksTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('project_id');
-            $table->uuid('milestone_id');
+            $table->uuid('milestone_id')->nullable();
             $table->uuid('assignee_id');
+            $table->uuid('task_list_id');
 
             $table->boolean('is_milestone');
+            $table->boolean('is_task_list');
             $table->boolean('has_uploads');
 
             $table->timestamps();

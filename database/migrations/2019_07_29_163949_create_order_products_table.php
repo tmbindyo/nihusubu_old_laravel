@@ -22,7 +22,7 @@ class CreateOrderProductsTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('estimate_id');
+            $table->uuid('order_id');
             $table->uuid('product_id');
             $table->uuid('warehouse_id');
 

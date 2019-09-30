@@ -21,6 +21,7 @@ class CreateProjectMembersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('project_id');
+            $table->uuid('project_role_id');
             $table->uuid('member_id');
 
             $table->timestamps();

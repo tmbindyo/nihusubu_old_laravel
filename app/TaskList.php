@@ -20,4 +20,10 @@ class TaskList extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function tasks()
+    {
+        return $this->hasMany('App\Task');
+    }
 }

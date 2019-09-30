@@ -20,4 +20,10 @@ class Language extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function institutions()
+    {
+        return $this->hasMany('App\Institution');
+    }
 }

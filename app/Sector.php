@@ -20,4 +20,10 @@ class Sector extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function industry_groups()
+    {
+        return $this->hasMany('App\IndustryGroup');
+    }
 }

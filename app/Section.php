@@ -20,4 +20,18 @@ class Section extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function menus()
+    {
+        return $this->hasMany('App\Menu');
+    }
+    public function user_type_sections()
+    {
+        return $this->hasMany('App\UserTypeSection');
+    }
+    public function role_user_type_sections()
+    {
+        return $this->hasMany('App\RoleUserTypeSection');
+    }
 }

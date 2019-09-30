@@ -20,4 +20,18 @@ class Menu extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function features()
+    {
+        return $this->hasMany('App\Feature');
+    }
+    public function user_type_menu()
+    {
+        return $this->hasMany('App\UserTypeMenu');
+    }
+    public function role_user_type_menu()
+    {
+        return $this->hasMany('App\RoleUserTypeMenu');
+    }
 }

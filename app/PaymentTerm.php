@@ -20,4 +20,10 @@ class PaymentTerm extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function contacts()
+    {
+        return $this->hasMany('App\Contact');
+    }
 }

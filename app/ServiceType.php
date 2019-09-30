@@ -20,4 +20,10 @@ class ServiceType extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function services()
+    {
+        return $this->hasMany('App\Service');
+    }
 }

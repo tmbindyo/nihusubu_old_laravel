@@ -20,4 +20,10 @@ class ExpenseType extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function expenses()
+    {
+        return $this->hasMany('App\Expense');
+    }
 }

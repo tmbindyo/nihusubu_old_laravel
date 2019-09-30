@@ -27,11 +27,13 @@ class CreateExpensesTable extends Migration
             $table->uuid('purchase_order_id')->nullable();
             $table->uuid('project_id')->nullable();
             $table->uuid('expense_account_id');
+            $table->uuid('expense_type_id');
             $table->uuid('currency_id')->nullable();
             $table->uuid('tax_id')->nullable();
             $table->uuid('paid_through_account');
             $table->uuid('vendor_id')->nullable();
             $table->uuid('customer_id')->nullable();
+            $table->uuid('institution_id');
 
             $table->boolean('is_bill');
             $table->boolean('is_purchase_order');

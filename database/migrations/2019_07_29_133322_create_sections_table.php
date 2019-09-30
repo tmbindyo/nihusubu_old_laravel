@@ -15,11 +15,14 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name');
             $table->longText('description');
+
             $table->uuid('portal_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

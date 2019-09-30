@@ -20,4 +20,18 @@ class Sale extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function sale_products()
+    {
+        return $this->hasMany('App\SaleProduct');
+    }
+    public function payment_received()
+    {
+        return $this->hasMany('App\PaymentReceived');
+    }
+    public function product_returns()
+    {
+        return $this->hasMany('App\ProductReturn');
+    }
 }

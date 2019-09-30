@@ -20,4 +20,14 @@ class Service extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function institution_services()
+    {
+        return $this->hasMany('App\InstitutionService');
+    }
+    public function service_pricings()
+    {
+        return $this->hasMany('App\ServicePricing');
+    }
 }

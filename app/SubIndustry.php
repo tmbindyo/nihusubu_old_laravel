@@ -20,4 +20,10 @@ class SubIndustry extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function institution_sub_industries()
+    {
+        return $this->hasMany('App\InstitutionSubIndustry');
+    }
 }

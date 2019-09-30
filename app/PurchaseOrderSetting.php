@@ -2,11 +2,10 @@
 
 namespace App;
 
-use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentType extends Model
+class PurchaseOrderSetting extends Model
 {
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
@@ -20,4 +19,5 @@ class PaymentType extends Model
     {
         return $this->belongsTo('App\User');
     }
+
 }

@@ -20,4 +20,18 @@ class ProductGroup extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function product_group_images()
+    {
+        return $this->hasMany('App\ProductGroupImage');
+    }
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
+    public function composite_products()
+    {
+        return $this->hasMany('App\CompositeProduct');
+    }
 }

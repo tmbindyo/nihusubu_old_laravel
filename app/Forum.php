@@ -20,4 +20,14 @@ class Forum extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function forum_uploads()
+    {
+        return $this->hasMany('App\ForumUpload');
+    }
+    public function forum_posts()
+    {
+        return $this->hasMany('App\ForumPost');
+    }
 }

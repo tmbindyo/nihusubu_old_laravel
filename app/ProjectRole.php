@@ -20,4 +20,10 @@ class ProjectRole extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function project_members()
+    {
+        return $this->hasMany('App\ProjectMember');
+    }
 }

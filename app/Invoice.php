@@ -20,4 +20,14 @@ class Invoice extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function sales()
+    {
+        return $this->hasMany('App\Sale');
+    }
+    public function invoice_products()
+    {
+        return $this->hasMany('App\InvoiceProduct');
+    }
 }

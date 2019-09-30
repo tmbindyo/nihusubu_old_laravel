@@ -20,4 +20,14 @@ class Expense extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function expense_items()
+    {
+        return $this->hasMany('App\ExpenseItem');
+    }
+    public function payment_mades()
+    {
+        return $this->hasMany('App\PaymentMade');
+    }
 }

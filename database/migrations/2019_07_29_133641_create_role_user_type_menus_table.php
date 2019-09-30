@@ -15,10 +15,12 @@ class CreateRoleUserTypeMenusTable extends Migration
     {
         Schema::create('role_user_type_menus', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->uuid('user_type_menu_id');
             $table->uuid('role_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

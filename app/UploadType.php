@@ -20,4 +20,10 @@ class UploadType extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function uploads()
+    {
+        return $this->hasMany('App\Upload');
+    }
 }

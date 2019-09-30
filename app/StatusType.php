@@ -16,4 +16,10 @@ class StatusType extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    //Children
+    public function statuses()
+    {
+        return $this->hasMany('App\Status');
+    }
 }

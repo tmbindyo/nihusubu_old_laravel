@@ -20,4 +20,30 @@ class Upload extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function product_group_images()
+    {
+        return $this->hasMany('App\ProductGroupImage');
+    }
+    public function product_images()
+    {
+        return $this->hasMany('App\ProductImage');
+    }
+    public function forum_uploads()
+    {
+        return $this->hasMany('App\ForumUpload');
+    }
+    public function issue_uploads()
+    {
+        return $this->hasMany('App\IssueUpload');
+    }
+    public function task_uploads()
+    {
+        return $this->hasMany('App\TaskUpload');
+    }
+    public function forum_post_uploads()
+    {
+        return $this->hasMany('App\ForumPostUpload');
+    }
 }

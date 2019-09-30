@@ -20,4 +20,18 @@ class PurchaseOrder extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function expenses()
+    {
+        return $this->hasMany('App\Expense');
+    }
+    public function purchase_order_items()
+    {
+        return $this->hasMany('App\PurchaseOrderItem');
+    }
+    public function purchase_order_approvals()
+    {
+        return $this->hasMany('App\PurchaseOrderApproval');
+    }
 }

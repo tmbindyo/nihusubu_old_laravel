@@ -20,4 +20,10 @@ class ManualJournal extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function manual_journal_accounts()
+    {
+        return $this->hasMany('App\ManualJournalAccount');
+    }
 }

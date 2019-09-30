@@ -20,6 +20,7 @@ class CreateWarehousesTable extends Migration
             $table->longText('description');
 
             $table->integer('user_id')->unsigned();
+            $table->uuid('institution_id');
             $table->uuid('status_id');
 
             $table->timestamps();

@@ -20,4 +20,14 @@ class Issue extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function timesheets()
+    {
+        return $this->hasMany('App\Timesheet');
+    }
+    public function issue_uploads()
+    {
+        return $this->hasMany('App\IssueUpload');
+    }
 }

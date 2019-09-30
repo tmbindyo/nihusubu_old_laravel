@@ -20,4 +20,10 @@ class Industry extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function sub_industries()
+    {
+        return $this->hasMany('App\SubIndustry');
+    }
 }

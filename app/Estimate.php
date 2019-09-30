@@ -20,4 +20,13 @@ class Estimate extends Model
     {
         return $this->belongsTo('App\User');
     }
+    // Children
+    public function invoices()
+    {
+        return $this->hasMany('App\Invoice');
+    }
+    public function estimate_products()
+    {
+        return $this->hasMany('App\EstimateProduct');
+    }
 }

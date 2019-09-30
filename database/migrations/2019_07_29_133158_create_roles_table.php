@@ -15,10 +15,16 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name');
             $table->longText('description');
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('institution_id')->nullable();
+
+            $table->boolean('is_institution');
+
             $table->timestamps();
             $table->softDeletes();
         });

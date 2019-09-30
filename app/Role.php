@@ -20,4 +20,22 @@ class Role extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function user_roles()
+    {
+        return $this->hasMany('App\UserRole');
+    }
+    public function role_user_type_sections()
+    {
+        return $this->hasMany('App\RoleUserTypeSection');
+    }
+    public function role_user_type_menus()
+    {
+        return $this->hasMany('App\RoleUserTypeMenu');
+    }
+    public function role_user_type_features()
+    {
+        return $this->hasMany('App\RoleUserTypeFeature');
+    }
 }

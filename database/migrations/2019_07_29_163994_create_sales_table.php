@@ -38,6 +38,7 @@ class CreateSalesTable extends Migration
             $table->uuid('template_id')->nullable();
             $table->uuid('project_id')->nullable();
             $table->uuid('invoice_id')->nullable();
+            $table->uuid('institution_id');
 
             $table->boolean('is_returned');
             $table->boolean('is_refunded');

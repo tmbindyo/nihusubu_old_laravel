@@ -20,4 +20,14 @@ class Unit extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
+    public function composite_products()
+    {
+        return $this->hasMany('App\CompositeProduct');
+    }
 }
