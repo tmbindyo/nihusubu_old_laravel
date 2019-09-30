@@ -27,7 +27,9 @@ class CreateProjectsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('owner_id');
+            $table->uuid('customer_id');
 
+            $table->uuid('is_customer');
             $table->boolean('is_public');
             $table->boolean('is_timesheet_billable');
 

@@ -10,4 +10,24 @@ class Brand extends Model
 {
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
+
+    // Parents
+    public function status()
+    {
+        return $this->belongsTo('App\Status');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    // Children
+    public function products()
+    {
+        return $this->belongsTo('App\Product');
+    }
+    public function composite_products()
+    {
+        return $this->belongsTo('App\CompositeProduct');
+    }
 }
