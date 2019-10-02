@@ -20,4 +20,10 @@ class UserTypeSection extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function role_user_type_section()
+    {
+        return $this->hasMany('App\RoleUserTypeSection');
+    }
 }

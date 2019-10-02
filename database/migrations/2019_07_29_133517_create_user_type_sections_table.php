@@ -15,10 +15,12 @@ class CreateUserTypeSectionsTable extends Migration
     {
         Schema::create('user_type_sections', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->uuid('user_type_id');
             $table->uuid('section_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

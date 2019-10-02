@@ -20,4 +20,46 @@ class Warehouse extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function transfer_order_source_warehouses()
+    {
+        return $this->hasMany('App\RoleUserTypeFeature','source_warehouse_id');
+    }
+    public function transfer_order_destination_warehouses()
+    {
+        return $this->hasMany('App\RoleUserTypeFeature','destination_warehouse_id');
+    }
+    public function estimate_products()
+    {
+        return $this->hasMany('App\EstimateProduct');
+    }
+    public function inventory_adjustments()
+    {
+        return $this->hasMany('App\InventoryAdjustment');
+    }
+    public function product_returns()
+    {
+        return $this->hasMany('App\ProductReturn');
+    }
+    public function inventories()
+    {
+        return $this->hasMany('App\Inventory');
+    }
+    public function restocks()
+    {
+        return $this->hasMany('App\Restock');
+    }
+    public function sale_products()
+    {
+        return $this->hasMany('App\SaleProduct');
+    }
+    public function invoice_products()
+    {
+        return $this->hasMany('App\InvoiceProduct');
+    }
+    public function order_products()
+    {
+        return $this->hasMany('App\OrderProduct');
+    }
 }

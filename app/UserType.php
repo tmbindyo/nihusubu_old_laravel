@@ -22,8 +22,16 @@ class UserType extends Model
     }
 
     // Children
-    public function users()
+    public function user_type_section()
     {
-        return $this->hasMany('App\User');
+        return $this->hasMany('App\UserTypeSection');
+    }
+    public function user_type_menu()
+    {
+        return $this->hasMany('App\UserTypeMenu');
+    }
+    public function user_type_feature()
+    {
+        return $this->hasMany('App\UserTypeFeature');
     }
 }

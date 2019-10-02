@@ -20,4 +20,10 @@ class UserTypeFeature extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function role_user_type_feature()
+    {
+        return $this->hasMany('App\RoleUserTypeFeature');
+    }
 }

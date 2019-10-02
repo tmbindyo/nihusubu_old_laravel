@@ -20,4 +20,10 @@ class UserTypeMenu extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function role_user_type_menu()
+    {
+        return $this->hasMany('App\RoleUserTypeMenu');
+    }
 }

@@ -20,6 +20,10 @@ class Account extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function account_type()
+    {
+        return $this->belongsTo('App\AccountType');
+    }
 
     // Children
     public function composite_product_selling_accounts()
@@ -58,7 +62,6 @@ class Account extends Model
     {
         return $this->hasMany('App\Product','inventory_account_id');
     }
-
     public function source_accounts()
     {
         return $this->hasMany('App\Transaction','source_account_id');
