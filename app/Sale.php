@@ -20,6 +20,22 @@ class Sale extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function customer()
+    {
+        return $this->belongsTo('App\Contact','id','customer_id');
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+    public function invoice()
+    {
+        return $this->belongsTo('App\Invoice');
+    }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
 
     // Children
     public function sale_products()

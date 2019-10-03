@@ -16,16 +16,15 @@ class CreateForumPostsTable extends Migration
         Schema::create('forum_posts', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('commentable_type');
             $table->longText('body');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('forum_id');
             $table->uuid('parent_id');
-            $table->uuid('commentable_id');
 
-            $table->boolean('is_q_and_a');
+            $table->boolean('is_parent');
+            $table->boolean('is_question_and_answer');
             $table->boolean('is_sticky_post');
 
             $table->timestamps();

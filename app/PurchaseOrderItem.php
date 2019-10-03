@@ -20,4 +20,8 @@ class PurchaseOrderItem extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function purchase_order()
+    {
+        return $this->belongsTo('App\PurchaseOrder');
+    }
 }

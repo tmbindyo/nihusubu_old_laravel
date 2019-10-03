@@ -24,7 +24,7 @@ class CreateForumsTable extends Migration
             $table->uuid('status_id');
             $table->uuid('project_id');
 
-            $table->boolean('is_q_and_a');
+            $table->boolean('is_question_and_answer');
             $table->boolean('is_sticky_post');
 
             $table->timestamps();

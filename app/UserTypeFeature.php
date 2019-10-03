@@ -20,6 +20,14 @@ class UserTypeFeature extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function user_type()
+    {
+        return $this->belongsTo('App\UserType');
+    }
+    public function feature()
+    {
+        return $this->belongsTo('App\Feature');
+    }
 
     // Children
     public function role_user_type_feature()

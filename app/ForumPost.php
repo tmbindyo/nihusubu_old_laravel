@@ -20,6 +20,14 @@ class ForumPost extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function forum()
+    {
+        return $this->belongsTo('App\Forum');
+    }
+    public function parent()
+    {
+        return $this->belongsTo('App\ForumPost','id','parent_id');
+    }
 
     // Children
     public function forum_post_uploads()

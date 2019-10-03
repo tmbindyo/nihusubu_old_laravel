@@ -30,9 +30,9 @@ class CreateInventoryAdjustmentProductsTable extends Migration
 
             $table->uuid('inventory_adjustment_id');
             $table->uuid('product_id');
-
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -20,6 +20,47 @@ class Expense extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function purchase_order()
+    {
+        return $this->belongsTo('App\PurchaseOrder');
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+    public function expense_account()
+    {
+        return $this->belongsTo('App\ExpenseAccount','id','expense_account_id');
+    }
+    public function expense_type()
+    {
+        return $this->belongsTo('App\ExpenseType');
+    }
+    public function currency()
+    {
+        return $this->belongsTo('App\Currency');
+    }
+    public function tax()
+    {
+        return $this->belongsTo('App\Tax');
+    }
+    public function account()
+    {
+        return $this->belongsTo('App\Account');
+    }
+    public function vendor()
+    {
+        return $this->belongsTo('App\Vendor');
+    }
+    public function customer()
+    {
+        return $this->belongsTo('App\Contact','id','customer_id');
+    }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
+
 
     // Children
     public function expense_items()

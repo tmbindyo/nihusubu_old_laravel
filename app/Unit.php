@@ -20,6 +20,10 @@ class Unit extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
 
     // Children
     public function products()

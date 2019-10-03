@@ -20,4 +20,12 @@ class ProductGroupImage extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function product_group()
+    {
+        return $this->belongsTo('App\ProductGroup');
+    }
+    public function upload()
+    {
+        return $this->belongsTo('App\Upload');
+    }
 }

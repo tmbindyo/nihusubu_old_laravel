@@ -18,9 +18,9 @@ class CreateInstitutionSubIndustriesTable extends Migration
 
             $table->uuid('institution_id');
             $table->uuid('sub_industry_id');
-
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

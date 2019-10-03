@@ -15,10 +15,13 @@ class CreateTimezonesTable extends Migration
     {
         Schema::create('timezones', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name');
             $table->longText('description');
+
             $table->integer('user_id')->unsigned();
-            $table->integer('status_id')->unsigned();
+            $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

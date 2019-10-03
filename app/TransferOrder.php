@@ -20,6 +20,14 @@ class TransferOrder extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function source_warehouse()
+    {
+        return $this->belongsTo('App\Warehouse','id','source_warehouse_id');
+    }
+    public function destination_warehouse()
+    {
+        return $this->belongsTo('App\Warehouse','id','destination_warehouse_id');
+    }
 
     // Children
     public function transfer_order_products()

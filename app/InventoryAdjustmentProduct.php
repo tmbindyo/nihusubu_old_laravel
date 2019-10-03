@@ -20,4 +20,12 @@ class InventoryAdjustmentProduct extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function inventory_adjustment()
+    {
+        return $this->belongsTo('App\InventoryAdjustment');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
 }

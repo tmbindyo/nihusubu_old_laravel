@@ -20,4 +20,12 @@ class InstitutionRelationship extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function parent()
+    {
+        return $this->belongsTo('App\Institution','parent_id');
+    }
+    public function child()
+    {
+        return $this->belongsTo('App\Institution','child_id');
+    }
 }

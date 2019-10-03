@@ -20,4 +20,12 @@ class CompositeProductProduct extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function composite_product()
+    {
+        return $this->belongsTo('App\CompositeProduct');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
 }

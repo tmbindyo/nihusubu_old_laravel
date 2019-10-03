@@ -11,9 +11,9 @@ class PurchaseOrderSetting extends Model
     public $incrementing = false;
 
     // Parents
-    public function status()
+    public function institution()
     {
-        return $this->belongsTo('App\Status');
+        return $this->belongsTo('App\Institution');
     }
     public function user()
     {

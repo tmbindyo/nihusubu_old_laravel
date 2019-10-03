@@ -20,6 +20,14 @@ class InventoryAdjustment extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function account()
+    {
+        return $this->belongsTo('App\Account');
+    }
+    public function warehouse()
+    {
+        return $this->belongsTo('App\Warehouse');
+    }
 
     // Children
     public function inventory_adjustment_products()

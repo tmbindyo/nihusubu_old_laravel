@@ -20,6 +20,14 @@ class UserTypeMenu extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function user_type()
+    {
+        return $this->belongsTo('App\UserType');
+    }
+    public function menu()
+    {
+        return $this->belongsTo('App\Menu');
+    }
 
     // Children
     public function role_user_type_menu()

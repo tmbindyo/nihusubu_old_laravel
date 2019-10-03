@@ -28,10 +28,9 @@ class CreateAddressesTable extends Migration
             $table->string('latitude', 200);
 
             $table->uuid('address_type_id');
-            $table->uuid('country_id');
-
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -17,8 +17,9 @@ class CreateUserTypesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name', 200);
-            
-            $table->integer('status_id')->unsigned();
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
 
             $table->timestamps();
             $table->softDeletes();

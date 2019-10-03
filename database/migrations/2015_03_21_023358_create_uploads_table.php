@@ -15,6 +15,7 @@ class CreateUploadsTable extends Migration
     {
         Schema::create('uploads', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name', 200);
             $table->longText('thumbnail');
             $table->longText('file');
@@ -22,9 +23,9 @@ class CreateUploadsTable extends Migration
 
             $table->uuid('upload_type_id');
             $table->uuid('institution_id');
-
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

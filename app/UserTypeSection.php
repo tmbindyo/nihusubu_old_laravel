@@ -20,6 +20,14 @@ class UserTypeSection extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function user_type()
+    {
+        return $this->belongsTo('App\UserType');
+    }
+    public function section()
+    {
+        return $this->belongsTo('App\Section');
+    }
 
     // Children
     public function role_user_type_section()

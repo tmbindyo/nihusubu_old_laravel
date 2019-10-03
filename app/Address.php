@@ -20,6 +20,10 @@ class Address extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function address_type()
+    {
+        return $this->belongsTo('App\AddressType');
+    }
 
     // Children
     public function user_details()

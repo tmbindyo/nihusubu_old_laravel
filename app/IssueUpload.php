@@ -20,4 +20,12 @@ class IssueUpload extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function issue()
+    {
+        return $this->belongsTo('App\Issue');
+    }
+    public function upload()
+    {
+        return $this->belongsTo('App\Upload');
+    }
 }

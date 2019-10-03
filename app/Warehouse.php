@@ -20,6 +20,10 @@ class Warehouse extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
 
     // Children
     public function transfer_order_source_warehouses()

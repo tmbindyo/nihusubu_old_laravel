@@ -24,9 +24,9 @@ class CreateTransferOrderProductsTable extends Migration
 
             $table->uuid('transfer_order_id');
             $table->uuid('product_id');
-
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

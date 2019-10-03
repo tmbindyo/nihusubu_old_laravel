@@ -20,6 +20,10 @@ class Menu extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function section()
+    {
+        return $this->belongsTo('App\Section');
+    }
 
     // Children
     public function features()

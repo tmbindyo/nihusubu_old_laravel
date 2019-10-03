@@ -20,6 +20,22 @@ class Invoice extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function customer()
+    {
+        return $this->belongsTo('App\Contact','id','customer_id');
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+    public function estimate()
+    {
+        return $this->belongsTo('App\Estimate');
+    }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
 
     // Children
     public function sales()

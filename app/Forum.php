@@ -20,6 +20,10 @@ class Forum extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
 
     // Children
     public function forum_uploads()

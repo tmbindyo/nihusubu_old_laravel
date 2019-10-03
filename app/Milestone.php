@@ -20,6 +20,14 @@ class Milestone extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+    public function assignee()
+    {
+        return $this->belongsTo('App\User','id','assignee_id');
+    }
 
     // Children
     public function tasks()

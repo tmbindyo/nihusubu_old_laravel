@@ -20,4 +20,8 @@ class ExpenseItem extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function expense()
+    {
+        return $this->belongsTo('App\Expense');
+    }
 }

@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->integer('opening_stock')->nullable();
             $table->double('opening_stock_value', 20,2)->nullable();
             $table->double('reorder_level', 20,2)->nullable();
+            $table->integer('manufacturing_time');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('selling_account_id');
@@ -39,8 +40,6 @@ class CreateProductsTable extends Migration
             $table->uuid('inventory_account_id')->nullable();
             $table->uuid('preferred_vendor_id')->nullable();
             $table->uuid('product_group_id')->nullable();
-
-            $table->integer('manufacturing_time');
 
             $table->boolean('is_service');
             $table->boolean('is_returnable');

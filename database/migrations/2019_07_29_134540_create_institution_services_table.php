@@ -18,9 +18,9 @@ class CreateInstitutionServicesTable extends Migration
 
             $table->uuid('institution_id');
             $table->uuid('service_id');
-
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

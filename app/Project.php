@@ -20,6 +20,18 @@ class Project extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function customer()
+    {
+        return $this->belongsTo('App\Contact','id','customer_id');
+    }
+    public function owner()
+    {
+        return $this->belongsTo('App\User','id','owner_id');
+    }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
 
     // Children
     public function sales()

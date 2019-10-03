@@ -20,4 +20,12 @@ class InstitutionSubIndustry extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
+    public function sub_industry()
+    {
+        return $this->belongsTo('App\SubIndustry');
+    }
 }

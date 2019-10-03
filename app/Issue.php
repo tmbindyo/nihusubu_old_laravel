@@ -20,6 +20,26 @@ class Issue extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+    public function milestone()
+    {
+        return $this->belongsTo('App\Milestone');
+    }
+    public function task()
+    {
+        return $this->belongsTo('App\Task');
+    }
+    public function reporter()
+    {
+        return $this->belongsTo('App\User','id','reporter_id');
+    }
+    public function assignee()
+    {
+        return $this->belongsTo('App\User','id','assignee_id');
+    }
 
     // Children
     public function timesheets()

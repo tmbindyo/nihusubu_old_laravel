@@ -20,6 +20,10 @@ class Feature extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function menu()
+    {
+        return $this->belongsTo('App\Menu');
+    }
 
     // Children
     public function user_type_features()

@@ -20,6 +20,14 @@ class ManualJournal extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function currency()
+    {
+        return $this->belongsTo('App\Currency');
+    }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
 
     // Children
     public function manual_journal_accounts()

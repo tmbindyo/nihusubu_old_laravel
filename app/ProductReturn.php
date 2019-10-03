@@ -20,4 +20,16 @@ class ProductReturn extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
+    public function warehouse()
+    {
+        return $this->belongsTo('App\Warehouse');
+    }
+    public function sale()
+    {
+        return $this->belongsTo('App\Sale');
+    }
 }

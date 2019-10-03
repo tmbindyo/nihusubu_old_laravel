@@ -22,12 +22,11 @@ class CreateProductReturnsTable extends Migration
 
             $table->date('date');
 
+            $table->uuid('is_damaged');
+
             $table->uuid('product_id');
             $table->uuid('warehouse_id');
             $table->uuid('sale_id');
-
-            $table->uuid('is_damaged');
-
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

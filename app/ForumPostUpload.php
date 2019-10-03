@@ -20,5 +20,13 @@ class ForumPostUpload extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function forum_post()
+    {
+        return $this->belongsTo('App\ForumPost');
+    }
+    public function upload()
+    {
+        return $this->belongsTo('App\Upload');
+    }
 }
 

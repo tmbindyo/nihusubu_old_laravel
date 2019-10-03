@@ -15,6 +15,7 @@ class CreateInstitutionsTable extends Migration
     {
         Schema::create('institutions', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name', 200);
             $table->string('portal', 200);
             $table->longText('description');
@@ -24,18 +25,17 @@ class CreateInstitutionsTable extends Migration
             $table->date('inventory_start_date');
 
             $table->uuid('logo_id')->nullable();
-            $table->uuid('primary_id')->nullable();
             $table->uuid('address_id');
-            $table->uuid('primary_contact_id');
             $table->uuid('currency_id');
             $table->uuid('fiscal_year_id');
             $table->uuid('language_id');
             $table->uuid('timezone_id');
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+            $table->uuid('primary_contact_id');
 
             $table->boolean('has_custom_payment_terms');
 
-            $table->integer('user_id')->unsigned();
-            $table->uuid('status_id');
             $table->timestamps();
             $table->softDeletes();
         });

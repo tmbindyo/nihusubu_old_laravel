@@ -20,4 +20,8 @@ class PaymentReceived extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function sale()
+    {
+        return $this->belongsTo('App\Sale');
+    }
 }

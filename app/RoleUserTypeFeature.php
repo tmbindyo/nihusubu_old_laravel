@@ -20,4 +20,12 @@ class RoleUserTypeFeature extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function user_type_section()
+    {
+        return $this->belongsTo('App\UserTypeSection');
+    }
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
 }

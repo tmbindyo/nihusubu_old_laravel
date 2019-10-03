@@ -20,6 +20,14 @@ class Upload extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function upload_type()
+    {
+        return $this->belongsTo('App\UploadType');
+    }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
 
     // Children
     public function product_group_images()

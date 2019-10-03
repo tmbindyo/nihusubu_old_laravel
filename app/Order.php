@@ -20,6 +20,14 @@ class Order extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function customer()
+    {
+        return $this->belongsTo('App\Contact','id','contact_id');
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
 
     // Children
     public function order_products()

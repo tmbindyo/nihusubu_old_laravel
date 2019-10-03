@@ -20,6 +20,34 @@ class Institution extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function logo()
+    {
+        return $this->belongsTo('App\Upload','logo_id');
+    }
+    public function primary_contact()
+    {
+        return $this->belongsTo('App\PrimaryContact','primary_contact_id');
+    }
+    public function address()
+    {
+        return $this->belongsTo('App\Address');
+    }
+    public function currency()
+    {
+        return $this->belongsTo('App\Currency');
+    }
+    public function fiscal_year()
+    {
+        return $this->belongsTo('App\FiscalYear');
+    }
+    public function language()
+    {
+        return $this->belongsTo('App\Language');
+    }
+    public function timezone()
+    {
+        return $this->belongsTo('App\Timezone');
+    }
 
     // Children
     public function roles()

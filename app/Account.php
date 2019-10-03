@@ -24,6 +24,10 @@ class Account extends Model
     {
         return $this->belongsTo('App\AccountType');
     }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
 
     // Children
     public function composite_product_selling_accounts()

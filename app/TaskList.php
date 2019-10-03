@@ -20,6 +20,14 @@ class TaskList extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+    public function milestone()
+    {
+        return $this->belongsTo('App\Milestone');
+    }
 
     // Children
     public function tasks()

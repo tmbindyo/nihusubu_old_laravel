@@ -20,4 +20,16 @@ class InvoiceProduct extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function invoice()
+    {
+        return $this->belongsTo('App\Invoice');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
+    public function warehouse()
+    {
+        return $this->belongsTo('App\Warehouse');
+    }
 }

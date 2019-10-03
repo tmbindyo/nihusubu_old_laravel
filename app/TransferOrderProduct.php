@@ -20,4 +20,12 @@ class TransferOrderProduct extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function transfer_order()
+    {
+        return $this->belongsTo('App\TransferOrder');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
 }

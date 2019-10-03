@@ -20,6 +20,18 @@ class PurchaseOrder extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
+    public function tax()
+    {
+        return $this->belongsTo('App\Tax');
+    }
+    public function currency()
+    {
+        return $this->belongsTo('App\Currency');
+    }
 
     // Children
     public function expenses()

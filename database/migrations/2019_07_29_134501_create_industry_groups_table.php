@@ -15,11 +15,14 @@ class CreateIndustryGroupsTable extends Migration
     {
         Schema::create('industry_groups', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name', 200);
             $table->longText('description');
+
             $table->uuid('sector_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -20,4 +20,12 @@ class Restock extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function warehouse()
+    {
+        return $this->belongsTo('App\Warehouse');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
 }

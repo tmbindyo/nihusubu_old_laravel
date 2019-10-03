@@ -20,6 +20,30 @@ class Contact extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function customer_type()
+    {
+        return $this->belongsTo('App\CustomerType');
+    }
+    public function contact_type()
+    {
+        return $this->belongsTo('App\ContactType');
+    }
+    public function salutation()
+    {
+        return $this->belongsTo('App\Salutation');
+    }
+    public function currency()
+    {
+        return $this->belongsTo('App\Currency');
+    }
+    public function payment_term()
+    {
+        return $this->belongsTo('App\PaymentTerm');
+    }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
 
     // Children
     public function estimate_customers()

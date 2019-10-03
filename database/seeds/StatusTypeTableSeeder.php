@@ -64,5 +64,14 @@ class StatusTypeTableSeeder extends Seeder
             'updated_at' => now()
         ]);
         //
+
+        DB::table('status_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'Project Billing',
+            'status_id' => 6,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        // Approved,
     }
 }

@@ -20,4 +20,12 @@ class Department extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function branch()
+    {
+        return $this->belongsTo('App\Branch');
+    }
+    public function address()
+    {
+        return $this->belongsTo('App\Address');
+    }
 }

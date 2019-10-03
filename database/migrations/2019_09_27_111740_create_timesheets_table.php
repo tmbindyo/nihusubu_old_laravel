@@ -26,10 +26,11 @@ class CreateTimesheetsTable extends Migration
             $table->uuid('status_id');
             $table->uuid('task_id');
             $table->uuid('issue_id');
-            $table->uuid('billing_status_id'); // todo figure out this column and if it needs a table
 
+            $table->boolean('is_billable');
             $table->boolean('is_task');
             $table->boolean('is_issue');
+            $table->boolean('is_approved');
 
             $table->timestamps();
             $table->softDeletes();

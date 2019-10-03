@@ -15,15 +15,16 @@ class CreateServicePricingsTable extends Migration
     {
         Schema::create('service_pricings', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->longText('short_description');
             $table->longText('long_description');
             $table->longText('image');
             $table->double('price',20,2);
 
             $table->uuid('service_id');
-
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

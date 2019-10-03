@@ -32,13 +32,12 @@ class CreateSalesTable extends Migration
             $table->double('refund', 20,2);
             $table->double('adjustment_value', 20,2);
 
-            $table->uuid('delivery_method_id');
-            $table->uuid('discount_type_id')->nullable();
             $table->uuid('customer_id')->nullable();
-            $table->uuid('template_id')->nullable();
             $table->uuid('project_id')->nullable();
             $table->uuid('invoice_id')->nullable();
             $table->uuid('institution_id');
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
 
             $table->boolean('is_returned');
             $table->boolean('is_refunded');
@@ -49,8 +48,6 @@ class CreateSalesTable extends Migration
             $table->boolean('is_cleared');
             $table->boolean('was_invoice');
 
-            $table->integer('user_id')->unsigned();
-            $table->uuid('status_id');
             $table->timestamps();
             $table->softDeletes();
         });

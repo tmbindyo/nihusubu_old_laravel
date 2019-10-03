@@ -20,6 +20,10 @@ class Industry extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function industry_group()
+    {
+        return $this->belongsTo('App\IndustryGroup');
+    }
 
     // Children
     public function sub_industries()

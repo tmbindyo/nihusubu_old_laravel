@@ -20,4 +20,16 @@ class EstimateProduct extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function estimate()
+    {
+        return $this->belongsTo('App\Estimate');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
+    public function warehouse()
+    {
+        return $this->belongsTo('App\Warehouse');
+    }
 }
