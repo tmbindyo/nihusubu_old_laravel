@@ -34,11 +34,19 @@ class Issue extends Model
     }
     public function reporter()
     {
-        return $this->belongsTo('App\User','id','reporter_id');
+        return $this->belongsTo('App\User','reporter_id','id');
     }
     public function assignee()
     {
-        return $this->belongsTo('App\User','id','assignee_id');
+        return $this->belongsTo('App\User','assignee_id','id');
+    }
+    public function assigned_issue()
+    {
+        return $this->belongsTo('App\User','assignee_id','id');
+    }
+    public function reported_issue()
+    {
+        return $this->belongsTo('App\User','assignee_id','id');
     }
 
     // Children

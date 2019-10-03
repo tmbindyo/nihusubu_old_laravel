@@ -25,8 +25,8 @@ class CreateProjectsTable extends Migration
             $table->date('end_date');
 
             $table->integer('user_id')->unsigned();
+            $table->integer('project_owner')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('owner_id');
             $table->uuid('customer_id');
             $table->uuid('institution_id');
 

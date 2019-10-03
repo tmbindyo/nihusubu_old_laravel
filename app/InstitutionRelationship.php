@@ -22,10 +22,10 @@ class InstitutionRelationship extends Model
     }
     public function parent()
     {
-        return $this->belongsTo('App\Institution','parent_id');
+        return $this->belongsTo('App\Institution','parent_id','id');
     }
     public function child()
     {
-        return $this->belongsTo('App\Institution','child_id');
+        return $this->belongsTo('App\Institution','child_id','id');
     }
 }

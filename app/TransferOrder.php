@@ -22,11 +22,11 @@ class TransferOrder extends Model
     }
     public function source_warehouse()
     {
-        return $this->belongsTo('App\Warehouse','id','source_warehouse_id');
+        return $this->belongsTo('App\Warehouse','source_warehouse_id','id');
     }
     public function destination_warehouse()
     {
-        return $this->belongsTo('App\Warehouse','id','destination_warehouse_id');
+        return $this->belongsTo('App\Warehouse','destination_warehouse_id','id');
     }
 
     // Children

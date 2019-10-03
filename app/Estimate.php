@@ -22,7 +22,7 @@ class Estimate extends Model
     }
     public function customer()
     {
-        return $this->belongsTo('App\Contact','id','customer_id');
+        return $this->belongsTo('App\Contact','customer_id','id');
     }
     public function project()
     {

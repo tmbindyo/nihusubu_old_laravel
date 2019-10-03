@@ -48,26 +48,26 @@ class Contact extends Model
     // Children
     public function estimate_customers()
     {
-        return $this->belongsTo('App\Estimate','customer_id');
+        return $this->belongsTo('App\Estimate','customer_id','id');
     }
     public function invoice_customers()
     {
-        return $this->belongsTo('App\Invoice','customer_id');
+        return $this->belongsTo('App\Invoice','customer_id','id');
     }
     public function order_customers()
     {
-        return $this->belongsTo('App\Order','customer_id');
+        return $this->belongsTo('App\Order','customer_id','id');
     }
     public function sale_customers()
     {
-        return $this->belongsTo('App\Sale','customer_id');
+        return $this->belongsTo('App\Sale','customer_id','id');
     }
     public function project_customers()
     {
-        return $this->belongsTo('App\Project','customer_id');
+        return $this->belongsTo('App\Project','customer_id','id');
     }
     public function expense_customers()
     {
-        return $this->belongsTo('App\Expense','customer_id');
+        return $this->belongsTo('App\Expense','customer_id','id');
     }
 }

@@ -26,19 +26,19 @@ class Product extends Model
     }
     public function selling_account()
     {
-        return $this->belongsTo('App\Account','selling_account_id');
+        return $this->belongsTo('App\Account','selling_account_id','id');
     }
     public function purchase_account()
     {
-        return $this->belongsTo('App\Account','purchase_account_id');
+        return $this->belongsTo('App\Account','purchase_account_id','id');
     }
     public function inventory_account()
     {
-        return $this->belongsTo('App\Account','inventory_account_id');
+        return $this->belongsTo('App\Account','inventory_account_id','id');
     }
     public function preferred_vendor()
     {
-        return $this->belongsTo('App\Contact','preferred_vendor_id');
+        return $this->belongsTo('App\Contact','preferred_vendor_id','id');
     }
     public function unit()
     {

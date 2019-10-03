@@ -26,6 +26,6 @@ class PurchaseOrderApproval extends Model
     }
     public function approver()
     {
-        return $this->belongsTo('App\User','id','approver_id');
+        return $this->belongsTo('App\User','approver_id','id');
     }
 }

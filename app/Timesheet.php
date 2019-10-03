@@ -28,4 +28,11 @@ class Timesheet extends Model
     {
         return $this->belongsTo('App\Issue');
     }
+    public function timesheet_approver()
+    {
+        return $this->belongsTo('App\User','approved_by','id');
+    }
+
+
+
 }

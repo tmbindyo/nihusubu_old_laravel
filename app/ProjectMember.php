@@ -30,6 +30,6 @@ class ProjectMember extends Model
     }
     public function member()
     {
-        return $this->belongsTo('App\Member','id','member_id');
+        return $this->belongsTo('App\Member','member_id','id');
     }
 }

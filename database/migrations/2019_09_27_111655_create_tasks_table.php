@@ -24,10 +24,10 @@ class CreateTasksTable extends Migration
             $table->date('end_date');
 
             $table->integer('user_id')->unsigned();
+            $table->integer('assignee_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('project_id');
             $table->uuid('milestone_id')->nullable();
-            $table->uuid('assignee_id');
             $table->uuid('task_list_id');
 
             $table->boolean('is_milestone');

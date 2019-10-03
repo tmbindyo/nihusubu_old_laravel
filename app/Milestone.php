@@ -26,7 +26,7 @@ class Milestone extends Model
     }
     public function assignee()
     {
-        return $this->belongsTo('App\User','id','assignee_id');
+        return $this->belongsTo('App\User','assignee_id','id');
     }
 
     // Children

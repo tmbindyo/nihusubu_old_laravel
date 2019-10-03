@@ -26,7 +26,7 @@ class Institution extends Model
     }
     public function primary_contact()
     {
-        return $this->belongsTo('App\PrimaryContact','primary_contact_id');
+        return $this->belongsTo('App\PrimaryContact','primary_contact_id','id');
     }
     public function address()
     {

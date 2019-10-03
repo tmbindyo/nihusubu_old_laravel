@@ -26,7 +26,7 @@ class ForumPost extends Model
     }
     public function parent()
     {
-        return $this->belongsTo('App\ForumPost','id','parent_id');
+        return $this->belongsTo('App\ForumPost','parent_id','id');
     }
 
     // Children

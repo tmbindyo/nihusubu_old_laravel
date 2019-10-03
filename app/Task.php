@@ -30,11 +30,15 @@ class Task extends Model
     }
     public function assignee()
     {
-        return $this->belongsTo('App\User','id','assignee_id');
+        return $this->belongsTo('App\User','assignee_id','id');
     }
     public function task_list()
     {
         return $this->belongsTo('App\TaskList');
+    }
+    public function assigned_task()
+    {
+        return $this->belongsTo('App\User','assignee_id','id');
     }
 
     // Children

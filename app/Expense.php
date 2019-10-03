@@ -30,7 +30,7 @@ class Expense extends Model
     }
     public function expense_account()
     {
-        return $this->belongsTo('App\ExpenseAccount','id','expense_account_id');
+        return $this->belongsTo('App\ExpenseAccount','expense_account_id','id');
     }
     public function expense_type()
     {
@@ -54,7 +54,7 @@ class Expense extends Model
     }
     public function customer()
     {
-        return $this->belongsTo('App\Contact','id','customer_id');
+        return $this->belongsTo('App\Contact','customer_id','id');
     }
     public function institution()
     {

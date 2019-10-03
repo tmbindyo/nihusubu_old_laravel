@@ -24,12 +24,12 @@ class CreateIssuesTable extends Migration
             $table->date('end_date');
 
             $table->integer('user_id')->unsigned();
+            $table->integer('reporter_id')->unsigned();
+            $table->integer('assignee_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('project_id');
             $table->uuid('milestone_id');
             $table->uuid('task_id');
-            $table->uuid('reporter_id');
-            $table->uuid('assignee_id');
 
             $table->boolean('is_milestone');
             $table->boolean('is_task');

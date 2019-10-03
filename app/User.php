@@ -398,6 +398,31 @@ class User extends Authenticatable
         return $this->hasMany('App\Warehouse');
     }
 
+    public function approved_timesheets()
+    {
+        return $this->hasMany('App\Timesheet','approved_by','id');
+    }
+    public function projects_owned()
+    {
+        return $this->hasMany('App\Project','project_owner','id');
+    }
+    public function tasks_assigned()
+    {
+        return $this->hasMany('App\Task','assignee_id','id');
+    }
+    public function issues_assigned()
+    {
+        return $this->hasMany('App\Issue','assignee_id','id');
+    }
+    public function issues_reported()
+    {
+        return $this->hasMany('App\Issue','reporter_id','id');
+    }
+    public function milestones_assigned()
+    {
+        return $this->hasMany('App\Milestone','assignee_id','id');
+    }
+
 
 
 

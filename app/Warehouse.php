@@ -28,11 +28,11 @@ class Warehouse extends Model
     // Children
     public function transfer_order_source_warehouses()
     {
-        return $this->hasMany('App\RoleUserTypeFeature','source_warehouse_id');
+        return $this->hasMany('App\Warehouse','source_warehouse_id','id');
     }
     public function transfer_order_destination_warehouses()
     {
-        return $this->hasMany('App\RoleUserTypeFeature','destination_warehouse_id');
+        return $this->hasMany('App\Warehouse','destination_warehouse_id','id');
     }
     public function estimate_products()
     {

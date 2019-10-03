@@ -22,15 +22,19 @@ class Project extends Model
     }
     public function customer()
     {
-        return $this->belongsTo('App\Contact','id','customer_id');
+        return $this->belongsTo('App\Contact','customer_id','id');
     }
     public function owner()
     {
-        return $this->belongsTo('App\User','id','owner_id');
+        return $this->belongsTo('App\User','owner_id','id');
     }
     public function institution()
     {
         return $this->belongsTo('App\Institution');
+    }
+    public function project_owner()
+    {
+        return $this->belongsTo('App\User','project_owner','id');
     }
 
     // Children

@@ -23,6 +23,7 @@ class CreateTimesheetsTable extends Migration
             $table->time('end_time');
 
             $table->integer('user_id')->unsigned();
+            $table->integer('approved_by')->unsigned();
             $table->uuid('status_id');
             $table->uuid('task_id');
             $table->uuid('issue_id');

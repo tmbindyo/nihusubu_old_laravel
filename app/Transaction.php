@@ -22,10 +22,10 @@ class Transaction extends Model
     }
     public function source_account()
     {
-        return $this->belongsTo('App\Account','id','source_account_id');
+        return $this->belongsTo('App\Account','source_account_id','id');
     }
     public function destination_account()
     {
-        return $this->belongsTo('App\Account','id','destination_account_id');
+        return $this->belongsTo('App\Account','destination_account_id','id');
     }
 }
