@@ -16,7 +16,8 @@ class ServiceTableSeeder extends Seeder
             'description' => 'To Do management.',
             'service_type_id' => '11ab9b8d-ec77-485b-a0c4-6e9140a83230',
             'service_type_pricing_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -27,7 +28,8 @@ class ServiceTableSeeder extends Seeder
             'description' => 'Accounting management.',
             'service_type_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
             'service_type_pricing_id' => '49ff607b-257a-4289-aaed-4deb03f6edc6',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -38,7 +40,8 @@ class ServiceTableSeeder extends Seeder
             'description' => 'Product management.',
             'service_type_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
             'service_type_pricing_id' => '49ff607b-257a-4289-aaed-4deb03f6edc6',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -49,7 +52,8 @@ class ServiceTableSeeder extends Seeder
             'description' => 'Inventory management.',
             'service_type_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
             'service_type_pricing_id' => '49ff607b-257a-4289-aaed-4deb03f6edc6',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -60,7 +64,8 @@ class ServiceTableSeeder extends Seeder
             'description' => 'Sales management.',
             'service_type_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
             'service_type_pricing_id' => '11ab9b8d-ec77-485b-a0c4-6e9140a83230',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -71,7 +76,8 @@ class ServiceTableSeeder extends Seeder
             'description' => 'Expenses management.',
             'service_type_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
             'service_type_pricing_id' => '49ff607b-257a-4289-aaed-4deb03f6edc6',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -82,7 +88,8 @@ class ServiceTableSeeder extends Seeder
             'description' => 'Project management.',
             'service_type_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
             'service_type_pricing_id' => '11ab9b8d-ec77-485b-a0c4-6e9140a83230',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);

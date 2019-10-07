@@ -18,7 +18,6 @@ class UserTableSeeder extends Seeder
             'phone_number' => '+254708085122',
             'email_verified_at' => now(),
             'password' => Hash::make('RoBANdoREfeRNiaN'),
-            'user_type_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -29,7 +28,6 @@ class UserTableSeeder extends Seeder
             'phone_number' => '+254708085121',
             'email_verified_at' => now(),
             'password' => Hash::make('WaveNDCUsEZonEbE'),
-            'user_type_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -40,7 +38,6 @@ class UserTableSeeder extends Seeder
             'phone_number' => '+254740338642',
             'email_verified_at' => now(),
             'password' => Hash::make('rSubSouStORtIcti'),
-            'user_type_id' => 2,
             'created_at' => now(),
             'updated_at' => now()
         ]);

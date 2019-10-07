@@ -16,7 +16,8 @@ class PaymentTermTableSeeder extends Seeder
             'institution_id' => 'fab52a50-ef83-4cdc-8086-376afee6a0eb',
             'name' => 'Net 15',
             'number_of_days' => '15',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -26,7 +27,8 @@ class PaymentTermTableSeeder extends Seeder
             'institution_id' => 'fab52a50-ef83-4cdc-8086-376afee6a0eb',
             'name' => 'Net 30',
             'number_of_days' => '30',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -36,7 +38,8 @@ class PaymentTermTableSeeder extends Seeder
             'institution_id' => 'fab52a50-ef83-4cdc-8086-376afee6a0eb',
             'name' => 'Net 45',
             'number_of_days' => '45',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -46,7 +49,8 @@ class PaymentTermTableSeeder extends Seeder
             'institution_id' => 'fab52a50-ef83-4cdc-8086-376afee6a0eb',
             'name' => 'Net 60',
             'number_of_days' => '60',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -56,7 +60,8 @@ class PaymentTermTableSeeder extends Seeder
             'institution_id' => 'fab52a50-ef83-4cdc-8086-376afee6a0eb',
             'name' => 'Due End Of Month',
             'number_of_days' => '0',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -66,7 +71,8 @@ class PaymentTermTableSeeder extends Seeder
             'institution_id' => 'fab52a50-ef83-4cdc-8086-376afee6a0eb',
             'name' => 'Due End Of Next Month',
             'number_of_days' => '0',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -76,7 +82,8 @@ class PaymentTermTableSeeder extends Seeder
             'institution_id' => 'fab52a50-ef83-4cdc-8086-376afee6a0eb',
             'name' => 'Due On Receipt',
             'number_of_days' => '0',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);

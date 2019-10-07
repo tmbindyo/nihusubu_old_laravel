@@ -37,6 +37,6 @@ class CreateEstimateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estimate_items');
+        Schema::dropIfExists('estimate_products');
     }
 }

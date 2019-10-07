@@ -14,7 +14,8 @@ class ServiceTypePricingTableSeeder extends Seeder
             'id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
             'name' => 'Free',
             'description' => 'Free for all.',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -23,7 +24,8 @@ class ServiceTypePricingTableSeeder extends Seeder
             'id' => '49ff607b-257a-4289-aaed-4deb03f6edc6',
             'name' => 'Standard',
             'description' => 'Standard fee.',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -32,7 +34,8 @@ class ServiceTypePricingTableSeeder extends Seeder
             'id' => '11ab9b8d-ec77-485b-a0c4-6e9140a83230',
             'name' => 'Dependent',
             'description' => 'Dependent on number of users.',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -41,7 +44,8 @@ class ServiceTypePricingTableSeeder extends Seeder
             'id' => '8d99fc4f-2104-4290-98b2-16ee52b18509',
             'name' => 'Complimentary free',
             'description' => 'Complimentary if one pays for another.',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -50,7 +54,8 @@ class ServiceTypePricingTableSeeder extends Seeder
             'id' => 'af8e9886-f2ff-42c2-bbf8-406e20759453',
             'name' => 'Complimentary discounted',
             'description' => 'Complimentary discounted if one pays for another.',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);

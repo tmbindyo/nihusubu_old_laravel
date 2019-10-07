@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubIndustriesTable extends Migration
+class CreateRepeatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateSubIndustriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_industries', function (Blueprint $table) {
+        Schema::create('repeats', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name', 200);
-            $table->string('code', 200);
-            $table->longText('description');
+            $table->string('name');
+            $table->integer('number_of_days');
 
-            $table->uuid('industry_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 
@@ -36,6 +34,6 @@ class CreateSubIndustriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_industries');
+        Schema::dropIfExists('repeats');
     }
 }

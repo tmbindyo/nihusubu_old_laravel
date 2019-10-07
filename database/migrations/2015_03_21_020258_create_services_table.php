@@ -18,7 +18,7 @@ class CreateServicesTable extends Migration
 
             $table->string('name', 200);
             $table->longText('description');
-            $table->longText('image');
+            $table->longText('image')->nullable();
 
             $table->uuid('service_type_id');
             $table->uuid('service_type_pricing_id');

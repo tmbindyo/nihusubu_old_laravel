@@ -17,7 +17,6 @@ class CreateStatusTypesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name');
-            $table->longText('description');
 
             $table->integer('user_id')->unsigned();
 

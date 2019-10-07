@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 class ToDoController extends Controller
 {
+
     public function toDos()
     {
         return view('business.to_dos');

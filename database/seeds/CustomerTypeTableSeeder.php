@@ -14,7 +14,8 @@ class CustomerTypeTableSeeder extends Seeder
         DB::table('customer_types')->insert([
             'id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
             'name' => 'Business',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -22,7 +23,8 @@ class CustomerTypeTableSeeder extends Seeder
         DB::table('customer_types')->insert([
             'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
             'name' => 'Individual',
-            'status_id' => 6,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);

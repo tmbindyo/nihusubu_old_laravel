@@ -17,7 +17,6 @@ class CreateExpenseTypesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name', 200)->nullable();
-            $table->double('amount',5,2);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
