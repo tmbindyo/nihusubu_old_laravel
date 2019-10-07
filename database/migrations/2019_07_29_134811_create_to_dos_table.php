@@ -16,7 +16,7 @@ class CreateToDosTable extends Migration
         Schema::create('to_dos', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name');
+            $table->string('task');
             $table->text('notes');
             $table->date('due_date');
             $table->date('date_completed')->nullable();

@@ -194,30 +194,5 @@ class StatusTableSeeder extends Seeder
 
 
 
-        // Image or album status
-        DB::table('statuses')->insert([
-            'id' => 'cad5abf4-ed94-4184-8f7a-fe5084fb7d56',
-            'name' => 'Preview',
-            'description' => 'Preview album or image',
-            'status_type_id' => '12a49330-14a5-41d2-b62d-87cdf8b252f8',
-            'user_id' => 1,
-        ]);
-        DB::table('statuses')->insert([
-            'id' => '389842b7-a010-40c1-85cf-4f5b5144ccea',
-            'name' => 'Hidden',
-            'description' => 'Hidden album or image',
-            'status_type_id' => '12a49330-14a5-41d2-b62d-87cdf8b252f8',
-            'user_id' => 1,
-        ]);
-        DB::table('statuses')->insert([
-            'id' => 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5',
-            'name' => 'Published',
-            'description' => 'Published album or image',
-            'status_type_id' => '12a49330-14a5-41d2-b62d-87cdf8b252f8',
-            'user_id' => 1,
-        ]);
-
-
-
     }
 }

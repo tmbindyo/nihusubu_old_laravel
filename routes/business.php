@@ -7,12 +7,16 @@ Route::get('/dashboard', 'Business\DashboardController@dashboard')->name('busine
 
 //Calendar
 Route::get('/calendar', 'Business\CalendarController@calendar')->name('business.calendar');
-Route::post('/calendar/store', 'Business\CalendarController@calendarSave')->name('business.calendar.store');
+Route::post('/calendar/store', 'Business\CalendarController@calendarStore')->name('business.calendar.store');
 
 
 // To Do
 Route::get('/to/dos', 'Business\ToDoController@toDos')->name('business.to.dos');
-Route::post('/to/do/store', 'Business\ToDoController@toDoSave')->name('business.to.do.store');
+Route::post('/to/do/store', 'Business\ToDoController@toDoStore')->name('business.to.do.store');
+Route::post('/to/do/update/{todo_id}', 'Business\ToDoController@toDoUpdate')->name('business.to.do.update');
+Route::get('/to/do/set/in/progress/{todo_id}', 'Business\ToDoController@toDoSetInProgress')->name('business.to.do.set.in.progress');
+Route::get('/to/do/set/completed/{todo_id}', 'Business\ToDoController@toDoSetCompleted')->name('business.to.do.set.completed');
+Route::get('/to/do/delete/{todo_id}', 'Business\ToDoController@toDoDelete')->name('business.to.do.delete');
 
 
 //Products

@@ -21,7 +21,6 @@
                         </div>
                     @endif
 
-
                     <div class="row">
                         <div class="col-md-7">
                             <div class="form-group">
@@ -57,37 +56,6 @@
                             </div>
                         </div>
                     </div>
-
-{{--  TODO figure out how to tie it to things like orders and clients  --}}
-{{--                    <div class="row">--}}
-{{--                        <div class="col-lg-4">--}}
-{{--                            <div class="form-group">--}}
-{{--                                <label class="">Is Album</label>--}}
-{{--                                <div class="col-md-12 col-sm-12 col-xs-12">--}}
-{{--                                    <input name="is_album" type="checkbox" class="js-switch_3" checked />--}}
-{{--                                    <i>Check if it belongs to Album.</i>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-lg-8">--}}
-{{--                            <div class="form-group">--}}
-{{--                                <label>Album <span class="required">*</span>--}}
-{{--                                </label>--}}
-{{--                                <select name="album" class="select2_demo_2 form-control input-lg">--}}
-{{--                                    <option>Select Album</option>--}}
-{{--                                    @foreach($albums as $album)--}}
-{{--                                        <option value="{{$album->id}}">{{$album->name}}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                                <i>What album does the to do belong to</i>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-
-
-
-
 
                     <div class="ln_solid"></div>
 
