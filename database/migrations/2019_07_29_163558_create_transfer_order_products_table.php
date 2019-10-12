@@ -16,10 +16,12 @@ class CreateTransferOrderProductsTable extends Migration
         Schema::create('transfer_order_products', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('transfer_order_number');
+            $table->double('source_warehouse_initial_amount',20,5);
+            $table->double('source_warehouse_subsequent_amount',20,5);
 
-            $table->double('initial_warehouse_amount',20,5);
-            $table->double('subsequent_warehouse_amount',20,5);
+            $table->double('destination_warehouse_initial_amount',20,5);
+            $table->double('destination_warehouse_subsequent_amount',20,5);
+
             $table->double('quantity',20,6);
 
             $table->uuid('transfer_order_id');

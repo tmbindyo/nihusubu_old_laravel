@@ -17,7 +17,7 @@ class AssetController extends Controller
     }
     public function assetStore()
     {
-        return back()->withStatus(__('Asset successfully created.'));
+        return back()->withSuccess(__('Asset successfully created.'));
     }
     public function assetShow($asset_id)
     {
@@ -29,10 +29,10 @@ class AssetController extends Controller
     }
     public function assetUpdate($asset_id)
     {
-        return back()->withStatus(__('Asset successfully updated.'));
+        return back()->withSuccess(__('Asset successfully updated.'));
     }
     public function assetDelete($asset_id)
     {
-        return back()->withStatus(__('Asset successfully deleted.'));
+        return back()->withSuccess(__('Asset successfully deleted.'));
     }
 }

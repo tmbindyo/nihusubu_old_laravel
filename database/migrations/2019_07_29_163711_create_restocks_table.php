@@ -26,8 +26,11 @@ class CreateRestocksTable extends Migration
 
             $table->uuid('warehouse_id');
             $table->uuid('product_id');
+            $table->uuid('expense_item_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
+            $table->boolean('is_opening_stock');
 
             $table->timestamps();
             $table->softDeletes();

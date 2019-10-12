@@ -17,7 +17,7 @@
         <link href="{{ asset('landing') }}/css/global/global.css" rel="stylesheet" type="text/css"/>
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ asset('landing') }}/img/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset('') }}/nihusubu.ico" type="image/x-icon">
         <link rel="apple-touch-icon" href="{{ asset('landing') }}/img/apple-touch-icon.png">
 @endsection()
 @section('content')

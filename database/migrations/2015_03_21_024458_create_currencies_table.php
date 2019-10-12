@@ -18,7 +18,6 @@ class CreateCurrenciesTable extends Migration
 
             $table->string('name');
             $table->longText('description');
-            $table->longText('value');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

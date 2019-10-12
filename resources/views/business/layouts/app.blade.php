@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <link rel="shortcut icon" href="{{ asset('nihusubu.ico') }}" >
+    <link rel="shortcut icon" href="{{ asset('') }}/nihusubu.ico" type="image/x-icon">
 
     <title>Nihusubu | @yield('title')</title>
 

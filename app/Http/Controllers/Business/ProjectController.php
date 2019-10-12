@@ -22,7 +22,7 @@ class ProjectController extends Controller
     }
     public function projectStore(Request $request)
     {
-        return back()->withStatus(__('Project successfully stored.'));
+        return back()->withSuccess(__('Project successfully stored.'));
     }
     public function projectShow($project)
     {
@@ -34,10 +34,10 @@ class ProjectController extends Controller
     }
     public function projectUpdate(Request $request)
     {
-        return back()->withStatus(__('Project successfully updated.'));
+        return back()->withSuccess(__('Project successfully updated.'));
     }
     public function projectDelete($product_group_id)
     {
-        return back()->withStatus(__('Project successfully deleted.'));
+        return back()->withSuccess(__('Project successfully deleted.'));
     }
 }

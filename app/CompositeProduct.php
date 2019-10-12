@@ -48,10 +48,6 @@ class CompositeProduct extends Model
     {
         return $this->belongsTo('App\Institution');
     }
-    public function tax()
-    {
-        return $this->belongsTo('App\Tax');
-    }
     public function product_group()
     {
         return $this->belongsTo('App\ProductGroup');
@@ -61,5 +57,9 @@ class CompositeProduct extends Model
     public function composite_product_products()
     {
         return $this->belongsTo('App\CompositeProductProduct');
+    }
+    public function composite_product_taxes()
+    {
+        return $this->belongsTo('App\CompositeProductTax');
     }
 }

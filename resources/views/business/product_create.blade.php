@@ -7,6 +7,9 @@
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
+    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+
     <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
@@ -28,20 +31,11 @@
 
     <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
     <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
-
-
-    <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
+
 
 @endsection
 @section('content')
@@ -71,9 +65,6 @@
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
-                            <a class="btn btn-outline-primary" data-toggle="modal" data-target="#productGroupRegistration">
-                                <i class="fa fa-plus-circle"> Add Product</i>
-                            </a>
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -98,84 +89,76 @@
                                         {{--  todo only one should be selectable  --}}
                                         <p>Product Type</p>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="good" value="goods" name="radioInline" checked="">
-                                            <label for="inlineRadio1"> Goods </label>
+                                            <input type="radio" id="goods" value="goods" name="product_type" checked="">
+                                            <label for="goods"> Goods </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="inlineRadio2" value="services" name="radioInline">
-                                            <label for="inlineRadio2"> Service </label>
+                                            <input type="radio" id="services" value="services" name="product_type">
+                                            <label for="services"> Service </label>
                                         </div>
-                                        {{--  Product name  --}}
+                                        {{--  Name  --}}
                                         <div class="has-warning">
                                             <label>  </label>
-                                            <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" placeholder="Product name">
-                                            <i>Give your product a name</i>
+                                            <input type="text" id="name" name="name" required="required" class="form-control input-lg" placeholder="Name">
+                                            <i>Give your product/service a name</i>
                                         </div>
                                         {{--  Product Unit  --}}
-                                        <div class="has-warning">
-                                            <label>  </label>
-                                            <select class="select2_demo_3 form-control input-lg">
-                                                <option>Select Unit</option>
-                                                <option value="Bahamas">Bahamas</option>
-                                            </select>
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <div class="has-warning">
+                                                    <label>  </label>
+                                                    <select name="unit" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                        <option value="">Select Unit</option>
+                                                        @foreach($units as $unit)
+                                                            <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                                        @endforeach()
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
+
+
                                         <label>  </label>
                                         {{--  Product returnable  --}}
                                         {{--todo description tooltip--}}
                                         <div class="checkbox">
-
-                                            <label for="returnable">
+                                            <input id="is_returnable" name="is_returnable" type="checkbox">
+                                            <label for="is_returnable">
                                                 Returnable Product
                                             </label>
-                                            <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-question-circle"></i></span>
-                                            <input id="returnable" name="returnable" type="checkbox">
+                                            <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-2x fa-question-circle"></i></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         {{--  TODO Thumbnail  --}}
                                     </div>
                                 </div>
-{{--                                <hr>--}}
-
-                                {{--  Product information  --}}
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{--  Product Dimensions  --}}
-                                        <label></label>
-                                        <input type="text" class="form-control input-lg" data-mask="999999.999999.999999" placeholder="Dimensions (cm)">
-                                        <i>(Length X Width X Height)</i>
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{--  Product Weight  --}}
-                                        <label></label>
-                                        <input type="text" class="form-control input-lg" data-mask="$ 999999" placeholder="Weight (kg)">
-                                        <i>(Length X Width X Height)</i>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{--  Product Manufacturer  --}}
-                                        <label>  </label>
-                                        <select class="select2_demo_3 form-control input-lg">
-                                            <option>Select Manufacturer</option>
-                                            <option value="Bahamas">Bahamas</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{--  Product Brand  --}}
-                                        <label>  </label>
-                                        <select class="select2_demo_3 form-control input-lg">
-                                            <option>Select Brand</option>
-                                            <option value="Bahamas">Bahamas</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <br>
+                                {{--  Description  --}}
+                                <textarea id="summernote" class="summernote" name="description">
+                                    <h3>Sample description format</h3>
+                                        dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
+                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                                        <br/>
+                                        <br/>
+                                        <ul>
+                                            <li>Remaining essentially unchanged</li>
+                                            <li>Make a type specimen book</li>
+                                            <li>Unknown printer</li>
+                                        </ul>
+                                </textarea>
                                 <hr>
 
                                 {{--  Sales and purchase information  --}}
                                 <h3 class="text-center">SALES AND PURCHASE INFORMATION</h3>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <h4 class="text-center">SALES INFORMATION</h4>
                                         {{--  Product purchase account  --}}
                                         <div class="row">
                                             <div class="col-md-1">
@@ -184,14 +167,17 @@
                                             </div>
                                             <div class="col-md-11">
                                                 <label></label>
-                                                <select class="select2_demo_3 form-control input-lg">
-                                                    <option>Select Account</option>
-                                                    <option value="Bahamas">Bahamas</option>
+                                                <select name="selling_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                    <option value="">Select Selling Account</option>
+                                                    @foreach($accounts as $account)
+                                                        <option value="{{$account->id}}">{{$account->name}}</option>
+                                                    @endforeach()
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        <h4 class="text-center">PURCHASE INFORMATION</h4>
                                         {{--  Product selling account  --}}
                                         <div class="row">
                                             <div class="col-md-1">
@@ -201,9 +187,11 @@
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
-                                                    <select class="select2_demo_3 form-control input-lg">
-                                                        <option>Select Account</option>
-                                                        <option value="Bahamas">Bahamas</option>
+                                                    <select name="purchase_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                        <option value="">Select Purchase Account</option>
+                                                        @foreach($accounts as $account)
+                                                            <option value="{{$account->id}}">{{$account->name}}</option>
+                                                        @endforeach()
                                                     </select>
                                                 </div>
                                             </div>
@@ -220,32 +208,50 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        {{--  Purchase price  --}}
+                                        <div class="has-warning">
+                                            <label class="text-danger"></label>
+                                            <input type="text" id="purchase_price" name="purchase_price" required="required" placeholder="Purchase Price" class="form-control input-lg">
+                                            <i>Your product purchase price</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
                                         {{--  Product Tax  --}}
                                         <label></label>
-                                        <select class="select2_demo_3 form-control input-lg">
-                                            <option>Select tax</option>
-                                            <option value="Bahamas">Bahamas</option>
+                                        <select name="taxes[]" data-placeholder="Select Taxes" class="chosen-select input-lg" multiple style="width:100%;" tabindex="2">
+                                            @foreach($taxes as $tax)
+                                                <option value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
+                                            @endforeach()
                                         </select>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="checkbox">
-
-                                            <label for="returnable">
-                                                Product Manufacture/Creation
+                                    <div class="col-md-6">
+                                        <div class="checkbox checkbox-info">
+                                            <input id="is_created" name="is_created" type="checkbox">
+                                            <label for="is_created">
+                                                Product Manufactured/Created
                                             </label>
                                             <span><i data-toggle="tooltip" data-placement="right" title="Check this option if the product is manufactured, created or a period of time is used by this business to add value to it." class="fa fa-2x fa-question-circle"></i></span>
-                                            <input id="value_addition" name="value_addition" type="checkbox">
                                         </div>
+
                                     </div>
-                                    <div class="col-md-5">
-                                        <input type="text" id="creation_time" name="creation_time" required="required" placeholder="Creation/Value addition time" class="form-control input-lg">
-                                        <i>Average time taken to manufacture/create or add value to it.</i>
+                                    <div class="col-md-6">
+
                                     </div>
-                                    <div class="col-md-4">
-                                        <input type="text" id="creation_cost" name="creation_cost" required="required" placeholder="Average Creation/Value Addition cost" class="form-control input-lg">
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="number" id="creation_time" name="creation_time" required="required" placeholder="Creation/Value addition time" class="form-control input-lg">
+                                        <i>Average time taken to manufacture/create or add value to it in minutes.</i>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" id="creation_cost" name="creation_cost" required="required" placeholder="Average Creation/Value Addition cost" class="form-control input-lg">
                                         <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
                                     </div>
                                 </div>
@@ -264,9 +270,11 @@
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
-                                                    <select class="select2_demo_3 form-control input-lg">
-                                                        <option>Select Account</option>
-                                                        <option value="Bahamas">Bahamas</option>
+                                                    <select name="inventory_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2">
+                                                        <option value="">Select Inventory Account</option>
+                                                        @foreach($accounts as $account)
+                                                            <option value="{{$account->id}}">{{$account->name}}</option>
+                                                        @endforeach()
                                                     </select>
                                                 </div>
                                             </div>
@@ -286,7 +294,7 @@
                                             </div>
                                             <div class="col-md-11">
                                                 <label></label>
-                                                <input type="text" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg" placeholder="Opening Stock">
+                                                <input type="number" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg" placeholder="Opening Stock">
                                             </div>
                                         </div>
                                     </div>
@@ -300,7 +308,7 @@
                                             </div>
                                             <div class="col-md-11">
                                                 <label></label>
-                                                <input type="text" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg" placeholder="Opening Stock Value">
+                                                <input type="number" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg" placeholder="Opening Stock Value">
                                             </div>
                                         </div>
                                     </div>
@@ -315,17 +323,12 @@
                                             </div>
                                             <div class="col-md-11">
                                                 <label></label>
-                                                <input type="text" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg" placeholder="Reorder Level">
+                                                <input type="number" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg" placeholder="Reorder Level">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        {{--  Preferred vendor  --}}
-                                        <label></label>
-                                        <select id="preferred_vendor" name="preferred_vendor" class="select2_demo_3 form-control input-lg">
-                                            <option>Select Preferred Vendor</option>
-                                            <option value="Bahamas">Bahamas</option>
-                                        </select>
+
                                     </div>
                                 </div>
                                 <hr>
@@ -356,18 +359,11 @@
     <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
     <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
-
-    <!-- Datatables -->
-    <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
-
-    <!-- Select2 -->
-    <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <!-- Chosen -->
     <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
@@ -417,7 +413,24 @@
     <!-- TouchSpin -->
     <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
-    <!-- Page-Level Scripts -->
+    <!-- SUMMERNOTE -->
+    <script src="{{ asset('inspinia') }}/js/plugins/summernote/summernote.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('.summernote').summernote();
+
+        });
+        var edit = function() {
+            $('.click2edit').summernote({focus: true});
+        };
+        var save = function() {
+            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+            $('.click2edit').destroy();
+        };
+    </script>
+
     <script>
         $(document).ready(function(){
 
@@ -628,7 +641,7 @@
             '.chosen-select-deselect'  : {allow_single_deselect:true},
             '.chosen-select-no-single' : {disable_search_threshold:10},
             '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-            '.chosen-select-width'     : {width:"100%"}
+            '.chosen-select-width'     : {width:"95%"}
         }
         for (var selector in config) {
             $(selector).chosen(config[selector]);
@@ -719,55 +732,5 @@
 
     </script>
 
-
-    {{--  Data tables  --}}
-    <script>
-        $(document).ready(function(){
-            $('.dataTables-example').DataTable({
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
-
-                    {extend: 'print',
-                     customize: function (win){
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                    .addClass('compact')
-                                    .css('font-size', 'inherit');
-                    }
-                    }
-                ]
-
-            });
-
-            /* Init DataTables */
-            var oTable = $('#editable').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
-
-
-        });
-
-    </script>
 
 @endsection

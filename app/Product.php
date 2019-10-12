@@ -52,10 +52,6 @@ class Product extends Model
     {
         return $this->belongsTo('App\Brand');
     }
-    public function tax()
-    {
-        return $this->belongsTo('App\Tax');
-    }
     public function product_group()
     {
         return $this->belongsTo('App\ProductGroup');
@@ -70,9 +66,9 @@ class Product extends Model
     {
         return $this->hasMany('App\InventoryAdjustmentProduct');
     }
-    public function inventories()
+    public function inventory()
     {
-        return $this->hasMany('App\Inventory');
+        return $this->hasOne('App\Inventory');
     }
     public function product_images()
     {
@@ -105,5 +101,13 @@ class Product extends Model
     public function order_products()
     {
         return $this->hasMany('App\OrderProduct');
+    }
+    public function product_taxes()
+    {
+        return $this->hasMany('App\ProductTax');
+    }
+    public function product_discounts()
+    {
+        return $this->hasMany('App\ProductDiscount');
     }
 }

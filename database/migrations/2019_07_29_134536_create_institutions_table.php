@@ -25,7 +25,7 @@ class CreateInstitutionsTable extends Migration
 
             $table->uuid('logo_id')->nullable();
             $table->uuid('address_id')->nullable();
-            $table->uuid('currency_id')->nullable();
+            $table->uuid('currency_id');
             $table->uuid('fiscal_year_id')->nullable();
             $table->uuid('language_id')->nullable();
             $table->uuid('timezone_id')->nullable();

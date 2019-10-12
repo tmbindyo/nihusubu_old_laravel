@@ -18,7 +18,7 @@ class CreateOrderProductsTable extends Migration
 
             $table->double('rate', 20,2);
             $table->double('quantity', 20,2);
-            $table->double('refund_amount', 20,2);
+            $table->double('refund_amount', 20,2)->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

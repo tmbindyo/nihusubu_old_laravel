@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\Traits\InstitutionTrait;
+use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PurchaseController extends Controller
 {
+
+    use UserTrait;
+    use institutionTrait;
+
     public function purchaseOrders()
     {
         return view('business.purchase_orders');
@@ -17,7 +23,7 @@ class PurchaseController extends Controller
     }
     public function purchaseOrderStore(Request $request)
     {
-        return back()->withStatus(__('Purchase order successfully created.'));
+        return back()->withSuccess(__('Purchase order successfully created.'));
     }
     public function purchaseOrderShow($purchase_order_id)
     {
@@ -34,7 +40,7 @@ class PurchaseController extends Controller
     }
     public function vendorStore(Request $request)
     {
-        return back()->withStatus(__('Vendor successfully created.'));
+        return back()->withSuccess(__('Vendor successfully created.'));
     }
     public function vendorShow($vendor_id)
     {
@@ -46,7 +52,7 @@ class PurchaseController extends Controller
     }
     public function vendorContactPersonMessage($contact_person_id)
     {
-        return back()->withStatus(__('Message sent to .'));
+        return back()->withSuccess(__('Message sent to .'));
     }
     public function vendorEdit()
     {
@@ -54,24 +60,34 @@ class PurchaseController extends Controller
     }
     public function vendorUpdate(Request $request, $vendor_id)
     {
-        return back()->withStatus(__('Vendor successfully updated.'));
+        return back()->withSuccess(__('Vendor successfully updated.'));
     }
     public function vendorDelete($vendor_id)
     {
-        return back()->withStatus(__('Vendor successfully deleted.'));
+        return back()->withSuccess(__('Vendor successfully deleted.'));
     }
 
     public function expenses()
     {
-        return view('business.expenses');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.expenses',compact('user','institution'));
     }
     public function expenseCreate()
     {
-        return view('business.expense_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.expense_create',compact('user','institution'));
     }
     public function expenseStore()
     {
-        return back()->withStatus(__('Expense successfully created.'));
+        return back()->withSuccess(__('Expense successfully created.'));
     }
     public function expenseShow($expense_id)
     {
@@ -83,11 +99,11 @@ class PurchaseController extends Controller
     }
     public function expenseUpdate($expense_id)
     {
-        return back()->withStatus(__('Expense successfully updated.'));
+        return back()->withSuccess(__('Expense successfully updated.'));
     }
     public function expenseDelete($expense_id)
     {
-        return back()->withStatus(__('Expense successfully deleted.'));
+        return back()->withSuccess(__('Expense successfully deleted.'));
     }
     public function expensePrint($expense_id)
     {
@@ -104,7 +120,7 @@ class PurchaseController extends Controller
     }
     public function billStore()
     {
-        return back()->withStatus(__('Bill successfully created.'));
+        return back()->withSuccess(__('Bill successfully created.'));
     }
     public function billShow($bill_id)
     {
@@ -116,11 +132,11 @@ class PurchaseController extends Controller
     }
     public function billUpdate($bill_id)
     {
-        return back()->withStatus(__('Bill successfully updated.'));
+        return back()->withSuccess(__('Bill successfully updated.'));
     }
     public function billDelete($bill_id)
     {
-        return back()->withStatus(__('Bill successfully deleted.'));
+        return back()->withSuccess(__('Bill successfully deleted.'));
     }
     public function billPrint($bill_id)
     {

@@ -13,7 +13,7 @@ class BudgetController extends Controller
     }
     public function budgetStore()
     {
-        return back()->withStatus(__('Budget successfully created.'));
+        return back()->withSuccess(__('Budget successfully created.'));
     }
     public function budgetShow($budget_id)
     {
@@ -25,7 +25,7 @@ class BudgetController extends Controller
     }
     public function budgetUpdate($budget_id)
     {
-        return back()->withStatus(__('Budget successfully updated.'));
+        return back()->withSuccess(__('Budget successfully updated.'));
     }
     public function budgetDelete($budget_id)
     {

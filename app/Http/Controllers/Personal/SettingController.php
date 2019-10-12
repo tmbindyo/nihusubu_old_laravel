@@ -18,7 +18,7 @@ class SettingController extends Controller
     }
     public function familyStore()
     {
-        return back()->withStatus(__('Family successfully created.'));
+        return back()->withSuccess(__('Family successfully created.'));
     }
     public function familyMemberShow($family_id)
     {
@@ -30,11 +30,11 @@ class SettingController extends Controller
     }
     public function familyMemberUpdate($family_id)
     {
-        return back()->withStatus(__('Family member successfully updated.'));
+        return back()->withSuccess(__('Family member successfully updated.'));
     }
     public function familyMemberDelete($family_id)
     {
-        return back()->withStatus(__('Family member successfully deleted.'));
+        return back()->withSuccess(__('Family member successfully deleted.'));
     }
 
 
@@ -48,7 +48,7 @@ class SettingController extends Controller
     }
     public function commitmentStore()
     {
-        return back()->withStatus(__('Commitment successfully created.'));
+        return back()->withSuccess(__('Commitment successfully created.'));
     }
     public function commitmentShow($commitment_id)
     {
@@ -60,10 +60,10 @@ class SettingController extends Controller
     }
     public function commitmentUpdate($commitment_id)
     {
-        return back()->withStatus(__('Commitment successfully updated.'));
+        return back()->withSuccess(__('Commitment successfully updated.'));
     }
     public function commitmentDelete($commitment_id)
     {
-        return back()->withStatus(__('Commitment successfully deleted.'));
+        return back()->withSuccess(__('Commitment successfully deleted.'));
     }
 }

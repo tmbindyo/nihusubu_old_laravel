@@ -622,7 +622,7 @@
                     return _results;
                 };
 
-                Dropzone.prototype.getFilesWithStatus = function(status) {
+                Dropzone.prototype.getFileswithSuccess = function(status) {
                     var file, _i, _len, _ref, _results;
                     _ref = this.files;
                     _results = [];
@@ -636,11 +636,11 @@
                 };
 
                 Dropzone.prototype.getQueuedFiles = function() {
-                    return this.getFilesWithStatus(Dropzone.QUEUED);
+                    return this.getFileswithSuccess(Dropzone.QUEUED);
                 };
 
                 Dropzone.prototype.getUploadingFiles = function() {
-                    return this.getFilesWithStatus(Dropzone.UPLOADING);
+                    return this.getFileswithSuccess(Dropzone.UPLOADING);
                 };
 
                 Dropzone.prototype.getActiveFiles = function() {

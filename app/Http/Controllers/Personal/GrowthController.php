@@ -18,7 +18,7 @@ class GrowthController extends Controller
     }
     public function investmentStore()
     {
-        return back()->withStatus(__('Investment successfully created.'));
+        return back()->withSuccess(__('Investment successfully created.'));
     }
     public function investmentShow($investment_id)
     {
@@ -30,23 +30,23 @@ class GrowthController extends Controller
     }
     public function investmentUpdate($investment_id)
     {
-        return back()->withStatus(__('Investment successfully updated.'));
+        return back()->withSuccess(__('Investment successfully updated.'));
     }
     public function investmentInvest($investment_id)
     {
-        return back()->withStatus(__('Investment successfully invested into.'));
+        return back()->withSuccess(__('Investment successfully invested into.'));
     }
     public function investmentWithdraw($investment_id)
     {
-        return back()->withStatus(__('Investment successfully withdrawn.'));
+        return back()->withSuccess(__('Investment successfully withdrawn.'));
     }
     public function investmentClose($investment_id)
     {
-        return back()->withStatus(__('Investment successfully closed.'));
+        return back()->withSuccess(__('Investment successfully closed.'));
     }
     public function investmentDelete($investment_id)
     {
-        return back()->withStatus(__('Investment successfully deleted.'));
+        return back()->withSuccess(__('Investment successfully deleted.'));
     }
 
 
@@ -61,7 +61,7 @@ class GrowthController extends Controller
     }
     public function goalStore()
     {
-        return back()->withStatus(__('Goal successfully created.'));
+        return back()->withSuccess(__('Goal successfully created.'));
     }
     public function goalShow($goal_id)
     {
@@ -73,23 +73,23 @@ class GrowthController extends Controller
     }
     public function goalUpdate($goal_id)
     {
-        return back()->withStatus(__('Goal successfully updated.'));
+        return back()->withSuccess(__('Goal successfully updated.'));
     }
     public function goalInvest($goal_id)
     {
-        return back()->withStatus(__('Goal successfully invested into.'));
+        return back()->withSuccess(__('Goal successfully invested into.'));
     }
     public function goalWithdraw($goal_id)
     {
-        return back()->withStatus(__('Goal successfully withdrawn.'));
+        return back()->withSuccess(__('Goal successfully withdrawn.'));
     }
     public function goalClose($goal_id)
     {
-        return back()->withStatus(__('Goal successfully closed.'));
+        return back()->withSuccess(__('Goal successfully closed.'));
     }
     public function goalDelete($goal_id)
     {
-        return back()->withStatus(__('Goal successfully deleted.'));
+        return back()->withSuccess(__('Goal successfully deleted.'));
     }
 
 

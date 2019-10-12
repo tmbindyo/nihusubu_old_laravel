@@ -35,6 +35,13 @@ Route::get('/product/show/{product_id}', 'Business\ProductController@productShow
 Route::get('/product/edit/{product_id}', 'Business\ProductController@productEdit')->name('business.product.edit');
 Route::post('/product/update/{product_id}', 'Business\ProductController@productUpdate')->name('business.product.update');
 Route::get('/product/delete/{product_id}', 'Business\ProductController@productDelete')->name('business.product.delete');
+Route::get('/product/restore/{product_id}', 'Business\ProductController@productRestore')->name('business.product.restore');
+
+Route::post('/product/discount/store/{product_id}', 'Business\ProductController@productDiscountStore')->name('business.product.discount.store');
+Route::post('/product/discount/update/{product_id}', 'Business\ProductController@productDiscountUpdate')->name('business.product.discount.update');
+Route::get('/product/discount/delete/{product_id}', 'Business\ProductController@productDiscountDelete')->name('business.product.discount.delete');
+
+Route::get('/product/tax/delete/{product_id}', 'Business\ProductController@productTaxDelete')->name('business.product.tax.delete');
 
 Route::get('/composite/products', 'Business\ProductController@compositeProducts')->name('business.composite.products');
 Route::get('/composite/product/create', 'Business\ProductController@compositeProductCreate')->name('business.composite.product.create');

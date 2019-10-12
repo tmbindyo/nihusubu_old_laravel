@@ -6,7 +6,7 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Restock extends Model
+class CompositeProductTax extends Model
 {
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
@@ -20,16 +20,12 @@ class Restock extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function warehouse()
+    public function composite_product()
     {
-        return $this->belongsTo('App\Warehouse');
+        return $this->belongsTo('App\CompositeProduct');
     }
-    public function product()
+    public function tax()
     {
-        return $this->belongsTo('App\Product');
-    }
-    public function expense_item()
-    {
-        return $this->belongsTo('App\ExpenseItem')->with('expense');
+        return $this->belongsTo('App\Tax');
     }
 }

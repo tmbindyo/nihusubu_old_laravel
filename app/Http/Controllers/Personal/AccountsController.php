@@ -17,7 +17,7 @@ class AccountsController extends Controller
     }
     public function accountStore()
     {
-        return back()->withStatus(__('Account successfully created.'));
+        return back()->withSuccess(__('Account successfully created.'));
     }
     public function accountShow($account_id)
     {
@@ -29,22 +29,22 @@ class AccountsController extends Controller
     }
     public function accountUpdate($account_id)
     {
-        return back()->withStatus(__('Account successfully updated.'));
+        return back()->withSuccess(__('Account successfully updated.'));
     }
     public function accountDeposit($account_id)
     {
-        return back()->withStatus(__('Account successfully deposited into.'));
+        return back()->withSuccess(__('Account successfully deposited into.'));
     }
     public function accountWithdraw($account_id)
     {
-        return back()->withStatus(__('Account successfully withdrawn from.'));
+        return back()->withSuccess(__('Account successfully withdrawn from.'));
     }
     public function accountClose($account_id)
     {
-        return back()->withStatus(__('Account successfully closed.'));
+        return back()->withSuccess(__('Account successfully closed.'));
     }
     public function accountDelete($account_id)
     {
-        return back()->withStatus(__('Account successfully deleted.'));
+        return back()->withSuccess(__('Account successfully deleted.'));
     }
 }

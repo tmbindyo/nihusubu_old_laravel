@@ -18,6 +18,7 @@ class InstitutionTableSeeder extends Seeder
             'portal' => 'fluidtech',
             'has_custom_payment_terms' => 0,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'currency_id' => '0839e6c9-20b3-4442-b3b6-5137a4d309ec',
             'user_id' => 1,
         ]);
 

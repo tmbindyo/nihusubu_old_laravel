@@ -23,6 +23,8 @@ class CreateTaxesTable extends Migration
             $table->uuid('status_id');
             $table->uuid('institution_id');
 
+            $table->boolean('is_percentage');
+
             $table->timestamps();
             $table->softDeletes();
         });

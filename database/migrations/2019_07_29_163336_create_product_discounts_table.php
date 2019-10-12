@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatusesTable extends Migration
+class CreateProductDiscountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,20 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('product_discounts', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name', 200);
-            $table->longText('description');
-            $table->longText('label')->nullable();
+            $table->integer('quantity');
+            $table->double('discount');
+
+            $table->date('start_date');
+            $table->date('end_date');
 
             $table->integer('user_id')->unsigned();
-            $table->uuid('status_type_id');
+            $table->uuid('status_id');
+            $table->uuid('product_id');
+
+            $table->boolean('is_percentage');
 
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +40,6 @@ class CreateStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('product_discounts');
     }
 }

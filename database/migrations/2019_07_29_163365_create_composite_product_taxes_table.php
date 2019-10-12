@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatusesTable extends Migration
+class CreateCompositeProductTaxesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('composite_product_taxes', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name', 200);
-            $table->longText('description');
-            $table->longText('label')->nullable();
-
             $table->integer('user_id')->unsigned();
-            $table->uuid('status_type_id');
+            $table->uuid('status_id');
+            $table->uuid('composite_product_id');
+            $table->uuid('tax_id');
 
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +33,6 @@ class CreateStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('composite_product_taxes');
     }
 }

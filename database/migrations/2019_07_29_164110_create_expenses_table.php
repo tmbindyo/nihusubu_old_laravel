@@ -30,6 +30,7 @@ class CreateExpensesTable extends Migration
             $table->uuid('expense_type_id');
             $table->uuid('currency_id')->nullable();
             $table->uuid('tax_id')->nullable();
+
             // paid_through_account
             $table->uuid('account_id');
             $table->uuid('vendor_id')->nullable();

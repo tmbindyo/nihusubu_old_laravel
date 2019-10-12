@@ -116,6 +116,6 @@ class ToDoController extends Controller
         $todo = ToDo::findOrFail($to_do_id);
         $todo->delete();
 
-        return back()->withStatus(__('To do '.$todo->task.' successfully deleted.'));
+        return back()->withSuccess(__('To do '.$todo->task.' successfully deleted.'));
     }
 }

@@ -17,7 +17,7 @@ class ExpenseController extends Controller
     }
     public function expenseStore()
     {
-        return back()->withStatus(__('Expense successfully created.'));
+        return back()->withSuccess(__('Expense successfully created.'));
     }
     public function expenseShow($expense_id)
     {
@@ -29,11 +29,11 @@ class ExpenseController extends Controller
     }
     public function expenseUpdate($expense_id)
     {
-        return back()->withStatus(__('Expense successfully updated.'));
+        return back()->withSuccess(__('Expense successfully updated.'));
     }
     public function expenseDelete($expense_id)
     {
-        return back()->withStatus(__('Expense successfully deleted.'));
+        return back()->withSuccess(__('Expense successfully deleted.'));
     }
 
 
@@ -50,7 +50,7 @@ class ExpenseController extends Controller
     }
     public function billStore()
     {
-        return back()->withStatus(__('Bill successfully created.'));
+        return back()->withSuccess(__('Bill successfully created.'));
     }
     public function billShow($bill_id)
     {
@@ -62,10 +62,10 @@ class ExpenseController extends Controller
     }
     public function billUpdate($bill_id)
     {
-        return back()->withStatus(__('Bill successfully updated.'));
+        return back()->withSuccess(__('Bill successfully updated.'));
     }
     public function billDelete($bill_id)
     {
-        return back()->withStatus(__('Bill successfully deleted.'));
+        return back()->withSuccess(__('Bill successfully deleted.'));
     }
 }

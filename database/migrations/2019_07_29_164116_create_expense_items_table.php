@@ -23,7 +23,9 @@ class CreateExpenseItemsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('expense_id');
             $table->uuid('status_id');
+            $table->uuid('product_id');
 
+            $table->boolean('is_product');
 
             $table->timestamps();
             $table->softDeletes();

@@ -23,6 +23,8 @@ class CreateWarehousesTable extends Migration
             $table->uuid('institution_id');
             $table->uuid('status_id');
 
+            $table->boolean('is_primary');
+
             $table->timestamps();
             $table->softDeletes();
         });

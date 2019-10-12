@@ -24,4 +24,14 @@ class ExpenseItem extends Model
     {
         return $this->belongsTo('App\Expense');
     }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
+
+    // Children
+    public function restock()
+    {
+        return $this->hasOne('App\Restock');
+    }
 }

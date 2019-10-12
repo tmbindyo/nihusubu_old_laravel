@@ -18,7 +18,7 @@ class InventoryController extends Controller
     }
     public function inventoryAdjustmentStore()
     {
-        return back()->withStatus(__('Inventory adjustment successfully stored.'));
+        return back()->withSuccess(__('Inventory adjustment successfully stored.'));
     }
     public function inventoryAdjustmentShow($inventory_adjustment_id)
     {
@@ -30,11 +30,11 @@ class InventoryController extends Controller
     }
     public function inventoryAdjustmentUpdate(Request $request, $inventory_adjustment_id)
     {
-        return back()->withStatus(__('Inventory adjustment successfully updated.'));
+        return back()->withSuccess(__('Inventory adjustment successfully updated.'));
     }
     public function inventoryAdjustmentDelete(Request $request, $inventory_adjustment_id)
     {
-        return back()->withStatus(__('Inventory adjustment successfully deleted.'));
+        return back()->withSuccess(__('Inventory adjustment successfully deleted.'));
     }
 
     // Transfer order CRUD
@@ -48,7 +48,7 @@ class InventoryController extends Controller
     }
     public function transferOrderStore()
     {
-        return back()->withStatus(__('Transfer order successfully stored.'));
+        return back()->withSuccess(__('Transfer order successfully stored.'));
     }
     public function transferOrderShow($transfer_order_id)
     {
@@ -60,11 +60,11 @@ class InventoryController extends Controller
     }
     public function transferOrderUpdate(Request $request, $transfer_order_id)
     {
-        return back()->withStatus(__('Transfer order successfully updated.'));
+        return back()->withSuccess(__('Transfer order successfully updated.'));
     }
     public function transferOrderDelete(Request $request, $transfer_order_id)
     {
-        return back()->withStatus(__('Transfer order successfully deleted.'));
+        return back()->withSuccess(__('Transfer order successfully deleted.'));
     }
 
 
@@ -75,7 +75,7 @@ class InventoryController extends Controller
     }
     public function warehouseStore()
     {
-        return back()->withStatus(__('Warehouse successfully stored.'));
+        return back()->withSuccess(__('Warehouse successfully stored.'));
     }
     public function warehouseShow($warehouse_id)
     {
@@ -87,11 +87,11 @@ class InventoryController extends Controller
     }
     public function warehouseUpdate(Request $request, $warehouse_id)
     {
-        return back()->withStatus(__('Warehouse successfully updated.'));
+        return back()->withSuccess(__('Warehouse successfully updated.'));
     }
     public function warehouseDelete(Request $request, $warehouse_id)
     {
-        return back()->withStatus(__('Warehouse successfully deleted.'));
+        return back()->withSuccess(__('Warehouse successfully deleted.'));
     }
 
 }

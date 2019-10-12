@@ -17,7 +17,7 @@ class SaleController extends Controller
     }
     public function clientStore(Request $request)
     {
-        return back()->withStatus(__('Client successfully created.'));
+        return back()->withSuccess(__('Client successfully created.'));
     }
     public function clientShow($client_id)
     {
@@ -29,7 +29,7 @@ class SaleController extends Controller
     }
     public function clientContactPersonMessage($contact_person_id)
     {
-        return back()->withStatus(__('Message sent to .'));
+        return back()->withSuccess(__('Message sent to .'));
     }
     public function clientEdit()
     {
@@ -37,11 +37,11 @@ class SaleController extends Controller
     }
     public function clientUpdate(Request $request, $client_id)
     {
-        return back()->withStatus(__('Client successfully updated.'));
+        return back()->withSuccess(__('Client successfully updated.'));
     }
     public function clientDelete($client_id)
     {
-        return back()->withStatus(__('Client successfully deleted.'));
+        return back()->withSuccess(__('Client successfully deleted.'));
     }
 
 
@@ -55,7 +55,7 @@ class SaleController extends Controller
     }
     public function estimateStore(Request $request)
     {
-        return back()->withStatus(__('Estimate successfully created.'));
+        return back()->withSuccess(__('Estimate successfully created.'));
     }
     public function estimateShow($estimate_id)
     {
@@ -67,11 +67,11 @@ class SaleController extends Controller
     }
     public function estimateUpdate(Request $request, $estimate_id)
     {
-        return back()->withStatus(__('Estimate successfully updated.'));
+        return back()->withSuccess(__('Estimate successfully updated.'));
     }
     public function estimateDelete($estimate_id)
     {
-        return back()->withStatus(__('Estimate successfully deleted.'));
+        return back()->withSuccess(__('Estimate successfully deleted.'));
     }
 
 
@@ -86,7 +86,7 @@ class SaleController extends Controller
     }
     public function invoiceStore()
     {
-        return back()->withStatus(__('Invoice successfully created.'));
+        return back()->withSuccess(__('Invoice successfully created.'));
     }
     public function invoiceShow($invoice_id)
     {
@@ -98,11 +98,11 @@ class SaleController extends Controller
     }
     public function invoiceUpdate($invoice_id)
     {
-        return back()->withStatus(__('Invoice successfully updated.'));
+        return back()->withSuccess(__('Invoice successfully updated.'));
     }
     public function invoiceDelete($invoice_id)
     {
-        return back()->withStatus(__('Invoice successfully deleted.'));
+        return back()->withSuccess(__('Invoice successfully deleted.'));
     }
     public function invoicePrint()
     {
@@ -122,7 +122,7 @@ class SaleController extends Controller
     }
     public function orderStore()
     {
-        return back()->withStatus(__('Order successfully created.'));
+        return back()->withSuccess(__('Order successfully created.'));
     }
     public function orderShow($order_id)
     {
@@ -134,11 +134,11 @@ class SaleController extends Controller
     }
     public function orderUpdate($order_id)
     {
-        return back()->withStatus(__('Order successfully updated.'));
+        return back()->withSuccess(__('Order successfully updated.'));
     }
     public function orderDelete($order_id)
     {
-        return back()->withStatus(__('Order successfully deleted.'));
+        return back()->withSuccess(__('Order successfully deleted.'));
     }
     public function orderPrint($order_id)
     {
@@ -156,7 +156,7 @@ class SaleController extends Controller
     }
     public function saleStore()
     {
-        return back()->withStatus(__('Sale successfully created.'));
+        return back()->withSuccess(__('Sale successfully created.'));
     }
     public function saleShow($sale_id)
     {
@@ -168,7 +168,7 @@ class SaleController extends Controller
     }
     public function saleUpdate($sale_id)
     {
-        return back()->withStatus(__('Order successfully updated.'));
+        return back()->withSuccess(__('Order successfully updated.'));
     }
     public function saleDelete($sale_id)
     {
