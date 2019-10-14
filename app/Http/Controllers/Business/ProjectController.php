@@ -2,23 +2,44 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\Traits\InstitutionTrait;
+use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ProjectController extends Controller
 {
+
+    use UserTrait;
+    use institutionTrait;
+
     // Projects
     public function projectsFeed()
     {
-        return view('business.projects_feed');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.projects_feed',compact('user','institution'));
     }
     public function projects()
     {
-        return view('business.projects');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.projects',compact('user','institution'));
     }
     public function projectCreate()
     {
-        return view('business.project_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.project_create',compact('user','institution'));
     }
     public function projectStore(Request $request)
     {
@@ -26,11 +47,21 @@ class ProjectController extends Controller
     }
     public function projectShow($project)
     {
-        return view('business.project_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.project_show',compact('user','institution'));
     }
     public function projectEdit($project)
     {
-        return view('business.project_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.project_edit',compact('user','institution'));
     }
     public function projectUpdate(Request $request)
     {

@@ -19,18 +19,28 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+
     use UserTrait;
     use institutionTrait;
-
 
     // Product group CRUD
     public function productGroups()
     {
-        return view('business.product_groups');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.product_groups',compact('user','institution'));
     }
     public function productGroupCreate()
     {
-        return view('business.product_group_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.product_group_create',compact('user','institution'));
     }
     public function productGroupStore(Request $request)
     {
@@ -38,11 +48,21 @@ class ProductController extends Controller
     }
     public function productGroupShow($product_group_id)
     {
-        return view('business.product_group_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.product_group_show',compact('user','institution'));
     }
     public function productGroupEdit($product_group_id)
     {
-        return view('business.product_group_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.product_group_edit',compact('user','institution'));
     }
     public function productGroupUpdate(Request $request)
     {
@@ -260,11 +280,21 @@ class ProductController extends Controller
     // Composite product CRUD
     public function compositeProducts()
     {
-        return view('business.composite_products');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.composite_products',compact('user','institution'));
     }
     public function compositeProductCreate()
     {
-        return view('business.composite_product_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.composite_product_create',compact('user','institution'));
     }
     public function compositeProductStore(Request $request)
     {
@@ -272,11 +302,21 @@ class ProductController extends Controller
     }
     public function compositeProductShow($composite_product_id)
     {
-        return view('business.composite_product_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.composite_product_show',compact('user','institution'));
     }
     public function compositeProductEdit($composite_product_id)
     {
-        return view('business.composite_product_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.composite_product_edit',compact('user','institution'));
     }
     public function compositeProductUpdate(Request $request)
     {

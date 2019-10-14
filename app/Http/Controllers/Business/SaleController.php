@@ -2,18 +2,34 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\Traits\InstitutionTrait;
+use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SaleController extends Controller
 {
+
+    use UserTrait;
+    use institutionTrait;
+
     public function clients()
     {
-        return view('business.clients');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.clients',compact('user','institution'));
     }
     public function clientCreate()
     {
-        return view('business.client_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.client_create',compact('user','institution'));
     }
     public function clientStore(Request $request)
     {
@@ -21,11 +37,21 @@ class SaleController extends Controller
     }
     public function clientShow($client_id)
     {
-        return view('business.client_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.client_show',compact('user','institution'));
     }
     public function clientContactPersonShow($contact_person_id)
     {
-        return view('business.client_contact_person_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.client_contact_person_show',compact('user','institution'));
     }
     public function clientContactPersonMessage($contact_person_id)
     {
@@ -33,7 +59,12 @@ class SaleController extends Controller
     }
     public function clientEdit()
     {
-        return view('business.client_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.client_edit',compact('user','institution'));
     }
     public function clientUpdate(Request $request, $client_id)
     {
@@ -47,11 +78,21 @@ class SaleController extends Controller
 
     public function estimates()
     {
-        return view('business.estimates');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.estimates',compact('user','institution'));
     }
     public function estimateCreate()
     {
-        return view('business.estimate_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.estimate_create',compact('user','institution'));
     }
     public function estimateStore(Request $request)
     {
@@ -59,11 +100,21 @@ class SaleController extends Controller
     }
     public function estimateShow($estimate_id)
     {
-        return view('business.estimate_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.estimate_show',compact('user','institution'));
     }
     public function estimateEdit()
     {
-        return view('business.estimate_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.estimate_edit',compact('user','institution'));
     }
     public function estimateUpdate(Request $request, $estimate_id)
     {
@@ -78,11 +129,21 @@ class SaleController extends Controller
 
     public function invoices()
     {
-        return view('business.invoices');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.invoices',compact('user','institution'));
     }
     public function invoiceCreate()
     {
-        return view('business.invoice_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.invoice_create',compact('user','institution'));
     }
     public function invoiceStore()
     {
@@ -90,11 +151,21 @@ class SaleController extends Controller
     }
     public function invoiceShow($invoice_id)
     {
-        return view('business.invoice');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.invoice',compact('user','institution'));
     }
     public function invoiceEdit($invoice_id)
     {
-        return view('business.invoice');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.invoice',compact('user','institution'));
     }
     public function invoiceUpdate($invoice_id)
     {
@@ -106,7 +177,12 @@ class SaleController extends Controller
     }
     public function invoicePrint()
     {
-        return view('business.invoice_print');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.invoice_print',compact('user','institution'));
     }
 
 
@@ -114,11 +190,21 @@ class SaleController extends Controller
 
     public function orders()
     {
-        return view('business.orders');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.orders',compact('user','institution'));
     }
     public function orderCreate()
     {
-        return view('business.order_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.order_create',compact('user','institution'));
     }
     public function orderStore()
     {
@@ -126,11 +212,21 @@ class SaleController extends Controller
     }
     public function orderShow($order_id)
     {
-        return view('business.order_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.order_show',compact('user','institution'));
     }
     public function orderEdit($order_id)
     {
-        return view('business.order_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.order_edit',compact('user','institution'));
     }
     public function orderUpdate($order_id)
     {
@@ -142,17 +238,32 @@ class SaleController extends Controller
     }
     public function orderPrint($order_id)
     {
-        return view('business.order_print');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.order_print',compact('user','institution'));
     }
 
 
     public function sales()
     {
-        return view('business.sales');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.sales',compact('user','institution'));
     }
     public function saleCreate()
     {
-        return view('business.sale_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.sale_create',compact('user','institution'));
     }
     public function saleStore()
     {
@@ -160,11 +271,21 @@ class SaleController extends Controller
     }
     public function saleShow($sale_id)
     {
-        return view('business.sale_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.sale_show',compact('user','institution'));
     }
     public function saleEdit($sale_id)
     {
-        return view('business.sale_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.sale_show',compact('user','institution'));
     }
     public function saleUpdate($sale_id)
     {
@@ -172,13 +293,23 @@ class SaleController extends Controller
     }
     public function saleDelete($sale_id)
     {
-        return view('business.sale_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.sale_show',compact('user','institution'));
     }
 
 
     public function paymentsReceived()
     {
-        return view('business.payments_received');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.payments_received',compact('user','institution'));
     }
 
 }

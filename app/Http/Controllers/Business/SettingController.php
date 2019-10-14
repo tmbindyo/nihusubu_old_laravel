@@ -2,37 +2,78 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\Traits\InstitutionTrait;
+use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SettingController extends Controller
 {
+
+    use UserTrait;
+    use institutionTrait;
+
     public function organizationProfile()
     {
-        return view('business.organization.profile');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.organization.profile',compact('user','institution'));
     }
     public function openingBalances()
     {
-        return view('business.opening_balances');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.opening_balances',compact('user','institution'));
     }
     public function usersAndRoles()
     {
-        return view('business.users_and_roles');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.users_and_roles',compact('user','institution'));
     }
     public function currencies()
     {
-        return view('business.currencies');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.currencies',compact('user','institution'));
     }
     public function taxes()
     {
-        return view('business.taxes');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.taxes',compact('user','institution'));
     }
     public function emails()
     {
-        return view('business.emails');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.emails',compact('user','institution'));
     }
     public function reminders()
     {
-        return view('business.reminders');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.reminders',compact('user','institution'));
     }
 }

@@ -2,19 +2,35 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\Traits\InstitutionTrait;
+use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class InventoryController extends Controller
 {
+
+    use UserTrait;
+    use institutionTrait;
+
     // Inventory adjustment CRUD
     public function inventoryAdjustments()
     {
-        return view('business.inventory_adjustments');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.inventory_adjustments',compact('user','institution'));
     }
     public function inventoryAdjustmentCreate()
     {
-        return view('business.inventory_adjustment_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.inventory_adjustment_create',compact('user','institution'));
     }
     public function inventoryAdjustmentStore()
     {
@@ -22,11 +38,21 @@ class InventoryController extends Controller
     }
     public function inventoryAdjustmentShow($inventory_adjustment_id)
     {
-        return view('business.inventory_adjustment_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.inventory_adjustment_show',compact('user','institution'));
     }
     public function inventoryAdjustmentEdit($inventory_adjustment_id)
     {
-        return view('business.inventory_adjustment_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.inventory_adjustment_edit',compact('user','institution'));
     }
     public function inventoryAdjustmentUpdate(Request $request, $inventory_adjustment_id)
     {
@@ -40,11 +66,21 @@ class InventoryController extends Controller
     // Transfer order CRUD
     public function transferOrders()
     {
-        return view('business.transfer_orders');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.transfer_orders',compact('user','institution'));
     }
     public function transferOrderCreate()
     {
-        return view('business.transfer_order_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.transfer_order_create',compact('user','institution'));
     }
     public function transferOrderStore()
     {
@@ -52,11 +88,21 @@ class InventoryController extends Controller
     }
     public function transferOrderShow($transfer_order_id)
     {
-        return view('business.transfer_order_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.transfer_order_show',compact('user','institution'));
     }
     public function transferOrderEdit($transfer_order_id)
     {
-        return view('business.transfer_order_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.transfer_order_edit',compact('user','institution'));
     }
     public function transferOrderUpdate(Request $request, $transfer_order_id)
     {
@@ -71,7 +117,12 @@ class InventoryController extends Controller
     // Warehouse CRUD
     public function warehouses()
     {
-        return view('business.warehouses');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.warehouses',compact('user','institution'));
     }
     public function warehouseStore()
     {
@@ -79,11 +130,21 @@ class InventoryController extends Controller
     }
     public function warehouseShow($warehouse_id)
     {
-        return view('business.warehouse_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.warehouse_show',compact('user','institution'));
     }
     public function warehouseEdit($warehouse_id)
     {
-        return view('business.warehouse_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.warehouse_edit',compact('user','institution'));
     }
     public function warehouseUpdate(Request $request, $warehouse_id)
     {

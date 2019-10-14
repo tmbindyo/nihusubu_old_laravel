@@ -15,11 +15,21 @@ class PurchaseController extends Controller
 
     public function purchaseOrders()
     {
-        return view('business.purchase_orders');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.purchase_orders',compact('user','institution'));
     }
     public function purchaseOrderCreate()
     {
-        return view('business.purchase_order_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.purchase_order_create',compact('user','institution'));
     }
     public function purchaseOrderStore(Request $request)
     {
@@ -27,16 +37,31 @@ class PurchaseController extends Controller
     }
     public function purchaseOrderShow($purchase_order_id)
     {
-        return view('business.purchase_order_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.purchase_order_show',compact('user','institution'));
     }
 
     public function vendors()
     {
-        return view('business.vendors');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.vendors',compact('user','institution'));
     }
     public function vendorCreate()
     {
-        return view('business.vendor_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.vendor_create',compact('user','institution'));
     }
     public function vendorStore(Request $request)
     {
@@ -44,11 +69,21 @@ class PurchaseController extends Controller
     }
     public function vendorShow($vendor_id)
     {
-        return view('business.vendor_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.vendor_show',compact('user','institution'));
     }
     public function vendorContactPersonShow($contact_person_id)
     {
-        return view('business.vendor_contact_person_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.vendor_contact_person_show',compact('user','institution'));
     }
     public function vendorContactPersonMessage($contact_person_id)
     {
@@ -56,7 +91,12 @@ class PurchaseController extends Controller
     }
     public function vendorEdit()
     {
-        return view('business.vendor_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.vendor_edit',compact('user','institution'));
     }
     public function vendorUpdate(Request $request, $vendor_id)
     {
@@ -91,11 +131,21 @@ class PurchaseController extends Controller
     }
     public function expenseShow($expense_id)
     {
-        return view('business.expense_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.expense_show',compact('user','institution'));
     }
     public function expenseEdit($expense_id)
     {
-        return view('business.expense_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.expense_show',compact('user','institution'));
     }
     public function expenseUpdate($expense_id)
     {
@@ -107,16 +157,31 @@ class PurchaseController extends Controller
     }
     public function expensePrint($expense_id)
     {
-        return view('business.expense_print');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.expense_print',compact('user','institution'));
     }
 
     public function bills()
     {
-        return view('business.bills');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.bills',compact('user','institution'));
     }
     public function billCreate()
     {
-        return view('business.bill_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.bill_create',compact('user','institution'));
     }
     public function billStore()
     {
@@ -124,11 +189,21 @@ class PurchaseController extends Controller
     }
     public function billShow($bill_id)
     {
-        return view('business.bill_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.bill_show',compact('user','institution'));
     }
     public function billEdit($bill_id)
     {
-        return view('business.bill_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.bill_edit',compact('user','institution'));
     }
     public function billUpdate($bill_id)
     {
@@ -140,16 +215,31 @@ class PurchaseController extends Controller
     }
     public function billPrint($bill_id)
     {
-        return view('business.bill_print');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.bill_print',compact('user','institution'));
     }
 
     public function paymentsMade()
     {
-        return view('business.payments_made');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.payments_made',compact('user','institution'));
     }
 
     public function expenseSettings()
     {
-        return view('business.expense_settings');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.expense_settings',compact('user','institution'));
     }
 }

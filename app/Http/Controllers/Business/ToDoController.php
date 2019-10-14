@@ -21,7 +21,6 @@ class ToDoController extends Controller
     {
         // User
         $user = $this->getUser();
-
         // Institution
         $institution = $this->getInstitution();
 
@@ -34,7 +33,7 @@ class ToDoController extends Controller
         // Overdue to dos
         $overdueToDos = ToDo::with('user','status')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
 
-        return view('business.to_dos',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user'));
+        return view('business.to_dos',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','institution'));
     }
 
     // Store to do
@@ -45,6 +44,7 @@ class ToDoController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+
         // parse due date to mysql format
         $due_date = date('Y-m-d', strtotime($request->due_date));
         // date today
@@ -74,13 +74,17 @@ class ToDoController extends Controller
     public function toDoUpdate(Request $request, $to_do_id)
     {
 
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
         $todo = ToDo::findOrFail($to_do_id);
         $todo->name = $request->name;
         $todo->notes = $request->notes;
         // TODO update todo database to from due to due_date
         $todo->due_date = date('Y-m-d', strtotime($request->due_date));
-        //$todo->user_id = $this->getUser()->id;
-        $todo->user_id = 3;
+        $todo->user_id = $user->id;
         $todo->save();
         return back()->withSuccess('To do '.$todo->task.' updated!');
 

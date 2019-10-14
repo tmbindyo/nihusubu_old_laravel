@@ -2,18 +2,34 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\Traits\InstitutionTrait;
+use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class EmployeeController extends Controller
 {
+
+    use UserTrait;
+    use institutionTrait;
+
     public function employees()
     {
-        return view('business.employees');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.employees',compact('user','institution'));
     }
     public function employeeCreate()
     {
-        return view('business.employee_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.employee_create',compact('user','institution'));
     }
     public function employeeStore(Request $request)
     {
@@ -21,11 +37,21 @@ class EmployeeController extends Controller
     }
     public function employeeShow($employee_id)
     {
-        return view('business.employee_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.employee_show',compact('user','institution'));
     }
     public function employeeEdit($employee_id)
     {
-        return view('business.employee_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.employee_edit',compact('user','institution'));
     }
     public function employeeUpdate(Request $request)
     {
@@ -38,11 +64,21 @@ class EmployeeController extends Controller
 
     public function leave()
     {
-        return view('business.leave');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.leave',compact('user','institution'));
     }
     public function leaveCreate()
     {
-        return view('business.leave_create');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.leave_create',compact('user','institution'));
     }
     public function leaveStore(Request $request)
     {
@@ -50,11 +86,21 @@ class EmployeeController extends Controller
     }
     public function leaveShow($leave_id)
     {
-        return view('business.leave_show');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.leave_show',compact('user','institution'));
     }
     public function leaveEdit($leave_id)
     {
-        return view('business.leave_edit');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.leave_edit',compact('user','institution'));
     }
     public function leaveUpdate(Request $request)
     {
@@ -67,23 +113,48 @@ class EmployeeController extends Controller
 
     public function payroll()
     {
-        return view('business.payroll');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.payroll',compact('user','institution'));
     }
     public function payrollHistory()
     {
-        return view('business.payroll_history');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.payroll_history',compact('user','institution'));
     }
     public function employeePayrollHistory()
     {
-        return view('business.employee_payroll_history');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.employee_payroll_history',compact('user','institution'));
     }
     public function payrollAnnualSalaryStatement()
     {
-        return view('business.payroll_annual_salary_statement');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.payroll_annual_salary_statement',compact('user','institution'));
     }
     public function payrollProcess()
     {
-        return view('business.payroll_process');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.payroll_process',compact('user','institution'));
     }
     public function payrollProcessPayment()
     {
@@ -91,17 +162,32 @@ class EmployeeController extends Controller
     }
     public function payrollSalaryAdjustment()
     {
-        return view('business.payroll_salary_adjustment');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.payroll_salary_adjustment',compact('user','institution'));
     }
 
     public function employer()
     {
-        return view('business.employer');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.employer',compact('user','institution'));
     }
 
     public function humanResourceSettings()
     {
-        return view('business.human_resource_settings');
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        return view('business.human_resource_settings',compact('user','institution'));
     }
 
     public function workdaysUpdate()
