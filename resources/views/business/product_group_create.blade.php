@@ -7,6 +7,32 @@
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
+    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
     {{--  Tags  --}}
@@ -101,13 +127,13 @@
                             <div class="col-md-8">
                                 {{--  Product type  --}}
                                 <p>Product Type</p>
-                                <div class="radio radio-info radio-inline">
-                                    <input type="radio" id="inlineRadio1" value="goods" name="radioInline" checked="">
-                                    <label for="inlineRadio1"> Goods </label>
+                                <div class="radio radio-inline">
+                                    <input type="radio" id="goods" value="goods" name="product_type" checked="">
+                                    <label for="goods"> Goods </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="inlineRadio2" value="services" name="radioInline">
-                                    <label for="inlineRadio2"> Services </label>
+                                    <input type="radio" id="services" value="services" name="product_type">
+                                    <label for="services"> Service </label>
                                 </div>
 
                                 <br>
@@ -118,63 +144,37 @@
                                     <i>Give your product group a name</i>
                                 </div>
                                 <label>  </label>
-                                {{--  Product group description  --}}
-                                <div class="has-warning">
-                                    <textarea rows="5" id="product_description" name="product_description" required="required" class="form-control input-lg"></textarea>
-                                    <i>Describe your product group.</i>
-                                </div>
                                 <br>
                                 {{--  Product returnable  --}}
-                                {{--todo description tooltip--}}
-                                <div class="has-success">
-                                    <input id="returnable" name="returnable" type="checkbox">
-                                    <label for="returnable">
+                                <div class="checkbox">
+                                    <input id="is_returnable" name="is_returnable" type="checkbox">
+                                    <label for="is_returnable">
                                         Returnable Product
                                     </label>
-                                    <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if all the items in the group are eligible for sales return." class="fa fa-question-circle fa-2x"></i></span>
+                                    <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-2x fa-question-circle"></i></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 {{--  TODO Thumbnail  --}}
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                {{--  Product Unit  --}}
-                                <div class="">
-                                    <select class="select2_demo_3 form-control input-lg">
-                                        <option>Select Unit</option>
-                                        <option value="Bahamas">Bahamas</option>
-                                    </select>
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                {{--  Product Tax  --}}
-                                <select class="select2_demo_3 form-control input-lg">
-                                    <option>Select Tax</option>
-                                    <option value="Bahamas">Bahamas</option>
-                                </select>
-                            </div>
-                        </div>
                         <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                {{--  Product Manufacturer  --}}
-                                <select class="select2_demo_3 form-control input-lg">
-                                    <option>Select Manufacturer</option>
-                                    <option value="Bahamas">Bahamas</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                {{--  Product Brand  --}}
-                                <select class="select2_demo_3 form-control input-lg">
-                                    <option>Select Brand</option>
-                                    <option value="Bahamas">Bahamas</option>
-                                </select>
-                            </div>
-                        </div>
+                        {{--  Description  --}}
+                        <textarea id="summernote" class="summernote" name="description">
+                                    <h3>Sample description format</h3>
+                                        dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
+                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                                        <br/>
+                                        <br/>
+                                        <ul>
+                                            <li>Remaining essentially unchanged</li>
+                                            <li>Make a type specimen book</li>
+                                            <li>Unknown printer</li>
+                                        </ul>
+                                </textarea>
+                        <br>
+
                         <hr>
                         <div class="row" id="product_group_attribute">
                             <div class="col-md-6">
@@ -200,7 +200,7 @@
                                     </div>
                                     <div class="col-md-11">
                                         <div class="has-warning">
-                                            <input type="text" name="attribute_options" class="input-lg" name="attribute_options" id="tag-input" required >
+                                            <input type="text" name="attribute_options" class="input-lg" id="tag-input" required >
                                         </div>
                                     </div>
                                 </div>
@@ -251,6 +251,26 @@
 
     <!-- jQuery Tags Input -->
     <script src="{{ asset('js') }}/tagplug-master/index.js"></script>
+
+    <!-- SUMMERNOTE -->
+    <script src="{{ asset('inspinia') }}/js/plugins/summernote/summernote.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('.summernote').summernote();
+
+        });
+        var edit = function() {
+            $('.click2edit').summernote({focus: true});
+        };
+        var save = function() {
+            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+            $('.click2edit').destroy();
+        };
+    </script>
+
+
 
     {{--  Tag script  --}}
     <script>

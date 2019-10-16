@@ -20,6 +20,8 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get inventory adjustments
+        $inventoryAdjustments =
 
         return view('business.inventory_adjustments',compact('user','institution'));
     }

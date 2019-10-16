@@ -67,9 +67,7 @@
                             <tr class="gradeA">
                                 <td>{{$product->name}}</td>
                                 <td>{{$product->unit->name}}</td>
-                                <td>
-                                    {{$product->inventory->quantity}}
-                                </td>
+                                <td>{{$product->inventory->quantity}}</td>
                                 <td class="center">{{$product->reorder_level}}</td>
                                 <td class="center">
                                     <p>@if ($product->is_service==1) Service: @elseif($product->is_service==0)Product: @endif <span class="label {{$product->status->label}}">{{$product->status->name}}</span></p>

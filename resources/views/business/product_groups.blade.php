@@ -65,18 +65,20 @@
             </thead>
             <tbody>
                 <tr class="gradeA">
-                    <td>Gecko</td>
-                    <td>Firefox 1.0</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td class="center">1.7</td>
-                    <td class="center">1.7</td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <a href="{{ route('business.product.group.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                            <a href="{{ route('business.product.group.edit', 1) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                            <a href="{{ route('business.product.group.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                        </div>
-                    </td>
+                    @foreach($productGroups as $productGroup)
+                        <td>{{$productGroup->name}}</td>
+                        <td>{{$productGroup->unit->name}}</td>
+                        <td>{{$productGroup->inventory->quantity}}</td>
+                        <td>{{$productGroup->reorder_level}}</td>
+                        <p>@if ($productGroup->is_service==1) Service: @elseif($productGroup->is_service==0)Product: @endif <span class="label {{$productGroup->status->label}}">{{$productGroup->status->name}}</span></p>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <a href="{{ route('business.product.group.show', $productGroup->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                <a href="{{ route('business.product.group.edit', $productGroup->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                <a href="{{ route('business.product.group.delete', $productGroup->id) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                            </div>
+                        </td>
+                    @endforeach
                 </tr>
             </tbody>
             <tfoot>

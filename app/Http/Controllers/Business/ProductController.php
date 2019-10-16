@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\ProductGroup;
 use DB;
 use App\Account;
 use App\Inventory;
@@ -34,8 +35,10 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get product groups
+        $productGroups = ProductGroup::where('institution_id',$institution->id)->with('status','unit','inventory')->get();
 
-        return view('business.product_groups',compact('user','institution'));
+        return view('business.product_groups',compact('user','institution','productGroups'));
     }
     public function productGroupCreate()
     {
@@ -43,8 +46,12 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get institution taxes
+        $taxes = Tax::where('institution_id',$institution->id)->get();
+        // Get institution units
+        $units = Unit::where('institution_id',$institution->id)->get();
 
-        return view('business.product_group_create',compact('user','institution'));
+        return view('business.product_group_create',compact('user','institution','taxes','units'));
     }
     public function productGroupStore(Request $request)
     {

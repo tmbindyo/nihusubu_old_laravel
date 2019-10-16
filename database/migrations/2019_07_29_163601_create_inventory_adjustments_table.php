@@ -25,6 +25,7 @@ class CreateInventoryAdjustmentsTable extends Migration
 
             $table->uuid('account_id');
             $table->uuid('warehouse_id');
+            $table->uuid('institution_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 
