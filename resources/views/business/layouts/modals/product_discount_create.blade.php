@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-list modal-icon"></i>
-                <h4 class="modal-title">Product Discount Registration</h4>
+                <h4 class="modal-title">Product Discount </h4>
 {{--                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>--}}
             </div>
             <div class="modal-body">
@@ -24,7 +24,7 @@
                     <div class="row">
 
                         <div class="col-md-6">
-                            <div class="form-group" id="data_1">
+                            <div class="" id="data_1">
                                 <div class="has-warning">
                                     <div class="input-group date">
                                         <span class="input-group-addon">
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <div class="form-group" id="data_1">
+                            <div class="" id="data_1">
                                 <div class="has-warning">
                                     <div class="input-group date">
                                         <span class="input-group-addon">
@@ -54,39 +54,46 @@
                         </div>
                     </div>
 
+                    <br>
+
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
+                        <div class="col-md-6">
+                            <div class="">
                                 <div class="has-warning">
-                                    <input type="integer" name="quantity" id="quantity" placeholder="Quantity" class="form-control input-lg" required>
+                                    <input type="number" name="quantity" id="quantity" placeholder="Quantity" class="form-control input-lg" required>
                                 </div>
                                 <i> Quantity of discount.</i>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                        <div class="col-md-6">
+                            <div class="">
                                 <div class="has-warning">
-                                    <input type="text" name="discount" id="discount" placeholder="1,000" class="form-control input-lg" required>
+                                    <input type="number" name="minimum_items" id="minimum_items" placeholder="1,000" class="form-control input-lg" required>
                                 </div>
                                 <i> Minimum items.</i>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="">
                                 <div class="has-warning">
-                                    <input type="text" name="discount" id="discount" placeholder="1,000" class="form-control input-lg" required>
+                                    <input type="number" name="discount" id="discount" placeholder="1,000" class="form-control input-lg" required>
                                 </div>
                                 <i> Discount value.</i>
                             </div>
                         </div>
-                    </div>
-                    <div class="">
-                        <div class="checkbox checkbox-info">
-                            <input id="is_created" name="is_created" type="checkbox">
-                            <label for="is_created">
-                                Percentage?
-                            </label>
-                            <span><i data-toggle="tooltip" data-placement="right" title="Check this option if the discount is a percentage of the value." class="fa fa-2x fa-question-circle"></i></span>
+                        <div class="col-md-6">
+                            <div class="checkbox checkbox-info">
+                                <input id="is_percentage" name="is_percentage" type="checkbox">
+                                <label for="is_percentage">
+                                    Percentage?
+                                </label>
+                                <span><i data-toggle="tooltip" data-placement="right" title="Check this option if the discount is a percentage of the value." class="fa fa-2x fa-question-circle"></i></span>
+                            </div>
                         </div>
                     </div>
                     <br>

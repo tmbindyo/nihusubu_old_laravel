@@ -32,26 +32,26 @@ class Upload extends Model
     // Children
     public function product_group_images()
     {
-        return $this->hasMany('App\ProductGroupImage');
+        return $this->hasOne('App\ProductGroupImage');
     }
     public function product_images()
     {
-        return $this->hasMany('App\ProductImage');
+        return $this->hasOne('App\ProductImage');
     }
     public function forum_uploads()
     {
-        return $this->hasMany('App\ForumUpload');
+        return $this->hasOne('App\ForumUpload');
     }
     public function issue_uploads()
     {
-        return $this->hasMany('App\IssueUpload');
+        return $this->hasOne('App\IssueUpload');
     }
     public function task_uploads()
     {
-        return $this->hasMany('App\TaskUpload');
+        return $this->hasOne('App\TaskUpload');
     }
     public function forum_post_uploads()
     {
-        return $this->hasMany('App\ForumPostUpload');
+        return $this->hasOne('App\ForumPostUpload');
     }
 }

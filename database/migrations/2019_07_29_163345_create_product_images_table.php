@@ -16,8 +16,6 @@ class CreateProductImagesTable extends Migration
         Schema::create('product_images', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->integer('image_number');
-
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('product_id');

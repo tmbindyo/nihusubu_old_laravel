@@ -17,9 +17,13 @@ class CreateUploadsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name', 200);
-            $table->longText('thumbnail');
-            $table->longText('file');
+            $table->string('extension');
             $table->integer('size');
+            $table->longText('image')->nullable();
+            $table->longText('small_thumbnail')->nullable();
+            $table->longText('large_thumbnail')->nullable();
+            $table->longText('banner')->nullable();
+            $table->longText('file')->nullable();
 
             $table->uuid('upload_type_id');
             $table->uuid('institution_id');

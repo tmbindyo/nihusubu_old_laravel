@@ -17,6 +17,7 @@ class CreateProductDiscountsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->integer('quantity');
+            $table->integer('minimum_items');
             $table->double('discount');
 
             $table->date('start_date');

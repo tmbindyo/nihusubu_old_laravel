@@ -41,12 +41,17 @@
 
     <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
 
+    <link href="{{ asset('inspinia') }}/css/plugins/dropzone/basic.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
 
 @endsection
 
 @include('business.layouts.modals.product_discount_create')
+@include('business.layouts.modals.product_discount_edit')
+@include('business.layouts.modals.product_image_upload')
 
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -77,86 +82,289 @@
         <div class="col-lg-12">
             <div class="tabs-container">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#tab-1"> Product info</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-2"> Data</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-3"> Discount</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-4"> Images</a></li>
+                    <li class="active"><a data-toggle="tab" href="#product"> Product info</a></li>
+                    <li class=""><a data-toggle="tab" href="#discount"> Discount</a></li>
+                    <li class=""><a data-toggle="tab" href="#images"> Images</a></li>
                 </ul>
+
                 <div class="tab-content">
-                    <div id="tab-1" class="tab-pane active">
+                    <div id="product" class="tab-pane active">
                         <div class="panel-body">
 
-                            <fieldset class="form-horizontal">
-                                <div class="form-group"><label class="col-sm-2 control-label">Name:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control input-lg" value="{{$product->name}}" required>
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Price:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control input-lg" value="{{$product->selling_price}}" required>
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Description:</label>
-                                    <div class="col-sm-10">
-                                        <textarea id="summernote" class="summernote" name="description">
-                                            {!! $product->description !!}
-                                        </textarea>
-                                    </div>
-                                </div>
-                            </fieldset>
+                            <form method="post" action="{{ route('business.product.update',$product->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                @csrf
 
-                        </div>
-                    </div>
-                    <div id="tab-2" class="tab-pane">
-                        <div class="panel-body">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 
-                            <fieldset class="form-horizontal">
-                                <div class="form-group"><label class="col-sm-2 control-label">Tax Class:</label>
-                                    <div class="col-sm-10">
+                                {{--  Product  --}}
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        {{--  Product type  --}}
+                                        {{--  todo only one should be selectable  --}}
+
+                                        <p>Product Type</p>
+                                        <div class="radio radio-inline">
+                                            <input type="radio" id="goods" value="goods" name="product_type" @if($product->is_service == False)  checked="" @endif>
+                                            <label for="goods"> Goods </label>
+                                        </div>
+                                        <div class="radio radio-inline">
+                                            <input type="radio" id="services" value="services" name="product_type" @if($product->is_service == True)  checked="" @endif>
+                                            <label for="services"> Service </label>
+                                        </div>
+
+                                        <br>
+
+                                        {{--  Name  --}}
+                                        <div class="has-warning">
+                                            <label>  </label>
+                                            <input type="text" id="name" name="name" required="required" class="form-control input-lg" value="{{$product->name}}">
+                                            <i>Give your product/service a name</i>
+                                        </div>
+                                        {{--  Product Unit  --}}
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <div class="has-warning">
+                                                    <label>  </label>
+                                                    <select name="unit" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                        <option value="">Select Unit</option>
+                                                        @foreach($units as $unit)
+                                                            <option @if($product->unit_id == $unit->id) selected @endif value="{{$unit->id}}">{{$unit->name}}</option>
+                                                        @endforeach()
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <label>  </label>
+                                        {{--  Product returnable  --}}
+                                        {{--todo description tooltip--}}
+                                        <div class="checkbox">
+                                            <input id="is_returnable" name="is_returnable" type="checkbox" @if($product->is_returnable == True) checked @endif>
+                                            <label for="is_returnable">
+                                                Returnable Product
+                                            </label>
+                                            <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-2x fa-question-circle"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{--  TODO Thumbnail  --}}
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="">
+                                    {{--  Description  --}}
+                                    <textarea id="summernote" class="summernote" name="description">
+                                    {!! $product->description !!}
+                                </textarea>
+                                </div>
+                                <hr>
+
+                                {{--  Sales and purchase information  --}}
+                                <h3 class="text-center">SALES AND PURCHASE INFORMATION</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4 class="text-center">SALES INFORMATION</h4>
+                                        {{--  Product purchase account  --}}
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <select name="selling_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                    <option value="">Select Selling Account</option>
+                                                    @foreach($accounts as $account)
+                                                        <option @if($product->selling_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
+                                                    @endforeach()
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4 class="text-center">PURCHASE INFORMATION</h4>
+                                        {{--  Product selling account  --}}
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label class="text-danger"></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <div class="has-warning">
+                                                    <label class="text-danger"></label>
+                                                    <select name="purchase_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                        <option value="">Select Purchase Account</option>
+                                                        @foreach($accounts as $account)
+                                                            <option @if($product->purchase_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
+                                                        @endforeach()
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{--  Selling price  --}}
+                                        <div class="has-warning">
+                                            <label class="text-danger"></label>
+                                            <input type="text" id="selling_price" name="selling_price" required="required" value="{{$product->selling_price}}" class="form-control input-lg">
+                                            <i>Give your product a price</i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{--  Purchase price  --}}
+                                        <div class="has-warning">
+                                            <label class="text-danger"></label>
+                                            <input type="text" id="purchase_price" name="purchase_price" required="required" value="{{$product->purchase_price}}" class="form-control input-lg">
+                                            <i>Your product purchase price</i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{--  Product Tax  --}}
+                                        <label></label>
                                         <select name="taxes[]" data-placeholder="Select Taxes" class="chosen-select input-lg" multiple style="width:100%;" tabindex="2">
                                             @foreach($taxes as $tax)
-                                                <option value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
+                                                <option @foreach ($product->product_taxes as $product_tax) {{$product_tax->tax_id}}  @if($product_tax->tax_id == $tax->id) selected @endif @endforeach value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
                                             @endforeach()
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Unit:</label>
-                                    <div class="col-sm-10">
-                                        <select name="unit" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                            <option value="">Select Unit</option>
-                                            @foreach($units as $unit)
-                                                <option value="{{$unit->id}}">{{$unit->name}}</option>
-                                            @endforeach()
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Minimum quantity:</label>
-                                    <div class="col-sm-10">
-                                        <select class="select2_demo_3 form-control">
-                                            <option></option>
-                                            <option value="Bahamas">Bahamas</option>
-                                            <option value="Bahrain">Bahrain</option>
-                                            <option value="Bangladesh">Bangladesh</option>
-                                            <option value="Barbados">Barbados</option>
-                                            <option value="Belarus">Belarus</option>
-                                            <option value="Belgium">Belgium</option>
-                                            <option value="Belize">Belize</option>
-                                            <option value="Benin">Benin</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group"><label class="col-sm-2 control-label">Sort order:</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control input-lg" placeholder="0">
-                                    </div>
-                                </div>
-                            </fieldset>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="checkbox checkbox-info">
+                                            <input id="is_created" name="is_created" type="checkbox" @if($product->is_created == True) checked @endif>
+                                            <label for="is_created">
+                                                Product Manufactured/Created
+                                            </label>
+                                            <span><i data-toggle="tooltip" data-placement="right" title="Check this option if the product is manufactured, created or a period of time is used by this business to add value to it." class="fa fa-2x fa-question-circle"></i></span>
+                                        </div>
 
+                                    </div>
+                                    <div class="col-md-6">
 
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="number" id="creation_time" name="creation_time" required="required" value="{{$product->creation_time}}" class="form-control input-lg">
+                                        <i>Average time taken to manufacture/create or add value to it in minutes.</i>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" id="creation_cost" name="creation_cost" required="required" value="{{$product->creation_cost}}" class="form-control input-lg">
+                                        <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                {{--  Inventory information  --}}
+                                <h3 class="text-center">INVENTORY INFORMATION</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{--  Inventory account  --}}
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label class="text-danger"></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="All inventory related transactions will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <div class="has-warning">
+                                                    <label class="text-danger"></label>
+                                                    <select name="inventory_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2">
+                                                        <option value="">Select Inventory Account</option>
+                                                        @foreach($accounts as $account)
+                                                            <option @if($product->inventory_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
+                                                        @endforeach()
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{--  Opening stock  --}}
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <input type="number" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg" value="{{$product->opening_stock}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{--  Opening stock value  --}}
+                                        {{--  todo Make KES (currency) dynamic  --}}
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Opening stock value refers to the average purchase price of your opening stock. (Per unit in KES)" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <input type="number" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg" value="{{$product->opening_stock}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{--  Reorder Level  --}}
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <label></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Reorder level refers to the quantity of an item below which, an item is considered to be low on stock." class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <input type="number" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg" value="{{$product->reorder_level}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <br />
+
+                                <div class="ln_solid"></div>
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-warning btn-block btn-lg btn-outline mt-4">{{ __('Update') }}</button>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
-                    <div id="tab-3" class="tab-pane">
+                    <div id="discount" class="tab-pane">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="pull-right">
@@ -171,10 +379,10 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            Group
+                                            Quantity
                                         </th>
                                         <th>
-                                            Quantity
+                                            Minimum
                                         </th>
                                         <th>
                                             Discount
@@ -185,43 +393,39 @@
                                         <th style="width: 20%">
                                             Date end
                                         </th>
-                                        <th>
+                                        <th style="width: 11%">
                                             Actions
                                         </th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($product->product_taxes as $discount)
+                                    @foreach($product->product_discounts as $discount)
                                         <tr>
                                             <td>
-                                                <select class="form-control" >
-                                                    <option selected>Group 1</option>
-                                                    <option>Group 2</option>
-                                                    <option>Group 3</option>
-                                                    <option>Group 4</option>
-                                                </select>
+                                                <input type="text" class="form-control" value="{{$discount->quantity}}" disabled>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" value="{{$discount->quantity}}">
+                                                <input type="text" class="form-control" value="{{$discount->minimum_items}}" disabled>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" value="{{$discount->discount}}">
+                                                <input type="text" class="form-control" value="{{$discount->discount}}" disabled>
                                             </td>
                                             <td>
                                                 <div class="input-group date">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" class="form-control" value="{{$discount->start_date}}">
+                                                    <input type="text" class="form-control" value="{{$discount->start_date}}" disabled>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="input-group date">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" class="form-control" value="{{$discount->end_date}}">
+                                                    <input type="text" class="form-control" value="{{$discount->end_date}}" disabled>
                                                 </div>
                                             </td>
                                             <td>
-                                                <button class="btn btn-warning"><i class="fa fa-pencil"></i> </button>
-                                                <button class="btn btn-danger"><i class="fa fa-trash"></i> </button>
+                                                    {{--  product discount edit  --}}
+                                                    {{--  <button data-toggle="modal" data-target="#productDiscountEdit" aria-expanded="false" class="btn btn-warning"><i class="fa fa-pencil"></i> </button>  --}}
+                                                <a href="{{route('business.product.discount.delete',$discount->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i> </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -232,106 +436,37 @@
 
                         </div>
                     </div>
-                    <div id="tab-4" class="tab-pane">
+                    <div id="images" class="tab-pane">
                         <div class="panel-body">
 
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-stripped">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            Image preview
-                                        </th>
-                                        <th>
-                                            Sort order
-                                        </th>
-                                        <th>
-                                            Actions
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <img src="{{ asset('inspinia') }}/img/gallery/2s.jpg">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" value="1">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                            <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="{{ asset('inspinia') }}/img/gallery/1s.jpg">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" value="2">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="{{ asset('inspinia') }}/img/gallery/3s.jpg">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" value="3">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="{{ asset('inspinia') }}/img/gallery/4s.jpg">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" value="4">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="{{ asset('inspinia') }}/img/gallery/5s.jpg">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" value="5">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="{{ asset('inspinia') }}/img/gallery/6s.jpg">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" value="6">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="{{ asset('inspinia') }}/img/gallery/7s.jpg">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" value="7">
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                            <div class="row">
+                                <div class="pull-right">
+                                    <button data-toggle="modal" data-target="#productImageUpload" aria-expanded="false" class="btn btn-outline btn-primary"> <span class="fa fa-plus"></span> Product Image</button>
+                                </div>
                             </div>
+                            <div class="row">
+                                @foreach($product->product_images as $product_image)
+                                    <div class="col-md-3">
+                                        <div class="ibox">
+                                            <div class="ibox-content product-box">
+
+                                                <div class="product-imitation">
+                                                    <img src="{{ asset('') }}{{ $product_image->upload->small_thumbnail }}">
+                                                </div>
+                                                <div class="product-desc">
+
+                                                    <div class="m-t text-righ">
+
+                                                        <a href="{{route('business.product.image.delete',$product_image->id)}}" class="btn btn-xs btn-outline btn-warning btn-block center">Delete <i class="fa fa-cross"></i> </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
 
                         </div>
                     </div>
@@ -405,6 +540,56 @@
 
 <!-- SUMMERNOTE -->
 <script src="{{ asset('inspinia') }}/js/plugins/summernote/summernote.min.js"></script>
+
+<!-- DROPZONE -->
+<script src="{{ asset('inspinia') }}/js/plugins/dropzone/dropzone.js"></script>
+
+<script>
+    $(document).ready(function(){
+
+        Dropzone.options.dropzone =
+            {
+                maxFilesize: 12,
+                renameFile: function(file) {
+                    var dt = new Date();
+                    var time = dt.getTime();
+                    return time+file.name;
+                },
+                acceptedFiles: ".jpeg,.jpg,.png,.gif",
+                addRemoveLinks: true,
+                timeout: 50000,
+                removedfile: function(file)
+                {
+                    var name = file.upload.filename;
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        },
+                        type: 'POST',
+                        url: '{{ url("image/delete") }}',
+                        data: {filename: name},
+                        success: function (data){
+                            console.log("File has been successfully removed!!");
+                        },
+                        error: function(e) {
+                            console.log(e);
+                        }});
+                    var fileRef;
+                    return (fileRef = file.previewElement) != null ?
+                        fileRef.parentNode.removeChild(file.previewElement) : void 0;
+                },
+
+                success: function(file, response)
+                {
+                    console.log(response);
+                },
+                error: function(file, response)
+                {
+                    return false;
+                }
+            };
+    });
+</script>
 
 <script>
     $(document).ready(function(){

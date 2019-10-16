@@ -37,6 +37,9 @@ Route::post('/product/update/{product_id}', 'Business\ProductController@productU
 Route::get('/product/delete/{product_id}', 'Business\ProductController@productDelete')->name('business.product.delete');
 Route::get('/product/restore/{product_id}', 'Business\ProductController@productRestore')->name('business.product.restore');
 
+Route::post('/product/image/upload/{product_id}', 'Business\ProductController@productImageUpload')->name('business.product.image.upload');
+Route::get('/product/image/delete/{product_id}', 'Business\ProductController@productImageDelete')->name('business.product.image.delete');
+
 Route::post('/product/discount/store/{product_id}', 'Business\ProductController@productDiscountStore')->name('business.product.discount.store');
 Route::post('/product/discount/update/{product_id}', 'Business\ProductController@productDiscountUpdate')->name('business.product.discount.update');
 Route::get('/product/discount/delete/{product_id}', 'Business\ProductController@productDiscountDelete')->name('business.product.discount.delete');
