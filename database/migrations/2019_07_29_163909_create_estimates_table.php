@@ -17,7 +17,6 @@ class CreateEstimatesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('estimate_number');
-            $table->string('reference_number');
             $table->text('customer_notes');
             $table->text('terms_and_conditions');
             $table->date('date');

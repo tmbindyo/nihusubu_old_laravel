@@ -16,8 +16,7 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('estimate_number');
-            $table->string('reference_number');
+            $table->string('sale_number');
             $table->text('customer_notes');
             $table->text('terms_and_conditions');
             $table->date('date');

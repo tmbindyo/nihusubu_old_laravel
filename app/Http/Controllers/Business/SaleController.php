@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\Estimate;
+use App\Invoice;
+use App\Order;
+use App\Sale;
 use App\Traits\InstitutionTrait;
 use App\Traits\UserTrait;
 use Illuminate\Http\Request;
@@ -22,7 +26,7 @@ class SaleController extends Controller
         // Get individual clients
 
         // Get company clients
-        
+
 
         return view('business.clients',compact('user','institution'));
     }
@@ -86,8 +90,10 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Estimates
+        $estimates = Estimate::where('institution_id',$institution->id)->with('status','customer')->get();
 
-        return view('business.estimates',compact('user','institution'));
+        return view('business.estimates',compact('user','institution','estimates'));
     }
     public function estimateCreate()
     {
@@ -137,8 +143,10 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Invoices
+        $invoices = Invoice::where('institution_id',$institution->id)->with('status','customer')->get();
 
-        return view('business.invoices',compact('user','institution'));
+        return view('business.invoices',compact('user','institution','invoices'));
     }
     public function invoiceCreate()
     {
@@ -198,8 +206,10 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Orders
+        $orders = Order::where('institution_id',$institution->id)->with('status','customer')->get();
 
-        return view('business.orders',compact('user','institution'));
+        return view('business.orders',compact('user','institution','orders'));
     }
     public function orderCreate()
     {
@@ -257,8 +267,10 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Sales
+        $sales = Sale::where('institution_id',$institution->id)->with('status','customer')->get();
 
-        return view('business.sales',compact('user','institution'));
+        return view('business.sales',compact('user','institution','sales'));
     }
     public function saleCreate()
     {
