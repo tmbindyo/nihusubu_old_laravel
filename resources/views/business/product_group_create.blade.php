@@ -35,6 +35,7 @@
 
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
+    <link href="{{ asset('css') }}/choices.min.css" rel="stylesheet">
     {{--  Tags  --}}
     <style>
         .tags-input-wrapper {
@@ -215,6 +216,9 @@
 
                         <div class="ln_solid"></div>
 
+                        <table id = "attribute_table">
+                        </table>
+
                         <br>
                         <br>
                         <div class="text-center">
@@ -250,7 +254,9 @@
     <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
 
     <!-- jQuery Tags Input -->
-    <script src="{{ asset('js') }}/tagplug-master/index.js"></script>
+    <!-- <script src="{{ asset('js') }}/tagplug-master/index.js"></script> -->
+    
+    <script src="{{ asset('js') }}/choices.min.js"></script>
 
     <!-- SUMMERNOTE -->
     <script src="{{ asset('inspinia') }}/js/plugins/summernote/summernote.min.js"></script>
@@ -274,12 +280,39 @@
 
     {{--  Tag script  --}}
     <script>
-        $(document).ready(function() {
-            var tagInput = new TagsInput({
-                selector: 'tag-input',
-                duplicate: false
-            });
+        // https://github.com/jshjohnson/Choices
+        var tag_field = document.getElementById("tag-input");
+        var tags_choices = new Choices(tag_field, {
+            delimiter: ',',
+            editItems: true,
+            removeItems: true,
+            removeItemButton: true,
+            duplicateItemsAllowed: false
         });
+        // Event handler for adding items
+        tag_field.addEventListener("addItem", function (event) {
+            modifyAttrTable(event.detail, true)
+        });
+        // Event handler for removing items
+        tag_field.addEventListener("removeItem", function (event) {
+            // This is the only reliable way to remove an element from the store of items in the list...so far
+            // console.log(tags_choices._store.items)
+            var item_index = event.detail.id - 1 // Item IDs start from 1 rather than 0, hence the need to subtract
+            tags_choices._store.items.splice(item_index, 1)
+            modifyAttrTable(event.detail, false)
+        });
+        // Function responsible for propulating table whenever a change is made
+        function modifyAttrTable (tagItem, addItem) {
+            var table = document.getElementById("attribute_table")
+            var item_index = tagItem.id - 1 // See explanation in tag_field.addEventListener
+            if (addItem === true) {
+                var row = table.insertRow(item_index)
+                var first_cell = row.insertCell(0)
+                first_cell.innerHTML = tagItem.value
+            } else if (addItem === false) {
+                var row = table.deleteRow(item_index)
+            }
+        };
     </script>
 
     {{--  Script to prevent form submit on enter key press  --}}

@@ -163,7 +163,7 @@
                             </div>
                             <div class="ibox-content">
 
-                                <table class="table table-bordered">
+                                <table class="table table-bordered" id = "adjustment_table">
                                     <thead>
                                     <tr>
                                         <th>Item Details</th>
@@ -195,7 +195,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <label class="label label-primary label-lg">+ Add Another Line</label>
+                                <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                             </div>
                         </div>
                         <hr>
@@ -248,6 +248,19 @@
                 duplicate: false
             });
         });
+        // Function to add table rows
+        function addTableRow() {
+            var table = document.getElementById("adjustment_table")
+            var row = table.insertRow()
+            var first_cell = row.insertCell(0)
+            var second_cell = row.insertCell(1)
+            var third_cell = row.insertCell(2)
+            var fourth_cell = row.insertCell(3)
+            first_cell.innerHTML = "<select class='select2_demo_3 form-control input-lg'><option>Select Item</option><option value='Bahamas'>Bahamas</option></select>"
+            second_cell.innerHTML = "<input type='number' class='form-control input-lg'>"
+            third_cell.innerHTML = "<input type='number' class='form-control input-lg'>"
+            fourth_cell.innerHTML = "<input type='number' class='form-control input-lg' placeholder='E.g +10, -10'>"
+        };
     </script>
 
     {{--  Script to prevent form submit on enter key press  --}}
