@@ -88,7 +88,7 @@
                     <th>Stock on Hand</th>
                     <th>Reorder Level</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
                 </tr>
             </tfoot>
             </table>

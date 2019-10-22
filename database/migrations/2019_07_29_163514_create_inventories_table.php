@@ -17,7 +17,8 @@ class CreateInventoriesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->double('quantity',20,6);
-            $table->date('date');
+            // todo check if this is required
+            $table->date('date')->nullable();
 
             $table->uuid('warehouse_id');
             $table->uuid('product_id');

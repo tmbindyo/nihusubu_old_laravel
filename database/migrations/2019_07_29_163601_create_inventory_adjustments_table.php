@@ -16,7 +16,7 @@ class CreateInventoryAdjustmentsTable extends Migration
         Schema::create('inventory_adjustments', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('inventory_adjustment_number');
+            $table->string('inventory_adjustment_number')->unique();
             $table->text('reason');
             $table->text('description');
             $table->date('date');
@@ -25,7 +25,6 @@ class CreateInventoryAdjustmentsTable extends Migration
 
             $table->uuid('account_id');
             $table->uuid('warehouse_id');
-            $table->uuid('institution_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

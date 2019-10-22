@@ -40,104 +40,37 @@
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
 
-        <div class="ibox-content m-b-sm border-bottom">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="control-label" for="product_name">Product Name</label>
-                        <input type="text" id="product_name" name="product_name" value="" placeholder="Product Name" class="form-control">
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label" for="price">Price</label>
-                        <input type="text" id="price" name="price" value="" placeholder="Price" class="form-control">
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label" for="quantity">Quantity</label>
-                        <input type="text" id="quantity" name="quantity" value="" placeholder="Quantity" class="form-control">
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="control-label" for="status">Status</label>
-                        <select name="status" id="status" class="form-control">
-                            <option value="1" selected>Enabled</option>
-                            <option value="0">Disabled</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
         <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox">
-                    <div class="ibox-content">
+            @foreach($warehouses as $warehouse)
+                <div class="col-lg-3">
+                    <div class="contact-box center-version">
 
-                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
-                            <thead>
-                            <tr>
+                        <a href="profile.html">
 
-                                <th data-toggle="true">Product Name</th>
-                                <th data-hide="phone">Model</th>
-                                <th data-hide="all">Description</th>
-                                <th data-hide="phone">Price</th>
-                                <th data-hide="phone,tablet" >Quantity</th>
-                                <th data-hide="phone">Status</th>
-                                <th class="text-right" width="100px" data-sort-ignore="true">Action</th>
+                            <span class="fa fa-4x fa-database"></span>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    Example product 1
-                                </td>
-                                <td>
-                                    Model 1
-                                </td>
-                                <td>
-                                    It is a long established fact that a reader will be distracted by the readable
-                                    content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                    that it has a more-or-less normal distribution of letters, as opposed to using
-                                    'Content here, content here', making it look like readable English.
-                                </td>
-                                <td>
-                                    $50.00
-                                </td>
-                                <td>
-                                    1000
-                                </td>
-                                <td>
-                                    <span class="label label-primary">Enable</span>
-                                </td>
-                                <td class="text-right">
-                                    <div class="btn-group">
-                                        <a href="{{route('business.warehouse.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
-                                        <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                    </div>
-                                </td>
-                            </tr>
 
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="6">
-                                    <ul class="pagination pull-right"></ul>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
+                            <h3 class="m-b-xs"><strong>{{$warehouse->name}}</strong></h3>
+                            <address class="m-t-md">
+                                {{$warehouse->address->town}}, {{$warehouse->address->street}}<br>
+                                P. O. Box {{$warehouse->address->po_box}}, {{$warehouse->address->postal_code}}.<br>
+                                <abbr title="Phone">P:</abbr> {{$warehouse->address->phone_number}}<br>
+                                <abbr title="Email">E:</abbr> {{$warehouse->address->email}}
+                            </address>
+
+                        </a>
+                        <div class="contact-box-footer">
+                            <div class="m-t-xs btn-group">
+                                <a href="{{route('business.warehouse.show',$warehouse->id)}}" class="btn btn-xs btn-outline btn-primary"> View </a>
+                                <a href="" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-cross"></i> Delete</a>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
-            </div>
-        </div>
+            @endforeach
 
+        </div>
 
     </div>
 

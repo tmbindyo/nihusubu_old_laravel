@@ -24,13 +24,44 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="has-warning">
-                                <input type="text" id="name" name="name" required="required" placeholder="Warehouse Name" class="form-control input-lg">
+                                <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
                             </div>
                         </div>
 
                         <div class="col-md-6">
-                            <div class="has-warning">
-                                <input type="text" name="location" id="location" class="form-control input-lg" placeholder="Warehouse Location">
+                            <div class="">
+                                <input type="text" id="attention" name="attention" required="required" placeholder="Attention" class="form-control input-lg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="">
+                                <input type="text" id="street" name="street" required="required" placeholder="Street" class="form-control input-lg">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="">
+                                <input type="text" name="town" id="town" class="form-control input-lg" placeholder="Town">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="">
+                                <input type="text" id="po_box" name="po_box" required="required" placeholder="P.O. Box" class="form-control input-lg">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="">
+                                <input type="text" name="postal_code" id="postal_code" class="form-control input-lg" placeholder="Postal Code">
                             </div>
                         </div>
                     </div>
@@ -38,27 +69,28 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="">
-                                <input type="text" id="street" name="street" required="required" placeholder="Warehouse Street" class="form-control input-lg">
+                                <input type="text" id="address_line_1" name="address_line_1" required="required" placeholder="Address Line 1" class="form-control input-lg">
                             </div>
                         </div>
 
                         <div class="col-md-6">
-                            <div class="has-warning">
-                                <input type="text" name="city" id="city" class="form-control input-lg" placeholder="Warehouse City">
+                            <div class="">
+                                <input type="text" name="address_line_2" id="address_line_2" class="form-control input-lg" placeholder="Address Line 2">
                             </div>
                         </div>
                     </div>
+
                     <br>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="">
-                                <input type="text" id="email" name="email" required="required" placeholder="Warehouse Email" class="form-control input-lg">
+                                <input type="text" id="email" name="email" required="required" placeholder="Email" class="form-control input-lg">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="">
-                                <input type="text" name="phone_number" id="phone_number" class="form-control input-lg" placeholder="Warehouse Phone number">
+                                <input type="text" name="phone_number" id="phone_number" class="form-control input-lg" placeholder="Phone number">
                             </div>
                         </div>
                     </div>

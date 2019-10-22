@@ -24,6 +24,10 @@ class Warehouse extends Model
     {
         return $this->belongsTo('App\Institution');
     }
+    public function address()
+    {
+        return $this->belongsTo('App\Address');
+    }
 
     // Children
     public function transfer_order_source_warehouses()
@@ -66,4 +70,5 @@ class Warehouse extends Model
     {
         return $this->hasMany('App\OrderProduct');
     }
+
 }

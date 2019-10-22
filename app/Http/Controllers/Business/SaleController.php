@@ -19,6 +19,10 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get individual clients
+
+        // Get company clients
+        
 
         return view('business.clients',compact('user','institution'));
     }

@@ -7,6 +7,8 @@
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
+    <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
     <link href="{{ asset('inspinia') }}/css/plugins/slick/slick.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/plugins/slick/slick-theme.css" rel="stylesheet">
 
@@ -44,109 +46,24 @@
 <div class="wrapper wrapper-content animated fadeInRight">
 
     {{--  Warehouse details  --}}
+
     <div class="row">
-        <div class="col-lg-12">
-
-            <div class="ibox product-detail">
-                <div class="ibox-content">
-
-                    <div class="row">
-                        <div class="col-md-5">
-
-
-                            <div class="product-images">
-
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 1]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 2]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 3]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 4]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 5]
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                        </div>
-                        <div class="col-md-7">
-
-                            <h2 class="font-bold m-b-xs">
-                                Desktop publishing software
-                            </h2>
-                            <small>Many desktop publishing packages and web page editors now.</small>
-                            <div class="m-t-md">
-                                <h2 class="product-main-price">$406,602 <small class="text-muted">Exclude Tax</small> </h2>
-                            </div>
-                            <hr>
-
-                            <h4>Product description</h4>
-
-                            <div class="small text-muted">
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-
-                                <br/>
-                                <br/>
-                                There are many variations of passages of Lorem Ipsum available, but the majority
-                                have suffered alteration in some form, by injected humour, or randomised words
-                                which don't look even slightly believable.
-                            </div>
-                            <dl class="small m-t-md">
-                                <dt>Description lists</dt>
-                                <dd>A description list is perfect for defining terms.</dd>
-                                <dt>Euismod</dt>
-                                <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
-                                <dd>Donec id elit non mi porta gravida at eget metus.</dd>
-                                <dt>Malesuada porta</dt>
-                                <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
-                            </dl>
-                            <hr>
-
-                            <div>
-                                <div class="btn-group">
-                                    <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Update stock</button>
-                                    <a href="{{route('business.product.edit',1)}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                    <button class="btn btn-white btn-sm"><i class="fa fa-envelope"></i> Contact with author </button>
-                                </div>
-                            </div>
-
-
-
-                        </div>
+        <div class="col-lg-3">
+            <div class="widget style1 navy-bg">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <i class="fa fa-cloud fa-5x"></i>
                     </div>
-
-                </div>
-                <div class="ibox-footer">
-                    <span class="pull-right">
-                        Full stock - <i class="fa fa-clock-o"></i> 14.04.2016 10:04 pm
-                    </span>
-                    The generated Lorem Ipsum is therefore always free
+                    <div class="col-xs-8 text-right">
+                        <span> Products </span>
+                        <h2 class="font-bold">{{$warehouse->inventories_count}}</h2>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
-
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <div class="wrapper wrapper-content animated fadeInUp">
                 <div class="ibox">
                     <div class="ibox-content">
@@ -154,10 +71,10 @@
                             <div class="col-lg-12">
                                 <div class="m-b-md">
                                     <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>
-                                    <h2>Contract with Zender Company</h2>
+                                    <h2>{{$warehouse->name}}</h2>
                                 </div>
                                 <dl class="dl-horizontal">
-                                    <dt>Status:</dt> <dd><span class="label label-primary">Active</span></dd>
+                                    <dt>Status:</dt> <dd><span class="label label-primary">{{$warehouse->status->name}}</span></dd>
                                 </dl>
                             </div>
                         </div>
@@ -165,32 +82,35 @@
                             <div class="col-lg-5">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Created by:</dt> <dd>Alex Smith</dd>
-                                    <dt>Messages:</dt> <dd>  162</dd>
-                                    <dt>Client:</dt> <dd><a href="#" class="text-navy"> Zender Company</a> </dd>
-                                    <dt>Version:</dt> <dd> 	v1.4.2 </dd>
+                                    <dt>Created by:</dt> <dd>{{$user->name}}</dd>
+
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal" >
 
-                                    <dt>Last Updated:</dt> <dd>16.08.2014 12:15:57</dd>
-                                    <dt>Created:</dt> <dd> 	10.07.2014 23:36:57 </dd>
-                                    <dt>Participants:</dt>
-                                    <dd class="project-people">
-                                        <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a3.jpg"></a>
-                                        <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a1.jpg"></a>
-                                        <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a2.jpg"></a>
-                                        <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a4.jpg"></a>
-                                        <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a5.jpg"></a>
-                                    </dd>
+                                    <dt>Last Updated:</dt> <dd>{{$warehouse->updated_at}}</dd>
+                                    <dt>Created:</dt> <dd>{{$warehouse->created_at}}</dd>
                                 </dl>
                             </div>
                         </div>
                         <div class="row">
+                            <dl class="dl-horizontal">
+                                <dt>Address:</dt>
+                                <dd>
+                                    <address class="m-t-md">
+                                        {{$warehouse->address->town}}, {{$warehouse->address->street}}<br>
+                                        P. O. Box {{$warehouse->address->po_box}}, {{$warehouse->address->postal_code}}.<br>
+                                        <abbr title="Phone">P:</abbr> {{$warehouse->address->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$warehouse->address->email}}
+                                    </address>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="row">
                             <div class="col-lg-12">
                                 <dl class="dl-horizontal">
-                                    <dt>Completed:</dt>
+                                    <dt>Volume:</dt>
                                     <dd>
                                         <div class="progress progress-striped active m-b-sm">
                                             <div style="width: 60%;" class="progress-bar"></div>
@@ -207,9 +127,10 @@
                                         <div class="panel-options">
                                             <ul class="nav nav-tabs">
                                                 <li class="active"><a href="#updates" data-toggle="tab">Updates</a></li>
-                                                <li class=""><a href="#products" data-toggle="tab">Products</a></li>
+                                                <li class=""><a href="#inventory" data-toggle="tab">Inventory</a></li>
                                                 <li class=""><a href="#adjustments" data-toggle="tab">Adjustments</a></li>
-                                                <li class=""><a href="#transfer-orders" data-toggle="tab">Transfer orders</a></li>
+                                                <li class=""><a href="#source-transfer-orders" data-toggle="tab">Source Transfer orders</a></li>
+                                                <li class=""><a href="#destination-transfer-orders" data-toggle="tab">Destination Transfer orders</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -294,598 +215,190 @@
                                                 </div>
 
                                             </div>
-                                            <div class="tab-pane" id="products">
+                                            <div class="tab-pane" id="inventory">
 
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Status</th>
-                                                        <th>Title</th>
-                                                        <th>Start Time</th>
-                                                        <th>End Time</th>
-                                                        <th>Comments</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                                        </td>
-                                                        <td>
-                                                            Create project in webapp
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                                            </p>
-                                                        </td>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>Quantity</th>
+                                                            <th>Last Updated</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                                        </td>
-                                                        <td>
-                                                            Various versions
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                            </p>
-                                                        </td>
+                                                        @foreach($inventories as $inventory)
+                                                            <tr class="gradeX">
+                                                                <td>{{$inventory->product->name}}</td>
+                                                                <td>{{$inventory->quantity}}
+                                                                </td>
+                                                                <td>{{$inventory->updated_at}}</td>
+                                                                <td class="center">4</td>
+                                                                <td class="center">X</td>
+                                                            </tr>
+                                                        @endforeach
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                        </td>
-                                                        <td>
-                                                            There are many variations
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                                        </td>
-                                                        <td>
-                                                            Latin words
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Latin words, combined with a handful of model sentence structures
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                                        </td>
-                                                        <td>
-                                                            The generated Lorem
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                        </td>
-                                                        <td>
-                                                            The first line
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                                        </td>
-                                                        <td>
-                                                            The standard chunk
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                                        </td>
-                                                        <td>
-                                                            Lorem Ipsum is that
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                        </td>
-                                                        <td>
-                                                            Contrary to popular
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-
-                                                    </tbody>
-                                                </table>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>Quantity</th>
+                                                            <th>Last Updated</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
 
                                             </div>
                                             <div class="tab-pane" id="adjustments">
 
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Status</th>
-                                                        <th>Title</th>
-                                                        <th>Start Time</th>
-                                                        <th>End Time</th>
-                                                        <th>Comments</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                                        </td>
-                                                        <td>
-                                                            Create project in webapp
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                                        </td>
-                                                        <td>
-                                                            Various versions
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                        </td>
-                                                        <td>
-                                                            There are many variations
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                                        </td>
-                                                        <td>
-                                                            Latin words
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Latin words, combined with a handful of model sentence structures
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                                        </td>
-                                                        <td>
-                                                            The generated Lorem
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                        </td>
-                                                        <td>
-                                                            The first line
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                                        </td>
-                                                        <td>
-                                                            The standard chunk
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                                        </td>
-                                                        <td>
-                                                            Lorem Ipsum is that
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                        </td>
-                                                        <td>
-                                                            Contrary to popular
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-
-                                                    </tbody>
-                                                </table>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Date</th>
+                                                            <th>Reason</th>
+                                                            <th>Description</th>
+                                                            <th>Account</th>
+                                                            <th>Type</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($inventoryAdjustments as $inventoryAdjustment)
+                                                            <tr class="gradeX">
+                                                                <td>
+                                                                    {{$inventoryAdjustment->inventory_adjustment_number}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$inventoryAdjustment->date}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$inventoryAdjustment->reason}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$inventoryAdjustment->description}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$inventoryAdjustment->account->name}}
+                                                                </td>
+                                                                <td>
+                                                                   @if($inventoryAdjustment->is_value_adjustment == 1)
+                                                                        <p><span class="label label-info">Value</span></p>
+                                                                   @else
+                                                                        <p><span class="label label-info">Quantity</span></p>
+                                                                   @endif
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('business.inventory.adjustment.show', $inventoryAdjustment->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <th>Date</th>
+                                                            <th>Reason</th>
+                                                            <th>Description</th>
+                                                            <th>Account</th>
+                                                            <th>Type</th>
+                                                            <th>Action</th>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
 
                                             </div>
-                                            <div class="tab-pane" id="transfer-orders">
+                                            <div class="tab-pane" id="source-transfer-orders">
 
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Status</th>
-                                                        <th>Title</th>
-                                                        <th>Start Time</th>
-                                                        <th>End Time</th>
-                                                        <th>Comments</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                                        </td>
-                                                        <td>
-                                                            Create project in webapp
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                                            </p>
-                                                        </td>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Date</th>
+                                                            <th>Reason</th>
+                                                            <th>Destination</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($sourceTransferOrders as $sourceTransferOrder)
+                                                            <tr class="gradeX">
+                                                                <td>{{$sourceTransferOrder->transfer_order_number}}</td>
+                                                                <td>
+                                                                    {{$sourceTransferOrder->date}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$sourceTransferOrder->reason}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$sourceTransferOrder->destination_warehouse->name}}
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('business.transfer.order.show', $sourceTransferOrder->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Date</th>
+                                                            <th>Reason</th>
+                                                            <th>Destination</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                                        </td>
-                                                        <td>
-                                                            Various versions
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                            </p>
-                                                        </td>
+                                            </div>
+                                            <div class="tab-pane" id="destination-transfer-orders">
 
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                        </td>
-                                                        <td>
-                                                            There are many variations
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                                        </td>
-                                                        <td>
-                                                            Latin words
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Latin words, combined with a handful of model sentence structures
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Accepted</span>
-                                                        </td>
-                                                        <td>
-                                                            The generated Lorem
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                        </td>
-                                                        <td>
-                                                            The first line
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Reported</span>
-                                                        </td>
-                                                        <td>
-                                                            The standard chunk
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Completed</span>
-                                                        </td>
-                                                        <td>
-                                                            Lorem Ipsum is that
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable.
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="label label-primary"><i class="fa fa-check"></i> Sent</span>
-                                                        </td>
-                                                        <td>
-                                                            Contrary to popular
-                                                        </td>
-                                                        <td>
-                                                            12.07.2014 10:10:1
-                                                        </td>
-                                                        <td>
-                                                            14.07.2014 10:16:36
-                                                        </td>
-                                                        <td>
-                                                            <p class="small">
-                                                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
-                                                            </p>
-                                                        </td>
-
-                                                    </tr>
-
-                                                    </tbody>
-                                                </table>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Date</th>
+                                                            <th>Reason</th>
+                                                            <th>Destination</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($destinationTransferOrders as $destinationTransferOrder)
+                                                            <tr class="gradeX">
+                                                                <td>{{$destinationTransferOrder->transfer_order_number}}</td>
+                                                                <td>
+                                                                    {{$destinationTransferOrder->date}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$destinationTransferOrder->reason}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$destinationTransferOrder->source_warehouse->name}}
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('business.transfer.order.show', $destinationTransferOrder->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Date</th>
+                                                            <th>Reason</th>
+                                                            <th>Destination</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
 
                                             </div>
                                         </div>
@@ -899,689 +412,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="wrapper wrapper-content project-manager">
-                <h4>Project description</h4>
-                <img src="{{ asset('inspinia') }}/img/zender_logo.png" class="img-responsive">
-                <p class="small">
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look
-                    even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
-                </p>
-                <p class="small font-bold">
-                    <span><i class="fa fa-circle text-warning"></i> High priority</span>
-                </p>
-                <h5>Project tag</h5>
-                <ul class="tag-list" style="padding: 0">
-                    <li><a href=""><i class="fa fa-tag"></i> Zender</a></li>
-                    <li><a href=""><i class="fa fa-tag"></i> Lorem ipsum</a></li>
-                    <li><a href=""><i class="fa fa-tag"></i> Passages</a></li>
-                    <li><a href=""><i class="fa fa-tag"></i> Variations</a></li>
-                </ul>
-                <h5>Project files</h5>
-                <ul class="list-unstyled project-files">
-                    <li><a href=""><i class="fa fa-file"></i> Project_document.docx</a></li>
-                    <li><a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
-                    <li><a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
-                    <li><a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
-                </ul>
-                <div class="text-center m-t-md">
-                    <a href="#" class="btn btn-xs btn-primary">Add files</a>
-                    <a href="#" class="btn btn-xs btn-primary">Report contact</a>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="ibox-content m-b-sm border-bottom">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label class="control-label" for="product_name">Product Name</label>
-                    <input type="text" id="product_name" name="product_name" value="" placeholder="Product Name" class="form-control">
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label class="control-label" for="price">Price</label>
-                    <input type="text" id="price" name="price" value="" placeholder="Price" class="form-control">
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label class="control-label" for="quantity">Quantity</label>
-                    <input type="text" id="quantity" name="quantity" value="" placeholder="Quantity" class="form-control">
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label class="control-label" for="status">Status</label>
-                    <select name="status" id="status" class="form-control">
-                        <option value="1" selected>Enabled</option>
-                        <option value="0">Disabled</option>
-                    </select>
-                </div>
-            </div>
-        </div>
 
     </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox">
-                <div class="ibox-content">
-
-                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
-                        <thead>
-                        <tr>
-
-                            <th data-toggle="true">Product Name</th>
-                            <th data-hide="phone">Model</th>
-                            <th data-hide="all">Description</th>
-                            <th data-hide="phone">Price</th>
-                            <th data-hide="phone,tablet" >Quantity</th>
-                            <th data-hide="phone">Status</th>
-                            <th class="text-right" data-sort-ignore="true">Action</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                Example product 1
-                            </td>
-                            <td>
-                                Model 1
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $50.00
-                            </td>
-                            <td>
-                                1000
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 2
-                            </td>
-                            <td>
-                                Model 2
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $40.00
-                            </td>
-                            <td>
-                                4300
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 3
-                            </td>
-                            <td>
-                                Model 3
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $22.00
-                            </td>
-                            <td>
-                                300
-                            </td>
-                            <td>
-                                <span class="label label-danger">Disabled</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 4
-                            </td>
-                            <td>
-                                Model 4
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $67.00
-                            </td>
-                            <td>
-                                2300
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 5
-                            </td>
-                            <td>
-                                Model 5
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $76.00
-                            </td>
-                            <td>
-                                800
-                            </td>
-                            <td>
-                                <span class="label label-warning">Low stock</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 6
-                            </td>
-                            <td>
-                                Model 6
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $60.00
-                            </td>
-                            <td>
-                                6000
-                            </td>
-                            <td>
-                                <span class="label label-danger">Disabled</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 7
-                            </td>
-                            <td>
-                                Model 7
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $32.00
-                            </td>
-                            <td>
-                                700
-                            </td>
-                            <td>
-                                <span class="label label-danger">Disabled</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 8
-                            </td>
-                            <td>
-                                Model 8
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $86.00
-                            </td>
-                            <td>
-                                5180
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 9
-                            </td>
-                            <td>
-                                Model 9
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $97.00
-                            </td>
-                            <td>
-                                450
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 10
-                            </td>
-                            <td>
-                                Model 10
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $43.00
-                            </td>
-                            <td>
-                                7600
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 1
-                            </td>
-                            <td>
-                                Model 1
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $50.00
-                            </td>
-                            <td>
-                                1000
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 2
-                            </td>
-                            <td>
-                                Model 2
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $40.00
-                            </td>
-                            <td>
-                                4300
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 3
-                            </td>
-                            <td>
-                                Model 3
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $22.00
-                            </td>
-                            <td>
-                                300
-                            </td>
-                            <td>
-                                <span class="label label-warning">Low stock</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 4
-                            </td>
-                            <td>
-                                Model 4
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $67.00
-                            </td>
-                            <td>
-                                2300
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 5
-                            </td>
-                            <td>
-                                Model 5
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $76.00
-                            </td>
-                            <td>
-                                800
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 6
-                            </td>
-                            <td>
-                                Model 6
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $60.00
-                            </td>
-                            <td>
-                                6000
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 7
-                            </td>
-                            <td>
-                                Model 7
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $32.00
-                            </td>
-                            <td>
-                                700
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 8
-                            </td>
-                            <td>
-                                Model 8
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $86.00
-                            </td>
-                            <td>
-                                5180
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 9
-                            </td>
-                            <td>
-                                Model 9
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $97.00
-                            </td>
-                            <td>
-                                450
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Example product 10
-                            </td>
-                            <td>
-                                Model 10
-                            </td>
-                            <td>
-                                It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                that it has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </td>
-                            <td>
-                                $43.00
-                            </td>
-                            <td>
-                                7600
-                            </td>
-                            <td>
-                                <span class="label label-primary">Enable</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn-white btn btn-xs">View</button>
-                                    <button class="btn-white btn btn-xs">Edit</button>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td colspan="6">
-                                <ul class="pagination pull-right"></ul>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -1594,6 +427,10 @@
 <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+<script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
 
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
@@ -1612,6 +449,65 @@
 
     });
 
+</script>
+
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function(){
+        $('.dataTables-example').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'ExampleFile'},
+                {extend: 'pdf', title: 'ExampleFile'},
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
 </script>
 
 @endsection

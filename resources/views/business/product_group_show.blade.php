@@ -44,7 +44,8 @@
 
 
         {{--  foreach  --}}
-        <div class="col-md-3">
+        @foreach($productGroup->products as $product)
+            <div class="col-md-3">
             <div class="ibox">
                 <div class="ibox-content product-box">
 
@@ -53,16 +54,17 @@
                     </div>
                     <div class="product-desc">
                         <span class="product-price">
-                            $10
+                            {{$product->selling_price}}
                         </span>
                         <small class="text-muted">Category</small>
-                        <a href="{{route('business.product.show',1)}}" class="product-name"> Product</a>
+                        <a href="{{route('business.product.show',1)}}" class="product-name"> {{$product->name}}</a>
 
 
 
                         <div class="small m-t-xs">
-                            Many desktop publishing packages and web page editors now.
+                            {!! str_limit($product->description,100) !!}
                         </div>
+                        
                         <div class="m-t text-righ">
 
                             <a href="{{route('business.product.show',1)}}" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
@@ -71,6 +73,7 @@
                 </div>
             </div>
         </div>
+        @endforeach
         {{--  endforeach  --}}
 
     </div>

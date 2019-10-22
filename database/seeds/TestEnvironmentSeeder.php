@@ -86,11 +86,30 @@ class TestEnvironmentSeeder extends Seeder
         DB::table('warehouses')->insert([
             'id' => '1c8f7aa4-e983-426b-8b71-2584795a0c63',
             'name' => 'Test',
-            'description' => 'Test warehouse',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+            'address_id' => '1c8f7aa4-e983-426b-8b71-2584795a0c63',
             'user_id' => 1,
             'is_primary' => True,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('addresses')->insert([
+            'id' => '1c8f7aa4-e983-426b-8b71-2584795a0c63',
+
+            'email' => 'warehouse@nihusubu.com',
+            'phone_number' => '0708085128',
+            'town' => 'Nairobi',
+            'po_box' => '73919',
+            'postal_code' => '00100',
+            'address_line_1' => 'General Accident Houses, 2nd Floor',
+            'address_line_2' => 'Woodley',
+            'street' => 'Ralph Bunche Road',
+
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'address_type_id' => 'f7e388be-1eaa-4acc-9929-daf50bb0b5d1',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);

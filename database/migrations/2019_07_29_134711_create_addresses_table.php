@@ -16,16 +16,17 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('attention', 200);
-            $table->string('mobile', 200);
-            $table->string('phone', 200);
-            $table->string('town', 200);
-            $table->string('postal_code', 200);
-            $table->string('address_line_1', 200);
-            $table->string('address_line_2', 200);
-            $table->string('street', 200);
-            $table->string('longitude', 200);
-            $table->string('latitude', 200);
+            $table->string('attention', 200)->nullable();
+            $table->string('email', 200)->nullable();
+            $table->string('phone_number', 200)->nullable();
+            $table->string('town', 200)->nullable();
+            $table->string('po_box', 200)->nullable();
+            $table->string('postal_code', 200)->nullable();
+            $table->string('address_line_1', 200)->nullable();
+            $table->string('address_line_2', 200)->nullable();
+            $table->string('street', 200)->nullable();
+            $table->string('longitude', 200)->nullable();
+            $table->string('latitude', 200)->nullable();
 
             $table->uuid('address_type_id');
             $table->integer('user_id')->unsigned();

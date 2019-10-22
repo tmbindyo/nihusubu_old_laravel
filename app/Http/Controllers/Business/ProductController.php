@@ -63,8 +63,11 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get product groups
+        $productGroup = ProductGroup::findOrFail($product_group_id);
+        $productGroup = ProductGroup::where('id',$product_group_id)->with('products')->get();
 
-        return view('business.product_group_show',compact('user','institution'));
+        return view('business.product_group_show',compact('user','institution','productGroup'));
     }
     public function productGroupEdit($product_group_id)
     {
@@ -98,7 +101,7 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Get institution products
-        $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory')->where('is_product_group',False)->get();
+        $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory')->where('is_product_group',False)->where('status_id','f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
 
         return view('business.products',compact('user','products'));
     }
@@ -168,36 +171,58 @@ class ProductController extends Controller
         // product images
 
 
-        // todo create stock tables for product
-        // Get primary warehouse
-        $warehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',True)->first();
+        // Create inventory records if product is a good
 
-        // create inventory
-        $inventory = new Inventory();
-        $inventory->date = date('Y-m-d');
-        $inventory->quantity = $request->opening_stock;
-        $inventory->warehouse_id = $warehouse->id;
-        $inventory->product_id = $product->id;
-        $inventory->user_id = $user->id;
-        $inventory->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
-        $inventory->save();
 
-        // Create record for inventory, tracking the stock input
-        $restock = new Restock();
-        $restock->date = date('Y-m-d');
-        $restock->initial_warehouse_amount = 0;
-        $restock->subsequent_warehouse_amount = $request->opening_stock;
-        // getting unit value
-        $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
-        $restock->unit_value = $unit_value;
-        $restock->total_value = $request->opening_stock_value;
-        $restock->quantity = $request->opening_stock;
-        $restock->warehouse_id = $warehouse->id;
-        $restock->product_id = $product->id;
-        $restock->is_opening_stock = True;
-        $restock->user_id = $user->id;
-        $restock->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
-        $restock->save();
+        if($request->product_type != "services") {
+
+            // todo create stock tables for product
+            // Get primary warehouse
+            $warehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',True)->first();
+
+            // create inventory record
+            $inventory = new Inventory();
+            $inventory->date = date('Y-m-d');
+            $inventory->quantity = $request->opening_stock;
+            $inventory->warehouse_id = $warehouse->id;
+            $inventory->product_id = $product->id;
+            $inventory->user_id = $user->id;
+            $inventory->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
+            $inventory->save();
+
+            // Create inventory records for subsequent warehouses
+
+            $warehouseIds = Warehouse::select('id')->where('is_primary',False)->get();
+
+            // Records for the rest of the warehouses
+            foreach ($warehouseIds as $warehouseId){
+                // Inventory record
+                $inventory = new Inventory();
+                $inventory->quantity = 0;
+                $inventory->product_id = $product->id;
+                $inventory->warehouse_id = $warehouseId->id;
+                $inventory->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $inventory->user_id = $user->id;
+                $inventory->save();
+            }
+
+            // Create record for inventory, tracking the stock input
+            $restock = new Restock();
+            $restock->date = date('Y-m-d');
+            $restock->initial_warehouse_amount = 0;
+            $restock->subsequent_warehouse_amount = $request->opening_stock;
+            // getting unit value
+            $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+            $restock->unit_value = $unit_value;
+            $restock->total_value = $request->opening_stock_value;
+            $restock->quantity = $request->opening_stock;
+            $restock->warehouse_id = $warehouse->id;
+            $restock->product_id = $product->id;
+            $restock->is_opening_stock = True;
+            $restock->user_id = $user->id;
+            $restock->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
+            $restock->save();
+        }
 
         // Product taxes
         if ($request->taxes){
@@ -210,6 +235,8 @@ class ProductController extends Controller
                 $productTax->save();
             }
         }
+
+
 
         return back()->withSuccess(__('Product successfully stored.'));
     }

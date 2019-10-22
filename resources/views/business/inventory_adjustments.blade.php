@@ -92,44 +92,38 @@
                             </tr>
                             </thead>
                             <tbody>
-
-
-
-
-                                <tr>
-                                    <td>
-                                        Example product 1
-                                    </td>
-                                    <td>
-                                        Model 1
-                                    </td>
-                                    <td>
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                        that it has a more-or-less normal distribution of letters, as opposed to using
-                                        'Content here, content here', making it look like readable English.
-                                    </td>
-                                    <td>
-                                        $50.00
-                                    </td>
-                                    <td>
-                                        1000
-                                    </td>
-                                    <td>
-                                        <span class="label label-primary">Enable</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="btn-group">
-                                            <a href="{{route('business.inventory.adjustment.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
-                                            <a href="{{route('business.inventory.adjustment.edit',1)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                        </div>
-                                    </td>
-                                </tr>
-
-
-
-
-
+                                @foreach($inventoryAdjustments as $inventoryAdjustment)
+                                    <tr>
+                                        <td>
+                                            {{$inventoryAdjustment->date}}
+                                        </td>
+                                        <td>
+                                            {{$inventoryAdjustment->reason}}
+                                        </td>
+                                        <td>
+                                            {{$inventoryAdjustment->description}}
+                                        </td>
+                                        <td>
+                                            {{$inventoryAdjustment->reference_number}}
+                                        </td>
+                                        <td>
+                                            @if($inventoryAdjustment->is_value_adjustment == 0)
+                                                <span class="label label-primary">Quantity</span>
+                                            @elseif($inventoryAdjustment->is_value_adjustment == 1)
+                                                <span class="label label-primary">Value</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <span class="label label-primary">Enable</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="{{route('business.inventory.adjustment.show',$inventoryAdjustment->id)}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                                <a href="{{route('business.inventory.adjustment.edit',$inventoryAdjustment->id)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
