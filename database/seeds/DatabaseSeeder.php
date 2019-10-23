@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([FiscalYearTableSeeder::class]);
         $this->call([InstitutionTableSeeder::class]);
         $this->call([PaymentTermTableSeeder::class]);
+        $this->call([ReasonTableSeeder::class]);
         $this->call([RepeatTableSeeder::class]);
         $this->call([SaleTypeTableSeeder::class]);
         $this->call([SalutationTableSeeder::class]);

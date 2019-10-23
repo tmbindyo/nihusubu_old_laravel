@@ -7,6 +7,7 @@ use App\Address;
 use App\Inventory;
 use App\InventoryAdjustment;
 use App\Product;
+use App\Reason;
 use App\Traits\InstitutionTrait;
 use App\Traits\UserTrait;
 use App\TransferOrder;
@@ -41,13 +42,40 @@ class InventoryController extends Controller
         $institution = $this->getInstitution();
         // Get institution accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
+        // Get reasons
+        $reasons = Reason::where('institution_id',$institution->id)->get();
+        // Warehouse
+        $warehouses = Warehouse::where('institution_id',$institution->id)->get();
+        // Products
+        $products = Product::where('institution_id',$institution->id)->get();
 
-        return view('business.inventory_adjustment_create',compact('user','institution','accounts'));
+        return view('business.inventory_adjustment_create',compact('user','institution','accounts','reasons','warehouses','products'));
     }
     public function inventoryAdjustmentStore(Request $request)
     {
         return $request;
-        // return back()->withSuccess(__('Inventory adjustment successfully stored.'));
+
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+        // Inventory adjustment
+        $inventoryAdjustment = new InventoryAdjustment();
+        // Generate inventory adjustment number
+        $inventoryAdjustment->inventory_adjustment_number = 122;
+        $inventoryAdjustment->date = $request->date;
+        $inventoryAdjustment->account_id = $request->account;
+        $inventoryAdjustment->reason_id = $request->reason;
+        $inventoryAdjustment->warehouse_id = $request->warehouse;
+        $inventoryAdjustment->description = $request->description;
+        $inventoryAdjustment->user_id = $user->id;
+        $inventoryAdjustment->institution_id = $institution->id;
+        $inventoryAdjustment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $inventoryAdjustment->save();
+
+        // Inventory adjustment product
+
+        return back()->withSuccess(__('Inventory adjustment successfully stored.'));
     }
     public function inventoryAdjustmentShow($inventory_adjustment_id)
     {

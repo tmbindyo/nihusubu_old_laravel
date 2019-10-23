@@ -64,22 +64,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="gradeA">
-                    @foreach($productGroups as $productGroup)
-                        <td>{{$productGroup->name}}</td>
-                        <td>{{$productGroup->unit->name}}</td>
-                        <td>{{$productGroup->inventory->quantity}}</td>
-                        <td>{{$productGroup->reorder_level}}</td>
-                        <p>@if ($productGroup->is_service==1) Service: @elseif($productGroup->is_service==0)Product: @endif <span class="label {{$productGroup->status->label}}">{{$productGroup->status->name}}</span></p>
-                        <td class="text-right">
-                            <div class="btn-group">
-                                <a href="{{ route('business.product.group.show', $productGroup->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                <a href="{{ route('business.product.group.edit', $productGroup->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                <a href="{{ route('business.product.group.delete', $productGroup->id) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                            </div>
-                        </td>
-                    @endforeach
-                </tr>
+                @foreach($productGroups as $productGroup)
+                    <tr class="gradeA">
+                            <td>{{$productGroup->name}}</td>
+                            <td>{{$productGroup->unit->name}}</td>
+                            <td>{{$productGroup->inventory->quantity}}</td>
+                            <td>{{$productGroup->reorder_level}}</td>
+                            <p>@if ($productGroup->is_service==1) Service: @elseif($productGroup->is_service==0)Product: @endif <span class="label {{$productGroup->status->label}}">{{$productGroup->status->name}}</span></p>
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    <a href="{{ route('business.product.group.show', $productGroup->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                    <a href="{{ route('business.product.group.edit', $productGroup->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                    <a href="{{ route('business.product.group.delete', $productGroup->id) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                </div>
+                            </td>
+                    </tr>
+                @endforeach
             </tbody>
             <tfoot>
                 <tr>

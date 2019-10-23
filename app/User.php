@@ -249,6 +249,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\PurchaseOrderSetting');
     }
+    public function reasons()
+    {
+        return $this->hasMany('App\Reason');
+    }
     public function restocks()
     {
         return $this->hasMany('App\Restock');

@@ -7,11 +7,9 @@
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
+{{--    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">--}}
 
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
+{{--    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">--}}
 
     <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 
