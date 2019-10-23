@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Business;
 use App\Estimate;
 use App\Invoice;
 use App\Order;
+use App\PaymentReceived;
 use App\Sale;
 use App\Traits\InstitutionTrait;
 use App\Traits\UserTrait;
@@ -314,7 +315,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution();
 
-        return view('business.sale_show',compact('user','institution'));
+        return back()->withSuccess(__('Sale successfully deleted.'));
     }
 
 
@@ -326,6 +327,45 @@ class SaleController extends Controller
         $institution = $this->getInstitution();
 
         return view('business.payments_received',compact('user','institution'));
+    }
+    public function paymentsReceivedStore(Request $request, $sale_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+        // Check if sale exists
+        $sale = Sale::findOrFail($sale_id);
+
+        // Create payment received record
+        $payment_received = new PaymentReceived();
+        $payment_received->initial_balance = doubleval($sale->total)- doubleval($institution->sales->payment_received->sum('paid'));
+        $payment_received->paid = $request->amount;
+        $payment_received->current_balance = doubleval($sale->total)-doubleval($request->amount);
+        $payment_received->user_id = $user->id;
+        $payment_received->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $payment_received->sale_id = $sale->id;
+        $payment_received->save();
+
+        $balance = doubleval($sale->total)- doubleval($institution->sales->payment_received->sum('paid'));
+
+        // If wasn't paid
+        if ($sale->is_paid == 0)
+        {
+            $sale->is_paid = True;
+        }
+        // If completely paid off
+        elseif ($sale->is_paid == 0 && doubleval($sale->total) == doubleval($request->amount)){
+            $sale->is_paid = True;
+            $sale->is_cleared = True;
+        }
+        elseif ($sale->is_paid == 1 && doubleval($balance) == doubleval($request->amount)){
+            $sale->is_paid = True;
+            $sale->is_cleared = True;
+        }
+        $sale->save();
+
+        return back()->withSuccess(__('Payment successfully received.'));
     }
 
 }
