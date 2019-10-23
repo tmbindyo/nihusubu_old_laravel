@@ -158,5 +158,9 @@ class Institution extends Model
     {
         return $this->hasMany('App\Order');
     }
+    public function payment_receiveds()
+    {
+        return $this->hasMany('App\PaymentReceived');
+    }
     // institution relationship
 }

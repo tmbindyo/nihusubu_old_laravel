@@ -20,9 +20,12 @@ class CreatePaymentReceivedsTable extends Migration
             $table->double('paid', 20, 2)->nullable();
             $table->double('current_balance', 20, 2)->nullable();
 
+            $table->date('date');
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('sale_id');
+            $table->uuid('institution_id');
 
             $table->timestamps();
             $table->softDeletes();

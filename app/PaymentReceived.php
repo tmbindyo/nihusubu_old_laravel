@@ -24,4 +24,8 @@ class PaymentReceived extends Model
     {
         return $this->belongsTo('App\Sale');
     }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
 }

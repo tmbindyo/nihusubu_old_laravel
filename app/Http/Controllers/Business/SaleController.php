@@ -325,8 +325,10 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get received payments
+        $paymentsReceived = PaymentReceived::where('institution_id',$institution->id)->with('sale','status','user')->get();
 
-        return view('business.payments_received',compact('user','institution'));
+        return view('business.payments_received',compact('user','institution','paymentsReceived'));
     }
     public function paymentsReceivedStore(Request $request, $sale_id)
     {
@@ -337,17 +339,17 @@ class SaleController extends Controller
         // Check if sale exists
         $sale = Sale::findOrFail($sale_id);
 
+        $balance = doubleval($sale->total)- doubleval($institution->sales->payment_received->sum('paid'));
+
         // Create payment received record
         $payment_received = new PaymentReceived();
-        $payment_received->initial_balance = doubleval($sale->total)- doubleval($institution->sales->payment_received->sum('paid'));
+        $payment_received->initial_balance = $balance;
         $payment_received->paid = $request->amount;
-        $payment_received->current_balance = doubleval($sale->total)-doubleval($request->amount);
+        $payment_received->current_balance = doubleval($balance)-doubleval($request->amount);
         $payment_received->user_id = $user->id;
         $payment_received->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $payment_received->sale_id = $sale->id;
         $payment_received->save();
-
-        $balance = doubleval($sale->total)- doubleval($institution->sales->payment_received->sum('paid'));
 
         // If wasn't paid
         if ($sale->is_paid == 0)
