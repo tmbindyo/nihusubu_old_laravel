@@ -44,9 +44,10 @@ class InventoryController extends Controller
 
         return view('business.inventory_adjustment_create',compact('user','institution','accounts'));
     }
-    public function inventoryAdjustmentStore()
+    public function inventoryAdjustmentStore(Request $request)
     {
-        return back()->withSuccess(__('Inventory adjustment successfully stored.'));
+        return $request;
+        // return back()->withSuccess(__('Inventory adjustment successfully stored.'));
     }
     public function inventoryAdjustmentShow($inventory_adjustment_id)
     {
