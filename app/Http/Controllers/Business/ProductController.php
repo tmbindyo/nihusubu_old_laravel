@@ -55,7 +55,8 @@ class ProductController extends Controller
     }
     public function productGroupStore(Request $request)
     {
-        return back()->withSuccess(__('Product Group successfully stored.'));
+        return $request;
+        // return back()->withSuccess(__('Product Group successfully stored.'));
     }
     public function productGroupShow($product_group_id)
     {
