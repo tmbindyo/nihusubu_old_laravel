@@ -16,8 +16,7 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('estimate_number');
-            $table->string('reference_number');
+            $table->string('invoice_number');
             $table->text('customer_notes');
             $table->text('terms_and_conditions');
             $table->date('date');
