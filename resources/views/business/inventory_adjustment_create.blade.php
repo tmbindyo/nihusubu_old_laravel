@@ -85,7 +85,7 @@
             </div>
             <div class="ibox-content">
                 <div class="">
-                    <form method="post" action="{{ route('business.product.group.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                    <form method="post" action="{{ route('business.inventory.adjustment.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                         @csrf
 
                         @if ($errors->any())
@@ -175,19 +175,19 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select class="select2_demo_3 form-control input-lg">
+                                            <select class="select2_demo_3 form-control input-lg" name = "item_details[0][details]">
                                                 <option>Select Item</option>
                                                 <option value="Bahamas">Bahamas</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg">
+                                            <input type="number" class="form-control input-lg" name = "item_details[0][on_hand]">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg">
+                                            <input type="number" class="form-control input-lg" name = "item_details[0][new_on_hand]">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg" placeholder="E.g +10, -10">
+                                            <input type="number" class="form-control input-lg" placeholder="E.g +10, -10" name = "item_details[0][adjusted]">
                                         </td>
                                         <td width="10px">
                                             <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-times-circle fa-2x text-danger"></i></span>
@@ -248,6 +248,7 @@
                 duplicate: false
             });
         });
+        var adj_array_index = 1
         // Function to add table rows
         function addTableRow() {
             var table = document.getElementById("adjustment_table")
@@ -256,10 +257,11 @@
             var second_cell = row.insertCell(1)
             var third_cell = row.insertCell(2)
             var fourth_cell = row.insertCell(3)
-            first_cell.innerHTML = "<select class='select2_demo_3 form-control input-lg'><option>Select Item</option><option value='Bahamas'>Bahamas</option></select>"
-            second_cell.innerHTML = "<input type='number' class='form-control input-lg'>"
-            third_cell.innerHTML = "<input type='number' class='form-control input-lg'>"
-            fourth_cell.innerHTML = "<input type='number' class='form-control input-lg' placeholder='E.g +10, -10'>"
+            first_cell.innerHTML = "<select class='select2_demo_3 form-control input-lg' name = 'item_details["+adj_array_index+"][details]'><option>Select Item</option><option value='Bahamas'>Bahamas</option></select>"
+            second_cell.innerHTML = "<input type='number' class='form-control input-lg' name = 'item_details["+adj_array_index+"][on_hand]'>"
+            third_cell.innerHTML = "<input type='number' class='form-control input-lg' name = 'item_details["+adj_array_index+"][new_on_hand]'>"
+            fourth_cell.innerHTML = "<input type='number' class='form-control input-lg' placeholder='E.g +10, -10' name = 'item_details["+adj_array_index+"][adjusted]'>"
+            adj_array_index++
         };
     </script>
 
