@@ -176,47 +176,76 @@
                                 </textarea>
                         <br>
 
-                        <hr>
-                        <div class="row" id="product_group_attribute">
-                            <div class="col-md-6">
+                        {{-- <hr> --}}
+                        {{-- <div class="row" id="product_group_attribute">
+                            <div class="col-md-6"> --}}
                                 {{--  Product Group attribute  --}}
-                                <div class="row">
+                                {{-- <div class="row"> --}}
 {{--                                    <label class="text-danger">Attribute</label>--}}
-                                    <div class="col-md-1">
+                                    {{-- <div class="col-md-1">
                                         <span><i data-toggle="tooltip" data-placement="right" title="Attributes for the product groups, can be a range of different colors of one product, or sizes. " class="fa fa-question-circle fa-3x text-warning"></i></span>
                                     </div>
                                     <div class="col-md-11">
                                         <div class="has-warning">
-                                            <input type="text" name="attribute" class="form-control input-lg" placeholder="Attributes e.g Color" required>
+                                            <input type="text" name="attribute[]" class="form-control input-lg" placeholder="Attributes e.g Color" required>
                                         </div>
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
+                            </div> --}}
+                            {{-- <div class="col-md-6">
+                                <div class="row"> --}}
                                     {{--                                    <label class="text-danger">Attribute</label>--}}
-                                    <div class="col-md-1">
+                                    {{-- <div class="col-md-1">
                                         <span><i data-toggle="tooltip" data-placement="right" title="Attributes options, if the attribute is color, we can have a black, blue, green, white or grey variation of the same product." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                     </div>
                                     <div class="col-md-11">
                                         <div class="has-warning">
-                                            <input type="text" name="attribute_options" class="input-lg" id="tag-input" required >
+                                            <input type="text" name="attribute_options[]" class="form-control input-lg" id="tag-input" required >
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
+                        <table class = "table" id = "attributes_master">
+                            <tbody id = "attributes_master_tbody">
+                                <tr>
+                                    <td style = "width: 50%">
+                                        <div class="has-warning">
+                                            <input type="text" name="attribute[]" class="form-control input-lg" placeholder="Attributes e.g Color" required>
+                                        </div>
+                                    </td>
+                                    <td style = "width: 50%">
+                                        <div class="has-warning">
+                                            <input type="text" name="attribute_options[]" class="form-control input-lg" id="tag-input" required >
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <br>
                         <div class="row">
                             <div class="col-md-4">
-                                <label class="text-success"><i class="fa fa-plus" ></i>Add more attributes</label>
+                                <label class="btn btn-small btn-primary" onclick = "addToAttrMasterTable()"><i class="fa fa-plus" ></i> Add more attributes</label>
                             </div>
                         </div>
+                        <br>
 
                         <div class="ln_solid"></div>
 
-                        <table id = "attribute_table">
+                        <table class="table table-bordered" id = "attribute_table">
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Unit</th>
+                                    <th>Opening Stock</th>
+                                    <th>Opening Stock Value</th>
+                                    <th>Purchase Price</th>
+                                    <th>Selling Price</th>
+                                    <th>Reorder Level</th>
+                                </tr>
+                            </thead>
+                            <tbody id = "attribute_tbody"></tbody>
                         </table>
 
                         <br>
@@ -281,8 +310,9 @@
     {{--  Tag script  --}}
     <script>
         // https://github.com/jshjohnson/Choices
-        var tag_field = document.getElementById("tag-input");
-        var tags_choices = new Choices(tag_field, {
+        var productName = document.getElementById("product_name") // TODO: Look into adding an event listener for this
+        var tagField = document.getElementById("tag-input");
+        var tagsChoices = new Choices(tagField, {
             delimiter: ',',
             editItems: true,
             removeItems: true,
@@ -290,29 +320,42 @@
             duplicateItemsAllowed: false
         });
         // Event handler for adding items
-        tag_field.addEventListener("addItem", function (event) {
+        tagField.addEventListener("addItem", function (event) {
             modifyAttrTable(event.detail, true)
         });
         // Event handler for removing items
-        tag_field.addEventListener("removeItem", function (event) {
+        tagField.addEventListener("removeItem", function (event) {
             // This is the only reliable way to remove an element from the store of items in the list...so far
-            // console.log(tags_choices._store.items)
-            var item_index = event.detail.id - 1 // Item IDs start from 1 rather than 0, hence the need to subtract
-            tags_choices._store.items.splice(item_index, 1)
+            // console.log(tagsChoices._store.items)
+            var itemIndex = event.detail.id - 1 // Item IDs start from 1 rather than 0, hence the need to subtract
+            tagsChoices._store.items.splice(itemIndex, 1)
             modifyAttrTable(event.detail, false)
         });
-        // Function responsible for propulating table whenever a change is made
+        // Function responsible for propulating the attributes list table whenever a change is made
         function modifyAttrTable (tagItem, addItem) {
-            var table = document.getElementById("attribute_table")
-            var item_index = tagItem.id - 1 // See explanation in tag_field.addEventListener
+            var tableBody = document.getElementById("attribute_tbody")
+            var itemIndex = tagItem.id - 1 // See explanation in tagField.addEventListener("addItem")
             if (addItem === true) {
-                var row = table.insertRow(item_index)
+                var row = tableBody.insertRow(itemIndex)
                 var first_cell = row.insertCell(0)
-                first_cell.innerHTML = tagItem.value
+                var second_cell = row.insertCell(1)
+                var third_cell = row.insertCell(2)
+                var fourth_cell = row.insertCell(3)
+                var fifth_cell = row.insertCell(4)
+                var sixth_cell = row.insertCell(5)
+                var seventh_cell = row.insertCell(6)
+                first_cell.innerHTML = "<input type = 'text' class = 'form-control input-md' name = products["+itemIndex+"][name] value = "+productName.value+"-"+tagItem.value+">"
+                second_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][unit] value = 0>"
+                third_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock] value = 0>"
+                fourth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock_value] value = 0>"
+                fifth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][purchase_price] value = 0>"
+                sixth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][selling_price] value = 0>"
+                seventh_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][reorder_level] value = 0>"
             } else if (addItem === false) {
-                var row = table.deleteRow(item_index)
+                var row = tableBody.deleteRow(itemIndex)
             }
         };
+        function addToAttrMasterTable () {};
     </script>
 
     {{--  Script to prevent form submit on enter key press  --}}
