@@ -6,6 +6,7 @@ use App\Account;
 use App\Address;
 use App\Inventory;
 use App\InventoryAdjustment;
+use App\InventoryAdjustmentProduct;
 use App\Product;
 use App\Reason;
 use App\Traits\InstitutionTrait;
@@ -55,6 +56,9 @@ class InventoryController extends Controller
     {
         return $request;
 
+        // Check if product exists
+
+
         // User
         $user = $this->getUser();
         // Institution
@@ -73,7 +77,38 @@ class InventoryController extends Controller
         $inventoryAdjustment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $inventoryAdjustment->save();
 
-        // Inventory adjustment product
+        foreach ($request->item_details as $itemDetail){
+
+            // Check if product exists
+            $product = Product::findOrFail($request->details);
+
+            $inventoryAdjustmentProduct = new InventoryAdjustmentProduct();
+            $inventoryAdjustmentProduct->inventory_adjustment_number = 4756;
+            $inventoryAdjustmentProduct->initial_quantity = $request->on_hand;
+            $inventoryAdjustmentProduct->subsequent_quantity = $request->new_on_hand;
+            $inventoryAdjustmentProduct->quantity = $request->adjusted;
+            $inventoryAdjustmentProduct->date = date("Y-m-d");
+            $inventoryAdjustmentProduct->inventory_adjustment_id = $inventoryAdjustment->id;
+            $inventoryAdjustmentProduct->product_id = $request->details;
+            $inventoryAdjustmentProduct->user_id = $user->id;
+            $inventoryAdjustmentProduct->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $inventoryAdjustmentProduct->save();
+
+
+            if ($request->mode_of_adjustment == "value"){
+                // Quantity adjustment
+                // Adjust inventory
+                $inventory = Inventory::where('product_id',$product->id)->where('warehouse_id',$request->warehouse)->first();
+                $inventory->quantity = $request->new_on_hand;
+                $inventory->save();
+            }elseif ($request->mode_of_adjustment == "value"){
+
+            }
+
+
+            // Value adjustment
+        }
+
 
         return back()->withSuccess(__('Inventory adjustment successfully stored.'));
     }
