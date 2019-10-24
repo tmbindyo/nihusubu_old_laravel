@@ -68,7 +68,7 @@ class Product extends Model
     }
     public function inventory()
     {
-        return $this->hasOne('App\Inventory');
+        return $this->hasMany('App\Inventory');
     }
     public function product_images()
     {

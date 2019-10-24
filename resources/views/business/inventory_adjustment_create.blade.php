@@ -202,21 +202,21 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select name = "item_details[0][details]" data-placeholder="Choose an item..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" data-placeholder="Choose an item..." class="chosen-select input-lg item-select" style="width:100%;" tabindex="2" required>
                                                 <option>Select Product</option>
                                                 @foreach($products as $product)
-                                                    <option value="{{$product->id}}">{{$product->name}}</option>
+                                                    <option value="{{$product->id}}" data-product-details="{{$product}}" data-product-quantity="{{$product->opening_stock_value}}">{{$product->name}}</option>
                                                 @endforeach
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg" name = "item_details[0][on_hand]">
+                                            <input type="number" class="form-control input-lg items-on-hand" name = "item_details[0][on_hand]" value = "0" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg" name = "item_details[0][new_on_hand]">
+                                            <input oninput = "modifyItemsOnHand(this)" type="number" class="form-control input-lg items-new-on-hand" name = "item_details[0][new_on_hand]">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg" placeholder="E.g +10, -10" name = "item_details[0][adjusted]">
+                                            <input type="number" class="form-control input-lg items-adjusted" placeholder="E.g +10, -10" name = "item_details[0][adjusted]" readonly>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -633,11 +633,49 @@
             var second_cell = row.insertCell(1)
             var third_cell = row.insertCell(2)
             var fourth_cell = row.insertCell(3)
-            first_cell.innerHTML = "<select class='select2_demo_3 form-control input-lg' name = 'item_details["+adj_array_index+"][details]'><option>Select Item</option><option value='Bahamas'>Bahamas</option></select>"
-            second_cell.innerHTML = "<input type='number' class='form-control input-lg' name = 'item_details["+adj_array_index+"][on_hand]'>"
-            third_cell.innerHTML = "<input type='number' class='form-control input-lg' name = 'item_details["+adj_array_index+"][new_on_hand]'>"
-            fourth_cell.innerHTML = "<input type='number' class='form-control input-lg' placeholder='E.g +10, -10' name = 'item_details["+adj_array_index+"][adjusted]'>"
+            first_cell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='chosen-select form-control input-lg item-select' name = 'item_details["+adj_array_index+"][details]'"+
+                                    " data-placeholder='Choose an item...' style='width:100%;' tabindex='2' required><option>Select Product</option>"+
+                                    "@foreach($products as $product)<option value={{$product->id}} data-product-details={{$product}} data-product-quantity='{{$product->opening_stock_value}}'>{{$product->name}}</option>@endforeach</select>"
+            second_cell.innerHTML = "<input type='number' class='form-control input-lg items-on-hand' name = 'item_details["+adj_array_index+"][on_hand]' value = '0' readonly>"
+            third_cell.innerHTML = "<input oninput = 'modifyItemsOnHand(this)'' type='number' class='form-control input-lg items-new-on-hand' name = 'item_details["+adj_array_index+"][new_on_hand]'>"
+            fourth_cell.innerHTML = "<input type='number' class='form-control input-lg items-adjusted' placeholder='E.g +10, -10' name = 'item_details["+adj_array_index+"][adjusted]' readonly>"
             adj_array_index++
+            initSelector()
+        };
+        // Function that handles selection of products to be adjusted
+        function returnProductDetails (e) {
+            var stockValue = e.options[e.selectedIndex].getAttribute("data-product-quantity")
+            var selectedParentTd = e.parentElement
+            var selectedTr = selectedParentTd.parentElement
+            setValueOfInputFieldByClassName(selectedTr, "items-on-hand", stockValue)
+        };
+        // Function triggered whenever value of items on hand is set
+        function modifyItemsOnHand (e) {
+            var selectedParentTd = e.parentElement
+            var selectedTr = selectedParentTd.parentElement
+            var stockValue = selectedTr.getElementsByClassName("items-on-hand")[0].value
+            var adjustedValue = parseInt(e.value) - parseInt(stockValue)
+            setValueOfInputFieldByClassName(selectedTr, "items-adjusted", adjustedValue)
+        };
+        // Multi-purpose function that handles setting of an input field value given the parentElement
+        // and unique className within the element
+        function setValueOfInputFieldByClassName (parentElement, targetElementClassName, value) {
+            var targetElement = parentElement.getElementsByClassName(targetElementClassName)
+            targetElement[0].value = value
+        };
+        // Makes the products dropdown searchable
+        // Necessary to have this function since the elements edded dynamically are not searchable by default
+        function initSelector () {
+            var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
         };
     </script>
 

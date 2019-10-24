@@ -48,7 +48,7 @@ class InventoryController extends Controller
         // Warehouse
         $warehouses = Warehouse::where('institution_id',$institution->id)->get();
         // Products
-        $products = Product::where('institution_id',$institution->id)->get();
+        $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
 
         return view('business.inventory_adjustment_create',compact('user','institution','accounts','reasons','warehouses','products'));
     }
