@@ -112,7 +112,7 @@
                                                 <div class="has-warning">
                                                     <label>  </label>
                                                     <select name="unit" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                                        <option value="">Select Unit</option>
+                                                        <option value="" selected disabled>Select Unit</option>
                                                         @foreach($units as $unit)
                                                             <option value="{{$unit->id}}">{{$unit->name}}</option>
                                                         @endforeach()
@@ -168,7 +168,7 @@
                                             <div class="col-md-11">
                                                 <label></label>
                                                 <select name="selling_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                                    <option value="">Select Selling Account</option>
+                                                    <option value="" selected disabled>Select Selling Account</option>
                                                     @foreach($accounts as $account)
                                                         <option value="{{$account->id}}">{{$account->name}}</option>
                                                     @endforeach()
@@ -188,7 +188,7 @@
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
                                                     <select name="purchase_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                                        <option value="">Select Purchase Account</option>
+                                                        <option value="" selected disabled>Select Purchase Account</option>
                                                         @foreach($accounts as $account)
                                                             <option value="{{$account->id}}">{{$account->name}}</option>
                                                         @endforeach()

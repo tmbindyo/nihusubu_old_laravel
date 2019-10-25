@@ -20,14 +20,6 @@ class Contact extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function customer_type()
-    {
-        return $this->belongsTo('App\CustomerType');
-    }
-    public function contact_type()
-    {
-        return $this->belongsTo('App\ContactType');
-    }
     public function salutation()
     {
         return $this->belongsTo('App\Salutation');
@@ -43,6 +35,14 @@ class Contact extends Model
     public function institution()
     {
         return $this->belongsTo('App\Institution');
+    }
+    public function billing_address()
+    {
+        return $this->belongsTo('App\Address','billing_address_id','id');
+    }
+    public function shipping_address()
+    {
+        return $this->belongsTo('App\Address','shipping_address_id','id');
     }
 
     // Children

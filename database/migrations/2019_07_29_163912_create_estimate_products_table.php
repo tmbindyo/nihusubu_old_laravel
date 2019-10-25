@@ -23,7 +23,7 @@ class CreateEstimateProductsTable extends Migration
             $table->uuid('status_id');
             $table->uuid('estimate_id');
             $table->uuid('product_id');
-            $table->uuid('warehouse_id');
+            $table->uuid('warehouse_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

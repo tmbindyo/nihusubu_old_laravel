@@ -16,11 +16,10 @@ class CreateEstimatesTable extends Migration
         Schema::create('estimates', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('estimate_number');
-            $table->text('customer_notes');
-            $table->text('terms_and_conditions');
+            $table->string('reference');
+            $table->text('customer_notes')->nullable();
+            $table->text('terms_and_conditions')->nullable();
             $table->date('date');
-            $table->date('expiry_date');
             $table->date('due_date');
 
             $table->double('subtotal', 20,2);
@@ -41,6 +40,7 @@ class CreateEstimatesTable extends Migration
             $table->boolean('is_product');
             $table->boolean('is_project');
             $table->boolean('has_uploads');
+            $table->boolean('is_draft');
 
             $table->timestamps();
             $table->softDeletes();

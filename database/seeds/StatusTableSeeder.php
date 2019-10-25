@@ -226,5 +226,42 @@ class StatusTableSeeder extends Seeder
 
 
 
+
+        // Client statuses
+        DB::table('statuses')->insert([
+            'id' => '4a6fe484-12df-4ba7-8a74-7c95b9e553cd',
+            'name' => 'Active',
+            'description' => 'Active client',
+            'label' => 'label-primary',
+            'status_type_id' => '3a1df270-df7a-41af-b1f6-a778d9dbde3d',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => 'c33b4155-f100-4cb3-8547-297db18d8205',
+            'name' => 'Pending',
+            'description' => 'Pending client',
+            'label' => 'label-warning',
+            'status_type_id' => '3a1df270-df7a-41af-b1f6-a778d9dbde3d',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => 'e2de216c-8976-49aa-8176-3d1c7d79cb2f',
+            'name' => 'Phoned',
+            'description' => 'Phoned client',
+            'label' => 'label-info',
+            'status_type_id' => '3a1df270-df7a-41af-b1f6-a778d9dbde3d',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '33a893be-9862-4b07-b063-c9ba4e48daa4',
+            'name' => 'Deleted',
+            'description' => 'Deleted client',
+            'label' => 'label-danger',
+            'status_type_id' => '3a1df270-df7a-41af-b1f6-a778d9dbde3d',
+            'user_id' => 1,
+        ]);
+
+
+
     }
 }

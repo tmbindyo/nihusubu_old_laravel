@@ -56,5 +56,13 @@ class StatusTypeTableSeeder extends Seeder
         ]);
         // https://support.bigcommerce.com/s/article/Order-Statuses
         // Pending, awaiting payment,awaiting shipment, partially shipped, completed, shipped, cancelled, declined, refunded, disputed, partially refunded
+
+        DB::table('status_types')->insert([
+            'id' => '3a1df270-df7a-41af-b1f6-a778d9dbde3d',
+            'name' => 'Client',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

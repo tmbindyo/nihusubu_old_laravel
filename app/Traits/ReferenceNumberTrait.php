@@ -12,12 +12,20 @@ use Webpatser\Uuid\Uuid;
 
 trait ReferenceNumberTrait
 {
+
     // todo generate random string to work as reference numbers
-    public static function boot()
+    public function getRandomString($size)
     {
-        parent::boot();
-        self::creating(function ($model) {
-            $model->id = (string) Uuid::generate(4);
-        });
+        $token = "";
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+        $codeAlphabet.= "0123456789";
+        $max = strlen($codeAlphabet); // edited
+
+        for ($i=0; $i < $size; $i++) {
+            $token .= $codeAlphabet[random_int(0, $max-1)];
+        }
+
+        return $token;
     }
 }

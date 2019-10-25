@@ -28,18 +28,30 @@ class Address extends Model
     // Children
     public function user_details()
     {
-        return $this->belongsTo('App\UserDetail');
+        return $this->hasOne('App\UserDetail');
     }
     public function institutions()
     {
-        return $this->belongsTo('App\Institution');
+        return $this->hasOne('App\Institution');
     }
     public function departments()
     {
-        return $this->belongsTo('App\Department');
+        return $this->hasOne('App\Department');
     }
     public function branches()
     {
-        return $this->belongsTo('App\Branch');
+        return $this->hasOne('App\Branch');
+    }
+    public function warehouse()
+    {
+        return $this->hasOne('App\Warehouse');
+    }
+    public function contact_shipping_address()
+    {
+        return $this->hasOne('App\Contact','shipping_address_id','id');
+    }
+    public function contact_billing_address()
+    {
+        return $this->hasOne('App\Contact','billing_address_id','id');
     }
 }

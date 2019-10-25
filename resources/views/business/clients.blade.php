@@ -57,8 +57,8 @@
                             <div class="clients-list">
                                 <ul class="nav nav-tabs">
                                     <span class="pull-right small text-muted">1406 Elements</span>
-                                    <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Contacts</a></li>
-                                    <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Companies</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Individual</a></li>
+                                    <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Business</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div id="tab-1" class="tab-pane active">
@@ -66,61 +66,19 @@
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-hover">
                                                     <tbody>
-                                                    <tr>
-                                                        <td class="client-avatar"><img alt="image" src="{{ asset('inspinia') }}/img/a2.jpg"> </td>
-                                                        <td><a data-toggle="tab" href="#contact-1" class="client-link">Anthony Jackson</a></td>
-                                                        <td> Tellus Institute</td>
-                                                        <td class="contact-type"><i class="fa fa-envelope"> </i></td>
-                                                        <td> gravida@rbisit.com</td>
-                                                        <td class="client-status"><span class="label label-primary">Active</span></td>
-                                                        <td>
-                                                            <a href="{{ route('business.client.contact.person.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="client-avatar"><a href=""><img alt="image" src="{{ asset('inspinia') }}/img/a5.jpg"></a> </td>
-                                                        <td><a data-toggle="tab" href="#contact-4" class="client-link">Edan Randall</a></td>
-                                                        <td>Integer Sem Corp.</td>
-                                                        <td class="contact-type"><i class="fa fa-phone"> </i></td>
-                                                        <td> +422 600 213</td>
-                                                        <td class="client-status"><span class="label label-warning">Waiting</span></td>
-                                                        <td>
-                                                            <a href="{{ route('business.client.contact.person.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="client-avatar"><a href=""><img alt="image" src="{{ asset('inspinia') }}/img/a7.jpg"></a> </td>
-                                                        <td><a data-toggle="tab" href="#contact-3" class="client-link">Reuben Pacheco</a></td>
-                                                        <td>Magna Associates</td>
-                                                        <td class="contact-type"><i class="fa fa-envelope"> </i></td>
-                                                        <td> pacheco@manga.com</td>
-                                                        <td class="client-status"><span class="label label-info">Phoned</span></td>
-                                                        <td>
-                                                            <a href="{{ route('business.client.contact.person.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="client-avatar"><a href=""><img alt="image" src="{{ asset('inspinia') }}/img/a2.jpg"></a> </td>
-                                                        <td><a data-toggle="tab" href="#contact-1" class="client-link">Anthony Jackson</a></td>
-                                                        <td> Tellus Institute</td>
-                                                        <td class="contact-type"><i class="fa fa-envelope"> </i></td>
-                                                        <td> gravida@rbisit.com</td>
-                                                        <td class="client-status"><span class="label label-danger">Deleted</span></td>
-                                                        <td>
-                                                            <a href="{{ route('business.client.contact.person.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="client-avatar"><a href=""><img alt="image" src="{{ asset('inspinia') }}/img/a5.jpg"></a> </td>
-                                                        <td><a data-toggle="tab" href="#contact-3"class="client-link">Edan Randall</a></td>
-                                                        <td>Integer Sem Corp.</td>
-                                                        <td class="contact-type"><i class="fa fa-phone"> </i></td>
-                                                        <td> +422 600 213</td>
-                                                        <td class="client-status"><span class="label label-info">Phoned</span></td>
-                                                        <td>
-                                                            <a href="{{ route('business.client.contact.person.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                        </td>
-                                                    </tr>
+                                                    @foreach($individualContacts as $individualContact)
+                                                        <tr>
+                                                            <td class="client-avatar"><img alt="image" src="{{ asset('inspinia') }}/img/a2.jpg"> </td>
+                                                            <td><a data-toggle="tab" href="#contact-1" class="client-link">{{$individualContact->display_name}}</a></td>
+                                                            <td>{{$individualContact->phone}}</td>
+                                                            <td class="contact-type"><i class="fa fa-envelope"> </i></td>
+                                                            <td>{{$individualContact->email}}</td>
+                                                            <td class="client-status"><span class="label {{$individualContact->status->label}}">{{$individualContact->status->name}}</span></td>
+                                                            <td>
+                                                                <a href="{{ route('business.client.contact.person.show', $individualContact->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -131,24 +89,17 @@
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-hover">
                                                     <tbody>
-                                                    <tr>
-                                                        <td><a data-toggle="tab" href="#company-1" class="client-link">Tellus Institute</a></td>
-                                                        <td>Rexton</td>
-                                                        <td><i class="fa fa-flag"></i> Angola</td>
-                                                        <td class="client-status"><span class="label label-primary">Active</span></td>
-                                                        <td>
-                                                            <a href="{{ route('business.client.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a data-toggle="tab" href="#company-1" class="client-link">Tempor Arcu Corp.</a></td>
-                                                        <td>Eisden</td>
-                                                        <td><i class="fa fa-flag"></i> Korea, North</td>
-                                                        <td class="client-status"><span class="label label-warning">Waiting</span></td>
-                                                        <td>
-                                                            <a href="{{ route('business.client.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                        </td>
-                                                    </tr>
+                                                    @foreach($businessContacts as $businessContact)
+                                                        <tr>
+                                                            <td><a data-toggle="tab" href="#company-1" class="client-link">{{$businessContact->company_name}}</a></td>
+                                                            <td>{{$businessContact->email}}</td>
+                                                            <td>{{$businessContact->phone}}</td>
+                                                            <td class="client-status"><span class="label {{$businessContact->status->label}}">{{$businessContact->status->name}}</span></td>
+                                                            <td>
+                                                                <a href="{{ route('business.client.show', 1) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -166,29 +117,6 @@
                         <div class="ibox-content">
                             <div class="tab-content">
                                 <div id="contact-1" class="tab-pane active">
-                                    <div class="row m-b-lg">
-                                        <div class="col-lg-4 text-center">
-                                            <h2>Nicki Smith</h2>
-
-                                            <div class="m-b-sm">
-                                                <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a2.jpg"
-                                                     style="width: 62px">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <strong>
-                                                About me
-                                            </strong>
-
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua.
-                                            </p>
-                                            <button type="button" class="btn btn-primary btn-sm btn-block"><i
-                                                    class="fa fa-envelope"></i> Send Message
-                                            </button>
-                                        </div>
-                                    </div>
                                     <div class="client-detail">
                                         <div class="full-height-scroll">
 

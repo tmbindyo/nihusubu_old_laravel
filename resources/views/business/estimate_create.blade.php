@@ -7,13 +7,10 @@
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <!-- FooTable -->
-    <link href="{{ asset('inspinia') }}/css/plugins/footable/footable.core.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 
 @endsection
 
@@ -47,7 +44,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('business.product.group.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.estimate.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -61,53 +58,42 @@
                                     @endif
 
 
+                                    <br>
                                     {{--  Product  --}}
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-1">
-                                                    <span><i data-toggle="tooltip" data-placement="left" title="Enable this option if all the items in the group are eligible for sales return." class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                                </div>
-                                                {{--  Salutation  --}}
-                                                <div class="col-md-3">
-                                                    <div class="has-warning">
-                                                        <select class="select2_demo_3 form-control input-lg">
-                                                            <option>Select Salutation</option>
-                                                            <option value="Bahamas">Bahamas</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    {{--  First name  --}}
-                                                    <div class="has-warning">
-                                                        <input type="text" id="first_name" name="first_name" required="required" class="form-control input-lg" placeholder="First Name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    {{--  Last name  --}}
-                                                    <div class="has-warning">
-                                                        <input type="text" id="last_name" name="last_name" required="required" class="form-control input-lg" placeholder="Last Name">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            {{--  Comapny name  --}}
+                                            {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <input type="text" id="company_name" name="company_name" required="required" class="form-control input-lg" placeholder="Company Name">
+                                                <select name="customer" class="select2_demo_3 form-control input-lg">
+                                                    <option selected disabled>Select Customer</option>
+                                                    @foreach($customers as $customer)
+                                                        <option value="{{$customer->id}}">{{$customer->company_name}}: {{$customer->last_name}}, {{$customer->first_name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <br>
-                                            {{--  Customer email  --}}
-                                            <div class="">
-                                                <input type="email" id="customer_email" name="customer_email" required="required" class="form-control input-lg" placeholder="Customer Email">
-                                            </div>
-                                            <br>
-                                            {{--  Customer phone number  --}}
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" id="customer_phone_number" name="customer_phone_number" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Work Phone">
+                                                    <div class="has-warning">
+                                                        <div class="input-group date">
+                                                            <span class="input-group-addon">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </span>
+                                                            <input type="text" name="date" id="date" class="form-control input-lg" required>
+                                                        </div>
+                                                        <i> estimate date.</i>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" id="customer_phone_number" name="customer_phone_number" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Mobile">
+                                                    <div class="has-warning">
+                                                        <div class="input-group date">
+                                                            <span class="input-group-addon">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </span>
+                                                            <input type="text" name="due_date" id="due_date" class="form-control input-lg" required>
+                                                        </div>
+                                                        <i> due date.</i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,29 +107,81 @@
                                                 <th>Item Details</th>
                                                 <th>Quantity</th>
                                                 <th>Rate</th>
-                                                <th></th>
+                                                <th>Tax</th>
+                                                <th>Amount</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <select class="select2_demo_3 form-control input-lg">
-                                                        <option>Select Item</option>
-                                                        <option value="Bahamas">Bahamas</option>
+                                                    <select data-placement="Select" name="item_details[0][item]" class="select2_demo_3 form-control input-lg">
+                                                        <option selected disabled>Select Item</option>
+                                                        @foreach($inventories as $inventory)
+                                                            <option value="{{$inventory->id}}">{{$inventory->name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control input-lg">
+                                                    <input name="item_details[0][quantity]" type="number" class="form-control input-lg">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control input-lg" placeholder="E.g +10, -10">
+                                                    <input name="item_details[0][rate]" type="number" class="form-control input-lg" placeholder="E.g +10, -10">
                                                 </td>
-                                                <td width="10px">
-                                                    <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-times-circle fa-2x text-danger"></i></span>
+                                                <td>
+                                                    <select name="item_details[0][tax]" class="select2_demo_3 form-control input-lg">
+                                                        <option selected disabled >Select Tax</option>
+                                                        @foreach($taxes as $tax)
+                                                            <option value="{{$tax->id}}">{{$tax->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input name="item_details[0][amount]" type="number" class="form-control input-lg" placeholder="E.g +10, -10">
                                                 </td>
                                             </tr>
                                             </tbody>
+                                            <tfoot>
+                                                <th>Item Details</th>
+                                                <th>Quantity</th>
+                                                <th>Rate</th>
+                                                <th>Tax</th>
+                                                <th>Amount</th>
+                                            </tfoot>
                                         </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-5">
+                                                <label>Sub Total</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input name="subtotal" class="pull-right form-control" readonly value="0.00">
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-1 col-md-offset-5">
+                                                <label>Adjustment</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="number" class="form-control">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p class="pull-right">0.00</p>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-5">
+                                                <p>Total ()</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p class="pull-right">0.00</p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr>
                                     <br>
@@ -151,7 +189,19 @@
                                     <div class="ln_solid"></div>
 
                                     <br>
-                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-1">
+                                            <div class="checkbox checkbox-info">
+                                                <input id="is_draft" name="is_draft" type="checkbox">
+                                                <label for="is_draft">
+                                                    Save As Draft
+                                                </label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Check this option if you want to save this as a draft for further editing." class="fa fa-2x fa-question-circle"></i></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>
                                     </div>
@@ -188,30 +238,74 @@
 <!-- Data picker -->
 <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-<!-- FooTable -->
-<script src="{{ asset('inspinia') }}/js/plugins/footable/footable.all.min.js"></script>
+<!-- Image cropper -->
+<script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
 
-<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function(){
+
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+        $('#data_2 .input-group.date').datepicker({
+            startView: 1,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+
+        $('#data_3 .input-group.date').datepicker({
+            startView: 2,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
+        });
+
+        $('#data_4 .input-group.date').datepicker({
+            minViewMode: 1,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        $('#data_5 .input-daterange').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
+        });
+
+
+
+    });
+
+</script>
+
+{{--  Get due date to populate   --}}
 <script>
     $(document).ready(function() {
-
-        $('.footable').footable();
-
-        $('#date_added').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
-        });
-
-        $('#date_modified').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
-        });
+        // Set date
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        if (dd < 10){
+            dd = '0'+dd;
+        }
+        if (mm < 10){
+            mm = '0'+mm;
+        }
+        var date_today = mm + '/' + dd + '/' + yyyy;
+        document.getElementById("date_due").value = date_today;
 
     });
 
