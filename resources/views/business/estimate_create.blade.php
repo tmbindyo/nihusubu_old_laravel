@@ -116,8 +116,14 @@
                                                 <td>
                                                     <select data-placement="Select" name="item_details[0][item]" class="select2_demo_3 form-control input-lg">
                                                         <option selected disabled>Select Item</option>
-                                                        @foreach($inventories as $inventory)
-                                                            <option value="{{$inventory->id}}">{{$inventory->name}}</option>
+                                                        @foreach($products as $product)
+                                                            @if($product->is_service == 0)
+                                                                @foreach($product->inventory as $inventory)
+                                                                    <option value="{{$product->id}}[{{$inventory->id}}]">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
+                                                                @endforeach
+                                                            @else
+                                                                <option value="{{$product->id}}">{{$product->name}}</option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </td>

@@ -188,12 +188,14 @@ class SaleController extends Controller
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
         // Getting Products
+        $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
+
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
-//        return $inventories;
+//        return $products;
 
 
-        return view('business.estimate_create',compact('user','institution','customers','taxes','inventories'));
+        return view('business.estimate_create',compact('user','institution','customers','taxes','inventories','products'));
     }
     public function estimateStore(Request $request)
     {
