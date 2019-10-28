@@ -2,12 +2,14 @@
 
 namespace App;
 
+use App\Traits\InstitutionTrait;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use institutionTrait;
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
@@ -109,5 +111,11 @@ class Product extends Model
     public function product_discounts()
     {
         return $this->hasMany('App\ProductDiscount');
+    }
+    public function stock_on_hand()
+    {
+        return $this->hasMany('App\Inventory')
+            ->selectRaw('product_id,SUM(quantity) as stock_on_hand')
+            ->groupBy('product_id');
     }
 }

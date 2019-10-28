@@ -102,7 +102,9 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Get institution products
-        $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory')->where('is_product_group',False)->where('status_id','f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
+        $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory','stock_on_hand')->where('is_product_group',False)->where('status_id','f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
+
+//        return $products;
 
         return view('business.products',compact('user','products'));
     }
