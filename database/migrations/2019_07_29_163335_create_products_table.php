@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name', 200);
+            $table->string('attribute', 200)->nullable();
             $table->longText('description')->nullable();
             $table->string('stock_keeping_unit', 200)->nullable();
             $table->string('dimensions', 200)->nullable();

@@ -10,32 +10,13 @@
     <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
     <link href="{{ asset('css') }}/choices.min.css" rel="stylesheet">
+
+
     {{--  Tags  --}}
     <style>
         .tags-input-wrapper {
@@ -144,7 +125,25 @@
                                     <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" placeholder="Product Group Name">
                                     <i>Give your product group a name</i>
                                 </div>
-                                <label>  </label>
+                                <br>
+                                {{--  Product Unit  --}}
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <label></label>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="has-warning">
+                                            <label>  </label>
+                                            <select name="unit" class="select form-control input-lg" required>
+                                                <option value="" selected disabled>Select Unit</option>
+                                                @foreach($units as $unit)
+                                                    <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                                @endforeach()
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <br>
                                 {{--  Product returnable  --}}
                                 <div class="checkbox">
@@ -174,8 +173,114 @@
                                             <li>Unknown printer</li>
                                         </ul>
                                 </textarea>
+                        <hr>
+                        {{--  Sales and purchase information  --}}
+                        <h3 class="text-center">SALES AND PURCHASE INFORMATION</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="text-center">SALES INFORMATION</h4>
+                                {{--  Product purchase account  --}}
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <label></label>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <label></label>
+                                        <select name="selling_account" class="select form-control input-lg" required>
+                                            <option value="" selected disabled>Select Selling Account</option>
+                                            @foreach($accounts as $account)
+                                                <option value="{{$account->id}}">{{$account->name}}</option>
+                                            @endforeach()
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="text-center">PURCHASE INFORMATION</h4>
+                                {{--  Product selling account  --}}
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <label class="text-danger"></label>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="has-warning">
+                                            <label class="text-danger"></label>
+                                            <select name="purchase_account" class="select form-control input-lg" required>
+                                                <option value="" selected disabled>Select Purchase Account</option>
+                                                @foreach($accounts as $account)
+                                                    <option value="{{$account->id}}">{{$account->name}}</option>
+                                                @endforeach()
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <br>
+                        {{--  Inventory information  --}}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{--  Inventory account  --}}
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <label class="text-danger"></label>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="All inventory related transactions will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="has-warning">
+                                            <label class="text-danger"></label>
+                                            <select name="inventory_account" class="select form-control input-lg">
+                                                <option value="" disabled>Select Inventory Account</option>
+                                                @foreach($accounts as $account)
+                                                    <option value="{{$account->id}}">{{$account->name}}</option>
+                                                @endforeach()
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
+                            </div>
+                            <div class="col-md-6">
+                                {{--  Product Tax  --}}
+                                <label></label>
+                                <select name="taxes[]" class="taxes-select form-control input-lg" multiple="multiple">
+                                    <option value="" disabled>Select Taxes</option>
+                                    @foreach($taxes as $tax)
+                                        <option value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
+                                    @endforeach()
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="checkbox checkbox-info">
+                                    <input id="is_created" name="is_created" type="checkbox">
+                                    <label for="is_created">
+                                        Product Manufactured/Created
+                                    </label>
+                                    <span><i data-toggle="tooltip" data-placement="right" title="Check this option if the product is manufactured, created or a period of time is used by this business to add value to it." class="fa fa-2x fa-question-circle"></i></span>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="number" id="creation_time" name="creation_time" required="required" placeholder="Creation/Value addition time" class="form-control input-lg">
+                                <i>Average time taken to manufacture/create or add value to it in minutes.</i>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" id="creation_cost" name="creation_cost" required="required" placeholder="Average Creation/Value Addition cost" class="form-control input-lg">
+                                <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
+                            </div>
+                        </div>
+                        <br>
                         {{-- <hr> --}}
                         {{-- <div class="row" id="product_group_attribute">
                             <div class="col-md-6"> --}}
@@ -276,6 +381,9 @@
     <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
 
+    <!-- Select2 -->
+    <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
     <!-- Custom and plugin javascript -->
     <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
@@ -284,7 +392,7 @@
 
     <!-- jQuery Tags Input -->
     <!-- <script src="{{ asset('js') }}/tagplug-master/index.js"></script> -->
-    
+
     <script src="{{ asset('js') }}/choices.min.js"></script>
 
     <!-- SUMMERNOTE -->
@@ -368,6 +476,18 @@
                         return false;
                     }
                 });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select').select2({
+                theme: "default"
+            }),
+            $('.taxes-select').select2({
+                theme: "default",
+                placeholder: "Select taxes",
             });
         });
     </script>
