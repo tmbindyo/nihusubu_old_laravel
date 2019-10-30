@@ -18,7 +18,6 @@ class CreateInventoryAdjustmentsTable extends Migration
 
             $table->string('inventory_adjustment_number')->unique();
             $table->text('description');
-            $table->date('date');
 
             $table->boolean('is_value_adjustment');
 

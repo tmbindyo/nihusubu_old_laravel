@@ -24,4 +24,10 @@ class Reason extends Model
     {
         return $this->belongsTo('App\Institution');
     }
+
+    // Children
+    public function inventory_adjustments()
+    {
+        return $this->hasMany('App\InventoryAdjustment');
+    }
 }

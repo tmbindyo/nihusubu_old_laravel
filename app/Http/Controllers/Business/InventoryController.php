@@ -10,6 +10,7 @@ use App\InventoryAdjustmentProduct;
 use App\Product;
 use App\Reason;
 use App\Traits\InstitutionTrait;
+use App\Traits\ReferenceNumberTrait;
 use App\Traits\UserTrait;
 use App\TransferOrder;
 use App\Warehouse;
@@ -21,6 +22,7 @@ class InventoryController extends Controller
 
     use UserTrait;
     use institutionTrait;
+    use ReferenceNumberTrait;
 
     // Inventory adjustment CRUD
     public function inventoryAdjustments()
@@ -31,8 +33,8 @@ class InventoryController extends Controller
         $institution = $this->getInstitution();
         // Get inventory adjustments
         $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $inventoryAdjustments = InventoryAdjustment::whereIn('warehouse_id', $institutionWarehouses)->with('warehouse','user','status','account')->get();
-
+        $inventoryAdjustments = InventoryAdjustment::whereIn('warehouse_id', $institutionWarehouses)->with('warehouse','user','status','account','reason')->get();
+//        return $inventoryAdjustments;
         return view('business.inventory_adjustments',compact('user','institution','inventoryAdjustments'));
     }
     public function inventoryAdjustmentCreate()
@@ -54,52 +56,55 @@ class InventoryController extends Controller
     }
     public function inventoryAdjustmentStore(Request $request)
     {
-        return $request;
-
-        // Check if product exists
-
+//        return $request;
 
         // User
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Generate reference number
+        $size = 5;
+        $reference = $this->getRandomString($size);
+
         // Inventory adjustment
         $inventoryAdjustment = new InventoryAdjustment();
+        if ($request->mode_of_adjustment == "value"){
+            $inventoryAdjustment->is_value_adjustment = True;
+        }else{
+            $inventoryAdjustment->is_value_adjustment = False;
+        }
         // Generate inventory adjustment number
-        $inventoryAdjustment->inventory_adjustment_number = 122;
-        $inventoryAdjustment->date = $request->date;
+        $inventoryAdjustment->inventory_adjustment_number = $reference;
         $inventoryAdjustment->account_id = $request->account;
         $inventoryAdjustment->reason_id = $request->reason;
         $inventoryAdjustment->warehouse_id = $request->warehouse;
         $inventoryAdjustment->description = $request->description;
         $inventoryAdjustment->user_id = $user->id;
-        $inventoryAdjustment->institution_id = $institution->id;
         $inventoryAdjustment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $inventoryAdjustment->save();
 
         foreach ($request->item_details as $itemDetail){
 
             // Check if product exists
-            $product = Product::findOrFail($request->details);
+            $product = Product::findOrFail($itemDetail['details']);
 
             $inventoryAdjustmentProduct = new InventoryAdjustmentProduct();
             $inventoryAdjustmentProduct->inventory_adjustment_number = 4756;
-            $inventoryAdjustmentProduct->initial_quantity = $request->on_hand;
-            $inventoryAdjustmentProduct->subsequent_quantity = $request->new_on_hand;
-            $inventoryAdjustmentProduct->quantity = $request->adjusted;
-            $inventoryAdjustmentProduct->date = date("Y-m-d");
+            $inventoryAdjustmentProduct->initial_quantity = $itemDetail['on_hand'];
+            $inventoryAdjustmentProduct->subsequent_quantity = $itemDetail['new_on_hand'];
+            $inventoryAdjustmentProduct->quantity = $itemDetail['adjusted'];
             $inventoryAdjustmentProduct->inventory_adjustment_id = $inventoryAdjustment->id;
-            $inventoryAdjustmentProduct->product_id = $request->details;
+            $inventoryAdjustmentProduct->product_id = $itemDetail['details'];
             $inventoryAdjustmentProduct->user_id = $user->id;
             $inventoryAdjustmentProduct->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
             $inventoryAdjustmentProduct->save();
 
 
-            if ($request->mode_of_adjustment == "value"){
+            if ($request->mode_of_adjustment == "quantity"){
                 // Quantity adjustment
                 // Adjust inventory
                 $inventory = Inventory::where('product_id',$product->id)->where('warehouse_id',$request->warehouse)->first();
-                $inventory->quantity = $request->new_on_hand;
+                $inventory->quantity = $itemDetail['new_on_hand'];
                 $inventory->save();
             }elseif ($request->mode_of_adjustment == "value"){
 
@@ -118,9 +123,11 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        $inventoryAdjustment = InventoryAdjustment::findOrFail($inventory_adjustment_id);
+        $inventoryAdjustment = InventoryAdjustment::where('id',$inventory_adjustment_id)->with('inventory_adjustment_products.product','status','reason','account','warehouse','user')->withCount('inventory_adjustment_products')->first();
 
-
-        return view('business.inventory_adjustment_show',compact('user','institution'));
+//        return $inventoryAdjustment;
+        return view('business.inventory_adjustment_show',compact('user','institution','inventoryAdjustment'));
     }
     public function inventoryAdjustmentEdit($inventory_adjustment_id)
     {

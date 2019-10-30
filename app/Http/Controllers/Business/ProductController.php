@@ -348,8 +348,14 @@ class ProductController extends Controller
             $restock->date = date('Y-m-d');
             $restock->initial_warehouse_amount = 0;
             $restock->subsequent_warehouse_amount = $request->opening_stock;
+
             // getting unit value
-            $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+            if (doubleval($request->opening_stock) > 0 ){
+                $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+            }
+            else{
+                $unit_value = 0;
+            }
             $restock->unit_value = $unit_value;
             $restock->total_value = $request->opening_stock_value;
             $restock->quantity = $request->opening_stock;
@@ -462,6 +468,7 @@ class ProductController extends Controller
         // Get primary warehouse
         $warehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',True)->first();
 
+        // todo, it refactors it to the value put here which will erare the current stock value
         // create inventory
         $inventory = Inventory::where('warehouse_id',$warehouse->id)->where('product_id',$product->id)->first();
         $inventory->quantity = $request->opening_stock;
@@ -472,7 +479,12 @@ class ProductController extends Controller
         $restock->initial_warehouse_amount = 0;
         $restock->subsequent_warehouse_amount = $request->opening_stock;
         // getting unit value
-        $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+        if (doubleval($request->opening_stock) > 0 ){
+            $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+        }
+        else{
+            $unit_value = 0;
+        }
         $restock->unit_value = $unit_value;
         $restock->total_value = $request->opening_stock_value;
         $restock->quantity = $request->opening_stock;
