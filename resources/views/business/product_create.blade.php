@@ -33,6 +33,12 @@
 
     <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
 
+    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
+
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
 
@@ -141,7 +147,7 @@
                                 {{--  Description  --}}
                                 <textarea id="summernote" class="summernote" name="description">
                                     <h3>Sample description format</h3>
-                                        dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
+                                        dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry</strong> standard dummy text ever since the 1500s,
                                         when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
                                         typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
                                         <br/>
@@ -401,7 +407,7 @@
     <!-- Image cropper -->
     <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
 
-    <!-- Date range use moment.js same as full calendar plugin -->
+    {{--  <!-- Date range use moment.js same as full calendar plugin -->  --}}
     <script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
 
     <!-- Date range picker -->
