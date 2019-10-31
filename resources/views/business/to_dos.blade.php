@@ -35,8 +35,8 @@
                 <a href="#" data-toggle="modal" data-target="#toDoRegistration" aria-expanded="false" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
-
     </div>
+
     <div class="row">
 
         <div class="col-lg-12">
@@ -45,11 +45,12 @@
                 {{-- Each to do has a complimentart color found at: public->inspinia->css->style.css --}}
                 <ul class="pending-to-do">
                     @foreach($pendingToDos as $pendingToDo)
+                        {{-- <li ondblclick = "editNoteOnDoubleClick(this, {{$pendingToDo}})"> --}}
                         <li>
                             <div>
                                 <small>{{$pendingToDo->due_date}}</small>
                                 <h4>{{$pendingToDo->name}}</h4>
-                                <p>{{$pendingToDo->notes}}.</p>
+                                <p class = "sticky-note-content" style = "height: 100%">{{$pendingToDo->notes}}.</p>
                                 @if($pendingToDo->is_album === 1)
                                     <p><span class="badge badge-primary">{{$pendingToDo->album->name}}</span></p>
                                 @endif
@@ -114,6 +115,7 @@
 
 @endsection
 @include('business.layouts.modals.to_do_create')
+@include('business.layouts.modals.to_do_edit')
 @section('js')
 
 <!-- Mainly scripts -->
@@ -199,6 +201,12 @@
         document.getElementById("date_due").value = date_today;
 
     });
+    // TODO: Function needs further testing
+    function editNoteOnDoubleClick(e, data) {
+        console.log(data);
+        console.log(data["id"]);
+        e.getElementsByClassName("sticky-note-content")[0].contentEditable = true;
+    };
 
 </script>
 @endsection

@@ -1,11 +1,10 @@
-<div class="modal inmodal" id="toDoRegistration" tabindex="-1" role="dialog" aria-labelledby="toDoRegistrationLabel" aria-hidden="true">
+<div class="modal inmodal" id="toDoEdit" tabindex="-1" role="dialog" aria-labelledby="toDoEditLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-list modal-icon"></i>
-                <h4 class="modal-title">To-Do Registration</h4>
-{{--                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>--}}
+                <h4 class="modal-title">Edit To-Do</h4>
             </div>
             <div class="modal-body">
                 <form method="post" action="{{ route('business.to.do.store') }}" autocomplete="off" class="form-horizontal form-label-left">
@@ -25,7 +24,7 @@
                         <div class="col-md-7">
                             <div class="form-group">
                                 <div class="has-warning">
-                                    <input type="text" id="task" name="task" required="required" placeholder="Task" class="form-control input-lg">
+                                    <input type="text" id="edit-task" name="edittask" required="required" placeholder="Task" class="form-control input-lg">
                                     <i>task</i>
                                 </div>
                             </div>
@@ -38,7 +37,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </span>
-                                        <input type="text" name="due_date" id="due_date" class="form-control input-lg" required>
+                                        <input type="text" name="edit-due_date" id="edit-due_date" class="form-control input-lg" required>
                                     </div>
                                     <i> due date.</i>
                                     <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -51,7 +50,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="has-warning">
-                                    <textarea id="notes" rows="5" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="Notes..."></textarea>
+                                    <textarea id="edit-notes" rows="5" name="edit-notes" class="resizable_textarea form-control input-lg" required="required" placeholder="Notes..."></textarea>
                                 </div>
                             </div>
                         </div>
