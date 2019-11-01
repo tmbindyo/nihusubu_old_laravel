@@ -154,8 +154,11 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get inventory adjustments
+        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $transferOrders = TransferOrder::where('institution_id', $institution->id)->with('source_warehouse','destination_warehouse','user','status','reason')->get();
 
-        return view('business.transfer_orders',compact('user','institution'));
+        return view('business.transfer_orders',compact('user','institution','transferOrders'));
     }
     public function transferOrderCreate()
     {
@@ -163,8 +166,17 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get institution accounts
+        $accounts = Account::where('institution_id',$institution->id)->get();
+        // Get reasons
+        $reasons = Reason::where('institution_id',$institution->id)->get();
+        // Warehouse
+        $warehouses = Warehouse::where('institution_id',$institution->id)->get();
+        // Products
+        $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
 
-        return view('business.transfer_order_create',compact('user','institution'));
+
+        return view('business.transfer_order_create',compact('user','institution','accounts','reasons','warehouses','products'));
     }
     public function transferOrderStore()
     {

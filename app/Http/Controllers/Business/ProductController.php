@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\CompositeProduct;
 use App\ProductGroup;
 use DB;
 use App\Account;
@@ -557,8 +558,10 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get products
+        $compositeProducts = CompositeProduct::where('institution_id',$institution->id)->get();
 
-        return view('business.composite_products',compact('user','institution'));
+        return view('business.composite_products',compact('user','institution','compositeProducts'));
     }
     public function compositeProductCreate()
     {
@@ -566,11 +569,21 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get institution units
+        $units = Unit::where('institution_id',$institution->id)->get();
+        // Get institution accounts
+        $accounts = Account::where('institution_id',$institution->id)->get();
+        // Get institution taxes
+        $taxes = Tax::where('institution_id',$institution->id)->get();
+        // Products
+        $products = Product::where('institution_id',$institution->id)->get();
 
-        return view('business.composite_product_create',compact('user','institution'));
+        return view('business.composite_product_create',compact('user','institution','taxes','accounts','units','products'));
     }
     public function compositeProductStore(Request $request)
     {
+        return $request;
+
         return back()->withSuccess(__('Composite product successfully stored.'));
     }
     public function compositeProductShow($composite_product_id)
