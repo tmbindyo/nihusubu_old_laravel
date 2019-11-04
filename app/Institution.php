@@ -138,6 +138,10 @@ class Institution extends Model
     {
         return $this->hasMany('App\Contact');
     }
+    public function transfer_orders()
+    {
+        return $this->hasMany('App\TransferOrder');
+    }
     public function purchase_order_settings()
     {
         return $this->hasMany('App\PurchaseOrderSetting');

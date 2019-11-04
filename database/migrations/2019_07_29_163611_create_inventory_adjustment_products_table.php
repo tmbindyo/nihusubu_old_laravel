@@ -22,8 +22,6 @@ class CreateInventoryAdjustmentProductsTable extends Migration
             $table->double('subsequent_quantity',20,6);
             $table->double('quantity',20,6);
 
-            $table->date('date');
-
             $table->uuid('inventory_adjustment_id');
             $table->uuid('product_id');
             $table->integer('user_id')->unsigned();

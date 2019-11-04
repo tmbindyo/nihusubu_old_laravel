@@ -3,7 +3,6 @@
 @section('title', ' Composite products')
 
 @section('css')
-
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
@@ -58,12 +57,12 @@
                                         {{--  todo only one should be selectable  --}}
                                         <p>Product Type</p>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="good" value="goods" name="radioInline" checked="">
-                                            <label for="inlineRadio1"> Goods </label>
+                                            <input type="radio" id="goods" value="goods" name="product_type" checked="">
+                                            <label for="goods"> Goods </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="inlineRadio2" value="services" name="radioInline">
-                                            <label for="inlineRadio2"> Service </label>
+                                            <input type="radio" id="services" value="services" name="product_type">
+                                            <label for="services"> Service </label>
                                         </div>
                                         {{--  Product name  --}}
                                         <div class="has-warning">
@@ -74,9 +73,11 @@
                                         {{--  Product Unit  --}}
                                         <div class="has-warning">
                                             <label>  </label>
-                                            <select class="select2_demo_3 form-control input-lg">
-                                                <option>Select Unit</option>
-                                                <option value="Bahamas">Bahamas</option>
+                                            <select name="unit" class="select2_demo_3 form-control input-lg">
+                                                <option disabled>Select Unit</option>
+                                                @foreach($units as $unit)
+                                                    <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <label>  </label>
@@ -95,40 +96,6 @@
                                         {{--  TODO Thumbnail  --}}
                                     </div>
                                 </div>
-
-                                {{--  Product information  --}}
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{--  Product Dimensions  --}}
-                                        <label></label>
-                                        <input type="text" class="form-control input-lg" data-mask="999999.999999.999999" placeholder="Dimensions (cm)">
-                                        <i>(Length X Width X Height)</i>
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{--  Product Weight  --}}
-                                        <label></label>
-                                        <input type="number" class="form-control input-lg" data-mask="$ 999999" placeholder="Weight (kg)">
-                                        <i>(Length X Width X Height)</i>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{--  Product Manufacturer  --}}
-                                        <label>  </label>
-                                        <select class="select2_demo_3 form-control input-lg">
-                                            <option>Manufacturer</option>
-                                            <option value="Bahamas">Bahamas</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{--  Product Brand  --}}
-                                        <label>  </label>
-                                        <select class="select2_demo_3 form-control input-lg">
-                                            <option>Brand</option>
-                                            <option value="Bahamas">Bahamas</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <hr>
 
                                 {{--  Sales and purchase information  --}}
@@ -143,17 +110,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        {{--  Purchase price  --}}
-                                        <div class="has-warning">
-                                            <label class="text-danger"></label>
-                                            <input type="text" id="purchase_price" name="purchase_price" required="required" placeholder="Purchase Price" class="form-control input-lg">
-                                            <i>Give your product a price</i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{--  Product selling account  --}}
+                                        {{--  Selling Account  --}}
                                         <div class="row">
                                             <div class="col-md-1">
                                                 <label class="text-danger"></label>
@@ -162,27 +119,13 @@
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
-                                                    <select class="select2_demo_3 form-control input-lg">
-                                                        <option>Account</option>
-                                                        <option value="Bahamas">Bahamas</option>
+                                                    <select name="selling_account" class="select2_demo_3 form-control input-lg">
+                                                        <option>Select Account</option>
+                                                        @foreach($accounts as $account)
+                                                            <option value="{{$account->id}}">{{$account->name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{--  Product purchase account  --}}
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <label></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <select class="select2_demo_3 form-control input-lg">
-                                                    <option>Select Account</option>
-                                                    <option value="Bahamas">Bahamas</option>
-                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -191,9 +134,11 @@
                                     <div class="col-md-6">
                                         {{--  Product Tax  --}}
                                         <label></label>
-                                        <select class="select2_demo_3 form-control input-lg">
-                                            <option>Select tax</option>
-                                            <option value="Bahamas">Bahamas</option>
+                                        <select name="taxes[]" class="select2_demo_3 form-control input-lg">
+                                            <option disabled>Select tax</option>
+                                            @foreach($taxes as $tax)
+                                                <option value="{{$tax->id}}">{{$tax->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -213,9 +158,11 @@
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
-                                                    <select class="select2_demo_3 form-control input-lg">
+                                                    <select name="inventory_account" class="select2_demo_3 form-control input-lg" multiple>
                                                         <option>Select Account</option>
-                                                        <option value="Bahamas">Bahamas</option>
+                                                        @foreach($accounts as $account)
+                                                            <option value="{{$account->id}}">{{$account->name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -225,56 +172,54 @@
                                     <div class="col-md-6">
                                     </div>
                                 </div>
+                                <br>
+                                {{-- Composite product products --}}
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        {{--  Opening stock  --}}
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <label></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <input type="text" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg" placeholder="Opening Stock">
-                                            </div>
-                                        </div>
+                                    <div class="ibox-title">
+                                        <h5>Product Details </h5>
                                     </div>
-                                    <div class="col-md-6">
-                                        {{--  Opening stock value  --}}
-                                        {{--  todo Make KES (currency) dynamic  --}}
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <label></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Opening stock value refers to the average purchase price of your opening stock. (Per unit in KES)" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <input type="text" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg" placeholder="Opening Stock Value">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{--  Reorder Level  --}}
-                                        <div class="row">
-                                            <div class="col-md-1">
-                                                <label></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Reorder level refers to the quantity of an item below which, an item is considered to be low on stock." class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <input type="text" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg" placeholder="Reorder Level">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{--  Preferred vendor  --}}
-                                        <label></label>
-                                        <select id="preferred_vendor" name="preferred_vendor" class="select2_demo_3 form-control input-lg">
-                                            <option>Select Preferred Vendor</option>
-                                            <option value="Bahamas">Bahamas</option>
-                                        </select>
+                                    <div class="ibox-content">
+
+                                        <table class="table table-bordered" id = "adjustment_table">
+                                            <thead>
+                                            <tr>
+                                                <th>Product Details</th>
+                                                <th width="210px">Quantity</th>
+                                                <th width="210px">Unit Price</th>
+                                                <th width="210px">Total Price</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select form-control input-lg">
+                                                        <option>Select Product</option>
+                                                        @foreach($products as $product)
+                                                            <option value="{{$product->id}}" data-product-details="{{$product}}" data-product-quantity="{{$product->opening_stock_value}}">{{$product->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control input-lg items-on-hand" name = "item_details[0][quantity]" value = "0">
+                                                </td>
+                                                <td>
+                                                    <input oninput = "modifyItemsOnHand(this)" type="number" class="form-control input-lg items-new-on-hand" name = "item_details[0][unit_price]">
+                                                </td>
+                                                <td>
+                                                    <input oninput = "modifyItemsOnHand(this)" type="number" class="form-control input-lg items-new-on-hand" name = "item_details[0][total_price]">
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th>Product Details</th>
+                                                <th width="210px">Quantity</th>
+                                                <th width="210px">Unit Price</th>
+                                                <th width="210px">Total Price</th>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                        <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                                     </div>
                                 </div>
                                 <hr>

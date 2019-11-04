@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\CompositeProduct;
 use App\ProductGroup;
 use DB;
 use App\Account;
@@ -348,8 +349,14 @@ class ProductController extends Controller
             $restock->date = date('Y-m-d');
             $restock->initial_warehouse_amount = 0;
             $restock->subsequent_warehouse_amount = $request->opening_stock;
+
             // getting unit value
-            $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+            if (doubleval($request->opening_stock) > 0 ){
+                $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+            }
+            else{
+                $unit_value = 0;
+            }
             $restock->unit_value = $unit_value;
             $restock->total_value = $request->opening_stock_value;
             $restock->quantity = $request->opening_stock;
@@ -462,6 +469,7 @@ class ProductController extends Controller
         // Get primary warehouse
         $warehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',True)->first();
 
+        // todo, it refactors it to the value put here which will erare the current stock value
         // create inventory
         $inventory = Inventory::where('warehouse_id',$warehouse->id)->where('product_id',$product->id)->first();
         $inventory->quantity = $request->opening_stock;
@@ -472,7 +480,12 @@ class ProductController extends Controller
         $restock->initial_warehouse_amount = 0;
         $restock->subsequent_warehouse_amount = $request->opening_stock;
         // getting unit value
-        $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+        if (doubleval($request->opening_stock) > 0 ){
+            $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+        }
+        else{
+            $unit_value = 0;
+        }
         $restock->unit_value = $unit_value;
         $restock->total_value = $request->opening_stock_value;
         $restock->quantity = $request->opening_stock;
@@ -545,8 +558,10 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get products
+        $compositeProducts = CompositeProduct::where('institution_id',$institution->id)->get();
 
-        return view('business.composite_products',compact('user','institution'));
+        return view('business.composite_products',compact('user','institution','compositeProducts'));
     }
     public function compositeProductCreate()
     {
@@ -554,11 +569,21 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get institution units
+        $units = Unit::where('institution_id',$institution->id)->get();
+        // Get institution accounts
+        $accounts = Account::where('institution_id',$institution->id)->get();
+        // Get institution taxes
+        $taxes = Tax::where('institution_id',$institution->id)->get();
+        // Products
+        $products = Product::where('institution_id',$institution->id)->get();
 
-        return view('business.composite_product_create',compact('user','institution'));
+        return view('business.composite_product_create',compact('user','institution','taxes','accounts','units','products'));
     }
     public function compositeProductStore(Request $request)
     {
+        return $request;
+
         return back()->withSuccess(__('Composite product successfully stored.'));
     }
     public function compositeProductShow($composite_product_id)

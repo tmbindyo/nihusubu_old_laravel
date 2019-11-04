@@ -10,7 +10,6 @@
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-
     <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
@@ -142,7 +141,7 @@
                                 {{--  Account  --}}
                                 <div class="has-warning">
                                     <label class="text-danger"></label>
-                                    <select name="account" data-placeholder="Choose an account..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                    <select name="account"  class="select form-control input-lg">
                                         <option>Select Account</option>
                                         @foreach($accounts as $account)
                                             <option value="{{$account->id}}">{{$account->name}}</option>
@@ -152,8 +151,8 @@
                                 <label>  </label>
                                 {{--  Reason  --}}
                                 <div class="has-warning">
-                                    <select name="reason" data-placeholder="Choose an account..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                        <option>Select Reason</option>
+                                    <select name="reason" class="select form-control input-lg">
+                                        <option d>Select Reason</option>
                                         @foreach($reasons as $reason)
                                             <option value="{{$reason->id}}">{{$reason->name}}</option>
                                         @endforeach
@@ -162,8 +161,8 @@
                                 <label>  </label>
                                 {{--  Warehouse  --}}
                                 <div class="has-warning">
-                                    <select name="warehouse" data-placeholder="Choose a warehouse..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                        <option>Select Warehouse</option>
+                                    <select name="warehouse"  class="select form-control input-lg">
+                                        <option disabled>Select Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                         @endforeach
@@ -202,7 +201,7 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" data-placeholder="Choose an item..." class="chosen-select input-lg item-select" style="width:100%;" tabindex="2" required>
+                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select form-control input-lg">
                                                 <option>Select Product</option>
                                                 @foreach($products as $product)
                                                     <option value="{{$product->id}}" data-product-details="{{$product}}" data-product-quantity="{{$product->opening_stock_value}}">{{$product->name}}</option>
@@ -269,35 +268,11 @@
     <!-- Chosen -->
     <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
 
-    <!-- JSKnob -->
-    <script src="{{ asset('inspinia') }}/js/plugins/jsKnob/jquery.knob.js"></script>
-
     <!-- Input Mask-->
     <script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
     <!-- Data picker -->
     <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-    <!-- NouSlider -->
-    <script src="{{ asset('inspinia') }}/js/plugins/nouslider/jquery.nouislider.min.js"></script>
-
-    <!-- Switchery -->
-    <script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
-
-    <!-- IonRangeSlider -->
-    <script src="{{ asset('inspinia') }}/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-
-    <!-- iCheck -->
-    <script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
-
-    <!-- MENU -->
-    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-    <!-- Color picker -->
-    <script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-
-    <!-- Clock picker -->
-    <script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
 
     <!-- Image cropper -->
     <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
@@ -485,13 +460,6 @@
             }, function(start, end, label) {
                 console.log(start.toISOString(), end.toISOString(), label);
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            });
-
-            $(".select2_demo_1").select2();
-            $(".select2_demo_2").select2();
-            $(".select2_demo_3").select2({
-                placeholder: "Select a state",
-                allowClear: true
             });
 
 
@@ -690,6 +658,14 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select').select2({
+                theme: "default"
+            })
         });
     </script>
 @endsection
