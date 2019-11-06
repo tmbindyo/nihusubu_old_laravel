@@ -136,7 +136,7 @@
                             <div class="col-md-6">
                                 <label>  </label>
                                 <div class="has-warning">
-                                    <select name="source_warehouse" class="select2_demo_3 form-control input-lg">
+                                    <select onchange = "returnSourceWarehouseProducts(this)" name="source_warehouse" class="select2_demo_3 form-control input-lg">
                                         <option disabled>Select Source Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -147,7 +147,7 @@
                             <div class="col-md-6">
                                 <label>  </label>
                                 <div class="has-warning">
-                                    <select name="destination_warehouse" class="select2_demo_3 form-control input-lg">
+                                    <select onchange = "returnDestinationWarehouseProducts(this)" name="destination_warehouse" class="select2_demo_3 form-control input-lg">
                                         <option disabled>Select Destination Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -175,7 +175,7 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select class="select2_demo_3 form-control input-lg">
+                                            <select class="select2_demo_3 form-control input-lg items-select">
                                                 <option>Select Item</option>
                                                 <option value="Bahamas">Bahamas</option>
                                             </select>
@@ -592,5 +592,55 @@
                 theme: "default"
             })
         });
+    </script>
+
+    <script>
+        var productsArray = [];
+        function returnSourceWarehouseProducts (e) {
+            // Sets this to an empty array when the source warehouse is changed
+            productsArray = [];
+            // Get all products returned and prepare for manipulation
+            var products = {!! json_encode($products->toArray()) !!};
+            // Get the value of selected source warehouse
+            var selectedWarehouse = e.value;
+            var productDetails = {}
+            for (product of products) {
+                console.log(product)
+                for (warehouse of product["inventory"]) {
+                    if (warehouse["warehouse_id"] === selectedWarehouse) {
+                        productDetails = {
+                            "product_quantity": warehouse["quantity"],
+                            "product_name": product["name"],
+                            "product_id": product["id"]
+                        };
+                        productsArray.push(productDetails);
+                    }
+                }
+            }
+            // Get all product dropdowns
+            var productSelect = document.getElementsByClassName("items-select");
+            for (singleSelect of productSelect) {
+                var x;
+                // Removes all options in selected dropdown
+                for (x = singleSelect.options.length - 1; x >= 0; x--) {
+                    singleSelect.remove(x);
+                }
+            }
+            for (singleSelect of productSelect) {
+                // Gets productsArray and adds a new option on 
+                for (singleProduct of productsArray) {
+                    var newOption = document.createElement("option");
+                    newOption.value = singleProduct["product_id"];
+                    newOption.innerHTML = singleProduct["product_name"];
+                    newOption.setAttribute("data-product-quantity", singleProduct["product_quantity"]);
+                    singleSelect.appendChild(newOption);
+                };
+            }
+        }
+        function returnDestinationWarehouseProducts (e) {
+            // console.log(e);
+            // console.log(e.value);
+            console.log(productsArray);
+        }
     </script>
 @endsection
