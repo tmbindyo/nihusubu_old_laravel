@@ -204,7 +204,7 @@
                                             <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select form-control input-lg">
                                                 <option>Select Product</option>
                                                 @foreach($products as $product)
-                                                    <option value="{{$product->id}}" data-product-details="{{$product}}" data-product-quantity="{{$product->opening_stock_value}}">{{$product->name}}</option>
+                                                    <option value="{{$product->id}}" data-product-quantity="{{$product->opening_stock_value}}">{{$product->name}}</option>
                                                 @endforeach
                                             </select>
                                         </td>
