@@ -136,7 +136,7 @@
                             <div class="col-md-6">
                                 <label>  </label>
                                 <div class="has-warning">
-                                    <select onchange = "returnSourceWarehouseProducts(this)" name="source_warehouse" class="select2_demo_3 form-control input-lg">
+                                    <select onchange = "returnWarehouseDetails(this)" name="source_warehouse" class="select2_demo_3 form-control input-lg">
                                         <option disabled>Select Source Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -147,7 +147,7 @@
                             <div class="col-md-6">
                                 <label>  </label>
                                 <div class="has-warning">
-                                    <select onchange = "returnDestinationWarehouseProducts(this)" name="destination_warehouse" class="select2_demo_3 form-control input-lg">
+                                    <select onchange = "destinationwarehouseSelected(this)" name="destination_warehouse" class="select2_demo_3 form-control input-lg">
                                         <option disabled>Select Destination Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -177,7 +177,10 @@
                                         <td>
                                             <select class="select2_demo_3 form-control input-lg items-select">
                                                 <option>Select Item</option>
-                                                <option value="Bahamas">Bahamas</option>
+                                                {{-- <option value="Bahamas">Bahamas</option> --}}
+                                                @foreach($products as $product)
+                                                    <option value = "{{$product->id}}" data-product-quantity = "-20">{{$product->name}}</option>
+                                                @endforeach
                                             </select>
                                         </td>
                                         <td>
@@ -595,52 +598,73 @@
     </script>
 
     <script>
+        // productsArray populates options of select element
         var productsArray = [];
-        function returnSourceWarehouseProducts (e) {
+        // Get all products returned and prepare for manipulation
+        var products = {!! json_encode($products->toArray()) !!};
+        var sourceWarehouseId = "";
+        var destinationWarehouseId = "";
+        function returnWarehouseDetails (e) {
+            sourceWarehouseId = e.value;
+            // Get all product dropdowns
+            var productSelect = document.getElementsByClassName("items-select");
+            // Clear all options from the dropdown
+            for (singleSelect of productSelect) {
+                clearDropdownOptions(singleSelect);
+            }
+        }
+        function destinationwarehouseSelected (e) {
             // Sets this to an empty array when the source warehouse is changed
             productsArray = [];
-            // Get all products returned and prepare for manipulation
-            var products = {!! json_encode($products->toArray()) !!};
-            // Get the value of selected source warehouse
-            var selectedWarehouse = e.value;
-            var productDetails = {}
+            destinationWarehouseId = e.value;
+            // TODO: Have this as a notification somewhere on the UI
+            if (destinationWarehouseId === sourceWarehouseId) {
+                alert("The source and the destination are the same.")
+            }
+            var productDetails = {};
+            var sourceWarehouseProductQuantity = 0;
+            var destinationWarehouseProductQuantity = 0;
             for (product of products) {
-                console.log(product)
                 for (warehouse of product["inventory"]) {
-                    if (warehouse["warehouse_id"] === selectedWarehouse) {
-                        productDetails = {
-                            "product_quantity": warehouse["quantity"],
-                            "product_name": product["name"],
-                            "product_id": product["id"]
-                        };
-                        productsArray.push(productDetails);
+                    // Comparison with selected source warehouse
+                    if (warehouse["warehouse_id"] === sourceWarehouseId) {
+                        sourceWarehouseProductQuantity = warehouse["quantity"];
+                    }
+                    // Comparison with selected destination warehouse
+                    if (warehouse["warehouse_id"] === destinationWarehouseId) {
+                        destinationWarehouseProductQuantity = warehouse["quantity"];
                     }
                 }
+                productDetails = {
+                    "product_quantity_source": sourceWarehouseProductQuantity,
+                    "product_quantity_destination": destinationWarehouseProductQuantity,
+                    "product_name": product["name"],
+                    "product_id": product["id"]
+                };
+                productsArray.push(productDetails);
             }
             // Get all product dropdowns
             var productSelect = document.getElementsByClassName("items-select");
+            // Add options to dropdown
             for (singleSelect of productSelect) {
-                var x;
-                // Removes all options in selected dropdown
-                for (x = singleSelect.options.length - 1; x >= 0; x--) {
-                    singleSelect.remove(x);
-                }
-            }
-            for (singleSelect of productSelect) {
-                // Gets productsArray and adds a new option on 
-                for (singleProduct of productsArray) {
-                    var newOption = document.createElement("option");
-                    newOption.value = singleProduct["product_id"];
-                    newOption.innerHTML = singleProduct["product_name"];
-                    newOption.setAttribute("data-product-quantity", singleProduct["product_quantity"]);
-                    singleSelect.appendChild(newOption);
-                };
+                populateDropdownOptionsWithProducts(singleSelect);
             }
         }
-        function returnDestinationWarehouseProducts (e) {
-            // console.log(e);
-            // console.log(e.value);
-            console.log(productsArray);
+        function clearDropdownOptions (selectElement) {
+            var numberOfOptions;
+            for (numberOfOptions = selectElement.options.length - 1; numberOfOptions >= 0; numberOfOptions--) {
+                selectElement.remove(numberOfOptions);
+            }
+        }
+        function populateDropdownOptionsWithProducts (selectElement) {
+            for (singleProduct of productsArray) {
+                var newOption = document.createElement("option");
+                newOption.value = singleProduct["product_id"];
+                newOption.innerHTML = singleProduct["product_name"];
+                newOption.setAttribute("data-product-source-quantity", singleProduct["product_quantity_source"]);
+                newOption.setAttribute("data-product-destination-quantity", singleProduct["product_quantity_destination"]);
+                selectElement.appendChild(newOption);
+            }
         }
     </script>
 @endsection
