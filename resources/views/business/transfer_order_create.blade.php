@@ -175,7 +175,7 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select onchange = "returnProductDetails(this)" class="select2_demo_3 form-control input-lg items-select">
+                                            <select onchange = "returnProductDetails(this)" class="select2_demo_3 form-control input-lg items-select" name = "item_details[0][product_id]">
                                                 <option>Select Item</option>
                                                 {{-- <option value="Bahamas">Bahamas</option> --}}
                                                 @foreach($products as $product)
@@ -203,7 +203,7 @@
 {{--                                            <input type="number" class="form-control input-lg">--}}
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg transfer_quantity" placeholder="E.g +10, -10">
+                                            <input type="number" class="form-control input-lg transfer_quantity" placeholder="E.g +10, -10" name = "item_details[0][transfer_quantity]">
                                         </td>
                                         <td width="10px">
                                             <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-times-circle fa-2x text-danger"></i></span>
@@ -211,7 +211,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <label class="btn btn-small btn-primary">+ Add Another Line</label>
+                                <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                             </div>
                         </div>
                         <hr>
@@ -681,8 +681,44 @@
             // Setting the minimum and maximum allowable values for the transfer quantity input field
             transferQuantityInputField[0].setAttribute("min", 1);
             transferQuantityInputField[0].setAttribute("max", sourceQuantity);
+            // Setting values of labels
             sourceStockLabel[0].innerHTML = sourceQuantity;
             destinationStockLabel[0].innerHTML = destinationQuantity;
+        }
+        var tableValueArrayIndex = 1;
+        function addTableRow () {
+            var table = document.getElementById("transfer_order_table");
+            var row = table.insertRow();
+            var firstCell = row.insertCell(0);
+            var secondCell = row.insertCell(1);
+            var thirdCell = row.insertCell(2);
+            var fourthCell = row.insertCell(3);
+            firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select'"+
+                                    "name = 'item_details["+tableValueArrayIndex+"][product_id]'></select>";
+            secondCell.innerHTML = "<div class='row'>"+
+                                    "<div class='col-md-6'>"+
+                                    "<small class='control-label'>Source Stock</small>"+
+                                    "</div>"+
+                                    "<div class='col-md-6'>"+
+                                    "<small class='col-form-label-sm'>Destination Stock</small>"+
+                                    "</div>"+
+                                    "</div>"+
+                                    "<div class='row'>"+
+                                    "<div class='col-md-6'>"+
+                                    "<p class='text-center source_stock_value'>0</p>"+
+                                    "</div>"+
+                                    "<div class='col-md-6'>"+
+                                    "<p class='col-form-label-sm text-center destination_stock_value'>0</p>"+
+                                    "</div>"+
+                                    "</div>";
+            thirdCell.innerHTML = "<input type='number' class='form-control input-lg transfer_quantity' placeholder='E.g +10, -10'"+
+                                    "name = 'item_details["+tableValueArrayIndex+"][transfer_quantity]'>";
+            fourthCell.innerHTML = "<span><i data-toggle='tooltip' data-placement='right'"+
+                                    "title='Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item.'"+
+                                    "class='fa fa-times-circle fa-2x text-danger'></i></span>";
+            var selectElement = row.getElementsByClassName("items-select");
+            populateDropdownOptionsWithProducts(selectElement[0]);
+            tableValueArrayIndex++;
         }
     </script>
 @endsection
