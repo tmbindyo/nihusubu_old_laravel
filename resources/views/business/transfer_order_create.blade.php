@@ -175,11 +175,11 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select class="select2_demo_3 form-control input-lg items-select">
+                                            <select onchange = "returnProductDetails(this)" class="select2_demo_3 form-control input-lg items-select">
                                                 <option>Select Item</option>
                                                 {{-- <option value="Bahamas">Bahamas</option> --}}
                                                 @foreach($products as $product)
-                                                    <option value = "{{$product->id}}" data-product-quantity = "-20">{{$product->name}}</option>
+                                                    <option value = "{{$product->id}}" data-product-source-quantity = "-20" data-product-destination-quantity = "-20">{{$product->name}}</option>
                                                 @endforeach
                                             </select>
                                         </td>
@@ -194,16 +194,16 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <p class="text-center" for="quantity">0</p>
+                                                    <p class="text-center source_stock_value" for="quantity">0</p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p class="col-form-label-sm text-center" >0</p>
+                                                    <p class="col-form-label-sm text-center destination_stock_value">0</p>
                                                 </div>
                                             </div>
 {{--                                            <input type="number" class="form-control input-lg">--}}
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg" placeholder="E.g +10, -10">
+                                            <input type="number" class="form-control input-lg transfer_quantity" placeholder="E.g +10, -10">
                                         </td>
                                         <td width="10px">
                                             <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-times-circle fa-2x text-danger"></i></span>
@@ -211,7 +211,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <label class="label label-primary label-lg">+ Add Another Line</label>
+                                <label class="btn btn-small btn-primary">+ Add Another Line</label>
                             </div>
                         </div>
                         <hr>
@@ -619,7 +619,7 @@
             destinationWarehouseId = e.value;
             // TODO: Have this as a notification somewhere on the UI
             if (destinationWarehouseId === sourceWarehouseId) {
-                alert("The source and the destination are the same.")
+                console.log("The source and the destination are the same.")
             }
             var productDetails = {};
             var sourceWarehouseProductQuantity = 0;
@@ -645,6 +645,10 @@
             }
             // Get all product dropdowns
             var productSelect = document.getElementsByClassName("items-select");
+            // Clear all options from the dropdown
+            for (singleSelect of productSelect) {
+                clearDropdownOptions(singleSelect);
+            }
             // Add options to dropdown
             for (singleSelect of productSelect) {
                 populateDropdownOptionsWithProducts(singleSelect);
@@ -665,6 +669,20 @@
                 newOption.setAttribute("data-product-destination-quantity", singleProduct["product_quantity_destination"]);
                 selectElement.appendChild(newOption);
             }
+        }
+        function returnProductDetails (e) {
+            var sourceQuantity = e.options[e.selectedIndex].getAttribute("data-product-source-quantity");
+            var destinationQuantity = e.options[e.selectedIndex].getAttribute("data-product-destination-quantity");
+            var selectedParentTd = e.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var transferQuantityInputField = selectedTr.getElementsByClassName("transfer_quantity");
+            var sourceStockLabel = selectedTr.getElementsByClassName("source_stock_value");
+            var destinationStockLabel = selectedTr.getElementsByClassName("destination_stock_value");
+            // Setting the minimum and maximum allowable values for the transfer quantity input field
+            transferQuantityInputField[0].setAttribute("min", 1);
+            transferQuantityInputField[0].setAttribute("max", sourceQuantity);
+            sourceStockLabel[0].innerHTML = sourceQuantity;
+            destinationStockLabel[0].innerHTML = destinationQuantity;
         }
     </script>
 @endsection
