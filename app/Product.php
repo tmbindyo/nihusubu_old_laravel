@@ -82,7 +82,7 @@ class Product extends Model
     }
     public function composite_product_products()
     {
-        return $this->hasMany('App\CompositeProductProduct');
+        return $this->hasMany('App\CompositeProductProduct','composite_product_id');
     }
     public function product_returns()
     {

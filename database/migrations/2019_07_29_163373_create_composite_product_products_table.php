@@ -17,13 +17,13 @@ class CreateCompositeProductProductsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->integer('quantity');
-            $table->double('selling_price',20,2);
-            $table->double('purchase_price',20,2);
+            $table->double('unit_price',20,2);
+            $table->double('total_price',20,2);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('composite_product_id');
             $table->uuid('product_id');
+            $table->uuid('composite_product_id');
 
             $table->timestamps();
             $table->softDeletes();
