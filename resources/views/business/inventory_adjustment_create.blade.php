@@ -161,7 +161,7 @@
                                 <label>  </label>
                                 {{--  Warehouse  --}}
                                 <div class="has-warning">
-                                    <select name="warehouse"  class="select form-control input-lg">
+                                    <select onchange = "selectWarehouseToAdjust(this)" name="warehouse"  class="select form-control input-lg">
                                         <option disabled>Select Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -201,10 +201,9 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select form-control input-lg">
-                                                <option>Select Product</option>
+                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="chosen-select form-control input-lg item-select">
                                                 @foreach($products as $product)
-                                                    <option value="{{$product->id}}" data-product-quantity="{{$product->opening_stock_value}}">{{$product->name}}</option>
+                                                    <option value="{{$product->id}}" data-product-quantity="-20">{{$product->name}}</option>
                                                 @endforeach
                                             </select>
                                         </td>
@@ -592,23 +591,76 @@
                 duplicate: false
             });
         });
-        var adj_array_index = 1
+        var adj_array_index = 1;
+        var selectedWarehouse = null;
+        var products = {!! json_encode($products->toArray()) !!};
+        var productsArray = [];
+        function selectWarehouseToAdjust (e) {
+            selectedWarehouse = e.value;
+            productsArray = [];
+            for (product of products) {
+                var productDetails = {};
+                var productQuantity = 0;
+                if (product["inventory"] !== []) {
+                    for (warehouse of product["inventory"]) {
+                        if (warehouse["warehouse_id"] === selectedWarehouse) {
+                            productQuantity = warehouse["quantity"];
+                        };
+                    };
+                    productDetails = {
+                        "product_quantity": productQuantity,
+                        "product_name": product["name"],
+                        "product_id": product["id"]
+                    };
+                    productsArray.push(productDetails);
+                };
+            };
+            var productSelect = document.getElementsByClassName("item-select");
+            for (singleSelect of productSelect) {
+                clearDropdownOptions(singleSelect);
+            };
+            for (singleSelect of productSelect) {
+                populateDropdownOptionsWithProducts(singleSelect);
+            };
+        }
+        function clearDropdownOptions (selectElement) {
+            var numberOfOptions;
+            for (numberOfOptions = selectElement.options.length - 1; numberOfOptions >= 0; numberOfOptions--) {
+                selectElement.remove(numberOfOptions);
+            }
+        }
+        function populateDropdownOptionsWithProducts (selectElement) {
+            for (singleProduct of productsArray) {
+                var newOption = document.createElement("option");
+                newOption.value = singleProduct["product_id"];
+                newOption.innerHTML = singleProduct["product_name"];
+                newOption.setAttribute("data-product-quantity", singleProduct["product_quantity"]);
+                selectElement.appendChild(newOption);
+            }
+        }
         // Function to add table rows
         function addTableRow() {
-            var table = document.getElementById("adjustment_table")
-            var row = table.insertRow()
-            var first_cell = row.insertCell(0)
-            var second_cell = row.insertCell(1)
-            var third_cell = row.insertCell(2)
-            var fourth_cell = row.insertCell(3)
-            first_cell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='chosen-select form-control input-lg item-select' name = 'item_details["+adj_array_index+"][details]'"+
-                                    " data-placeholder='Choose an item...' style='width:100%;' tabindex='2' required><option>Select Product</option>"+
-                                    "@foreach($products as $product)<option value={{$product->id}} data-product-details={{$product}} data-product-quantity='{{$product->opening_stock_value}}'>{{$product->name}}</option>@endforeach</select>"
-            second_cell.innerHTML = "<input type='number' class='form-control input-lg items-on-hand' name = 'item_details["+adj_array_index+"][on_hand]' value = '0' readonly>"
-            third_cell.innerHTML = "<input oninput = 'modifyItemsOnHand(this)'' type='number' class='form-control input-lg items-new-on-hand' name = 'item_details["+adj_array_index+"][new_on_hand]'>"
-            fourth_cell.innerHTML = "<input type='number' class='form-control input-lg items-adjusted' placeholder='E.g +10, -10' name = 'item_details["+adj_array_index+"][adjusted]' readonly>"
-            adj_array_index++
-            initSelector()
+            if (productsArray.length === 0) {
+                alert("Please select a warehouse");
+            } else {
+                var table = document.getElementById("adjustment_table");
+                var row = table.insertRow();
+                var first_cell = row.insertCell(0);
+                var second_cell = row.insertCell(1);
+                var third_cell = row.insertCell(2);
+                var fourth_cell = row.insertCell(3);
+                first_cell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='chosen-select form-control input-lg item-select' name = 'item_details["+adj_array_index+"][details]'"+
+                                        " data-placeholder='Choose an item...' style='width:100%;' tabindex='2' required></select>";
+                second_cell.innerHTML = "<input type='number' class='form-control input-lg items-on-hand' name = 'item_details["+adj_array_index+"][on_hand]' value = '0' readonly>";
+                third_cell.innerHTML = "<input oninput = 'modifyItemsOnHand(this)'' type='number' class='form-control input-lg items-new-on-hand' name = 'item_details["+adj_array_index+"][new_on_hand]'>";
+                fourth_cell.innerHTML = "<input type='number' class='form-control input-lg items-adjusted' placeholder='E.g +10, -10' name = 'item_details["+adj_array_index+"][adjusted]' readonly>"
+                var productSelect = document.getElementsByClassName("item-select");
+                for (singleSelect of productSelect) {
+                    populateDropdownOptionsWithProducts(singleSelect);
+                };
+                adj_array_index++;
+                initSelector();
+            };
         };
         // Function that handles selection of products to be adjusted
         function returnProductDetails (e) {
