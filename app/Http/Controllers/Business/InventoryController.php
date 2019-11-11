@@ -13,6 +13,7 @@ use App\Traits\InstitutionTrait;
 use App\Traits\ReferenceNumberTrait;
 use App\Traits\UserTrait;
 use App\TransferOrder;
+use App\TransferOrderProduct;
 use App\Warehouse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -156,8 +157,11 @@ class InventoryController extends Controller
         $institution = $this->getInstitution();
         // Get inventory adjustments
         $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $transferOrders = TransferOrder::where('institution_id', $institution->id)->with('source_warehouse','destination_warehouse','user','status','reason')->get();
+        $transferOrders = TransferOrder::where('institution_id', $institution->id)->with('source_warehouse','destination_warehouse','user','status')->get();
 
+//        return $transferOrders;
+
+//        return $transferOrders;
         return view('business.transfer_orders',compact('user','institution','transferOrders'));
     }
     public function transferOrderCreate()
@@ -168,33 +172,60 @@ class InventoryController extends Controller
         $institution = $this->getInstitution();
         // Get institution accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
-        // Get reasons
-        $reasons = Reason::where('institution_id',$institution->id)->get();
         // Warehouse
         $warehouses = Warehouse::where('institution_id',$institution->id)->get();
         // Products
         $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
 
 
-        return view('business.transfer_order_create',compact('user','institution','accounts','reasons','warehouses','products'));
+        return view('business.transfer_order_create',compact('user','institution','accounts','warehouses','products'));
     }
     public function transferOrderStore(Request $request)
     {
+
+
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+        $size = 5;
+        $reference = $this->getRandomString($size);
+
+        $transferOrder = new TransferOrder();
+        $transferOrder->transfer_order_number = $reference;;
+        $transferOrder->reason = $request->reason;
+        $transferOrder->date = date("Y/m/d");
+        $transferOrder->source_warehouse_id = $request->source_warehouse;
+        $transferOrder->destination_warehouse_id = $request->destination_warehouse;
+        $transferOrder->user_id = $user->id;
+        $transferOrder->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $transferOrder->institution_id = $institution->id;
+        $transferOrder->save();
+
         // inventory where product and warehouse
         foreach ($request->item_details as $transfer){
-            $sourceWarehouse = Inventory::where('warehouse_id',$request->source_warehouse)->where('product_id',$transfer['product_id'])->first();
-            $destinationWarehouse = Inventory::where('warehouse_id',$request->destination_warehouse)->where('product_id',$transfer['product_id'])->first();
+
+            $sourceWarehouse = Inventory::where('warehouse_id', $request->source_warehouse)->where('product_id', $transfer['product_id'])->first();
+            $destinationWarehouse = Inventory::where('warehouse_id', $request->destination_warehouse)->where('product_id', $transfer['product_id'])->first();
 //            return $destinationWarehouse;
 
-            $transferOrder = new TransferOrder();
-            $transferOrder->
-            $transferOrder->
-            $transferOrder->save();
+            $transferOrderProduct = new TransferOrderProduct();
+            $transferOrderProduct->source_warehouse_initial_amount = $sourceWarehouse->quantity;
+            $source_subsequent_amount = doubleval($sourceWarehouse->quantity)-doubleval($transfer['transfer_quantity']);
+            $transferOrderProduct->source_warehouse_subsequent_amount = $source_subsequent_amount;
+            $transferOrderProduct->destination_warehouse_initial_amount = $destinationWarehouse->quantity;
+            $destination_subsequent_amount = doubleval($destinationWarehouse->quantity)+doubleval($transfer['transfer_quantity']);
+            $transferOrderProduct->destination_warehouse_subsequent_amount = $destination_subsequent_amount;
+            $transferOrderProduct->quantity = $transfer['transfer_quantity'];
+            $transferOrderProduct->transfer_order_id = $transferOrder->id;
+            $transferOrderProduct->product_id = $transfer['product_id'];
+            $transferOrderProduct->user_id = $user->id;
+            $transferOrderProduct->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $transferOrderProduct->save();
+
         }
 
-
-
-        return back()->withSuccess(__('Transfer order successfully stored.'));
+        return redirect()->route('business.transfer.orders')->withSuccess(__('Transfer order successfully stored.'));
     }
     public function transferOrderShow($transfer_order_id)
     {
