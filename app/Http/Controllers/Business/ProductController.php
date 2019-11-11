@@ -584,6 +584,16 @@ class ProductController extends Controller
     {
         return $request;
 
+        $compositeProduct = new CompositeProduct();
+        $compositeProduct->name = $request->product_name;
+        $compositeProduct->stock_keeping_unit = $request->unit;
+        $compositeProduct->selling_price = $request->selling_price;
+
+
+        $compositeProduct->user_id = $user->id;
+        $compositeProduct->institution_id = $institution->id;
+        $compositeProduct->save();
+
         return back()->withSuccess(__('Composite product successfully stored.'));
     }
     public function compositeProductShow($composite_product_id)

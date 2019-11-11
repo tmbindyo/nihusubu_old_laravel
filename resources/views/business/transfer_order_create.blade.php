@@ -89,7 +89,7 @@
             </div>
             <div class="ibox-content">
                 <div class="">
-                    <form method="post" action="{{ route('business.product.group.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                    <form method="post" action="{{ route('business.transfer.order.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                         @csrf
 
                         @if ($errors->any())

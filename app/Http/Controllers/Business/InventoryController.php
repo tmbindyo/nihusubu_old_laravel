@@ -178,8 +178,22 @@ class InventoryController extends Controller
 
         return view('business.transfer_order_create',compact('user','institution','accounts','reasons','warehouses','products'));
     }
-    public function transferOrderStore()
+    public function transferOrderStore(Request $request)
     {
+        // inventory where product and warehouse
+        foreach ($request->item_details as $transfer){
+            $sourceWarehouse = Inventory::where('warehouse_id',$request->source_warehouse)->where('product_id',$transfer['product_id'])->first();
+            $destinationWarehouse = Inventory::where('warehouse_id',$request->destination_warehouse)->where('product_id',$transfer['product_id'])->first();
+//            return $destinationWarehouse;
+
+            $transferOrder = new TransferOrder();
+            $transferOrder->
+            $transferOrder->
+            $transferOrder->save();
+        }
+
+
+
         return back()->withSuccess(__('Transfer order successfully stored.'));
     }
     public function transferOrderShow($transfer_order_id)
