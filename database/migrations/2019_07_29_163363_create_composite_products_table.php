@@ -31,7 +31,7 @@ class CreateCompositeProductsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('selling_account_id');
-//            $table->uuid('purchase_account_id');
+            $table->uuid('purchase_account_id')->nullable();
 
             $table->uuid('unit_id')->nullable();
             $table->uuid('manufacturer_id')->nullable();
