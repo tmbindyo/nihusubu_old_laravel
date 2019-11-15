@@ -22,7 +22,7 @@ class CompositeProductProduct extends Model
     }
     public function composite_product()
     {
-        return $this->belongsTo('App\CompositeProduct');
+        return $this->belongsTo('App\CompositeProduct','composite_product_id','id');
     }
     public function product()
     {

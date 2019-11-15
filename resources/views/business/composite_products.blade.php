@@ -64,7 +64,7 @@
                     @foreach($compositeProducts as $product)
                         <tr class="gradeA">
                             <td>{{$product->name}}</td>
-                            <td>{{$product->product_count}}</td>
+                            <td>{{$product->composite_product_products_count}}</td>
                             <td class="center">
                                 <p>@if ($product->is_service==1) Service: @elseif($product->is_service==0)Product: @endif <span class="label {{$product->status->label}}">{{$product->status->name}}</span></p>
                             </td>

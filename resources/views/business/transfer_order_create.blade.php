@@ -118,12 +118,7 @@
                                 <label>  </label>
                                 {{--  Reason  --}}
                                 <div class="has-warning">
-                                    <select name="reason" class="select form-control input-lg">
-                                        <option d>Select Reason</option>
-                                        @foreach($reasons as $reason)
-                                            <option value="{{$reason->id}}">{{$reason->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <textarea name="reason" class="select form-control input-lg" placeholder="Reason"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-4">

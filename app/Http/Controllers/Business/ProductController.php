@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Business;
 
 use App\CompositeProduct;
+use App\CompositeProductProduct;
+use App\CompositeProductTax;
 use App\ProductGroup;
 use DB;
 use App\Account;
@@ -237,7 +239,7 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Get institution products
-        $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory','stock_on_hand')->where('is_product_group',False)->where('status_id','f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
+        $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory','stock_on_hand')->where('is_product_group',False)->where('is_composite_product',False)->where('status_id','f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
 
 //        return $products;
 
@@ -300,6 +302,7 @@ class ProductController extends Controller
         $product->reorder_level = $request->reorder_level;
 
         $product->is_product_group = False;
+        $product->is_composite_product = False;
 
         $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
         $product->user_id = $user->id;
@@ -382,7 +385,7 @@ class ProductController extends Controller
 
 
 
-        return back()->withSuccess(__('Product successfully stored.'));
+        return redirect()->route('business.products')->withSuccess(__('Product successfully saved.'));
     }
     public function productShow($product_id)
     {
@@ -559,12 +562,15 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Get products
-        $compositeProducts = CompositeProduct::where('institution_id',$institution->id)->get();
+//        $compositeProducts = CompositeProduct::where('institution_id',$institution->id)->withCount('composite_product_products')->get();
+        $compositeProducts = Product::where('institution_id',$institution->id)->where('is_composite_product',True)->withCount('composite_product_products')->get();
 
         return view('business.composite_products',compact('user','institution','compositeProducts'));
     }
+
     public function compositeProductCreate()
     {
+
         // User
         $user = $this->getUser();
         // Institution
@@ -580,22 +586,71 @@ class ProductController extends Controller
 
         return view('business.composite_product_create',compact('user','institution','taxes','accounts','units','products'));
     }
+
     public function compositeProductStore(Request $request)
     {
-        return $request;
 
-        $compositeProduct = new CompositeProduct();
-        $compositeProduct->name = $request->product_name;
-        $compositeProduct->stock_keeping_unit = $request->unit;
-        $compositeProduct->selling_price = $request->selling_price;
+//        return $request;
 
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
 
-        $compositeProduct->user_id = $user->id;
-        $compositeProduct->institution_id = $institution->id;
-        $compositeProduct->save();
+        // Create composite product
+        $product = new Product();
+        if($request->product_type == "services") {
+            $product->is_service = True;
+        }else{
+            $product->is_service = False;
+        }
+        if ($request->is_returnable == "on"){
+            $product->is_returnable = True;
+        }else{
+            $product->is_returnable = False;
+        }
+        $product->name = $request->product_name;
+        $product->stock_keeping_unit = $request->unit;
+        $product->selling_price = $request->selling_price;
+        $product->selling_account_id = $request->selling_account;
 
-        return back()->withSuccess(__('Composite product successfully stored.'));
+        $product->is_created = False;
+        $product->is_composite_product = True;
+        $product->is_product_group = False;
+
+        $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
+        $product->user_id = $user->id;
+        $product->institution_id = $institution->id;
+        $product->save();
+
+        foreach ($request->item_details as $compositeProductItem){
+            // Create product
+            $compositeProductProduct = new CompositeProductProduct();
+            $compositeProductProduct->quantity = $compositeProductItem['quantity'];
+            $compositeProductProduct->unit_price = $compositeProductItem['unit_price'];
+            $compositeProductProduct->total_price = $compositeProductItem['total_price'];
+            $compositeProductProduct->user_id = $user->id;
+            $compositeProductProduct->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
+            $compositeProductProduct->composite_product_id = $product->id;
+            $compositeProductProduct->product_id = $compositeProductItem['details'];
+            $compositeProductProduct->save();
+        }
+
+        // Product taxes
+        if ($request->taxes){
+            foreach ($request->taxes as $compositeProductProductTax){
+                $compositeProductTax = new ProductTax();
+                $compositeProductTax->product_id = $product->id;
+                $compositeProductTax->tax_id = $compositeProductProductTax;
+                $compositeProductTax->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $compositeProductTax->user_id = $user->id;
+                $compositeProductTax->save();
+            }
+        }
+
+        return redirect()->route('business.composite.products')->withSuccess(__('Composite product successfully stored.'));
     }
+
     public function compositeProductShow($composite_product_id)
     {
         // User
@@ -603,7 +658,10 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution();
 
-        return view('business.composite_product_show',compact('user','institution'));
+        $compositeProduct = Product::findOrFail($composite_product_id);
+        $compositeProduct = Product::where('id',$composite_product_id)->withCount('order_products','sale_products','composite_product_products')->with('composite_product_products.product','product_taxes','user','status')->first();
+//        return $compositeProduct;
+        return view('business.composite_product_show',compact('user','institution','compositeProduct'));
     }
     public function compositeProductEdit($composite_product_id)
     {
