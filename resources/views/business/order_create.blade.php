@@ -104,10 +104,10 @@
                                             {{--  Customer phone number  --}}
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" id="customer_phone_number" name="customer_phone_number" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Work Phone">
+                                                    <input type="text" id="customer_work_phone" name="customer_work_phone" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Work Phone">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" id="customer_phone_number" name="customer_phone_number" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Mobile">
+                                                    <input type="text" id="customer_mobile" name="customer_mobile" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Mobile">
                                                 </div>
                                             </div>
                                         </div>
@@ -172,13 +172,13 @@
                                                 <label>Adjustment</label>
                                             </div>
                                             <div class="col-md-2">
-                                                <input oninput = "makeAdjustmentToTotal(this)" type="number" class="form-control">
+                                                <input oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value" value = "0">
                                             </div>
                                             <div class="col-md-1">
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
                                             </div>
                                             <div class="col-md-2">
-                                                <p class="pull-right">0.00</p>
+                                                <p class="pull-right" id = "adjustment-text">0</p>
                                             </div>
                                         </div>
                                         <br>
@@ -274,5 +274,106 @@
 
     });
 
+</script>
+<script>
+    function itemSelected (e) {
+        var selectedItemQuantity = e.options[e.selectedIndex].getAttribute("data-product-quantity");
+        var selectItemPrice = e.options[e.selectedIndex].getAttribute("data-product-selling-price");
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var itemQuantity = selectedTr.getElementsByClassName("item-quantity");
+        var itemRate = selectedTr.getElementsByClassName("item-rate");
+        if (selectedItemQuantity === "-20") {
+            itemQuantity[0].setAttribute("max", 100000000);
+        } else {
+            itemQuantity[0].setAttribute("max", selectedItemQuantity);
+        };
+        itemRate[0].value = selectItemPrice;
+    }
+    function changeItemQuantity (e) {
+        var quantityValue;
+        if (e.value.isEmpty) {
+            quantityValue = 0;
+        } else {
+            quantityValue = e.value;
+        };
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var itemRateInputField = selectedTr.getElementsByClassName("item-rate");
+        var itemTotalInputField = selectedTr.getElementsByClassName("item-total");
+        var itemRate;
+        if (itemRateInputField[0].value.isEmpty) {
+            itemRate = 0;
+        } else {
+            itemRate = itemRateInputField[0].value;
+        };
+        itemTotalInputField[0].value = quantityValue * itemRate;
+        itemTotalChange();
+    }
+    function changeItemRate (e) {
+        var subTotal = [];
+        var adjustedValue;
+        var itemRate;
+        if (e.value.isEmpty) {
+            itemRate = 0;
+        } else {
+            itemRate = e.value;
+        };
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var itemQuantityInputField = selectedTr.getElementsByClassName("item-quantity");
+        var itemTotalInputField = selectedTr.getElementsByClassName("item-total");
+        var quantityValue;
+        if (itemQuantityInputField[0].value.isEmpty) {
+            quantityValue = 0;
+        } else {
+            quantityValue = itemQuantityInputField[0].value;
+        };
+        itemTotalInputField[0].value = quantityValue * itemRate;
+        itemTotalChange();
+    }
+    function addTableRow () {
+        var table = document.getElementById("estimate_table");
+        var row = table.insertRow();
+        var firstCell = row.insertCell(0);
+        var secondCell = row.insertCell(1);
+        var thirdCell = row.insertCell(2);
+        var fourthCell = row.insertCell(3);
+        var fifthCell = row.insertCell(4);
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details[0][item]' class='select2_demo_3 form-control input-lg item-select'>"+
+                                "<option selected disabled>Select Item</option>"+
+                                "@foreach($products as $product)"+
+                                "@if($product->is_service == 0)"+
+                                "@foreach($product->inventory as $inventory)"+
+                                "<option value='{{$product->id}}[{{$inventory->id}}]' data-product-quantity = '{{$inventory->quantity}}' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}} [{{$inventory->warehouse->name}}]</option>"+
+                                "@endforeach"+
+                                "@else"+
+                                "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}}</option>"+
+                                "@endif"+
+                                "@endforeach"+
+                                "</select>";
+        secondCell.innerHTML = "<input oninput = 'changeItemQuantity(this)' name='item_details[0][quantity]' type='number' class='form-control input-lg item-quantity' value = '0' min = '0'>";
+        thirdCell.innerHTML = "<input oninput = 'changeItemRate(this)' name='item_details[0][rate]' type='number' class='form-control input-lg item-rate' placeholder='E.g +10, -10' value = '0' min = '0'>";
+        fourthCell.innerHTML = "<input name='item_details[0][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
+    }
+    function itemTotalChange () {
+        subTotal = [];
+        var itemTotals = document.getElementsByClassName("item-total");
+        for (singleTotal of itemTotals) {
+            subTotal.push(Number(singleTotal.value));
+        };
+        var itemSubTotal = subTotal.reduce((a, b) => a + b, 0);
+        document.getElementById("items-subtotal").value = itemSubTotal;
+        document.getElementById("grand-total").innerHTML = itemSubTotal;
+        var adjustedValueInputValue = document.getElementById("adjustment-value").value;
+        if (adjustedValueInputValue.isEmpty) {
+            adjustedValue = 0
+        } else {
+            adjustedValue = adjustedValueInputValue;
+        };
+        document.getElementById("adjustment-text").innerHTML = adjustedValue;
+        var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
+        document.getElementById("grand-total").innerHTML = adjustedTotal;
+    }
 </script>
 @endsection
