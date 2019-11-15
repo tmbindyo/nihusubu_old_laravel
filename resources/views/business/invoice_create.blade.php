@@ -104,10 +104,10 @@
                                             {{--  Customer phone number  --}}
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="text" id="customer_phone_number" name="customer_phone_number" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Work Phone">
+                                                    <input type="text" id="customer_work_phone" name="customer_work_phone" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Work Phone">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" id="customer_phone_number" name="customer_phone_number" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Mobile">
+                                                    <input type="text" id="customer_mobile" name="customer_mobile" class="form-control input-lg" data-mask="(+999) 999-9999" placeholder="Mobile">
                                                 </div>
                                             </div>
                                         </div>
