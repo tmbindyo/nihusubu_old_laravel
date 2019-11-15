@@ -192,32 +192,32 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select form-control input-lg">
+                                                    <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select form-control input-lg select-product">
                                                         <option>Select Product</option>
                                                         @foreach($products as $product)
-                                                            <option value="{{$product->id}}" data-product-details="{{$product}}" data-product-quantity="{{$product->opening_stock_value}}">{{$product->name}}</option>
+                                                            <option value="{{$product->id}}" data-product-unit-price="{{$product->selling_price}}">{{$product->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control input-lg items-on-hand" name = "item_details[0][quantity]" value = "0">
+                                                    <input type="number" oninput = "changeQuantity(this)" class="form-control input-lg item-quantity" name = "item_details[0][quantity]" value = "0">
                                                 </td>
                                                 <td>
-                                                    <input oninput = "modifyItemsOnHand(this)" type="number" class="form-control input-lg items-new-on-hand" name = "item_details[0][unit_price]">
+                                                    <input oninput = "changeUnitPrice(this)" type="number" class="form-control input-lg item-unit-price" name = "item_details[0][unit_price]" value = "0">
                                                 </td>
                                                 <td>
-                                                    <input oninput = "modifyItemsOnHand(this)" type="number" class="form-control input-lg items-new-on-hand" name = "item_details[0][total_price]">
+                                                    <input type="number" class="form-control input-lg item-total-price" name = "item_details[0][total_price]" value = "0">
                                                 </td>
                                             </tr>
                                             </tbody>
-                                            <tfoot>
+                                            {{-- <tfoot>
                                             <tr>
                                                 <th>Product Details</th>
                                                 <th width="210px">Quantity</th>
                                                 <th width="210px">Unit Price</th>
                                                 <th width="210px">Total Price</th>
                                             </tr>
-                                            </tfoot>
+                                            </tfoot> --}}
                                         </table>
                                         <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                                     </div>
@@ -255,5 +255,76 @@
 <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
+<script>
+    function returnProductDetails (e) {
+        var unitPrice = e.options[e.selectedIndex].getAttribute("data-product-unit-price");
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var quantityInputField = selectedTr.getElementsByClassName("item-quantity");
+        var quantityValue;
+        if (quantityInputField[0].value.isEmpty) {
+            quantityValue = 0;
+        } else {
+            quantityValue = quantityInputField[0].value;
+        }
+        var unitPriceInputField = selectedTr.getElementsByClassName("item-unit-price");
+        unitPriceInputField[0].value = unitPrice;
+        var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
+        totalPriceInputField[0].value = quantityValue * unitPrice;
+    }
+    function changeQuantity (e) {
+        if (e.value.isEmpty) {
+            quantityValue = 0;
+        } else {
+            quantityValue = e.value;
+        }
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var unitPriceInputField = selectedTr.getElementsByClassName("item-unit-price");
+        var unitPrice;
+        if (unitPriceInputField[0].value.isEmpty) {
+            unitPrice = 0;
+        } else {
+            unitPrice = unitPriceInputField[0].value;
+        };
+        var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
+        totalPriceInputField[0].value = quantityValue * unitPrice;
+    }
+    function changeUnitPrice (e) {
+        if (e.value.isEmpty) {
+            unitPrice = 0;
+        } else {
+            unitPrice = e.value;
+        }
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var quantityInputField = selectedTr.getElementsByClassName("item-quantity");
+        var quantityValue;
+        if (quantityInputField[0].value.isEmpty) {
+            quantityValue = 0;
+        } else {
+            quantityValue = quantityInputField[0].value;
+        }
+        var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
+        totalPriceInputField[0].value = quantityValue * unitPrice;
+    }
+    function addTableRow () {
+        var table = document.getElementById("adjustment_table");
+        var row = table.insertRow();
+        var firstCell = row.insertCell(0);
+        var secondCell = row.insertCell(1);
+        var thirdCell = row.insertCell(2);
+        var fourthCell = row.insertCell(3);
+        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details[0][details]' class='select form-control input-lg select-product'>"+
+                                "<option>Select Product</option>"+
+                                "@foreach($products as $product)"+
+                                "<option value='{{$product->id}}' data-product-unit-price='{{$product->selling_price}}'>{{$product->name}}</option>"+
+                                "@endforeach"+
+                                "</select>";
+        secondCell.innerHTML = "<input type='number' oninput = 'changeQuantity(this)' class='form-control input-lg item-quantity' name = 'item_details[0][quantity]' value = '0'>";
+        thirdCell.innerHTML = "<input oninput = 'changeUnitPrice(this)' type='number' class='form-control input-lg item-unit-price' name = 'item_details[0][unit_price]' value = '0'>";
+        fourthCell.innerHTML = "<input type='number' class='form-control input-lg item-total-price' name = 'item_details[0][total_price]' value = '0'>";
+    }
+</script>
 
 @endsection
