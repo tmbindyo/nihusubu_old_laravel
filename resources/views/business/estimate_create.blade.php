@@ -107,7 +107,6 @@
                                                 <th>Item Details</th>
                                                 <th>Quantity</th>
                                                 <th>Rate</th>
-                                                <th>Tax</th>
                                                 <th>Amount</th>
                                             </tr>
                                             </thead>
@@ -134,14 +133,6 @@
                                                     <input name="item_details[0][rate]" type="number" class="form-control input-lg" placeholder="E.g +10, -10">
                                                 </td>
                                                 <td>
-                                                    <select name="item_details[0][tax]" class="select2_demo_3 form-control input-lg">
-                                                        <option selected disabled >Select Tax</option>
-                                                        @foreach($taxes as $tax)
-                                                            <option value="{{$tax->id}}">{{$tax->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
                                                     <input name="item_details[0][amount]" type="number" class="form-control input-lg" placeholder="E.g +10, -10">
                                                 </td>
                                             </tr>
@@ -150,7 +141,6 @@
                                                 <th>Item Details</th>
                                                 <th>Quantity</th>
                                                 <th>Rate</th>
-                                                <th>Tax</th>
                                                 <th>Amount</th>
                                             </tfoot>
                                         </table>

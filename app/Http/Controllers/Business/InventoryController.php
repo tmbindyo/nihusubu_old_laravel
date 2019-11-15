@@ -233,8 +233,12 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        $transferOrder = TransferOrder::findOrFail($transfer_order_id);
+        $transferOrder = TransferOrder::where('id',$transfer_order_id)->with('source_warehouse.user','destination_warehouse.user','transfer_order_products.product')->withCount('transfer_order_products')->first();
 
-        return view('business.transfer_order_show',compact('user','institution'));
+//        return $transferOrder;
+//
+        return view('business.transfer_order_show',compact('user','institution','transferOrder'));
     }
     public function transferOrderEdit($transfer_order_id)
     {

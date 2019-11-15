@@ -81,8 +81,8 @@
                                             <td>{{$transferOrder->user->name}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{route('business.inventory.adjustment.show',$transferOrder->id)}}" class="btn-primary btn-outline btn btn-xs">View</a>
-                                                    <a href="{{route('business.inventory.adjustment.edit',$transferOrder->id)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                    <a href="{{route('business.transfer.order.show',$transferOrder->id)}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                                    <a href="{{route('business.transfer.order.edit',$transferOrder->id)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                                 </div>
                                             </td>
                                         </tr>
