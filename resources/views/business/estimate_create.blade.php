@@ -119,7 +119,7 @@
                                                         @foreach($products as $product)
                                                             @if($product->is_service == 0)
                                                                 @foreach($product->inventory as $inventory)
-                                                                    <option value="{{$product->id}}[{{$inventory->id}}]" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
+                                                                    <option value="{{$product->id}}:{{$inventory->id}}" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
                                                                 @endforeach
                                                             @else
                                                                 <option value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>

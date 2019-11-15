@@ -122,7 +122,7 @@ class SaleController extends Controller
         $client->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $client->save();
 
-        return back()->withSuccess(__('Client successfully created.'));
+        return redirect()->route('business.clients')->withSuccess(__('Client successfully created.'));
     }
     public function clientShow($client_id)
     {
@@ -204,6 +204,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution();
 
+
         return $request;
         // Generate reference
         $size = 5;
@@ -232,28 +233,38 @@ class SaleController extends Controller
         // Check if draft
         if ($request->is_draft == "on"){
             $estimate->is_draft = True;
+            $estimate->status_id = "14efab17-4306-449b-bfc8-3e156b872a6d";
         }else{
             $estimate->is_draft = False;
+            $estimate->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
         }
-
         $estimate->customer_id = $request->customer;
         $estimate->institution_id = $institution->id;
         $estimate->user_id = $user->id;
-        $estimate->status_id = "";
         $estimate->save();
 
         // Estimate products
-        $estimateProduct =  new EstimateProduct();
-        $estimateProduct->rate = $request->rate;
-        $estimateProduct->quantity = $request->quantity;
-        $estimateProduct->estimate_id = $estimate->id;
-        $estimateProduct->product_id = $request->item;
-        $estimateProduct->status_id = '';
-        $estimateProduct->user_id = $user->id;
-        $estimateProduct->save();
+        foreach ($request->item_details as $item) {
+            $data = $item['item'];
+            list($product_id, $inventory_id,) = explode(":", $data);
+
+            $estimateProduct =  new EstimateProduct();
+            $estimateProduct->rate = $item->rate;
+            $estimateProduct->quantity = $item->quantity;
+            $estimateProduct->amount = $item->amount;
+            $estimateProduct->estimate_id = $estimate->id;
+            $estimateProduct->is_product = True;
+            $estimateProduct->product_id = $product_id;
+            $estimateProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+            $estimateProduct->user_id = $user->id;
+            $estimateProduct->save();
+
+        }
 
 
-        return back()->withSuccess(__('Estimate successfully created.'));
+
+
+        return redirect()->route('business.estimates')->withSuccess(__('Estimate successfully created.'));
     }
     public function estimateShow($estimate_id)
     {

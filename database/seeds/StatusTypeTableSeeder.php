@@ -48,6 +48,14 @@ class StatusTypeTableSeeder extends Seeder
         // back order, in stock, low stock
 
         DB::table('status_types')->insert([
+            'id' => '63d0ab87-de50-43e1-849b-8349b0671225',
+            'name' => 'Estiamte',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('status_types')->insert([
             'id' => '511b013b-aa8a-4e5b-a681-1b85f938ef2b',
             'name' => 'Order',
             'user_id' => 1,
