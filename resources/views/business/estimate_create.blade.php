@@ -100,6 +100,7 @@
                                     </div>
                                     <br>
                                     <hr>
+                                    {{--table--}}
                                     <div class="row">
                                         <table class="table table-bordered" id = "estimate_table">
                                             <thead>
@@ -133,27 +134,15 @@
                                                     <input oninput = "changeItemRate(this)" name="item_details[0][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "0" min = "0">
                                                 </td>
                                                 <td>
-                                                    <select name="item_details[0][tax]" class="select2_demo_3 form-control input-lg">
-                                                        <option selected disabled >Select Tax</option>
-                                                        @foreach($taxes as $tax)
-                                                            <option value="{{$tax->id}}">{{$tax->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
                                                     <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
                                                 </td>
                                             </tr>
                                             </tbody>
-                                            {{-- <tfoot>
-                                                <th>Item Details</th>
-                                                <th>Quantity</th>
-                                                <th>Rate</th>
-                                                <th>Amount</th>
-                                            </tfoot> --}}
                                         </table>
                                         <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                                     </div>
+
+                                    {{--sub totals--}}
                                     <div class="row">
                                         <div class="row">
                                             <div class="col-md-3 col-md-offset-5">
@@ -194,6 +183,7 @@
                                     <div class="ln_solid"></div>
 
                                     <br>
+                                    {{--attachments--}}
                                     <div class="row">
                                         <div class="col-md-6 col-md-offset-1">
                                             <div class="checkbox checkbox-info">
@@ -396,13 +386,7 @@
                                 "</select>";
         secondCell.innerHTML = "<input oninput = 'changeItemQuantity(this)' name='item_details[0][quantity]' type='number' class='form-control input-lg item-quantity' value = '0' min = '0'>";
         thirdCell.innerHTML = "<input oninput = 'changeItemRate(this)' name='item_details[0][rate]' type='number' class='form-control input-lg item-rate' placeholder='E.g +10, -10' value = '0' min = '0'>";
-        fourthCell.innerHTML = "<select name='item_details[0][tax]' class='select2_demo_3 form-control input-lg'>"+
-                                "<option selected disabled>Select Tax</option>"+
-                                "@foreach($taxes as $tax)"+
-                                "<option value='{{$tax->id}}'>{{$tax->name}}</option>"+
-                                "@endforeach"+
-                                "</select>";
-        fifthCell.innerHTML = "<input name='item_details[0][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
+        fourthCell.innerHTML = "<input name='item_details[0][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
     }
     function itemTotalChange () {
         subTotal = [];

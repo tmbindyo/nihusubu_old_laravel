@@ -123,40 +123,82 @@
                                     </div>
                                     <br>
                                     <hr>
+                                    {{--table--}}
                                     <div class="row">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id = "estimate_table">
                                             <thead>
                                             <tr>
                                                 <th>Item Details</th>
                                                 <th>Quantity</th>
-                                                <th>Last Name</th>
-                                                <th>Email</th>
-                                                <th>Phone number</th>
+                                                <th>Rate</th>
+                                                <th>Amount</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <select class="select2_demo_3 form-control input-lg">
-                                                        <option>Select Item</option>
-                                                        <option value="Bahamas">Bahamas</option>
+                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_demo_3 form-control input-lg item-select">
+                                                        <option selected disabled>Select Item</option>
+                                                        @foreach($products as $product)
+                                                            @if($product->is_service == 0)
+                                                                @foreach($product->inventory as $inventory)
+                                                                    <option value="{{$product->id}}[{{$inventory->id}}]" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
+                                                                @endforeach
+                                                            @else
+                                                                <option value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
+                                                            @endif
+                                                        @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control input-lg">
+                                                    <input oninput = "changeItemQuantity(this)" name="item_details[0][quantity]" type="number" class="form-control input-lg item-quantity" value = "0" min = "0">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control input-lg">
+                                                    <input oninput = "changeItemRate(this)" name="item_details[0][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "0" min = "0">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control input-lg" placeholder="E.g +10, -10">
-                                                </td>
-                                                <td width="10px">
-                                                    <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-times-circle fa-2x text-danger"></i></span>
+                                                    <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
+                                        <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
+                                    </div>
+
+                                    {{--sub totals--}}
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-5">
+                                                <label>Sub Total</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input name="subtotal" type = "number" class="pull-right form-control" id = "items-subtotal" readonly value="0">
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-1 col-md-offset-5">
+                                                <label>Adjustment</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input oninput = "makeAdjustmentToTotal(this)" type="number" class="form-control">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p class="pull-right">0.00</p>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-5">
+                                                <p>Total ()</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p class="pull-right" id = "grand-total"></p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr>
                                     <br>
@@ -164,7 +206,20 @@
                                     <div class="ln_solid"></div>
 
                                     <br>
-                                    <br>
+                                    {{--attachments--}}
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-1">
+                                            <div class="checkbox checkbox-info">
+                                                <input id="is_draft" name="is_draft" type="checkbox">
+                                                <label for="is_draft">
+                                                    Save As Draft
+                                                </label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Check this option if you want to save this as a draft for further editing." class="fa fa-2x fa-question-circle"></i></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <hr>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>
                                     </div>

@@ -300,9 +300,15 @@ class SaleController extends Controller
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution();$customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        // Getting Products
+        $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
+        // Get Inventory
+        $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $inventories = Inventory::with('product','warehouse')->get();
 
-        return view('business.invoice_create',compact('user','institution'));
+
+        return view('business.invoice_create',compact('user','institution','products','inventories'));
     }
     public function invoiceStore()
     {
@@ -364,8 +370,13 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Getting Products
+        $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
+        // Get Inventory
+        $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $inventories = Inventory::with('product','warehouse')->get();
 
-        return view('business.order_create',compact('user','institution'));
+        return view('business.order_create',compact('user','institution','inventories','products'));
     }
     public function orderStore()
     {
@@ -425,8 +436,13 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Getting Products
+        $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
+        // Get Inventory
+        $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $inventories = Inventory::with('product','warehouse')->get();
 
-        return view('business.sale_create',compact('user','institution'));
+        return view('business.sale_create',compact('user','institution','products','inventories'));
     }
     public function saleStore()
     {
