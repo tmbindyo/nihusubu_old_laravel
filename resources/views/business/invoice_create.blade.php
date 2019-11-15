@@ -172,13 +172,13 @@
                                                 <label>Adjustment</label>
                                             </div>
                                             <div class="col-md-2">
-                                                <input oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value">
+                                                <input oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value" value = "0">
                                             </div>
                                             <div class="col-md-1">
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
                                             </div>
                                             <div class="col-md-2">
-                                                <p class="pull-right">0.00</p>
+                                                <p class="pull-right" id = "adjustment-text">0</p>
                                             </div>
                                         </div>
                                         <br>
@@ -371,6 +371,7 @@
         } else {
             adjustedValue = adjustedValueInputValue;
         };
+        document.getElementById("adjustment-text").innerHTML = adjustedValue;
         var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
         document.getElementById("grand-total").innerHTML = adjustedTotal;
     }
