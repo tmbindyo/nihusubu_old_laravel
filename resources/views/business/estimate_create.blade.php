@@ -101,7 +101,7 @@
                                     <br>
                                     <hr>
                                     <div class="row">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id = "estimate_table">
                                             <thead>
                                             <tr>
                                                 <th>Item Details</th>
@@ -113,37 +113,46 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <select data-placement="Select" name="item_details[0][item]" class="select2_demo_3 form-control input-lg">
+                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_demo_3 form-control input-lg item-select">
                                                         <option selected disabled>Select Item</option>
                                                         @foreach($products as $product)
                                                             @if($product->is_service == 0)
                                                                 @foreach($product->inventory as $inventory)
-                                                                    <option value="{{$product->id}}[{{$inventory->id}}]">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
+                                                                    <option value="{{$product->id}}[{{$inventory->id}}]" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
                                                                 @endforeach
                                                             @else
-                                                                <option value="{{$product->id}}">{{$product->name}}</option>
+                                                                <option value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
                                                             @endif
                                                         @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input name="item_details[0][quantity]" type="number" class="form-control input-lg">
+                                                    <input oninput = "changeItemQuantity(this)" name="item_details[0][quantity]" type="number" class="form-control input-lg item-quantity" value = "0" min = "0">
                                                 </td>
                                                 <td>
-                                                    <input name="item_details[0][rate]" type="number" class="form-control input-lg" placeholder="E.g +10, -10">
+                                                    <input oninput = "changeItemRate(this)" name="item_details[0][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "0" min = "0">
                                                 </td>
                                                 <td>
-                                                    <input name="item_details[0][amount]" type="number" class="form-control input-lg" placeholder="E.g +10, -10">
+                                                    <select name="item_details[0][tax]" class="select2_demo_3 form-control input-lg">
+                                                        <option selected disabled >Select Tax</option>
+                                                        @foreach($taxes as $tax)
+                                                            <option value="{{$tax->id}}">{{$tax->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
                                                 </td>
                                             </tr>
                                             </tbody>
-                                            <tfoot>
+                                            {{-- <tfoot>
                                                 <th>Item Details</th>
                                                 <th>Quantity</th>
                                                 <th>Rate</th>
                                                 <th>Amount</th>
-                                            </tfoot>
+                                            </tfoot> --}}
                                         </table>
+                                        <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                                     </div>
                                     <div class="row">
                                         <div class="row">
@@ -151,7 +160,7 @@
                                                 <label>Sub Total</label>
                                             </div>
                                             <div class="col-md-3">
-                                                <input name="subtotal" class="pull-right form-control" readonly value="0.00">
+                                                <input name="subtotal" type = "number" class="pull-right form-control" id = "items-subtotal" readonly value="0">
                                             </div>
                                         </div>
                                         <hr>
@@ -160,7 +169,7 @@
                                                 <label>Adjustment</label>
                                             </div>
                                             <div class="col-md-2">
-                                                <input type="number" class="form-control">
+                                                <input oninput = "makeAdjustmentToTotal(this)" type="number" class="form-control">
                                             </div>
                                             <div class="col-md-1">
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
@@ -175,7 +184,7 @@
                                                 <p>Total ()</p>
                                             </div>
                                             <div class="col-md-3">
-                                                <p class="pull-right">0.00</p>
+                                                <p class="pull-right" id = "grand-total"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -301,9 +310,120 @@
             mm = '0'+mm;
         }
         var date_today = mm + '/' + dd + '/' + yyyy;
-        document.getElementById("date_due").value = date_today;
-
+        document.getElementById("due_date").value = date_today;
+        document.getElementById("date").value = date_today;
     });
 
+</script>
+
+<script>
+    var subTotal = [];
+    var adjustedValue;
+    function itemSelected (e) {
+        var selectedItemQuantity = e.options[e.selectedIndex].getAttribute("data-product-quantity");
+        var selectItemPrice = e.options[e.selectedIndex].getAttribute("data-product-selling-price");
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var itemQuantity = selectedTr.getElementsByClassName("item-quantity");
+        var itemRate = selectedTr.getElementsByClassName("item-rate");
+        // -20 is an arbitrary value set to indicate that an item is a service and so has no limit
+        if (selectedItemQuantity === "-20") {
+            itemQuantity[0].setAttribute("max", 100000000);
+        } else {
+            itemQuantity[0].setAttribute("max", selectedItemQuantity);
+        };
+        itemRate[0].value = selectItemPrice;
+    }
+    function changeItemQuantity (e) {
+        var quantityValue;
+        if (e.value.isEmpty) {
+            quantityValue = 0;
+        } else {
+            quantityValue = e.value;
+        };
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var itemRateInputField = selectedTr.getElementsByClassName("item-rate");
+        var itemTotalInputField = selectedTr.getElementsByClassName("item-total");
+        var itemRate;
+        if (itemRateInputField[0].value.isEmpty) {
+            itemRate = 0;
+        } else {
+            itemRate = itemRateInputField[0].value;
+        };
+        itemTotalInputField[0].value = quantityValue * itemRate;
+        itemTotalChange();
+    }
+    function changeItemRate (e) {
+        var itemRate;
+        if (e.value.isEmpty) {
+            itemRate = 0;
+        } else {
+            itemRate = e.value;
+        };
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var itemQuantityInputField = selectedTr.getElementsByClassName("item-quantity");
+        var itemTotalInputField = selectedTr.getElementsByClassName("item-total");
+        var quantityValue;
+        if (itemQuantityInputField[0].value.isEmpty) {
+            quantityValue = 0;
+        } else {
+            quantityValue = itemQuantityInputField[0].value;
+        };
+        itemTotalInputField[0].value = quantityValue * itemRate;
+        itemTotalChange();
+    }
+    function addTableRow () {
+        var table = document.getElementById("estimate_table");
+        var row = table.insertRow();
+        var firstCell = row.insertCell(0);
+        var secondCell = row.insertCell(1);
+        var thirdCell = row.insertCell(2);
+        var fourthCell = row.insertCell(3);
+        var fifthCell = row.insertCell(4);
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details[0][item]' class='select2_demo_3 form-control input-lg item-select'>"+
+                                "<option selected disabled>Select Item</option>"+
+                                "@foreach($products as $product)"+
+                                "@if($product->is_service == 0)"+
+                                "@foreach($product->inventory as $inventory)"+
+                                "<option value='{{$product->id}}[{{$inventory->id}}]' data-product-quantity = '{{$inventory->quantity}}' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}} [{{$inventory->warehouse->name}}]</option>"+
+                                "@endforeach"+
+                                "@else"+
+                                "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}}</option>"+
+                                "@endif"+
+                                "@endforeach"+
+                                "</select>";
+        secondCell.innerHTML = "<input oninput = 'changeItemQuantity(this)' name='item_details[0][quantity]' type='number' class='form-control input-lg item-quantity' value = '0' min = '0'>";
+        thirdCell.innerHTML = "<input oninput = 'changeItemRate(this)' name='item_details[0][rate]' type='number' class='form-control input-lg item-rate' placeholder='E.g +10, -10' value = '0' min = '0'>";
+        fourthCell.innerHTML = "<select name='item_details[0][tax]' class='select2_demo_3 form-control input-lg'>"+
+                                "<option selected disabled>Select Tax</option>"+
+                                "@foreach($taxes as $tax)"+
+                                "<option value='{{$tax->id}}'>{{$tax->name}}</option>"+
+                                "@endforeach"+
+                                "</select>";
+        fifthCell.innerHTML = "<input name='item_details[0][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
+    }
+    function itemTotalChange () {
+        subTotal = [];
+        var itemTotals = document.getElementsByClassName("item-total");
+        for (singleTotal of itemTotals) {
+            subTotal.push(Number(singleTotal.value));
+        };
+        var itemSubTotal = subTotal.reduce((a, b) => a + b, 0);
+        document.getElementById("items-subtotal").value = itemSubTotal;
+        document.getElementById("grand-total").innerHTML = itemSubTotal;
+    }
+    // TODO: Work with scenarios where the adjustment value is set before adding products to the estimate
+    function makeAdjustmentToTotal (e) {
+        if (e.value.isEmpty) {
+            adjustedValue = 0
+        } else {
+            adjustedValue = e.value;
+        };
+        var itemSubTotal = subTotal.reduce((a, b) => a + b, 0);
+        var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
+        document.getElementById("grand-total").innerHTML = adjustedTotal;
+    }
 </script>
 @endsection
