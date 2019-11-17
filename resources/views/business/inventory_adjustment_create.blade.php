@@ -161,7 +161,7 @@
                                 <label>  </label>
                                 {{--  Warehouse  --}}
                                 <div class="has-warning">
-                                    <select onchange = "selectWarehouseToAdjust(this)" name="warehouse"  class="select form-control input-lg">
+                                    <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="select form-control input-lg">
                                         <option disabled>Select Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -622,6 +622,7 @@
             for (singleSelect of productSelect) {
                 populateDropdownOptionsWithProducts(singleSelect);
             };
+            e.blur();
         }
         function clearDropdownOptions (selectElement) {
             var numberOfOptions;
