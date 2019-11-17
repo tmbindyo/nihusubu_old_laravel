@@ -665,18 +665,18 @@
         };
         // Function that handles selection of products to be adjusted
         function returnProductDetails (e) {
-            var stockValue = e.options[e.selectedIndex].getAttribute("data-product-quantity")
-            var selectedParentTd = e.parentElement
-            var selectedTr = selectedParentTd.parentElement
-            setValueOfInputFieldByClassName(selectedTr, "items-on-hand", stockValue)
+            var stockValue = e.options[e.selectedIndex].getAttribute("data-product-quantity");
+            var selectedParentTd = e.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            setValueOfInputFieldByClassName(selectedTr, "items-on-hand", stockValue);
         };
         // Function triggered whenever value of items on hand is set
         function modifyItemsOnHand (e) {
-            var selectedParentTd = e.parentElement
-            var selectedTr = selectedParentTd.parentElement
-            var stockValue = selectedTr.getElementsByClassName("items-on-hand")[0].value
-            var adjustedValue = parseInt(e.value) - parseInt(stockValue)
-            setValueOfInputFieldByClassName(selectedTr, "items-adjusted", adjustedValue)
+            var selectedParentTd = e.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var stockValue = selectedTr.getElementsByClassName("items-on-hand")[0].value;
+            var adjustedValue = parseInt(e.value) - parseInt(stockValue);
+            setValueOfInputFieldByClassName(selectedTr, "items-adjusted", adjustedValue);
         };
         // Multi-purpose function that handles setting of an input field value given the parentElement
         // and unique className within the element
