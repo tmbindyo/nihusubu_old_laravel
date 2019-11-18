@@ -670,7 +670,7 @@
             var selectedTr = selectedParentTd.parentElement;
             var selectedTable = selectedTr.parentElement;
             selectedTable.removeChild(selectedTr);
-        }
+        };
         // Function that handles selection of products to be adjusted
         function returnProductDetails (e) {
             var stockValue = e.options[e.selectedIndex].getAttribute("data-product-quantity");

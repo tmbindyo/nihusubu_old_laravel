@@ -200,9 +200,9 @@
                                         <td>
                                             <input type="number" class="form-control input-lg transfer_quantity" placeholder="E.g +10, -10" name = "item_details[0][transfer_quantity]">
                                         </td>
-                                        <td width="10px">
+                                        {{-- <td width="10px">
                                             <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-times-circle fa-2x text-danger"></i></span>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     </tbody>
                                 </table>
@@ -692,7 +692,7 @@
                 var firstCell = row.insertCell(0);
                 var secondCell = row.insertCell(1);
                 var thirdCell = row.insertCell(2);
-                var fourthCell = row.insertCell(3);
+                var fourthCell = row.insertCell(3)
                 firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select'"+
                                         "name = 'item_details["+tableValueArrayIndex+"][product_id]'></select>";
                 secondCell.innerHTML = "<div class='row'>"+
@@ -713,13 +713,18 @@
                                         "</div>";
                 thirdCell.innerHTML = "<input type='number' class='form-control input-lg transfer_quantity' placeholder='E.g +10, -10'"+
                                         "name = 'item_details["+tableValueArrayIndex+"][transfer_quantity]'>";
-                fourthCell.innerHTML = "<span><i data-toggle='tooltip' data-placement='right'"+
-                                        "title='Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item.'"+
-                                        "class='fa fa-times-circle fa-2x text-danger'></i></span>";
+                fourthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+                fourthCell.setAttribute("style", "width: 1em;")
                 var selectElement = row.getElementsByClassName("items-select");
                 populateDropdownOptionsWithProducts(selectElement[0]);
                 tableValueArrayIndex++;
-            }
-        }
+            };
+        };
+        function removeSelectedRow (e) {
+            var selectedParentTd = e.parentElement.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var selectedTable = selectedTr.parentElement;
+            selectedTable.removeChild(selectedTr);
+        };
     </script>
 @endsection
