@@ -646,15 +646,17 @@
             } else {
                 var table = document.getElementById("adjustment_table");
                 var row = table.insertRow();
-                var first_cell = row.insertCell(0);
-                var second_cell = row.insertCell(1);
-                var third_cell = row.insertCell(2);
-                var fourth_cell = row.insertCell(3);
-                first_cell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='chosen-select form-control input-lg item-select' name = 'item_details["+adj_array_index+"][details]'"+
+                var firstCell = row.insertCell(0);
+                var secondCell = row.insertCell(1);
+                var thirdCell = row.insertCell(2);
+                var fourthCell = row.insertCell(3);
+                var fifthCell = row.insertCell(4);
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='chosen-select form-control input-lg item-select' name = 'item_details["+adj_array_index+"][details]'"+
                                         " data-placeholder='Choose an item...' style='width:100%;' tabindex='2' required></select>";
-                second_cell.innerHTML = "<input type='number' class='form-control input-lg items-on-hand' name = 'item_details["+adj_array_index+"][on_hand]' value = '0' readonly>";
-                third_cell.innerHTML = "<input oninput = 'modifyItemsOnHand(this)'' type='number' class='form-control input-lg items-new-on-hand' name = 'item_details["+adj_array_index+"][new_on_hand]'>";
-                fourth_cell.innerHTML = "<input type='number' class='form-control input-lg items-adjusted' placeholder='E.g +10, -10' name = 'item_details["+adj_array_index+"][adjusted]' readonly>"
+                secondCell.innerHTML = "<input type='number' class='form-control input-lg items-on-hand' name = 'item_details["+adj_array_index+"][on_hand]' value = '0' readonly>";
+                thirdCell.innerHTML = "<input oninput = 'modifyItemsOnHand(this)'' type='number' class='form-control input-lg items-new-on-hand' name = 'item_details["+adj_array_index+"][new_on_hand]'>";
+                fourthCell.innerHTML = "<input type='number' class='form-control input-lg items-adjusted' placeholder='E.g +10, -10' name = 'item_details["+adj_array_index+"][adjusted]' readonly>";
+                fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
                 var productSelect = document.getElementsByClassName("item-select");
                 for (singleSelect of productSelect) {
                     populateDropdownOptionsWithProducts(singleSelect);
@@ -663,6 +665,12 @@
                 initSelector();
             };
         };
+        function removeSelectedRow (e) {
+            var selectedParentTd = e.parentElement.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var selectedTable = selectedTr.parentElement;
+            selectedTable.removeChild(selectedTr);
+        }
         // Function that handles selection of products to be adjusted
         function returnProductDetails (e) {
             var stockValue = e.options[e.selectedIndex].getAttribute("data-product-quantity");
