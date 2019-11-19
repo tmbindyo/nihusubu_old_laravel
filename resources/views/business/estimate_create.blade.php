@@ -364,6 +364,7 @@
         itemTotalInputField[0].value = quantityValue * itemRate;
         itemTotalChange();
     };
+    var tableValueArrayIndex = 1;
     function addTableRow () {
         var table = document.getElementById("estimate_table");
         var row = table.insertRow();
@@ -372,7 +373,7 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details[0][item]' class='select2_demo_3 form-control input-lg item-select'>"+
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_demo_3 form-control input-lg item-select'>"+
                                 "<option selected disabled>Select Item</option>"+
                                 "@foreach($products as $product)"+
                                 "@if($product->is_service == 0)"+
@@ -384,17 +385,48 @@
                                 "@endif"+
                                 "@endforeach"+
                                 "</select>";
-        secondCell.innerHTML = "<input oninput = 'changeItemQuantity(this)' name='item_details[0][quantity]' type='number' class='form-control input-lg item-quantity' value = '0' min = '0'>";
-        thirdCell.innerHTML = "<input oninput = 'changeItemRate(this)' name='item_details[0][rate]' type='number' class='form-control input-lg item-rate' placeholder='E.g +10, -10' value = '0' min = '0'>";
+        secondCell.innerHTML = "<input oninput = 'changeItemQuantity(this)' name='item_details["+tableValueArrayIndex+"][quantity]' type='number' class='form-control input-lg item-quantity' value = '0' min = '0'>";
+        thirdCell.innerHTML = "<input oninput = 'changeItemRate(this)' name='item_details["+tableValueArrayIndex+"][rate]' type='number' class='form-control input-lg item-rate' placeholder='E.g +10, -10' value = '0' min = '0'>";
         fourthCell.innerHTML = "<input name='item_details[0][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
         fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
         fifthCell.setAttribute("style", "width: 1em;")
+        tableValueArrayIndex++;
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;
         var selectedTr = selectedParentTd.parentElement;
         var selectedTable = selectedTr.parentElement;
+        var removed = selectedTr.getElementsByClassName("item-select")[0].getAttribute("name");
+        adjustTableInputFieldsIndex(removed);
         selectedTable.removeChild(selectedTr);
+        tableValueArrayIndex--;
+        itemTotalChange();
+    };
+    function adjustTableInputFieldsIndex (removedFieldName) {
+        // Fields whose values are submitted are:
+        // 1. item_details[][item]
+        // 2. item_details[][quantity]
+        // 3. item_details[][rate]
+        var displacement = 0;
+        var removedIndex;
+        while (displacement < tableValueArrayIndex) {
+            if (removedFieldName == "item_details["+displacement+"][item]"){
+                removedIndex = displacement;
+            } else {
+                var itemField = document.getElementsByName("item_details["+displacement+"][item]");
+                var quantityField = document.getElementsByName("item_details["+displacement+"][quantity]");
+                var rateField = document.getElementsByName("item_details["+displacement+"][rate]");
+                if (removedIndex) {
+                    if (displacement > removedIndex) {
+                        var newIndex = displacement - 1;
+                        itemField[0].setAttribute("name", "item_details["+newIndex+"][item]");
+                        quantityField[0].setAttribute("name", "item_details["+newIndex+"][quantity]");
+                        rateField[0].setAttribute("name", "item_details["+newIndex+"][rate]");
+                    };
+                };
+            };
+            displacement++;
+        };
     };
     function itemTotalChange () {
         subTotal = [];
