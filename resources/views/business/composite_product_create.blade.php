@@ -308,6 +308,7 @@
         var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
         totalPriceInputField[0].value = quantityValue * unitPrice;
     };
+    var tableValueArrayIndex = 1;
     function addTableRow () {
         var table = document.getElementById("adjustment_table");
         var row = table.insertRow();
@@ -316,23 +317,56 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details[0][details]' class='select form-control input-lg select-product'>"+
+        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='select form-control input-lg select-product'>"+
                                 "<option>Select Product</option>"+
                                 "@foreach($products as $product)"+
                                 "<option value='{{$product->id}}' data-product-unit-price='{{$product->selling_price}}'>{{$product->name}}</option>"+
                                 "@endforeach"+
                                 "</select>";
-        secondCell.innerHTML = "<input type='number' oninput = 'changeQuantity(this)' class='form-control input-lg item-quantity' name = 'item_details[0][quantity]' value = '0'>";
-        thirdCell.innerHTML = "<input oninput = 'changeUnitPrice(this)' type='number' class='form-control input-lg item-unit-price' name = 'item_details[0][unit_price]' value = '0'>";
-        fourthCell.innerHTML = "<input type='number' class='form-control input-lg item-total-price' name = 'item_details[0][total_price]' value = '0'>";
+        secondCell.innerHTML = "<input type='number' oninput = 'changeQuantity(this)' class='form-control input-lg item-quantity' name = 'item_details["+tableValueArrayIndex+"][quantity]' value = '0'>";
+        thirdCell.innerHTML = "<input oninput = 'changeUnitPrice(this)' type='number' class='form-control input-lg item-unit-price' name = 'item_details["+tableValueArrayIndex+"][unit_price]' value = '0'>";
+        fourthCell.innerHTML = "<input type='number' class='form-control input-lg item-total-price' name = 'item_details["+tableValueArrayIndex+"][total_price]' value = '0'>";
         fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
-        fifthCell.setAttribute("style", "width: 1em;")
+        fifthCell.setAttribute("style", "width: 1em;");
+        tableValueArrayIndex++;
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;
         var selectedTr = selectedParentTd.parentElement;
         var selectedTable = selectedTr.parentElement;
+        var removed = selectedTr.getElementsByClassName("select-product")[0].getAttribute("name");
+        adjustTableInputFieldsIndex(removed);
         selectedTable.removeChild(selectedTr);
+        tableValueArrayIndex--;
+    };
+    function adjustTableInputFieldsIndex (removedFieldName) {
+        // Fields whose values are submitted are:
+        // 1. item_details[][details]
+        // 2. item_details[][quantity]
+        // 3. item_details[][unit_price]
+        // 4. item_details[][total_price]
+        var displacement = 0;
+        var removedIndex;
+        while (displacement < tableValueArrayIndex) {
+            if (removedFieldName == "item_details["+displacement+"][details]"){
+                removedIndex = displacement;
+            } else {
+                var detailsField = document.getElementsByName("item_details["+displacement+"][details]");
+                var quantityField = document.getElementsByName("item_details["+displacement+"][quantity]");
+                var unitPriceField = document.getElementsByName("item_details["+displacement+"][unit_price]");
+                var totalPriceField = document.getElementsByName("item_details["+displacement+"][total_price]");
+                if (removedIndex) {
+                    if (displacement > removedIndex) {
+                        var newIndex = displacement - 1;
+                        detailsField[0].setAttribute("name", "item_details["+newIndex+"][details]");
+                        quantityField[0].setAttribute("name", "item_details["+newIndex+"][quantity]");
+                        unitPriceField[0].setAttribute("name", "item_details["+newIndex+"][unit_price]");
+                        totalPriceField[0].setAttribute("name", "item_details["+newIndex+"][total_price]");
+                    };
+                };
+            };
+            displacement++;
+        };
     };
 </script>
 

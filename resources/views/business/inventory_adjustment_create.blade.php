@@ -591,7 +591,7 @@
                 duplicate: false
             });
         });
-        var adj_array_index = 1;
+        var tableValueArrayIndex = 1;
         var selectedWarehouse = null;
         var products = {!! json_encode($products->toArray()) !!};
         var productsArray = [];
@@ -651,17 +651,17 @@
                 var thirdCell = row.insertCell(2);
                 var fourthCell = row.insertCell(3);
                 var fifthCell = row.insertCell(4);
-                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='chosen-select form-control input-lg item-select' name = 'item_details["+adj_array_index+"][details]'"+
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='chosen-select form-control input-lg item-select' name = 'item_details["+tableValueArrayIndex+"][details]'"+
                                         " data-placeholder='Choose an item...' style='width:100%;' tabindex='2' required></select>";
-                secondCell.innerHTML = "<input type='number' class='form-control input-lg items-on-hand' name = 'item_details["+adj_array_index+"][on_hand]' value = '0' readonly>";
-                thirdCell.innerHTML = "<input oninput = 'modifyItemsOnHand(this)'' type='number' class='form-control input-lg items-new-on-hand' name = 'item_details["+adj_array_index+"][new_on_hand]'>";
-                fourthCell.innerHTML = "<input type='number' class='form-control input-lg items-adjusted' placeholder='E.g +10, -10' name = 'item_details["+adj_array_index+"][adjusted]' readonly>";
+                secondCell.innerHTML = "<input type='number' class='form-control input-lg items-on-hand' name = 'item_details["+tableValueArrayIndex+"][on_hand]' value = '0' readonly>";
+                thirdCell.innerHTML = "<input oninput = 'modifyItemsOnHand(this)'' type='number' class='form-control input-lg items-new-on-hand' name = 'item_details["+tableValueArrayIndex+"][new_on_hand]'>";
+                fourthCell.innerHTML = "<input type='number' class='form-control input-lg items-adjusted' placeholder='E.g +10, -10' name = 'item_details["+tableValueArrayIndex+"][adjusted]' readonly>";
                 fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
                 var productSelect = document.getElementsByClassName("item-select");
                 for (singleSelect of productSelect) {
                     populateDropdownOptionsWithProducts(singleSelect);
                 };
-                adj_array_index++;
+                tableValueArrayIndex++;
                 initSelector();
             };
         };
@@ -669,7 +669,39 @@
             var selectedParentTd = e.parentElement.parentElement;
             var selectedTr = selectedParentTd.parentElement;
             var selectedTable = selectedTr.parentElement;
+            var removed = selectedTr.getElementsByClassName("item-select")[0].getAttribute("name");
+            adjustTableInputFieldsIndex(removed);
             selectedTable.removeChild(selectedTr);
+            tableValueArrayIndex--;
+        };
+        function adjustTableInputFieldsIndex (removedFieldName) {
+            // Fields whose values are submitted are:
+            // 1. item_details[][details]
+            // 2. item_details[][on_hand]
+            // 3. item_details[][new_on_hand]
+            // 4. item_details[][adjusted]
+            var displacement = 0;
+            var removedIndex;
+            while (displacement < tableValueArrayIndex) {
+                if (removedFieldName == "item_details["+displacement+"][details]"){
+                    removedIndex = displacement;
+                } else {
+                    var detailsField = document.getElementsByName("item_details["+displacement+"][details]");
+                    var onHandField = document.getElementsByName("item_details["+displacement+"][on_hand]");
+                    var newOnHandField = document.getElementsByName("item_details["+displacement+"][new_on_hand]");
+                    var adjustedField = document.getElementsByName("item_details["+displacement+"][adjusted]");
+                    if (removedIndex) {
+                        if (displacement > removedIndex) {
+                            var newIndex = displacement - 1;
+                            detailsField[0].setAttribute("name", "item_details["+newIndex+"][details]");
+                            onHandField[0].setAttribute("name", "item_details["+newIndex+"][on_hand]");
+                            newOnHandField[0].setAttribute("name", "item_details["+newIndex+"][new_on_hand]");
+                            adjustedField[0].setAttribute("name", "item_details["+newIndex+"][adjusted]");
+                        };
+                    };
+                };
+                displacement++;
+            };
         };
         // Function that handles selection of products to be adjusted
         function returnProductDetails (e) {

@@ -724,7 +724,33 @@
             var selectedParentTd = e.parentElement.parentElement;
             var selectedTr = selectedParentTd.parentElement;
             var selectedTable = selectedTr.parentElement;
+            var removed = selectedTr.getElementsByClassName("items-select")[0].getAttribute("name");
+            adjustTableInputFieldsIndex(removed);
             selectedTable.removeChild(selectedTr);
+            tableValueArrayIndex--;
+        };
+        function adjustTableInputFieldsIndex (removedFieldName) {
+            // Fields whose values are submitted are:
+            // 1. item_details[][product_id]
+            // 2. item_details[][transfer_quantity]
+            var displacement = 0;
+            var removedIndex;
+            while (displacement < tableValueArrayIndex) {
+                if (removedFieldName == "item_details["+displacement+"][product_id]"){
+                    removedIndex = displacement;
+                } else {
+                    var productIdField = document.getElementsByName("item_details["+displacement+"][product_id]");
+                    var transferQuantityField = document.getElementsByName("item_details["+displacement+"][transfer_quantity]");
+                    if (removedIndex) {
+                        if (displacement > removedIndex) {
+                            var newIndex = displacement - 1;
+                            productIdField[0].setAttribute("name", "item_details["+newIndex+"][product_id]");
+                            transferQuantityField[0].setAttribute("name", "item_details["+newIndex+"][transfer_quantity]");
+                        };
+                    };
+                };
+                displacement++;
+            };
         };
     </script>
 @endsection
