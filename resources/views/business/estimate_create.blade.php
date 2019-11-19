@@ -173,7 +173,7 @@
                                                 <p>Total ()</p>
                                             </div>
                                             <div class="col-md-3">
-                                                <p class="pull-right" id = "grand-total"></p>
+                                                <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control" value = "0" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -413,7 +413,7 @@
         };
         document.getElementById("adjustment-text").innerHTML = adjustedValue;
         var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
-        document.getElementById("grand-total").innerHTML = adjustedTotal;
+        document.getElementById("grand-total").value = adjustedTotal;
     };
 </script>
 @endsection
