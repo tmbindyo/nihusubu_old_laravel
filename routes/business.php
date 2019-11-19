@@ -91,6 +91,8 @@ Route::get('/client/edit/{client_id}', 'Business\SaleController@clientEdit')->na
 Route::post('/client/update/{client_id}', 'Business\SaleController@clientUpdate')->name('business.client.update');
 Route::get('/client/delete/{client_id}', 'Business\SaleController@clientDelete')->name('business.client.delete');
 
+
+// estimates
 Route::get('/estimates', 'Business\SaleController@estimates')->name('business.estimates');
 Route::get('/estimate/create', 'Business\SaleController@estimateCreate')->name('business.estimate.create');
 Route::post('/estimate/store', 'Business\SaleController@estimateStore')->name('business.estimate.store');
@@ -98,6 +100,9 @@ Route::get('/estimate/show/{estimate_id}', 'Business\SaleController@estimateShow
 Route::get('/estimate/edit/{estimate_id}', 'Business\SaleController@estimateEdit')->name('business.estimate.edit');
 Route::post('/estimate/update/{estimate_id}', 'Business\SaleController@estimateUpdate')->name('business.estimate.update');
 Route::get('/estimate/delete/{estimate_id}', 'Business\SaleController@estimateDelete')->name('business.estimate.delete');
+Route::get('/estimate/restore/{estimate_id}', 'Business\SaleController@estimateRestore')->name('business.estimate.restore');
+// estimate product
+Route::get('/estimate/product/delete/{estimate_product_id}', 'Business\SaleController@estimateProductDelete')->name('business.estimate.product.delete');
 
 Route::get('/sales', 'Business\SaleController@sales')->name('business.sales');
 Route::get('/sale/create', 'Business\SaleController@saleCreate')->name('business.sale.create');

@@ -174,6 +174,8 @@ class SaleController extends Controller
         // Estimates
         $estimates = Estimate::where('institution_id',$institution->id)->with('status','customer')->get();
 
+//        return $estimates;
+
         return view('business.estimates',compact('user','institution','estimates'));
     }
     public function estimateCreate()
@@ -194,7 +196,6 @@ class SaleController extends Controller
         $inventories = Inventory::with('product','warehouse')->get();
 //        return $products;
 
-
         return view('business.estimate_create',compact('user','institution','customers','taxes','inventories','products'));
     }
     public function estimateStore(Request $request)
@@ -214,15 +215,12 @@ class SaleController extends Controller
         $estimate->reference = $reference;
         $estimate->customer_notes = $request->customer_notes;
         $estimate->terms_and_conditions = $request->terms_and_conditions;
-        $estimate->date = $request->date;
-        $estimate->due_date = $request->due_date;
+        $estimate->date = date('Y-m-d', strtotime($request->date));
+        $estimate->due_date = date('Y-m-d', strtotime($request->due_date));
         $estimate->subtotal = $request->subtotal;
         $estimate->discount = $request->discount;
-        $estimate->adjustment = $request->adjustment;
-        $estimate->total = $request->total;
+        $estimate->total = $request->grand_total;
         $estimate->refund = 0;
-        $estimate->adjustment_value = $request->adjustment_value;
-
         $estimate->is_returned = False;
         $estimate->is_refunded = False;
         $estimate->is_product = True;
@@ -247,20 +245,18 @@ class SaleController extends Controller
             $data = $item['item'];
             list($product_id, $inventory_id,) = explode(":", $data);
 
+//            return $item;
             $estimateProduct =  new EstimateProduct();
-            $estimateProduct->rate = $item->rate;
-            $estimateProduct->quantity = $item->quantity;
-            $estimateProduct->amount = $item->amount;
+            $estimateProduct->rate = $item['rate'];
+            $estimateProduct->quantity = $item['quantity'];
+            $estimateProduct->amount = $item['amount'];
             $estimateProduct->estimate_id = $estimate->id;
             $estimateProduct->is_product = True;
             $estimateProduct->product_id = $product_id;
             $estimateProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
             $estimateProduct->user_id = $user->id;
             $estimateProduct->save();
-
         }
-
-
 
 
         return redirect()->route('business.estimates')->withSuccess(__('Estimate successfully created.'));
@@ -271,8 +267,12 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get estimate
+        $estimate = Estimate::where('id',$estimate_id)->with('status','user','customer','estimate_products.product')->withCount('estimate_products')->first();
 
-        return view('business.estimate_show',compact('user','institution'));
+//        return $estimate;
+
+        return view('business.estimate_show',compact('user','institution','estimate'));
     }
     public function estimateEdit()
     {
@@ -290,6 +290,12 @@ class SaleController extends Controller
     public function estimateDelete($estimate_id)
     {
         return back()->withSuccess(__('Estimate successfully deleted.'));
+    }
+    public function estimateProductDelete($estimate_product_id)
+    {
+        $estimateProduct = EstimateProduct::finfOrFail($estimate_product_id);
+        $estimateProduct->delete();
+        return back()->withSuccess(__('Estimate product successfully deleted.'));
     }
 
 

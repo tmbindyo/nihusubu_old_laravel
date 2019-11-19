@@ -24,10 +24,8 @@ class CreateEstimatesTable extends Migration
 
             $table->double('subtotal', 20,2);
             $table->double('discount', 20,2);
-            $table->double('adjustment', 20,2);
             $table->double('total', 20,2);
-            $table->double('refund', 20,2);
-            $table->double('adjustment_value', 20,2);
+            $table->double('refund', 20,2)->nullable();
 
             $table->uuid('customer_id')->nullable();
             $table->uuid('project_id')->nullable();

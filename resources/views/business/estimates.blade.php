@@ -57,8 +57,9 @@
                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                                     <thead>
                                     <tr>
-                                        <th>Date</th>
                                         <th>Estimate #</th>
+                                        <th>Date</th>
+                                        <th>Due Date</th>
                                         <th>Customer</th>
                                         <th>Status</th>
                                         <th>Amount</th>
@@ -68,16 +69,18 @@
                                     <tbody>
                                     @foreach($estimates as $estimate)
                                         <tr class="gradeA">
+                                            <td>{{$estimate->reference}}</td>
                                             <td>{{$estimate->date}}</td>
-                                            <td>{{$estimate->estimate_number}}</td>
-                                            <td>{{$estimate->customer->name}}</td>
+                                            <td>{{$estimate->due_date}}</td>
+                                            <td>{{$estimate->customer->first_name}} {{$estimate->customer->last_name}}</td>
                                             <td>
                                                 <p><span class="label {{$estimate->status->label}}">{{$estimate->status->name}}</span></p>
                                             </td>
+                                            <td>{{$estimate->total}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
                                                     <a href="{{ route('business.estimate.show', $estimate->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                    <a href="{{ route('business.estimate.edit', $estimate->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+{{--                                                    <a href="{{ route('business.estimate.edit', $estimate->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>--}}
                                                 </div>
                                             </td>
                                         </tr>
@@ -85,8 +88,9 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Date</th>
                                         <th>Estimate #</th>
+                                        <th>Date</th>
+                                        <th>Due Date</th>
                                         <th>Customer</th>
                                         <th>Status</th>
                                         <th>Amount</th>
