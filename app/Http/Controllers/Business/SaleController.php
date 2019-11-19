@@ -203,7 +203,8 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
-        
+
+        return $request;
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);

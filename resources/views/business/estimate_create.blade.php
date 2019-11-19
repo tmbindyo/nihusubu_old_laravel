@@ -158,7 +158,7 @@
                                                 <label>Adjustment</label>
                                             </div>
                                             <div class="col-md-2">
-                                                <input oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value" value = "0">
+                                                <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value" value = "0">
                                             </div>
                                             <div class="col-md-1">
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
