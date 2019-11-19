@@ -131,7 +131,7 @@
                             <div class="col-md-6">
                                 <label>  </label>
                                 <div class="has-warning">
-                                    <select onchange = "returnWarehouseDetails(this)" name="source_warehouse" class="select2_demo_3 form-control input-lg">
+                                    <select onchange = "returnWarehouseDetails(this)" onfocus = "this.selectedIndex = 0" name="source_warehouse" class="select2_demo_3 form-control input-lg">
                                         <option disabled>Select Source Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -142,7 +142,7 @@
                             <div class="col-md-6">
                                 <label>  </label>
                                 <div class="has-warning">
-                                    <select onchange = "destinationwarehouseSelected(this)" name="destination_warehouse" class="select2_demo_3 form-control input-lg">
+                                    <select onchange = "destinationwarehouseSelected(this)" onfocus = "this.selectedIndex = 0" name="destination_warehouse" class="select2_demo_3 form-control input-lg">
                                         <option disabled>Select Destination Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -200,9 +200,9 @@
                                         <td>
                                             <input type="number" class="form-control input-lg transfer_quantity" placeholder="E.g +10, -10" name = "item_details[0][transfer_quantity]">
                                         </td>
-                                        <td width="10px">
+                                        {{-- <td width="10px">
                                             <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-times-circle fa-2x text-danger"></i></span>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     </tbody>
                                 </table>
@@ -606,7 +606,8 @@
             // Clear all options from the dropdown
             for (singleSelect of productSelect) {
                 clearDropdownOptions(singleSelect);
-            }
+            };
+            e.blur();
         }
         function destinationwarehouseSelected (e) {
             // Sets this to an empty array when the source warehouse is changed
@@ -637,17 +638,18 @@
                     "product_id": product["id"]
                 };
                 productsArray.push(productDetails);
-            }
+            };
             // Get all product dropdowns
             var productSelect = document.getElementsByClassName("items-select");
             // Clear all options from the dropdown
             for (singleSelect of productSelect) {
                 clearDropdownOptions(singleSelect);
-            }
+            };
             // Add options to dropdown
             for (singleSelect of productSelect) {
                 populateDropdownOptionsWithProducts(singleSelect);
-            }
+            };
+            e.blur();
         }
         function clearDropdownOptions (selectElement) {
             var numberOfOptions;
@@ -682,38 +684,47 @@
         }
         var tableValueArrayIndex = 1;
         function addTableRow () {
-            var table = document.getElementById("transfer_order_table");
-            var row = table.insertRow();
-            var firstCell = row.insertCell(0);
-            var secondCell = row.insertCell(1);
-            var thirdCell = row.insertCell(2);
-            var fourthCell = row.insertCell(3);
-            firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select'"+
-                                    "name = 'item_details["+tableValueArrayIndex+"][product_id]'></select>";
-            secondCell.innerHTML = "<div class='row'>"+
-                                    "<div class='col-md-6'>"+
-                                    "<small class='control-label'>Source Stock</small>"+
-                                    "</div>"+
-                                    "<div class='col-md-6'>"+
-                                    "<small class='col-form-label-sm'>Destination Stock</small>"+
-                                    "</div>"+
-                                    "</div>"+
-                                    "<div class='row'>"+
-                                    "<div class='col-md-6'>"+
-                                    "<p class='text-center source_stock_value'>0</p>"+
-                                    "</div>"+
-                                    "<div class='col-md-6'>"+
-                                    "<p class='col-form-label-sm text-center destination_stock_value'>0</p>"+
-                                    "</div>"+
-                                    "</div>";
-            thirdCell.innerHTML = "<input type='number' class='form-control input-lg transfer_quantity' placeholder='E.g +10, -10'"+
-                                    "name = 'item_details["+tableValueArrayIndex+"][transfer_quantity]'>";
-            fourthCell.innerHTML = "<span><i data-toggle='tooltip' data-placement='right'"+
-                                    "title='Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item.'"+
-                                    "class='fa fa-times-circle fa-2x text-danger'></i></span>";
-            var selectElement = row.getElementsByClassName("items-select");
-            populateDropdownOptionsWithProducts(selectElement[0]);
-            tableValueArrayIndex++;
-        }
+            if (productsArray.length === 0) {
+                alert("Please select a source and destination warehouse.")
+            } else {
+                var table = document.getElementById("transfer_order_table");
+                var row = table.insertRow();
+                var firstCell = row.insertCell(0);
+                var secondCell = row.insertCell(1);
+                var thirdCell = row.insertCell(2);
+                var fourthCell = row.insertCell(3)
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select'"+
+                                        "name = 'item_details["+tableValueArrayIndex+"][product_id]'></select>";
+                secondCell.innerHTML = "<div class='row'>"+
+                                        "<div class='col-md-6'>"+
+                                        "<small class='control-label'>Source Stock</small>"+
+                                        "</div>"+
+                                        "<div class='col-md-6'>"+
+                                        "<small class='col-form-label-sm'>Destination Stock</small>"+
+                                        "</div>"+
+                                        "</div>"+
+                                        "<div class='row'>"+
+                                        "<div class='col-md-6'>"+
+                                        "<p class='text-center source_stock_value'>0</p>"+
+                                        "</div>"+
+                                        "<div class='col-md-6'>"+
+                                        "<p class='col-form-label-sm text-center destination_stock_value'>0</p>"+
+                                        "</div>"+
+                                        "</div>";
+                thirdCell.innerHTML = "<input type='number' class='form-control input-lg transfer_quantity' placeholder='E.g +10, -10'"+
+                                        "name = 'item_details["+tableValueArrayIndex+"][transfer_quantity]'>";
+                fourthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+                fourthCell.setAttribute("style", "width: 1em;")
+                var selectElement = row.getElementsByClassName("items-select");
+                populateDropdownOptionsWithProducts(selectElement[0]);
+                tableValueArrayIndex++;
+            };
+        };
+        function removeSelectedRow (e) {
+            var selectedParentTd = e.parentElement.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var selectedTable = selectedTr.parentElement;
+            selectedTable.removeChild(selectedTr);
+        };
     </script>
 @endsection

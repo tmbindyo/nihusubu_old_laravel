@@ -271,7 +271,7 @@
         unitPriceInputField[0].value = unitPrice;
         var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
         totalPriceInputField[0].value = quantityValue * unitPrice;
-    }
+    };
     function changeQuantity (e) {
         if (e.value.isEmpty) {
             quantityValue = 0;
@@ -289,7 +289,7 @@
         };
         var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
         totalPriceInputField[0].value = quantityValue * unitPrice;
-    }
+    };
     function changeUnitPrice (e) {
         if (e.value.isEmpty) {
             unitPrice = 0;
@@ -307,7 +307,7 @@
         }
         var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
         totalPriceInputField[0].value = quantityValue * unitPrice;
-    }
+    };
     function addTableRow () {
         var table = document.getElementById("adjustment_table");
         var row = table.insertRow();
@@ -315,6 +315,7 @@
         var secondCell = row.insertCell(1);
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
+        var fifthCell = row.insertCell(4);
         firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details[0][details]' class='select form-control input-lg select-product'>"+
                                 "<option>Select Product</option>"+
                                 "@foreach($products as $product)"+
@@ -324,7 +325,15 @@
         secondCell.innerHTML = "<input type='number' oninput = 'changeQuantity(this)' class='form-control input-lg item-quantity' name = 'item_details[0][quantity]' value = '0'>";
         thirdCell.innerHTML = "<input oninput = 'changeUnitPrice(this)' type='number' class='form-control input-lg item-unit-price' name = 'item_details[0][unit_price]' value = '0'>";
         fourthCell.innerHTML = "<input type='number' class='form-control input-lg item-total-price' name = 'item_details[0][total_price]' value = '0'>";
-    }
+        fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+        fifthCell.setAttribute("style", "width: 1em;")
+    };
+    function removeSelectedRow (e) {
+        var selectedParentTd = e.parentElement.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var selectedTable = selectedTr.parentElement;
+        selectedTable.removeChild(selectedTr);
+    };
 </script>
 
 @endsection

@@ -323,7 +323,7 @@
             itemQuantity[0].setAttribute("max", selectedItemQuantity);
         };
         itemRate[0].value = selectItemPrice;
-    }
+    };
     function changeItemQuantity (e) {
         var quantityValue;
         if (e.value.isEmpty) {
@@ -343,7 +343,7 @@
         };
         itemTotalInputField[0].value = quantityValue * itemRate;
         itemTotalChange();
-    }
+    };
     function changeItemRate (e) {
         var itemRate;
         if (e.value.isEmpty) {
@@ -363,7 +363,7 @@
         };
         itemTotalInputField[0].value = quantityValue * itemRate;
         itemTotalChange();
-    }
+    };
     function addTableRow () {
         var table = document.getElementById("estimate_table");
         var row = table.insertRow();
@@ -387,7 +387,15 @@
         secondCell.innerHTML = "<input oninput = 'changeItemQuantity(this)' name='item_details[0][quantity]' type='number' class='form-control input-lg item-quantity' value = '0' min = '0'>";
         thirdCell.innerHTML = "<input oninput = 'changeItemRate(this)' name='item_details[0][rate]' type='number' class='form-control input-lg item-rate' placeholder='E.g +10, -10' value = '0' min = '0'>";
         fourthCell.innerHTML = "<input name='item_details[0][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
-    }
+        fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+        fifthCell.setAttribute("style", "width: 1em;")
+    };
+    function removeSelectedRow (e) {
+        var selectedParentTd = e.parentElement.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var selectedTable = selectedTr.parentElement;
+        selectedTable.removeChild(selectedTr);
+    };
     function itemTotalChange () {
         subTotal = [];
         var itemTotals = document.getElementsByClassName("item-total");
@@ -406,6 +414,6 @@
         document.getElementById("adjustment-text").innerHTML = adjustedValue;
         var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
         document.getElementById("grand-total").innerHTML = adjustedTotal;
-    }
+    };
 </script>
 @endsection
