@@ -428,8 +428,6 @@ class SaleController extends Controller
         // Parse the deleted album tags into an array
         $estimateProductsIds = SaleProduct::where('sale_id',$estimate->id)->whereNotIn('product_id',$estimateProducts)->select('id')->get()->toArray();
 
-//        return $estimateProductsIds;
-
         // Delete removed album tags
         DB::table('sale_products')->whereIn('id', $estimateProductsIds)->delete();
 
