@@ -103,6 +103,7 @@ Route::get('/estimate/delete/{estimate_id}', 'Business\SaleController@estimateDe
 Route::get('/estimate/restore/{estimate_id}', 'Business\SaleController@estimateRestore')->name('business.estimate.restore');
 // estimate product
 Route::get('/estimate/product/delete/{estimate_product_id}', 'Business\SaleController@estimateProductDelete')->name('business.estimate.product.delete');
+Route::get('/estimate/print/{estimate_id}', 'Business\SaleController@estimatePrint')->name('business.estimate.print');
 
 Route::get('/sales', 'Business\SaleController@sales')->name('business.sales');
 Route::get('/sale/create', 'Business\SaleController@saleCreate')->name('business.sale.create');

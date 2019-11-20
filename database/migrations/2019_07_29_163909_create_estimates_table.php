@@ -18,12 +18,13 @@ class CreateEstimatesTable extends Migration
 
             $table->string('reference');
             $table->text('customer_notes')->nullable();
-            $table->text('terms_and_conditions')->nullable();
+            $table->longText('terms_and_conditions')->nullable();
             $table->date('date');
             $table->date('due_date');
 
             $table->double('subtotal', 20,2);
             $table->double('discount', 20,2);
+            $table->double('tax', 20,2);
             $table->double('total', 20,2);
             $table->double('refund', 20,2)->nullable();
 
@@ -39,6 +40,11 @@ class CreateEstimatesTable extends Migration
             $table->boolean('is_project');
             $table->boolean('has_uploads');
             $table->boolean('is_draft');
+
+            $table->boolean('is_estimate');
+            $table->boolean('is_invoice');
+            $table->boolean('is_order');
+            $table->boolean('is_sale');
 
             $table->timestamps();
             $table->softDeletes();

@@ -36,7 +36,7 @@
                 <div class="title-action">
                     <a href="{{route('business.estimate.edit',$estimate->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
                     <a href="{{route('business.estimate.edit',$estimate->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Invoice </a>
-                    <a href="{{route('business.invoice.print',$estimate->id)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
+                    <a href="{{route('business.estimate.print',$estimate->id)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
                 </div>
             </div>
         </div>
@@ -50,10 +50,10 @@
 
                     <div class="ibox">
                         <div class="ibox-title">
-                            <span class="pull-right">(<strong>{{$estimate->estimate_products_count}}</strong>) items</span>
+                            <span class="pull-right">(<strong>{{$estimate->sale_products_count}}</strong>) items</span>
                             <h5>Items</h5>
                         </div>
-                        @foreach($estimate->estimate_products as $product)
+                        @foreach($estimate->sale_products as $product)
                             <div class="ibox-content">
 
 
@@ -76,7 +76,7 @@
                                             {!! $product->product->description !!}
 
                                             <div class="m-t-sm">
-                                                <a href="#" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
+                                                <a href="{{route('business.estimate.product.delete',$product->id)}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
                                             </div>
                                         </td>
 
@@ -102,8 +102,6 @@
                         @endforeach
                         <div class="ibox-content">
 
-                            <button class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
-                            <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
 
                         </div>
                     </div>
@@ -120,7 +118,23 @@
                                 Total
                             </span>
                             <h2 class="font-bold">
-                                $390,00
+                                {{$estimate->total}}
+                            </h2>
+
+                            <hr/>
+                            <span>
+                                Tax
+                            </span>
+                            <h2 class="font-bold">
+                                {{$estimate->tax}}
+                            </h2>
+
+                            <hr/>
+                            <span>
+                                Discount
+                            </span>
+                            <h2 class="font-bold">
+                                {{$estimate->discount}}
                             </h2>
 
                             <hr/>
@@ -133,56 +147,6 @@
                                     <a href="#" class="btn btn-white btn-sm"> Cancel</a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5>Support</h5>
-                        </div>
-                        <div class="ibox-content text-center">
-
-
-
-                            <h3><i class="fa fa-phone"></i> +43 100 783 001</h3>
-                            <span class="small">
-                                Please contact with us if you have any questions. We are avalible 24h.
-                            </span>
-
-
-                        </div>
-                    </div>
-
-                    <div class="ibox">
-                        <div class="ibox-content">
-
-                            <p class="font-bold">
-                                Other products you may be interested
-                            </p>
-
-                            <hr/>
-                            <div>
-                                <a href="#" class="product-name"> Product 1</a>
-                                <div class="small m-t-xs">
-                                    Many desktop publishing packages and web page editors now.
-                                </div>
-                                <div class="m-t text-righ">
-
-                                    <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div>
-                                <a href="#" class="product-name"> Product 2</a>
-                                <div class="small m-t-xs">
-                                    Many desktop publishing packages and web page editors now.
-                                </div>
-                                <div class="m-t text-righ">
-
-                                    <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 

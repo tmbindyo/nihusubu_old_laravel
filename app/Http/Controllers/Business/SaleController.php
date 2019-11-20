@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Business;
 
+use DB;
 use App\Address;
+use App\AlbumTag;
 use App\Contact;
 use App\Estimate;
 use App\EstimateProduct;
@@ -12,7 +14,9 @@ use App\Order;
 use App\PaymentReceived;
 use App\PaymentTerm;
 use App\Product;
+use App\ProductTax;
 use App\Sale;
+use App\SaleProduct;
 use App\Salutation;
 use App\Tax;
 use App\Traits\InstitutionTrait;
@@ -172,7 +176,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Estimates
-        $estimates = Estimate::where('institution_id',$institution->id)->with('status','customer')->get();
+        $estimates = Sale::where('institution_id',$institution->id)->where('is_estimate',True)->with('status','customer')->get();
 
 //        return $estimates;
 
@@ -194,7 +198,6 @@ class SaleController extends Controller
 
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
-//        return $products;
 
         return view('business.estimate_create',compact('user','institution','customers','taxes','inventories','products'));
     }
@@ -205,13 +208,13 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution();
 
-        return $request;
+//        return $request;
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
 
         // Create estimate
-        $estimate = new Estimate();
+        $estimate = new Sale();
         $estimate->reference = $reference;
         $estimate->customer_notes = $request->customer_notes;
         $estimate->terms_and_conditions = $request->terms_and_conditions;
@@ -225,6 +228,11 @@ class SaleController extends Controller
         $estimate->is_refunded = False;
         $estimate->is_product = True;
         $estimate->is_project = False;
+
+        $estimate->is_estimate = True;
+        $estimate->is_invoice = False;
+        $estimate->is_order = False;
+        $estimate->is_sale = False;
         // Todo impliment uploads for attachments
         $estimate->has_uploads = False;
         // Check if draft
@@ -238,26 +246,54 @@ class SaleController extends Controller
         $estimate->customer_id = $request->customer;
         $estimate->institution_id = $institution->id;
         $estimate->user_id = $user->id;
+        // estimate tax default
+        $tax = 0;
+        $estimate->tax = $tax;
         $estimate->save();
+
+        // to do check if its a service or a product
+
 
         // Estimate products
         foreach ($request->item_details as $item) {
             $data = $item['item'];
-            list($product_id, $inventory_id,) = explode(":", $data);
+            if (strpos($data, ':') !== false){
+                list($product_id, $inventory_id,) = explode(":", $data);
+                $warehouse_id = Inventory::where('id',$inventory_id)->first()->warehouse_id;
+            }else{
+                $product_id = $data;
+                $warehouse_id = '';
+            }
 
-//            return $item;
-            $estimateProduct =  new EstimateProduct();
+            // Check if product has taxes
+            $taxes = ProductTax::where('product_id',$product_id)->with('tax')->get();
+            if ($taxes){
+                foreach ($taxes as $product_tax){
+                    $product_tax_value = doubleval($product_tax->tax->amount) * 0.01 * $item['amount'];
+                    $tax = doubleval($tax) + doubleval($product_tax_value);
+                }
+            }
+
+            $estimateProduct =  new SaleProduct();
             $estimateProduct->rate = $item['rate'];
             $estimateProduct->quantity = $item['quantity'];
             $estimateProduct->amount = $item['amount'];
-            $estimateProduct->estimate_id = $estimate->id;
+            $estimateProduct->sale_id = $estimate->id;
+            $estimateProduct->refund_amount = 0;
+            $estimateProduct->warehouse_id = $warehouse_id;
             $estimateProduct->is_product = True;
+            $estimateProduct->is_refunded = False;
+            $estimateProduct->is_returned = False;
             $estimateProduct->product_id = $product_id;
             $estimateProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
             $estimateProduct->user_id = $user->id;
             $estimateProduct->save();
         }
 
+        // Set estimate tax
+        $estimateTaxSet = Sale::findOrFail($estimate->id);
+        $estimateTaxSet->tax = $tax;
+        $estimateTaxSet->save();
 
         return redirect()->route('business.estimates')->withSuccess(__('Estimate successfully created.'));
     }
@@ -267,24 +303,141 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
-        // Get estimate
-        $estimate = Estimate::where('id',$estimate_id)->with('status','user','customer','estimate_products.product')->withCount('estimate_products')->first();
+        // Get customers
+        $customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        // Getting taxes
+        $taxes = Tax::where('institution_id',$institution->id)->get();
+        // Get Inventory
+        // Getting Products
+        $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
-//        return $estimate;
+        $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $inventories = Inventory::with('product','warehouse')->get();
+        // Get estimate
+        $estimate = Sale::where('id',$estimate_id)->with('status','user','customer','sale_products.product.product_taxes')->withCount('sale_products')->first();
 
         return view('business.estimate_show',compact('user','institution','estimate'));
     }
-    public function estimateEdit()
+    public function estimateEdit($estimate_id)
     {
         // User
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get customers
+        $customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        // Getting taxes
+        $taxes = Tax::where('institution_id',$institution->id)->get();
+        // Get Inventory
+        // Getting Products
+        $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
-        return view('business.estimate_edit',compact('user','institution'));
+        $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $inventories = Inventory::with('product','warehouse')->get();
+        // Get estimate
+        $estimate = Sale::where('id',$estimate_id)->with('status','user','customer','sale_products.product.product_taxes')->withCount('sale_products')->first();
+
+        return view('business.estimate_edit',compact('user','institution','customers','products','inventories','estimate'));
     }
     public function estimateUpdate(Request $request, $estimate_id)
     {
+//        return $request;
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+        // Create estimate
+        $estimate = Sale::where('id',$estimate_id)->first();
+        $estimate->customer_notes = $request->customer_notes;
+        $estimate->terms_and_conditions = $request->terms_and_conditions;
+        $estimate->date = date('Y-m-d', strtotime($request->date));
+        $estimate->due_date = date('Y-m-d', strtotime($request->due_date));
+        $estimate->subtotal = $request->subtotal;
+        $estimate->discount = $request->discount;
+        $estimate->total = $request->grand_total;
+        $estimate->refund = 0;
+        $estimate->is_returned = False;
+        $estimate->is_refunded = False;
+        $estimate->is_product = True;
+        $estimate->is_project = False;
+
+        $estimate->is_estimate = True;
+        $estimate->is_invoice = False;
+        $estimate->is_order = False;
+        $estimate->is_sale = False;
+        // Todo impliment uploads for attachments
+        $estimate->has_uploads = False;
+        // Check if draft
+        if ($request->is_draft == "on"){
+            $estimate->is_draft = True;
+            $estimate->status_id = "14efab17-4306-449b-bfc8-3e156b872a6d";
+        }else{
+            $estimate->is_draft = False;
+            $estimate->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
+        }
+        $estimate->customer_id = $request->customer;
+        $estimate->user_id = $user->id;
+        $estimate->save();
+        $tax = 0;
+
+
+        $estimateProducts =array();
+        // Estimate products
+        foreach ($request->item_details as $item) {
+            $data = $item['item'];
+            if (strpos($data, ':') !== false){
+                list($product_id, $inventory_id,) = explode(":", $data);
+                $warehouse_id = Inventory::where('id',$inventory_id)->first()->warehouse_id;
+            }else{
+                $product_id = $data;
+                $warehouse_id = '';
+            }
+            $estimateProducts[]['id'] = $product_id;
+
+            // Check if product has taxes
+            $taxes = ProductTax::where('product_id',$product_id)->with('tax')->get();
+            if ($taxes){
+                foreach ($taxes as $product_tax){
+                    $product_tax_value = doubleval($product_tax->tax->amount) * 0.01 * $item['amount'];
+                    $tax = doubleval($tax) + doubleval($product_tax_value);
+                }
+            }
+
+            // Check if album tag exists
+            $saleProductExists = SaleProduct::where('sale_id',$estimate->id)->where('product_id',$product_id)->first();
+
+            if($saleProductExists === null) {
+
+                $estimateProduct = new SaleProduct();
+                $estimateProduct->rate = $item['rate'];
+                $estimateProduct->quantity = $item['quantity'];
+                $estimateProduct->amount = $item['amount'];
+                $estimateProduct->sale_id = $estimate->id;
+                $estimateProduct->refund_amount = 0;
+                $estimateProduct->warehouse_id = $warehouse_id;
+                $estimateProduct->is_product = True;
+                $estimateProduct->is_refunded = False;
+                $estimateProduct->is_returned = False;
+                $estimateProduct->product_id = $product_id;
+                $estimateProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+                $estimateProduct->user_id = $user->id;
+                $estimateProduct->save();
+            }
+        }
+
+        // Parse the deleted album tags into an array
+        $estimateProductsIds = SaleProduct::where('sale_id',$estimate->id)->whereNotIn('product_id',$estimateProducts)->select('id')->get()->toArray();
+
+//        return $estimateProductsIds;
+
+        // Delete removed album tags
+        DB::table('sale_products')->whereIn('id', $estimateProductsIds)->delete();
+
+        // Set estimate tax
+        $estimateTaxSet = Sale::findOrFail($estimate->id);
+        $estimateTaxSet->tax = $tax;
+        $estimateTaxSet->save();
+
         return back()->withSuccess(__('Estimate successfully updated.'));
     }
     public function estimateDelete($estimate_id)
@@ -293,9 +446,25 @@ class SaleController extends Controller
     }
     public function estimateProductDelete($estimate_product_id)
     {
-        $estimateProduct = EstimateProduct::finfOrFail($estimate_product_id);
+        $estimateProduct = EstimateProduct::findOrFail($estimate_product_id);
+        // update estimate
+        $estimate = Estimate::where('id',$estimateProduct->estimate_id)->first();
+        $estimate->total = floatval($estimate->total)-floatval($estimateProduct->amount);
+        $estimate->subtotal =  floatval($estimate->subtotal)-floatval($estimateProduct->amount);
+        $estimate->save();
         $estimateProduct->delete();
         return back()->withSuccess(__('Estimate product successfully deleted.'));
+    }
+    public function estimatePrint($estimate_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+        // Get estimate
+        $estimate = Estimate::where('id',$estimate_id)->with('status','user','customer','estimate_products.product')->withCount('estimate_products')->first();
+
+        return view('business.estimate_print',compact('user','institution','estimate'));
     }
 
 

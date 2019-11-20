@@ -44,7 +44,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('business.estimate.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.estimate.update',$estimate->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -67,7 +67,7 @@
                                                 <select name="customer" class="select2_demo_3 form-control input-lg">
                                                     <option selected disabled>Select Customer</option>
                                                     @foreach($customers as $customer)
-                                                        <option value="{{$customer->id}}">{{$customer->company_name}}: {{$customer->last_name}}, {{$customer->first_name}}</option>
+                                                        <option @if($customer->id == $estimate->customer_id)selected @endif value="{{$customer->id}}">{{$customer->company_name}}: {{$customer->last_name}}, {{$customer->first_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -79,7 +79,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="date" id="date" class="form-control input-lg" required>
+                                                            <input type="text" value="{{$estimate->date}}" name="date" id="date" class="form-control input-lg" required>
                                                         </div>
                                                         <i> estimate date.</i>
                                                     </div>
@@ -90,7 +90,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="due_date" id="due_date" class="form-control input-lg" required>
+                                                            <input type="text" value="{{$estimate->due_date}}" name="due_date" id="due_date" class="form-control input-lg" required>
                                                         </div>
                                                         <i> due date.</i>
                                                     </div>
@@ -112,31 +112,32 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>
-                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_demo_3 form-control input-lg item-select">
-                                                        <option selected disabled>Select Item</option>
-                                                        @foreach($products as $product)
-                                                            @if($product->is_service == 0)
-                                                                @foreach($product->inventory as $inventory)
-                                                                    <option value="{{$product->id}}:{{$inventory->id}}" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
-                                                                @endforeach
-                                                            @else
-                                                                <option value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input oninput = "changeItemQuantity(this)" name="item_details[0][quantity]" type="number" class="form-control input-lg item-quantity" value = "0" min = "0">
-                                                </td>
-                                                <td>
-                                                    <input oninput = "changeItemRate(this)" name="item_details[0][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "0" min = "0">
-                                                </td>
-                                                <td>
-                                                    <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
-                                                </td>
-                                            </tr>
+                                            @foreach($estimate->sale_products as $saleProduct)
+                                                <tr>
+                                                    <td>
+                                                        <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_demo_3 form-control input-lg item-select">
+                                                            @foreach($products as $product)
+                                                                @if($product->is_service == 0)
+                                                                    @foreach($product->inventory as $inventory)
+                                                                        <option @if($saleProduct->product->id == $product->id) selected @endif value="{{$product->id}}:{{$inventory->id}}" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
+                                                                    @endforeach
+                                                                @else
+                                                                    <option @if($saleProduct->product->id == $product->id) selected @endif value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input oninput = "changeItemQuantity(this)" name="item_details[0][quantity]" type="number" class="form-control input-lg item-quantity" value = "{{$saleProduct->quantity}}" min = "0">
+                                                    </td>
+                                                    <td>
+                                                        <input oninput = "changeItemRate(this)" name="item_details[0][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "{{$saleProduct->rate}}" min = "0">
+                                                    </td>
+                                                    <td>
+                                                        <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "{{$saleProduct->amount}}" min = "0">
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                         <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
@@ -149,7 +150,7 @@
                                                 <label>Sub Total</label>
                                             </div>
                                             <div class="col-md-3">
-                                                <input name="subtotal" type = "number" class="pull-right form-control" id = "items-subtotal" readonly value="0">
+                                                <input name="subtotal" type = "number" class="pull-right form-control" id = "items-subtotal" readonly value="{{$estimate->subtotal}}">
                                             </div>
                                         </div>
                                         <hr>
@@ -158,7 +159,7 @@
                                                 <label>Adjustment</label>
                                             </div>
                                             <div class="col-md-2">
-                                                <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value" value = "0">
+                                                <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value" value = "{{$estimate->discount}}">
                                             </div>
                                             <div class="col-md-1">
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
@@ -173,7 +174,7 @@
                                                 <p>Total ()</p>
                                             </div>
                                             <div class="col-md-3">
-                                                <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control" value = "0" readonly>
+                                                <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control" value = "{{$estimate->total}}" readonly>
                                             </div>
                                         </div>
                                     </div>
