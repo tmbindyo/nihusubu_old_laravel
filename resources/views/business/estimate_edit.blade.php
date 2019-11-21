@@ -112,10 +112,13 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            @php
+                                                $product_index = 0
+                                            @endphp
                                             @foreach($estimate->sale_products as $saleProduct)
                                                 <tr>
                                                     <td>
-                                                        <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_demo_3 form-control input-lg item-select">
+                                                        <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[{{$product_index}}][item]" class="select2_demo_3 form-control input-lg item-select">
                                                             @foreach($products as $product)
                                                                 @if($product->is_service == 0)
                                                                     @foreach($product->inventory as $inventory)
@@ -128,15 +131,21 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <input oninput = "changeItemQuantity(this)" name="item_details[0][quantity]" type="number" class="form-control input-lg item-quantity" value = "{{$saleProduct->quantity}}" min = "0">
+                                                        <input oninput = "changeItemQuantity(this)" name="item_details[{{$product_index}}][quantity]" type="number" class="form-control input-lg item-quantity" value = "{{$saleProduct->quantity}}" min = "0">
                                                     </td>
                                                     <td>
-                                                        <input oninput = "changeItemRate(this)" name="item_details[0][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "{{$saleProduct->rate}}" min = "0">
+                                                        <input oninput = "changeItemRate(this)" name="item_details[{{$product_index}}][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "{{$saleProduct->rate}}" min = "0">
                                                     </td>
                                                     <td>
-                                                        <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "{{$saleProduct->amount}}" min = "0">
+                                                        <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[{{$product_index}}][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "{{$saleProduct->amount}}" min = "0">
+                                                    </td>
+                                                    <td style = "width: 1em;">
+                                                        <span><i onclick = "removeSelectedRow(this)" class = "fa fa-minus-circle btn btn-danger"></i></span>
                                                     </td>
                                                 </tr>
+                                                @php
+                                                    $product_index++
+                                                @endphp
                                             @endforeach
                                             </tbody>
                                         </table>
