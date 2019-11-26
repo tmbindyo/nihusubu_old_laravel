@@ -23,26 +23,37 @@
             <div class="col-sm-6">
                 <h5>From:</h5>
                 <address>
-                    <strong>Inspinia, Inc.</strong><br>
+                    <strong>{{$institution->name}}</strong><br>
                     106 Jorg Avenu, 600/10<br>
                     Chicago, VT 32456<br>
-                    <abbr title="Phone">P:</abbr> (123) 601-4590
+                    <abbr title="Phone">P:</abbr> {{$institution->phone_number}}
                 </address>
             </div>
 
             <div class="col-sm-6 text-right">
                 <h4>Estimate No.</h4>
-                <h4 class="text-navy">INV-000567F7-00</h4>
+                <h4 class="text-navy">{{$estimate->reference}}</h4>
                 <span>To:</span>
+                @if($estimate->customer->is_business == 1)
+                {{--  if business  --}}
                 <address>
-                    <strong>Corporate, Inc.</strong><br>
+                    <strong>{{$estimate->customer->company_name}}</strong><br>
                     112 Street Avenu, 1080<br>
                     Miami, CT 445611<br>
-                    <abbr title="Phone">P:</abbr> (120) 9000-4321
+                    <abbr title="Phone">P:</abbr> {{$estimate->customer->phone_number}}
                 </address>
+                @else
+                {{--  if not business  --}}
+                <address>
+                    <strong>{{$estimate->customer->first_name}} {{$estimate->customer->last_name}}</strong><br>
+                    112 Street Avenu, 1080<br>
+                    Miami, CT 445611<br>
+                    <abbr title="Phone">P:</abbr> {{$estimate->customer->phone_number}}
+                </address>
+                @endif
                 <p>
-                    <span><strong>Estimate Date:</strong> Marh 18, 2014</span><br/>
-                    <span><strong>Due Date:</strong> March 24, 2014</span>
+                    <span><strong>Estimate Date:</strong> {{$estimate->date}} </span><br/>
+                    <span><strong>Due Date:</strong> {{$estimate->due_date}}</span>
                 </p>
             </div>
         </div>
@@ -58,7 +69,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($estimate->estimate_products as $product)
+                @foreach($estimate->sale_products as $product)
                     <tr>
                         <td><div><strong>{{$product->product->name}}</strong></div>
                             <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
@@ -80,7 +91,7 @@
             </tr>
             <tr>
                 <td><strong>TAX :</strong></td>
-                {{$estimate->tax}}
+                <td>{{$estimate->tax}}</td>
             </tr>
             <tr>
                 <td><strong>Discount :</strong></td>
@@ -92,8 +103,12 @@
             </tr>
             </tbody>
         </table>
-        <div class="well m-t"><strong>Comments</strong>
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less
+        <div class="well m-t"><strong>Notes</strong>
+            {{$estimate->customer_notes}}
+        </div>
+
+        <div class="well m-t"><strong>Terms and Conditions</strong>
+            {{$estimate->terms_and_conditions}}
         </div>
     </div>
 

@@ -201,6 +201,7 @@ class SaleController extends Controller
 
         return view('business.estimate_create',compact('user','institution','customers','taxes','inventories','products'));
     }
+
     public function estimateStore(Request $request)
     {
         // User
@@ -297,6 +298,7 @@ class SaleController extends Controller
 
         return redirect()->route('business.estimates')->withSuccess(__('Estimate successfully created.'));
     }
+
     public function estimateShow($estimate_id)
     {
         // User
@@ -318,6 +320,7 @@ class SaleController extends Controller
 
         return view('business.estimate_show',compact('user','institution','estimate'));
     }
+
     public function estimateEdit($estimate_id)
     {
         // User
@@ -339,6 +342,7 @@ class SaleController extends Controller
 
         return view('business.estimate_edit',compact('user','institution','customers','products','inventories','estimate'));
     }
+
     public function estimateUpdate(Request $request, $estimate_id)
     {
 //        return $request;
@@ -438,21 +442,27 @@ class SaleController extends Controller
 
         return back()->withSuccess(__('Estimate successfully updated.'));
     }
+
     public function estimateDelete($estimate_id)
     {
         return back()->withSuccess(__('Estimate successfully deleted.'));
     }
+
     public function estimateProductDelete($estimate_product_id)
     {
-        $estimateProduct = EstimateProduct::findOrFail($estimate_product_id);
+//        return $estimate_product_id;
+        $estimateProduct = SaleProduct::findOrFail($estimate_product_id);
+
         // update estimate
-        $estimate = Estimate::where('id',$estimateProduct->estimate_id)->first();
+        $estimate = Sale::where('id',$estimateProduct->sale_id)->first();
         $estimate->total = floatval($estimate->total)-floatval($estimateProduct->amount);
         $estimate->subtotal =  floatval($estimate->subtotal)-floatval($estimateProduct->amount);
         $estimate->save();
+
         $estimateProduct->delete();
         return back()->withSuccess(__('Estimate product successfully deleted.'));
     }
+
     public function estimatePrint($estimate_id)
     {
         // User
@@ -460,8 +470,8 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Get estimate
-        $estimate = Estimate::where('id',$estimate_id)->with('status','user','customer','estimate_products.product')->withCount('estimate_products')->first();
-
+        $estimate = Sale::where('id',$estimate_id)->with('status','user','customer.billing_address','sale_products.product')->withCount('sale_products')->first();
+//        return $estimate;
         return view('business.estimate_print',compact('user','institution','estimate'));
     }
 
