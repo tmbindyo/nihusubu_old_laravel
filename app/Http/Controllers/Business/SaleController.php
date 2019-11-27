@@ -1140,8 +1140,10 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+
         // Get received payments
-        $paymentsReceived = PaymentReceived::where('institution_id',$institution->id)->with('sale','status','user')->get();
+        $saleIds = Sale::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $paymentsReceived = PaymentReceived::where('sale_id',$saleIds)->with('sale','status','user')->get();
 
         return view('business.payments_received',compact('user','institution','paymentsReceived'));
     }
