@@ -57,27 +57,29 @@
                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                                     <thead>
                                     <tr>
-                                        <th>Date</th>
                                         <th>Sale #</th>
+                                        <th>Date</th>
+                                        <th>Due Date</th>
                                         <th>Customer</th>
-                                        <th>Status</th>
                                         <th>Amount</th>
-                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($sales as $sale)
                                         <tr class="gradeA">
+                                            <td>{{$sale->reference}}</td>
                                             <td>{{$sale->date}}</td>
-                                            <td>{{$sale->sale_number}}</td>
-                                            <td>{{$sale->customer->name}}</td>
+                                            <td>{{$sale->due_date}}</td>
+                                            <td>{{$sale->customer->first_name}} {{$sale->customer->last_name}}</td>
+                                            <td>{{$sale->total}}</td>
                                             <td>
                                                 <p><span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></p>
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
                                                     <a href="{{ route('business.sale.show', $sale->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                    <a href="{{ route('business.sale.edit', $sale->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -85,12 +87,13 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Date</th>
                                         <th>Sale #</th>
+                                        <th>Date</th>
+                                        <th>Due Date</th>
                                         <th>Customer</th>
-                                        <th>Status</th>
                                         <th>Amount</th>
-                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>

@@ -1,6 +1,6 @@
 @extends('business.layouts.app')
 
-@section('title', ' Invoices')
+@section('title', ' Sales')
 
 @section('css')
 
@@ -19,7 +19,7 @@
 
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>Invoices</h2>
+                <h2>Sales</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="{{route('business.dashboard')}}">Home</a>
@@ -28,13 +28,13 @@
                         <a href="{{route('business.sales')}}">Sales</a>
                     </li>
                     <li class="active">
-                        <strong>Invoices</strong>
+                        <strong>Sales</strong>
                     </li>
                 </ol>
             </div>
             <div class="col-lg-2">
                 <div class="title-action">
-                    <a href="{{route('business.invoice.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Invoice </a>
+                    <a href="{{route('business.sale.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Invoices</h5>
+                            <h5>Sales</h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -57,41 +57,27 @@
                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                                     <thead>
                                     <tr>
-                                        <th>Invoice #</th>
                                         <th>Date</th>
-                                        <th>Due Date</th>
+                                        <th>Sale #</th>
                                         <th>Customer</th>
-                                        <th>Amount</th>
                                         <th>Status</th>
-                                        <th>Progress</th>
-                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                        <th>Amount</th>
+                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($invoices as $invoice)
+                                    @foreach($sales as $sale)
                                         <tr class="gradeA">
-                                            <td>{{$invoice->reference}}</td>
-                                            <td>{{$invoice->date}}</td>
-                                            <td>{{$invoice->due_date}}</td>
-                                            <td>{{$invoice->customer->first_name}} {{$invoice->customer->last_name}}</td>
-                                            <td>{{$invoice->total}}</td>
+                                            <td>{{$sale->date}}</td>
+                                            <td>{{$sale->sale_number}}</td>
+                                            <td>{{$sale->customer->name}}</td>
                                             <td>
-                                                <p><span class="label {{$invoice->status->label}}">{{$invoice->status->name}}</span></p>
-                                            </td>
-                                            <td>
-                                                @if($invoice->is_sale == 1)
-                                                    <p><span class="badge badge-success">Sale</span></p>
-                                                @elseif($invoice->is_order == 1)
-                                                <p><span class="badge badge-primary">Order</span></p>
-                                                @elseif($invoice->is_invoice == 1)
-                                                <p><span class="badge badge-primary">Invoice</span></p>
-                                                @elseif($invoice->is_estimate == 1)
-                                                    <p><span class="badge badge-primary">Estimate</span></p>
-                                                @endif
+                                                <p><span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></p>
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.invoice.show', $invoice->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    <a href="{{ route('business.sale.show', $sale->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    <a href="{{ route('business.sale.edit', $sale->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -99,14 +85,12 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Invoice #</th>
                                         <th>Date</th>
-                                        <th>Due Date</th>
+                                        <th>Sale #</th>
                                         <th>Customer</th>
-                                        <th>Amount</th>
                                         <th>Status</th>
-                                        <th>Progress</th>
-                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                        <th>Amount</th>
+                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>

@@ -26,6 +26,8 @@ class CreateSalesTable extends Migration
             $table->double('discount', 20,2);
             $table->double('tax', 20,2);
             $table->double('total', 20,2);
+            $table->double('paid', 20,2);
+            $table->double('balance', 20,2);
             $table->double('refund', 20,2)->nullable();
 
             $table->uuid('customer_id')->nullable();
@@ -34,6 +36,7 @@ class CreateSalesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 
+            $table->boolean('is_sample');
             $table->boolean('is_returned');
             $table->boolean('is_refunded');
             $table->boolean('is_product');

@@ -72,5 +72,13 @@ class StatusTypeTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        DB::table('status_types')->insert([
+            'id' => '3b3fd271-2a21-44b8-9246-f90793639f24',
+            'name' => 'Payment',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

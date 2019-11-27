@@ -304,6 +304,25 @@ class StatusTableSeeder extends Seeder
             'user_id' => 1,
         ]);
 
+        // payments received statuses
+        DB::table('statuses')->insert([
+            'id' => '383aaf7-a45b-4931-918f-fab3daa8a97a',
+            'name' => 'Received',
+            'description' => 'Received Payment',
+            'label' => 'label-success',
+            'status_type_id' => '3b3fd271-2a21-44b8-9246-f90793639f24',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '276b2772-7230-4f83-bbd7-ec45e3da2ae4',
+            'name' => 'Refunded',
+            'description' => 'Refunded Payment',
+            'label' => 'label-danger',
+            'status_type_id' => '3b3fd271-2a21-44b8-9246-f90793639f24',
+            'user_id' => 1,
+        ]);
+
 
 
     }

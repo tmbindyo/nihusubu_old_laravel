@@ -30,10 +30,11 @@
         </div>
         <div class="col-lg-6">
             <div class="title-action">
-                <a href="#" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Payment </a>
-                <a href="#" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Return </a>
-                <a href="#" class="btn btn-danger btn-outline"><i class="fa fa-pencil"></i> Issue </a>
-                <a href="{{route('business.invoice.print',1)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Invoice </a>
+                <a href="#" data-toggle="modal" data-target="#paymentRegistration" aria-expanded="false" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Payment </a>
+                {{--  todo return --}}
+{{--                <a href="#" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Return </a>--}}
+{{--                <a href="#" class="btn btn-danger btn-outline"><i class="fa fa-pencil"></i> Issue </a>--}}
+                <a href="{{route('business.sale.print',$sale->id)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Invoice </a>
             </div>
         </div>
     </div>
@@ -43,263 +44,58 @@
 
                 <div class="ibox">
                     <div class="ibox-title">
-                        <span class="pull-right">(<strong>5</strong>) items</span>
-                        <h5>Items in your cart</h5>
+                        <span class="pull-right">(<strong>{{$sale->sale_products_count}}</strong>) items</span>
+                        <h5>Items</h5>
                     </div>
-                    <div class="ibox-content">
+                    @foreach($sale->sale_products as $product)
+                        <div class="ibox-content">
 
 
-                        <div class="table-responsive">
-                            <table class="table shoping-cart-table">
+                            <div class="table-responsive">
+                                <table class="table shoping-cart-table">
 
-                                <tbody>
-                                <tr>
-                                    <td width="90">
-                                        <div class="cart-product-imitation">
-                                        </div>
-                                    </td>
-                                    <td class="desc">
-                                        <h3>
-                                            <a href="#" class="text-navy">
-                                                Desktop publishing software
-                                            </a>
-                                        </h3>
-                                        <p class="small">
-                                            It is a long established fact that a reader will be distracted by the readable
-                                            content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                        </p>
-                                        <dl class="small m-b-none">
-                                            <dt>Description lists</dt>
-                                            <dd>A description list is perfect for defining terms.</dd>
-                                        </dl>
+                                    <tbody>
+                                    <tr>
+                                        <td width="90">
+                                            <div class="cart-product-imitation">
+                                            </div>
+                                        </td>
+                                        <td class="desc">
+                                            <h3>
+                                                <a href="{{route('business.product.show',$product->product->id)}}" class="text-navy">
+                                                    {{$product->product->name}}
+                                                </a>
+                                            </h3>
 
-                                        <div class="m-t-sm">
-                                            <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
-                                            |
-                                            <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
-                                        </div>
-                                    </td>
+                                            {!! $product->product->description !!}
 
-                                    <td>
-                                        $180,00
-                                        <s class="small text-muted">$230,00</s>
-                                    </td>
-                                    <td width="65">
-                                        <input type="text" class="form-control" placeholder="1">
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            $180,00
-                                        </h4>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                            <div class="m-t-sm">
+                                                <a href="{{route('business.sale.product.delete',$product->id)}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <h4>
+                                                {{$product->rate}}
+                                            </h4>
+                                        </td>
+                                        <td width="65">
+                                            <input type="text" class="form-control" value="{{$product->quantity}}" readonly>
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                {{$product->amount}}
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
-
-                    </div>
-                    <div class="ibox-content">
-                        <div class="table-responsive">
-                            <table class="table shoping-cart-table">
-
-                                <tbody>
-                                <tr>
-                                    <td width="90">
-                                        <div class="cart-product-imitation">
-                                        </div>
-                                    </td>
-                                    <td class="desc">
-                                        <h3>
-                                            <a href="#" class="text-navy">
-                                                Text editor
-                                            </a>
-                                        </h3>
-                                        <p class="small">
-                                            There are many variations of passages of Lorem Ipsum available
-                                        </p>
-                                        <dl class="small m-b-none">
-                                            <dt>Description lists</dt>
-                                            <dd>List is perfect for defining terms.</dd>
-                                        </dl>
-
-                                        <div class="m-t-sm">
-                                            <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
-                                            |
-                                            <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        $50,00
-                                        <s class="small text-muted">$63,00</s>
-                                    </td>
-                                    <td width="65">
-                                        <input type="text" class="form-control" placeholder="2">
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            $100,00
-                                        </h4>
-                                    </td>
-
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                    <div class="ibox-content">
-                        <div class="table-responsive">
-                            <table class="table shoping-cart-table">
-
-                                <tbody>
-                                <tr>
-                                    <td width="90">
-                                        <div class="cart-product-imitation">
-                                        </div>
-                                    </td>
-                                    <td class="desc">
-                                        <h3>
-                                            <a href="#" class="text-navy">
-                                                CRM software
-                                            </a>
-                                        </h3>
-                                        <p class="small">
-                                            Distracted by the readable
-                                            content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                        </p>
-                                        <dl class="small m-b-none">
-                                            <dt>Description lists</dt>
-                                            <dd>A description list is perfect for defining terms.</dd>
-                                        </dl>
-
-                                        <div class="m-t-sm">
-                                            <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
-                                            |
-                                            <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        $110,00
-                                    </td>
-                                    <td width="65">
-                                        <input type="text" class="form-control" placeholder="1">
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            $110,00
-                                        </h4>
-                                    </td>
-
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                    <div class="ibox-content">
-                        <div class="table-responsive">
-                            <table class="table shoping-cart-table">
-
-                                <tbody>
-                                <tr>
-                                    <td width="90">
-                                        <div class="cart-product-imitation">
-                                        </div>
-                                    </td>
-                                    <td class="desc">
-                                        <h3>
-                                            <a href="#" class="text-navy">
-                                                PM software
-                                            </a>
-                                        </h3>
-                                        <p class="small">
-                                            Readable content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                        </p>
-                                        <dl class="small m-b-none">
-                                            <dt>Description lists</dt>
-                                            <dd>A description list is perfect for defining terms.</dd>
-                                        </dl>
-
-                                        <div class="m-t-sm">
-                                            <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
-                                            |
-                                            <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        $130,00
-                                    </td>
-                                    <td width="65">
-                                        <input type="text" class="form-control" placeholder="1">
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            $130,00
-                                        </h4>
-                                    </td>
-
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                    <div class="ibox-content">
-                        <div class="table-responsive">
-                            <table class="table shoping-cart-table">
-
-                                <tbody>
-                                <tr>
-                                    <td width="90">
-                                        <div class="cart-product-imitation">
-                                        </div>
-                                    </td>
-                                    <td class="desc">
-                                        <h3>
-                                            <a href="#" class="text-navy">
-                                                Photo editor
-                                            </a>
-                                        </h3>
-                                        <p class="small">
-                                            Page when looking at its layout. The point of using Lorem Ipsum is
-                                        </p>
-                                        <dl class="small m-b-none">
-                                            <dt>Description lists</dt>
-                                            <dd>A description list is perfect for defining terms.</dd>
-                                        </dl>
-
-                                        <div class="m-t-sm">
-                                            <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
-                                            |
-                                            <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        $700,00
-                                    </td>
-                                    <td width="65">
-                                        <input type="text" class="form-control" placeholder="1">
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            $70,00
-                                        </h4>
-                                    </td>
-
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
+                    @endforeach
                     <div class="ibox-content">
 
-                        <button class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
-                        <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
 
                     </div>
                 </div>
@@ -312,73 +108,60 @@
                         <h5>Cart Summary</h5>
                     </div>
                     <div class="ibox-content">
-                        <span>
-                            Total
-                        </span>
+                            <span>
+                                Total
+                            </span>
                         <h2 class="font-bold">
-                            $390,00
+                            {{$sale->total}}
                         </h2>
 
                         <hr/>
-                        <span class="text-muted small">
-                            *For United States, France and Germany applicable sales tax will be applied
-                        </span>
+                        <span>
+                                Tax
+                            </span>
+                        <h2 class="font-bold">
+                            {{$sale->tax}}
+                        </h2>
+
+                        <hr/>
+                        <span>
+                                Discount
+                            </span>
+                        <h2 class="font-bold">
+                            {{$sale->discount}}
+                        </h2>
+
+                        <hr/>
+                        @if($sale->customer)
+                            <span class="text-muted small">
+
+                                @if($sale->customer->is_business == 1)
+                                    {{--  if business  --}}
+                                    <address>
+                                            <strong>{{$sale->customer->company_name}}</strong><br>
+                                            112 Street Avenu, 1080<br>
+                                            Miami, CT 445611<br>
+                                            <abbr title="Phone">P:</abbr> {{$sale->customer->phone_number}}<br>
+                                            <abbr title="Email">E:</abbr> {{$sale->customer->email}}
+                                        </address>
+                                @else
+                                    {{--  if not business  --}}
+                                    <address>
+                                            <strong>{{$sale->customer->first_name}} {{$sale->customer->last_name}}</strong><br>
+                                            112 Street Avenu, 1080<br>
+                                            Miami, CT 445611<br>
+                                            <abbr title="Phone">P:</abbr> {{$sale->customer->phone_number}}<br>
+                                            <abbr title="Email">E:</abbr> {{$sale->customer->email}}
+                                        </address>
+                                @endif
+                            </span>
+                        @endif
                         <div class="m-t-sm">
                             <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
-                                <a href="#" class="btn btn-white btn-sm"> Cancel</a>
+                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-mail-forward"></i> Send</a>
+                                <a href="#" class="btn btn-danger btn-sm"> Cancel</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Support</h5>
-                    </div>
-                    <div class="ibox-content text-center">
-
-
-
-                        <h3><i class="fa fa-phone"></i> +43 100 783 001</h3>
-                        <span class="small">
-                            Please contact with us if you have any questions. We are avalible 24h.
-                        </span>
-
-
-                    </div>
-                </div>
-
-                <div class="ibox">
-                    <div class="ibox-content">
-
-                        <p class="font-bold">
-                            Other products you may be interested
-                        </p>
-
-                        <hr/>
-                        <div>
-                            <a href="#" class="product-name"> Product 1</a>
-                            <div class="small m-t-xs">
-                                Many desktop publishing packages and web page editors now.
-                            </div>
-                            <div class="m-t text-righ">
-
-                                <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div>
-                            <a href="#" class="product-name"> Product 2</a>
-                            <div class="small m-t-xs">
-                                Many desktop publishing packages and web page editors now.
-                            </div>
-                            <div class="m-t text-righ">
-
-                                <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
@@ -415,42 +198,82 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>
                                 <tr>
-                                    <th>Rendering engine</th>
-                                    <th>Browser</th>
-                                    <th>Platform(s)</th>
-                                    <th>Engine version</th>
-                                    <th>CSS grade</th>
+                                    <th>Date </th>
+                                    <th>Paid</th>
+                                    <th>Refunded</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="gradeX">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                        Explorer 4.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td class="center">4</td>
-                                    <td class="center">X</td>
-                                </tr>
+                                @foreach($sale->payments_received as $payment_received)
+                                    <tr class="gradeX">
+                                        <td>{{$payment_received->date}}</td>
+                                        <td>{{$payment_received->paid}}</td>
+                                        <td>{{$payment_received->refunded}}</td>
+                                        <td>
+{{--                                            <p><span class="label {{$payment_received->status->label}}">{{$payment_received->status->name}}</span></p>--}}
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="#" data-toggle="modal" data-target="#{{$payment_received->id}}" aria-expanded="false"  class="btn-success btn-outline btn btn-xs">Refund</a>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                                <tr class="gradeC">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                        Explorer 5.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5</td>
-                                    <td class="center">C</td>
-                                </tr>
+                                    <div class="modal inmodal" id="{{$payment_received->id}}" tabindex="-1" role="dialog" aria-labelledby="paymentRegistrationLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content animated bounceInRight">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <i class="fa fa-dollar-sign modal-icon"></i>
+                                                    <h4 class="modal-title">Payment Registration</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" action="{{ route('business.sale.record.payment.refund',$payment_received->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                                        @csrf
+
+                                                        @if ($errors->any())
+                                                            <div class="alert alert-danger">
+                                                                <ul>
+                                                                    @foreach ($errors->all() as $error)
+                                                                        <li>{{ $error }}</li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        @endif
+
+                                                        <div class="row">
+                                                            <div class="">
+                                                                <div class="has-warning">
+                                                                    <input type="number" name="amount" required="required" max="{{$payment_received->paid}}" placeholder="Amount" class="form-control input-lg">
+                                                                    <i>amount paid</i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="ln_solid"></div>
+
+                                                        <div class="text-center">
+                                                            <button type="submit" class="btn btn-block btn-outline btn-lg btn-success mt-4">{{ __('Save') }}</button>
+                                                        </div>
+
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
 
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>Rendering engine</th>
-                                    <th>Browser</th>
-                                    <th>Platform(s)</th>
-                                    <th>Engine version</th>
-                                    <th>CSS grade</th>
+                                    <th>Date </th>
+                                    <th>Paid</th>
+                                    <th>Refunded</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -463,6 +286,8 @@
 
     </div>
 @endsection
+
+@include('business.layouts.modals.payment_register')
 
 @section('js')
 <!-- Mainly scripts -->

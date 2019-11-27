@@ -1,6 +1,6 @@
 @extends('business.layouts.app')
 
-@section('title', ' Estimate')
+@section('title', ' Invoice')
 
 @section('css')
 
@@ -16,7 +16,7 @@
 
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-8">
-                <h2>Estimate</h2>
+                <h2>Invoice</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="{{route('business.dashboard')}}">Home</a>
@@ -25,23 +25,23 @@
                         <a href="{{route('business.sales')}}">Sales</a>
                     </li>
                     <li>
-                        <a href="{{route('business.estimates')}}">Estimates</a>
+                        <a href="{{route('business.invoices')}}">Invoices</a>
                     </li>
                     <li class="active">
-                        <strong>Estimate</strong>
+                        <strong>Invoice</strong>
                     </li>
                 </ol>
             </div>
             <div class="col-lg-4">
                 <div class="title-action">
-                    @if($estimate->is_invoice == 0)
-                        <a href="{{route('business.estimate.edit',$estimate->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
-                        <a href="{{route('business.estimate.convert.to.invoice',$estimate->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Invoice </a>
+                    @if($invoice->is_sale == 0)
+                        <a href="{{route('business.invoice.edit',$invoice->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                        <a href="{{route('business.invoice.convert.to.sale',$invoice->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Sale </a>
                     @else
-                        <a href="{{route('business.invoice.show',$estimate->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Invoice </a>
+                        <a href="{{route('business.invoice.show',$invoice->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Invoice </a>
 
                     @endif
-                    <a href="{{route('business.estimate.print',$estimate->id)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
+                    <a href="{{route('business.invoice.print',$invoice->id)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
                 </div>
             </div>
         </div>
@@ -55,10 +55,10 @@
 
                     <div class="ibox">
                         <div class="ibox-title">
-                            <span class="pull-right">(<strong>{{$estimate->sale_products_count}}</strong>) items</span>
+                            <span class="pull-right">(<strong>{{$invoice->sale_products_count}}</strong>) items</span>
                             <h5>Items</h5>
                         </div>
-                        @foreach($estimate->sale_products as $product)
+                        @foreach($invoice->sale_products as $product)
                             <div class="ibox-content">
 
 
@@ -81,7 +81,7 @@
                                             {!! $product->product->description !!}
 
                                             <div class="m-t-sm">
-                                                <a href="{{route('business.estimate.product.delete',$product->id)}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
+                                                <a href="{{route('business.invoice.product.delete',$product->id)}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
                                             </div>
                                         </td>
 
@@ -123,7 +123,7 @@
                                 Total
                             </span>
                             <h2 class="font-bold">
-                                {{$estimate->total}}
+                                {{$invoice->total}}
                             </h2>
 
                             <hr/>
@@ -131,7 +131,7 @@
                                 Tax
                             </span>
                             <h2 class="font-bold">
-                                {{$estimate->tax}}
+                                {{$invoice->tax}}
                             </h2>
 
                             <hr/>
@@ -139,28 +139,28 @@
                                 Discount
                             </span>
                             <h2 class="font-bold">
-                                {{$estimate->discount}}
+                                {{$invoice->discount}}
                             </h2>
 
                             <hr/>
                             <span class="text-muted small">
-                                @if($estimate->customer->is_business == 1)
+                                @if($invoice->customer->is_business == 1)
                                     {{--  if business  --}}
                                     <address>
-                                        <strong>{{$estimate->customer->company_name}}</strong><br>
+                                        <strong>{{$invoice->customer->company_name}}</strong><br>
                                         112 Street Avenu, 1080<br>
                                         Miami, CT 445611<br>
-                                        <abbr title="Phone">P:</abbr> {{$estimate->customer->phone_number}}<br>
-                                        <abbr title="Email">E:</abbr> {{$estimate->customer->email}}
+                                        <abbr title="Phone">P:</abbr> {{$invoice->customer->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$invoice->customer->email}}
                                     </address>
                                 @else
                                     {{--  if not business  --}}
                                     <address>
-                                        <strong>{{$estimate->customer->first_name}} {{$estimate->customer->last_name}}</strong><br>
+                                        <strong>{{$invoice->customer->first_name}} {{$invoice->customer->last_name}}</strong><br>
                                         112 Street Avenu, 1080<br>
                                         Miami, CT 445611<br>
-                                        <abbr title="Phone">P:</abbr> {{$estimate->customer->phone_number}}<br>
-                                        <abbr title="Email">E:</abbr> {{$estimate->customer->email}}
+                                        <abbr title="Phone">P:</abbr> {{$invoice->customer->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$invoice->customer->email}}
                                     </address>
                                 @endif
                             </span>
