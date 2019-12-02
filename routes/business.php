@@ -1,9 +1,7 @@
 <?php
 
-
 //Dashboard
 Route::get('/dashboard', 'Business\DashboardController@dashboard')->name('business.dashboard');
-
 
 //Calendar
 Route::get('/calendar', 'Business\CalendarController@calendar')->name('business.calendar');
