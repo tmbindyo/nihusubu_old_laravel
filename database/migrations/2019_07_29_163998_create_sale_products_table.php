@@ -18,7 +18,8 @@ class CreateSaleProductsTable extends Migration
 
             $table->double('rate', 20,2);
             $table->double('quantity', 20,2);
-            $table->double('refund_amount', 20,2);
+            $table->double('amount', 20,2);
+            $table->double('refund_amount', 20,2)->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
@@ -26,6 +27,7 @@ class CreateSaleProductsTable extends Migration
             $table->uuid('product_id');
             $table->uuid('warehouse_id');
 
+            $table->boolean('is_product');
             $table->boolean('is_returned');
             $table->boolean('is_refunded');
 

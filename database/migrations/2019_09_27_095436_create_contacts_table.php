@@ -16,23 +16,28 @@ class CreateContactsTable extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->double('opening_balance',20,2);
+            $table->double('balance',20,2);
+
             $table->string('company_name', 200);
-            $table->string('primary_contact_first_name', 200);
-            $table->string('primary_contact_last_name', 200);
-            $table->string('contact_display_name', 200);
-            $table->string('contact_email', 200);
-            $table->string('contact_work_phone', 200);
-            $table->string('contact_mobile', 200);
+            $table->string('first_name', 200);
+            $table->string('last_name', 200);
+            $table->string('display_name', 200)->nullable();
+            $table->string('email', 200);
+            $table->string('phone_number', 200);
             $table->string('website', 200);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('customer_type_id')->nullable();
-            $table->uuid('contact_type_id');
             $table->uuid('salutation_id');
-            $table->uuid('currency_id');
+            $table->uuid('currency_id')->nullable();
             $table->uuid('payment_term_id');
             $table->uuid('institution_id');
+            $table->uuid('shipping_address_id');
+            $table->uuid('billing_address_id');
+
+            $table->boolean('is_customer');// or vendor
+            $table->boolean('is_business');// or individual
 
             $table->timestamps();
             $table->softDeletes();

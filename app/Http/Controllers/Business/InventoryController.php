@@ -6,11 +6,14 @@ use App\Account;
 use App\Address;
 use App\Inventory;
 use App\InventoryAdjustment;
+use App\InventoryAdjustmentProduct;
 use App\Product;
 use App\Reason;
 use App\Traits\InstitutionTrait;
+use App\Traits\ReferenceNumberTrait;
 use App\Traits\UserTrait;
 use App\TransferOrder;
+use App\TransferOrderProduct;
 use App\Warehouse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,6 +23,7 @@ class InventoryController extends Controller
 
     use UserTrait;
     use institutionTrait;
+    use ReferenceNumberTrait;
 
     // Inventory adjustment CRUD
     public function inventoryAdjustments()
@@ -30,8 +34,8 @@ class InventoryController extends Controller
         $institution = $this->getInstitution();
         // Get inventory adjustments
         $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $inventoryAdjustments = InventoryAdjustment::whereIn('warehouse_id', $institutionWarehouses)->with('warehouse','user','status','account')->get();
-
+        $inventoryAdjustments = InventoryAdjustment::whereIn('warehouse_id', $institutionWarehouses)->with('warehouse','user','status','account','reason')->get();
+//        return $inventoryAdjustments;
         return view('business.inventory_adjustments',compact('user','institution','inventoryAdjustments'));
     }
     public function inventoryAdjustmentCreate()
@@ -47,33 +51,70 @@ class InventoryController extends Controller
         // Warehouse
         $warehouses = Warehouse::where('institution_id',$institution->id)->get();
         // Products
-        $products = Product::where('institution_id',$institution->id)->get();
+        $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
 
         return view('business.inventory_adjustment_create',compact('user','institution','accounts','reasons','warehouses','products'));
     }
     public function inventoryAdjustmentStore(Request $request)
     {
-        return $request;
+//        return $request;
 
         // User
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Generate reference number
+        $size = 5;
+        $reference = $this->getRandomString($size);
+
         // Inventory adjustment
         $inventoryAdjustment = new InventoryAdjustment();
+        if ($request->mode_of_adjustment == "value"){
+            $inventoryAdjustment->is_value_adjustment = True;
+        }else{
+            $inventoryAdjustment->is_value_adjustment = False;
+        }
         // Generate inventory adjustment number
-        $inventoryAdjustment->inventory_adjustment_number = 122;
-        $inventoryAdjustment->date = $request->date;
+        $inventoryAdjustment->inventory_adjustment_number = $reference;
         $inventoryAdjustment->account_id = $request->account;
         $inventoryAdjustment->reason_id = $request->reason;
         $inventoryAdjustment->warehouse_id = $request->warehouse;
         $inventoryAdjustment->description = $request->description;
         $inventoryAdjustment->user_id = $user->id;
-        $inventoryAdjustment->institution_id = $institution->id;
         $inventoryAdjustment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $inventoryAdjustment->save();
 
-        // Inventory adjustment product
+        foreach ($request->item_details as $itemDetail){
+
+            // Check if product exists
+            $product = Product::findOrFail($itemDetail['details']);
+
+            $inventoryAdjustmentProduct = new InventoryAdjustmentProduct();
+            $inventoryAdjustmentProduct->inventory_adjustment_number = 4756;
+            $inventoryAdjustmentProduct->initial_quantity = $itemDetail['on_hand'];
+            $inventoryAdjustmentProduct->subsequent_quantity = $itemDetail['new_on_hand'];
+            $inventoryAdjustmentProduct->quantity = $itemDetail['adjusted'];
+            $inventoryAdjustmentProduct->inventory_adjustment_id = $inventoryAdjustment->id;
+            $inventoryAdjustmentProduct->product_id = $itemDetail['details'];
+            $inventoryAdjustmentProduct->user_id = $user->id;
+            $inventoryAdjustmentProduct->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $inventoryAdjustmentProduct->save();
+
+
+            if ($request->mode_of_adjustment == "quantity"){
+                // Quantity adjustment
+                // Adjust inventory
+                $inventory = Inventory::where('product_id',$product->id)->where('warehouse_id',$request->warehouse)->first();
+                $inventory->quantity = $itemDetail['new_on_hand'];
+                $inventory->save();
+            }elseif ($request->mode_of_adjustment == "value"){
+
+            }
+
+
+            // Value adjustment
+        }
+
 
         return back()->withSuccess(__('Inventory adjustment successfully stored.'));
     }
@@ -83,9 +124,11 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        $inventoryAdjustment = InventoryAdjustment::findOrFail($inventory_adjustment_id);
+        $inventoryAdjustment = InventoryAdjustment::where('id',$inventory_adjustment_id)->with('inventory_adjustment_products.product','status','reason','account','warehouse','user')->withCount('inventory_adjustment_products')->first();
 
-
-        return view('business.inventory_adjustment_show',compact('user','institution'));
+//        return $inventoryAdjustment;
+        return view('business.inventory_adjustment_show',compact('user','institution','inventoryAdjustment'));
     }
     public function inventoryAdjustmentEdit($inventory_adjustment_id)
     {
@@ -112,8 +155,14 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get inventory adjustments
+        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $transferOrders = TransferOrder::where('institution_id', $institution->id)->with('source_warehouse','destination_warehouse','user','status')->get();
 
-        return view('business.transfer_orders',compact('user','institution'));
+//        return $transferOrders;
+
+//        return $transferOrders;
+        return view('business.transfer_orders',compact('user','institution','transferOrders'));
     }
     public function transferOrderCreate()
     {
@@ -121,12 +170,62 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get institution accounts
+        $accounts = Account::where('institution_id',$institution->id)->get();
+        // Warehouse
+        $warehouses = Warehouse::where('institution_id',$institution->id)->get();
+        // Products
+        $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
 
-        return view('business.transfer_order_create',compact('user','institution'));
+
+        return view('business.transfer_order_create',compact('user','institution','accounts','warehouses','products'));
     }
-    public function transferOrderStore()
+    public function transferOrderStore(Request $request)
     {
-        return back()->withSuccess(__('Transfer order successfully stored.'));
+
+
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+        $size = 5;
+        $reference = $this->getRandomString($size);
+
+        $transferOrder = new TransferOrder();
+        $transferOrder->transfer_order_number = $reference;;
+        $transferOrder->reason = $request->reason;
+        $transferOrder->date = date("Y/m/d");
+        $transferOrder->source_warehouse_id = $request->source_warehouse;
+        $transferOrder->destination_warehouse_id = $request->destination_warehouse;
+        $transferOrder->user_id = $user->id;
+        $transferOrder->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $transferOrder->institution_id = $institution->id;
+        $transferOrder->save();
+
+        // inventory where product and warehouse
+        foreach ($request->item_details as $transfer){
+
+            $sourceWarehouse = Inventory::where('warehouse_id', $request->source_warehouse)->where('product_id', $transfer['product_id'])->first();
+            $destinationWarehouse = Inventory::where('warehouse_id', $request->destination_warehouse)->where('product_id', $transfer['product_id'])->first();
+//            return $destinationWarehouse;
+
+            $transferOrderProduct = new TransferOrderProduct();
+            $transferOrderProduct->source_warehouse_initial_amount = $sourceWarehouse->quantity;
+            $source_subsequent_amount = doubleval($sourceWarehouse->quantity)-doubleval($transfer['transfer_quantity']);
+            $transferOrderProduct->source_warehouse_subsequent_amount = $source_subsequent_amount;
+            $transferOrderProduct->destination_warehouse_initial_amount = $destinationWarehouse->quantity;
+            $destination_subsequent_amount = doubleval($destinationWarehouse->quantity)+doubleval($transfer['transfer_quantity']);
+            $transferOrderProduct->destination_warehouse_subsequent_amount = $destination_subsequent_amount;
+            $transferOrderProduct->quantity = $transfer['transfer_quantity'];
+            $transferOrderProduct->transfer_order_id = $transferOrder->id;
+            $transferOrderProduct->product_id = $transfer['product_id'];
+            $transferOrderProduct->user_id = $user->id;
+            $transferOrderProduct->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $transferOrderProduct->save();
+
+        }
+
+        return redirect()->route('business.transfer.orders')->withSuccess(__('Transfer order successfully stored.'));
     }
     public function transferOrderShow($transfer_order_id)
     {
@@ -134,8 +233,12 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        $transferOrder = TransferOrder::findOrFail($transfer_order_id);
+        $transferOrder = TransferOrder::where('id',$transfer_order_id)->with('source_warehouse.user','destination_warehouse.user','transfer_order_products.product')->withCount('transfer_order_products')->first();
 
-        return view('business.transfer_order_show',compact('user','institution'));
+//        return $transferOrder;
+//
+        return view('business.transfer_order_show',compact('user','institution','transferOrder'));
     }
     public function transferOrderEdit($transfer_order_id)
     {

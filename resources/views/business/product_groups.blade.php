@@ -56,9 +56,8 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>SKU</th>
-                    <th>Stock on Hand</th>
-                    <th>Reorder Level</th>
+                    <th>Attributes</th>
+                    <th>Attribute Options</th>
                     <th>Status</th>
                     <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
                 </tr>
@@ -66,11 +65,12 @@
             <tbody>
                 @foreach($productGroups as $productGroup)
                     <tr class="gradeA">
-                            <td>{{$productGroup->name}}</td>
-                            <td>{{$productGroup->unit->name}}</td>
-                            <td>{{$productGroup->inventory->quantity}}</td>
-                            <td>{{$productGroup->reorder_level}}</td>
-                            <p>@if ($productGroup->is_service==1) Service: @elseif($productGroup->is_service==0)Product: @endif <span class="label {{$productGroup->status->label}}">{{$productGroup->status->name}}</span></p>
+                            <td>{{$productGroup->name}} <label class="badge badge-circle badge-info">{{$productGroup->products_count}} products</label></td>
+                            <td>{{$productGroup->attributes}}</td>
+                            <td>{{$productGroup->attribute_options}}</td>
+                            <td>
+                                <p>@if ($productGroup->is_service==1) Service: @elseif($productGroup->is_service==0)Product: @endif <span class="label {{$productGroup->status->label}}">{{$productGroup->status->name}}</span></p>
+                            </td>
                             <td class="text-right">
                                 <div class="btn-group">
                                     <a href="{{ route('business.product.group.show', $productGroup->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
@@ -86,7 +86,6 @@
                     <th>Name</th>
                     <th>SKU</th>
                     <th>Stock on Hand</th>
-                    <th>Reorder Level</th>
                     <th>Status</th>
                     <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
                 </tr>

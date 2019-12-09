@@ -23,26 +23,37 @@
             <div class="col-sm-6">
                 <h5>From:</h5>
                 <address>
-                    <strong>Inspinia, Inc.</strong><br>
+                    <strong>{{$institution->name}}</strong><br>
                     106 Jorg Avenu, 600/10<br>
                     Chicago, VT 32456<br>
-                    <abbr title="Phone">P:</abbr> (123) 601-4590
+                    <abbr title="Phone">P:</abbr> {{$institution->phone_number}}
                 </address>
             </div>
 
             <div class="col-sm-6 text-right">
                 <h4>Invoice No.</h4>
-                <h4 class="text-navy">INV-000567F7-00</h4>
+                <h4 class="text-navy">{{$invoice->reference}}</h4>
                 <span>To:</span>
+                @if($invoice->customer->is_business == 1)
+                {{--  if business  --}}
                 <address>
-                    <strong>Corporate, Inc.</strong><br>
+                    <strong>{{$invoice->customer->company_name}}</strong><br>
                     112 Street Avenu, 1080<br>
                     Miami, CT 445611<br>
-                    <abbr title="Phone">P:</abbr> (120) 9000-4321
+                    <abbr title="Phone">P:</abbr> {{$invoice->customer->phone_number}}
                 </address>
+                @else
+                {{--  if not business  --}}
+                <address>
+                    <strong>{{$invoice->customer->first_name}} {{$invoice->customer->last_name}}</strong><br>
+                    112 Street Avenu, 1080<br>
+                    Miami, CT 445611<br>
+                    <abbr title="Phone">P:</abbr> {{$invoice->customer->phone_number}}
+                </address>
+                @endif
                 <p>
-                    <span><strong>Invoice Date:</strong> Marh 18, 2014</span><br/>
-                    <span><strong>Due Date:</strong> March 24, 2014</span>
+                    <span><strong>Invoice Date:</strong> {{$invoice->date}} </span><br/>
+                    <span><strong>Due Date:</strong> {{$invoice->due_date}}</span>
                 </p>
             </div>
         </div>
@@ -54,37 +65,19 @@
                     <th>Item List</th>
                     <th>Quantity</th>
                     <th>Unit Price</th>
-                    <th>Tax</th>
                     <th>Total Price</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><div><strong>Admin Theme with psd project layouts</strong></div>
-                        <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
-                    <td>1</td>
-                    <td>$26.00</td>
-                    <td>$5.98</td>
-                    <td>$31,98</td>
-                </tr>
-                <tr>
-                    <td><div><strong>Wodpress Them customization</strong></div>
-                        <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            Eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </small></td>
-                    <td>2</td>
-                    <td>$80.00</td>
-                    <td>$36.80</td>
-                    <td>$196.80</td>
-                </tr>
-                <tr>
-                    <td><div><strong>Angular JS & Node JS Application</strong></div>
-                        <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
-                    <td>3</td>
-                    <td>$420.00</td>
-                    <td>$193.20</td>
-                    <td>$1033.20</td>
-                </tr>
+                @foreach($invoice->sale_products as $product)
+                    <tr>
+                        <td><div><strong>{{$product->product->name}}</strong></div>
+                            <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
+                        <td>{{$product->quantity}}</td>
+                        <td>{{$product->rate}}</td>
+                        <td>{{$product->amount}}</td>
+                    </tr>
+                @endforeach
 
                 </tbody>
             </table>
@@ -94,20 +87,28 @@
             <tbody>
             <tr>
                 <td><strong>Sub Total :</strong></td>
-                <td>$1026.00</td>
+                <td>{{$invoice->subtotal}}</td>
             </tr>
             <tr>
                 <td><strong>TAX :</strong></td>
-                <td>$235.98</td>
+                <td>{{$invoice->tax}}</td>
+            </tr>
+            <tr>
+                <td><strong>Discount :</strong></td>
+                <td>{{$invoice->discount}}</td>
             </tr>
             <tr>
                 <td><strong>TOTAL :</strong></td>
-                <td>$1261.98</td>
+                <td>{{$invoice->total}}</td>
             </tr>
             </tbody>
         </table>
-        <div class="well m-t"><strong>Comments</strong>
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less
+        <div class="well m-t"><strong>Notes</strong>
+            {{$invoice->customer_notes}}
+        </div>
+
+        <div class="well m-t"><strong>Terms and Conditions</strong>
+            {{$invoice->terms_and_conditions}}
         </div>
     </div>
 

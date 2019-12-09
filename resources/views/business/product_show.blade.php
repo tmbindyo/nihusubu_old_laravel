@@ -513,39 +513,47 @@
                         </div>
                         <div class="col-xs-8 text-right">
                             <span> Stock On Hand </span>
-                            <h2 class="font-bold">{{$product->inventory->quantity}}</h2>
+                            @if($product->is_service == "1")
+                                <h2 class="font-bold">N/A</h2>
+                            @else
+                                        <h2 class="font-bold">{{$product->stock_on_hand->first()->stock_on_hand}}</h2>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-level-down fa-5x"></i>
-                        </div>
-                        <div class="col-xs-8 text-right">
-                            <span> Reorder Level </span>
-                            <h2 class="font-bold">{{$product->reorder_level}}</h2>
+            @if($product->is_service == "0")
+                <div class="row">
+                    <div class="widget style1 navy-bg">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-level-down fa-5x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span> Reorder Level </span>
+                                <h2 class="font-bold">{{$product->reorder_level}}</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
-            <div class="row">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-archive fa-5x"></i>
-                        </div>
-                        <div class="col-xs-8 text-right">
-                            <span> Restocks </span>
-                            <h2 class="font-bold">{{$product->restock_count}}</h2>
+            @if($product->is_service == "0")
+                <div class="row">
+                    <div class="widget style1 navy-bg">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-archive fa-5x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span> Restocks </span>
+                                <h2 class="font-bold">{{$product->restock_count}}</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>

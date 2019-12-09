@@ -57,7 +57,7 @@
                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                                     <thead>
                                     <tr>
-                                        <th>Date</th>
+                                        <th width="50em">Date</th>
                                         <th>Reason</th>
                                         <th>Description</th>
                                         <th>Reference</th>
@@ -69,8 +69,8 @@
                                     <tbody>
                                     @foreach($inventoryAdjustments as $inventoryAdjustment)
                                         <tr class="gradeA">
-                                            <td>{{$inventoryAdjustment->date}}</td>
-                                            <td>{{$inventoryAdjustment->reason}}</td>
+                                            <td>{{$inventoryAdjustment->created_at}}</td>
+                                            <td>{{$inventoryAdjustment->reason->name}}</td>
                                             <td>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="{{$inventoryAdjustment->description}}" class="fa fa-comments-o fa-3x text-info"></i></span>
                                             </td>

@@ -57,27 +57,41 @@
                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                                     <thead>
                                     <tr>
-                                        <th>Date</th>
                                         <th>Estimate #</th>
+                                        <th>Date</th>
+                                        <th>Due Date</th>
                                         <th>Customer</th>
-                                        <th>Status</th>
                                         <th>Amount</th>
-                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                        <th>Status</th>
+                                        <th>Progress</th>
+                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($estimates as $estimate)
                                         <tr class="gradeA">
+                                            <td>{{$estimate->reference}}</td>
                                             <td>{{$estimate->date}}</td>
-                                            <td>{{$estimate->estimate_number}}</td>
-                                            <td>{{$estimate->customer->name}}</td>
+                                            <td>{{$estimate->due_date}}</td>
+                                            <td>{{$estimate->customer->first_name}} {{$estimate->customer->last_name}}</td>
+                                            <td>{{$estimate->total}}</td>
                                             <td>
                                                 <p><span class="label {{$estimate->status->label}}">{{$estimate->status->name}}</span></p>
+                                            </td>
+                                            <td>
+                                                @if($estimate->is_sale == 1)
+                                                    <p><span class="badge badge-success">Sale</span></p>
+                                                @elseif($estimate->is_order == 1)
+                                                <p><span class="badge badge-primary">Order</span></p>
+                                                @elseif($estimate->is_invoice == 1)
+                                                <p><span class="badge badge-primary">Invoice</span></p>
+                                                @elseif($estimate->is_estimate == 1)
+                                                    <p><span class="badge badge-primary">Estimate</span></p>
+                                                @endif
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
                                                     <a href="{{ route('business.estimate.show', $estimate->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                    <a href="{{ route('business.estimate.edit', $estimate->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -85,12 +99,14 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Date</th>
                                         <th>Estimate #</th>
+                                        <th>Date</th>
+                                        <th>Due Date</th>
                                         <th>Customer</th>
-                                        <th>Status</th>
                                         <th>Amount</th>
-                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                        <th>Status</th>
+                                        <th>Progress</th>
+                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>

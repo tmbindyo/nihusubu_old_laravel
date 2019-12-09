@@ -17,12 +17,13 @@ class CreateProductsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name', 200);
+            $table->string('attribute', 200)->nullable();
             $table->longText('description')->nullable();
             $table->string('stock_keeping_unit', 200)->nullable();
             $table->string('dimensions', 200)->nullable();
             $table->string('weight', 200)->nullable();
             $table->double('selling_price', 20,2);
-            $table->double('purchase_price', 20,2);
+            $table->double('purchase_price', 20,2)->nullable();
             $table->double('manufacturing_price', 20,2)->nullable();
             $table->integer('opening_stock')->nullable();
             $table->double('opening_stock_value', 20,2)->nullable();
@@ -32,7 +33,7 @@ class CreateProductsTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('selling_account_id');
-            $table->uuid('purchase_account_id');
+            $table->uuid('purchase_account_id')->nullable();
             $table->uuid('unit_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('institution_id');
@@ -44,6 +45,8 @@ class CreateProductsTable extends Migration
             $table->boolean('is_created');
             $table->boolean('is_returnable');
             $table->boolean('is_product_group');
+
+            $table->boolean('is_composite_product');
 
             $table->timestamps();
             $table->softDeletes();

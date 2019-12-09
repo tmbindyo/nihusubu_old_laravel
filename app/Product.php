@@ -2,12 +2,14 @@
 
 namespace App;
 
+use App\Traits\InstitutionTrait;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use institutionTrait;
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
@@ -68,7 +70,7 @@ class Product extends Model
     }
     public function inventory()
     {
-        return $this->hasOne('App\Inventory');
+        return $this->hasMany('App\Inventory');
     }
     public function product_images()
     {
@@ -80,7 +82,7 @@ class Product extends Model
     }
     public function composite_product_products()
     {
-        return $this->hasMany('App\CompositeProductProduct');
+        return $this->hasMany('App\CompositeProductProduct','composite_product_id');
     }
     public function product_returns()
     {
@@ -109,5 +111,11 @@ class Product extends Model
     public function product_discounts()
     {
         return $this->hasMany('App\ProductDiscount');
+    }
+    public function stock_on_hand()
+    {
+        return $this->hasMany('App\Inventory')
+            ->selectRaw('product_id,SUM(quantity) as stock_on_hand')
+            ->groupBy('product_id');
     }
 }

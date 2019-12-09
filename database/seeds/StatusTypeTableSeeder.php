@@ -48,6 +48,14 @@ class StatusTypeTableSeeder extends Seeder
         // back order, in stock, low stock
 
         DB::table('status_types')->insert([
+            'id' => '63d0ab87-de50-43e1-849b-8349b0671225',
+            'name' => 'Estiamte',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('status_types')->insert([
             'id' => '511b013b-aa8a-4e5b-a681-1b85f938ef2b',
             'name' => 'Order',
             'user_id' => 1,
@@ -56,5 +64,21 @@ class StatusTypeTableSeeder extends Seeder
         ]);
         // https://support.bigcommerce.com/s/article/Order-Statuses
         // Pending, awaiting payment,awaiting shipment, partially shipped, completed, shipped, cancelled, declined, refunded, disputed, partially refunded
+
+        DB::table('status_types')->insert([
+            'id' => '3a1df270-df7a-41af-b1f6-a778d9dbde3d',
+            'name' => 'Client',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('status_types')->insert([
+            'id' => '3b3fd271-2a21-44b8-9246-f90793639f24',
+            'name' => 'Payment',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

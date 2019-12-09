@@ -8,7 +8,8 @@
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
@@ -62,7 +63,7 @@
                 <a href="{{route('business.warehouses')}}">Inventory</a>
             </li>
             <li>
-                <a href="{{route('business.inventory.adjustments')}}">Transfer Orders</a>
+                <a href="{{route('business.transfer.orders')}}">Transfer Orders</a>
             </li>
             <li class="active">
                 <strong>Transfer Order Create</strong>
@@ -88,7 +89,7 @@
             </div>
             <div class="ibox-content">
                 <div class="">
-                    <form method="post" action="{{ route('business.product.group.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                    <form method="post" action="{{ route('business.transfer.order.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                         @csrf
 
                         @if ($errors->any())
@@ -111,14 +112,13 @@
                                     <div class="input-group date">
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i></span>
-                                        <input type="text" class="form-control" value="03/04/2014">
+                                        <input type="text" class="form-control input-lg" value="03/04/2014">
                                     </div>
                                 </div>
                                 <label>  </label>
                                 {{--  Reason  --}}
                                 <div class="has-warning">
-                                    <textarea rows="5" id="reason" name="reason" required="required" class="form-control input-lg" placeholder="Reason"></textarea>
-                                    <i>Where you give an explanation for the transfer order for future reference.</i>
+                                    <textarea name="reason" class="select form-control input-lg" placeholder="Reason"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -131,18 +131,22 @@
                             <div class="col-md-6">
                                 <label>  </label>
                                 <div class="has-warning">
-                                    <select name="source_warehouse" class="select2_demo_3 form-control input-lg">
-                                        <option>Select Source Warehouse</option>
-                                        <option value="Bahamas">Bahamas</option>
+                                    <select onchange = "returnWarehouseDetails(this)" onfocus = "this.selectedIndex = 0" name="source_warehouse" class="select2_demo_3 form-control input-lg">
+                                        <option disabled>Select Source Warehouse</option>
+                                        @foreach($warehouses as $warehouse)
+                                            <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label>  </label>
                                 <div class="has-warning">
-                                    <select name="destination_warehouse" class="select2_demo_3 form-control input-lg">
-                                        <option>Select Destination Warehouse</option>
-                                        <option value="Bahamas">Bahamas</option>
+                                    <select onchange = "destinationwarehouseSelected(this)" onfocus = "this.selectedIndex = 0" name="destination_warehouse" class="select2_demo_3 form-control input-lg">
+                                        <option disabled>Select Destination Warehouse</option>
+                                        @foreach($warehouses as $warehouse)
+                                            <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -155,7 +159,7 @@
                             </div>
                             <div class="ibox-content">
 
-                                <table class="table table-bordered">
+                                <table class="table table-bordered" id = "transfer_order_table">
                                     <thead>
                                     <tr>
                                         <th>Item Details</th>
@@ -166,9 +170,12 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select class="select2_demo_3 form-control input-lg">
+                                            <select onchange = "returnProductDetails(this)" class="select2_demo_3 form-control input-lg items-select" name = "item_details[0][product_id]">
                                                 <option>Select Item</option>
-                                                <option value="Bahamas">Bahamas</option>
+                                                {{-- <option value="Bahamas">Bahamas</option> --}}
+                                                @foreach($products as $product)
+                                                    <option value = "{{$product->id}}" data-product-source-quantity = "-20" data-product-destination-quantity = "-20">{{$product->name}}</option>
+                                                @endforeach
                                             </select>
                                         </td>
                                         <td>
@@ -182,24 +189,24 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <p class="text-center" for="quantity">0</p>
+                                                    <p class="text-center source_stock_value" for="quantity">0</p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p class="col-form-label-sm text-center" >0</p>
+                                                    <p class="col-form-label-sm text-center destination_stock_value">0</p>
                                                 </div>
                                             </div>
 {{--                                            <input type="number" class="form-control input-lg">--}}
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg" placeholder="E.g +10, -10">
+                                            <input type="number" class="form-control input-lg transfer_quantity" placeholder="E.g +10, -10" name = "item_details[0][transfer_quantity]">
                                         </td>
-                                        <td width="10px">
+                                        {{-- <td width="10px">
                                             <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-times-circle fa-2x text-danger"></i></span>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     </tbody>
                                 </table>
-                                <label class="label label-primary label-lg">+ Add Another Line</label>
+                                <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                             </div>
                         </div>
                         <hr>
@@ -239,38 +246,36 @@
     <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
-    <!-- Data picker -->
-    <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
     <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
 
     <!-- jQuery Tags Input -->
     <script src="{{ asset('js') }}/tagplug-master/index.js"></script>
 
+    <!-- Chosen -->
+    <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
 
-    {{--  Tag script  --}}
-    <script>
-        $(document).ready(function() {
-            var tagInput = new TagsInput({
-                selector: 'tag-input',
-                duplicate: false
-            });
-        });
-    </script>
+    <!-- Input Mask-->
+    <script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
-    {{--  Script to prevent form submit on enter key press  --}}
-    <script>
-        $(document).ready(function () {
-            $(document).ready(function() {
-                $(window).keydown(function(event){
-                    if(event.keyCode == 13) {
-                        event.preventDefault();
-                        return false;
-                    }
-                });
-            });
-        });
-    </script>
+    <!-- Data picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+    <!-- Image cropper -->
+    <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
+
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
+
+    <!-- Date range picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+    <!-- Select2 -->
+    <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+    <!-- TouchSpin -->
+    <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+
     <script>
         $(document).ready(function(){
 
@@ -443,13 +448,6 @@
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             });
 
-            $(".select2_demo_1").select2();
-            $(".select2_demo_2").select2();
-            $(".select2_demo_3").select2({
-                placeholder: "Select a state",
-                allowClear: true
-            });
-
 
             $(".touchspin1").TouchSpin({
                 buttondown_class: 'btn btn-white',
@@ -570,5 +568,189 @@
         });
 
 
+    </script>
+
+    {{--  Script to prevent form submit on enter key press  --}}
+    <script>
+        $(document).ready(function () {
+            $(document).ready(function() {
+                $(window).keydown(function(event){
+                    if(event.keyCode == 13) {
+                        event.preventDefault();
+                        return false;
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select').select2({
+                theme: "default"
+            })
+        });
+    </script>
+
+    <script>
+        // productsArray populates options of select element
+        var productsArray = [];
+        // Get all products returned and prepare for manipulation
+        var products = {!! json_encode($products->toArray()) !!};
+        var sourceWarehouseId = "";
+        var destinationWarehouseId = "";
+        function returnWarehouseDetails (e) {
+            sourceWarehouseId = e.value;
+            // Get all product dropdowns
+            var productSelect = document.getElementsByClassName("items-select");
+            // Clear all options from the dropdown
+            for (singleSelect of productSelect) {
+                clearDropdownOptions(singleSelect);
+            };
+            e.blur();
+        }
+        function destinationwarehouseSelected (e) {
+            // Sets this to an empty array when the source warehouse is changed
+            productsArray = [];
+            destinationWarehouseId = e.value;
+            // TODO: Have this as a notification somewhere on the UI
+            if (destinationWarehouseId === sourceWarehouseId) {
+                console.log("The source and the destination are the same.")
+            }
+            var productDetails = {};
+            var sourceWarehouseProductQuantity = 0;
+            var destinationWarehouseProductQuantity = 0;
+            for (product of products) {
+                for (warehouse of product["inventory"]) {
+                    // Comparison with selected source warehouse
+                    if (warehouse["warehouse_id"] === sourceWarehouseId) {
+                        sourceWarehouseProductQuantity = warehouse["quantity"];
+                    }
+                    // Comparison with selected destination warehouse
+                    if (warehouse["warehouse_id"] === destinationWarehouseId) {
+                        destinationWarehouseProductQuantity = warehouse["quantity"];
+                    }
+                }
+                productDetails = {
+                    "product_quantity_source": sourceWarehouseProductQuantity,
+                    "product_quantity_destination": destinationWarehouseProductQuantity,
+                    "product_name": product["name"],
+                    "product_id": product["id"]
+                };
+                productsArray.push(productDetails);
+            };
+            // Get all product dropdowns
+            var productSelect = document.getElementsByClassName("items-select");
+            // Clear all options from the dropdown
+            for (singleSelect of productSelect) {
+                clearDropdownOptions(singleSelect);
+            };
+            // Add options to dropdown
+            for (singleSelect of productSelect) {
+                populateDropdownOptionsWithProducts(singleSelect);
+            };
+            e.blur();
+        }
+        function clearDropdownOptions (selectElement) {
+            var numberOfOptions;
+            for (numberOfOptions = selectElement.options.length - 1; numberOfOptions >= 0; numberOfOptions--) {
+                selectElement.remove(numberOfOptions);
+            }
+        }
+        function populateDropdownOptionsWithProducts (selectElement) {
+            for (singleProduct of productsArray) {
+                var newOption = document.createElement("option");
+                newOption.value = singleProduct["product_id"];
+                newOption.innerHTML = singleProduct["product_name"];
+                newOption.setAttribute("data-product-source-quantity", singleProduct["product_quantity_source"]);
+                newOption.setAttribute("data-product-destination-quantity", singleProduct["product_quantity_destination"]);
+                selectElement.appendChild(newOption);
+            }
+        }
+        function returnProductDetails (e) {
+            var sourceQuantity = e.options[e.selectedIndex].getAttribute("data-product-source-quantity");
+            var destinationQuantity = e.options[e.selectedIndex].getAttribute("data-product-destination-quantity");
+            var selectedParentTd = e.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var transferQuantityInputField = selectedTr.getElementsByClassName("transfer_quantity");
+            var sourceStockLabel = selectedTr.getElementsByClassName("source_stock_value");
+            var destinationStockLabel = selectedTr.getElementsByClassName("destination_stock_value");
+            // Setting the minimum and maximum allowable values for the transfer quantity input field
+            transferQuantityInputField[0].setAttribute("min", 1);
+            transferQuantityInputField[0].setAttribute("max", sourceQuantity);
+            // Setting values of labels
+            sourceStockLabel[0].innerHTML = sourceQuantity;
+            destinationStockLabel[0].innerHTML = destinationQuantity;
+        }
+        var tableValueArrayIndex = 1;
+        function addTableRow () {
+            if (productsArray.length === 0) {
+                alert("Please select a source and destination warehouse.")
+            } else {
+                var table = document.getElementById("transfer_order_table");
+                var row = table.insertRow();
+                var firstCell = row.insertCell(0);
+                var secondCell = row.insertCell(1);
+                var thirdCell = row.insertCell(2);
+                var fourthCell = row.insertCell(3)
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select'"+
+                                        "name = 'item_details["+tableValueArrayIndex+"][product_id]'></select>";
+                secondCell.innerHTML = "<div class='row'>"+
+                                        "<div class='col-md-6'>"+
+                                        "<small class='control-label'>Source Stock</small>"+
+                                        "</div>"+
+                                        "<div class='col-md-6'>"+
+                                        "<small class='col-form-label-sm'>Destination Stock</small>"+
+                                        "</div>"+
+                                        "</div>"+
+                                        "<div class='row'>"+
+                                        "<div class='col-md-6'>"+
+                                        "<p class='text-center source_stock_value'>0</p>"+
+                                        "</div>"+
+                                        "<div class='col-md-6'>"+
+                                        "<p class='col-form-label-sm text-center destination_stock_value'>0</p>"+
+                                        "</div>"+
+                                        "</div>";
+                thirdCell.innerHTML = "<input type='number' class='form-control input-lg transfer_quantity' placeholder='E.g +10, -10'"+
+                                        "name = 'item_details["+tableValueArrayIndex+"][transfer_quantity]'>";
+                fourthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+                fourthCell.setAttribute("style", "width: 1em;")
+                var selectElement = row.getElementsByClassName("items-select");
+                populateDropdownOptionsWithProducts(selectElement[0]);
+                tableValueArrayIndex++;
+            };
+        };
+        function removeSelectedRow (e) {
+            var selectedParentTd = e.parentElement.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var selectedTable = selectedTr.parentElement;
+            var removed = selectedTr.getElementsByClassName("items-select")[0].getAttribute("name");
+            adjustTableInputFieldsIndex(removed);
+            selectedTable.removeChild(selectedTr);
+            tableValueArrayIndex--;
+        };
+        function adjustTableInputFieldsIndex (removedFieldName) {
+            // Fields whose values are submitted are:
+            // 1. item_details[][product_id]
+            // 2. item_details[][transfer_quantity]
+            var displacement = 0;
+            var removedIndex;
+            while (displacement < tableValueArrayIndex) {
+                if (removedFieldName == "item_details["+displacement+"][product_id]"){
+                    removedIndex = displacement;
+                } else {
+                    var productIdField = document.getElementsByName("item_details["+displacement+"][product_id]");
+                    var transferQuantityField = document.getElementsByName("item_details["+displacement+"][transfer_quantity]");
+                    if (removedIndex) {
+                        if (displacement > removedIndex) {
+                            var newIndex = displacement - 1;
+                            productIdField[0].setAttribute("name", "item_details["+newIndex+"][product_id]");
+                            transferQuantityField[0].setAttribute("name", "item_details["+newIndex+"][transfer_quantity]");
+                        };
+                    };
+                };
+                displacement++;
+            };
+        };
     </script>
 @endsection

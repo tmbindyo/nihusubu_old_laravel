@@ -37,7 +37,6 @@ class AddressTypeTableSeeder extends Seeder
             'updated_at' => now()
         ]);
 
-
         DB::table('address_types')->insert([
             'id' => 'f7e388be-1eaa-4acc-9929-daf50bb0b5d1',
             'name' => 'Warehouse',

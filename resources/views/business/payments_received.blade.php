@@ -59,10 +59,9 @@
                                     <tr>
                                         <th>Date</th>
                                         <th>Sale #</th>
-                                        <th>Customer</th>
                                         <th>Status</th>
                                         <th>Paid</th>
-                                        <th>Balance</th>
+                                        <th>Refunded</th>
                                         <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
                                     </tr>
                                     </thead>
@@ -70,13 +69,12 @@
                                     @foreach($paymentsReceived as $paymentReceived)
                                         <tr class="gradeA">
                                             <td>{{$paymentReceived->date}}</td>
-                                            <td>{{$paymentReceived->sale->sale_number}}</td>
-                                            <td>{{$paymentReceived->sale->customer->name}}</td>
+                                            <td>{{$paymentReceived->sale->reference}}</td>
                                             <td>
                                                 <p><span class="label {{$paymentReceived->status->label}}">{{$paymentReceived->status->name}}</span></p>
                                             </td>
                                             <td>{{$paymentReceived->paid}}</td>
-                                            <td>{{$paymentReceived->current_balance}}</td>
+                                            <td>{{$paymentReceived->refunded}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
                                                     <a href="{{ route('business.sale.show', $paymentReceived->sale->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
@@ -89,7 +87,6 @@
                                     <tfoot>
                                     <tr>
                                         <th>Date</th>
-                                        <th>Sale #</th>
                                         <th>Customer</th>
                                         <th>Status</th>
                                         <th>Paid</th>

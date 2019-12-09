@@ -84,8 +84,51 @@ class StatusTableSeeder extends Seeder
             'id' => 'bc6170bf-299a-44f5-8362-8cdeed1f47b0',
             'name' => 'Discontinued',
             'description' => 'For one reason or the other, the product is no longer being sold.',
-            'label' => '',
+            'label' => 'label-default',
             'status_type_id' => 'e6dc4713-612f-455e-a30c-3e29ebdddf70',
+            'user_id' => 1,
+        ]);
+
+
+        // Estimate statuses
+        DB::table('statuses')->insert([
+            'id' => '14efab17-4306-449b-bfc8-3e156b872a6d',
+            'name' => 'Draft',
+            'description' => 'Estimates that are In Review, allow you to make edits and tweaks before submitting it to a potential client.',
+            'label' => 'label-warning',
+            'status_type_id' => '63d0ab87-de50-43e1-849b-8349b0671225',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '3033d8f4-88e0-4ca9-9ed1-62e0b9c61547',
+            'name' => 'Submitted',
+            'description' => 'An estimate that has been submitted to a client.',
+            'label' => 'label-',
+            'status_type_id' => '63d0ab87-de50-43e1-849b-8349b0671225',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '3c5de19a-bbeb-4342-9acd-d4f8dcbdb58f',
+            'name' => 'Approved',
+            'description' => 'An estimate that has been approved by a client.',
+            'label' => 'label-',
+            'status_type_id' => '63d0ab87-de50-43e1-849b-8349b0671225',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '0f6c8ddf-9447-4663-b0c1-c772bf407ac5',
+            'name' => 'Declined',
+            'description' => 'An estimate that has been rejected by a client and the conversation is closed.',
+            'label' => 'label-',
+            'status_type_id' => '63d0ab87-de50-43e1-849b-8349b0671225',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '11d8aaeb-169e-41ba-b550-e1d24f07dbe3',
+            'name' => 'In Review',
+            'description' => 'An estimate that has been rejected by a client, but under review.',
+            'label' => 'label-',
+            'status_type_id' => '63d0ab87-de50-43e1-849b-8349b0671225',
             'user_id' => 1,
         ]);
 
@@ -221,6 +264,62 @@ class StatusTableSeeder extends Seeder
             'description' => 'Deleted record',
             'label' => 'label-danger',
             'status_type_id' => 'a558001b-69ae-4872-ba0f-ecadd154a70a',
+            'user_id' => 1,
+        ]);
+
+
+
+
+        // Client statuses
+        DB::table('statuses')->insert([
+            'id' => '4a6fe484-12df-4ba7-8a74-7c95b9e553cd',
+            'name' => 'Active',
+            'description' => 'Active client',
+            'label' => 'label-primary',
+            'status_type_id' => '3a1df270-df7a-41af-b1f6-a778d9dbde3d',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => 'c33b4155-f100-4cb3-8547-297db18d8205',
+            'name' => 'Pending',
+            'description' => 'Pending client',
+            'label' => 'label-warning',
+            'status_type_id' => '3a1df270-df7a-41af-b1f6-a778d9dbde3d',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => 'e2de216c-8976-49aa-8176-3d1c7d79cb2f',
+            'name' => 'Phoned',
+            'description' => 'Phoned client',
+            'label' => 'label-info',
+            'status_type_id' => '3a1df270-df7a-41af-b1f6-a778d9dbde3d',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '33a893be-9862-4b07-b063-c9ba4e48daa4',
+            'name' => 'Deleted',
+            'description' => 'Deleted client',
+            'label' => 'label-danger',
+            'status_type_id' => '3a1df270-df7a-41af-b1f6-a778d9dbde3d',
+            'user_id' => 1,
+        ]);
+
+        // payments received statuses
+        DB::table('statuses')->insert([
+            'id' => '383aaf7-a45b-4931-918f-fab3daa8a97a',
+            'name' => 'Received',
+            'description' => 'Received Payment',
+            'label' => 'label-success',
+            'status_type_id' => '3b3fd271-2a21-44b8-9246-f90793639f24',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '276b2772-7230-4f83-bbd7-ec45e3da2ae4',
+            'name' => 'Refunded',
+            'description' => 'Refunded Payment',
+            'label' => 'label-danger',
+            'status_type_id' => '3b3fd271-2a21-44b8-9246-f90793639f24',
             'user_id' => 1,
         ]);
 

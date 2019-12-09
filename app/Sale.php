@@ -42,7 +42,7 @@ class Sale extends Model
     {
         return $this->hasMany('App\SaleProduct');
     }
-    public function payment_received()
+    public function payments_received()
     {
         return $this->hasMany('App\PaymentReceived');
     }

@@ -10,7 +10,6 @@
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-
     <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
@@ -142,7 +141,7 @@
                                 {{--  Account  --}}
                                 <div class="has-warning">
                                     <label class="text-danger"></label>
-                                    <select name="account" data-placeholder="Choose an account..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                    <select name="account"  class="select form-control input-lg">
                                         <option>Select Account</option>
                                         @foreach($accounts as $account)
                                             <option value="{{$account->id}}">{{$account->name}}</option>
@@ -152,8 +151,8 @@
                                 <label>  </label>
                                 {{--  Reason  --}}
                                 <div class="has-warning">
-                                    <select name="reason" data-placeholder="Choose an account..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                        <option>Select Reason</option>
+                                    <select name="reason" class="select form-control input-lg">
+                                        <option d>Select Reason</option>
                                         @foreach($reasons as $reason)
                                             <option value="{{$reason->id}}">{{$reason->name}}</option>
                                         @endforeach
@@ -162,8 +161,8 @@
                                 <label>  </label>
                                 {{--  Warehouse  --}}
                                 <div class="has-warning">
-                                    <select name="warehouse" data-placeholder="Choose a warehouse..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                        <option>Select Warehouse</option>
+                                    <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="select form-control input-lg">
+                                        <option disabled>Select Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                         @endforeach
@@ -202,21 +201,20 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select name = "item_details[0][details]" data-placeholder="Choose an item..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                                <option>Select Product</option>
+                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="chosen-select form-control input-lg item-select">
                                                 @foreach($products as $product)
-                                                    <option value="{{$product->id}}">{{$product->name}}</option>
+                                                    <option value="{{$product->id}}" data-product-quantity="-20">{{$product->name}}</option>
                                                 @endforeach
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg" name = "item_details[0][on_hand]">
+                                            <input type="number" class="form-control input-lg items-on-hand" name = "item_details[0][on_hand]" value = "0" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg" name = "item_details[0][new_on_hand]">
+                                            <input oninput = "modifyItemsOnHand(this)" type="number" class="form-control input-lg items-new-on-hand" name = "item_details[0][new_on_hand]">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input-lg" placeholder="E.g +10, -10" name = "item_details[0][adjusted]">
+                                            <input type="number" class="form-control input-lg items-adjusted" placeholder="E.g +10, -10" name = "item_details[0][adjusted]" readonly>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -269,35 +267,11 @@
     <!-- Chosen -->
     <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
 
-    <!-- JSKnob -->
-    <script src="{{ asset('inspinia') }}/js/plugins/jsKnob/jquery.knob.js"></script>
-
     <!-- Input Mask-->
     <script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
     <!-- Data picker -->
     <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-    <!-- NouSlider -->
-    <script src="{{ asset('inspinia') }}/js/plugins/nouslider/jquery.nouislider.min.js"></script>
-
-    <!-- Switchery -->
-    <script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
-
-    <!-- IonRangeSlider -->
-    <script src="{{ asset('inspinia') }}/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-
-    <!-- iCheck -->
-    <script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
-
-    <!-- MENU -->
-    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-    <!-- Color picker -->
-    <script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-
-    <!-- Clock picker -->
-    <script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
 
     <!-- Image cropper -->
     <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
@@ -487,13 +461,6 @@
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             });
 
-            $(".select2_demo_1").select2();
-            $(".select2_demo_2").select2();
-            $(".select2_demo_3").select2({
-                placeholder: "Select a state",
-                allowClear: true
-            });
-
 
             $(".touchspin1").TouchSpin({
                 buttondown_class: 'btn btn-white',
@@ -624,20 +591,152 @@
                 duplicate: false
             });
         });
-        var adj_array_index = 1
+        var tableValueArrayIndex = 1;
+        var selectedWarehouse = null;
+        var products = {!! json_encode($products->toArray()) !!};
+        var productsArray = [];
+        function selectWarehouseToAdjust (e) {
+            selectedWarehouse = e.value;
+            productsArray = [];
+            for (product of products) {
+                var productDetails = {};
+                var productQuantity = 0;
+                if (product["inventory"] !== []) {
+                    for (warehouse of product["inventory"]) {
+                        if (warehouse["warehouse_id"] === selectedWarehouse) {
+                            productQuantity = warehouse["quantity"];
+                        };
+                    };
+                    productDetails = {
+                        "product_quantity": productQuantity,
+                        "product_name": product["name"],
+                        "product_id": product["id"]
+                    };
+                    productsArray.push(productDetails);
+                };
+            };
+            var productSelect = document.getElementsByClassName("item-select");
+            for (singleSelect of productSelect) {
+                clearDropdownOptions(singleSelect);
+            };
+            for (singleSelect of productSelect) {
+                populateDropdownOptionsWithProducts(singleSelect);
+            };
+            e.blur();
+        }
+        function clearDropdownOptions (selectElement) {
+            var numberOfOptions;
+            for (numberOfOptions = selectElement.options.length - 1; numberOfOptions >= 0; numberOfOptions--) {
+                selectElement.remove(numberOfOptions);
+            }
+        }
+        function populateDropdownOptionsWithProducts (selectElement) {
+            for (singleProduct of productsArray) {
+                var newOption = document.createElement("option");
+                newOption.value = singleProduct["product_id"];
+                newOption.innerHTML = singleProduct["product_name"];
+                newOption.setAttribute("data-product-quantity", singleProduct["product_quantity"]);
+                selectElement.appendChild(newOption);
+            }
+        }
         // Function to add table rows
         function addTableRow() {
-            var table = document.getElementById("adjustment_table")
-            var row = table.insertRow()
-            var first_cell = row.insertCell(0)
-            var second_cell = row.insertCell(1)
-            var third_cell = row.insertCell(2)
-            var fourth_cell = row.insertCell(3)
-            first_cell.innerHTML = "<select class='select2_demo_3 form-control input-lg' name = 'item_details["+adj_array_index+"][details]'><option>Select Item</option><option value='Bahamas'>Bahamas</option></select>"
-            second_cell.innerHTML = "<input type='number' class='form-control input-lg' name = 'item_details["+adj_array_index+"][on_hand]'>"
-            third_cell.innerHTML = "<input type='number' class='form-control input-lg' name = 'item_details["+adj_array_index+"][new_on_hand]'>"
-            fourth_cell.innerHTML = "<input type='number' class='form-control input-lg' placeholder='E.g +10, -10' name = 'item_details["+adj_array_index+"][adjusted]'>"
-            adj_array_index++
+            if (productsArray.length === 0) {
+                alert("Please select a warehouse");
+            } else {
+                var table = document.getElementById("adjustment_table");
+                var row = table.insertRow();
+                var firstCell = row.insertCell(0);
+                var secondCell = row.insertCell(1);
+                var thirdCell = row.insertCell(2);
+                var fourthCell = row.insertCell(3);
+                var fifthCell = row.insertCell(4);
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='chosen-select form-control input-lg item-select' name = 'item_details["+tableValueArrayIndex+"][details]'"+
+                                        " data-placeholder='Choose an item...' style='width:100%;' tabindex='2' required></select>";
+                secondCell.innerHTML = "<input type='number' class='form-control input-lg items-on-hand' name = 'item_details["+tableValueArrayIndex+"][on_hand]' value = '0' readonly>";
+                thirdCell.innerHTML = "<input oninput = 'modifyItemsOnHand(this)'' type='number' class='form-control input-lg items-new-on-hand' name = 'item_details["+tableValueArrayIndex+"][new_on_hand]'>";
+                fourthCell.innerHTML = "<input type='number' class='form-control input-lg items-adjusted' placeholder='E.g +10, -10' name = 'item_details["+tableValueArrayIndex+"][adjusted]' readonly>";
+                fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+                var productSelect = document.getElementsByClassName("item-select");
+                for (singleSelect of productSelect) {
+                    populateDropdownOptionsWithProducts(singleSelect);
+                };
+                tableValueArrayIndex++;
+                initSelector();
+            };
+        };
+        function removeSelectedRow (e) {
+            var selectedParentTd = e.parentElement.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var selectedTable = selectedTr.parentElement;
+            var removed = selectedTr.getElementsByClassName("item-select")[0].getAttribute("name");
+            adjustTableInputFieldsIndex(removed);
+            selectedTable.removeChild(selectedTr);
+            tableValueArrayIndex--;
+        };
+        function adjustTableInputFieldsIndex (removedFieldName) {
+            // Fields whose values are submitted are:
+            // 1. item_details[][details]
+            // 2. item_details[][on_hand]
+            // 3. item_details[][new_on_hand]
+            // 4. item_details[][adjusted]
+            var displacement = 0;
+            var removedIndex;
+            while (displacement < tableValueArrayIndex) {
+                if (removedFieldName == "item_details["+displacement+"][details]"){
+                    removedIndex = displacement;
+                } else {
+                    var detailsField = document.getElementsByName("item_details["+displacement+"][details]");
+                    var onHandField = document.getElementsByName("item_details["+displacement+"][on_hand]");
+                    var newOnHandField = document.getElementsByName("item_details["+displacement+"][new_on_hand]");
+                    var adjustedField = document.getElementsByName("item_details["+displacement+"][adjusted]");
+                    if (removedIndex) {
+                        if (displacement > removedIndex) {
+                            var newIndex = displacement - 1;
+                            detailsField[0].setAttribute("name", "item_details["+newIndex+"][details]");
+                            onHandField[0].setAttribute("name", "item_details["+newIndex+"][on_hand]");
+                            newOnHandField[0].setAttribute("name", "item_details["+newIndex+"][new_on_hand]");
+                            adjustedField[0].setAttribute("name", "item_details["+newIndex+"][adjusted]");
+                        };
+                    };
+                };
+                displacement++;
+            };
+        };
+        // Function that handles selection of products to be adjusted
+        function returnProductDetails (e) {
+            var stockValue = e.options[e.selectedIndex].getAttribute("data-product-quantity");
+            var selectedParentTd = e.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            setValueOfInputFieldByClassName(selectedTr, "items-on-hand", stockValue);
+        };
+        // Function triggered whenever value of items on hand is set
+        function modifyItemsOnHand (e) {
+            var selectedParentTd = e.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var stockValue = selectedTr.getElementsByClassName("items-on-hand")[0].value;
+            var adjustedValue = parseInt(e.value) - parseInt(stockValue);
+            setValueOfInputFieldByClassName(selectedTr, "items-adjusted", adjustedValue);
+        };
+        // Multi-purpose function that handles setting of an input field value given the parentElement
+        // and unique className within the element
+        function setValueOfInputFieldByClassName (parentElement, targetElementClassName, value) {
+            var targetElement = parentElement.getElementsByClassName(targetElementClassName)
+            targetElement[0].value = value
+        };
+        // Makes the products dropdown searchable
+        // Necessary to have this function since the elements edded dynamically are not searchable by default
+        function initSelector () {
+            var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
         };
     </script>
 
@@ -652,6 +751,14 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select').select2({
+                theme: "default"
+            })
         });
     </script>
 @endsection
