@@ -7,27 +7,20 @@
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{$user->name}}</strong>
-                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="profile.html">Profile</a></li>
-                        <li><a href="contacts.html">Contacts</a></li>
-                        <li><a href="mailbox.html">Mailbox</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{{route('logout')}}">Logout</a></li>
-                    </ul>
+
                 </div>
                 <div class="logo-element">
                     <img alt="image" style="height: 20px;" src="{{ asset('inspinia') }}/img/nihusubu.jpg" />
                 </div>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'business.dashboard' ) ?  'active' : '' }}">
-                <a href="{{ route('business.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
-            </li>
+{{--            <li class="nav-item {{ Route::currentRouteNamed( 'business.dashboard' ) ?  'active' : '' }}">--}}
+{{--                <a href="{{ route('business.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>--}}
+{{--            </li>--}}
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar' ) ?  'active' : '' }}">
-                <a href="{{ route('business.calendar') }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>
-            </li>
+{{--            <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar' ) ?  'active' : '' }}">--}}
+{{--                <a href="{{ route('business.calendar') }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>--}}
+{{--            </li>--}}
 
             <li class="nav-item {{ Route::currentRouteNamed( 'business.to.dos' ) ?  'active' : '' }}">
                 <a href="{{ route('business.to.dos') }}"><i class="fa fa-list"></i> <span class="nav-label">To Do </span></a>
@@ -64,7 +57,7 @@
                     <i class="fa fa-database"></i>
                     <span class="nav-label">Inventory </span>
                     <span class="fa arrow"></span>
-                    <span class="label label-info pull-right">16</span>
+{{--                    <span class="label label-info pull-right">16</span>--}}
                 </a>
                 <ul class="nav nav-second-level collapse">
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.inventory.adjustments' ) ?  'active' : '' }}">
@@ -91,7 +84,7 @@
                     <i class="fa fa-shopping-cart"></i>
                     <span class="nav-label">Sales </span>
                     <span class="fa arrow"></span>
-                    <span class="label label-info pull-right">16</span>
+{{--                    <span class="label label-info pull-right">16</span>--}}
                 </a>
                 <ul class="nav nav-second-level collapse">
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.clients' ) ?  'active' : '' }}">
