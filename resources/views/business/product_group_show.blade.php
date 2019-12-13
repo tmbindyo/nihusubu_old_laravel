@@ -61,7 +61,7 @@
 
 
                         <div class="small m-t-xs">
-                            {!! str_limit($product->description,100) !!}
+                            {{ Str::limit($product->description, 100) }}
                         </div>
 
                         <div class="m-t text-righ">
