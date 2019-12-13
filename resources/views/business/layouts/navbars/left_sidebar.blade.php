@@ -22,9 +22,9 @@
                 <a href="{{ route('business.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar' ) ?  'active' : '' }}">
+            {{--  <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar' ) ?  'active' : '' }}">
                 <a href="{{ route('business.calendar') }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>
-            </li>
+            </li>  --}}
 
             <li class="nav-item {{ Route::currentRouteNamed( 'business.to.dos' ) ?  'active' : '' }}">
                 <a href="{{ route('business.to.dos') }}"><i class="fa fa-list"></i> <span class="nav-label">To Do </span></a>
@@ -61,7 +61,7 @@
                     <i class="fa fa-database"></i>
                     <span class="nav-label">Inventory </span>
                     <span class="fa arrow"></span>
-                    <span class="label label-info pull-right">16</span>
+                    {{--  <span class="label label-info pull-right">16</span>  --}}
                 </a>
                 <ul class="nav nav-second-level collapse">
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.inventory.adjustments' ) ?  'active' : '' }}">
@@ -88,7 +88,7 @@
                     <i class="fa fa-shopping-cart"></i>
                     <span class="nav-label">Sales </span>
                     <span class="fa arrow"></span>
-                    <span class="label label-info pull-right">16</span>
+                    {{--  <span class="label label-info pull-right">16</span>  --}}
                 </a>
                 <ul class="nav nav-second-level collapse">
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.clients' ) ?  'active' : '' }}">
@@ -123,7 +123,7 @@
                     </li>
                 </ul>
             </li>
-
+{{--
             <li>
                 <a href="#">
                     <i class="fa fa-dollar"></i>
@@ -162,8 +162,8 @@
                         </a>
                     </li>
                 </ul>
-            </li>
-
+            </li>  --}}
+{{--
             <li>
                 <a href="#">
                     <i class="fa fa-money"></i>
@@ -307,7 +307,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>  --}}
 
 
         </ul>
