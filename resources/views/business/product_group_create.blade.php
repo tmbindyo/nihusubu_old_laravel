@@ -329,12 +329,6 @@
                             </tbody>
                         </table>
                         <br>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label class="btn btn-small btn-primary" onclick = "addToAttrMasterTable()"><i class="fa fa-plus" ></i> Add more attributes</label>
-                            </div>
-                        </div>
-                        <br>
 
                         <div class="ln_solid"></div>
 

@@ -71,12 +71,17 @@ class ProductController extends Controller
         $attribute_options = implode(' ', array_values($request->attribute_options));
 
         // return error if product group array is empty
-        if($request->products->isEmpty()){
-            return back()->withError('No products submitted');
-        }
+        // if($request->products->isEmpty()){
+        //     return back()->withError('No products submitted');
+        // }
 
         // Register product group
         $productGroup = new ProductGroup();
+        if($request->product_type == "services") {
+            $productGroup->is_service = True;
+        }else{
+            $productGroup->is_service = False;
+        }
         $productGroup->name = $request->product_name;
         $productGroup->description = $request->description;
         $productGroup->attributes = $attributes;
@@ -88,6 +93,7 @@ class ProductController extends Controller
 
 
         foreach ($request->products as $productGroupProduct){
+
             $product = new Product;
             // check if product is a service or a good
             if($request->product_type == "services") {
@@ -123,6 +129,7 @@ class ProductController extends Controller
             $product->reorder_level = $request->reorder_level;
 
             $product->is_product_group = True;
+            $product->is_composite_product = False;
 
             $product->product_group_id = $productGroup->id;
             $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
@@ -141,7 +148,7 @@ class ProductController extends Controller
                 // create inventory record
                 $inventory = new Inventory();
                 $inventory->date = date('Y-m-d');
-                $inventory->quantity = $request->opening_stock;
+                $inventory->quantity = $productGroupProduct['opening_stock'];
                 $inventory->warehouse_id = $warehouse->id;
                 $inventory->product_id = $product->id;
                 $inventory->user_id = $user->id;
@@ -170,7 +177,12 @@ class ProductController extends Controller
                 $restock->initial_warehouse_amount = 0;
                 $restock->subsequent_warehouse_amount = $productGroupProduct['opening_stock'];
                 // getting unit value
-                $unit_value = floatval($productGroupProduct['opening_stock_value'])/floatval($productGroupProduct['opening_stock']);
+                if($productGroupProduct['opening_stock_value'] == 0 or $productGroupProduct['opening_stock'] == 0)
+                {
+                    $unit_value = 0;
+                }else{
+                    $unit_value = floatval($productGroupProduct['opening_stock_value'])/floatval($productGroupProduct['opening_stock']);
+                }
                 $restock->unit_value = $unit_value;
                 $restock->total_value = $productGroupProduct['opening_stock_value'];
                 $restock->quantity = $productGroupProduct['opening_stock'];
