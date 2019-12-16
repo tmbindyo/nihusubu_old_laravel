@@ -70,6 +70,11 @@ class ProductController extends Controller
         $attributes = implode(' ', array_values($request->attribute));
         $attribute_options = implode(' ', array_values($request->attribute_options));
 
+        // return error if product group array is empty
+        if($request->products->isEmpty()){
+            return back()->withError('No products submitted');
+        }
+
         // Register product group
         $productGroup = new ProductGroup();
         $productGroup->name = $request->product_name;
@@ -80,7 +85,6 @@ class ProductController extends Controller
         $productGroup->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
         $productGroup->institution_id = $institution->id;
         $productGroup->save();
-
 
 
         foreach ($request->products as $productGroupProduct){
@@ -201,11 +205,17 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get institution taxes
+        $taxes = Tax::where('institution_id',$institution->id)->get();
+        // Get institution units
+        $units = Unit::where('institution_id',$institution->id)->get();
+        // Get institution accounts
+        $accounts = Account::where('institution_id',$institution->id)->get();
         // Get product groups
         $productGroup = ProductGroup::findOrFail($product_group_id);
         $productGroup = ProductGroup::where('id',$product_group_id)->with('products')->first();
 
-        return view('business.product_group_show',compact('user','institution','productGroup'));
+        return view('business.product_group_show',compact('user','institution','productGroup','taxes','units','accounts'));
     }
     public function productGroupEdit($product_group_id)
     {
@@ -213,9 +223,20 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get institution taxes
+        $taxes = Tax::where('institution_id',$institution->id)->get();
+        // Get institution units
+        $units = Unit::where('institution_id',$institution->id)->get();
+        // Get institution accounts
+        $accounts = Account::where('institution_id',$institution->id)->get();
+        // Get product groups
+        $productGroup = ProductGroup::findOrFail($product_group_id);
+        $productGroup = ProductGroup::where('id',$product_group_id)->with('products')->first();
+        return $productGroup;
 
-        return view('business.product_group_edit',compact('user','institution'));
+        return view('business.product_group_edit',compact('user','institution','taxes','units','accounts','productGroup'));
     }
+
     public function productGroupUpdate(Request $request)
     {
         return back()->withSuccess(__('Product Group successfully updated.'));

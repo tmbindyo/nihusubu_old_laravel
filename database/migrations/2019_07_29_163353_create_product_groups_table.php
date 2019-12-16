@@ -25,6 +25,8 @@ class CreateProductGroupsTable extends Migration
             $table->uuid('status_id');
             $table->uuid('institution_id');
 
+            $table->boolean('is_service');
+
             $table->timestamps();
             $table->softDeletes();
         });
