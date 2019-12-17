@@ -90,7 +90,7 @@
             </div>
             <div class="ibox-content">
                 <div class="">
-                    <form method="post" action="{{ route('business.product.group.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                    <form method="post" action="{{ route('business.product.group.update',$productGroup->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                         @csrf
 
                         @if ($errors->any())
@@ -180,7 +180,7 @@
                                         <select name="selling_account" class="select form-control input-lg" required>
                                             <option value="" selected disabled>Select Selling Account</option>
                                             @foreach($accounts as $account)
-                                                <option value="{{$account->id}}">{{$account->name}}</option>
+                                                <option @if($account->id == $productGroup->selling_account_id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
                                             @endforeach()
                                         </select>
                                     </div>
@@ -336,16 +336,24 @@
                                 </tr>
                             </thead>
                             <tbody id = "attribute_tbody">
+                                @php
+                                    $itemIndex = 0;
+                                @endphp
+
                                 @foreach ($productGroup->products as $product)
                                     <tr class="gradeA">
-                                        <td><input type = 'text' class = 'form-control input-md' name = products["+itemIndex+"][name] value = "{{$product->name}}"</td>
-                                        <td><input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock] value = "{{$product->opening_stock}}"></td>
-                                        <td><input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock_value] value = "{{$product->opening_stock_value}}"></td>
-                                        <td><input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][purchase_price] value = "{{$product->purchase_price}}"></td>
-                                        <td><input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][selling_price] value = "{{$product->selling_price}}"></td>
-                                        <td><input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][reorder_level] value = "{{$product->reorder_level}}"></td>
+                                        <td><input type = 'text' class = 'form-control input-md' name = products[{{$itemIndex}}][name] value = "{{$product->name}}"</td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][opening_stock_value] value = "{{$product->opening_stock_value}}"></td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][opening_stock] value = "{{$product->opening_stock}}"></td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][purchase_price] value = "{{$product->purchase_price}}"></td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][selling_price] value = "{{$product->selling_price}}"></td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][reorder_level] value = "{{$product->reorder_level}}"></td>
                                     </tr>
+                                    @php
+                                        $itemIndex ++;
+                                    @endphp
                                 @endforeach
+
                             </tbody>
                         </table>
 
