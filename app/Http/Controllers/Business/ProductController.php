@@ -841,6 +841,7 @@ class ProductController extends Controller
     }
     public function productUpdate(Request $request,$product_id)
     {
+
         // User
         $user = $this->getUser();
         // Institution
@@ -1067,7 +1068,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('business.composite.products')->withSuccess(__('Composite product successfully stored.'));
+        return redirect()->route('business.composite.product.show',$product->id)->withSuccess(__('Composite product successfully stored.'));
     }
 
     public function compositeProductShow($composite_product_id)
@@ -1083,18 +1084,113 @@ class ProductController extends Controller
         // return $compositeProductProducts;
         return view('business.composite_product_show',compact('user','institution','compositeProduct','compositeProductProducts'));
     }
-    public function compositeProductEdit($composite_product_id)
+    public function compositeProductEdit(Request $request, $composite_product_id)
     {
         // User
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // Get institution units
+        $units = Unit::where('institution_id',$institution->id)->get();
+        // Get institution accounts
+        $accounts = Account::where('institution_id',$institution->id)->get();
+        // Get institution taxes
+        $taxes = Tax::where('institution_id',$institution->id)->get();
+        // Products
+        $products = Product::where('institution_id',$institution->id)->get();
+        // check if exists
+        $compositeProduct = Product::findOrFail($composite_product_id);
+        // get composite product
+        $compositeProduct = Product::where('id',$composite_product_id)->withCount('order_products','sale_products','composite_product_products')->with('composite_product_products','product_taxes','user','status')->first();
+        $compositeProductProducts = CompositeProductProduct::where('composite_product_id',$compositeProduct->id)->with('product')->get();
+        // return $compositeProductProducts;
 
-        return view('business.composite_product_edit',compact('user','institution'));
+        return view('business.composite_product_edit',compact('user','institution','compositeProduct','compositeProductProducts','units','accounts','taxes','products'));
     }
-    public function compositeProductUpdate(Request $request)
+    public function compositeProductUpdate(Request $request, $product_id)
     {
-        return back()->withSuccess(__('Composite product successfully updated.'));
+        return $request;
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+
+        // check if composite product exists
+        $product = Product::findOrFail($product_id);
+        $product = Product::where('id',$product_id)->first();
+        if($request->product_type == "services") {
+            $product->is_service = True;
+        }else{
+            $product->is_service = False;
+        }
+        if ($request->is_returnable == "on"){
+            $product->is_returnable = True;
+        }else{
+            $product->is_returnable = False;
+        }
+        $product->name = $request->product_name;
+        $product->stock_keeping_unit = $request->unit;
+        $product->selling_price = $request->selling_price;
+        $product->selling_account_id = $request->selling_account;
+
+        $product->is_created = False;
+        $product->is_composite_product = True;
+        $product->is_product_group = False;
+
+        $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
+        $product->user_id = $user->id;
+        $product->institution_id = $institution->id;
+        $product->save();
+
+        $compositeProductRequestProducts =array();
+        foreach ($request->item_details as $compositeProductItem){
+            // Append to array
+            $compositeProductRequestProducts[]['id'] = $compositeProductItem['details'];
+
+            // check if composite product exists
+            $compositeProductExists = CompositeProductProduct::where('product_id',$product->id)->where('product_id',$product->id)->first();
+
+            if ($compositeProductExists == null)
+            {
+                // Create product
+                $compositeProductProduct = new CompositeProductProduct();
+                $compositeProductProduct->quantity = $compositeProductItem['quantity'];
+                $compositeProductProduct->unit_price = $compositeProductItem['unit_price'];
+                $compositeProductProduct->total_price = $compositeProductItem['total_price'];
+                $compositeProductProduct->user_id = $user->id;
+                $compositeProductProduct->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
+                $compositeProductProduct->composite_product_id = $product->id;
+                $compositeProductProduct->product_id = $compositeProductItem['details'];
+                $compositeProductProduct->save();
+            }
+
+        }
+        $compositeProductProductIds = CompositeProductProduct::where('composite_product_id',$product->id)->whereNotIn('product_id',$compositeProductRequestProducts)->select('id')->get()->toArray();
+        DB::table('composite_product_products')->whereIn('id', $compositeProductProductIds)->delete();
+
+        // Product taxes update
+        $productRequestTaxes =array();
+        foreach ($request->taxes as $productProductTax){
+            // Append to array
+            $productRequestTaxes[]['id'] = $productProductTax;
+
+            // Check if product tax exists
+            $productTax = ProductTax::where('product_id',$product->id)->where('tax_id',$productProductTax)->first();
+
+            if($productTax === null) {
+                $productTax = new ProductTax();
+                $productTax->product_id = $product->id;
+                $productTax->tax_id = $productProductTax;
+                $productTax->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
+                $productTax->user_id = $user->id;
+                $productTax->save();
+            }
+        }
+
+        $productTaxesIds = ProductTax::where('product_id',$product->id)->whereNotIn('tax_id',$productRequestTaxes)->select('id')->get()->toArray();
+        DB::table('product_taxes')->whereIn('id', $productTaxesIds)->delete();
+
+        return redirect()->route('business.composite.product.show',$product->id)->withSuccess(__('Composite product successfully updated.'));
     }
     public function compositeProductDelete($composite_product_id)
     {

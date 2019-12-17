@@ -38,7 +38,7 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="">
-                            <form method="post" action="{{ route('business.composite.product.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" action="{{ route('business.composite.product.update',$compositeProduct->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -57,17 +57,17 @@
                                         {{--  todo only one should be selectable  --}}
                                         <p>Product Type</p>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="goods" value="goods" name="product_type" checked="">
+                                            <input type="radio" id="goods" value="goods" name="product_type" checked="" @if($compositeProduct->is_service == 1) checked @endif>
                                             <label for="goods"> Goods </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="services" value="services" name="product_type">
+                                            <input type="radio" id="services" value="services" name="product_type" @if($compositeProduct->is_service == 0) checked @endif>
                                             <label for="services"> Service </label>
                                         </div>
                                         {{--  Product name  --}}
                                         <div class="has-warning">
                                             <label>  </label>
-                                            <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" placeholder="Product name">
+                                            <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" value="{{$compositeProduct->name}}">
                                             <i>Give your product a name</i>
                                         </div>
                                         {{--  Product Unit  --}}
@@ -76,7 +76,7 @@
                                             <select name="unit" class="select2_demo_3 form-control input-lg">
                                                 <option disabled>Select Unit</option>
                                                 @foreach($units as $unit)
-                                                    <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                                    <option @if($compositeProduct->unit_id == $unit->id) selected @endif value="{{$unit->id}}">{{$unit->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -84,7 +84,7 @@
                                         {{--  Product returnable  --}}
                                         {{--todo description tooltip--}}
                                         <div class="">
-                                            <input id="returnable" name="returnable" type="checkbox">
+                                            <input id="returnable" name="returnable" type="checkbox" @if($compositeProduct->is_returnable == 1) checked @endif>
                                             <label for="returnable">
                                                 Returnable Product
                                             </label>
@@ -105,7 +105,7 @@
                                         {{--  Selling price  --}}
                                         <div class="has-warning">
                                             <label class="text-danger"></label>
-                                            <input type="text" id="selling_price" name="selling_price" required="required" placeholder="Selling Price" class="form-control input-lg">
+                                            <input type="text" id="selling_price" name="selling_price" required="required" value="{{$compositeProduct->selling_price}}" class="form-control input-lg">
                                             <i>Give your product a price</i>
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
                                                     <select name="selling_account" class="select2_demo_3 form-control input-lg">
                                                         <option>Select Account</option>
                                                         @foreach($accounts as $account)
-                                                            <option value="{{$account->id}}">{{$account->name}}</option>
+                                                            <option @if($compositeProduct->selling_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -137,7 +137,9 @@
                                         <select name="taxes[]" class="select2_demo_3 form-control input-lg">
                                             <option disabled>Select tax</option>
                                             @foreach($taxes as $tax)
-                                                <option value="{{$tax->id}}">{{$tax->name}}</option>
+                                                @foreach($compositeProduct->product_taxes as $productTax)
+                                                    <option @if($productTax->tax_id == $tax->id) selected @endif value="{{$tax->id}}">{{$tax->name}}</option>
+                                                @endforeach
                                             @endforeach
                                         </select>
                                     </div>
@@ -162,25 +164,33 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>
-                                                    <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select form-control input-lg select-product">
-                                                        <option>Select Product</option>
-                                                        @foreach($products as $product)
-                                                            <option value="{{$product->id}}" data-product-unit-price="{{$product->selling_price}}">{{$product->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="number" oninput = "changeQuantity(this)" class="form-control input-lg item-quantity" name = "item_details[0][quantity]" value = "0">
-                                                </td>
-                                                <td>
-                                                    <input oninput = "changeUnitPrice(this)" type="number" class="form-control input-lg item-unit-price" name = "item_details[0][unit_price]" value = "0">
-                                                </td>
-                                                <td>
-                                                    <input type="number" class="form-control input-lg item-total-price" name = "item_details[0][total_price]" value = "0">
-                                                </td>
-                                            </tr>
+                                                @php
+                                                    $itemIndex = 0;
+                                                @endphp
+                                                @foreach($compositeProductProducts as $compositeProductProduct)
+                                                    <tr>
+                                                        <td>
+                                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select form-control input-lg select-product">
+                                                                <option>Select Product</option>
+                                                                @foreach($products as $product)
+                                                                    <option @if($compositeProductProduct->product_id ==$product->id) selected @endif value="{{$product->id}}" data-product-unit-price="{{$product->selling_price}}">{{$product->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" oninput = "changeQuantity(this)" class="form-control input-lg item-quantity" name = "item_details[0][quantity]" value = "{{$compositeProductProduct->quantity}}">
+                                                        </td>
+                                                        <td>
+                                                            <input oninput = "changeUnitPrice(this)" type="number" class="form-control input-lg item-unit-price" name = "item_details[0][unit_price]" value = "{{$compositeProductProduct->unit_price}}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control input-lg item-total-price" name = "item_details[0][total_price]" value = "{{$compositeProductProduct->total_price}}">
+                                                        </td>
+                                                    </tr>
+                                                    @php
+                                                        $itemIndex ++;
+                                                    @endphp
+                                                @endforeach
                                             </tbody>
                                             {{-- <tfoot>
                                             <tr>
