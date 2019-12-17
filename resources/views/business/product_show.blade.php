@@ -106,7 +106,7 @@
 
                             <div>
                                 <div class="btn-group">
-                                    <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button>
+                                    {{-- <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button> --}}
                                     <a href="{{route('business.expense.create')}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a>
                                     <a href="{{ route('business.product.delete', $product->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
                                 </div>
