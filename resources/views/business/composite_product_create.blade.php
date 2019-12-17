@@ -158,7 +158,7 @@
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
-                                                    <select name="inventory_account" class="select2_demo_3 form-control input-lg" multiple>
+                                                    <select name="inventory_account" class="select2_demo_3 form-control input-lg">
                                                         <option>Select Account</option>
                                                         @foreach($accounts as $account)
                                                             <option value="{{$account->id}}">{{$account->name}}</option>
