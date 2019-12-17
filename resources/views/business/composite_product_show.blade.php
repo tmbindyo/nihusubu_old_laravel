@@ -51,7 +51,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            @foreach($compositeProduct->composite_product_products as $product)
+            @foreach($compositeProductProducts as $product)
                 <div class="col-md-3">
                     <div class="ibox">
                         <div class="ibox-content product-box">

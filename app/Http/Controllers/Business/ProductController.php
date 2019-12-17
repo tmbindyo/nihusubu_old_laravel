@@ -1078,9 +1078,10 @@ class ProductController extends Controller
         $institution = $this->getInstitution();
 
         $compositeProduct = Product::findOrFail($composite_product_id);
-        $compositeProduct = Product::where('id',$composite_product_id)->withCount('order_products','sale_products','composite_product_products')->with('composite_product_products.product','product_taxes','user','status')->first();
-//        return $compositeProduct;
-        return view('business.composite_product_show',compact('user','institution','compositeProduct'));
+        $compositeProduct = Product::where('id',$composite_product_id)->withCount('order_products','sale_products','composite_product_products')->with('composite_product_products','product_taxes','user','status')->first();
+        $compositeProductProducts = CompositeProductProduct::where('composite_product_id',$compositeProduct->id)->with('product')->get();
+        // return $compositeProductProducts;
+        return view('business.composite_product_show',compact('user','institution','compositeProduct','compositeProductProducts'));
     }
     public function compositeProductEdit($composite_product_id)
     {
