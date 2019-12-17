@@ -26,6 +26,10 @@ class ProductGroup extends Model
     }
 
     // Children
+    public function product_group_taxes()
+    {
+        return $this->hasMany('App\ProductGroupTax');
+    }
     public function product_group_images()
     {
         return $this->hasMany('App\ProductGroupImage');

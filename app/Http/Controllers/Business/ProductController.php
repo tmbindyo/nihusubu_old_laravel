@@ -6,6 +6,7 @@ use App\CompositeProduct;
 use App\CompositeProductProduct;
 use App\CompositeProductTax;
 use App\ProductGroup;
+use App\ProductGroupTax;
 use DB;
 use App\Account;
 use App\Inventory;
@@ -86,10 +87,43 @@ class ProductController extends Controller
         $productGroup->description = $request->description;
         $productGroup->attributes = $attributes;
         $productGroup->attribute_options = $attribute_options;
+
+        $productGroup->selling_account_id = $request->selling_account;
+        $productGroup->purchase_account_id = $request->purchase_account;
+        $productGroup->inventory_account_id = $request->inventory_account;
+
+        // Check if the product is has been value added
+        if ($request->is_created == "on"){
+            $productGroup->is_created = True;
+        }else{
+            $productGroup->is_created = False;
+        }
+        $productGroup->creation_time = $request->creation_time;
+        $productGroup->creation_cost = $request->creation_cost;
+
         $productGroup->user_id = $user->id;
+        $productGroup->unit_id = $request->unit;
         $productGroup->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
         $productGroup->institution_id = $institution->id;
+
+        if ($request->is_returnable == "on"){
+            $productGroup->is_returnable = True;
+        }else{
+            $productGroup->is_returnable = False;
+        }
         $productGroup->save();
+
+        // Product taxes
+        if ($request->taxes){
+            foreach ($request->taxes as $productProductTax){
+                $productGroupTax = new ProductGroupTax();
+                $productGroupTax->product_group_id = $productGroup->id;
+                $productGroupTax->tax_id = $productProductTax;
+                $productGroupTax->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $productGroupTax->user_id = $user->id;
+                $productGroupTax->save();
+            }
+        }
 
 
         foreach ($request->products as $productGroupProduct){
@@ -117,16 +151,19 @@ class ProductController extends Controller
 
             $product->selling_price = $productGroupProduct['selling_price'];
             $product->purchase_price = $productGroupProduct['purchase_price'];
+            $product->reorder_level = $productGroupProduct['reorder_level'];
             // Check if the product is has been value added
             if ($request->is_created == "on"){
                 $product->is_created = True;
             }else{
                 $product->is_created = False;
             }
+            $product->creation_time = $request->creation_time;
+            $product->creation_cost = $request->creation_cost;
             $product->inventory_account_id = $request->inventory_account;
             $product->opening_stock = $productGroupProduct['opening_stock'];
             $product->opening_stock_value = $productGroupProduct['opening_stock_value'];
-            $product->reorder_level = $request->reorder_level;
+            $product->reorder_level = $productGroupProduct['reorder_level'];
 
             $product->is_product_group = True;
             $product->is_composite_product = False;
@@ -243,8 +280,8 @@ class ProductController extends Controller
         $accounts = Account::where('institution_id',$institution->id)->get();
         // Get product groups
         $productGroup = ProductGroup::findOrFail($product_group_id);
-        $productGroup = ProductGroup::where('id',$product_group_id)->with('products')->first();
-        return $productGroup;
+        $productGroup = ProductGroup::where('id',$product_group_id)->with('products','product_group_taxes')->first();
+        // return $productGroup;
 
         return view('business.product_group_edit',compact('user','institution','taxes','units','accounts','productGroup'));
     }

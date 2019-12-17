@@ -70,7 +70,7 @@
                 <a href="{{route('business.product.groups')}}">Product Groups</a>
             </li>
             <li class="active">
-                <strong>Product Group Create</strong>
+                <strong>Product Group Edit</strong>
             </li>
         </ol>
     </div>
@@ -110,11 +110,11 @@
                                 {{--  Product type  --}}
                                 <p>Product Type</p>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="goods" value="goods" name="product_type" @if($productGroup->products) checked="">
+                                    <input type="radio" id="goods" value="goods" name="product_type" @if($productGroup->is_service == 0) checked @endif>
                                     <label for="goods"> Goods </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="services" value="services" name="product_type">
+                                    <input type="radio" id="services" value="services" name="product_type" @if($productGroup->is_service == 1) checked @endif>
                                     <label for="services"> Service </label>
                                 </div>
 
@@ -122,7 +122,7 @@
                                 <label>  </label>
                                 {{--  Product group name  --}}
                                 <div class="has-warning">
-                                    <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" placeholder="Product Group Name">
+                                    <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" value="{{$productGroup->name}}">
                                     <i>Give your product group a name</i>
                                 </div>
                                 <br>
@@ -138,7 +138,7 @@
                                             <select name="unit" class="select form-control input-lg" required>
                                                 <option value="" selected disabled>Select Unit</option>
                                                 @foreach($units as $unit)
-                                                    <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                                    <option @if ($unit->id == $productGroup->unit_id) selected @endif value="{{$unit->id}}">{{$unit->name}}</option>
                                                 @endforeach()
                                             </select>
                                         </div>
@@ -200,7 +200,7 @@
                                             <select name="purchase_account" class="select form-control input-lg" required>
                                                 <option value="" selected disabled>Select Purchase Account</option>
                                                 @foreach($accounts as $account)
-                                                    <option value="{{$account->id}}">{{$account->name}}</option>
+                                                    <option @if($account->id == $productGroup->purchase_account_id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
                                                 @endforeach()
                                             </select>
                                         </div>
@@ -224,7 +224,7 @@
                                             <select name="inventory_account" class="select form-control input-lg">
                                                 <option value="" disabled>Select Inventory Account</option>
                                                 @foreach($accounts as $account)
-                                                    <option value="{{$account->id}}">{{$account->name}}</option>
+                                                    <option @if($account->id == $productGroup->inventory_account_id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
                                                 @endforeach()
                                             </select>
                                         </div>
@@ -238,7 +238,9 @@
                                 <select name="taxes[]" class="taxes-select form-control input-lg" multiple="multiple">
                                     <option value="" disabled>Select Taxes</option>
                                     @foreach($taxes as $tax)
-                                        <option value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
+                                        @foreach($productGroup->product_group_taxes as $productTax)
+                                            <option @if($productTax->tax_id == $tax->id) selected @endif value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
+                                        @endforeach()
                                     @endforeach()
                                 </select>
                             </div>
@@ -247,7 +249,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="checkbox checkbox-info">
-                                    <input id="is_created" name="is_created" type="checkbox">
+                                    <input id="is_created" name="is_created" type="checkbox" @if($productGroup->is_created == 1)checked @endif >
                                     <label for="is_created">
                                         Product Manufactured/Created
                                     </label>
@@ -262,11 +264,11 @@
                         <br>
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="number" id="creation_time" name="creation_time" required="required" placeholder="Creation/Value addition time" class="form-control input-lg">
+                                <input type="number" id="creation_time" name="creation_time" required="required" value="{{$productGroup->creation_time}}" class="form-control input-lg">
                                 <i>Average time taken to manufacture/create or add value to it in minutes.</i>
                             </div>
                             <div class="col-md-6">
-                                <input type="number" id="creation_cost" name="creation_cost" required="required" placeholder="Average Creation/Value Addition cost" class="form-control input-lg">
+                                <input type="number" id="creation_cost" name="creation_cost" required="required" value="{{$productGroup->creation_cost}}" class="form-control input-lg">
                                 <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
                             </div>
                         </div>
@@ -307,12 +309,12 @@
                                 <tr>
                                     <td style = "width: 50%">
                                         <div class="has-warning">
-                                            <input type="text" name="attribute[]" class="form-control input-lg" placeholder="Attributes e.g Color" required>
+                                            <input type="text" name="attribute[]" class="form-control input-lg" value="{{$productGroup->attributes}}" required>
                                         </div>
                                     </td>
                                     <td style = "width: 50%">
                                         <div class="has-warning">
-                                            <input type="text" name="attribute_options[]" class="form-control input-lg" id="tag-input" required >
+                                            <input type="text" value="{{$productGroup->attribute_options}}" name="attribute_options[]" class="form-control input-lg" id="tag-input" required >
                                         </div>
                                     </td>
                                 </tr>
@@ -326,7 +328,6 @@
                             <thead>
                                 <tr>
                                     <th>Item Name</th>
-                                    <th>Unit</th>
                                     <th>Opening Stock</th>
                                     <th>Opening Stock Value</th>
                                     <th>Purchase Price</th>
@@ -334,7 +335,18 @@
                                     <th>Reorder Level</th>
                                 </tr>
                             </thead>
-                            <tbody id = "attribute_tbody"></tbody>
+                            <tbody id = "attribute_tbody">
+                                @foreach ($productGroup->products as $product)
+                                    <tr class="gradeA">
+                                        <td><input type = 'text' class = 'form-control input-md' name = products["+itemIndex+"][name] value = "{{$product->name}}"</td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock] value = "{{$product->opening_stock}}"></td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock_value] value = "{{$product->opening_stock_value}}"></td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][purchase_price] value = "{{$product->purchase_price}}"></td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][selling_price] value = "{{$product->selling_price}}"></td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][reorder_level] value = "{{$product->reorder_level}}"></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
 
                         <br>
@@ -485,12 +497,11 @@
                 var sixth_cell = row.insertCell(5)
                 var seventh_cell = row.insertCell(6)
                 first_cell.innerHTML = "<input type = 'text' class = 'form-control input-md' name = products["+itemIndex+"][name] value = "+productName.value+"-"+tagItem.value+">"
-                second_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][unit] value = 0>"
-                third_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock] value = 0>"
-                fourth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock_value] value = 0>"
-                fifth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][purchase_price] value = 0>"
-                sixth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][selling_price] value = 0>"
-                seventh_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][reorder_level] value = 0>"
+                second_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock] value = 0>"
+                third_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock_value] value = 0>"
+                fourth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][purchase_price] value = 0>"
+                fifth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][selling_price] value = 0>"
+                sixth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][reorder_level] value = 0>"
             } else if (addItem === false) {
                 var row = tableBody.deleteRow(itemIndex)
             }
@@ -824,4 +835,5 @@
 
 
     </script>
+
 @endsection
