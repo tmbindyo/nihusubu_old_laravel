@@ -107,8 +107,12 @@
                             <div>
                                 <div class="btn-group">
                                     {{-- <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button> --}}
-                                    <a href="{{route('business.expense.create')}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a>
-                                    <a href="{{ route('business.product.delete', $product->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
+                                    {{-- <a href="{{route('business.expense.create')}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a> --}}
+                                    @if ($product->status_id == 'bc6170bf-299a-44f5-8362-8cdeed1f47b0')
+                                        <a href="{{ route('business.product.restore', $product->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-check"></i> Restore </a>
+                                    @else
+                                        <a href="{{ route('business.product.delete', $product->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
+                                    @endif
                                 </div>
                             </div>
 
