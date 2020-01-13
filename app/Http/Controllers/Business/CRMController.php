@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Business;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class AccountsController extends Controller
+class CRMController extends Controller
 {
     //
 }

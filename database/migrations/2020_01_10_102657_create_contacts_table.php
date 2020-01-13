@@ -26,6 +26,7 @@ class CreateContactsTable extends Migration
             $table->string('email', 200);
             $table->string('phone_number', 200);
             $table->string('website', 200);
+            $table->longText('about');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
@@ -36,8 +37,13 @@ class CreateContactsTable extends Migration
             $table->uuid('shipping_address_id');
             $table->uuid('billing_address_id');
 
-            $table->boolean('is_customer');// or vendor
-            $table->boolean('is_business');// or individual
+            $table->boolean('is_organization');
+            $table->uuid('organization_id')->nullable();
+            $table->uuid('title_id')->nullable();
+            $table->uuid('lead_source_id')->nullable();
+            $table->uuid('campaign_id')->nullable();
+
+            $table->boolean('is_lead');
 
             $table->timestamps();
             $table->softDeletes();

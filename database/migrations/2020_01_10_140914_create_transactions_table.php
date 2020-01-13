@@ -16,16 +16,24 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->double('source_account_initial_balance', 20,2);
-            $table->double('source_account_new_balance', 20,2);
-            $table->double('destination_account_initial_balance', 20,2);
-            $table->double('destination_account_new_balance', 20,2);
-            $table->double('transacted_amount', 20,2);
+            $table->string('reference');
+            $table->longText('notes')->nullable();
+
+            $table->decimal('amount',20,2);
+            $table->decimal('initial_amount',20,2)->nullable();
+            $table->decimal('subsequent_amount',20,2)->nullable();
+
+            $table->date('date');
+            $table->date('billed')->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('source_account_id');
-            $table->uuid('destination_account_id');
+            $table->uuid('account_id')->nullable();
+            $table->uuid('expense_id')->nullable();
+            $table->uuid('institution_id');
+
+            $table->boolean('is_billed')->nullable();
+            $table->boolean('is_confirmed')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

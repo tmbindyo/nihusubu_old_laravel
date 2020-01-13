@@ -195,21 +195,21 @@
                                                     <tr>
                                                         <th>Date</th>
                                                         <th>Quantity</th>
-                                                        <th>Rate</th>
+                                                        <th>Warehouse</th>
                                                         <th>Status</th>
                                                         <th>Order</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($product->order_products as $order)
+                                                    @foreach($product->inventory as $inventory)
                                                         <tr class="gradeX">
-                                                            <td>{{$order->created_at}}</td>
-                                                            <td>{{$order->quantity}}</td>
-                                                            <td class="center">{{$order->rate}}</td>
-                                                            <td class="center">{{$order->status}}</td>
+                                                            <td>{{$inventory->date}}</td>
+                                                            <td>{{$inventory->quantity}}</td>
+                                                            <td class="center">{{$inventory->warehouse->name}}</td>
+                                                            <td class="center">{{$inventory->status->name}}</td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.order.show', $order->order_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.order.show', $inventory->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>

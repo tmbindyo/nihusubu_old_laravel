@@ -17,16 +17,13 @@ class CreateExpenseItemsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name', 200)->nullable();
-            $table->double('quantity',5,2);
-            $table->double('rate',5,2);
-            $table->double('amount',5,2);
+            $table->double('quantity',20,2);
+            $table->double('rate',20,2);
+            $table->double('amount',20,2);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('expense_id');
             $table->uuid('status_id');
-            $table->uuid('product_id');
-
-            $table->boolean('is_product');
 
             $table->timestamps();
             $table->softDeletes();

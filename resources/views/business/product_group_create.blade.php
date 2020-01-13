@@ -12,6 +12,35 @@
 
     <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
 
+    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
+
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
     <link href="{{ asset('css') }}/choices.min.css" rel="stylesheet">
@@ -123,15 +152,11 @@
                                 {{--  Product group name  --}}
                                 <div class="has-warning">
                                     <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" placeholder="Product Group Name">
-                                    <i>Give your product group a name</i>
+                                    <i>name</i>
                                 </div>
                                 <br>
                                 {{--  Product Unit  --}}
                                 <div class="row">
-                                    <div class="col-md-1">
-                                        <label></label>
-                                        <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                    </div>
                                     <div class="col-md-11">
                                         <div class="has-warning">
                                             <label>  </label>
@@ -141,7 +166,12 @@
                                                     <option value="{{$unit->id}}">{{$unit->name}}</option>
                                                 @endforeach()
                                             </select>
+                                            <i>unit</i>
                                         </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label></label>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                     </div>
                                 </div>
                                 <br>
@@ -181,18 +211,20 @@
                                 <h4 class="text-center">SALES INFORMATION</h4>
                                 {{--  Product purchase account  --}}
                                 <div class="row">
-                                    <div class="col-md-1">
-                                        <label></label>
-                                        <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                    </div>
+
                                     <div class="col-md-11">
                                         <label></label>
                                         <select name="selling_account" class="select form-control input-lg" required>
                                             <option value="" selected disabled>Select Selling Account</option>
-                                            @foreach($accounts as $account)
+                                            @foreach($salesAccounts as $account)
                                                 <option value="{{$account->id}}">{{$account->name}}</option>
                                             @endforeach()
                                         </select>
+                                        <i>selling account</i>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label></label>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -200,48 +232,37 @@
                                 <h4 class="text-center">PURCHASE INFORMATION</h4>
                                 {{--  Product selling account  --}}
                                 <div class="row">
-                                    <div class="col-md-1">
-                                        <label class="text-danger"></label>
-                                        <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                    </div>
+
                                     <div class="col-md-11">
                                         <div class="has-warning">
                                             <label class="text-danger"></label>
                                             <select name="purchase_account" class="select form-control input-lg" required>
                                                 <option value="" selected disabled>Select Purchase Account</option>
-                                                @foreach($accounts as $account)
-                                                    <option value="{{$account->id}}">{{$account->name}}</option>
-                                                @endforeach()
+                                                <optgroup label="Exepense">
+                                                    @foreach($expenseAccounts as $account)
+                                                        <option value="{{$account->id}}">{{$account->name}}</option>
+                                                    @endforeach()
+                                                </optgroup>
+
+                                                <optgroup label="Costs Of Goods Sold">
+                                                    @foreach($costOfGoodsSoldAccounts as $account)
+                                                        <option value="{{$account->id}}">{{$account->name}}</option>
+                                                    @endforeach()
+                                                </optgroup>
                                             </select>
+                                            <i>purchase account</i>
                                         </div>
                                     </div>
+                                    <div class="col-md-1">
+                                        <label class="text-danger"></label>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                         <br>
-                        {{--  Inventory information  --}}
                         <div class="row">
-                            <div class="col-md-6">
-                                {{--  Inventory account  --}}
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <label class="text-danger"></label>
-                                        <span><i data-toggle="tooltip" data-placement="right" title="All inventory related transactions will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                    </div>
-                                    <div class="col-md-11">
-                                        <div class="has-warning">
-                                            <label class="text-danger"></label>
-                                            <select name="inventory_account" class="select form-control input-lg">
-                                                <option value="" disabled>Select Inventory Account</option>
-                                                @foreach($accounts as $account)
-                                                    <option value="{{$account->id}}">{{$account->name}}</option>
-                                                @endforeach()
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
                             <div class="col-md-6">
                                 {{--  Product Tax  --}}
                                 <label></label>
@@ -251,6 +272,7 @@
                                         <option value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
                                     @endforeach()
                                 </select>
+                                <i>taxes</i>
                             </div>
                         </div>
                         <br>
@@ -281,7 +303,41 @@
                             </div>
                         </div>
                         <br>
-                        {{-- <hr> --}}
+                        <hr>
+                        <h3 class="text-center">INVENTORY INFORMATION</h3>
+                        <br>
+                        {{--  Inventory information  --}}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{--  Inventory account  --}}
+                                <div class="row">
+
+                                    <div class="col-md-11">
+                                        <div class="has-warning">
+                                            <label class="text-danger"></label>
+                                            <select name="inventory_account" class="select form-control input-lg">
+                                                <option value="" selected disabled>Select Inventory Account</option>
+                                                @foreach($stockAccounts as $account)
+                                                    <option value="{{$account->id}}">{{$account->name}}</option>
+                                                @endforeach()
+                                            </select>
+                                            <i>inventory account</i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="text-danger"></label>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="All inventory related transactions will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <br>
+                        <hr>
+                        <h3 class="text-center">PRODUCTS</h3>
+                        <br>
                         {{-- <div class="row" id="product_group_attribute">
                             <div class="col-md-6"> --}}
                                 {{--  Product Group attribute  --}}
@@ -318,11 +374,14 @@
                                     <td style = "width: 50%">
                                         <div class="has-warning">
                                             <input type="text" name="attribute[]" class="form-control input-lg" placeholder="Attributes e.g Color" required>
+                                            <br>
+                                            <i>attributes</i>
                                         </div>
                                     </td>
                                     <td style = "width: 50%">
                                         <div class="has-warning">
                                             <input type="text" name="attribute_options[]" class="form-control input-lg" id="tag-input" required >
+                                            <i>attribute options</i>
                                         </div>
                                     </td>
                                 </tr>
@@ -336,7 +395,6 @@
                             <thead>
                                 <tr>
                                     <th>Item Name</th>
-                                    <th>Unit</th>
                                     <th>Opening Stock</th>
                                     <th>Opening Stock Value</th>
                                     <th>Purchase Price</th>
@@ -495,12 +553,11 @@
                 var sixth_cell = row.insertCell(5)
                 var seventh_cell = row.insertCell(6)
                 first_cell.innerHTML = "<input type = 'text' class = 'form-control input-md' name = products["+itemIndex+"][name] value = "+productName.value+"-"+tagItem.value+">"
-                second_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][unit] value = 0>"
-                third_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock] value = 0>"
-                fourth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock_value] value = 0>"
-                fifth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][purchase_price] value = 0>"
-                sixth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][selling_price] value = 0>"
-                seventh_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][reorder_level] value = 0>"
+                second_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock] value = 0>"
+                third_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock_value] value = 0>"
+                fourth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][purchase_price] value = 0>"
+                fifth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][selling_price] value = 0>"
+                sixth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][reorder_level] value = 0>"
             } else if (addItem === false) {
                 var row = tableBody.deleteRow(itemIndex)
             }

@@ -106,29 +106,32 @@
                                         <div class="has-warning">
                                             <label>  </label>
                                             <input type="text" id="name" name="name" required="required" class="form-control input-lg" placeholder="Name">
-                                            <i>Give your product/service a name</i>
+                                            <i>name</i>
                                         </div>
                                         {{--  Product Unit  --}}
                                         <div class="row">
-                                            <div class="col-md-1">
-                                                <label></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label>  </label>
                                                     <select name="unit" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
                                                         <option value="" selected disabled>Select Unit</option>
                                                         @foreach($units as $unit)
-                                                            <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                                        <option value="{{$unit->id}}">{{$unit->name}}</option>
                                                         @endforeach()
                                                     </select>
                                                 </div>
+                                                <i>unit</i>
                                             </div>
+
+                                            <div class="col-md-1">
+                                                <label></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+
                                         </div>
 
-
-                                        <label>  </label>
+                                        <br>
+                                        {{--  <label>  </label>  --}}
                                         {{--  Product returnable  --}}
                                         {{--todo description tooltip--}}
                                         <div class="checkbox">
@@ -167,39 +170,54 @@
                                         <h4 class="text-center">SALES INFORMATION</h4>
                                         {{--  Product purchase account  --}}
                                         <div class="row">
-                                            <div class="col-md-1">
-                                                <label></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
+
                                             <div class="col-md-11">
                                                 <label></label>
                                                 <select name="selling_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
                                                     <option value="" selected disabled>Select Selling Account</option>
-                                                    @foreach($accounts as $account)
+                                                    @foreach($salesAccounts as $account)
                                                         <option value="{{$account->id}}">{{$account->name}}</option>
                                                     @endforeach()
                                                 </select>
+                                                <i>selling account</i>
                                             </div>
+                                            <div class="col-md-1">
+                                                <label></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <h4 class="text-center">PURCHASE INFORMATION</h4>
                                         {{--  Product selling account  --}}
                                         <div class="row">
-                                            <div class="col-md-1">
-                                                <label class="text-danger"></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
+
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
                                                     <select name="purchase_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
                                                         <option value="" selected disabled>Select Purchase Account</option>
-                                                        @foreach($accounts as $account)
-                                                            <option value="{{$account->id}}">{{$account->name}}</option>
-                                                        @endforeach()
+
+                                                        <optgroup label="Exepense">
+                                                            @foreach($expenseAccounts as $account)
+                                                                <option value="{{$account->id}}">{{$account->name}}</option>
+                                                            @endforeach()
+                                                        </optgroup>
+
+                                                        <optgroup label="Costs Of Goods Sold">
+                                                            @foreach($costOfGoodsSoldAccounts as $account)
+                                                                <option value="{{$account->id}}">{{$account->name}}</option>
+                                                            @endforeach()
+                                                        </optgroup>
+
                                                     </select>
+                                                    <i>purchase account</i>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <label class="text-danger"></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
                                         </div>
                                     </div>
@@ -210,7 +228,7 @@
                                         <div class="has-warning">
                                             <label class="text-danger"></label>
                                             <input type="text" id="selling_price" name="selling_price" required="required" placeholder="Selling Price" class="form-control input-lg">
-                                            <i>Give your product a price</i>
+                                            <i>selling price</i>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -218,7 +236,7 @@
                                         <div class="has-warning">
                                             <label class="text-danger"></label>
                                             <input type="text" id="purchase_price" name="purchase_price" required="required" placeholder="Purchase Price" class="form-control input-lg">
-                                            <i>Your product purchase price</i>
+                                            <i>purchase price</i>
                                         </div>
                                     </div>
                                 </div>
@@ -232,6 +250,7 @@
                                                 <option value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
                                             @endforeach()
                                         </select>
+                                        <i>taxes</i>
                                     </div>
                                 </div>
                                 <br>
@@ -269,21 +288,24 @@
                                     <div class="col-md-6">
                                         {{--  Inventory account  --}}
                                         <div class="row">
-                                            <div class="col-md-1">
-                                                <label class="text-danger"></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="All inventory related transactions will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
+
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
                                                     <select name="inventory_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2">
-                                                        <option value="">Select Inventory Account</option>
-                                                        @foreach($accounts as $account)
+                                                        <option value="" selected disabled>Select Inventory Account</option>
+                                                        @foreach($stockAccounts as $account)
                                                             <option value="{{$account->id}}">{{$account->name}}</option>
                                                         @endforeach()
                                                     </select>
                                                 </div>
+                                                <i>inventory account</i>
                                             </div>
+                                            <div class="col-md-1">
+                                                <label class="text-danger"></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="All inventory related transactions will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+
                                         </div>
 
                                     </div>
@@ -294,28 +316,34 @@
                                     <div class="col-md-6">
                                         {{--  Opening stock  --}}
                                         <div class="row">
+
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <input type="number" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg" placeholder="Opening Stock">
+                                                <i>opening stock</i>
+                                            </div>
                                             <div class="col-md-1">
                                                 <label></label>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <input type="number" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg" placeholder="Opening Stock">
-                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         {{--  Opening stock value  --}}
                                         {{--  todo Make KES (currency) dynamic  --}}
                                         <div class="row">
+
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <input type="number" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg" placeholder="Opening Stock Value">
+                                                <i>opening stock value</i>
+                                            </div>
                                             <div class="col-md-1">
                                                 <label></label>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Opening stock value refers to the average purchase price of your opening stock. (Per unit in KES)" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <input type="number" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg" placeholder="Opening Stock Value">
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -323,14 +351,17 @@
                                     <div class="col-md-6">
                                         {{--  Reorder Level  --}}
                                         <div class="row">
+
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <input type="number" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg" placeholder="Reorder Level">
+                                                <i>reorder level</i>
+                                            </div>
                                             <div class="col-md-1">
                                                 <label></label>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Reorder level refers to the quantity of an item below which, an item is considered to be low on stock." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <input type="number" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg" placeholder="Reorder Level">
-                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">

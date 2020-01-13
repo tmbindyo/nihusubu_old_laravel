@@ -1,6 +1,12 @@
 <?php
 
 
+Route::group(array('domain' => '{subdomain}.localhost:8000'), function () {
+
+
+});
+
+
 //Dashboard
 Route::get('/dashboard', 'Business\DashboardController@dashboard')->name('business.dashboard');
 
@@ -9,14 +15,82 @@ Route::get('/dashboard', 'Business\DashboardController@dashboard')->name('busine
 Route::get('/calendar', 'Business\CalendarController@calendar')->name('business.calendar');
 Route::post('/calendar/store', 'Business\CalendarController@calendarStore')->name('business.calendar.store');
 
-
-// To Do
 Route::get('/to/dos', 'Business\ToDoController@toDos')->name('business.to.dos');
 Route::post('/to/do/store', 'Business\ToDoController@toDoStore')->name('business.to.do.store');
 Route::post('/to/do/update/{todo_id}', 'Business\ToDoController@toDoUpdate')->name('business.to.do.update');
 Route::get('/to/do/set/in/progress/{todo_id}', 'Business\ToDoController@toDoSetInProgress')->name('business.to.do.set.in.progress');
 Route::get('/to/do/set/completed/{todo_id}', 'Business\ToDoController@toDoSetCompleted')->name('business.to.do.set.completed');
 Route::get('/to/do/delete/{todo_id}', 'Business\ToDoController@toDoDelete')->name('business.to.do.delete');
+
+
+/// CRM
+// Campaign
+Route::get('/campaigns', 'Business\CRMController@campaigns')->name('business.campaigns');
+Route::get('/campaign/create', 'Business\CRMController@campaignCreate')->name('business.campaign.create');
+Route::post('/campaign/store', 'Business\CRMController@campaignStore')->name('business.campaign.store');
+Route::get('/campaign/show/{campaign_id}', 'Business\CRMController@campaignShow')->name('business.campaign.show');
+
+Route::get('/campaign/contact/create/{campaign_id}', 'Business\CRMController@campaignContactCreate')->name('business.campaign.contact.create');
+Route::get('/campaign/deal/create/{campaign_id}', 'Business\CRMController@campaignDealCreate')->name('business.campaign.deal.create');
+Route::get('/campaign/expense/create/{campaign_id}', 'Business\CRMController@campaignExpenseCreate')->name('business.campaign.expense.create');
+Route::get('/campaign/organization/create/{campaign_id}', 'Business\CRMController@campaignOrganizationCreate')->name('business.campaign.organization.create');
+
+Route::post('/campaign/update/{campaign_id}', 'Business\CRMController@campaignUpdate')->name('business.campaign.update');
+Route::get('/campaign/delete/{campaign_id}', 'Business\CRMController@campaignDelete')->name('business.campaign.delete');
+Route::get('/campaign/restore/{campaign_id}', 'Business\CRMController@campaignRestore')->name('business.campaign.restore');
+
+// Campaign uploads
+Route::get('/campaign/uploads/{campaign_id}', 'Business\CRMController@campaignUploads')->name('business.campaign.uploads');
+Route::post('/campaign/upload/store/{campaign_id}', 'Business\CRMController@campaignUploadStore')->name('business.campaign.upload.store');
+Route::get('/campaign/upload/download/{upload_id}', 'Business\CRMController@campaignUploadDownload')->name('business.campaign.upload.download');
+
+
+
+// Contacts
+Route::get('/contacts', 'Business\CRMController@contacts')->name('business.contacts');
+Route::get('/contact/create', 'Business\CRMController@contactCreate')->name('business.contact.create');
+Route::post('/contact/store', 'Business\CRMController@contactStore')->name('business.contact.store');
+Route::get('/contact/show/{contact_id}', 'Business\CRMController@contactShow')->name('business.contact.show');
+
+Route::get('/contact/asset/action/create/{asset_id}', 'Business\CRMController@contactAssetActionCreate')->name('business.contact.asset.action.create');
+Route::get('/contact/promo/code/assign/{contact_id}', 'Business\CRMController@contactPromoCodeAssign')->name('business.contact.promo.code.assign');
+Route::get('/contact/client/proof/create/{contact_id}', 'Business\CRMController@contactClientProofCreate')->name('business.contact.client.proof.create');
+Route::get('/contact/deal/create/{contact_id}', 'Business\CRMController@contactDealCreate')->name('business.contact.deal.create');
+Route::get('/contact/design/create/{contact_id}', 'Business\CRMController@contactDesignCreate')->name('business.contact.design.create');
+Route::get('/contact/liability/create/{contact_id}', 'Business\CRMController@contactLiabilityCreate')->name('business.contact.liability.create');
+Route::get('/contact/loan/create/{contact_id}', 'Business\CRMController@contactLoanCreate')->name('business.contact.loan.create');
+Route::get('/contact/order/create/{contact_id}', 'Business\CRMController@contactOrderCreate')->name('business.contact.order.create');
+Route::get('/contact/project/create/{contact_id}', 'Business\CRMController@contactProjectCreate')->name('business.contact.project.create');
+
+Route::post('/contact/update/{contact_id}', 'Business\CRMController@contactUpdate')->name('business.contact.update');
+Route::get('/contact/delete/{contact_id}', 'Business\CRMController@contactDelete')->name('business.contact.delete');
+Route::get('/contact/restore/{contact_id}', 'Business\CRMController@contactRestore')->name('business.contact.restore');
+
+Route::get('/contact/update/lead/to/contact/{contact_id}', 'Business\CRMController@contactUpdateLeadToContact')->name('business.contact.update.lead.to.contact');
+Route::post('/contact/contact/type/store/{contact_id}', 'Business\CRMController@contactContactTypeStore')->name('business.contact.contact.type.store');
+
+
+
+// Leads
+Route::get('/leads', 'Business\CRMController@leads')->name('business.leads');
+Route::get('/lead/create', 'Business\CRMController@leadCreate')->name('business.lead.create');
+
+
+
+// organizations
+Route::get('/organizations', 'Business\CRMController@organizations')->name('business.organizations');
+Route::get('/organization/create', 'Business\CRMController@organizationCreate')->name('business.organization.create');
+Route::post('/organization/store', 'Business\CRMController@organizationStore')->name('business.organization.store');
+Route::get('/organization/show/{organization_id}', 'Business\CRMController@organizationShow')->name('business.organization.show');
+
+Route::get('/organization/contact/create/{organization_id}', 'Business\CRMController@organizationContactCreate')->name('business.organization.contact.create');
+Route::get('/organization/deal/create/{organization_id}', 'Business\CRMController@organizationDealCreate')->name('business.organization.deal.create');
+
+Route::post('/organization/update/{organization_id}', 'Business\CRMController@organizationUpdate')->name('business.organization.update');
+Route::get('/organization/delete/{organization_id}', 'Business\CRMController@organizationDelete')->name('business.organization.delete');
+Route::get('/organization/restore/{organization_id}', 'Business\CRMController@organizationRestore')->name('business.organization.restore');
+
+
 
 
 //Products
@@ -188,18 +262,143 @@ Route::get('/payments/made', 'Business\PurchaseController@paymentsMade')->name('
 Route::get('/expense/settings', 'Business\PurchaseController@expenseSettings')->name('business.expense.settings');
 
 
+
+
+
 // Accounting
-Route::get('/chart/of/accounts', 'Business\AccountingController@chartOfAccounts')->name('business.chart.of.accounts');
-Route::get('/chart/of/account/store', 'Business\AccountingController@chartOfAccountStore')->name('business.chart.of.account.store');
-Route::get('/chart/of/account/update/{chart_of_account_id}', 'Business\AccountingController@chartOfAccountUpdate')->name('business.chart.of.account.update');
-Route::get('/chart/of/account/delete/{chart_of_account_id}', 'Business\AccountingController@chartOfAccountDelete')->name('business.chart.of.account.delete');
+// accounts
+Route::get('/accounts', 'Business\AccountController@accounts')->name('business.accounts');
+Route::get('/account/create', 'Business\AccountController@accountCreate')->name('business.account.create');
+Route::post('/account/store', 'Business\AccountController@accountStore')->name('business.account.store');
+Route::get('/account/show/{account_id}', 'Business\AccountController@accountShow')->name('business.account.show');
 
-Route::get('/transactions', 'Business\AccountingController@transactions')->name('business.transactions');
+Route::get('/account/deposit/create/{account_id}', 'Business\AccountController@accountDepositCreate')->name('business.account.deposit.create');
+Route::get('/account/liability/create/{account_id}', 'Business\AccountController@accountLiabilityCreate')->name('business.account.liability.create');
+Route::get('/account/loan/create/{account_id}', 'Business\AccountController@accountLoanCreate')->name('business.account.loan.create');
+Route::get('/account/withdrawal/create/{account_id}', 'Business\AccountController@accountWithdrawalCreate')->name('business.account.withdrawal.create');
 
-Route::get('/manual/journals', 'Business\AccountingController@manualJournals')->name('business.manual.journals');
-Route::get('/manual/journal/store', 'Business\AccountingController@manualJournalStore')->name('business.manual.journal.store');
-Route::get('/manual/journal/update/{manual_journal_id}', 'Business\AccountingController@manualJournalUpdate')->name('business.manual.journal.update');
-Route::get('/manual/journal/delete/{manual_journal_id}', 'Business\AccountingController@manualJournalDelete')->name('business.manual.journal.delete');
+Route::get('/account/edit/{account_id}', 'Business\AccountController@accountEdit')->name('business.account.edit');
+Route::post('/account/update/{account_id}', 'Business\AccountController@accountUpdate')->name('business.account.update');
+Route::get('/account/delete/{account_id}', 'Business\AccountController@accountDelete')->name('business.account.delete');
+Route::get('/account/restore/{account_id}', 'Business\AccountController@accountRestore')->name('business.account.restore');
+
+// deposits
+
+Route::post('/deposit/store', 'Business\AccountController@depositStore')->name('business.deposit.store');
+Route::get('/deposit/show/{deposit_id}', 'Business\AccountController@depositShow')->name('business.deposit.show');
+
+Route::get('/deposit/account/adjustment/create/{deposit_id}', 'Business\AccountController@depositAccountAdjustmentCreate')->name('business.deposit.account.adjustment.create');
+
+Route::post('/deposit/update/{deposit_id}', 'Business\AccountController@depositUpdate')->name('business.deposit.update');
+Route::get('/deposit/delete/{deposit_id}', 'Business\AccountController@depositDelete')->name('business.deposit.delete');
+Route::get('/deposit/restore/{deposit_id}', 'Business\AccountController@depositRestore')->name('business.deposit.restore');
+
+// withdrawals
+Route::post('/withdrawal/store', 'Business\AccountController@withdrawalStore')->name('business.withdrawal.store');
+Route::get('/withdrawal/show/{withdrawal_id}', 'Business\AccountController@withdrawalShow')->name('business.withdrawal.show');
+
+Route::get('/withdrawal/account/adjustment/create/{withdrawal_id}', 'Business\AccountController@withdrawalAccountAdjustmentCreate')->name('business.withdrawal.account.adjustment.create');
+
+Route::post('/withdrawal/update/{withdrawal_id}', 'Business\AccountController@withdrawalUpdate')->name('business.withdrawal.update');
+Route::get('/withdrawal/delete/{withdrawal_id}', 'Business\AccountController@withdrawalDelete')->name('business.withdrawal.delete');
+Route::get('/withdrawal/restore/{withdrawal_id}', 'Business\AccountController@withdrawalRestore')->name('business.withdrawal.restore');
+
+// account adjustment
+Route::get('/account/adjustment/create/{account_id}', 'Business\AccountController@accountAdjustmentCreate')->name('business.account.adjustment.create');
+Route::get('/account/adjustment/create/{account_id}', 'Business\AccountController@accountAdjustmentCreate')->name('business.account.adjustment.create');
+Route::post('/account/adjustment/store', 'Business\AccountController@accountAdjustmentStore')->name('business.account.adjustment.store');
+Route::get('/account/adjustment/edit/{account_id}', 'Business\AccountController@accountAdjustmentEdit')->name('business.account.adjustment.edit');
+Route::post('/account/adjustment/update/{account_id}', 'Business\AccountController@accountAdjustmentUpdate')->name('business.account.adjustment.update');
+Route::get('/account/adjustment/delete/{account_id}', 'Business\AccountController@accountAdjustmentDelete')->name('business.account.adjustment.delete');
+Route::get('/account/adjustment/restore/{account_id}', 'Business\AccountController@accountAdjustmentRestore')->name('business.account.adjustment.restore');
+
+
+// expenses
+Route::get('/expenses', 'Business\ExpenseController@expenses')->name('business.expenses');
+Route::get('/expense/create', 'Business\ExpenseController@expenseCreate')->name('business.expense.create');
+Route::post('/expense/store', 'Business\ExpenseController@expenseStore')->name('business.expense.store');
+Route::get('/expense/show/{expense_id}', 'Business\ExpenseController@expenseShow')->name('business.expense.show');
+Route::get('/expense/edit/{expense_id}', 'Business\ExpenseController@expenseEdit')->name('business.expense.edit');
+Route::post('/expense/update/{expense_id}', 'Business\ExpenseController@expenseUpdate')->name('business.expense.update');
+Route::get('/expense/delete/{expense_id}', 'Business\ExpenseController@expenseDelete')->name('business.expense.delete');
+Route::get('/expense/restore/{expense_id}', 'Business\ExpenseController@expenseRestore')->name('business.expense.restore');
+Route::get('/expense/product/delete/{expense_id}', 'Business\ExpenseController@expenseProductDelete')->name('business.expense.product.delete');
+Route::get('/expense/product/restore/{expense_id}', 'Business\ExpenseController@expenseProductRestore')->name('business.expense.product.restore');
+
+
+// liabilities
+Route::get('/liabilities', 'Business\AccountController@liabilities')->name('business.liabilities');
+Route::get('/liability/create', 'Business\AccountController@liabilityCreate')->name('business.liability.create');
+Route::post('/liability/store', 'Business\AccountController@liabilityStore')->name('business.liability.store');
+Route::get('/liability/show/{liability_id}', 'Business\AccountController@liabilityShow')->name('business.liability.show');
+Route::get('/liability/edit/{liability_id}', 'Business\AccountController@liabilityEdit')->name('business.liability.edit');
+Route::post('/liability/update/{liability_id}', 'Business\AccountController@liabilityUpdate')->name('business.liability.update');
+Route::get('/liability/delete/{liability_id}', 'Business\AccountController@liabilityDelete')->name('business.liability.delete');
+Route::get('/liability/restore/{liability_id}', 'Business\AccountController@liabilityRestore')->name('business.liability.restore');
+
+
+// loans
+Route::get('/loans', 'Business\AccountController@loans')->name('business.loans');
+Route::get('/loan/create', 'Business\AccountController@loanCreate')->name('business.loan.create');
+Route::post('/loan/store', 'Business\AccountController@loanStore')->name('business.loan.store');
+Route::get('/loan/show/{loan_id}', 'Business\AccountController@loanShow')->name('business.loan.show');
+
+Route::get('/loan/payment/create/{loan_id}', 'Business\AccountController@loanPaymentCreate')->name('business.loan.payment.create');
+
+Route::get('/loan/edit/{loan_id}', 'Business\AccountController@loanEdit')->name('business.loan.edit');
+Route::post('/loan/update/{loan_id}', 'Business\AccountController@loanUpdate')->name('business.loan.update');
+Route::get('/loan/delete/{loan_id}', 'Business\AccountController@loanDelete')->name('business.loan.delete');
+Route::get('/loan/restore/{loan_id}', 'Business\AccountController@loanRestore')->name('business.loan.restore');
+
+
+// payments
+Route::get('/payments', 'Business\ExpenseController@payments')->name('business.payments');
+Route::get('/payment/create', 'Business\ExpenseController@paymentCreate')->name('business.payment.create');
+Route::post('/payment/store', 'Business\ExpenseController@paymentStore')->name('business.payment.store');
+Route::get('/payment/show/{payment_id}', 'Business\ExpenseController@paymentShow')->name('business.payment.show');
+
+Route::get('/payment/{payment_id}/refund/create', 'Business\ExpenseController@refundCreate')->name('business.payment.refund.create');
+
+Route::get('/payment/delete/{payment_id}', 'Business\ExpenseController@paymentDelete')->name('business.payment.delete');
+Route::get('/payment/restore/{payment_id}', 'Business\ExpenseController@paymentRestore')->name('business.payment.restore');
+
+
+// refunds
+Route::get('/refunds', 'Business\ExpenseController@refunds')->name('business.refunds');
+Route::post('/refund/store', 'Business\ExpenseController@refundStore')->name('business.refund.store');
+Route::get('/refund/show/{refund_id}', 'Business\ExpenseController@refundShow')->name('business.refund.show');
+Route::get('/refund/edit/{refund_id}', 'Business\ExpenseController@refundEdit')->name('business.refund.edit');
+Route::post('/refund/update/{refund_id}', 'Business\ExpenseController@refundUpdate')->name('business.refund.update');
+Route::get('/refund/delete/{refund_id}', 'Business\ExpenseController@refundDelete')->name('business.refund.delete');
+Route::get('/refund/restore/{refund_id}', 'Business\ExpenseController@refundRestore')->name('business.refund.restore');
+
+
+// transactions
+Route::get('/transactions', 'Business\ExpenseController@transactions')->name('business.transactions');
+Route::get('/transaction/create/{expense_id}', 'Business\ExpenseController@transactionCreate')->name('business.transaction.create');
+Route::post('/transaction/store', 'Business\ExpenseController@transactionStore')->name('business.transaction.store');
+Route::get('/transaction/edit/{transaction_id}', 'Business\ExpenseController@transactionEdit')->name('business.transaction.edit');
+Route::post('/transaction/update/{transaction_id}', 'Business\ExpenseController@transactionUpdate')->name('business.transaction.update');
+Route::get('/transaction/billed/{transaction_id}', 'Business\ExpenseController@transactionBilled')->name('business.transaction.billed');
+Route::get('/transaction/pending/payment/{transaction_id}', 'Business\ExpenseController@transactionPendingPayment')->name('business.transaction.pending.payment');
+Route::get('/transaction/delete/{transaction_id}', 'Business\ExpenseController@transactionDelete')->name('business.transaction.delete');
+Route::get('/transaction/restore/{transaction_id}', 'Business\ExpenseController@transactionRestore')->name('business.transaction.restore');
+
+
+// transfers
+Route::get('/transfers', 'Business\AccountController@transfers')->name('business.transfers');
+Route::get('/transfer/create', 'Business\AccountController@transferCreate')->name('business.transfer.create');
+Route::post('/transfer/store', 'Business\AccountController@transferStore')->name('business.transfer.store');
+Route::get('/transfer/show/{transfer_id}', 'Business\AccountController@transferShow')->name('business.transfer.show');
+
+Route::get('/transfer/expense/create/{transfer_id}', 'Business\AccountController@transferExpenseCreate')->name('business.transfer.expense.create');
+
+Route::get('/transfer/edit/{transfer_id}', 'Business\AccountController@transferEdit')->name('business.transfer.edit');
+Route::post('/transfer/update/{transfer_id}', 'Business\AccountController@transferUpdate')->name('business.transfer.update');
+Route::get('/transfer/delete/{transfer_id}', 'Business\AccountController@transferDelete')->name('business.transfer.delete');
+Route::get('/transfer/restore/{transfer_id}', 'Business\AccountController@transferRestore')->name('business.transfer.restore');
+
+
 
 
 // Assets
@@ -291,3 +490,63 @@ Route::get('/currencies', 'Business\SettingController@currencies')->name('busine
 Route::get('/taxes', 'Business\SettingController@taxes')->name('business.taxes');
 Route::get('/emails', 'Business\SettingController@emails')->name('business.emails');
 Route::get('/reminders', 'Business\SettingController@reminders')->name('business.reminders');
+
+
+// Campaign types
+Route::get('/campaign/types', 'Business\SettingController@campaignTypes')->name('business.campaign.types');
+Route::get('/campaign/type/create', 'Business\SettingController@campaignTypeCreate')->name('business.campaign.type.create');
+Route::post('/campaign/type/store', 'Business\SettingController@campaignTypeStore')->name('business.campaign.type.store');
+Route::get('/campaign/type/show/{campaign_type_id}', 'Business\SettingController@campaignTypeShow')->name('business.campaign.type.show');
+Route::post('/campaign/type/update/{campaign_type_id}', 'Business\SettingController@campaignTypeUpdate')->name('business.campaign.type.update');
+Route::get('/campaign/type/delete/{campaign_type_id}', 'Business\SettingController@campaignTypeDelete')->name('business.campaign.type.delete');
+Route::get('/campaign/type/restore/{campaign_type_id}', 'Business\SettingController@campaignTypeRestore')->name('business.campaign.type.restore');
+
+
+// Contact types
+Route::get('/contact/types', 'Business\SettingController@contactTypes')->name('business.contact.types');
+Route::get('/contact/type/create', 'Business\SettingController@contactTypeCreate')->name('business.contact.type.create');
+Route::post('/contact/type/store', 'Business\SettingController@contactTypeStore')->name('business.contact.type.store');
+Route::get('/contact/type/show/{contact_type_id}', 'Business\SettingController@contactTypeShow')->name('business.contact.type.show');
+Route::post('/contact/type/update/{contact_type_id}', 'Business\SettingController@contactTypeUpdate')->name('business.contact.type.update');
+Route::get('/contact/type/delete/{contact_type_id}', 'Business\SettingController@contactTypeDelete')->name('business.contact.type.delete');
+Route::get('/contact/type/restore/{contact_type_id}', 'Business\SettingController@contactTypeRestore')->name('business.contact.type.restore');
+
+
+// Frequencies
+Route::get('/frequencies', 'Business\SettingController@frequencies')->name('business.frequencies');
+Route::get('/frequency/create', 'Business\SettingController@frequencyCreate')->name('business.frequency.create');
+Route::post('/frequency/store', 'Business\SettingController@frequencyStore')->name('business.frequency.store');
+Route::get('/frequency/show/{contact_type_id}', 'Business\SettingController@frequencyShow')->name('business.frequency.show');
+Route::post('/frequency/update/{contact_type_id}', 'Business\SettingController@frequencyUpdate')->name('business.frequency.update');
+Route::get('/frequency/delete/{contact_type_id}', 'Business\SettingController@frequencyDelete')->name('business.frequency.delete');
+Route::get('/frequency/restore/{contact_type_id}', 'Business\SettingController@frequencyRestore')->name('business.frequency.restore');
+
+
+// Lead sources
+Route::get('/lead/sources', 'Business\SettingController@leadSources')->name('business.lead.sources');
+Route::get('/lead/source/create', 'Business\SettingController@leadSourceCreate')->name('business.lead.source.create');
+Route::post('/lead/source/store', 'Business\SettingController@leadSourceStore')->name('business.lead.source.store');
+Route::get('/lead/source/show/{lead_source_id}', 'Business\SettingController@leadSourceShow')->name('business.lead.source.show');
+Route::post('/lead/source/update/{lead_source_id}', 'Business\SettingController@leadSourceUpdate')->name('business.lead.source.update');
+Route::get('/lead/source/delete/{lead_source_id}', 'Business\SettingController@leadSourceDelete')->name('business.lead.source.delete');
+Route::get('/lead/source/restore/{lead_source_id}', 'Business\SettingController@leadSourceRestore')->name('business.lead.source.restore');
+
+
+// Titles
+Route::get('/titles', 'Business\SettingController@titles')->name('business.titles');
+Route::get('/title/create', 'Business\SettingController@titleCreate')->name('business.title.create');
+Route::post('/title/store', 'Business\SettingController@titleStore')->name('business.title.store');
+Route::get('/title/show/{title_id}', 'Business\SettingController@titleShow')->name('business.title.show');
+Route::post('/title/update/{title_id}', 'Business\SettingController@titleUpdate')->name('business.title.update');
+Route::get('/title/delete/{title_id}', 'Business\SettingController@titleDelete')->name('business.title.delete');
+Route::get('/title/restore/{title_id}', 'Business\SettingController@titleRestore')->name('business.title.restore');
+
+
+// units
+Route::get('/units', 'Business\SettingController@units')->name('business.units');
+Route::get('/unit/create', 'Business\SettingController@unitCreate')->name('business.unit.create');
+Route::post('/unit/store', 'Business\SettingController@unitStore')->name('business.unit.store');
+Route::get('/unit/show/{unit_id}', 'Business\SettingController@unitShow')->name('business.unit.show');
+Route::post('/unit/update/{unit_id}', 'Business\SettingController@unitUpdate')->name('business.unit.update');
+Route::get('/unit/delete/{unit_id}', 'Business\SettingController@unitDelete')->name('business.unit.delete');
+Route::get('/unit/restore/{unit_id}', 'Business\SettingController@unitRestore')->name('business.unit.restore');

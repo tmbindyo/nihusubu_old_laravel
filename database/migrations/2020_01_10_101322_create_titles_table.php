@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateAccountsTable extends Migration
+class CreateTitlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('titles', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name', 200);
-            $table->string('code', 200);
-            $table->longText('description');
+            $table->string('name');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('account_type_id');
             $table->uuid('institution_id');
 
             $table->timestamps();
@@ -37,6 +34,6 @@ class CreateAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('titles');
     }
 }

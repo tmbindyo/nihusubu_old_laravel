@@ -4,22 +4,43 @@
 
 @section('css')
 
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
 
     {{--  Tags  --}}
     <style>
@@ -141,7 +162,7 @@
                                 {{--  Account  --}}
                                 <div class="has-warning">
                                     <label class="text-danger"></label>
-                                    <select name="account"  class="select form-control input-lg">
+                                    <select name="account"  class="chosen-select form-control input-lg">
                                         <option>Select Account</option>
                                         @foreach($accounts as $account)
                                             <option value="{{$account->id}}">{{$account->name}}</option>
@@ -151,7 +172,7 @@
                                 <label>  </label>
                                 {{--  Reason  --}}
                                 <div class="has-warning">
-                                    <select name="reason" class="select form-control input-lg">
+                                    <select name="reason" class="chosen-select form-control input-lg">
                                         <option d>Select Reason</option>
                                         @foreach($reasons as $reason)
                                             <option value="{{$reason->id}}">{{$reason->name}}</option>
@@ -161,7 +182,7 @@
                                 <label>  </label>
                                 {{--  Warehouse  --}}
                                 <div class="has-warning">
-                                    <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="select form-control input-lg">
+                                    <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="chosen-select form-control input-lg">
                                         <option disabled>Select Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
