@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,3 +36,6 @@ Route::get('/logout', 'Auth\LoginController@login')->name('logout');
 Route::get('/register', 'Auth\LoginController@register')->name('register');
 Route::get('/forgot/password', 'Auth\LoginController@forgotPassword')->name('forgot.password');
 
+// Handling external service provider authentication
+Route::get("/login/{provider}", "Auth\LoginController@redirectToProvider");
+Route::get("/callback/{provider}", "Auth\LoginController@handleProviderCallback");

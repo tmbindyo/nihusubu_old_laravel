@@ -10,14 +10,14 @@
     "require": {
         "php": "^7.1.3",
         "camroncade/timezone": "0.1",
-        "chumper/zipper": "^1.0",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "~6.0",
         "harvesthq/chosen": "^1.8",
         "intervention/image": "^2.5",
         "laravel-frontend-presets/argon": "^1.0",
-        "laravel/framework": "5.8.*",
+        "laravel/framework": "6.6.*",
+        "laravel/passport": "^8.0",
         "laravel/tinker": "^1.0",
         "webpatser/laravel-uuid": "^3.0"
     },
