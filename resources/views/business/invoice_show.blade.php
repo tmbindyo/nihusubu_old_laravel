@@ -38,7 +38,7 @@
                         <a href="{{route('business.invoice.edit',$invoice->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
                         <a href="{{route('business.invoice.convert.to.sale',$invoice->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Sale </a>
                     @else
-                        <a href="{{route('business.invoice.show',$invoice->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Invoice </a>
+                        <a href="{{route('business.sale.show',$invoice->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Sale </a>
 
                     @endif
                     <a href="{{route('business.invoice.print',$invoice->id)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
@@ -144,23 +144,23 @@
 
                             <hr/>
                             <span class="text-muted small">
-                                @if($invoice->customer->is_business == 1)
-                                    {{--  if business  --}}
-                                    <address>
-                                        <strong>{{$invoice->customer->company_name}}</strong><br>
-                                        112 Street Avenu, 1080<br>
-                                        Miami, CT 445611<br>
-                                        <abbr title="Phone">P:</abbr> {{$invoice->customer->phone_number}}<br>
-                                        <abbr title="Email">E:</abbr> {{$invoice->customer->email}}
-                                    </address>
-                                @else
+                                @if($invoice->contact->organization === null)
                                     {{--  if not business  --}}
                                     <address>
-                                        <strong>{{$invoice->customer->first_name}} {{$invoice->customer->last_name}}</strong><br>
+                                        <strong>{{$invoice->contact->first_name}} {{$invoice->contact->last_name}}</strong><br>
                                         112 Street Avenu, 1080<br>
                                         Miami, CT 445611<br>
-                                        <abbr title="Phone">P:</abbr> {{$invoice->customer->phone_number}}<br>
-                                        <abbr title="Email">E:</abbr> {{$invoice->customer->email}}
+                                        <abbr title="Phone">P:</abbr> {{$invoice->contact->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$invoice->contact->email}}
+                                    </address>
+                                @else
+                                    {{--  if business  --}}
+                                    <address>
+                                        <strong>{{$invoice->contact->organization->name}}</strong><br>
+                                        112 Street Avenu, 1080<br>
+                                        Miami, CT 445611<br>
+                                        <abbr title="Phone">P:</abbr> {{$invoice->contact->organization->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$invoice->contact->organization->email}}
                                     </address>
                                 @endif
                             </span>

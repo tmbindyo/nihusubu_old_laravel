@@ -62,28 +62,13 @@
                                     {{--  Product  --}}
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="has-success">
-                                                <input id="returnable" name="sample" type="checkbox">
-                                                <label for="returnable">
-                                                    Sample
-                                                </label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the sale is a sample." class="fa fa-question-circle fa-2x text-warning"></i></span>
-                                            </div>
-                                            <br>
-                                            <div class="has-success">
-                                                <input id="returnable" name="paid" type="checkbox">
-                                                <label for="returnable">
-                                                    Paid
-                                                </label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the sale has already been paid for." class="fa fa-question-circle fa-2x text-warning"></i></span>
-                                            </div>
-                                            <br>
+
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="customer" class="select2_demo_3 form-control input-lg">
+                                                <select name="contact" class="select2_demo_3 form-control input-lg">
                                                     <option selected disabled>Select Customer</option>
-                                                    @foreach($customers as $customer)
-                                                        <option value="{{$customer->id}}">{{$customer->company_name}}: {{$customer->last_name}}, {{$customer->first_name}}</option>
+                                                    @foreach($contacts as $contact)
+                                                        <option value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -193,25 +178,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <hr>
                                     <br>
-
-                                    <div class="ln_solid"></div>
-
-                                    <br>
-                                    {{--attachments--}}
-                                    <div class="row">
-                                        <div class="col-md-6 col-md-offset-1">
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_draft" name="is_draft" type="checkbox">
-                                                <label for="is_draft">
-                                                    Save As Draft
-                                                </label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Check this option if you want to save this as a draft for further editing." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
-
-                                        </div>
-                                    </div>
                                     <hr>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>

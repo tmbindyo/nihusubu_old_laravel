@@ -12,9 +12,9 @@ class Sale extends Model
     public $incrementing = false;
 
     // Parents
-    public function customer()
+    public function contact()
     {
-        return $this->belongsTo('App\Contact','customer_id','id');
+        return $this->belongsTo('App\Contact');
     }
     public function invoice()
     {

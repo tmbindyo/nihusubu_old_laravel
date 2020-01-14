@@ -201,5 +201,315 @@ class TestEnvironmentSeeder extends Seeder
             'updated_at' => now()
         ]);
 
+
+
+        // Title
+        DB::table('titles')->insert([
+            'id' => '7c3d68ed-354c-4d66-b881-7725626c03f4',
+            'name' => 'Mr',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('titles')->insert([
+            'id' => '4621ba42-0832-47de-869f-da5775d2bc52',
+            'name' => 'Mrs',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('titles')->insert([
+            'id' => 'e0807ac4-8f8c-40c4-b05c-3ca9171100bb',
+            'name' => 'Ms',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('titles')->insert([
+            'id' => 'c70fd8c4-4f22-4997-ad82-3e77901acf0c',
+            'name' => 'Dr',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('titles')->insert([
+            'id' => 'f3164c3d-96c9-43a3-86da-5757df810100',
+            'name' => 'Prof',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+
+
+
+        // Lead source
+        DB::table('lead_sources')->insert([
+            'id' => '7c3d68ed-354c-4d66-b881-7725626c03f4',
+            'name' => 'Advertisment',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('lead_sources')->insert([
+            'id' => '4621ba42-0832-47de-869f-da5775d2bc52',
+            'name' => 'Chat',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('lead_sources')->insert([
+            'id' => 'e0807ac4-8f8c-40c4-b05c-3ca9171100bb',
+            'name' => 'Cold Call',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('lead_sources')->insert([
+            'id' => 'c70fd8c4-4f22-4997-ad82-3e77901acf0c',
+            'name' => 'Client Referral',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('lead_sources')->insert([
+            'id' => 'f3164c3d-96c9-43a3-86da-5757df810100',
+            'name' => 'Contact Referral',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('lead_sources')->insert([
+            'id' => '42f59dbd-042c-4aee-bb91-8aa8ce962df5',
+            'name' => 'Employee Referral',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('lead_sources')->insert([
+            'id' => 'f86cdba2-e537-4fcf-92ab-f17f1edabcb7',
+            'name' => 'Other',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('lead_sources')->insert([
+            'id' => '55197824-2ca1-4ff1-8835-f15762e8bd07',
+            'name' => 'Public Relations',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+        DB::table('lead_sources')->insert([
+            'id' => '94201006-ad8b-4841-96a1-5f23e0eeb3d9',
+            'name' => 'Website',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+
+
+
+        // Frequency
+        DB::table('frequencies')->insert([
+            'id' => '3aa43370-2877-46c3-b6f4-1c0b6aef92f6',
+            'name' => 'Daily',
+            'type' => 'day',
+            'frequency' => '1',
+            'user_id' => 1,
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('frequencies')->insert([
+            'id' => '11bde94f-e686-488e-9051-bc52f37df8cf',
+            'name' => 'Weekly',
+            'type' => 'week',
+            'frequency' => '1',
+            'user_id' => 1,
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('frequencies')->insert([
+            'id' => '488bb73e-d5a3-4e4c-9dda-25f207f27c4c',
+            'name' => 'Bi Weekly',
+            'type' => 'week',
+            'frequency' => '2',
+            'user_id' => 1,
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('frequencies')->insert([
+            'id' => '6c401203-b697-43f0-9c4d-b5a58e93f861',
+            'name' => 'Monthly',
+            'type' => 'month',
+            'frequency' => '1',
+            'user_id' => 1,
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('frequencies')->insert([
+            'id' => '300fbbee-9c14-4b54-82cb-7076abfc345b',
+            'name' => 'Quarterly',
+            'type' => 'month',
+            'frequency' => '3',
+            'user_id' => 1,
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('frequencies')->insert([
+            'id' => '02940587-ff97-47d9-8fa9-06c94827bd5b',
+            'name' => 'Semiannually',
+            'type' => 'month',
+            'frequency' => '6',
+            'user_id' => 1,
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('frequencies')->insert([
+            'id' => '37e1bdf-37c1-4962-81fe-1186fab4b456',
+            'name' => 'Annually',
+            'type' => 'year',
+            'frequency' => '1',
+            'user_id' => 1,
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('frequencies')->insert([
+            'id' => 'de217726-8544-442b-a767-b20fdb570527',
+            'name' => 'Bi Annually',
+            'type' => 'year',
+            'frequency' => '2',
+            'user_id' => 1,
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+
+
+        // Campaign types
+        DB::table('campaign_types')->insert([
+            'id' => '7c3d68ed-354c-4d66-b881-7725626c03f4',
+            'name' => 'Sell',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => '2efa2729-6438-4397-b06d-ecded822cec3',
+            'name' => 'Conference',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => 'c31c3b47-4353-4916-bfc1-d38e54c49024',
+            'name' => 'Webniar',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => '56f4db2f-e685-4307-99c9-52a0640fd4eb',
+            'name' => 'Trade Show',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => '23c139e8-4c04-423f-9e9b-04e8921f61c1',
+            'name' => 'Public Relations',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => '383ff37f-9fee-42ad-981f-baacc3a41338',
+            'name' => 'Partners',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => '89135570-7baa-4ae8-bce5-1df1a06d589e',
+            'name' => 'Referral Program',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => '186ce466-b837-4975-a8ef-f1117720cb40',
+            'name' => 'Advertisment',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => '2e81a235-0421-4008-b0aa-4ceaf4e0d2b9',
+            'name' => 'Banner Ad',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => '895fdf34-adca-482e-a20b-87d73139e0ca',
+            'name' => 'Email',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => 'b7e7b954-8b66-4b0e-9c85-e7045faa2c49',
+            'name' => 'Telemarketing',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('campaign_types')->insert([
+            'id' => 'd2f9c962-2af0-4566-bd54-d92fdafa8a3b',
+            'name' => 'Other',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+
+
+        // Contact types
+        DB::table('contact_types')->insert([
+            'id' => '6fdf4858-01ce-43ff-bbe6-827f09fa1cef',
+            'name' => 'Client',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('contact_types')->insert([
+            'id' => 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4',
+            'name' => 'Partner',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+        DB::table('contact_types')->insert([
+            'id' => 'a5ac460c-9a97-4b89-99f4-3592c0a9387f',
+            'name' => 'Supplier',
+            'user_id' => 1,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
+        ]);
+
+
     }
 }

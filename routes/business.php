@@ -59,7 +59,7 @@ Route::get('/contact/deal/create/{contact_id}', 'Business\CRMController@contactD
 Route::get('/contact/design/create/{contact_id}', 'Business\CRMController@contactDesignCreate')->name('business.contact.design.create');
 Route::get('/contact/liability/create/{contact_id}', 'Business\CRMController@contactLiabilityCreate')->name('business.contact.liability.create');
 Route::get('/contact/loan/create/{contact_id}', 'Business\CRMController@contactLoanCreate')->name('business.contact.loan.create');
-Route::get('/contact/order/create/{contact_id}', 'Business\CRMController@contactOrderCreate')->name('business.contact.order.create');
+Route::get('/contact/sale/create/{contact_id}', 'Business\CRMController@contactSaleCreate')->name('business.contact.sale.create');
 Route::get('/contact/project/create/{contact_id}', 'Business\CRMController@contactProjectCreate')->name('business.contact.project.create');
 
 Route::post('/contact/update/{contact_id}', 'Business\CRMController@contactUpdate')->name('business.contact.update');
@@ -193,21 +193,15 @@ Route::get('/invoice/print/{invoice_id}', 'Business\SaleController@invoicePrint'
 
 Route::get('/invoice/product/delete/{invoice_product_id}', 'Business\SaleController@invoiceProductDelete')->name('business.invoice.product.delete');
 
-// orders
-Route::get('/orders', 'Business\SaleController@orders')->name('business.orders');
-Route::get('/order/create', 'Business\SaleController@orderCreate')->name('business.order.create');
-Route::post('/order/store', 'Business\SaleController@orderStore')->name('business.order.store');
-Route::get('/order/show/{order_id}', 'Business\SaleController@orderShow')->name('business.order.show');
-Route::get('/order/edit/{order_id}', 'Business\SaleController@orderEdit')->name('business.order.edit');
-Route::post('/order/update/{order_id}', 'Business\SaleController@orderUpdate')->name('business.order.update');
-Route::post('/order/delete/{order_id}', 'Business\SaleController@orderDelete')->name('business.order.delete');
-Route::get('/order/print/{order_id}', 'Business\SaleController@orderPrint')->name('business.order.print');
 
 // sales
 Route::get('/sales', 'Business\SaleController@sales')->name('business.sales');
 Route::get('/sale/create', 'Business\SaleController@saleCreate')->name('business.sale.create');
 Route::post('/sale/store', 'Business\SaleController@saleStore')->name('business.sale.store');
 Route::get('/sale/show/{sale_id}', 'Business\SaleController@saleShow')->name('business.sale.show');
+
+Route::get('/sale/payment/create/{sale_id}', 'Business\SaleController@salePaymentCreate')->name('business.sale.payment.create');
+
 Route::get('/sale/edit/{sale_id}', 'Business\SaleController@saleEdit')->name('business.sale.edit');
 Route::get('/sale/update/{sale_id}', 'Business\SaleController@saleUpdate')->name('business.sale.update');
 Route::get('/sale/delete/{sale_id}', 'Business\SaleController@saleDelete')->name('business.sale.delete');
@@ -331,6 +325,9 @@ Route::get('/liabilities', 'Business\AccountController@liabilities')->name('busi
 Route::get('/liability/create', 'Business\AccountController@liabilityCreate')->name('business.liability.create');
 Route::post('/liability/store', 'Business\AccountController@liabilityStore')->name('business.liability.store');
 Route::get('/liability/show/{liability_id}', 'Business\AccountController@liabilityShow')->name('business.liability.show');
+
+Route::get('/liability/expense/create/{liability_id}', 'Business\AccountController@liabilityExpenseCreate')->name('business.liability.expense.create');
+
 Route::get('/liability/edit/{liability_id}', 'Business\AccountController@liabilityEdit')->name('business.liability.edit');
 Route::post('/liability/update/{liability_id}', 'Business\AccountController@liabilityUpdate')->name('business.liability.update');
 Route::get('/liability/delete/{liability_id}', 'Business\AccountController@liabilityDelete')->name('business.liability.delete');
@@ -483,7 +480,6 @@ Route::get('/earning/policy/delete/{holiday_id}', 'Business\EmployeeController@e
 
 // Settings
 Route::get('/organization/profile', 'Business\SettingController@organizationProfile')->name('business.organization.profile');
-Route::get('/accounts', 'Business\SettingController@accounts')->name('business.accounts');
 Route::get('/opening/balances', 'Business\SettingController@openingBalances')->name('business.opening.balances');
 Route::get('/users/roles', 'Business\SettingController@usersAndRoles')->name('business.users.roles');
 Route::get('/currencies', 'Business\SettingController@currencies')->name('business.currencies');

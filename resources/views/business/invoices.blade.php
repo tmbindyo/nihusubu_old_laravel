@@ -73,7 +73,7 @@
                                             <td>{{$invoice->reference}}</td>
                                             <td>{{$invoice->date}}</td>
                                             <td>{{$invoice->due_date}}</td>
-                                            <td>{{$invoice->customer->first_name}} {{$invoice->customer->last_name}}</td>
+                                            <td>{{$invoice->contact->first_name}} {{$invoice->contact->last_name}}</td>
                                             <td>{{$invoice->total}}</td>
                                             <td>
                                                 <p><span class="label {{$invoice->status->label}}">{{$invoice->status->name}}</span></p>

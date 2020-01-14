@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('business.layouts.app')
 
 @section('title', 'Campaign Type Create')
 
@@ -43,10 +43,10 @@
             <h2>Campaign Type's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.campaign.types')}}">Campaign Type's</a>
+                    <a href="{{route('business.campaign.types')}}">Campaign Type's</a>
                 </li>
                 <li class="active">
                     <strong>Campaign Type Create</strong>
@@ -84,7 +84,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.campaign.type.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.campaign.type.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

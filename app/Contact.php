@@ -12,62 +12,58 @@ class Contact extends Model
     public $incrementing = false;
 
     // Parents
+    public function campaign()
+    {
+        return $this->belongsTo('App\Campaign');
+    }
+    public function contact_type()
+    {
+        return $this->belongsTo('App\ContactType');
+    }
+    public function lead_source()
+    {
+        return $this->belongsTo('App\LeadSource');
+    }
+    public function industry()
+    {
+        return $this->belongsTo('App\Industry');
+    }
+    public function organization()
+    {
+        return $this->belongsTo('App\Organization');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');
+    }
+    public function title()
+    {
+        return $this->belongsTo('App\Title');
     }
     public function user()
     {
         return $this->belongsTo('App\User');
     }
-    public function salutation()
-    {
-        return $this->belongsTo('App\Salutation');
-    }
-    public function currency()
-    {
-        return $this->belongsTo('App\Currency');
-    }
-    public function payment_term()
-    {
-        return $this->belongsTo('App\PaymentTerm');
-    }
-    public function institution()
-    {
-        return $this->belongsTo('App\Institution');
-    }
-    public function billing_address()
-    {
-        return $this->belongsTo('App\Address','billing_address_id','id');
-    }
-    public function shipping_address()
-    {
-        return $this->belongsTo('App\Address','shipping_address_id','id');
-    }
 
     // Children
-    public function estimate_customers()
+    public function contact_contact_types()
     {
-        return $this->belongsTo('App\Estimate','customer_id','id');
+        return $this->hasMany('App\ContactContactType');
     }
-    public function invoice_customers()
+    public function liabilities()
     {
-        return $this->belongsTo('App\Invoice','customer_id','id');
+        return $this->hasMany('App\Liability');
     }
-    public function order_customers()
+    public function loans()
     {
-        return $this->belongsTo('App\Order','customer_id','id');
+        return $this->hasMany('App\Loan');
     }
-    public function sale_customers()
+    public function sales()
     {
-        return $this->belongsTo('App\Sale','customer_id','id');
+        return $this->hasMany('App\Sale');
     }
-    public function project_customers()
+    public function to_dos()
     {
-        return $this->belongsTo('App\Project','customer_id','id');
-    }
-    public function expense_customers()
-    {
-        return $this->belongsTo('App\Expense','customer_id','id');
+        return $this->hasMany('App\ToDo');
     }
 }

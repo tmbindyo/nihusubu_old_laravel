@@ -9,6 +9,7 @@ use App\ProductGroup;
 use App\ProductGroupTax;
 use DB;
 use App\Account;
+use App\ExpenseAccount;
 use App\Inventory;
 use App\Product;
 use App\ProductDiscount;
@@ -679,10 +680,10 @@ class ProductController extends Controller
         // Get institution units
         $units = Unit::where('institution_id',$institution->id)->get();
         // Get institution accounts
-        $salesAccounts = Account::where('institution_id',$institution->id)->where('account_type_id','798077ba-ae21-4df0-8079-5a7c82afd90e')->with('account_type')->get();
-        $expenseAccounts = Account::where('institution_id',$institution->id)->where('account_type_id','b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('account_type')->get();
-        $costOfGoodsSoldAccounts = Account::where('institution_id',$institution->id)->where('account_type_id','ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('account_type')->get();
-        $stockAccounts = Account::where('institution_id',$institution->id)->where('account_type_id','4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('account_type')->get();
+        $salesAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('account_type_id','798077ba-ae21-4df0-8079-5a7c82afd90e')->with('account_type')->get();
+        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('account_type_id','b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('account_type')->get();
+        $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('account_type_id','ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('account_type')->get();
+        $stockAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('account_type_id','4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('account_type')->get();
         // $accounts = Account::where('institution_id',$institution->id)->get();
         // Get institution taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();

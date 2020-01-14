@@ -25,13 +25,13 @@ class ToDoController extends Controller
         $institution = $this->getInstitution();
 
         // Pending to dos
-        $pendingToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
+        $pendingToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale','contact','organization','campaign')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
+        $inProgressToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale','contact','organization','campaign')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
+        $completedToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale','contact','organization','campaign')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
+        $overdueToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale','contact','organization','campaign')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
 
         return view('business.to_dos',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','institution'));
     }
@@ -116,6 +116,27 @@ class ToDoController extends Controller
             $todo->sale_id = $request->sale;
         }else{
             $todo->is_sale = False;
+        }
+        // contact
+        if($request->is_contact){
+            $todo->is_contact = True;
+            $todo->contact_id = $request->contact;
+        }else{
+            $todo->is_contact = False;
+        }
+        // organization
+        if($request->is_organization){
+            $todo->is_organization = True;
+            $todo->organization_id = $request->organization;
+        }else{
+            $todo->is_organization = False;
+        }
+        // campaign
+        if($request->is_campaign){
+            $todo->is_campaign = True;
+            $todo->campaign_id = $request->campaign;
+        }else{
+            $todo->is_campaign = False;
         }
 
         // Check if date is overdue to make the status overdue

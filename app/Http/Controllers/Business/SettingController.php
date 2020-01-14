@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\CampaignType;
 use App\ContactContactType;
 use App\ContactType;
 use App\Frequency;
@@ -95,8 +96,11 @@ class SettingController extends Controller
         $user = $this->getUser();
         // Get institutions
         $institution = $this->getInstitution();
+        // get campaign types
         $campaignTypes = CampaignType::with('user','status')->get();
-        return view('business.campaign_types',compact('campaignTypes','user','institution'));
+        // get campaign types
+        $deletedCampaignTypes = CampaignType::with('user','status')->onlyTrashed()->get();
+        return view('business.campaign_types',compact('campaignTypes','user','institution','deletedCampaignTypes'));
     }
 
     public function campaignTypeCreate()
@@ -110,10 +114,16 @@ class SettingController extends Controller
 
     public function campaignTypeStore(Request $request)
     {
+        // User
+        $user = $this->getUser();
+        // Get institutions
+        $institution = $this->getInstitution();
+
         $campaignType = new CampaignType();
         $campaignType->name = $request->name;
         $campaignType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $campaignType->user_id = Auth::user()->id;
+        $campaignType->user_id = $user->id;
+        $campaignType->institution_id = $institution->id;
         $campaignType->save();
 
         return redirect()->route('business.campaign.type.show',$campaignType->id)->withSuccess('Campaign type updated!');
@@ -146,19 +156,15 @@ class SettingController extends Controller
     {
 
         $campaignType = CampaignType::findOrFail($campaign_type_id);
-        $campaignType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
-        $campaignType->user_id = Auth::user()->id;
-        $campaignType->save();
+        $campaignType->delete();
 
         return back()->withSuccess(__('Campaign type '.$campaignType->name.' successfully deleted.'));
     }
     public function campaignTypeRestore($campaign_type_id)
     {
 
-        $campaignType = CampaignType::findOrFail($campaign_type_id);
-        $campaignType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $campaignType->user_id = Auth::user()->id;
-        $campaignType->save();
+        $campaignType = CampaignType::withTrashed()->findOrFail($campaign_type_id);
+        $campaignType->restore();
 
         return back()->withSuccess(__('Campaign type '.$campaignType->name.' successfully restored.'));
     }
@@ -471,10 +477,12 @@ class SettingController extends Controller
 
     public function titleUpdate(Request $request, $title_id)
     {
+        // User
+        $user = $this->getUser();
 
         $title = Title::findOrFail($title_id);
         $title->name = ($request->name);
-        $title->user_id = Auth::user()->id;
+        $title->user_id = $user->id;
         $title->save();
 
         return redirect()->route('business.title.show',$title->id)->withSuccess('Title '.$title->name.' updated!');
@@ -570,10 +578,6 @@ class SettingController extends Controller
     public function unitDelete($unit_id)
     {
 
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
         // delete the unit
         $unit = Unit::findOrFail($unit_id);
         $unit->delete();
@@ -583,10 +587,6 @@ class SettingController extends Controller
 
     public function unitRestore($unit_id)
     {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
         // restore the unit
         $unit = Unit::withTrashed()->findOrFail($unit_id);
         $unit->restore();

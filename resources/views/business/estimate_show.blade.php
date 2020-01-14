@@ -144,23 +144,23 @@
 
                             <hr/>
                             <span class="text-muted small">
-                                @if($estimate->customer->is_business == 1)
-                                    {{--  if business  --}}
-                                    <address>
-                                        <strong>{{$estimate->customer->company_name}}</strong><br>
-                                        112 Street Avenu, 1080<br>
-                                        Miami, CT 445611<br>
-                                        <abbr title="Phone">P:</abbr> {{$estimate->customer->phone_number}}<br>
-                                        <abbr title="Email">E:</abbr> {{$estimate->customer->email}}
-                                    </address>
-                                @else
+                                @if($estimate->contact->organization === null)
                                     {{--  if not business  --}}
                                     <address>
-                                        <strong>{{$estimate->customer->first_name}} {{$estimate->customer->last_name}}</strong><br>
+                                        <strong>{{$estimate->contact->first_name}} {{$estimate->contact->last_name}}</strong><br>
                                         112 Street Avenu, 1080<br>
                                         Miami, CT 445611<br>
-                                        <abbr title="Phone">P:</abbr> {{$estimate->customer->phone_number}}<br>
-                                        <abbr title="Email">E:</abbr> {{$estimate->customer->email}}
+                                        <abbr title="Phone">P:</abbr> {{$estimate->contact->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$estimate->contact->email}}
+                                    </address>
+                                @else
+                                    {{--  if business  --}}
+                                    <address>
+                                        <strong>{{$estimate->contact->organization->name}}</strong><br>
+                                        112 Street Avenu, 1080<br>
+                                        Miami, CT 445611<br>
+                                        <abbr title="Phone">P:</abbr> {{$estimate->contact->organization->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$estimate->contact->organization->email}}
                                     </address>
                                 @endif
                             </span>

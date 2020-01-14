@@ -20,58 +20,46 @@ class Account extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function account_type()
-    {
-        return $this->belongsTo('App\AccountType');
-    }
-    public function institution()
-    {
-        return $this->belongsTo('App\Institution');
-    }
 
     // Children
-    public function composite_product_selling_accounts()
+    public function account_adjustments()
     {
-        return $this->hasMany('App\CompositeProduct','id','selling_account_id');
+        return $this->hasMany('App\AccountAdjustment');
     }
-    public function composite_product_purchase_accounts()
+    public function deposits()
     {
-        return $this->hasMany('App\CompositeProduct','id','purchase_account_id');
+        return $this->hasMany('App\Deposit');
     }
-    public function composite_product_inventory_accounts()
+    public function destination_account()
     {
-        return $this->hasMany('App\CompositeProduct','id','inventory_account_id');
+        return $this->hasMany('App\Transfer','destination_account_id','id');
     }
-    public function expense_accounts()
+    public function liabilities()
     {
-        return $this->hasMany('App\Expense','id','expense_account_id');
+        return $this->hasMany('App\Liability');
     }
-    public function inventory_adjustments()
+    public function loans()
     {
-        return $this->hasMany('App\InventoryAdjustment');
+        return $this->hasMany('App\Loan');
     }
-    public function manual_journal_accounts()
+    public function payments()
     {
-        return $this->hasMany('App\ManualJournalAccount');
+        return $this->hasMany('App\Payment');
     }
-    public function product_selling_accounts()
+    public function refunds()
     {
-        return $this->hasMany('App\Product','id','selling_account_id');
+        return $this->hasMany('App\Refund');
     }
-    public function product_purchase_accounts()
+    public function source_account()
     {
-        return $this->hasMany('App\Product','id','purchase_account_id');
+        return $this->hasMany('App\Transfer','source_account_id','id');
     }
-    public function product_inventory_accounts()
+    public function transactions()
     {
-        return $this->hasMany('App\Product','id','inventory_account_id');
+        return $this->hasMany('App\Transaction');
     }
-    public function source_accounts()
+    public function withdrawals()
     {
-        return $this->hasMany('App\Transaction','id','source_account_id');
-    }
-    public function destination_accounts()
-    {
-        return $this->hasMany('App\Transaction','id','destination_account_id');
+        return $this->hasMany('App\Withdrawal');
     }
 }

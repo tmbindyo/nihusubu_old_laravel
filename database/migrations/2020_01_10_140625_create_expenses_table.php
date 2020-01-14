@@ -30,10 +30,6 @@ class CreateExpensesTable extends Migration
 
             $table->boolean('has_items')->nullable();
 
-            $table->boolean('is_product');
-            $table->uuid('product_id')->nullable();
-            $table->boolean('is_composite_product');
-            $table->uuid('composite_product_id')->nullable();
             $table->boolean('is_inventory_adjustment');
             $table->uuid('inventory_adjustment_id')->nullable();
             $table->boolean('is_transfer_order');
@@ -44,6 +40,12 @@ class CreateExpensesTable extends Migration
             $table->uuid('campaign_id')->nullable();
             $table->boolean('is_sale');
             $table->uuid('sale_id')->nullable();
+            $table->boolean('is_liability');
+            $table->uuid('liability_id')->nullable();
+            $table->boolean('is_transfer');
+            $table->uuid('transfer_id')->nullable();
+            $table->boolean('is_transaction');
+            $table->uuid('transaction_id')->nullable();
 
             $table->boolean('is_draft');
             $table->boolean('is_recurring');
