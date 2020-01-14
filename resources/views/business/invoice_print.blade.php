@@ -34,24 +34,24 @@
                 <h4>Invoice No.</h4>
                 <h4 class="text-navy">{{$invoice->reference}}</h4>
                 <span>To:</span>
-                @if($invoice->contact->organization == null)
+                {{-- @if($invoice->contact->organization == null) --}}
                     {{--  if not business  --}}
-                    <address>
+                    {{-- <address>
                         <strong>{{$invoice->contact->first_name}} {{$invoice->contact->last_name}}</strong><br>
                         112 Street Avenu, 1080<br>
                         Miami, CT 445611<br>
                         <abbr title="Phone">P:</abbr> {{$invoice->contact->phone_number}}
-                    </address>
+                    </address> --}}
 
-                @else
+                {{-- @else --}}
                     {{--  if business  --}}
-                    <address>
+                    {{-- <address>
                         <strong>{{$invoice->contact->name}}</strong><br>
                         112 Street Avenu, 1080<br>
                         Miami, CT 445611<br>
                         <abbr title="Phone">P:</abbr> {{$invoice->contact->organization->phone_number}}
-                    </address>
-                @endif
+                    </address> --}}
+                {{-- @endif --}}
                 <p>
                     <span><strong>Invoice Date:</strong> {{$invoice->date}} </span><br/>
                     <span><strong>Due Date:</strong> {{$invoice->due_date}}</span>

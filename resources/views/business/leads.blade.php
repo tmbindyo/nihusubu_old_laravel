@@ -30,7 +30,7 @@
                     <a href="{{route('business.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <strong>Lead's</strong>
+                    <strong>Leads</strong>
                 </li>
             </ol>
         </div>

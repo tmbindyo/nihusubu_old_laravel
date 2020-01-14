@@ -34,24 +34,24 @@
                 <h4>Estimate No.</h4>
                 <h4 class="text-navy">{{$estimate->reference}}</h4>
                 <span>To:</span>
-                @if($estimate->contact->organization == null)
+                {{-- @if($estimate->contact->organization == null) --}}
                     {{--  if not business  --}}
-                    <address>
+                    {{-- <address>
                         <strong>{{$estimate->contact->first_name}} {{$estimate->contact->last_name}}</strong><br>
                         112 Street Avenu, 1080<br>
                         Miami, CT 445611<br>
                         <abbr title="Phone">P:</abbr> {{$estimate->contact->phone_number}}
-                    </address>
+                    </address> --}}
 
-                @else
+                {{-- @else --}}
                     {{--  if business  --}}
-                    <address>
+                    {{-- <address>
                         <strong>{{$estimate->contact->name}}</strong><br>
                         112 Street Avenu, 1080<br>
                         Miami, CT 445611<br>
                         <abbr title="Phone">P:</abbr> {{$estimate->contact->organization->phone_number}}
-                    </address>
-                @endif
+                    </address> --}}
+                {{-- @endif --}}
                 <p>
                     <span><strong>Estimate Date:</strong> {{$estimate->date}} </span><br/>
                     <span><strong>Due Date:</strong> {{$estimate->due_date}}</span>

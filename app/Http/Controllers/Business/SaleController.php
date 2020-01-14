@@ -102,6 +102,7 @@ class SaleController extends Controller
         $estimate->is_estimate = True;
         $estimate->is_invoice = False;
         $estimate->is_sale = False;
+        $estimate->is_order = False;
         $estimate->is_sample = False;
         // Todo impliment uploads for attachments
         $estimate->has_uploads = False;
@@ -414,6 +415,7 @@ class SaleController extends Controller
         $invoice->is_estimate = False;
         $invoice->is_invoice = True;
         $invoice->is_sale = False;
+        $invoice->is_order = False;
         $invoice->is_sample = False;
         // Todo impliment uploads for attachments
         $invoice->has_uploads = False;
@@ -727,6 +729,7 @@ class SaleController extends Controller
         $sale->is_estimate = False;
         $sale->is_invoice = False;
         $sale->is_sale = True;
+        $sale->is_order = False;
         // Todo impliment uploads for attachments
         $sale->has_uploads = False;
         // if paid

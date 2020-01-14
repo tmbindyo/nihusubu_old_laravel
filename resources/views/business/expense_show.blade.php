@@ -24,7 +24,7 @@
                     <a href="{{route('business.dashboard')}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.orders')}}">Orders</a>
+                    <a href="{{route('business.accounts')}}">Accounts</a>
                 </li>
                 <li>
                     <a href="{{route('business.expenses')}}">Expenses</a>

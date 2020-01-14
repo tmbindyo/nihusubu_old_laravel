@@ -70,7 +70,6 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Type</th>
                                         <th>Phone Number</th>
                                         <th>Website</th>
                                         <th>Members</th>
@@ -82,7 +81,6 @@
                                     @foreach($organizations as $organization)
                                         <tr class="gradeX">
                                             <td>{{$organization->name}}</td>
-                                            <td>{{$organization->organization_type->name}}</td>
                                             <td>{{$organization->phone_number}}</td>
                                             <td>{{$organization->website}}</td>
                                             <td>{{$organization->contacts_count}}</td>
@@ -106,7 +104,6 @@
                                 <tfoot>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Type</th>
                                         <th>Phone Number</th>
                                         <th>Website</th>
                                         <th>Members</th>

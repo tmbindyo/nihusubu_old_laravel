@@ -103,7 +103,7 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <input type="checkbox" name="is_lead" class="js-switch_3" checked/>
-                                        <i>contact</i>
+                                        <i>lead</i>
                                     </div>
                                 </div>
                                 <br>

@@ -207,7 +207,7 @@
                                     <hr>
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
+                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('UPDATE') }}</button>
                                     </div>
                                 </div>
 

@@ -687,7 +687,7 @@ class CRMController extends Controller
         // Get institution
         $institution = $this->getInstitution();
         // get organizations
-        $organizations = Organization::with('user','status','organization_type')->withCount('contacts')->get();
+        $organizations = Organization::with('user','status')->withCount('contacts')->get();
         // get deleted organizations
         $deletedOrganizations = Organization::with('user','status','organization_type')->withCount('contacts')->onlyTrashed()->get();
         return view('business.organizations',compact('organizations','user','institution','deletedOrganizations'));

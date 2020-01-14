@@ -144,25 +144,25 @@
 
                             <hr/>
                             <span class="text-muted small">
-                                @if($invoice->contact->organization === null)
+                                {{-- @if($invoice->contact->organization === null) --}}
                                     {{--  if not business  --}}
-                                    <address>
+                                    {{-- <address>
                                         <strong>{{$invoice->contact->first_name}} {{$invoice->contact->last_name}}</strong><br>
                                         112 Street Avenu, 1080<br>
                                         Miami, CT 445611<br>
                                         <abbr title="Phone">P:</abbr> {{$invoice->contact->phone_number}}<br>
                                         <abbr title="Email">E:</abbr> {{$invoice->contact->email}}
-                                    </address>
-                                @else
+                                    </address> --}}
+                                {{-- @else --}}
                                     {{--  if business  --}}
-                                    <address>
+                                    {{-- <address>
                                         <strong>{{$invoice->contact->organization->name}}</strong><br>
                                         112 Street Avenu, 1080<br>
                                         Miami, CT 445611<br>
                                         <abbr title="Phone">P:</abbr> {{$invoice->contact->organization->phone_number}}<br>
                                         <abbr title="Email">E:</abbr> {{$invoice->contact->organization->email}}
-                                    </address>
-                                @endif
+                                    </address> --}}
+                                {{-- @endif --}}
                             </span>
                             <div class="m-t-sm">
                                 <div class="btn-group">

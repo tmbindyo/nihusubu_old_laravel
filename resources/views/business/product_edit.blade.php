@@ -83,8 +83,6 @@
             <div class="tabs-container">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#product"> Product info</a></li>
-                    <li class=""><a data-toggle="tab" href="#discount"> Discount</a></li>
-                    <li class=""><a data-toggle="tab" href="#images"> Images</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -392,112 +390,6 @@
                                 </div>
 
                             </form>
-                        </div>
-                    </div>
-                    <div id="discount" class="tab-pane">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="pull-right">
-                                    <button data-toggle="modal" data-target="#productDiscountRegistration" aria-expanded="false" class="btn btn-outline btn-primary"> <span class="fa fa-plus"></span> Add Discount</button>
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="table-responsive">
-                                <table class="table table-stripped table-bordered">
-
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            Quantity
-                                        </th>
-                                        <th>
-                                            Minimum
-                                        </th>
-                                        <th>
-                                            Discount
-                                        </th>
-                                        <th style="width: 20%">
-                                            Date start
-                                        </th>
-                                        <th style="width: 20%">
-                                            Date end
-                                        </th>
-                                        <th style="width: 11%">
-                                            Actions
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($product->product_discounts as $discount)
-                                        <tr>
-                                            <td>
-                                                <input type="text" class="form-control" value="{{$discount->quantity}}" disabled>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" value="{{$discount->minimum_items}}" disabled>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" value="{{$discount->discount}}" disabled>
-                                            </td>
-                                            <td>
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" class="form-control" value="{{$discount->start_date}}" disabled>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" class="form-control" value="{{$discount->end_date}}" disabled>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                    {{--  product discount edit  --}}
-                                                    {{--  <button data-toggle="modal" data-target="#productDiscountEdit" aria-expanded="false" class="btn btn-warning"><i class="fa fa-pencil"></i> </button>  --}}
-                                                <a href="{{route('business.product.discount.delete',$discount->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i> </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div id="images" class="tab-pane">
-                        <div class="panel-body">
-
-                            <div class="row">
-                                <div class="pull-right">
-                                    <button data-toggle="modal" data-target="#productImageUpload" aria-expanded="false" class="btn btn-outline btn-primary"> <span class="fa fa-plus"></span> Product Image</button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                @foreach($product->product_images as $product_image)
-                                    <div class="col-md-3">
-                                        <div class="ibox">
-                                            <div class="ibox-content product-box">
-
-                                                <div class="product-imitation">
-                                                    <img src="{{ asset('') }}{{ $product_image->upload->small_thumbnail }}">
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="m-t text-righ">
-
-                                                        <a href="{{route('business.product.image.delete',$product_image->id)}}" class="btn btn-xs btn-outline btn-warning btn-block center">Delete <i class="fa fa-cross"></i> </a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-
-
                         </div>
                     </div>
                 </div>
