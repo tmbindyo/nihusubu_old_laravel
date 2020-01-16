@@ -34,18 +34,10 @@
         <!-- Nav -->
         <nav class="s-header__nav js__scrollbar">
             <div class="container-fluid">
-                <!-- Menu List -->
-                <ul class="list-unstyled s-header__nav-menu">
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'corporate' ) ?  '-is-active' : '' }}" href="{{route("corporate")}}">Corporate</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'landing' ) ?  '-is-active' : '' }}" href="{{route("landing")}}">Landing</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'portfolio' ) ?  '-is-active' : '' }}" href="{{route("portfolio")}}">Portfolio</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'lawyer' ) ?  '-is-active' : '' }}" href="{{route("lawyer")}}">Lawyer</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'coming.soon' ) ?  '-is-active' : '' }}" href="{{route("coming.soon")}}">Coming Soon</a></li>
-                </ul>
-                <!-- End Menu List -->
 
                 <!-- Menu List -->
                 <ul class="list-unstyled s-header__nav-menu">
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'landing' ) ?  '-is-active' : '' }}" href="{{route("landing")}}">Home</a></li>
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'about' ) ?  '-is-active' : '' }}" href="{{route("about")}}">About</a></li>
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'team' ) ?  '-is-active' : '' }}" href="{{route("team")}}">Team</a></li>
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'services' ) ?  '-is-active' : '' }}" href="{{route("services")}}">Services</a></li>
