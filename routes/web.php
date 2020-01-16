@@ -12,6 +12,30 @@
 |
 */
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth'], function () {
+
+    // Routes
+//    Route::resource('user', 'UserController', ['except' => ['show']]);
+//    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
+//    Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+//    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+
+
+    Route::resource('user_detail', 'UserDetailController');
+
+
+//    Route::resource('service', 'ServiceController');
+
+
+});
+
+
+
 Route::get('/', 'Landing\LandingController@landing')->name('landing');
 
 Route::post('/email/subscribe', 'Landing\LandingController@emailSubscribe')->name('email.subscribe');

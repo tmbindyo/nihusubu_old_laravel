@@ -45,11 +45,37 @@ class LoginController extends Controller
     }
 
     public function handleProviderCallback($provider) {
-        
+
         $user = Socialite::driver($provider)->user();
 
+        // google
+        $token = $user->token;
+        $expiresIn = $user->expiresIn;
+        $id = $user->id;
+        $name = $user->name;
+        $email = $user->email;
+        $avatar = $user->avatar;
+        $avatar = $user->avatar;
+        // user
+        $user_name = $user->user->name;
+        $user_given_name = $user->user->given_name;
+        $user_family_name = $user->user->family_name;
+        $user_picture = $user->user->picture;
+        $user_email = $user->user->email;
+        $user_email_verified = $user->user->email_verified;
+        $user_locale = $user->user->locale;
+        $user_id = $user->user->id;
+        $user_email_verified = $user->user->verified_email;
+
+        // check if has an account
+        // check if verified
+        // redirect
+        $user_id = $user->user->id;
+        dd($user);
+        // return $token;
+
         return $user;
-        
+
     }
 
 }
