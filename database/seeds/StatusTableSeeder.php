@@ -324,6 +324,72 @@ class StatusTableSeeder extends Seeder
         ]);
 
 
+        DB::table('statuses')->insert([
+            'id' => '677b79f3-40f3-4f5f-b8f0-815e4d5b5ff9',
+            'name' => 'Active',
+            'description' => 'Active',
+            'label' => 'label-primary',
+            'status_type_id' => 'a3909a25-635a-4adf-a5dc-651c9c08becb',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => 'e0050238-1d7b-4420-b297-ce4c41c700a3',
+            'name' => 'Inactive',
+            'description' => 'Inactive (Unsubscribed)',
+            'label' => 'label-primary',
+            'status_type_id' => 'a3909a25-635a-4adf-a5dc-651c9c08becb',
+            'user_id' => 1,
+        ]);
+
+
+        // contact us
+        DB::table('statuses')->insert([
+            'id' => '8932f8c3-226a-47c9-9796-5ba50662fdea',
+            'name' => 'Unread',
+            'description' => 'Unread',
+            'label' => 'label-primary',
+            'status_type_id' => 'a3909a25-adfa-4635-a5dc-651c9c08becb',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '7e7d4f7b-82a7-4d96-b504-d68e59f4c32b',
+            'name' => 'Read',
+            'description' => 'Read',
+            'label' => 'label-primary',
+            'status_type_id' => 'a3909a25-adfa-4635-a5dc-651c9c08becb',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => 'ba541d8b-9202-453e-b415-85f8c0a54ffb',
+            'name' => 'Replied',
+            'description' => 'Replied',
+            'label' => 'label-primary',
+            'status_type_id' => 'a3909a25-adfa-4635-a5dc-651c9c08becb',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '20954deb-ee89-4c57-be0e-3b11c85227a9',
+            'name' => 'Flagged',
+            'description' => 'Flagged',
+            'label' => 'label-primary',
+            'status_type_id' => 'a3909a25-adfa-4635-a5dc-651c9c08becb',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '89202f5b-a1d1-43f1-b9d4-b64b13389134',
+            'name' => 'Pending',
+            'description' => 'Pending',
+            'label' => 'label-primary',
+            'status_type_id' => 'a3909a25-adfa-4635-a5dc-651c9c08becb',
+            'user_id' => 1,
+        ]);
+
+
 
     }
 }

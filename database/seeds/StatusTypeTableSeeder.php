@@ -80,5 +80,21 @@ class StatusTypeTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        DB::table('status_types')->insert([
+            'id' => 'a3909a25-635a-4adf-a5dc-651c9c08becb',
+            'name' => 'Email Subscription',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('status_types')->insert([
+            'id' => 'a3909a25-adfa-4635-a5dc-651c9c08becb',
+            'name' => 'Contact Us Status',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

@@ -13,6 +13,10 @@
 */
 
 Route::get('/', 'Landing\LandingController@landing')->name('landing');
+
+Route::post('/email/subscribe', 'Landing\LandingController@emailSubscribe')->name('email.subscribe');
+Route::post('/contact/us', 'Landing\LandingController@contactUs')->name('contact.us');
+
 Route::get('/about', 'Landing\LandingController@about')->name('about');
 Route::get('/services', 'Landing\LandingController@services')->name('services');
 Route::get('/contacts', 'Landing\LandingController@contacts')->name('contacts');
@@ -36,6 +40,24 @@ Route::get('/logout', 'Auth\LoginController@login')->name('logout');
 Route::get('/register', 'Auth\LoginController@register')->name('register');
 Route::get('/forgot/password', 'Auth\LoginController@forgotPassword')->name('forgot.password');
 
+
+
 // Handling external service provider authentication
 Route::get("/login/{provider}", "Auth\LoginController@redirectToProvider");
 Route::get("/callback/{provider}", "Auth\LoginController@handleProviderCallback");
+
+
+
+
+// Business auth
+Route::get('/business/login', 'Business\AuthController@businessLogin')->name('business.login');
+Route::get('/business/login/two/columns', 'Business\AuthController@businessLoginTwoColumns')->name('business.login.two.columns');
+Route::get('/business/forgot/password', 'Business\AuthController@businessForgotPassword')->name('business.forgot.password');
+Route::get('/business/register', 'Business\AuthController@businessRegisterPage')->name('business.register');
+
+
+// Personal auth
+Route::get('/personal/login', 'Personal\AuthController@personalLogin')->name('personal.login');
+Route::get('/personal/login/two/columns', 'Personal\AuthController@personalLoginTwoColumns')->name('personal.login.two.columns');
+Route::get('/personal/forgot/password', 'Personal\AuthController@personalForgotPassword')->name('personal.forgot.password');
+Route::get('/personal/register', 'Personal\AuthController@personalRegisterPage')->name('personal.register');
