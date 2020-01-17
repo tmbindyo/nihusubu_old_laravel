@@ -30,7 +30,7 @@ class CreateSalesTable extends Migration
             $table->double('balance', 20,2);
             $table->double('refund', 20,2)->nullable();
 
-            $table->uuid('customer_id')->nullable();
+            $table->uuid('contact_id')->nullable();
             $table->uuid('project_id')->nullable();
             $table->uuid('institution_id');
             $table->integer('user_id')->unsigned();

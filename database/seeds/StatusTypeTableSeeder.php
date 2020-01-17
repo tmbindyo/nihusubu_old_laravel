@@ -82,19 +82,32 @@ class StatusTypeTableSeeder extends Seeder
         ]);
 
         DB::table('status_types')->insert([
+<<<<<<< HEAD
             'id' => 'a3909a25-635a-4adf-a5dc-651c9c08becb',
             'name' => 'Email Subscription',
+=======
+            'id' => '7805a9f3-c7ca-4a09-b021-cc9b253e2810',
+            'name' => 'Expense status type',
+>>>>>>> errors_fix
             'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         DB::table('status_types')->insert([
+<<<<<<< HEAD
             'id' => 'a3909a25-adfa-4635-a5dc-651c9c08becb',
             'name' => 'Contact Us Status',
             'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
+=======
+            'id' => '8f56fc70-6cd8-496f-9aec-89e5748968db',
+            'name' => 'Transaction status type',
+            'user_id' => 1,
+        ]);
+
+>>>>>>> errors_fix
     }
 }

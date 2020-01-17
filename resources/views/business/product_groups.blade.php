@@ -52,45 +52,45 @@
             <div class="ibox-content">
 
                 <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Attributes</th>
-                    <th>Attribute Options</th>
-                    <th>Status</th>
-                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($productGroups as $productGroup)
-                    <tr class="gradeA">
-                            <td>{{$productGroup->name}} <label class="badge badge-circle badge-info">{{$productGroup->products_count}} products</label></td>
-                            <td>{{$productGroup->attributes}}</td>
-                            <td>{{$productGroup->attribute_options}}</td>
-                            <td>
-                                <p>@if ($productGroup->is_service==1) Service: @elseif($productGroup->is_service==0)Product: @endif <span class="label {{$productGroup->status->label}}">{{$productGroup->status->name}}</span></p>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <a href="{{ route('business.product.group.show', $productGroup->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                    <a href="{{ route('business.product.group.edit', $productGroup->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                    <a href="{{ route('business.product.group.delete', $productGroup->id) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                                </div>
-                            </td>
-                    </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>SKU</th>
-                    <th>Stock on Hand</th>
-                    <th>Status</th>
-                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
-                </tr>
-            </tfoot>
-            </table>
+                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Attributes</th>
+                                <th>Attribute Options</th>
+                                <th>Status</th>
+                                <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($productGroups as $productGroup)
+                                <tr class="gradeA">
+                                        <td>{{$productGroup->name}} <label class="badge badge-circle badge-info">{{$productGroup->products_count}} products</label></td>
+                                        <td>{{$productGroup->attributes}}</td>
+                                        <td>{{$productGroup->attribute_options}}</td>
+                                        <td>
+                                            <p>@if ($productGroup->is_service==1) Service: @elseif($productGroup->is_service==0)Product: @endif <span class="label {{$productGroup->status->label}}">{{$productGroup->status->name}}</span></p>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="{{ route('business.product.group.show', $productGroup->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                <a href="{{ route('business.product.group.edit', $productGroup->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                <a href="{{ route('business.product.group.delete', $productGroup->id) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                            </div>
+                                        </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>SKU</th>
+                                <th>Stock on Hand</th>
+                                <th>Status</th>
+                                <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
 
             </div>

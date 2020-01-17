@@ -64,10 +64,10 @@
                                         <div class="col-md-12">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="customer" class="select2_demo_3 form-control input-lg">
+                                                <select name="contact" class="select2_demo_3 form-control input-lg">
                                                     <option selected disabled>Select Customer</option>
-                                                    @foreach($customers as $customer)
-                                                        <option @if($customer->id == $invoice->customer_id)selected @endif value="{{$customer->id}}">{{$customer->company_name}}: {{$customer->last_name}}, {{$customer->first_name}}</option>
+                                                    @foreach($contacts as $contact)
+                                                        <option @if($contact->id == $invoice->contact_id)selected @endif value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

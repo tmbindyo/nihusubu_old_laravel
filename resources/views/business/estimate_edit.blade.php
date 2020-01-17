@@ -1,6 +1,6 @@
 @extends('business.layouts.app')
 
-@section('title', ' Estimate Create')
+@section('title', ' Estimate Edit')
 
 @section('css')
 
@@ -18,7 +18,7 @@
 
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>Estimates</h2>
+                <h2>Estimate Edit</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="{{route('business.dashboard')}}">Home</a>
@@ -29,8 +29,11 @@
                     <li>
                         <a href="{{route('business.estimates')}}">Estimates</a>
                     </li>
+                    <li>
+                        <a href="{{route('business.estimate.show',$estimate->id)}}">Estimate</a>
+                    </li>
                     <li class="active">
-                        <strong>Estimate Create</strong>
+                        <strong>Estimate Edit</strong>
                     </li>
                 </ol>
             </div>
@@ -64,10 +67,10 @@
                                         <div class="col-md-12">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="customer" class="select2_demo_3 form-control input-lg">
+                                                <select name="contact" class="select2_demo_3 form-control input-lg">
                                                     <option selected disabled>Select Customer</option>
-                                                    @foreach($customers as $customer)
-                                                        <option @if($customer->id == $estimate->customer_id)selected @endif value="{{$customer->id}}">{{$customer->company_name}}: {{$customer->last_name}}, {{$customer->first_name}}</option>
+                                                    @foreach($contacts as $contact)
+                                                        <option @if($contact->id == $estimate->contact_id)selected @endif value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

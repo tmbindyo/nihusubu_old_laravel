@@ -31,6 +31,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Address');
     }
+    public function assignee_todos()
+    {
+        return $this->hasMany('App\ToDo','id', 'assignee_id');
+    }
     public function branches()
     {
         return $this->hasMany('App\Branch');

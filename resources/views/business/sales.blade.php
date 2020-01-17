@@ -62,6 +62,7 @@
                                         <th>Due Date</th>
                                         <th>Customer</th>
                                         <th>Amount</th>
+                                        <th>Paid</th>
                                         <th>Status</th>
                                         <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                     </tr>
@@ -72,8 +73,9 @@
                                             <td>{{$sale->reference}}</td>
                                             <td>{{$sale->date}}</td>
                                             <td>{{$sale->due_date}}</td>
-                                            <td>{{$sale->customer->first_name}} {{$sale->customer->last_name}}</td>
+                                            <td>{{$sale->contact->first_name}} {{$sale->contact->last_name}}</td>
                                             <td>{{$sale->total}}</td>
+                                            <td>{{$sale->paid}}</td>
                                             <td>
                                                 <p><span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></p>
                                             </td>
@@ -92,6 +94,7 @@
                                         <th>Due Date</th>
                                         <th>Customer</th>
                                         <th>Amount</th>
+                                        <th>Paid</th>
                                         <th>Status</th>
                                         <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                     </tr>

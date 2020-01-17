@@ -34,23 +34,24 @@
                 <h4>Invoice No.</h4>
                 <h4 class="text-navy">{{$invoice->reference}}</h4>
                 <span>To:</span>
-                @if($invoice->customer->is_business == 1)
-                {{--  if business  --}}
-                <address>
-                    <strong>{{$invoice->customer->company_name}}</strong><br>
-                    112 Street Avenu, 1080<br>
-                    Miami, CT 445611<br>
-                    <abbr title="Phone">P:</abbr> {{$invoice->customer->phone_number}}
-                </address>
-                @else
-                {{--  if not business  --}}
-                <address>
-                    <strong>{{$invoice->customer->first_name}} {{$invoice->customer->last_name}}</strong><br>
-                    112 Street Avenu, 1080<br>
-                    Miami, CT 445611<br>
-                    <abbr title="Phone">P:</abbr> {{$invoice->customer->phone_number}}
-                </address>
-                @endif
+                {{-- @if($invoice->contact->organization == null) --}}
+                    {{--  if not business  --}}
+                    {{-- <address>
+                        <strong>{{$invoice->contact->first_name}} {{$invoice->contact->last_name}}</strong><br>
+                        112 Street Avenu, 1080<br>
+                        Miami, CT 445611<br>
+                        <abbr title="Phone">P:</abbr> {{$invoice->contact->phone_number}}
+                    </address> --}}
+
+                {{-- @else --}}
+                    {{--  if business  --}}
+                    {{-- <address>
+                        <strong>{{$invoice->contact->name}}</strong><br>
+                        112 Street Avenu, 1080<br>
+                        Miami, CT 445611<br>
+                        <abbr title="Phone">P:</abbr> {{$invoice->contact->organization->phone_number}}
+                    </address> --}}
+                {{-- @endif --}}
                 <p>
                     <span><strong>Invoice Date:</strong> {{$invoice->date}} </span><br/>
                     <span><strong>Due Date:</strong> {{$invoice->due_date}}</span>

@@ -73,7 +73,7 @@
                                             <td>{{$estimate->reference}}</td>
                                             <td>{{$estimate->date}}</td>
                                             <td>{{$estimate->due_date}}</td>
-                                            <td>{{$estimate->customer->first_name}} {{$estimate->customer->last_name}}</td>
+                                            <td>{{$estimate->contact->first_name}} {{$estimate->contact->last_name}}</td>
                                             <td>{{$estimate->total}}</td>
                                             <td>
                                                 <p><span class="label {{$estimate->status->label}}">{{$estimate->status->name}}</span></p>

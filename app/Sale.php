@@ -12,21 +12,9 @@ class Sale extends Model
     public $incrementing = false;
 
     // Parents
-    public function status()
+    public function contact()
     {
-        return $this->belongsTo('App\Status');
-    }
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-    public function customer()
-    {
-        return $this->belongsTo('App\Contact','customer_id','id');
-    }
-    public function project()
-    {
-        return $this->belongsTo('App\Project');
+        return $this->belongsTo('App\Contact');
     }
     public function invoice()
     {
@@ -35,6 +23,22 @@ class Sale extends Model
     public function institution()
     {
         return $this->belongsTo('App\Institution');
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+    public function status()
+    {
+        return $this->belongsTo('App\Status');
+    }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
     // Children

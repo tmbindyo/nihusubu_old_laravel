@@ -34,7 +34,8 @@
     </div>
     <div class="col-lg-4">
         <div class="title-action">
-            <a href="#" data-toggle="modal" data-target="#productRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Add </a>
+            {{-- <a href="#" data-toggle="modal" data-target="#productRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Add </a> --}}
+            <a href="{{route('business.product.group.edit',$productGroup->id)}}"class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
         </div>
     </div>
 </div>

@@ -15,13 +15,13 @@
                 </div>
             </li>
 
-{{--            <li class="nav-item {{ Route::currentRouteNamed( 'business.dashboard' ) ?  'active' : '' }}">--}}
-{{--                <a href="{{ route('business.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>--}}
-{{--            </li>--}}
+            {{-- <li class="nav-item {{ Route::currentRouteNamed( 'business.dashboard' ) ?  'active' : '' }}">
+                <a href="{{ route('business.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+            </li> --}}
 
-{{--            <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar' ) ?  'active' : '' }}">--}}
-{{--                <a href="{{ route('business.calendar') }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>--}}
-{{--            </li>--}}
+           <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar' ) ?  'active' : '' }}">
+               <a href="{{ route('business.calendar') }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>
+            </li>
 
             <li class="nav-item {{ Route::currentRouteNamed( 'business.to.dos' ) ?  'active' : '' }}">
                 <a href="{{ route('business.to.dos') }}"><i class="fa fa-list"></i> <span class="nav-label">To Do </span></a>
@@ -83,16 +83,40 @@
             <li>
                 <a href="#">
                     <i class="fa fa-shopping-cart"></i>
-                    <span class="nav-label">Sales </span>
+                    <span class="nav-label">CRM </span>
                     <span class="fa arrow"></span>
-{{--                    <span class="label label-info pull-right">16</span>--}}
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.clients' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.clients')}}">
-                            Clients
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.campaigns' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.campaigns')}}">
+                            Campaign
                         </a>
                     </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.contacts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.contacts')}}">
+                            Contacts
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.leads' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.leads')}}">
+                            Leads
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.organizations' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.organizations')}}">
+                            Organizations
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="nav-label">Sales </span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.estimates' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'business.estimates')}}">
                             Estimates
@@ -103,19 +127,9 @@
                             Invoices
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.orders' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.orders')}}">
-                            Orders
-                        </a>
-                    </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.sales' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'business.sales')}}">
                             Sales
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.payments.received' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.payments.received')}}">
-                            Payments Received
                         </a>
                     </li>
                 </ul>
@@ -255,56 +269,142 @@
 {{--                </ul>--}}
 {{--            </li>--}}
 
-{{--            <li>--}}
-{{--                <a href="#">--}}
-{{--                    <i class="fa fa-sliders"></i>--}}
-{{--                    <span class="nav-label">Settings</span>--}}
-{{--                    <span class="fa arrow"></span>--}}
-{{--                </a>--}}
-{{--                <ul class="nav nav-second-level collapse">--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.organization.profile' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.organization.profile')}}">--}}
-{{--                            Organization Profile--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.accounts' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.accounts')}}">--}}
-{{--                            Accounts--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.opening.balances' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.opening.balances')}}">--}}
-{{--                            Opening Balances--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.users.roles' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.users.roles')}}">--}}
-{{--                            Users & Roles--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.currencies' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.currencies')}}">--}}
-{{--                            Currencies--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.taxes' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.taxes')}}">--}}
-{{--                            Taxes--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.emails' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.emails')}}">--}}
-{{--                            Emails--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.reminders' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.reminders')}}">--}}
-{{--                            Reminders--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
 
+            <li>
+                <a href="#"><i class="fa fa-dollar"></i> <span class="nav-label">Accounting</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.accounts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.accounts')}}">
+                            Accounts
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.expenses' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.expenses')}}">
+                            Expenses
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.liabilities' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.liabilities')}}">
+                            Liabilities
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.loans' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.loans')}}">
+                            Loans
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.payments' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.payments')}}">
+                            Payments
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.refunds' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.refunds')}}">
+                            Refunds
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.transactions' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.transactions')}}">
+                            Transactions
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.transfers' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.transfers')}}">
+                            Transfers
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-sliders"></i>
+                    <span class="nav-label">Settings</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.campaign.types' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.campaign.types')}}">
+                            Campaign Types
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.contact.types' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.contact.types')}}">
+                            Contact Types
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.frequencies' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.frequencies')}}">
+                            Frequency
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.lead.sources' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.lead.sources')}}">
+                            Lead source
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.titles' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.titles')}}">
+                            Titles
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.units' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.units')}}">
+                            Units
+                        </a>
+                    </li>
+{{--
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.accounts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.accounts')}}">
+                            Accounts
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.opening.balances' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.opening.balances')}}">
+                            Opening Balances
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.users.roles' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.users.roles')}}">
+                            Users & Roles
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.currencies' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.currencies')}}">
+                            Currencies
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.taxes' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.taxes')}}">
+                            Taxes
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.emails' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.emails')}}">
+                            Emails
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.reminders' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.reminders')}}">
+                            Reminders
+                        </a>
+                    </li>  --}}
+                </ul>
+            </li>
 
         </ul>
 

@@ -126,8 +126,7 @@
                                     <div class="panel-heading">
                                         <div class="panel-options">
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#updates" data-toggle="tab">Updates</a></li>
-                                                <li class=""><a href="#inventory" data-toggle="tab">Inventory</a></li>
+                                                <li class="active"><a href="#inventory" data-toggle="tab">Inventory</a></li>
                                                 <li class=""><a href="#adjustments" data-toggle="tab">Adjustments</a></li>
                                                 <li class=""><a href="#source-transfer-orders" data-toggle="tab">Source Transfer orders</a></li>
                                                 <li class=""><a href="#destination-transfer-orders" data-toggle="tab">Destination Transfer orders</a></li>
@@ -138,84 +137,7 @@
                                     <div class="panel-body">
 
                                         <div class="tab-content">
-                                            <div class="tab-pane active" id="updates">
-                                                <div class="feed-activity-list">
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a2.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right">2h ago</small>
-                                                            <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
-                                                            <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
-                                                            <div class="well">
-                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a3.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right">2h ago</small>
-                                                            <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
-                                                            <small class="text-muted">2 days ago at 8:30am</small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a4.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right text-navy">5h ago</small>
-                                                            <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
-                                                            <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
-                                                            <div class="actions">
-                                                                <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                                                                <a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a5.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right">2h ago</small>
-                                                            <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
-                                                            <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
-                                                            <div class="well">
-                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/profile.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right">23h ago</small>
-                                                            <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
-                                                            <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a7.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right">46h ago</small>
-                                                            <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
-                                                            <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="tab-pane" id="inventory">
+                                            <div class="tab-pane active" id="inventory">
 
                                                 <div class="table-responsive">
                                                     <table class="table table-striped table-bordered table-hover dataTables-example" >
@@ -224,7 +146,6 @@
                                                             <th>Product</th>
                                                             <th>Quantity</th>
                                                             <th>Last Updated</th>
-                                                            <th>Action</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -235,8 +156,6 @@
                                                                 <td>{{$inventory->quantity}}
                                                                 </td>
                                                                 <td>{{$inventory->updated_at}}</td>
-                                                                <td class="center">4</td>
-                                                                <td class="center">X</td>
                                                             </tr>
                                                         @endforeach
 
@@ -246,7 +165,6 @@
                                                             <th>Product</th>
                                                             <th>Quantity</th>
                                                             <th>Last Updated</th>
-                                                            <th>Action</th>
                                                         </tr>
                                                         </tfoot>
                                                     </table>

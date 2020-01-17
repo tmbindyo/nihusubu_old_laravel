@@ -42,6 +42,93 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
 
+    {{-- infographics --}}
+    <div class="wrapper wrapper-content project-manager">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-dollar fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <span> Sales </span>
+                            <h2 class="font-bold">{{$product->sale_products_count}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-shopping-cart fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <span> Orders </span>
+                            <h2 class="font-bold">{{$product->order_products_count}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-database fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <span> Stock On Hand </span>
+                            @if($product->is_service == "1")
+                                <h2 class="font-bold">N/A</h2>
+                            @else
+                                        <h2 class="font-bold">{{$product->stock_on_hand->first()->stock_on_hand}}</h2>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if($product->is_service == "0")
+                <div class="col-md-3">
+                    <div class="widget style1 navy-bg">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-level-down fa-5x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span> Reorder Level </span>
+                                <h2 class="font-bold">{{$product->reorder_level}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if($product->is_service == "0")
+                <div class="col-md-3">
+                    <div class="widget style1 navy-bg">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-archive fa-5x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span> Restocks </span>
+                                <h2 class="font-bold">{{$product->restock_count}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+        </div>
+    </div>
+
+    {{-- product description --}}
     <div class="row">
         <div class="col-lg-12">
 
@@ -106,9 +193,13 @@
 
                             <div>
                                 <div class="btn-group">
-                                    <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button>
-                                    <a href="{{route('business.expense.create')}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a>
-                                    <a href="{{ route('business.product.delete', $product->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
+                                    {{-- <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button> --}}
+                                    {{-- <a href="{{route('business.expense.create')}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a> --}}
+                                    @if ($product->status_id == 'bc6170bf-299a-44f5-8362-8cdeed1f47b0')
+                                        <a href="{{ route('business.product.restore', $product->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-check"></i> Restore </a>
+                                    @else
+                                        <a href="{{ route('business.product.delete', $product->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
+                                    @endif
                                 </div>
                             </div>
 
@@ -132,7 +223,7 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-9">
+    <div class="col-lg-12">
         <div class="wrapper wrapper-content animated fadeInUp">
             <div class="ibox">
                 <div class="ibox-content">
@@ -191,23 +282,17 @@
                                                     <tr>
                                                         <th>Date</th>
                                                         <th>Quantity</th>
-                                                        <th>Rate</th>
+                                                        <th>Warehouse</th>
                                                         <th>Status</th>
-                                                        <th>Order</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($product->order_products as $order)
+                                                    @foreach($product->inventory as $inventory)
                                                         <tr class="gradeX">
-                                                            <td>{{$order->created_at}}</td>
-                                                            <td>{{$order->quantity}}</td>
-                                                            <td class="center">{{$order->rate}}</td>
-                                                            <td class="center">{{$order->status}}</td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('business.order.show', $order->order_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
+                                                            <td>{{$inventory->date}}</td>
+                                                            <td>{{$inventory->quantity}}</td>
+                                                            <td class="center">{{$inventory->warehouse->name}}</td>
+                                                            <td class="center">{{$inventory->status->name}}</td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
@@ -217,7 +302,6 @@
                                                         <th>Quantity</th>
                                                         <th>Rate</th>
                                                         <th>Status</th>
-                                                        <th>Order</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>
@@ -470,90 +554,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-
-        <div class="wrapper wrapper-content project-manager">
-
-
-            <div class="row">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-dollar fa-5x"></i>
-                        </div>
-                        <div class="col-xs-8 text-right">
-                            <span> Sales </span>
-                            <h2 class="font-bold">{{$product->sale_products_count}}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-shopping-cart fa-5x"></i>
-                        </div>
-                        <div class="col-xs-8 text-right">
-                            <span> Orders </span>
-                            <h2 class="font-bold">{{$product->order_products_count}}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-database fa-5x"></i>
-                        </div>
-                        <div class="col-xs-8 text-right">
-                            <span> Stock On Hand </span>
-                            @if($product->is_service == "1")
-                                <h2 class="font-bold">N/A</h2>
-                            @else
-                                        <h2 class="font-bold">{{$product->stock_on_hand->first()->stock_on_hand}}</h2>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            @if($product->is_service == "0")
-                <div class="row">
-                    <div class="widget style1 navy-bg">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <i class="fa fa-level-down fa-5x"></i>
-                            </div>
-                            <div class="col-xs-8 text-right">
-                                <span> Reorder Level </span>
-                                <h2 class="font-bold">{{$product->reorder_level}}</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if($product->is_service == "0")
-                <div class="row">
-                    <div class="widget style1 navy-bg">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <i class="fa fa-archive fa-5x"></i>
-                            </div>
-                            <div class="col-xs-8 text-right">
-                                <span> Restocks </span>
-                                <h2 class="font-bold">{{$product->restock_count}}</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
         </div>
     </div>
 </div>
