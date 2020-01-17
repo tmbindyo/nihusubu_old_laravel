@@ -1,7 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-=======
 
 Route::group(array('domain' => '{subdomain}.localhost:8000'), function () {
 
@@ -9,7 +7,6 @@ Route::group(array('domain' => '{subdomain}.localhost:8000'), function () {
 });
 
 
->>>>>>> errors_fix
 //Dashboard
 Route::get('/dashboard', 'Business\DashboardController@dashboard')->name('business.dashboard');
 
