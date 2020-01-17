@@ -20,10 +20,6 @@ class Contact extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function salutation()
-    {
-        return $this->belongsTo('App\Salutation');
-    }
     public function currency()
     {
         return $this->belongsTo('App\Currency');

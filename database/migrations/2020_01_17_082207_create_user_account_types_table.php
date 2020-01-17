@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSalutationsTable extends Migration
+class CreateUserAccountTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,9 @@ class CreateSalutationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('salutations', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-
-            $table->string('name', 200);
-
-            $table->integer('user_id')->unsigned();
-            $table->uuid('status_id');
-
+        Schema::create('user_account_types', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -33,6 +26,6 @@ class CreateSalutationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('salutations');
+        Schema::dropIfExists('user_account_types');
     }
 }

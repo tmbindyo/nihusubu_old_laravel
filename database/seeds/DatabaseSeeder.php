@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call([ReasonTableSeeder::class]);
         $this->call([RepeatTableSeeder::class]);
         $this->call([SaleTypeTableSeeder::class]);
-        $this->call([SalutationTableSeeder::class]);
 //        $this->call([SectorTableSeeder::class]);
         $this->call([ServiceTableSeeder::class]);
         $this->call([ServiceTypePricingTableSeeder::class]);

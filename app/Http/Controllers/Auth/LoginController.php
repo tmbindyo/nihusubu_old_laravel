@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 
@@ -46,35 +47,78 @@ class LoginController extends Controller
 
     public function handleProviderCallback($provider) {
 
-        $user = Socialite::driver($provider)->user();
+        // return $provider;
+        $getInfo = Socialite::driver($provider)->user();
+        $user = $this->authenticate($getInfo, $provider);
+        if ($user) {
+            auth()->login($user, true);
+        }
+        return redirect()->to('/success');
+    }
 
-        // google
-        $token = $user->token;
-        $expiresIn = $user->expiresIn;
-        $id = $user->id;
-        $name = $user->name;
-        $email = $user->email;
-        $avatar = $user->avatar;
-        $avatar = $user->avatar;
-        // user
-        $user_name = $user->user->name;
-        $user_given_name = $user->user->given_name;
-        $user_family_name = $user->user->family_name;
-        $user_picture = $user->user->picture;
-        $user_email = $user->user->email;
-        $user_email_verified = $user->user->email_verified;
-        $user_locale = $user->user->locale;
-        $user_id = $user->user->id;
-        $user_email_verified = $user->user->verified_email;
+    public function authenticate($getInfo, $provider)
+    {
+        $user = User::where('email', $getInfo->email)->first();
+        if (!$user) {
+            $newUser = '';
+            switch ($provider) {
+                case 'facebook':
+                    $newUser = $this->facebook($getInfo);
+                    break;
+                case 'google':
+                    $newUser = $this->google($getInfo);
+                    break;
+                case 'twitter':
+                    $newUser = $this->twitter($getInfo);
+                    break;
+                case 'linkedin':
+                    $newUser = $this->linkedIn($getInfo);
+                    break;
+                default:
+                    break;
+            }
+            return $newUser;
+        } else {
+            return $user;
+        }
+    }
 
-        // check if has an account
-        // check if verified
-        // redirect
-        $user_id = $user->user->id;
-        dd($user);
-        // return $token;
 
-        return $user;
+    private function facebook($getInfo){
+
+    }
+    private function google($getInfo){
+        $token = $getInfo->token;
+        $refreshToken = $getInfo->refreshToken; // not always provided
+        $expiresIn = $getInfo->expiresIn;
+        $id = $getInfo->id;
+        $nickname = $getInfo->nickname;
+        $name = $getInfo->name;
+        $email = $getInfo->email;
+        $avatar = $getInfo->avatar;
+
+        // user array key
+        $userSub = $getInfo->user['sub'];
+        $userName = $getInfo->user['name'];
+        $userGivenName = $getInfo->user['given_name'];
+        $userFamilyName = $getInfo->user['family_name'];
+        $userPicture = $getInfo->user['picture'];
+        $userEmail = $getInfo->user['email'];
+        $userEmailVerified = $getInfo->user['email_verified'];
+        $userLocale = $getInfo->user['locale'];
+        $userId = $getInfo->user['id'];
+        $userVerifiedEmail = $getInfo->user['verified_email'];
+        $userLink = $getInfo->user['link'];
+
+
+        $avatarOriginal = $getInfo->avatarOriginal;
+
+        // create user
+    }
+    private function twitter($getInfo){
+
+    }
+    private function linkedIn($getInfo){
 
     }
 

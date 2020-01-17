@@ -136,17 +136,6 @@
                                 <br>
                                 <br>
                                 <div class="row">
-                                    {{--  Salutation  --}}
-                                    <div class="col-md-4">
-                                        <div class="has-warning">
-                                            <select name="salutation" class="form-control input-lg"required>
-                                                <option>Select Salutation</option>
-                                                @foreach($salutations as $salutation)
-                                                    <option value="{{$salutation->id}}">{{$salutation->name}}</option>
-                                                @endforeach()
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-md-4">
                                         {{--  First name  --}}
                                         <div class="has-warning">
@@ -309,7 +298,6 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                 <tr>
-                                                    <th>Salutation</th>
                                                     <th>First Name</th>
                                                     <th>Last Name</th>
                                                     <th>Email</th>
@@ -318,14 +306,6 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr>
-                                                    <td>
-                                                        <select name="salutation" class="form-control input-lg" required>
-                                                            <option>Select Salutation</option>
-                                                            @foreach($salutations as $salutation)
-                                                                <option value="{{$salutation->id}}">{{$salutation->name}}</option>
-                                                            @endforeach()
-                                                        </select>
-                                                    </td>
                                                     <td>
                                                         <input type="number" class="form-control input-lg">
                                                     </td>

@@ -29,7 +29,7 @@ class CreateContactsTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('salutation_id');
+            $table->uuid('title_id');
             $table->uuid('currency_id')->nullable();
             $table->uuid('payment_term_id');
             $table->uuid('institution_id');

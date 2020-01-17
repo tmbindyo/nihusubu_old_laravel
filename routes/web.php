@@ -66,8 +66,13 @@ Route::get('/forgot/password', 'Auth\LoginController@forgotPassword')->name('for
 
 
 
-// Handling external service provider authentication
+// Handling external service provider login
 Route::get("/login/{provider}", "Auth\LoginController@redirectToProvider");
+Route::get("/callback/{provider}", "Auth\LoginController@handleProviderCallback");
+
+
+// Handling external service provider registration
+Route::get("/register/{provider}", "Auth\LoginController@redirectToProvider");
 Route::get("/callback/{provider}", "Auth\LoginController@handleProviderCallback");
 
 

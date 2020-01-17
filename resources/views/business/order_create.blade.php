@@ -68,15 +68,6 @@
                                                 <div class="col-md-1">
                                                     <span><i data-toggle="tooltip" data-placement="left" title="Enable this option if all the items in the group are eligible for sales return." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                                 </div>
-                                                {{--  Salutation  --}}
-                                                <div class="col-md-3">
-                                                    <div class="has-warning">
-                                                        <select class="select2_demo_3 form-control input-lg">
-                                                            <option>Select Salutation</option>
-                                                            <option value="Bahamas">Bahamas</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-4">
                                                     {{--  First name  --}}
                                                     <div class="has-warning">

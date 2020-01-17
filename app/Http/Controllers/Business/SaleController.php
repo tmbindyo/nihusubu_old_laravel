@@ -17,7 +17,6 @@ use App\Product;
 use App\ProductTax;
 use App\Sale;
 use App\SaleProduct;
-use App\Salutation;
 use App\Tax;
 use App\Traits\InstitutionTrait;
 use App\Traits\ReferenceNumberTrait;
@@ -39,9 +38,9 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Get individual clients
-        $individualContacts = Contact::where('institution_id',$institution->id)->where('is_customer',True)->where('is_business',False)->with('billing_address','shipping_address','salutation','status','user')->get();
+        $individualContacts = Contact::where('institution_id',$institution->id)->where('is_customer',True)->where('is_business',False)->with('billing_address','shipping_address','status','user')->get();
         // Get company clients
-        $businessContacts = Contact::where('institution_id',$institution->id)->where('is_customer',True)->where('is_business',True)->with('billing_address','shipping_address','salutation','status','user')->get();
+        $businessContacts = Contact::where('institution_id',$institution->id)->where('is_customer',True)->where('is_business',True)->with('billing_address','shipping_address','status','user')->get();
 
         return view('business.clients',compact('user','institution','individualContacts','businessContacts'));
     }
@@ -52,12 +51,10 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
-        //Salutation
-        $salutations = Salutation::get();
         // Payment terms
         $paymentTerms = PaymentTerm::where('institution_id',$institution->id)->get();
 
-        return view('business.client_create',compact('user','institution','salutations','paymentTerms'));
+        return view('business.client_create',compact('user','institution','paymentTerms'));
     }
 
     public function clientStore(Request $request)
@@ -111,7 +108,7 @@ class SaleController extends Controller
             $client->is_business = True;
         }
         $client->is_customer = True;
-        $client->salutation_id = $request->salutation;
+        // $client->salutation_id = $request->salutation;
         $client->first_name = $request->first_name;
         $client->last_name = $request->last_name;
         $client->company_name = $request->company_name;

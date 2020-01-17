@@ -283,10 +283,6 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\SaleType');
     }
-    public function salutations()
-    {
-        return $this->hasMany('App\Salutation');
-    }
     public function sections()
     {
         return $this->hasMany('App\Section');
