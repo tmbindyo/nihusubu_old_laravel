@@ -54,6 +54,7 @@ class LoginController extends Controller
             auth()->login($user, true);
         }
         return redirect()->to('/success');
+
     }
 
     public function authenticate($getInfo, $provider)
@@ -81,12 +82,14 @@ class LoginController extends Controller
         } else {
             return $user;
         }
+
     }
 
 
     private function facebook($getInfo){
 
     }
+
     private function google($getInfo){
         $token = $getInfo->token;
         $refreshToken = $getInfo->refreshToken; // not always provided
@@ -110,14 +113,15 @@ class LoginController extends Controller
         $userVerifiedEmail = $getInfo->user['verified_email'];
         $userLink = $getInfo->user['link'];
 
-
         $avatarOriginal = $getInfo->avatarOriginal;
 
         // create user
     }
+
     private function twitter($getInfo){
 
     }
+    
     private function linkedIn($getInfo){
 
     }

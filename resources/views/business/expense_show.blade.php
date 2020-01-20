@@ -203,7 +203,7 @@
                                 <dl class="dl-horizontal">
 
                                     <dt>Created by:</dt> <dd>{{$expense->user->name}}</dd>
-                                    <dt>Expense Type:</dt> <dd><a href="#" class="text-navy"> {{$expense->expense_account->name}}</a> </dd>
+                                    <dt>Expense Account:</dt> <dd><a href="#" class="text-navy"> {{$expense->expense_account->name}}</a> </dd>
                                     <dt>Date:</dt> <dd>{{$expense->date}}</dd>
                                 </dl>
                             </div>

@@ -90,7 +90,7 @@
                                     <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation" required>
                                 </div>
                             </div>
-                            
+
 
 
 

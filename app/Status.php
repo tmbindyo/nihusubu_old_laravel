@@ -78,10 +78,6 @@ class Status extends Model
     {
         return $this->hasMany('App\ExpenseItem');
     }
-    public function expense_types()
-    {
-        return $this->hasMany('App\ExpenseType');
-    }
     public function features()
     {
         return $this->hasMany('App\Feature');
@@ -281,10 +277,6 @@ class Status extends Model
     public function sale_products()
     {
         return $this->hasMany('App\SaleProduct');
-    }
-    public function sale_types()
-    {
-        return $this->hasMany('App\SaleType');
     }
     public function sections()
     {

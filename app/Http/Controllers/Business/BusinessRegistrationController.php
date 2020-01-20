@@ -8,8 +8,9 @@ use App\Http\Controllers\Controller;
 class BusinessRegistrationController extends Controller
 {
 
-    // todo create user
-    // todo create institution
-    // todo create role
-    // todo seed accounts
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 }

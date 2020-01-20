@@ -59,10 +59,10 @@ Route::get('/terms/and/conditions', 'Landing\LandingController@comingSoon')->nam
 
 
 // Authentication
-Route::get('/login', 'Auth\LoginController@login')->name('login');
-Route::get('/logout', 'Auth\LoginController@login')->name('logout');
-Route::get('/register', 'Auth\LoginController@register')->name('register');
-Route::get('/forgot/password', 'Auth\LoginController@forgotPassword')->name('forgot.password');
+// Route::get('/login', 'Auth\LoginController@login')->name('login');
+// Route::get('/logout', 'Auth\LoginController@login')->name('logout');
+// Route::get('/register', 'Auth\LoginController@register')->name('register');
+// Route::get('/forgot/password', 'Auth\LoginController@forgotPassword')->name('forgot.password');
 
 
 

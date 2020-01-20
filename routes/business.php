@@ -22,6 +22,7 @@ Route::get('/to/do/set/completed/{todo_id}', 'Business\ToDoController@toDoSetCom
 Route::get('/to/do/delete/{todo_id}', 'Business\ToDoController@toDoDelete')->name('business.to.do.delete');
 
 
+
 /// CRM
 // Campaign
 Route::get('/campaigns', 'Business\CRMController@campaigns')->name('business.campaigns');

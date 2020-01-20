@@ -33,8 +33,6 @@ class CreateInstitutionsTable extends Migration
             $table->uuid('status_id');
             $table->uuid('primary_contact_id')->nullable();
 
-            $table->boolean('has_custom_payment_terms');
-
             $table->timestamps();
             $table->softDeletes();
         });

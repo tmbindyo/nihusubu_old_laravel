@@ -258,7 +258,7 @@
                                                         <th>Expense #</th>
                                                         <th>Date</th>
                                                         <th>Created</th>
-                                                        <th>Expense Type</th>
+                                                        <th>Expense Account</th>
                                                         <th>Total</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>
@@ -328,7 +328,7 @@
                                                         <th>Expense #</th>
                                                         <th>Date</th>
                                                         <th>Created</th>
-                                                        <th>Expense Type</th>
+                                                        <th>Expense Account</th>
                                                         <th>Total</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>

@@ -28,10 +28,6 @@ class Expense extends Model
     {
         return $this->belongsTo('App\ExpenseAccount','expense_account_id','id');
     }
-    public function expense_type()
-    {
-        return $this->belongsTo('App\ExpenseType');
-    }
     public function frequency()
     {
         return $this->belongsTo('App\Frequency');

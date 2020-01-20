@@ -20,6 +20,9 @@ class CreateUserAccountsTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('user_type_id');
+            $table->boolean('is_institution');
+            $table->uuid('institution_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

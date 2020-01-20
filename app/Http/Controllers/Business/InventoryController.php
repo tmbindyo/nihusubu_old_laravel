@@ -25,9 +25,15 @@ class InventoryController extends Controller
     use institutionTrait;
     use ReferenceNumberTrait;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // Inventory adjustment CRUD
     public function inventoryAdjustments()
     {
+
         // User
         $user = $this->getUser();
         // Institution
@@ -37,6 +43,7 @@ class InventoryController extends Controller
         $inventoryAdjustments = InventoryAdjustment::whereIn('warehouse_id', $institutionWarehouses)->with('warehouse','user','status','account','reason')->get();
 //        return $inventoryAdjustments;
         return view('business.inventory_adjustments',compact('user','institution','inventoryAdjustments'));
+
     }
     public function inventoryAdjustmentCreate()
     {

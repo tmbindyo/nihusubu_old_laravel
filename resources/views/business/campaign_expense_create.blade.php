@@ -91,7 +91,7 @@
 
                                     <div class="row">
                                         <div class="col-md-8">
-                                            {{--  expense type  --}}
+                                            {{--  expense account  --}}
                                             <div class="has-warning">
                                                 <select name="expense_account" class="select-2 form-control input-lg">
                                                     <option selected disabled>Select Expense Account</option>

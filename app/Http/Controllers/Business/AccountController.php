@@ -31,6 +31,11 @@ class AccountController extends Controller
     use institutionTrait;
     use ReferenceNumberTrait;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function accounts()
     {
         // User

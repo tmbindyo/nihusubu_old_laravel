@@ -34,6 +34,11 @@ class CRMController extends Controller
     use institutionTrait;
     use ReferenceNumberTrait;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // leads
     public function leads()
     {

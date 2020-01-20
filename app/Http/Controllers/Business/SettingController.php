@@ -21,6 +21,11 @@ class SettingController extends Controller
     use UserTrait;
     use institutionTrait;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function organizationProfile()
     {
         // User

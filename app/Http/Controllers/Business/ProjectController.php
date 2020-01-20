@@ -13,6 +13,11 @@ class ProjectController extends Controller
     use UserTrait;
     use institutionTrait;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // Projects
     public function projectsFeed()
     {

@@ -17,6 +17,7 @@ class CreateUserRolesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->integer('user_id')->unsigned();
+            $table->uuid('_id');
             $table->uuid('role_id');
             $table->uuid('status_id');
             $table->uuid('assigner_id');

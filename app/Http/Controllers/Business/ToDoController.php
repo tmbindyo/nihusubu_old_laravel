@@ -16,6 +16,11 @@ class ToDoController extends Controller
     use UserTrait;
     use institutionTrait;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // Getting all the to dos
     public function toDos()
     {

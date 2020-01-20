@@ -79,10 +79,6 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\ExpenseItem');
     }
-    public function expense_types()
-    {
-        return $this->hasMany('App\ExpenseType');
-    }
     public function features()
     {
         return $this->hasMany('App\Feature');
@@ -282,10 +278,6 @@ class User extends Authenticatable
     public function sale_products()
     {
         return $this->hasMany('App\SaleProduct');
-    }
-    public function sale_types()
-    {
-        return $this->hasMany('App\SaleType');
     }
     public function sections()
     {

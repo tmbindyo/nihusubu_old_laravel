@@ -33,6 +33,11 @@ class ProductController extends Controller
     use UserTrait;
     use institutionTrait;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // Product group CRUD
     public function productGroups()
     {

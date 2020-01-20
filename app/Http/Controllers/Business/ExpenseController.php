@@ -31,6 +31,11 @@ class ExpenseController extends Controller
     use institutionTrait;
     use ReferenceNumberTrait;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function expenses()
     {
         // User
@@ -78,7 +83,6 @@ class ExpenseController extends Controller
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
-        // select expense type
         $expense = new Expense();
         $expense->reference = $reference;
         $expense->date = date('Y-m-d', strtotime($request->date));
@@ -214,7 +218,7 @@ class ExpenseController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
-        // Get expense types
+        // Get expense account
         $expenseAccounts = ExpenseAccount::all();
         // get orders
         $sales = Sale::with('status')->get();
@@ -241,7 +245,6 @@ class ExpenseController extends Controller
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
-        // select expense type
         $expenseExists = Expense::findOrFail($expense_id);
         $expense = Expense::where('id',$expense_id)->first();
         $expense->reference = $reference;
