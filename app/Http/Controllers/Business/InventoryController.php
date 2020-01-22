@@ -39,7 +39,7 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Get inventory adjustments
-        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventoryAdjustments = InventoryAdjustment::whereIn('warehouse_id', $institutionWarehouses)->with('warehouse','user','status','account','reason')->get();
 //        return $inventoryAdjustments;
         return view('business.inventory_adjustments',compact('user','institution','inventoryAdjustments'));
@@ -62,6 +62,7 @@ class InventoryController extends Controller
 
         return view('business.inventory_adjustment_create',compact('user','institution','accounts','reasons','warehouses','products'));
     }
+
     public function inventoryAdjustmentStore(Request $request)
     {
 //        return $request;
@@ -125,6 +126,7 @@ class InventoryController extends Controller
 
         return back()->withSuccess(__('Inventory adjustment successfully stored.'));
     }
+
     public function inventoryAdjustmentShow($inventory_adjustment_id)
     {
         // User
@@ -137,6 +139,7 @@ class InventoryController extends Controller
 //        return $inventoryAdjustment;
         return view('business.inventory_adjustment_show',compact('user','institution','inventoryAdjustment'));
     }
+
     public function inventoryAdjustmentEdit($inventory_adjustment_id)
     {
         // User
@@ -146,10 +149,12 @@ class InventoryController extends Controller
 
         return view('business.inventory_adjustment_edit',compact('user','institution'));
     }
+
     public function inventoryAdjustmentUpdate(Request $request, $inventory_adjustment_id)
     {
         return back()->withSuccess(__('Inventory adjustment successfully updated.'));
     }
+
     public function inventoryAdjustmentDelete(Request $request, $inventory_adjustment_id)
     {
         return back()->withSuccess(__('Inventory adjustment successfully deleted.'));
@@ -165,8 +170,6 @@ class InventoryController extends Controller
         // Get inventory adjustments
         $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $transferOrders = TransferOrder::where('institution_id', $institution->id)->with('source_warehouse','destination_warehouse','user','status')->get();
-
-//        return $transferOrders;
 
 //        return $transferOrders;
         return view('business.transfer_orders',compact('user','institution','transferOrders'));
@@ -187,6 +190,7 @@ class InventoryController extends Controller
 
         return view('business.transfer_order_create',compact('user','institution','accounts','warehouses','products'));
     }
+
     public function transferOrderStore(Request $request)
     {
 
@@ -234,6 +238,7 @@ class InventoryController extends Controller
 
         return redirect()->route('business.transfer.orders')->withSuccess(__('Transfer order successfully stored.'));
     }
+
     public function transferOrderShow($transfer_order_id)
     {
         // User
@@ -242,11 +247,9 @@ class InventoryController extends Controller
         $institution = $this->getInstitution();
         $transferOrder = TransferOrder::findOrFail($transfer_order_id);
         $transferOrder = TransferOrder::where('id',$transfer_order_id)->with('source_warehouse.user','destination_warehouse.user','transfer_order_products.product')->withCount('transfer_order_products')->first();
-
-//        return $transferOrder;
-//
         return view('business.transfer_order_show',compact('user','institution','transferOrder'));
     }
+
     public function transferOrderEdit($transfer_order_id)
     {
         // User
@@ -256,10 +259,12 @@ class InventoryController extends Controller
 
         return view('business.transfer_order_edit',compact('user','institution'));
     }
+
     public function transferOrderUpdate(Request $request, $transfer_order_id)
     {
         return back()->withSuccess(__('Transfer order successfully updated.'));
     }
+
     public function transferOrderDelete(Request $request, $transfer_order_id)
     {
         return back()->withSuccess(__('Transfer order successfully deleted.'));
@@ -278,6 +283,7 @@ class InventoryController extends Controller
 
         return view('business.warehouses',compact('user','institution','warehouses'));
     }
+
     public function warehouseStore(Request $request)
     {
         // User
@@ -313,7 +319,7 @@ class InventoryController extends Controller
         $warehouse->save();
 
         // Add inventory records for each warehouse and each product at 0
-        // Get all products
+        // Get products
         $productIds = Product::select('id')->get();
         foreach ($productIds as $productId){
             // Inventory record
@@ -328,6 +334,7 @@ class InventoryController extends Controller
 
         return back()->withSuccess(__('Warehouse successfully stored.'));
     }
+
     public function warehouseShow($warehouse_id)
     {
 
@@ -350,6 +357,7 @@ class InventoryController extends Controller
 
         return view('business.warehouse_show',compact('user','institution','warehouse','inventories','inventoryAdjustments','sourceTransferOrders','destinationTransferOrders'));
     }
+
     public function warehouseEdit($warehouse_id)
     {
         // User
@@ -359,10 +367,12 @@ class InventoryController extends Controller
 
         return view('business.warehouse_edit',compact('user','institution'));
     }
+
     public function warehouseUpdate(Request $request, $warehouse_id)
     {
         return back()->withSuccess(__('Warehouse successfully updated.'));
     }
+
     public function warehouseDelete(Request $request, $warehouse_id)
     {
         // User
@@ -375,6 +385,7 @@ class InventoryController extends Controller
 
         return back()->withSuccess(__('Warehouse successfully deleted.'));
     }
+
     public function warehouseRestore(Request $request, $warehouse_id)
     {
         // User

@@ -355,6 +355,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Unit');
     }
+    public function user_accounts()
+    {
+        return $this->hasMany('App\UserAccount');
+    }
     public function uploads()
     {
         return $this->hasMany('App\Upload');

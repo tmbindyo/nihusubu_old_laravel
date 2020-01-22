@@ -19,6 +19,8 @@ class CreateInstitutionsTable extends Migration
             $table->string('name', 200);
             $table->string('portal', 200);
             $table->string('kra_pin_number', 200)->nullable();
+            $table->string('email', 200)->nullable();
+            $table->string('phone_number', 200)->nullable();
             $table->string('website', 200)->nullable();
             $table->string('location', 200)->nullable();
             $table->date('inventory_start_date')->nullable();

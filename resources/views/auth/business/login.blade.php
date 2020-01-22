@@ -25,13 +25,24 @@
             </div>
             <h3>Welcome to nihusubu</h3>
             <p>Login in.</p>
-            <form class="m-t" role="form" action="index.html">
-                <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Username" required="">
+            <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
+                @csrf
+                <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                    <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}" required="">
                 </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="">
+                @if ($errors->has('email'))
+                    <span class="invalid-feedback" style="display: block;" role="alert">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+                <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
+                    <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password" value="{{ old('password') }}" required="">
                 </div>
+                @if ($errors->has('password'))
+                    <span class="invalid-feedback" style="display: block;" role="alert">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
                 <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
                 <a href="{{route('business.forgot.password')}}"><small>Forgot password?</small></a>

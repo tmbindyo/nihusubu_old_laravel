@@ -816,6 +816,7 @@ class ProductController extends Controller
 
         return redirect()->route('business.products')->withSuccess(__('Product successfully saved.'));
     }
+
     public function productShow($product_id)
     {
         // User
@@ -824,11 +825,12 @@ class ProductController extends Controller
         $institution = $this->getInstitution();
 
         $productExists = Product::findOrFail($product_id);
-        $product = Product::where('id',$product_id)->with('status','inventory.warehouse','inventory.status','restock','unit','order_products','sale_products','user','inventory_adjustment_products','transfer_order_products')->withCount('order_products','sale_products','restock')->first();
+        $product = Product::where('institution_id',$institution->id)->where('id',$product_id)->with('status','inventory.warehouse','inventory.status','restock','unit','order_products','sale_products','user','inventory_adjustment_products','transfer_order_products')->withCount('order_products','sale_products','restock')->first();
         // return $product;
 
         return view('business.product_show',compact('product','user','institution'));
     }
+
     public function productEdit($product_id)
     {
         // User
@@ -853,6 +855,7 @@ class ProductController extends Controller
 //        return $product;
         return view('business.product_edit',compact('user','institution','product','taxes','units','salesAccounts','expenseAccounts','costOfGoodsSoldAccounts','stockAccounts'));
     }
+
     public function productUpdate(Request $request,$product_id)
     {
 
@@ -955,6 +958,7 @@ class ProductController extends Controller
 
         return back()->withSuccess(__('Product successfully updated.'));
     }
+
     public function productDelete($product_id)
     {
         // User
@@ -969,6 +973,7 @@ class ProductController extends Controller
 
         return back()->withSuccess(__('Product successfully deleted.'));
     }
+
     public function productRestore($product_id)
     {
         // User
@@ -1093,11 +1098,12 @@ class ProductController extends Controller
         $institution = $this->getInstitution();
 
         $compositeProduct = Product::findOrFail($composite_product_id);
-        $compositeProduct = Product::where('id',$composite_product_id)->withCount('order_products','sale_products','composite_product_products')->with('composite_product_products','product_taxes','user','status')->first();
-        $compositeProductProducts = CompositeProductProduct::where('composite_product_id',$compositeProduct->id)->with('product')->get();
+        $compositeProduct = Product::where('institution_id',$institution->id)->where('id',$composite_product_id)->withCount('order_products','sale_products','composite_product_products')->with('composite_product_products','product_taxes','user','status')->first();
+        $compositeProductProducts = CompositeProductProduct::where('institution_id',$institution->id)->where('composite_product_id',$compositeProduct->id)->with('product')->get();
         // return $compositeProductProducts;
         return view('business.composite_product_show',compact('user','institution','compositeProduct','compositeProductProducts'));
     }
+
     public function compositeProductEdit(Request $request, $composite_product_id)
     {
         // User
@@ -1121,6 +1127,7 @@ class ProductController extends Controller
 
         return view('business.composite_product_edit',compact('user','institution','compositeProduct','compositeProductProducts','units','salesAccounts','taxes','products'));
     }
+
     public function compositeProductUpdate(Request $request, $product_id)
     {
         return $request;
@@ -1206,6 +1213,7 @@ class ProductController extends Controller
 
         return redirect()->route('business.composite.product.show',$product->id)->withSuccess(__('Composite product successfully updated.'));
     }
+
     public function compositeProductDelete($composite_product_id)
     {
         return back()->withSuccess(__('Composite product successfully deleted.'));
@@ -1245,6 +1253,7 @@ class ProductController extends Controller
 
         return back()->withSuccess(__('Product discount successfully added.'));
     }
+
     public function productDiscountUpdate(Request $request,$product_discount_id)
     {
         // User
@@ -1263,6 +1272,7 @@ class ProductController extends Controller
 
         return back()->withSuccess(__('Product discount successfully updated.'));
     }
+
     public function productDiscountDelete($product_discount_id)
     {
         // User
@@ -1341,6 +1351,7 @@ class ProductController extends Controller
 
         return back()->withSuccess(__('Product image successfully uploaded.'));
     }
+    
     public function productImageDelete($product_image_id)
     {
 

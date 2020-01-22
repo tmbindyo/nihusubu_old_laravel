@@ -43,7 +43,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Get expenses
-        $expenses = Expense::with('user','status','expense_account')->get();
+        $expenses = Expense::where('institution_id',$institution->id)->with('user','status','expense_account')->get();
         // return $expenses;
 
         return view('business.expenses',compact('expenses','user','institution'));
@@ -56,19 +56,19 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // expense accounts
-        $expenseAccounts = ExpenseAccount::all();
+        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->get();
         // get sales
-        $sales = Sale::with('status')->get();
+        $sales = Sale::where('institution_id',$institution->id)->with('status')->get();
         // expense statuses
         $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // get transfers
-        $transfers = Transfer::all();
+        $transfers = Transfer::where('institution_id',$institution->id)->get();
         // get campaign
-        $campaigns = Campaign::all();
+        $campaigns = Campaign::where('institution_id',$institution->id)->get();
         // get liabilities
-        $liabilities = Liability::all();
+        $liabilities = Liability::where('institution_id',$institution->id)->get();
         // get frequencies
-        $frequencies = Frequency::all();
+        $frequencies = Frequency::where('institution_id',$institution->id)->get();
 
         return view('business.expense_create',compact('liabilities','campaigns','sales','user','institution','frequencies','expenseAccounts','transfers','expenseStatuses'));
     }
@@ -203,11 +203,11 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // get expense
-        $expense = Expense::where('id',$expense_id)->with('transfer','status','expense_items','transaction','expense_account','frequency','user','account','campaign','contact','expense_account','inventory_adjustment','liability','sale','sale','warehouse')->withCount('expense_items')->first();
+        $expense = Expense::where('institution_id',$institution->id)->where('id',$expense_id)->with('transfer','status','expense_items','transaction','expense_account','frequency','user','account','campaign','contact','expense_account','inventory_adjustment','liability','sale','sale','warehouse')->withCount('expense_items')->first();
         // get payments
-        $payments = Transaction::where('expense_id',$expense->id)->where('status_id','2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense','account','status')->get();
+        $payments = Transaction::where('institution_id',$institution->id)->where('expense_id',$expense->id)->where('status_id','2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense','account','status')->get();
         // get pending payments
-        $pendingPayments = Transaction::where('expense_id',$expense->id)->where('status_id','a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('expense','account','status')->get();
+        $pendingPayments = Transaction::where('institution_id',$institution->id)->where('expense_id',$expense->id)->where('status_id','a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('expense','account','status')->get();
 
         return view('business.expense_show',compact('expense','user','institution','payments','pendingPayments'));
     }
@@ -219,21 +219,21 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Get expense account
-        $expenseAccounts = ExpenseAccount::all();
+        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->get();
         // get orders
-        $sales = Sale::with('status')->get();
+        $sales = Sale::where('institution_id',$institution->id)->with('status')->get();
         // expense statuses
         $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // get transfers
-        $transfers = Transfer::all();
+        $transfers = Transfer::where('institution_id',$institution->id)->get();
         // get campaign
-        $campaigns = Campaign::all();
+        $campaigns = Campaign::where('institution_id',$institution->id)->get();
         // get liabilities
-        $liabilities = Liability::all();
+        $liabilities = Liability::where('institution_id',$institution->id)->get();
         // get frequencies
-        $frequencies = Frequency::all();
+        $frequencies = Frequency::where('institution_id',$institution->id)->get();
         // get expense
-        $expense = Expense::where('id',$expense_id)->with('transfer','status','expense_items','transaction','expense_account','frequency','user','account','campaign','contact','expense_account','inventory_adjustment','liability','sale','sale','warehouse')->withCount('expense_items')->first();
+        $expense = Expense::where('institution_id',$institution->id)->where('id',$expense_id)->with('transfer','status','expense_items','transaction','expense_account','frequency','user','account','campaign','contact','expense_account','inventory_adjustment','liability','sale','sale','warehouse')->withCount('expense_items')->first();
 
         return view('business.expense_edit',compact('liabilities','campaigns','expense','user','institution','expenseAccounts','sales','expenseStatuses','transfers','frequencies'));
     }
@@ -391,6 +391,7 @@ class ExpenseController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // TODO expense delete
         // Get albums
         $expenses = Expense::with('user','status')->get();
 
@@ -403,6 +404,7 @@ class ExpenseController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
+        // TODO expense restore
         // Get albums
         $expenses = Expense::with('user','status')->get();
 
@@ -418,7 +420,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Get albums
-        $transactions = Transaction::with('user','status','account','expense')->get();
+        $transactions = Transaction::where('institution_id',$institution->id)->with('user','status','account','expense')->get();
         return view('business.transactions',compact('transactions','user','institution','transactions'));
 
     }
@@ -433,7 +435,7 @@ class ExpenseController extends Controller
         // get expenses
         $expense = Expense::findOrFail($expense_id);
         // accounts
-        $accounts = Account::all();
+        $accounts = Account::where('institution_id',$institution->id)->get();
 
         // transaction statuses
         $transactionStatuses = Status::where('status_type_id','8f56fc70-6cd8-496f-9aec-89e5748968db')->get();
@@ -631,7 +633,7 @@ class ExpenseController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
-        $payments = Payment::with('user','status','account')->get();
+        $payments = Payment::where('institution_id',$institution->id)->with('user','status','account')->get();
         return view('business.payments',compact('payments','user','institution'));
     }
 
@@ -642,11 +644,11 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // get accounts
-        $accounts = Account::all();
+        $accounts = Account::where('institution_id',$institution->id)->get();
         // loans
-        $loans = Loan::all();
+        $loans = Loan::where('institution_id',$institution->id)->get();
         // sales
-        $sales = Sale::get();
+        $sales = Sale::where('institution_id',$institution->id)->get();
         return view('business.payment_create',compact('user','institution','accounts','loans','sales'));
     }
 
@@ -773,7 +775,8 @@ class ExpenseController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution();
-        $refunds = Refund::with('user','status','account')->get();
+        // refunds
+        $refunds = Refund::where('institution_id',$institution->id)->with('user','status','account')->get();
         return view('business.refunds',compact('refunds','user','institution'));
     }
 
@@ -784,7 +787,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // get accounts
-        $accounts = Account::all();
+        $accounts = Account::where('institution_id',$institution->id)->get();
         // payment
         $payment = Payment::findOrFail($payment_id);
         return view('business.refund_create',compact('user','institution','accounts','payment'));

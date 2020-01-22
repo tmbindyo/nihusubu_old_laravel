@@ -1,14 +1,23 @@
 <?php
 
 
+// Route::group(array('domain' => '{subdomain}.localhost:8000'), function () {
+
+
+// });
+
+
 Route::group(array('domain' => '{subdomain}.localhost:8000'), function () {
 
+    Route::get('/user/show', function ($subdomain) {
 
+        $name = DB::table('users')->where('name', $subdomain)->get();
+
+        dd($name);
+
+    });
 });
 
-
-//Dashboard
-Route::get('/dashboard', 'Business\DashboardController@dashboard')->name('business.dashboard');
 
 //Calendar
 Route::get('/calendar', 'Business\CalendarController@calendar')->name('business.calendar');

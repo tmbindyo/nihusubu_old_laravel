@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Traits\UserTrait;
 class HomeController extends Controller
 {
     /**
@@ -15,6 +16,7 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    use UserTrait;
     /**
      * Show the application dashboard.
      *
@@ -22,16 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->user_type_id == 1){
-            return view('dashboard');
-        } elseif (Auth::user()->user_type_id == 3) {
-            return view('investor_dashboard');
-        } elseif (Auth::user()->user_type_id == 4) {
-            return view('project_manager_dashboard');
-        } else {
-            return redirect('login');
-        }
-            
+        $user = $this->getUser();
+        return $user;
     }
 
     public function admin()

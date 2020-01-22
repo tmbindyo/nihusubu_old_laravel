@@ -18,11 +18,13 @@ trait UserTrait
     public function getUser()
     {
         // Get user
-        $user = Auth::user();
+        $userCheck = Auth::user();
+        $user = User::where('id',$userCheck->id)->with('user_accounts.status','user_accounts.user_type','user_accounts.institution')->first();
 
         // system defined user
-        $user = User::where('id',3)->first();
+        // $user = User::where('id',3)->first();
         return $user;
+        
     }
 
 }

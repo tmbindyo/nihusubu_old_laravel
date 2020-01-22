@@ -35,7 +35,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
-
 Route::get('/', 'Landing\LandingController@landing')->name('landing');
 
 Route::post('/email/subscribe', 'Landing\LandingController@emailSubscribe')->name('email.subscribe');
@@ -65,7 +64,6 @@ Route::get('/terms/and/conditions', 'Landing\LandingController@comingSoon')->nam
 // Route::get('/forgot/password', 'Auth\LoginController@forgotPassword')->name('forgot.password');
 
 
-
 // Handling external service provider login
 Route::get("/login/{provider}", "Auth\LoginController@redirectToProvider");
 Route::get("/callback/{provider}", "Auth\LoginController@handleProviderCallback");
@@ -83,6 +81,7 @@ Route::get('/business/login', 'Business\AuthController@businessLogin')->name('bu
 Route::get('/business/login/two/columns', 'Business\AuthController@businessLoginTwoColumns')->name('business.login.two.columns');
 Route::get('/business/forgot/password', 'Business\AuthController@businessForgotPassword')->name('business.forgot.password');
 Route::get('/business/register', 'Business\AuthController@businessRegisterPage')->name('business.register');
+Route::post('/business/register', 'Auth\RegisterController@createInstitution')->name('business.register.account');
 
 
 // Personal auth

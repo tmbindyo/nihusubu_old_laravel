@@ -102,9 +102,9 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution();
         // get campaign types
-        $campaignTypes = CampaignType::with('user','status')->get();
+        $campaignTypes = CampaignType::where('institution_id',$institution->id)->with('user','status')->get();
         // get campaign types
-        $deletedCampaignTypes = CampaignType::with('user','status')->onlyTrashed()->get();
+        $deletedCampaignTypes = CampaignType::where('institution_id',$institution->id)->with('user','status')->onlyTrashed()->get();
         return view('business.campaign_types',compact('campaignTypes','user','institution','deletedCampaignTypes'));
     }
 

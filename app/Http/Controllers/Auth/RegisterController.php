@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Tax;
+use App\Unit;
+use App\User;
+use App\Title;
+use App\Reason;
 use App\Account;
 use App\Address;
-use App\CampaignType;
-use App\ContactType;
-use App\ExpenseAccount;
-use App\Frequency;
-use App\User;
-use App\Http\Controllers\Controller;
-use App\Institution;
-use App\Title;
-use App\LeadSource;
-use App\Reason;
-use App\Unit;
 use App\Warehouse;
+use App\Frequency;
+use App\LeadSource;
+use App\Institution;
+use App\UserAccount;
+use App\ContactType;
+use App\CampaignType;
+use App\ExpenseAccount;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Traits\ReferenceNumberTrait;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -34,6 +38,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use ReferenceNumberTrait;
 
     /**
      * Where to redirect users after registration.
@@ -61,9 +66,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'phone_number' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone_number' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'timezone' => ['required'],
         ]);
@@ -86,12 +91,40 @@ class RegisterController extends Controller
         ]);
     }
 
-    private function createInstitution($request, $user){
+    public function createInstitution(Request $request){
+        // return $request;
+        // user account validation
+        $validatedUserData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone_number' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        // return $validatedData;
+
+        // user account creation
+        $user = new User ();
+        $user->phone_number = $request->phone_number;
+        // $user->timezone = $request->timezone;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        // $validatedInstitutionData = $request->validate([
+        //     'business_name' => ['required', 'string', 'name', 'max:255', 'unique:institutions'],
+        //     'portal' => ['required', 'string', 'portal', 'max:255', 'unique:institutions'],
+        // ]);
+
         // create instiution
         $institution = new Institution();
-        $institution->name = $request->institution_name;
+        $institution->name = $request->business_name;
         $institution->portal = $request->portal;
+        $institution->email = $request->business_email;
+        $institution->phone_number = $request->business_phone_number;
         $institution->user_id = $user->id;
+        $institution->currency_id = $request->currency;
+        $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $institution->save();
 
         // create units
@@ -100,7 +133,7 @@ class RegisterController extends Controller
         // create taxes
         $institutionTaxes = $this->taxesSeeder($request, $user,$institution);
         // create warehouses
-        $institutionWarehouses = $this->taxesSeeder($request, $user,$institution);
+        $institutionWarehouses = $this->warehousesSeeder($request, $user,$institution);
         // create lead sources
         $institutionLeadSources = $this->leadSourcesSeeder($request, $user,$institution);
         // create titles
@@ -117,8 +150,12 @@ class RegisterController extends Controller
         $institutionReasons = $this->reasonsSeeder($request, $user,$institution);
         // create expense account
         $institutionExpenseAccounts = $this->expenseAccountsSeeder($request, $user,$institution);
+        // create user account
+        $userAccount = $this->userAccountSeeder($request, $user, $institution);
 
         // account creation
+        auth()->login($user);
+        return redirect()->route('business.calendar');
     }
 
     private function unitSeeder ($request, $user, $institution){
@@ -195,19 +232,21 @@ class RegisterController extends Controller
         $address->address_line_1 = $request->address_line_1;
         $address->address_line_2 = $request->address_line_2;
         $address->postal_code = $request->postal_code;
-        $address->po_box = $request->po_box;;
-        $address->town = $request->town;;
+        $address->po_box = $request->po_box;
+        $address->town = $request->city;
         $address->street = $request->street;
+        $address->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $address->user_id = $user->id;
         $address->save();
 
         // warehouse
         $warehouse = new Warehouse();
-        $warehouse->name = $request->warehouse_name;
+        $warehouse->name = $request->business_name;
         $warehouse->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $warehouse->institution_id = $institution->id;
-        $warehouse->warehouse_id = '1c8f7aa4-e983-426b-8b71-2584795a0c63';
-        $warehouse->address_id = $address->id;;
-        $warehouse->is_warehouse = True;
+        $warehouse->address_id = $address->id;
+        $warehouse->user_id = $user->id;
+        $warehouse->is_primary = True;
         $warehouse->save();
 
     }
@@ -281,7 +320,6 @@ class RegisterController extends Controller
 
     }
 
-
     private function titlesSeeder($request, $user, $institution){
 
         $titles = new Title();
@@ -321,7 +359,6 @@ class RegisterController extends Controller
 
     }
 
-
     private function contactTypesSeeder($request, $user, $institution){
 
         $contactType = new ContactType();
@@ -346,7 +383,6 @@ class RegisterController extends Controller
         $contactType->save();
 
     }
-
 
     private function campaignTypesSeeder($request, $user, $institution){
 
@@ -444,9 +480,9 @@ class RegisterController extends Controller
 
         $account = new Account();
         $account->reference = $reference;
-        $account->name = $request->account_name;
-        $account->notes = $request->account_notes;
-        $account->balance = $request->account_balance;
+        $account->name = "Petty cash";
+        $account->notes = "Petty cash";
+        $account->balance = 0;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->institution_id = $institution->id;
         $account->user_id = $user->id;
@@ -460,7 +496,6 @@ class RegisterController extends Controller
         $frequencies->name = 'Daily';
         $frequencies->type = 'day';
         $frequencies->frequency = '1';
-        $frequencies->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
         $frequencies->save();
@@ -469,7 +504,6 @@ class RegisterController extends Controller
         $frequencies->name = 'Weekly';
         $frequencies->type = 'week';
         $frequencies->frequency = '1';
-        $frequencies->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
         $frequencies->save();
@@ -478,7 +512,6 @@ class RegisterController extends Controller
         $frequencies->name = 'Bi Weekly';
         $frequencies->type = 'week';
         $frequencies->frequency = '2';
-        $frequencies->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
         $frequencies->save();
@@ -487,7 +520,6 @@ class RegisterController extends Controller
         $frequencies->name = 'Monthly';
         $frequencies->type = 'month';
         $frequencies->frequency = '1';
-        $frequencies->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
         $frequencies->save();
@@ -496,7 +528,6 @@ class RegisterController extends Controller
         $frequencies->name = 'Quarterly';
         $frequencies->type = 'month';
         $frequencies->frequency = '3';
-        $frequencies->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
         $frequencies->save();
@@ -505,7 +536,6 @@ class RegisterController extends Controller
         $frequencies->name = 'Semiannually';
         $frequencies->type = 'month';
         $frequencies->frequency = '6';
-        $frequencies->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
         $frequencies->save();
@@ -514,7 +544,6 @@ class RegisterController extends Controller
         $frequencies->name = 'Annually';
         $frequencies->type = 'year';
         $frequencies->frequency = '1';
-        $frequencies->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
         $frequencies->save();
@@ -523,7 +552,6 @@ class RegisterController extends Controller
         $frequencies->name = 'Bi Annually';
         $frequencies->type = 'year';
         $frequencies->frequency = '2';
-        $frequencies->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
         $frequencies->save();
@@ -814,6 +842,22 @@ class RegisterController extends Controller
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
         $expenseAccount->save();
+
+    }
+
+    private function userAccountSeeder ($request, $user, $institution){
+        // account
+        $userAccount = new UserAccount();
+        $userAccount->institution_id = $institution->id;
+        $userAccount->user_id = $user->id;
+        $userAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $userAccount->is_institution = true;
+        $userAccount->is_user = false;
+        $userAccount->is_admin = false;
+        $userAccount->institution_id = $institution->id;
+        $userAccount->user_type_id = '07c99d10-8e09-4861-83df-fdd3700d7e48';
+
+        $userAccount->save();
 
     }
 

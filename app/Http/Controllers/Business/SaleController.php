@@ -225,7 +225,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // Create estimate
-        $estimate = Sale::where('id',$estimate_id)->first();
+        $estimate = Sale::where('institution_id',$institution->id)->where('id',$estimate_id)->first();
         $estimate->customer_notes = $request->customer_notes;
         $estimate->terms_and_conditions = $request->terms_and_conditions;
         $estimate->date = date('Y-m-d', strtotime($request->date));
@@ -841,7 +841,7 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get sale
-        $sale = Sale::where('id',$sale_id)->with('status','user','contact','sale_products.product.product_taxes','payments_received.status')->withCount('sale_products')->first();
+        $sale = Sale::where('institution_id',$institution->id)->where('id',$sale_id)->with('status','user','contact','sale_products.product.product_taxes','payments_received.status')->withCount('sale_products')->first();
         // payments
         $payments = Payment::where('sale_id',$sale->id)->with('user','status','account')->get();
         return view('business.sale_show',compact('user','institution','sale','payments'));
@@ -854,7 +854,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution();
         // get accounts
-        $accounts = Account::all();
+        $accounts = Account::where('institution_id',$institution->id)->get();
         // sales
         $sale = Sale::where('id',$sale_id)->first();
         return view('business.sale_payment_create',compact('user','institution','accounts','sale'));
