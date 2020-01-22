@@ -7,6 +7,7 @@
 // });
 
 
+
 Route::group(array('domain' => '{subdomain}.nihusubu.com'), function () {
 
     Route::get('/user/show', function ($subdomain) {
