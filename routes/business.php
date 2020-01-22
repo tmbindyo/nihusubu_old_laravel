@@ -7,7 +7,7 @@
 // });
 
 
-Route::group(array('domain' => '{subdomain}.localhost:8000'), function () {
+Route::group(array('domain' => '{subdomain}.nihusubu.com'), function () {
 
     Route::get('/user/show', function ($subdomain) {
 
