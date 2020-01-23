@@ -69,8 +69,6 @@
 
 @endsection
 
-@include('business.layouts.modals.calendar_create')
-
 @section('js')
 
 <!-- Mainly scripts -->

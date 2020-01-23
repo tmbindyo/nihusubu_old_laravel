@@ -128,7 +128,7 @@
                                         </span>
                                     @endif
                                     <label>Portal <i class="has-warning" data-toggle="tooltip" data-placement="right" title="Portal is the "><i class="fa fa-2x fa-question-circle"></i></i></label>
-                                    <input id="portal" name="portal" type="text" placeholder="{{ __('Portal') }}" value="{{ old('portal') }}" class="form-control {{ $errors->has('portal') ? ' is-invalid' : '' }} input-lg required">
+                                    <input id="portal" name="portal" type="text" onblur="this.value=removeSpaces(this.value)" onkeyup="removeSpaces(this.value)"  placeholder="{{ __('Portal') }}" value="{{ old('portal') }}" class="form-control {{ $errors->has('portal') ? ' is-invalid' : '' }} input-lg required">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -257,6 +257,12 @@
                 radioClass: 'iradio_square-green',
             });
         });
+    </script>
+    <script>
+       function removeSpaces(string){
+        string = string.replace(/\ /g,"_");
+        return string;
+       }
     </script>
     <script>
         $(document).ready(function(){

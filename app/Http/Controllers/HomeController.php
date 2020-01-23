@@ -24,8 +24,31 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // check if numerous accounts
         $user = $this->getUser();
-        return $user;
+        if($user->user_accounts_count == 1){
+            // check account type
+            switch ($user->user_accounts[0]->user_type->name){
+                // admin
+                case "Admin":
+                    return redirect()->route('');
+                    break;
+                // personal
+                case "Personal":
+                    return redirect()->route('');
+                    break;
+                // business
+                case "Business":
+                    // return $user->user_accounts[0]->institution;
+                    return redirect()->route('business.calendar',$user->user_accounts[0]->institution->portal);
+                    break;
+                default:
+                    echo "Your favorite color is neither red, blue, nor green!";
+            }
+        }
+        return view('auth.account');
+        // choose account
+
     }
 
     public function admin()

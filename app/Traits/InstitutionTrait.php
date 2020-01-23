@@ -8,11 +8,11 @@ trait InstitutionTrait
 {
 
 
-    public function getInstitution()
+    public function getInstitution($portal)
     {
 
         // system defined user
-        $institution = Institution::where('id','ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68')->with('currency','address')->first();
+        $institution = Institution::where('portal',$portal)->with('currency','address')->first();
 
         return $institution;
     }

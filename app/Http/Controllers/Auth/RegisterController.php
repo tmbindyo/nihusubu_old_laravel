@@ -111,10 +111,10 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        // $validatedInstitutionData = $request->validate([
-        //     'business_name' => ['required', 'string', 'name', 'max:255', 'unique:institutions'],
-        //     'portal' => ['required', 'string', 'portal', 'max:255', 'unique:institutions'],
-        // ]);
+        $validatedInstitutionData = $request->validate([
+            'business_name' => ['required', 'string', 'max:255', 'unique:institutions,name'],
+            'portal' => ['required', 'string', 'max:255', 'unique:institutions'],
+        ]);
 
         // create instiution
         $institution = new Institution();
@@ -155,7 +155,7 @@ class RegisterController extends Controller
 
         // account creation
         auth()->login($user);
-        return redirect()->route('business.calendar');
+        return redirect()->route('business.calendar',$institution->portal);
     }
 
     private function unitSeeder ($request, $user, $institution){

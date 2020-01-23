@@ -19,12 +19,12 @@ class CalendarController extends Controller
         $this->middleware('auth');
     }
 
-    public function calendar()
+    public function calendar($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // to does
         $toDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
         return view('business.calendar',compact('user','institution','toDos'));
