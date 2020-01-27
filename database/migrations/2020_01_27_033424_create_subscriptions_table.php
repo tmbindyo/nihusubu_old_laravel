@@ -27,7 +27,6 @@ class CreateSubscriptionsTable extends Migration
             $table->boolean('is_institution');
             $table->uuid('institution_id')->nullable();
             $table->boolean('is_user');
-            $table->uuid('user_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
