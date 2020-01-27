@@ -116,8 +116,8 @@
                                     <li><i class="g-font-size-13--xs g-color--primary g-margin-r-10--xs ti-check"></i> Inventory Management</li>
                                 </ul>
                                 <div class="g-margin-b-40--xs">
-                                    <span class="s-plan-v1__price-mark">$</span>
-                                    <span class="s-plan-v1__price-tag">4.99</span>
+                                    <span class="s-plan-v1__price-mark">KES. </span>
+                                    <span class="s-plan-v1__price-tag">500</span>
                                 </div>
                                 <a href="{{route('standard.signup')}}" class="text-uppercase s-btn s-btn--sm s-btn--primary-bg g-radius--50 g-padding-x-50--xs">Signup</a>
                             </div>
@@ -139,8 +139,8 @@
                                     <li><i class="g-font-size-13--xs g-color--primary g-margin-r-10--xs ti-check"></i> Inventory Management</li>
                                 </ul>
                                 <div class="g-margin-b-40--xs">
-                                    <span class="s-plan-v1__price-mark">$</span>
-                                    <span class="s-plan-v1__price-tag">9.99</span>
+                                    <span class="s-plan-v1__price-mark">KES. </span>
+                                    <span class="s-plan-v1__price-tag">999</span>
                                 </div>
                                 <a href="{{route('professional.signup')}}" class="text-uppercase s-btn s-btn--sm s-btn--primary-bg g-radius--50 g-padding-x-50--xs">Signup</a>
                             </div>

@@ -33,10 +33,16 @@
                     <div class="row">
 
                         <div class="col-lg-12">
-                            <form class="m-t" role="form" action="index.html">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Email address" required="">
+                            <form role="form" method="POST" action="{{ route('password.email') }}">
+                                @csrf
+                                <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                                    <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}" required="">
                                 </div>
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
 
                                 <button type="submit" class="btn btn-primary block full-width m-b">Send new password</button>
 
