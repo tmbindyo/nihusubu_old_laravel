@@ -359,6 +359,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\UserAccount');
     }
+    public function active_user_account()
+    {
+        return $this->hasOne('App\UserAccount')->where('is_active',True);
+    }
+    public function inactive_user_account()
+    {
+        return $this->hasMany('App\UserAccount')->where('is_active',False);
+    }
     public function uploads()
     {
         return $this->hasMany('App\Upload');

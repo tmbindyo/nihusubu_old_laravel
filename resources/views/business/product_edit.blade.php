@@ -59,10 +59,10 @@
         <h2>Product Edit</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.products')}}">Products</a>
+                <a href="{{route('business.products',$institution->portal)}}">Products</a>
             </li>
             <li class="active">
                 <strong>Product Edit</strong>
@@ -89,7 +89,7 @@
                     <div id="product" class="tab-pane active">
                         <div class="panel-body">
 
-                            <form method="post" action="{{ route('business.product.update',$product->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" action="{{ route('business.product.update',['portal'=>$institution->portal,'id'=>$product->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

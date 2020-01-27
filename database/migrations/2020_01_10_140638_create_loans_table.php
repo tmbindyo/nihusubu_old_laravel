@@ -30,6 +30,8 @@ class CreateLoansTable extends Migration
             $table->uuid('contact_id')->nullable();
             $table->uuid('account_id')->nullable();
             $table->uuid('institution_id')->nullable();
+            $table->boolean('is_institution');
+            $table->boolean('is_user');
 
             $table->timestamps();
             $table->softDeletes();

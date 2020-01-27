@@ -22,10 +22,10 @@
         <h2>Product View</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.products')}}">Products</a>
+                <a href="{{route('business.products',$institution->portal)}}">Products</a>
             </li>
             <li class="active">
                 <strong>Product View</strong>
@@ -34,7 +34,7 @@
     </div>
     <div class="col-lg-4">
         <div class="title-action">
-            <a href="{{route('business.product.edit',$product->id)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
+            <a href="{{route('business.product.edit',['portal'=>$institution->portal,'id'=>$product->id])}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
         </div>
     </div>
 </div>
@@ -194,11 +194,11 @@
                             <div>
                                 <div class="btn-group">
                                     {{-- <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button> --}}
-                                    {{-- <a href="{{route('business.expense.create')}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a> --}}
+                                    {{-- <a href="{{route('business.expense.create',$institution->portal)}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a> --}}
                                     @if ($product->status_id == 'bc6170bf-299a-44f5-8362-8cdeed1f47b0')
-                                        <a href="{{ route('business.product.restore', $product->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-check"></i> Restore </a>
+                                        <a href="{{ route('business.product.restore', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn btn-warning btn-sm"><i class="fa fa-check"></i> Restore </a>
                                     @else
-                                        <a href="{{ route('business.product.delete', $product->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
+                                        <a href="{{ route('business.product.delete', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
                                     @endif
                                 </div>
                             </div>
@@ -330,7 +330,7 @@
                                                             <td class="center">{{$order->status}}</td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.order.show', $order->order_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$order->order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -371,7 +371,7 @@
                                                             <td class="center">{{$sale->status}}</td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.sale.show', $sale->sale_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -415,7 +415,7 @@
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     @if($restock->is_opening_stock == 0)
-                                                                        <a href="{{ route('business.expense.show', $restock->expense_item->expense_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$restock->expense_item->expense_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                     @else
                                                                         <p><span class="label label-info">Opening Stock</span></p>
                                                                     @endif
@@ -471,7 +471,7 @@
                                                             @endif
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.inventory.adjustment.show', $inventory_adjustment_product->inventory_adjustment_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.inventory.adjustment.show', ['portal'=>$institution->portal,'id'=>$inventory_adjustment_product->inventory_adjustment_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -522,7 +522,7 @@
                                                             <td>{{$transfer_order_product->quantity}}</td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.transfer.order.show', $transfer_order_product->$transfer_order_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$transfer_order_product->$transfer_order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>

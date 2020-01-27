@@ -6,9 +6,42 @@
                     <span>
                         <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/profile_small.jpg" />
                     </span>
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{$user->name}}</strong>
+                    {{--  <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{$user->name}}</strong>  --}}
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    <span class="clear">
+                                        <span class="block m-t-xs">
+                                            <strong class="font-bold">{{$user->name}}</strong>
+                                        </span>
+                                        <span class="text-muted text-xs block">
+                                            @if($user->active_user_account->user_type->name == "Business")
+                                                {{$user->active_user_account->institution->name}}
+                                                <b class="caret"></b>
+                                            @elseif($user->active_user_account->user_type->name == "Personal")
+                                                Personal Account
+                                                <b class="caret"></b>
+                                            @elseif($user->active_user_account->user_type->name == "Admin")
+                                                Nihusubu Admin
+                                                <b class="caret"></b>
+                                            @endif
+                                                {{--  {{$user->active_user_account}}  --}}
 
+                                        </span>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                    @foreach($user->user_accounts as $userAccount)
+                                        @if($userAccount->user_type->name == "Business")
+                                            <li><a href="{{route('login')}}">{{$userAccount->institution->name}}</a></li>
+                                        @endif
+                                        @if($userAccount->user_type->name == "Personal")
+                                            <li><a href="profile.html">Profile</a></li>
+                                        @endif
+                                        @if($userAccount->user_type->name == "Admin")
+                                            <li><a href="profile.html">Profile</a></li>
+                                        @endif
+                                    @endforeach
+                                </ul>
                 </div>
                 <div class="logo-element">
                     <img alt="image" style="height: 20px;" src="{{ asset('inspinia') }}/img/nihusubu.jpg" />

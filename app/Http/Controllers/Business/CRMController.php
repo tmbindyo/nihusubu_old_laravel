@@ -41,12 +41,12 @@ class CRMController extends Controller
     }
 
     // leads
-    public function leads()
+    public function leads($portal)
     {
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get contact types
         $contactTypes = ContactType::where('institution_id',$institution->id)->get();
         // Get contacts
@@ -57,12 +57,12 @@ class CRMController extends Controller
         return view('business.leads',compact('leads','user','contactTypes','institution','deletedLeads'));
     }
 
-    public function leadCreate()
+    public function leadCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get contacts
         $contacts = Contact::with('user','status','contact_type')->where('institution_id',$institution->id)->get();
         // get contact types
@@ -79,13 +79,13 @@ class CRMController extends Controller
     }
 
     // campaigns
-    public function campaigns()
+    public function campaigns($portal)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get campaigns
         $campaigns = Campaign::with('user','status','campaign_type')->where('institution_id',$institution->id)->get();
         // get deleted campaigns
@@ -94,26 +94,26 @@ class CRMController extends Controller
 
     }
 
-    public function campaignCreate()
+    public function campaignCreate($portal)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // campaign types
         $campaignTypes = CampaignType::where('institution_id',$institution->id)->where('institution_id',$institution->id)->get();
         return view('business.campaign_create',compact('user','institution','campaignTypes'));
 
     }
 
-    public function campaignStore(Request $request)
+    public function campaignStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $campaign = new Campaign();
         $campaign->name = $request->name;
@@ -133,14 +133,14 @@ class CRMController extends Controller
 
     }
 
-    public function campaignShow($campaign_id)
+    public function campaignShow($portal, $campaign_id)
     {
         // Check if contact type exists
         $campaignExists = Campaign::findOrFail($campaign_id);
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get campaign types
         $campaignTypes = CampaignType::where('institution_id',$institution->id)->get();
         // Get campaigns
@@ -157,14 +157,14 @@ class CRMController extends Controller
         return view('business.campaign_show',compact('campaign','user','institution','campaignTypes','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
     }
 
-    public function campaignContactCreate($campaign_id)
+    public function campaignContactCreate($portal, $campaign_id)
     {
         // get Campaign
         $campaign = Campaign::findOrFail($campaign_id);
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get contacts
         $contacts = Contact::where('institution_id',$institution->id)->with('user','status','contact_type')->get();
         // get contact types
@@ -180,12 +180,12 @@ class CRMController extends Controller
         return view('business.campaign_contact_create',compact('campaign','contacts','user','contactTypes','institution','organizations','titles','leadSources','campaigns'));
     }
 
-    public function campaignExpenseCreate($campaign_id)
+    public function campaignExpenseCreate($portal, $campaign_id)
     {
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // expense accounts
         $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->get();
         // get orders
@@ -200,13 +200,13 @@ class CRMController extends Controller
         return view('business.campaign_expense_create',compact('campaign','user','institution','frequencies','expenseAccounts','expenseStatuses'));
     }
 
-    public function campaignOrganizationCreate($campaign_id)
+    public function campaignOrganizationCreate($portal, $campaign_id)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // organizations
         $organizations = Organization::where('institution_id',$institution->id)->get();
         // get campaign
@@ -215,14 +215,14 @@ class CRMController extends Controller
 
     }
 
-    public function campaignUploads($campaign_id)
+    public function campaignUploads($portal, $campaign_id)
     {
         // Check if contact type exists
         $campaignExists = Campaign::findOrFail($campaign_id);
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get campaign types
         $campaignTypes = CampaignType::where('institution_id',$institution->id)->get();
         // Get campaigns
@@ -233,14 +233,14 @@ class CRMController extends Controller
         return view('business.campaign_uploads',compact('campaign','user','institution','campaignTypes','campaignUploads'));
     }
 
-    public function campaignUpload($campaign_id)
+    public function campaignUpload($portal, $campaign_id)
     {
         // Check if contact type exists
         $campaignExists = Campaign::findOrFail($campaign_id);
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get campaign types
         $campaignTypes = CampaignType::where('institution_id',$institution->id)->get();
         // Get campaigns
@@ -253,13 +253,13 @@ class CRMController extends Controller
         return view('business.campaign_uploads',compact('campaign','user','institution','campaignTypes','uploadTypes'));
     }
 
-    public function campaignUploadStore(Request $request,$campaign_id)
+    public function campaignUploadStore(Request $request,$portal,$campaign_id)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $campaign = Campaign::where('institution_id',$institution->id)->where('id',$campaign_id)->first();
         $originalFolderName = str_replace(' ', '', $campaign->name."/");
@@ -342,7 +342,7 @@ class CRMController extends Controller
         return back()->withSuccess(__('Campaign file successfully uploaded.'));
     }
 
-    public function campaignUploadDownload($upload_id)
+    public function campaignUploadDownload($portal, $upload_id)
     {
         $uploadExists = Upload::findOrFail($upload_id);
         $upload = Upload::where('id',$upload_id)->first();
@@ -350,13 +350,13 @@ class CRMController extends Controller
         return response()->download($file_path);
     }
 
-    public function campaignUpdate(Request $request, $campaign_id)
+    public function campaignUpdate(Request $request,$portal, $campaign_id)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $campaign = Campaign::findOrFail($campaign_id);
         $campaign->name = $request->name;
@@ -372,7 +372,7 @@ class CRMController extends Controller
 
     }
 
-    public function campaignDelete($campaign_id)
+    public function campaignDelete($portal, $campaign_id)
     {
 
         $campaign = Campaign::findOrFail($campaign_id);
@@ -381,7 +381,7 @@ class CRMController extends Controller
         return back()->withSuccess(__('Campaign '.$campaign->name.' successfully deleted.'));
     }
 
-    public function campaignRestore($campaign_id)
+    public function campaignRestore($portal, $campaign_id)
     {
 
         $campaign = Campaign::findOrFail($campaign_id);
@@ -392,12 +392,12 @@ class CRMController extends Controller
 
 
     // contacts
-    public function contacts()
+    public function contacts($portal)
     {
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get contact types
         $contactTypes = ContactType::where('institution_id',$institution->id)->get();
         // Get contacts
@@ -408,12 +408,12 @@ class CRMController extends Controller
         return view('business.contacts',compact('contacts','user','contactTypes','institution','deletedContacts'));
     }
 
-    public function contactCreate()
+    public function contactCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get contacts
         $contacts = Contact::with('user','status','contact_type')->get();
         // get contact types
@@ -429,13 +429,13 @@ class CRMController extends Controller
         return view('business.contact_create',compact('contacts','user','contactTypes','institution','organizations','titles','leadSources','campaigns'));
     }
 
-    public function contactStore(Request $request)
+    public function contactStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $contact = new Contact();
         $contact->first_name = $request->first_name;
@@ -515,14 +515,14 @@ class CRMController extends Controller
         return redirect()->route('business.contact.show',$contact->id)->withSuccess(__('Contact '.$contact->name.' successfully created.'));
     }
 
-    public function contactShow($contact_id)
+    public function contactShow($portal, $contact_id)
     {
         // Check if project type exists
         $contactExists = Contact::findOrFail($contact_id);
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // contacts
         $contact = Contact::where('institution_id',$institution->id)->with('user','status')->where('id',$contact_id)->first();
         // contact types
@@ -554,12 +554,12 @@ class CRMController extends Controller
         return view('business.contact_show',compact('loans','overdueToDos','completedToDos','inProgressToDos','pendingToDos','contactContactTypes','liabilities','sales','campaigns','leadSources','titles','organizations','contact','user','contactTypes','institution','loans'));
     }
 
-    public function contactLiabilityCreate($contact_id)
+    public function contactLiabilityCreate($portal, $contact_id)
     {
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // get contact
@@ -569,12 +569,12 @@ class CRMController extends Controller
         return view('business.contact_liability_create',compact('contactLiability','user','institution','accounts','contacts'));
     }
 
-    public function contactLoanCreate($contact_id)
+    public function contactLoanCreate($portal, $contact_id)
     {
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // get contacts
@@ -582,12 +582,12 @@ class CRMController extends Controller
         return view('business.contact_loan_create',compact('user','institution','accounts','contact'));
     }
 
-    public function contactSaleCreate($contact_id)
+    public function contactSaleCreate($portal, $contact_id)
     {
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // products
         $products = Product::where('institution_id',$institution->id)->with('sub_type','size','status')->get();
         // contacts
@@ -596,13 +596,13 @@ class CRMController extends Controller
         return view('business.contact_sale_create',compact('contact','products','user','institution'));
     }
 
-    public function contactUpdate(Request $request, $contact_id)
+    public function contactUpdate(Request $request, $portal, $contact_id)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $contact = Contact::findOrFail($contact_id);
         $contact->first_name = $request->first_name;
@@ -643,7 +643,7 @@ class CRMController extends Controller
         return redirect()->route('business.contact.show',$contact->id)->withSuccess('Contact updated!');
     }
 
-    public function contactUpdateLeadToContact($contact_id)
+    public function contactUpdateLeadToContact($portal, $contact_id)
     {
 
         $contact = Contact::findOrFail($contact_id);
@@ -652,7 +652,7 @@ class CRMController extends Controller
         return redirect()->route('business.contact.show',$contact->id)->withSuccess('Contact updated!');
     }
 
-    public function contactContactTypeStore(Request $request, $contact_id)
+    public function contactContactTypeStore(Request $request, $portal, $contact_id)
     {
 
         $contact = Contact::findOrFail($contact_id);
@@ -664,7 +664,7 @@ class CRMController extends Controller
 
     }
 
-    public function contactDelete($contact_id)
+    public function contactDelete($portal, $contact_id)
     {
 
         $contact = Contact::findOrFail($contact_id);
@@ -673,7 +673,7 @@ class CRMController extends Controller
         return back()->withSuccess(__('Contact '.$contact->name.' successfully deleted.'));
     }
 
-    public function contactRestore($contact_id)
+    public function contactRestore($portal, $contact_id)
     {
 
         $contact = Contact::findOrFail($contact_id);
@@ -683,13 +683,13 @@ class CRMController extends Controller
     }
 
     // organizations
-    public function organizations()
+    public function organizations($portal)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get organizations
         $organizations = Organization::where('institution_id',$institution->id)->with('user','status')->withCount('contacts')->get();
         // get deleted organizations
@@ -698,20 +698,20 @@ class CRMController extends Controller
 
     }
 
-    public function organizationCreate()
+    public function organizationCreate($portal)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // organizations
         $organizations = Organization::where('institution_id',$institution->id)->get();
         return view('business.organization_create',compact('user','institution','organizations'));
 
     }
 
-    public function organizationStore(Request $request)
+    public function organizationStore(Request $request, $portal)
     {
         // Generate reference
         $size = 5;
@@ -720,7 +720,7 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $organization = new Organization();
         $organization->name = $request->name;
@@ -741,14 +741,14 @@ class CRMController extends Controller
 
     }
 
-    public function organizationShow($organization_id)
+    public function organizationShow($portal, $organization_id)
     {
         // Check if contact type exists
         $organizationExists = Organization::findOrFail($organization_id);
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get organization
         $organization = Organization::where('institution_id',$institution->id)->with('user','status','contacts')->withCount('contacts')->where('id',$organization_id)->first();
         // Pending to dos
@@ -763,12 +763,12 @@ class CRMController extends Controller
         return view('business.organization_show',compact('organization','organizations','user','institution','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
     }
 
-    public function organizationContactCreate($organization_id)
+    public function organizationContactCreate($portal, $organization_id)
     {
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get contacts
         $contacts = Contact::where('institution_id',$institution->id)->with('user','status','contact_type')->get();
         // get contact types
@@ -784,13 +784,13 @@ class CRMController extends Controller
         return view('business.organization_contact_create',compact('contacts','user','contactTypes','institution','organization','titles','leadSources','campaigns'));
     }
 
-    public function organizationUpdate(Request $request, $organization_id)
+    public function organizationUpdate(Request $request, $portal, $organization_id)
     {
 
         // User
         $user = $this->getUser();
         // Get institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $organization = Organization::findOrFail($organization_id);
         $organization->name = $request->name;
@@ -808,7 +808,7 @@ class CRMController extends Controller
 
     }
 
-    public function organizationDelete($organization_id)
+    public function organizationDelete($portal, $organization_id)
     {
 
         $organization = Organization::findOrFail($organization_id);
@@ -817,7 +817,7 @@ class CRMController extends Controller
         return back()->withSuccess(__('Organization '.$organization->name.' successfully deleted.'));
     }
 
-    public function organizationRestore($organization_id)
+    public function organizationRestore($portal, $organization_id)
     {
 
         $organization = Organization::findOrFail($organization_id);

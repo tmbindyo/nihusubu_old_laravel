@@ -22,12 +22,12 @@ class ToDoController extends Controller
     }
 
     // Getting all the to dos
-    public function toDos()
+    public function toDos($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Pending to dos
         $pendingToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale','contact','organization','campaign')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
@@ -42,13 +42,13 @@ class ToDoController extends Controller
     }
 
     // Store to do
-    public function toDoStore(Request $request)
+    public function toDoStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // parse due date to mysql format
         $due_date = date('Y-m-d', strtotime($request->due_date));
@@ -161,13 +161,13 @@ class ToDoController extends Controller
     }
 
     // Update to do
-    public function toDoUpdate(Request $request, $to_do_id)
+    public function toDoUpdate(Request $request, $portal, $to_do_id)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $todo = ToDo::findOrFail($to_do_id);
         $todo->name = $request->name;
@@ -181,7 +181,7 @@ class ToDoController extends Controller
     }
 
     // Update to do status, set to in progress
-    public function toDoSetInProgress($to_do_id)
+    public function toDoSetInProgress($portal, $to_do_id)
     {
 
         $todo = ToDo::findOrFail($to_do_id);
@@ -192,7 +192,7 @@ class ToDoController extends Controller
     }
 
     // Update to do status, mark as completed
-    public function toDoSetCompleted($to_do_id)
+    public function toDoSetCompleted($portal, $to_do_id)
     {
 
         $todo = ToDo::findOrFail($to_do_id);
@@ -204,7 +204,7 @@ class ToDoController extends Controller
     }
 
     // Delete to do
-    public function toDoDelete($to_do_id)
+    public function toDoDelete($portal, $to_do_id)
     {
 
         $todo = ToDo::findOrFail($to_do_id);

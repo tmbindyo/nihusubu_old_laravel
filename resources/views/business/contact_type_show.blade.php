@@ -23,10 +23,10 @@
             <h2>Contact Type's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.contact.types')}}">Contact Type's</a>
+                    <a href="{{route('business.contact.types',$institution->portal)}}">Contact Type's</a>
                 </li>
                 <li class="active">
                     <strong>Contact Type Create</strong>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.contact.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact</a>
+                <a href="{{route('business.contact.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact</a>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
                         <div class="row">
                             <div class="col-sm-8 col-md-offset-2">
                                 <p>Edit.</p>
-                                <form method="post" action="{{ route('business.contact.type.update',$contactType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.contact.type.update',['portal'=>$institution->portal,'id'=>$contactType->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -143,7 +143,7 @@
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('business.contact.show', $contactContactType->id) }}" class="btn-white btn btn-xs">View</a>
+                                                <a href="{{ route('business.contact.show', ['portal'=>$institution->portal,'id'=>$contactContactType->id]) }}" class="btn-white btn btn-xs">View</a>
                                             </div>
                                         </td>
                                     </tr>

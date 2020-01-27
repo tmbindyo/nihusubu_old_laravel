@@ -43,13 +43,13 @@
             <h2>Loan's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('business.loans')}}">Loan's</a>
+                    <a href="{{route('business.loans',$institution->portal)}}">Loan's</a>
                 </li>
                 <li class="active">
                     <strong>Loan Create</strong>
@@ -87,7 +87,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.loan.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.loan.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

@@ -42,16 +42,16 @@
                 <h2>Quotes</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('admin.dashboard')}}">Home</a>
+                        <a href="{{route('admin.dashboard',$institution->portal)}}">Home</a>
                     </li>
                     <li>
                         <a href="#">CRM</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.campaigns')}}">Campaigns</a>
+                        <a href="{{route('admin.campaigns',$institution->portal)}}">Campaigns</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.campaign.show',$campaign->id)}}">Campaign</a>
+                        <a href="{{route('admin.campaign.show',['portal'=>$institution->portal,'id'=>$campaign->id])}}">Campaign</a>
                     </li>
                     <li class="active">
                         <strong>Campaign Quote Create</strong>
@@ -68,7 +68,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('admin.quote.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.quote.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())

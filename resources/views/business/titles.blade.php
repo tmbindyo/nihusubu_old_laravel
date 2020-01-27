@@ -23,7 +23,7 @@
             <h2>Titles</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Settings
@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.title.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Title </a>
+                <a href="{{route('business.title.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Title </a>
             </div>
         </div>
     </div>
@@ -86,8 +86,8 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.title.show', $title->id) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.title.delete', $title->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    <a href="{{ route('business.title.show', ['portal'=>$institution->portal,'id'=>$title->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.title.delete', ['portal'=>$institution->portal,'id'=>$title->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -153,8 +153,8 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.title.show', $title->id) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.title.restore', $title->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.title.show', ['portal'=>$institution->portal,'id'=>$title->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.title.restore', ['portal'=>$institution->portal,'id'=>$title->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePaymentTermsTable extends Migration
+class CreateSubscriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,21 @@ class CreatePaymentTermsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payment_terms', function (Blueprint $table) {
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name', 200)->nullable();
-            $table->integer('number_of_days');
+            $table->string('name', 200);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('subscription_type_id');
+            $table->uuid('plan_id');
+
+            // institution
+            $table->boolean('is_institution');
             $table->uuid('institution_id')->nullable();
+            $table->boolean('is_user');
+            $table->uuid('user_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +41,6 @@ class CreatePaymentTermsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_terms');
+        Schema::dropIfExists('subscriptions');
     }
 }

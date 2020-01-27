@@ -16,6 +16,10 @@
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/user/account/select/{account_id}', 'HomeController@selectUserAccount')->name('select.user.account');
+Route::get('/view/user/accounts', 'HomeController@viewUserAccounts')->name('view.user.accounts');
+Route::get('/activate/user/account/{account_id}', 'HomeController@activateUserAccount')->name('activate.user.account');
+Route::get('/deactivate/user/accounts', 'HomeController@deactivateUserAccounts')->name('deactivate.user.accounts');
 
 Route::group(['middleware' => 'auth'], function () {
 

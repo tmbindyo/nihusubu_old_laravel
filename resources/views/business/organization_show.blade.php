@@ -52,13 +52,13 @@
             <h2>Organization's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('business.organizations')}}">Organization's</a>
+                    <a href="{{route('business.organizations',$institution->portal)}}">Organization's</a>
                 </li>
                 <li class="active">
                     <strong>Organization Create</strong>
@@ -68,9 +68,9 @@
         <div class="col-md-6">
             <div class="title-action">
                 @if($organization->campaign_id)
-                    <a href="{{route('business.campaign.show',$organization->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$organization->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
                 @endif
-                <a href="{{route('business.organization.contact.create',$organization->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
+                <a href="{{route('business.organization.contact.create',['portal'=>$institution->portal,'id'=>$organization->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
             </div>
         </div>
     </div>
@@ -104,7 +104,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.organization.update',$organization->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.organization.update',['portal'=>$institution->portal,'id'=>$organization->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -270,7 +270,7 @@
                                                                 </td>
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
-                                                                        <a href="{{ route('business.contact.show', $contact->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal,'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -340,7 +340,7 @@
                                         @if($inProgressToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
+                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -356,9 +356,9 @@
                                             <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
                                         @endif
                                         @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @endif
                                     </div>
                                 </li>
@@ -374,7 +374,7 @@
                                         @if($completedToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
+                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                                     </div>
                                 </li>
                             @endforeach

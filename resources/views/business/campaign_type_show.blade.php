@@ -23,13 +23,13 @@
         <h2>Campaign Type's</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li>
                 <a href="#">Settings</a>
             </li>
             <li class="active">
-                <a href="{{route('business.campaign.types')}}">Campaign Type's</a>
+                <a href="{{route('business.campaign.types',$institution->portal)}}">Campaign Type's</a>
             </li>
             <li class="active">
                 <strong>Campaign Type</strong>
@@ -38,7 +38,7 @@
     </div>
     <div class="col-md-3">
         <div class="title-action">
-            <a href="{{route('business.campaign.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Campaign </a>
+            <a href="{{route('business.campaign.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Campaign </a>
         </div>
     </div>
 </div>
@@ -70,7 +70,7 @@
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-sm-8 col-md-offset-2">
-                                    <form method="post" action="{{ route('business.campaign.type.update',$campaignType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                    <form method="post" action="{{ route('business.campaign.type.update',['portal'=>$institution->portal,'id'=>$campaignType->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                         @csrf
 
                                         @if ($errors->any())
@@ -149,11 +149,11 @@
 
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <a href="{{ route('business.campaign.show', $campaign->id) }}" class="btn-white btn btn-xs">View</a>
+                                    <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal,'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
                                     @if($campaign->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                        <a href="{{ route('business.campaign.restore', $campaign->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                        <a href="{{ route('business.campaign.restore', ['portal'=>$institution->portal,'id'=>$campaign->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                     @else
-                                        <a href="{{ route('business.campaign.delete', $campaign->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                        <a href="{{ route('business.campaign.delete', ['portal'=>$institution->portal,'id'=>$campaign->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                     @endif
                                 </div>
                             </td>

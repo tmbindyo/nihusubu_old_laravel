@@ -36,12 +36,12 @@ class ExpenseController extends Controller
         $this->middleware('auth');
     }
 
-    public function expenses()
+    public function expenses($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get expenses
         $expenses = Expense::where('institution_id',$institution->id)->with('user','status','expense_account')->get();
         // return $expenses;
@@ -49,12 +49,12 @@ class ExpenseController extends Controller
         return view('business.expenses',compact('expenses','user','institution'));
     }
 
-    public function expenseCreate()
+    public function expenseCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // expense accounts
         $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->get();
         // get sales
@@ -73,13 +73,13 @@ class ExpenseController extends Controller
         return view('business.expense_create',compact('liabilities','campaigns','sales','user','institution','frequencies','expenseAccounts','transfers','expenseStatuses'));
     }
 
-    public function expenseStore(Request $request)
+    public function expenseStore(Request $request, $portal)
     {
 //        return $request;
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -196,12 +196,12 @@ class ExpenseController extends Controller
         return redirect()->route('business.expense.show',$expense->id)->withSuccess('Expense '.$expense->reference.' successfully created!');
     }
 
-    public function expenseShow($expense_id)
+    public function expenseShow($portal, $expense_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get expense
         $expense = Expense::where('institution_id',$institution->id)->where('id',$expense_id)->with('transfer','status','expense_items','transaction','expense_account','frequency','user','account','campaign','contact','expense_account','inventory_adjustment','liability','sale','sale','warehouse')->withCount('expense_items')->first();
         // get payments
@@ -212,12 +212,12 @@ class ExpenseController extends Controller
         return view('business.expense_show',compact('expense','user','institution','payments','pendingPayments'));
     }
 
-    public function expenseEdit($expense_id)
+    public function expenseEdit($portal, $expense_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get expense account
         $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->get();
         // get orders
@@ -238,7 +238,7 @@ class ExpenseController extends Controller
         return view('business.expense_edit',compact('liabilities','campaigns','expense','user','institution','expenseAccounts','sales','expenseStatuses','transfers','frequencies'));
     }
 
-    public function expenseUpdate(Request $request, $expense_id)
+    public function expenseUpdate(Request $request, $portal, $expense_id)
     {
         // User
         $user = $this->getUser();
@@ -385,12 +385,12 @@ class ExpenseController extends Controller
         return redirect()->route('business.expense.show',$expense->id)->withSuccess('Expense '.$expense->reference.' successfully updated!');
     }
 
-    public function expenseDelete()
+    public function expenseDelete($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // TODO expense delete
         // Get albums
         $expenses = Expense::with('user','status')->get();
@@ -398,12 +398,12 @@ class ExpenseController extends Controller
         return view('business.expenses',compact('expenses','user','institution'));
     }
 
-    public function expenseRestore()
+    public function expenseRestore($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // TODO expense restore
         // Get albums
         $expenses = Expense::with('user','status')->get();
@@ -412,26 +412,26 @@ class ExpenseController extends Controller
     }
 
 
-    public function transactions()
+    public function transactions($portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get albums
         $transactions = Transaction::where('institution_id',$institution->id)->with('user','status','account','expense')->get();
         return view('business.transactions',compact('transactions','user','institution','transactions'));
 
     }
 
-    public function transactionCreate($expense_id)
+    public function transactionCreate($portal, $expense_id)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get expenses
         $expense = Expense::findOrFail($expense_id);
         // accounts
@@ -442,14 +442,14 @@ class ExpenseController extends Controller
         return view('business.transaction_create',compact('accounts','expense','user','institution','transactionStatuses'));
     }
 
-    public function transactionStore(Request $request)
+    public function transactionStore(Request $request, $portal)
     {
         // get expense
         $expense = Expense::findOrFail($request->expense);
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // new transaction
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -512,7 +512,7 @@ class ExpenseController extends Controller
 
     }
 
-    public function transactionStatusChange(Request $request,$transaction_id)
+    public function transactionStatusChange(Request $request, $portal, $transaction_id)
     {
 
         // User
@@ -550,7 +550,7 @@ class ExpenseController extends Controller
         return back()->withSuccess('Expense '.$transaction->reference.' status successfully updated!');
     }
 
-    public function transactionPendingPayment(Request $request, $transaction_id)
+    public function transactionPendingPayment(Request $request, $portal, $transaction_id)
     {
 
         // TODO figure out account
@@ -587,7 +587,7 @@ class ExpenseController extends Controller
 
     }
 
-    public function transactionBilled($transaction_id)
+    public function transactionBilled($portal, $transaction_id)
     {
 
         // User
@@ -615,7 +615,7 @@ class ExpenseController extends Controller
 
     }
     // test
-    public function testRecurring(){
+    public function testRecurring($portal){
 
         $orderData = [
             'message'=>'Test'
@@ -627,22 +627,22 @@ class ExpenseController extends Controller
 
 
     // payments
-    public function payments()
+    public function payments($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         $payments = Payment::where('institution_id',$institution->id)->with('user','status','account')->get();
         return view('business.payments',compact('payments','user','institution'));
     }
 
-    public function paymentCreate()
+    public function paymentCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // loans
@@ -652,14 +652,14 @@ class ExpenseController extends Controller
         return view('business.payment_create',compact('user','institution','accounts','loans','sales'));
     }
 
-    public function paymentStore(Request $request)
+    public function paymentStore(Request $request, $portal)
     {
 
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -736,20 +736,20 @@ class ExpenseController extends Controller
         return redirect()->route('business.payment.show',$payment->id)->withSuccess('Payment created!');
     }
 
-    public function paymentShow($payment_id)
+    public function paymentShow($portal, $payment_id)
     {
         // Check if contact type exists
         $paymentExists = Payment::findOrFail($payment_id);
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get contact type
         $payment = Payment::with('user','status','refunds.account','loan','sale')->where('id',$payment_id)->first();
         return view('business.payment_show',compact('payment','user','institution'));
     }
 
-    public function paymentDelete($payment_id)
+    public function paymentDelete($portal, $payment_id)
     {
 
         $payment = Payment::findOrFail($payment_id);
@@ -757,7 +757,7 @@ class ExpenseController extends Controller
 
         return back()->withSuccess(__('Payment '.$payment->name.' successfully deleted.'));
     }
-    public function paymentRestore($payment_id)
+    public function paymentRestore($portal, $payment_id)
     {
 
         $payment = Payment::findOrFail($payment_id);
@@ -769,23 +769,23 @@ class ExpenseController extends Controller
 
 
     // refunds
-    public function refunds()
+    public function refunds($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // refunds
         $refunds = Refund::where('institution_id',$institution->id)->with('user','status','account')->get();
         return view('business.refunds',compact('refunds','user','institution'));
     }
 
-    public function refundCreate($payment_id)
+    public function refundCreate($portal, $payment_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // payment
@@ -793,13 +793,13 @@ class ExpenseController extends Controller
         return view('business.refund_create',compact('user','institution','accounts','payment'));
     }
 
-    public function refundStore(Request $request)
+    public function refundStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -834,20 +834,20 @@ class ExpenseController extends Controller
         return redirect()->route('business.refund.show',$refund->id)->withSuccess('Refund created!');
     }
 
-    public function refundShow($refund_id)
+    public function refundShow($portal, $refund_id)
     {
         // Check if contact type exists
         $refundExists = Refund::findOrFail($refund_id);
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get contact type
         $refund = Refund::with('user','status','account','payment')->where('id',$refund_id)->first();
         return view('business.refund_show',compact('refund','user','institution'));
     }
 
-    public function refundUpdate(Request $request, $refund_id)
+    public function refundUpdate(Request $request, $portal, $refund_id)
     {
 
         $refund = Refund::findOrFail($refund_id);
@@ -855,7 +855,7 @@ class ExpenseController extends Controller
         return redirect()->route('business.refund.show',$refund->id)->withSuccess('Refund updated!');
     }
 
-    public function refundDelete($refund_id)
+    public function refundDelete($portal, $refund_id)
     {
 
         $refund = Refund::findOrFail($refund_id);
@@ -864,10 +864,10 @@ class ExpenseController extends Controller
         return back()->withSuccess(__('Refund '.$refund->name.' successfully deleted.'));
     }
 
-    public function refundRestore($refund_id)
+    public function refundRestore($portal, $refund_id)
     {
 
-        $refund = Refund::findOrFail($refund_id);
+        $refund = Refund::findOrFail($portal, $refund_id);
         $refund->restore();
 
         return back()->withSuccess(__('Refund '.$refund->name.' successfully restored.'));

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Personal;
 
+use App\Test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -9,7 +10,8 @@ class AccountsController extends Controller
 {
     public function accounts()
     {
-        return view('personal.accounts');
+        $tests = Test::all();
+        return view('personal.accounts',compact('tests'));
     }
     public function accountCreate()
     {

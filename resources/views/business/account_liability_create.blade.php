@@ -43,13 +43,13 @@
             <h2>Liability's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('business.liabilities')}}">Liability's</a>
+                    <a href="{{route('business.liabilities',$institution->portal)}}">Liability's</a>
                 </li>
                 <li class="active">
                     <strong>Liability Create</strong>
@@ -87,7 +87,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.liability.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.liability.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

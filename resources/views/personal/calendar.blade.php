@@ -25,7 +25,7 @@
         <h2>Calendar</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('personal.dashboard')}}">Home</a>
             </li>
             <li class="active">
                 <strong>Calendar</strong>

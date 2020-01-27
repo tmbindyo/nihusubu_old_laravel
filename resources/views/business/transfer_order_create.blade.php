@@ -86,13 +86,13 @@
         <h2>Transfer Order</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.warehouses')}}">Inventory</a>
+                <a href="{{route('business.warehouses',$institution->portal)}}">Inventory</a>
             </li>
             <li>
-                <a href="{{route('business.transfer.orders')}}">Transfer Orders</a>
+                <a href="{{route('business.transfer.orders',$institution->portal)}}">Transfer Orders</a>
             </li>
             <li class="active">
                 <strong>Transfer Order Create</strong>
@@ -118,7 +118,7 @@
             </div>
             <div class="ibox-content">
                 <div class="">
-                    <form method="post" action="{{ route('business.transfer.order.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                    <form method="post" action="{{ route('business.transfer.order.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                         @csrf
 
                         @if ($errors->any())

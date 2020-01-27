@@ -21,13 +21,13 @@
             <h2>Expense</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.accounts')}}">Accounts</a>
+                    <a href="{{route('business.accounts',$institution->portal)}}">Accounts</a>
                 </li>
                 <li>
-                    <a href="{{route('business.expenses')}}">Expenses</a>
+                    <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
                 </li>
                 <li class="active">
                     <strong>Expense</strong>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.expense.edit',$expense->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                <a href="{{route('business.expense.edit',['portal'=>$institution->portal,'id'=>$expense->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@
                                     </td>
                                     <td class="desc">
                                         <h3>
-                                            <a href="{{route('business.product.show',$product->id)}}" class="text-navy">
+                                            <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->id])}}" class="text-navy">
                                                 {{$product->name}}
                                             </a>
                                         </h3>
@@ -74,7 +74,7 @@
 {{--                                            {!! $product->product->description !!}--}}
 
                                         <div class="m-t-sm">
-                                            <a href="{{route('business.expense.product.delete',$product->id)}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
+                                            <a href="{{route('business.expense.product.delete',['portal'=>$institution->portal,'id'=>$product->id])}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
                                         </div>
                                     </td>
 
@@ -191,7 +191,7 @@
                                         <a href="#" class="btn btn-white btn-xs pull-right"> Draft</a>
                                     @endif
                                     <h2>{{$expense->reference}}</h2>
-                                    <a href="{{route('business.transaction.create',$expense->id)}}" class="pull-right btn btn-primary btn-outline">Make Payment</a>
+                                    <a href="{{route('business.transaction.create',['portal'=>$institution->portal,'id'=>$expense->id])}}" class="pull-right btn btn-primary btn-outline">Make Payment</a>
                                 </div>
                                 <dl class="dl-horizontal">
                                     <dt>Status:</dt> <dd><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></dd>
@@ -374,32 +374,32 @@
                 <h5>Relationship</h5>
                 <ul class="tag-list" style="padding: 0">
                     @if($expense->is_order == 1)
-                        <li><a href="{{route('business.order.show',$expense->order->id)}}"><i class="fa fa-shopping-cart"></i> {{$expense->order->order_number}}</a></li>
+                        <li><a href="{{route('business.order.show',['portal'=>$institution->portal,'id'=>$expense->order->id])}}"><i class="fa fa-shopping-cart"></i> {{$expense->order->order_number}}</a></li>
                     @endif
                         @if($expense->is_album == 1)
                             @if($expense->album->album_type_id = "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
-                                <li><a href="{{route('business.client.proof.show',$expense->album->id)}}"><i class="fa fa-camera"></i> {{$expense->album->name}}</a></li>
+                                <li><a href="{{route('business.client.proof.show',['portal'=>$institution->portal,'id'=>$expense->album->id])}}"><i class="fa fa-camera"></i> {{$expense->album->name}}</a></li>
                             @elseif($expense->album->album_type_id = "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
-                                <li><a href="{{route('business.personal.album.show',$expense->album->id)}}"><i class="fa fa-camera"></i> {{$expense->album->name}}</a></li>
+                                <li><a href="{{route('business.personal.album.show',['portal'=>$institution->portal,'id'=>$expense->album->id])}}"><i class="fa fa-camera"></i> {{$expense->album->name}}</a></li>
                             @endif
                     @endif
                     @if($expense->is_project == 1)
-                        <li><a href="{{route('business.project.show',$expense->project->id)}}"><i class="fa fa-trello"></i> {{$expense->project->name}}</a></li>
+                        <li><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project->id])}}"><i class="fa fa-trello"></i> {{$expense->project->name}}</a></li>
                     @endif
                     @if($expense->is_design == 1)
-                        <li><a href="{{route('business.design.show',$expense->design->id)}}"><i class="fa fa-paint-brush"></i> {{$expense->design->name}}</a></li>
+                        <li><a href="{{route('business.design.show',['portal'=>$institution->portal,'id'=>$expense->design->id])}}"><i class="fa fa-paint-brush"></i> {{$expense->design->name}}</a></li>
                     @endif
                     @if($expense->is_transfer == 1 )
-                        <li><a href="{{route('business.transfer.show',$expense->transfer->id)}}"><i class="fa fa-share"></i> {{$expense->transfer->reference}}</a></li>
+                        <li><a href="{{route('business.transfer.show',['portal'=>$institution->portal,'id'=>$expense->transfer->id])}}"><i class="fa fa-share"></i> {{$expense->transfer->reference}}</a></li>
                     @endif
                     @if($expense->is_campaign == 1 )
-                        <li><a href="{{route('business.campaign.show',$expense->campaign->id)}}"><i class="fa fa-share"></i> {{$expense->campaign->name}}</a></li>
+                        <li><a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$expense->campaign->id])}}"><i class="fa fa-share"></i> {{$expense->campaign->name}}</a></li>
                     @endif
                     @if($expense->is_asset == 1 )
-                        <li><a href="{{route('business.asset.show',$expense->asset->id)}}"><i class="fa fa-share"></i> {{$expense->asset->name}}</a></li>
+                        <li><a href="{{route('business.asset.show',['portal'=>$institution->portal,'id'=>$expense->asset->id])}}"><i class="fa fa-share"></i> {{$expense->asset->name}}</a></li>
                     @endif
                     @if($expense->is_liability == 1 )
-                        <li><a href="{{route('business.liability.show',$expense->liability->id)}}"><i class="fa fa-share"></i> {{$expense->liability->reference}}</a></li>
+                        <li><a href="{{route('business.liability.show',['portal'=>$institution->portal,'id'=>$expense->liability->id])}}"><i class="fa fa-share"></i> {{$expense->liability->reference}}</a></li>
                     @endif
                     @if($expense->is_transaction == 1)
                         <li><a href="#"><i class="fa fa-dollar"></i> {{$expense->transaction->reference}}</a></li>

@@ -19,7 +19,7 @@ trait UserTrait
     {
         // Get user
         $userCheck = Auth::user();
-        $user = User::where('id',$userCheck->id)->with('user_accounts.status','user_accounts.user_type','user_accounts.institution')->withCount('user_accounts')->first();
+        $user = User::where('id',$userCheck->id)->with('user_accounts.status','user_accounts.user_type','user_accounts.institution','active_user_account.user_type','active_user_account.institution','inactive_user_account.user_type','inactive_user_account.institution')->withCount('user_accounts')->first();
 
         // system defined user
         // $user = User::where('id',3)->first();

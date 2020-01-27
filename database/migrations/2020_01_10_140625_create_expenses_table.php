@@ -55,6 +55,8 @@ class CreateExpensesTable extends Migration
             $table->uuid('expense_account_id');
             $table->uuid('institution_id');
             $table->uuid('frequency_id')->nullable();
+            $table->boolean('is_institution');
+            $table->boolean('is_user');
 
             $table->timestamps();
             $table->softDeletes();

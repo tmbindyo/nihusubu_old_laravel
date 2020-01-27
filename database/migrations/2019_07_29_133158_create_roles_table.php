@@ -21,6 +21,7 @@ class CreateRolesTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('user_account_id')->nullable();
             $table->uuid('institution_id')->nullable();
 
             $table->boolean('is_institution');

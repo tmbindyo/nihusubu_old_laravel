@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePurchaseOrderApprovalsTable extends Migration
+class CreateSubscriptionPaymentTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreatePurchaseOrderApprovalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_order_approvals', function (Blueprint $table) {
+        Schema::create('subscription_payment_types', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
+            $table->string('name', 200);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('purchase_order_id');
-            $table->uuid('approver_id');
-
-            $table->boolean('is_approved');
 
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +33,6 @@ class CreatePurchaseOrderApprovalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_order_approvals');
+        Schema::dropIfExists('subscription_payment_types');
     }
 }

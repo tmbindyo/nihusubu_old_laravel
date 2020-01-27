@@ -44,10 +44,10 @@
             <h2>Contact's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.contacts')}}">Contact's</a>
+                    <a href="{{route('business.contacts',$institution->portal)}}">Contact's</a>
                 </li>
                 <li class="active">
                     <strong>Contact</strong>
@@ -56,14 +56,14 @@
         </div>
         <div class="col-md-9">
             <div class="title-action">
-                <a href="{{route('business.contact.liability.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Liability </a>
-                <a href="{{route('business.contact.loan.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Loan </a>
-                <a href="{{route('business.contact.sale.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
+                <a href="{{route('business.contact.liability.create',['portal'=>$institution->portal,'id'=>$contact->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Liability </a>
+                <a href="{{route('business.contact.loan.create',['portal'=>$institution->portal,'id'=>$contact->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Loan </a>
+                <a href="{{route('business.contact.sale.create',['portal'=>$institution->portal,'id'=>$contact->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
                 @if($contact->campaign_id)
-                    <a href="{{route('business.campaign.show',$contact->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$contact->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
                 @endif
                 @if($contact->organization_id)
-                    <a href="{{route('business.organization.show',$contact->organization_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Organization </a>
+                    <a href="{{route('business.organization.show',['portal'=>$institution->portal,'id'=>$contact->organization_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Organization </a>
                 @endif
             </div>
         </div>
@@ -99,7 +99,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.contact.update',$contact->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.contact.update',['portal'=>$institution->portal,'id'=>$contact->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -340,7 +340,7 @@
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.sale.show', $sale->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$sale->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -394,7 +394,7 @@
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.liability.show', $liability->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.liability.show', ['portal'=>$institution->portal,'id'=>$liability->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -456,11 +456,11 @@
 
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
-                                                                        <a href="{{ route('business.loan.show', $loan->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.loan.show', ['portal'=>$institution->portal,'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                         @if($loan->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                            <a href="{{ route('business.loan.restore', $loan->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                            <a href="{{ route('business.loan.restore', ['portal'=>$institution->portal,'id'=>$loan->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                                         @else
-                                                                            <a href="{{ route('business.loan.delete', $loan->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                            <a href="{{ route('business.loan.delete', ['portal'=>$institution->portal,'id'=>$loan->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                                         @endif
                                                                     </div>
                                                                 </td>
@@ -520,7 +520,7 @@
                                         @if($pendingToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -536,7 +536,7 @@
                                         @if($inProgressToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
+                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -552,9 +552,9 @@
                                             <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
                                         @endif
                                         @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @endif
                                     </div>
                                 </li>
@@ -570,7 +570,7 @@
                                         @if($completedToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
+                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                                     </div>
                                 </li>
                             @endforeach

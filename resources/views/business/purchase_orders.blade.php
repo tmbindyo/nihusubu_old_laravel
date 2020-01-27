@@ -22,10 +22,10 @@
             <h2>Purchase Orders</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.expenses')}}">Expenses</a>
+                    <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
                 </li>
                 <li class="active">
                     <strong>Purchase Orders</strong>
@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.purchase.order.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('business.purchase.order.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -130,9 +130,9 @@
                             </td>
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <a href="{{route('business.purchase.order.show',1)}}" class="btn-success btn-outline btn btn-xs">View</a>
-                                    <a href="{{route('business.purchase.order.edit',1)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                    <a href="{{route('business.purchase.order.delete',1)}}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                    <a href="{{route('business.purchase.order.show',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn-success btn-outline btn btn-xs">View</a>
+                                    <a href="{{route('business.purchase.order.edit',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                    <a href="{{route('business.purchase.order.delete',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                 </div>
                             </td>
                         </tr>

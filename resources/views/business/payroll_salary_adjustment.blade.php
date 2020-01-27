@@ -20,13 +20,13 @@
         <h2>Salary Adjustment</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.products')}}">Products</a>
+                <a href="{{route('business.products',$institution->portal)}}">Products</a>
             </li>
             <li>
-                <a href="{{route('business.payroll')}}">Payroll</a>
+                <a href="{{route('business.payroll',$institution->portal)}}">Payroll</a>
             </li>
             <li class="active">
                 <strong>Salary Adjustment</strong>

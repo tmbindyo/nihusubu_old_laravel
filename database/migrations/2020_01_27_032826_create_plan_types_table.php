@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateManualJournalsTable extends Migration
+class CreatePlanTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,13 @@ class CreateManualJournalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('manual_journals', function (Blueprint $table) {
+        Schema::create('plan_types', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('journal_number', 200);
-            $table->string('reference_number', 200);
-            $table->longText('notes');
-            $table->double('total', 20, 2);
+            $table->string('name', 200);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('currency_id');
-            $table->uuid('institution_id');
-
-            $table->boolean('is_cash_based_journal');
 
             $table->timestamps();
             $table->softDeletes();
@@ -40,6 +33,6 @@ class CreateManualJournalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manual_journals');
+        Schema::dropIfExists('plan_types');
     }
 }

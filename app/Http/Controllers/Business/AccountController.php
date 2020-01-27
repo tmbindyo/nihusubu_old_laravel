@@ -36,12 +36,14 @@ class AccountController extends Controller
         $this->middleware('auth');
     }
 
-    public function accounts()
+    public function accounts($portal)
     {
         // User
         $user = $this->getUser();
+        // return $user;
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
+        return $institution;
 
         // Get accounts
         $accounts = Account::with('user','status')->where('institution_id',$institution->id)->get();
@@ -49,23 +51,23 @@ class AccountController extends Controller
         return view('business.accounts',compact('accounts','user','institution'));
     }
 
-    public function accountCreate()
+    public function accountCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.account_create',compact('user','institution'));
     }
 
-    public function accountStore(Request $request)
+    public function accountStore(Request $request,$portal)
     {
 //        return $request;
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -80,16 +82,15 @@ class AccountController extends Controller
         $account->institution_id = $institution->id;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->save();
-
-        return redirect()->route('business.account.show',$account->id)->withSuccess('Expense '.$account->reference.' successfully created!');
+        return redirect()->route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id])->withSuccess('Expense '.$account->reference.' successfully created!');
     }
 
-    public function accountShow($account_id)
+    public function accountShow($portal,$account_id)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get account
         $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->with('status','user','loans','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions')->first();
         $goal = $account->goal;
@@ -102,60 +103,64 @@ class AccountController extends Controller
         return view('business.account_show',compact('account','user','institution','percentage'));
     }
 
-    public function accountDepositCreate($account_id)
+    public function accountDepositCreate($portal,$account_id)
     {
-        // get account
-        $account = Account::findOrFail($account_id);
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
+        // get account
+        $account = Account::findOrFail($account_id);
+        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
         return view('business.deposit_create',compact('account','user','institution'));
     }
 
-    public function accountLiabilityCreate($account_id)
+    public function accountLiabilityCreate($portal,$account_id)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $account = Account::findOrFail($account_id);
+        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
         // get contacts
         $contacts = Contact::with('organization')->where('institution_id',$institution->id)->get();
         return view('business.account_liability_create',compact('user','institution','account','contacts'));
     }
 
-    public function accountLoanCreate($account_id)
+    public function accountLoanCreate($portal,$account_id)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $account = Account::findOrFail($account_id);
+        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
         // get contacts
         $contacts = Contact::with('organization')->where('institution_id',$institution->id)->get();
         return view('business.account_loan_create',compact('user','institution','account','contacts'));
     }
 
-    public function accountWithdrawalCreate($account_id)
+    public function accountWithdrawalCreate($portal,$account_id)
     {
-        // get account
-        $account = Account::findOrFail($account_id);
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
+        // get account
+        $account = Account::findOrFail($account_id);
+        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
         return view('business.withdrawal_create',compact('account','user','institution'));
     }
 
-    public function accountUpdate(Request $request, $account_id)
+    public function accountUpdate(Request $request, $portal, $account_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // select account type
         $accountExists = Account::findOrFail($account_id);
         $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
@@ -169,16 +174,25 @@ class AccountController extends Controller
         return redirect()->route('business.account.show',$account->id)->withSuccess('Account '.$account->reference.' successfully updated!');
     }
 
-    public function accountDelete($account_id)
+    public function accountDelete($portal, $account_id)
     {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // delete account
         $account = Account::findOrFail($account_id);
         $account->delete();
 
         return back()->withSuccess(__('Account '.$account->name.' successfully restored.'));
     }
 
-    public function accountRestore($account_id)
+    public function accountRestore($portal, $account_id)
     {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
 
         $account = Account::withTrashed()->findOrFail($account_id);
         $account->restore();
@@ -186,13 +200,13 @@ class AccountController extends Controller
         return back()->withSuccess(__('Account '.$account->name.' successfully restored.'));
     }
 
-    public function accountAdjustmentCreate($account_id)
+    public function accountAdjustmentCreate($portal, $account_id)
     {
 
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // get account
@@ -203,13 +217,13 @@ class AccountController extends Controller
 
     }
 
-    public function accountAdjustmentStore(Request $request)
+    public function accountAdjustmentStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // new transaction
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -255,13 +269,13 @@ class AccountController extends Controller
 
     }
 
-    public function accountAdjustmentEdit()
+    public function accountAdjustmentEdit($portal)
     {
 
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // get accounts
@@ -272,13 +286,13 @@ class AccountController extends Controller
 
     }
 
-    public function accountAdjustmentUpdate(Request $request)
+    public function accountAdjustmentUpdate(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // new transaction
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -337,12 +351,12 @@ class AccountController extends Controller
 
     }
 
-    public function accountAdjustmentDelete($account_adjustment_id)
+    public function accountAdjustmentDelete($portal, $account_adjustment_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Check if exists
         $accountAdjustmentExists = AccountAdjustment::findOrFail($account_adjustment_id);
         // get adjustment account
@@ -359,12 +373,12 @@ class AccountController extends Controller
         return back()->withSuccess(__('Account adjustment '.$accountAdjustment->reference.' successfully deleted.'));
     }
 
-    public function accountAdjustmentRestore($account_adjustment_id)
+    public function accountAdjustmentRestore($portal, $account_adjustment_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Check if exists
         $accountAdjustmentExists = AccountAdjustment::findOrFail($account_adjustment_id);
         // get adjustment account
@@ -384,13 +398,13 @@ class AccountController extends Controller
 
 
     // deposits
-    public function depositStore(Request $request)
+    public function depositStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -419,26 +433,26 @@ class AccountController extends Controller
         return redirect()->route('business.deposit.show',$deposit->id)->withSuccess('Deposit updated!');
     }
 
-    public function depositShow($deposit_id)
+    public function depositShow($portal, $deposit_id)
     {
         // Check if action type exists
         $depositExists = Deposit::findOrFail($deposit_id);
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get deposit
         $deposit = Deposit::with('user','status','account','account_adjustments')->where('institution_id',$institution->id)->where('id',$deposit_id)->first();
         return view('business.deposit_show',compact('deposit','user','institution'));
     }
 
-    public function depositAccountAdjustmentCreate($deposit_id)
+    public function depositAccountAdjustmentCreate($portal, $deposit_id)
     {
 
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // get deposit
@@ -452,13 +466,13 @@ class AccountController extends Controller
 
     }
 
-    public function depositUpdate(Request $request, $deposit_id)
+    public function depositUpdate(Request $request, $portal, $deposit_id)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $deposit = Deposit::findOrFail($deposit_id);
         $deposit->about = $request->about;
@@ -498,7 +512,7 @@ class AccountController extends Controller
     }
 
 
-    public function depositDelete($deposit_id)
+    public function depositDelete($portal, $deposit_id)
     {
 
         $deposit = Deposit::findOrFail($deposit_id);
@@ -507,7 +521,7 @@ class AccountController extends Controller
         return back()->withSuccess(__('Deposit '.$deposit->name.' successfully deleted.'));
     }
 
-    public function depositRestore($deposit_id)
+    public function depositRestore($portal, $deposit_id)
     {
 
         $deposit = Deposit::withTrashed()->findOrFail($deposit_id);
@@ -518,13 +532,13 @@ class AccountController extends Controller
 
 
     // withdrawals
-    public function withdrawalStore(Request $request)
+    public function withdrawalStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -553,26 +567,26 @@ class AccountController extends Controller
         return redirect()->route('business.withdrawal.show',$withdrawal->id)->withSuccess('Withdrawal updated!');
     }
 
-    public function withdrawalShow($withdrawal_id)
+    public function withdrawalShow($portal, $withdrawal_id)
     {
         // Check if action type exists
         $withdrawalExists = Withdrawal::findOrFail($withdrawal_id);
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get withdrawal
         $withdrawal = Withdrawal::with('user','status','account','account_adjustments')->where('institution_id',$institution->id)->where('id',$withdrawal_id)->first();
         return view('business.withdrawal_show',compact('withdrawal','user','institution'));
     }
 
-    public function withdrawalAccountAdjustmentCreate($withdrawal_id)
+    public function withdrawalAccountAdjustmentCreate($portal, $withdrawal_id)
     {
 
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // get withdrawal
@@ -586,13 +600,13 @@ class AccountController extends Controller
 
     }
 
-    public function withdrawalUpdate(Request $request, $withdrawal_id)
+    public function withdrawalUpdate(Request $request, $portal, $withdrawal_id)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $withdrawal = Withdrawal::findOrFail($withdrawal_id);
         $withdrawal->about = $request->about;
@@ -631,7 +645,7 @@ class AccountController extends Controller
         return redirect()->route('business.withdrawal.show',$withdrawal_id)->withSuccess('Withdrawal '. $withdrawal->name .' updated!');
     }
 
-    public function withdrawalDelete($withdrawal_id)
+    public function withdrawalDelete($portal, $withdrawal_id)
     {
 
         $withdrawal = Withdrawal::findOrFail($withdrawal_id);
@@ -640,7 +654,7 @@ class AccountController extends Controller
         return back()->withSuccess(__('Withdrawal '.$withdrawal->name.' successfully deleted.'));
     }
 
-    public function withdrawalRestore($withdrawal_id)
+    public function withdrawalRestore($portal, $withdrawal_id)
     {
 
         $withdrawal = Withdrawal::withTrashed()->findOrFail($withdrawal_id);
@@ -651,22 +665,22 @@ class AccountController extends Controller
 
 
     //liabilities
-    public function liabilities()
+    public function liabilities($portal)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         $liabilities = Liability::with('user','status','account','account')->where('institution_id',$institution->id)->get();
         return view('business.liabilities',compact('liabilities','user','institution'));
     }
 
-    public function liabilityCreate()
+    public function liabilityCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // get contacts
@@ -674,13 +688,13 @@ class AccountController extends Controller
         return view('business.liability_create',compact('user','institution','accounts','contacts'));
     }
 
-    public function liabilityStore(Request $request)
+    public function liabilityStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -715,14 +729,14 @@ class AccountController extends Controller
         return redirect()->route('business.liability.show',$liability->id)->withSuccess('Liability created!');
     }
 
-    public function liabilityShow($liability_id)
+    public function liabilityShow($portal, $liability_id)
     {
         // Check if contact type exists
         $liabilityExists = Liability::findOrFail($liability_id);
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // get contacts
@@ -733,12 +747,12 @@ class AccountController extends Controller
     }
 
     // TODO expense for liability
-    public function liabilityExpenseCreate($liability_id)
+    public function liabilityExpenseCreate($portal, $liability_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // expense accounts
         $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->get();
         // get sales
@@ -757,7 +771,7 @@ class AccountController extends Controller
         return view('business.liability_expense_create',compact('liability','campaigns','sales','user','institution','frequencies','expenseAccounts','transfers','expenseStatuses'));
     }
 
-    public function liabilityUpdate(Request $request, $liability_id)
+    public function liabilityUpdate(Request $request, $portal, $liability_id)
     {
 
         $liability = Liability::findOrFail($liability_id);
@@ -765,15 +779,15 @@ class AccountController extends Controller
         return redirect()->route('business.liability.show',$liability->id)->withSuccess('Liability updated!');
     }
 
-    public function liabilityDelete($liability_id)
+    public function liabilityDelete($portal, $liability_id)
     {
 
-        $liability = Liability::findOrFail($liability_id);
+        $liability = Liability::findOrFail($portal, $liability_id);
         $liability->delete();
 
         return back()->withSuccess(__('Liability '.$liability->name.' successfully deleted.'));
     }
-    public function liabilityRestore($liability_id)
+    public function liabilityRestore($portal, $liability_id)
     {
 
         $liability = Liability::withTrashed()->findOrFail($liability_id);
@@ -784,22 +798,22 @@ class AccountController extends Controller
 
 
     // loans
-    public function loans()
+    public function loans($portal)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         $loans = Loan::with('user','status','account')->where('institution_id',$institution->id)->get();
         return view('business.loans',compact('loans','user','institution'));
     }
 
-    public function loanCreate()
+    public function loanCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // get contacts
@@ -807,13 +821,13 @@ class AccountController extends Controller
         return view('business.loan_create',compact('user','institution','accounts','contacts'));
     }
 
-    public function loanStore(Request $request)
+    public function loanStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -852,14 +866,14 @@ class AccountController extends Controller
         return redirect()->route('business.loan.show',$loan->id)->withSuccess('Loan created!');
     }
 
-    public function loanShow($loan_id)
+    public function loanShow($portal, $loan_id)
     {
         // Check if contact type exists
         $loanExists = Loan::findOrFail($loan_id);
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // get contacts
@@ -869,12 +883,12 @@ class AccountController extends Controller
         return view('business.loan_show',compact('accounts','contacts','loan','user','institution'));
     }
 
-    public function loanPaymentCreate($loan_id)
+    public function loanPaymentCreate($portal, $loan_id)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         // loans
@@ -882,7 +896,7 @@ class AccountController extends Controller
         return view('business.loan_payment_create',compact('user','institution','accounts','loan'));
     }
 
-    public function loanUpdate(Request $request, $loan_id)
+    public function loanUpdate(Request $request, $portal, $loan_id)
     {
 
         $loan = Loan::findOrFail($loan_id);
@@ -890,7 +904,7 @@ class AccountController extends Controller
 
     }
 
-    public function loanDelete($loan_id)
+    public function loanDelete($portal, $loan_id)
     {
 
         $loan = Loan::findOrFail($loan_id);
@@ -898,7 +912,7 @@ class AccountController extends Controller
 
         return back()->withSuccess(__('Loan '.$loan->name.' successfully deleted.'));
     }
-    public function loanRestore($loan_id)
+    public function loanRestore($portal, $loan_id)
     {
 
         $loan = Loan::withTrashed()->findOrFail($loan_id);
@@ -909,34 +923,34 @@ class AccountController extends Controller
 
 
     //transfers
-    public function transfers()
+    public function transfers($portal)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         $transfers = Transfer::with('user','status','source_account','destination_account')->where('institution_id',$institution->id)->get();
         return view('business.transfers',compact('transfers','user','institution'));
     }
 
-    public function transferCreate()
+    public function transferCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->get();
         return view('business.transfer_create',compact('user','institution','accounts'));
     }
 
-    public function transferStore(Request $request)
+    public function transferStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // generate reference
         $size = 5;
@@ -980,27 +994,27 @@ class AccountController extends Controller
         return redirect()->route('business.transfer.show',$transfer->id)->withSuccess('Transfer created!');
     }
 
-    public function transferShow($transfer_id)
+    public function transferShow($portal, $transfer_id)
     {
         // Check if contact type exists
         $transferExists = Transfer::findOrFail($transfer_id);
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get contact type
         $transfer = Transfer::with('user','status','source_account','destination_account','expenses')->where('institution_id',$institution->id)->where('id',$transfer_id)->first();
         return view('business.transfer_show',compact('transfer','user','institution'));
     }
 
-    public function transferExpenseCreate($transfer_id)
+    public function transferExpenseCreate($portal, $transfer_id)
     {
         // get transfer
         $transfer = Transfer::findOrFail($transfer_id);
         // User
         $user = $this->getUser();
         // Get the navbar values
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // expense statuses
@@ -1010,7 +1024,7 @@ class AccountController extends Controller
         return view('business.transfer_expense_create',compact('transfer','user','institution','journalsStatusCount','expenseStatuses','expenseAccounts'));
     }
 
-    public function transferUpdate(Request $request, $transfer_id)
+    public function transferUpdate(Request $request, $portal, $transfer_id)
     {
 
         $transfer = Transfer::findOrFail($transfer_id);
@@ -1020,7 +1034,7 @@ class AccountController extends Controller
         return redirect()->route('business.transfer.show',$transfer->id)->withSuccess('Contact type updated!');
     }
 
-    public function transferDelete($transfer_id)
+    public function transferDelete($portal, $transfer_id)
     {
 
         $transfer = Transfer::findOrFail($transfer_id);
@@ -1028,7 +1042,7 @@ class AccountController extends Controller
 
         return back()->withSuccess(__('Transfer '.$transfer->name.' successfully deleted.'));
     }
-    public function transferRestore($transfer_id)
+    public function transferRestore($portal, $transfer_id)
     {
 
         $transfer = Transfer::withTrashed()->findOrFail($transfer_id);

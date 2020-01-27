@@ -7,7 +7,7 @@
                 <h4 class="modal-title">Warehouse Registration</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('business.warehouse.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('business.warehouse.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())

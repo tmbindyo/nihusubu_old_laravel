@@ -22,10 +22,10 @@
             <h2>Transaction</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.transactions')}}">Transactions</a>
+                    <a href="{{route('business.transactions',$institution->portal)}}">Transactions</a>
                 </li>
                 <li class="active">
                     <strong>Transaction</strong>
@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-2">
             <div class="title-action">
-                <a href="{{route('business.expenses')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Expenses </a>
+                <a href="{{route('business.expenses',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Expenses </a>
             </div>
         </div>
     </div>

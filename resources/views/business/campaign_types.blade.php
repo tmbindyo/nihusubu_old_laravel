@@ -23,7 +23,7 @@
             <h2>Campaign Types</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Settings
@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.campaign.type.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Campaign Type </a>
+                <a href="{{route('business.campaign.type.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Campaign Type </a>
             </div>
         </div>
     </div>
@@ -86,8 +86,8 @@
 
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.campaign.type.show', $campaignType->id) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.campaign.type.delete', $campaignType->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    <a href="{{ route('business.campaign.type.show', ['portal'=>$institution->portal,'id'=>$campaignType->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.campaign.type.delete', ['portal'=>$institution->portal,'id'=>$campaignType->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -156,8 +156,8 @@
 
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.campaign.type.show', $campaignType->id) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.campaign.type.restore', $campaignType->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.campaign.type.show', ['portal'=>$institution->portal,'id'=>$campaignType->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.campaign.type.restore', ['portal'=>$institution->portal,'id'=>$campaignType->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     </div>
                                                 </td>
                                             </tr>

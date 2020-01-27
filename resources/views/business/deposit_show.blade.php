@@ -53,16 +53,16 @@
             <h2>Deposit's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.accounts')}}">Accounts</a>
+                    <a href="{{route('business.accounts',$institution->portal)}}">Accounts</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.account.show',$deposit->account->id)}}">Account</a>
+                    <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$deposit->account->id])}}">Account</a>
                 </li>
                 <li class="active">
                     <strong>Deposit Create</strong>
@@ -71,7 +71,7 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('business.deposit.account.adjustment.create',$deposit->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
+                <a href="{{route('business.deposit.account.adjustment.create',['portal'=>$institution->portal,'id'=>$deposit->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
             </div>
         </div>
     </div>
@@ -105,7 +105,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.deposit.update',$deposit->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.deposit.update',['portal'=>$institution->portal,'id'=>$deposit->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -234,7 +234,7 @@
                                                                 </td>
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
-                                                                        <a href="{{ route('business.account.adjustment.show', $accountAdjustment->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.account.adjustment.show', ['portal'=>$institution->portal,'id'=>$accountAdjustment->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                     </div>
                                                                 </td>
                                                             </tr>

@@ -51,7 +51,7 @@
         <h2>Human Resource Settings</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li class="active">
                 <strong>Human Resource Settings</strong>
@@ -106,7 +106,7 @@
                                 <td class="text-right">
                                     <div class="btn-group">
                                         <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                        <a href="{{ route('business.holiday.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                        <a href="{{ route('business.holiday.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -145,7 +145,7 @@
                     </div>
                     <div class="ibox-content">
                         <div class="">
-                            <form method="post" action="{{ route('business.workdays.update') }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" action="{{ route('business.workdays.update',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -642,7 +642,7 @@
                                         <td class="text-right">
                                             <div class="btn-group">
                                                 <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                                <a href="{{ route('business.leave.type.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                                <a href="{{ route('business.leave.type.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -702,7 +702,7 @@
                                         <td class="text-right">
                                             <div class="btn-group">
                                                 <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                                <a href="{{ route('business.earning.policy.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                                <a href="{{ route('business.earning.policy.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                             </div>
                                         </td>
                                     </tr>

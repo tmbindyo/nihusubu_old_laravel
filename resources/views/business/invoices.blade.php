@@ -22,10 +22,10 @@
                 <h2>Invoices</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li class="active">
                         <strong>Invoices</strong>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-lg-2">
                 <div class="title-action">
-                    <a href="{{route('business.invoice.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Invoice </a>
+                    <a href="{{route('business.invoice.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Invoice </a>
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.invoice.show', $invoice->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    <a href="{{ route('business.invoice.show', ['portal'=>$institution->portal,'id'=>$invoice->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                 </div>
                                             </td>
                                         </tr>

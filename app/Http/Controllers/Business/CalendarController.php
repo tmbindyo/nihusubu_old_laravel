@@ -23,15 +23,12 @@ class CalendarController extends Controller
     {
         // User
         $user = $this->getUser();
+        // return $user;
         // Institution
         $institution = $this->getInstitution($portal);
         // to does
         $toDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale')->where('institution_id',$institution->id)->where('user_id',$user->id)->get();
         return view('business.calendar',compact('user','institution','toDos'));
 
-    }
-    public function calendarStore()
-    {
-        return back()->withSuccess('Calender entry successfully created!');
     }
 }

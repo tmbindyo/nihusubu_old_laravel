@@ -17,10 +17,10 @@
             <h2>Employee Create</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.employees')}}">Human Resource</a>
+                    <a href="{{route('business.employees',$institution->portal)}}">Human Resource</a>
                 </li>
                 <li class="active">
                     <strong>Create Employee</strong>
@@ -36,7 +36,7 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="">
-                            <form method="post" action="{{ route('business.employee.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" action="{{ route('business.employee.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -382,7 +382,7 @@
 
                                                                                     </div>
                                                                                     <div class="col-md-1">
-                                                                                        <a href="{{route('business.composite.product.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                                                                                        <a href="{{route('business.composite.product.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
                                                                                     </div>
 
                                                                                     <table class="table table-striped">
@@ -408,8 +408,8 @@
                                                                                             <td>5000.00</td>
                                                                                             <td>
 
-                                                                                                <a href="{{route('business.project.edit',1)}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
+                                                                                                <a href="{{route('business.project.edit',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                                                                                <a href="{{route('business.project.delete',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
                                                                                             </td>
                                                                                         </tr>
                                                                                         </tbody>
@@ -425,7 +425,7 @@
 
                                                                                     </div>
                                                                                     <div class="col-md-1">
-                                                                                        <a href="{{route('business.composite.product.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                                                                                        <a href="{{route('business.composite.product.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
                                                                                     </div>
 
                                                                                     <table class="table table-striped">
@@ -451,8 +451,8 @@
                                                                                             <td>5000.00</td>
                                                                                             <td>
 
-                                                                                                <a href="{{route('business.project.edit',1)}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
+                                                                                                <a href="{{route('business.project.edit',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                                                                                <a href="{{route('business.project.delete',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
                                                                                             </td>
                                                                                         </tr>
                                                                                         </tbody>
@@ -468,7 +468,7 @@
 
                                                                                     </div>
                                                                                     <div class="col-md-1">
-                                                                                        <a href="{{route('business.composite.product.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                                                                                        <a href="{{route('business.composite.product.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
                                                                                     </div>
 
                                                                                     <table class="table table-striped">
@@ -494,8 +494,8 @@
                                                                                             <td>5000.00</td>
                                                                                             <td>
 
-                                                                                                <a href="{{route('business.project.edit',1)}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
+                                                                                                <a href="{{route('business.project.edit',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                                                                                <a href="{{route('business.project.delete',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
                                                                                             </td>
                                                                                         </tr>
                                                                                         </tbody>
@@ -511,7 +511,7 @@
 
                                                                                     </div>
                                                                                     <div class="col-md-1">
-                                                                                        <a href="{{route('business.composite.product.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                                                                                        <a href="{{route('business.composite.product.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
                                                                                     </div>
 
                                                                                     <table class="table table-striped">
@@ -537,8 +537,8 @@
                                                                                             <td>5000.00</td>
                                                                                             <td>
 
-                                                                                                <a href="{{route('business.project.edit',1)}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                                                                                <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
+                                                                                                <a href="{{route('business.project.edit',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                                                                                <a href="{{route('business.project.delete',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
                                                                                             </td>
                                                                                         </tr>
                                                                                         </tbody>
@@ -684,7 +684,7 @@
 
                                                             </div>
                                                             <div class="col-md-1">
-                                                                <a href="{{route('business.composite.product.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                                                                <a href="{{route('business.composite.product.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
                                                             </div>
 
                                                             <table class="table table-striped">
@@ -708,8 +708,8 @@
                                                                     <td>Male</td>
                                                                     <td>Yes</td>
                                                                     <td>
-                                                                        <a href="{{route('business.project.edit',1)}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-                                                                        <a href="{{route('business.project.delete',1)}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
+                                                                        <a href="{{route('business.project.edit',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                                                        <a href="{{route('business.project.delete',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Delete </a>
                                                                     </td>
                                                                 </tr>
                                                                 </tbody>

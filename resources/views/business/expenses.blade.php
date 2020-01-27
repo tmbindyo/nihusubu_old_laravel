@@ -22,10 +22,10 @@
             <h2>Expense</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.expenses')}}">Expenses</a>
+                    <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
                 </li>
                 <li class="active">
                     <strong>Expense</strong>
@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-2">
             <div class="title-action">
-                <a href="{{route('business.expense.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('business.expense.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -81,21 +81,21 @@
                                         </td>
                                         <td>
                                             @if($expense->is_inventory_adjustment == 1)
-                                                <p><a href="{{route('business.inventory.adjustment',$expense->inventory_adjustment_id)}}" class="badge badge-success">Inventory Adjustment</a></p>
+                                                <p><a href="{{route('business.inventory.adjustment',['portal'=>$institution->portal,'id'=>$expense->inventory_adjustment_id])}}" class="badge badge-success">Inventory Adjustment</a></p>
                                             @elseif($expense->is_transfer_order == 1)
-                                                <p><a href="{{route('business.transfer.order.show',$expense->transfer_order_id)}}" class="badge badge-primary">Transfer Order</a></p>
+                                                <p><a href="{{route('business.transfer.order.show',['portal'=>$institution->portal,'id'=>$expense->transfer_order_id])}}" class="badge badge-primary">Transfer Order</a></p>
                                             @elseif($expense->is_warehouse == 1)
-                                                <p><a href="{{route('business.warehouse.show',$expense->warehouse_id)}}" class="badge badge-primary">Warehouse</a></p>
+                                                <p><a href="{{route('business.warehouse.show',['portal'=>$institution->portal,'id'=>$expense->warehouse_id])}}" class="badge badge-primary">Warehouse</a></p>
                                             @elseif($expense->is_campaign == 1)
-                                                <p><a href="{{route('business.campaign.show',$expense->campaign_id)}}" class="badge badge-primary">Campaign</a></p>
+                                                <p><a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$expense->campaign_id])}}" class="badge badge-primary">Campaign</a></p>
                                             @elseif($expense->is_sale == 1)
-                                                <p><a href="{{route('business.sale.show',$expense->sale_id)}}" class="badge badge-primary">Sale</a></p>
+                                                <p><a href="{{route('business.sale.show',['portal'=>$institution->portal,'id'=>$expense->sale_id])}}" class="badge badge-primary">Sale</a></p>
                                             @elseif($expense->is_liability == 1)
-                                                <p><a href="{{route('business.liability.show',$expense->liability_id)}}" class="badge badge-primary">Liability</a></p>
+                                                <p><a href="{{route('business.liability.show',['portal'=>$institution->portal,'id'=>$expense->liability_id])}}" class="badge badge-primary">Liability</a></p>
                                             @elseif($expense->is_transfer == 1)
-                                                <p><a href="{{route('business.transfer.show',$expense->transfer_id)}}" class="badge badge-primary">Transfer</a></p>
+                                                <p><a href="{{route('business.transfer.show',['portal'=>$institution->portal,'id'=>$expense->transfer_id])}}" class="badge badge-primary">Transfer</a></p>
                                             @elseif($expense->is_transaction == 1)
-                                                <p><a href="{{route('business.transaction.show',$expense->transaction_id)}}" class="badge badge-primary">Transaction</a></p>
+                                                <p><a href="{{route('business.transaction.show',['portal'=>$institution->portal,'id'=>$expense->transaction_id])}}" class="badge badge-primary">Transaction</a></p>
                                             @else
                                                 <p><span class="badge badge-info">None</span></p>
                                             @endif
@@ -111,7 +111,7 @@
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('business.expense.show', $expense->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                             </div>
                                         </td>
                                     </tr>

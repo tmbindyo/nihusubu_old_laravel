@@ -43,10 +43,10 @@
             <h2>Contact Type's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.contact.types')}}">Contact Type's</a>
+                    <a href="{{route('business.contact.types',$institution->portal)}}">Contact Type's</a>
                 </li>
                 <li class="active">
                     <strong>Contact Type Create</strong>
@@ -84,7 +84,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.contact.type.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.contact.type.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

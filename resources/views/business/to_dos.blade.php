@@ -47,7 +47,7 @@
             <h2>To Do's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
                     <strong>To Do's</strong>
@@ -90,7 +90,7 @@
                                 @if($pendingToDo->is_sale === 1)
                                     <p><span class="badge badge-primary">Sale:{{$pendingToDo->sale->name}}</span></p>
                                 @endif
-                                <a href="{{route('business.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                             </div>
                         </li>
                     @endforeach
@@ -117,7 +117,7 @@
                                 @if($inProgressToDo->is_sale === 1)
                                     <p><span class="badge badge-primary">Sale:{{$inProgressToDo->sale->name}}</span></p>
                                 @endif
-                                <a href="{{route('business.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
+                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                             </div>
                         </li>
                     @endforeach
@@ -133,9 +133,9 @@
                                     <p><span class="badge badge-primary">{{$overdueToDo->album->name}}</span></p>
                                 @endif
                                 @if($overdueToDo->status->name === "Pending")
-                                    <a href="{{route('business.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                    <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                 @elseif($overdueToDo->status->name === "In progress")
-                                    <a href="{{route('business.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                    <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                 @endif
                                 @if($overdueToDo->is_assigned === 1)
                                     <p><span class="badge badge-primary">Assigned:{{$overdueToDo->assigned->name}}</span></p>
@@ -149,7 +149,7 @@
                                 @if($overdueToDo->is_sale === 1)
                                     <p><span class="badge badge-primary">Sale:{{$overdueToDo->sale->name}}</span></p>
                                 @endif
-                                <a href="{{route('business.to.do.delete',$overdueToDo->id)}}"><i class="fa fa-trash-o "></i></a>
+                                <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                             </div>
                         </li>
                     @endforeach
@@ -176,7 +176,7 @@
                                 @if($completedToDo->is_sale === 1)
                                     <p><span class="badge badge-primary">Sale:{{$completedToDo->sale->name}}</span></p>
                                 @endif
-                                <a href="{{route('business.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
+                                <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                             </div>
                         </li>
                     @endforeach

@@ -32,6 +32,8 @@ class CreateTransfersTable extends Migration
             $table->uuid('institution_id');
             $table->uuid('source_account_id')->nullable();
             $table->uuid('destination_account_id')->nullable();
+            $table->boolean('is_institution');
+            $table->boolean('is_user');
 
             $table->timestamps();
             $table->softDeletes();

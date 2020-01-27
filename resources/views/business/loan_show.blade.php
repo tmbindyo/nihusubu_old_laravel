@@ -44,10 +44,10 @@
             <h2>Loan's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.loans')}}">Loan's</a>
+                    <a href="{{route('business.loans',$institution->portal)}}">Loan's</a>
                 </li>
                 <li class="active">
                     <strong>Loan</strong>
@@ -56,9 +56,9 @@
         </div>
         <div class="col-md-5">
             <div class="title-action">
-                <a href="{{route('business.account.show',$loan->account_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
-                <a href="{{route('business.contact.show',$loan->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
-                <a href="{{route('business.loan.payment.create',$loan->id)}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
+                <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$loan->account_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
+                <a href="{{route('business.contact.show',['portal'=>$institution->portal,'id'=>$loan->contact_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                <a href="{{route('business.loan.payment.create',['portal'=>$institution->portal,'id'=>$loan->id])}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
             </div>
         </div>
     </div>
@@ -125,7 +125,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-10 col-md-offset-1">
-                                <form method="post" action="{{ route('business.loan.update',$loan->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.loan.update',['portal'=>$institution->portal,'id'=>$loan->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())

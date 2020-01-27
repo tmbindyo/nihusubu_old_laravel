@@ -128,7 +128,6 @@ class RegisterController extends Controller
         $institution->save();
 
         // create units
-        // Units
         $institutionUnits = $this->unitSeeder($request, $user,$institution);
         // create taxes
         $institutionTaxes = $this->taxesSeeder($request, $user,$institution);
@@ -155,7 +154,7 @@ class RegisterController extends Controller
 
         // account creation
         auth()->login($user);
-        return redirect()->route('business.calendar',$institution->portal);
+        return redirect()->route('home');
     }
 
     private function unitSeeder ($request, $user, $institution){
@@ -852,6 +851,7 @@ class RegisterController extends Controller
         $userAccount->user_id = $user->id;
         $userAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $userAccount->is_institution = true;
+        $userAccount->is_active = true;
         $userAccount->is_user = false;
         $userAccount->is_admin = false;
         $userAccount->institution_id = $institution->id;

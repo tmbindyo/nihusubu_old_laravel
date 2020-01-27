@@ -50,13 +50,13 @@
                 <h2>Account Adjustments</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.orders')}}">Orders</a>
+                        <a href="{{route('business.orders',$institution->portal)}}">Orders</a>
                     </li>
                     <li>
-                        <a href="{{route('business.expenses')}}">Account Adjustments</a>
+                        <a href="{{route('business.expenses',$institution->portal)}}">Account Adjustments</a>
                     </li>
                     <li class="active">
                         <strong>Account Adjustment Create</strong>
@@ -73,7 +73,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('business.account.adjustment.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.account.adjustment.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())

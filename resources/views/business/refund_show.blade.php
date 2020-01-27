@@ -53,16 +53,16 @@
             <h2>Refund's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payments')}}">Payments</a>
+                    <a href="{{route('business.payments',$institution->portal)}}">Payments</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payment.show',$refund->payment_id)}}">Payment</a>
+                    <a href="{{route('business.payment.show',['portal'=>$institution->portal,'id'=>$refund->payment_id])}}">Payment</a>
                 </li>
                 <li class="active">
                     <strong>Refund Show</strong>
@@ -323,109 +323,6 @@
         width: 300px;
     }
 </style>
-
-<script>
-    $('.updateAlbumSetVisibility').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/set/status/')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            alert(this.responseText);
-        }
-    });
-
-</script>
-
-<script>
-    $('.updateAlbumSetDownload').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/set/download/status/')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            alert(this.responseText);
-        }
-    });
-
-</script>
-
-
-<script>
-    $('.generateAlbumPassword').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/generate/password')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            document.getElementById("album_password").value = this.responseText;
-            alert("Album Password Generated");
-        }
-    });
-
-</script>
-
-<script>
-    $('.generateAlbumPin').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/generate/pin')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            document.getElementById("download_pin").value = this.responseText;
-            alert("Album Pin Generated");
-        }
-    });
-
-</script>
-
-<script>
-    $('.restrictToEmail').on('click',function(){
-        var id = $(this).data('fid')
-        var email = document.getElementById("email_restriction").value
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/restrict/to/specific')}}'+'/'+id +'/email/'+email);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            alert(this.responseText);
-        }
-        location.reload();
-    });
-
-</script>
-
-<script>
-    $('.generateClientExclusiveAccessPassword').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/generate/password')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            document.getElementById("client_exclusive_access_password").value = this.responseText;
-            alert("Client Exclusive Access Password Generated");
-        }
-    });
-
-</script>
-
 
 <script>
     $(window).load(function() {

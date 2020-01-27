@@ -32,40 +32,12 @@
                 <a href="{{ route('personal.to.dos') }}"><i class="fa fa-list"></i> <span class="nav-label">To Do </span></a>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'personal.income' ) ?  'active' : '' }}">
-                <a href="{{ route('personal.income') }}"><i class="fa fa-money"></i> <span class="nav-label">Income </span></a>
-            </li>
-
             <li class="nav-item {{ Route::currentRouteNamed( 'personal.budget' ) ?  'active' : '' }}">
                 <a href="{{ route('personal.budget') }}"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Budgeting</span></a>
             </li>
 
-            <li>
-                <a href="#">
-                    <i class="fa fa-dollar"></i>
-                    <span class="nav-label">Expenses </span>
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.expenses' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'personal.expenses')}}">
-                            Expenses
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.bills' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'personal.bills')}}">
-                            Bills
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item {{ Route::currentRouteNamed( 'personal.assets' ) ?  'active' : '' }}">
-                <a href="{{ route('personal.assets') }}"><i class="fa fa-archive"></i> <span class="nav-label">Assets</span></a>
-            </li>
-
             <li class="nav-item {{ Route::currentRouteNamed( 'personal.saccos' ) ?  'active' : '' }}">
-                <a href="{{ route('personal.saccos') }}"><i class="fa fa-database"></i> <span class="nav-label">SACCO</span></a>
+                <a href="{{ route('personal.saccos') }}"><i class="fa fa-database"></i> <span class="nav-label">Chama</span></a>
             </li>
 
             <li>
@@ -113,8 +85,68 @@
                 </ul>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'personal.accounts' ) ?  'active' : '' }}">
-                <a href="{{ route('personal.accounts') }}"><i class="fa fa-credit-card"></i> <span class="nav-label">Accounts</span></a>
+            <li>
+                <a href="#">
+                    <i class="fa fa-sliders"></i>
+                    <span class="nav-label">Accounting</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.commitments' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.commitments')}}">
+                            Accounts
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.commitments' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.commitments')}}">
+                            Expenses
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.commitments' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.commitments')}}">
+                            Liabilities
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.commitments' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.commitments')}}">
+                            Loans
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.commitments' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.commitments')}}">
+                            Payments
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.commitments' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.commitments')}}">
+                            Refunds
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.commitments' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.commitments')}}">
+                            Transactions
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.commitments' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.commitments')}}">
+                            Transfers
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li>

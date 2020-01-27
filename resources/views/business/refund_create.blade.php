@@ -43,16 +43,16 @@
             <h2>Refund's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payments')}}">Payments</a>
+                    <a href="{{route('business.payments',$institution->portal)}}">Payments</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payment.show',$payment->id)}}">Payment</a>
+                    <a href="{{route('business.payment.show',['portal'=>$institution->portal,'id'=>$payment->id])}}">Payment</a>
                 </li>
                 <li class="active">
                     <strong>Refund Create</strong>
@@ -90,7 +90,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.refund.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.refund.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

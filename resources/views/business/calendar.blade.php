@@ -94,37 +94,7 @@
 <!-- Clock picker -->
 <script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
 
-{{--  Get due date to populate   --}}
-<script>
-    $(document).ready(function() {
-        // Set date
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth();
-        var yyyy = today.getFullYear();
-        if (dd < 10){
-            dd = '0'+dd;
-        }
-        if (mm < 10){
-            mm = '0'+mm;
-        }
-        var date_today = mm + '/' + dd + '/' + yyyy;
-        document.getElementById("date_due").value = date_today;
 
-        // Set time
-        var hh = today.getHours();
-        var min = today.getMinutes();
-        if (hh < 10){
-            hh = '0'+hh;
-        }
-        if (min < 10){
-            min = '0'+min;
-        }
-        var time_now = hh + ':' + min;
-        document.getElementById("time_due").value = "14:46";
-    });
-
-</script>
 
 {{--  Calendar  --}}
 <script>

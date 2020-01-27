@@ -23,10 +23,10 @@
             <h2>Title's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.titles')}}">Title's</a>
+                    <a href="{{route('business.titles',$institution->portal)}}">Title's</a>
                 </li>
                 <li class="active">
                     <strong>Title Create</strong>
@@ -64,7 +64,7 @@
                         <div class="row">
                             <div class="col-sm-8 col-md-offset-2">
                                 <p>Edit.</p>
-                                <form method="post" action="{{ route('business.title.update',$title->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.title.update',['portal'=>$institution->portal,'id'=>$title->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -138,7 +138,7 @@
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('business.contact.show', $contact->id) }}" class="btn-white btn btn-xs">View</a>
+                                                <a href="{{ route('business.contact.show', ['portal'=>$institution->portal,'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
                                             </div>
                                         </td>
                                     </tr>

@@ -22,7 +22,7 @@
             <h2>Transfer Orders</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Inventory
@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.transfer.order.create')}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> New </a>
+                <a href="{{route('business.transfer.order.create',$institution->portal)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> New </a>
             </div>
         </div>
     </div>
@@ -81,8 +81,8 @@
                                             <td>{{$transferOrder->user->name}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{route('business.transfer.order.show',$transferOrder->id)}}" class="btn-primary btn-outline btn btn-xs">View</a>
-                                                    <a href="{{route('business.transfer.order.edit',$transferOrder->id)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                    <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal,'id'=>$transferOrder->id])}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                                    <a href="{{route('business.transfer.order.edit',['portal'=>$institution->portal,'id'=>$transferOrder->id])}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                                 </div>
                                             </td>
                                         </tr>

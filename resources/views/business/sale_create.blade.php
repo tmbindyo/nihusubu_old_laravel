@@ -21,13 +21,13 @@
                 <h2>Sales</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li class="active">
                         <strong>Sale Create</strong>
@@ -44,7 +44,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('business.sale.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.sale.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())

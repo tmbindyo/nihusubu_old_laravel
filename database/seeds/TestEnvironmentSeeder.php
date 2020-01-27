@@ -1,5 +1,6 @@
 <?php
 
+use App\Test;
 use Illuminate\Database\Seeder;
 
 class TestEnvironmentSeeder extends Seeder
@@ -11,6 +12,7 @@ class TestEnvironmentSeeder extends Seeder
      */
     public function run()
     {
+        // $tests = factory(Test::class, 100)->create();
 
         // accounts
         DB::table('accounts')->insert([

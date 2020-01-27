@@ -47,6 +47,7 @@ class CreateToDosTable extends Migration
             $table->uuid('status_id');
             $table->boolean('is_institution');
             $table->uuid('institution_id');
+            $table->boolean('is_user');
 
             $table->boolean('is_product');
             $table->uuid('product_id')->nullable();

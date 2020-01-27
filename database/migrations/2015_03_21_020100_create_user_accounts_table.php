@@ -24,6 +24,8 @@ class CreateUserAccountsTable extends Migration
             $table->boolean('is_admin');
             $table->boolean('is_institution');
 
+            $table->boolean('is_active');
+
             $table->timestamps();
             $table->softDeletes();
         });

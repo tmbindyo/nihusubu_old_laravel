@@ -19,13 +19,13 @@
                 <h2>Invoice</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li>
-                        <a href="{{route('business.invoices')}}">Invoices</a>
+                        <a href="{{route('business.invoices',$institution->portal)}}">Invoices</a>
                     </li>
                     <li class="active">
                         <strong>Invoice</strong>
@@ -35,13 +35,13 @@
             <div class="col-lg-4">
                 <div class="title-action">
                     @if($invoice->is_sale == 0)
-                        <a href="{{route('business.invoice.edit',$invoice->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
-                        <a href="{{route('business.invoice.convert.to.sale',$invoice->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Sale </a>
+                        <a href="{{route('business.invoice.edit',['portal'=>$institution->portal,'id'=>$invoice->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                        <a href="{{route('business.invoice.convert.to.sale',['portal'=>$institution->portal,'id'=>$invoice->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Sale </a>
                     @else
-                        <a href="{{route('business.sale.show',$invoice->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Sale </a>
+                        <a href="{{route('business.sale.show',['portal'=>$institution->portal,'id'=>$invoice->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Sale </a>
 
                     @endif
-                    <a href="{{route('business.invoice.print',$invoice->id)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
+                    <a href="{{route('business.invoice.print',['portal'=>$institution->portal,'id'=>$invoice->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                                         </td>
                                         <td class="desc">
                                             <h3>
-                                                <a href="{{route('business.product.show',$product->product->id)}}" class="text-navy">
+                                                <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->product->id])}}" class="text-navy">
                                                     {{$product->product->name}}
                                                 </a>
                                             </h3>
@@ -81,7 +81,7 @@
                                             {!! $product->product->description !!}
 
                                             <div class="m-t-sm">
-                                                <a href="{{route('business.invoice.product.delete',$product->id)}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
+                                                <a href="{{route('business.invoice.product.delete',['portal'=>$institution->portal,'id'=>$product->id])}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
                                             </div>
                                         </td>
 

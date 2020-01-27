@@ -24,16 +24,16 @@
             <h2>Campaign's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('business.campaigns')}}">Campaigns</a>
+                    <a href="{{route('business.campaigns',$institution->portal)}}">Campaigns</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.campaign.show',$campaign->id)}}">Campaign</a>
+                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$campaign->id])}}">Campaign</a>
                 </li>
                 <li class="active">
                     <strong>Campaign Create</strong>
@@ -49,7 +49,7 @@
             <div class="ibox float-e-margins">
                 <div class="tab-content">
                     <div class="panel-body">
-                        <form id="my-awesome-dropzone" class="dropzone" action="{{route('business.campaign.upload.store',$campaign->id)}}">
+                        <form id="my-awesome-dropzone" class="dropzone" action="{{route('business.campaign.upload.store',['portal'=>,$institution->portal,'id'=>$campaign->id])}}">
                             @csrf
                             <div class="dropzone-previews"></div>
                         </form>

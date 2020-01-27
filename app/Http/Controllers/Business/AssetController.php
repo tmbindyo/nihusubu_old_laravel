@@ -18,52 +18,52 @@ class AssetController extends Controller
         $this->middleware('auth');
     }
 
-    public function assets()
+    public function assets($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         return view('business.assets',compact('user','institution'));
     }
-    public function assetCreate()
+    public function assetCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         return view('business.asset_create',compact('user','institution'));
     }
-    public function assetStore()
+    public function assetStore($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         return back()->withSuccess('Asset successfully created!');
     }
-    public function assetShow($asset_id)
+    public function assetShow($portal, $asset_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         return view('business.asset_show',compact('user','institution'));
     }
-    public function assetUpdate($asset_id)
+    public function assetUpdate($portal, $asset_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         return back()->withSuccess('Asset successfully updated!');
     }
-    public function assetDelete($asset_id)
+    public function assetDelete($portal, $asset_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         return back()->withSuccess('Asset successfully deleted!');
     }
 }

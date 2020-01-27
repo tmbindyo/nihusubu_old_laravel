@@ -20,7 +20,7 @@
         <h2>Leave</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li>
                 <a href="#">Human Resource</a>
@@ -32,7 +32,7 @@
     </div>
     <div class="col-lg-4">
         <div class="title-action">
-            <a href="{{route('business.product.group.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+            <a href="{{route('business.product.group.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
         </div>
     </div>
 </div>

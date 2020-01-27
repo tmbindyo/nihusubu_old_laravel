@@ -22,13 +22,13 @@
             <h2>Inventory Adjustment</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Inventory
                 </li>
                 <li class="active">
-                    <a href="{{route('business.inventory.adjustments')}}">Inventory Adjustments</a>
+                    <a href="{{route('business.inventory.adjustments',$institution->portal)}}">Inventory Adjustments</a>
                 </li>
                 <li class="active">
                     <strong>Inventory Adjustment</strong>

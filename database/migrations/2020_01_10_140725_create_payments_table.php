@@ -28,6 +28,8 @@ class CreatePaymentsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('account_id');
+            $table->boolean('is_institution');
+            $table->boolean('is_user');
 
             $table->boolean('is_loan');
             $table->uuid('loan_id')->nullable();

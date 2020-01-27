@@ -39,23 +39,23 @@ class ProductController extends Controller
     }
 
     // Product group CRUD
-    public function productGroups()
+    public function productGroups($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get product groups
         $productGroups = ProductGroup::where('institution_id',$institution->id)->with('status')->withCount('products')->get();
 
         return view('business.product_groups',compact('user','institution','productGroups'));
     }
-    public function productGroupCreate()
+    public function productGroupCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get institution taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get institution units
@@ -68,13 +68,13 @@ class ProductController extends Controller
 
         return view('business.product_group_create',compact('user','institution','taxes','units','salesAccounts','expenseAccounts','costOfGoodsSoldAccounts','stockAccounts'));
     }
-    public function productGroupStore(Request $request)
+    public function productGroupStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Convert array to string
         $attributes = implode(' ', array_values($request->attribute));
@@ -257,12 +257,12 @@ class ProductController extends Controller
         return redirect(route('business.product.groups'));
 
     }
-    public function productGroupShow($product_group_id)
+    public function productGroupShow($portal, $product_group_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get institution taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get institution units
@@ -275,12 +275,12 @@ class ProductController extends Controller
 
         return view('business.product_group_show',compact('user','institution','productGroup','taxes','units','accounts'));
     }
-    public function productGroupEdit($product_group_id)
+    public function productGroupEdit($portal, $product_group_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get institution taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get institution units
@@ -298,13 +298,13 @@ class ProductController extends Controller
         return view('business.product_group_edit',compact('user','institution','taxes','units','productGroup','salesAccounts','expenseAccounts','costOfGoodsSoldAccounts','stockAccounts'));
     }
 
-    public function productGroupUpdate(Request $request, $product_group_id)
+    public function productGroupUpdate(Request $request, $portal, $product_group_id)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Convert array to string
         $attributes = implode(' ', array_values($request->attribute));
@@ -651,7 +651,7 @@ class ProductController extends Controller
 
         return redirect(route('business.product.group.show',$productGroup->id));
     }
-    public function productGroupDelete($product_group_id)
+    public function productGroupDelete($portal, $product_group_id)
     {
         return back()->withSuccess(__('Product Group successfully deleted.'));
     }
@@ -663,12 +663,12 @@ class ProductController extends Controller
 
 
     // Product CRUD
-    public function products()
+    public function products($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get institution products
         $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory','stock_on_hand')->where('is_product_group',False)->where('is_composite_product',False)->where('status_id','f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
 
@@ -676,12 +676,12 @@ class ProductController extends Controller
 
         return view('business.products',compact('user','products'));
     }
-    public function productCreate()
+    public function productCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get institution units
         $units = Unit::where('institution_id',$institution->id)->get();
         // Get institution accounts
@@ -695,12 +695,12 @@ class ProductController extends Controller
 
         return view('business.product_create',compact('user','units','taxes','salesAccounts','expenseAccounts','costOfGoodsSoldAccounts','stockAccounts'));
     }
-    public function productStore(Request $request)
+    public function productStore(Request $request, $portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $product = new Product;
         // check if product is a service or a good
@@ -817,12 +817,12 @@ class ProductController extends Controller
         return redirect()->route('business.products')->withSuccess(__('Product successfully saved.'));
     }
 
-    public function productShow($product_id)
+    public function productShow($portal, $product_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $productExists = Product::findOrFail($product_id);
         $product = Product::where('institution_id',$institution->id)->where('id',$product_id)->with('status','inventory.warehouse','inventory.status','restock','unit','order_products','sale_products','user','inventory_adjustment_products','transfer_order_products')->withCount('order_products','sale_products','restock')->first();
@@ -831,12 +831,12 @@ class ProductController extends Controller
         return view('business.product_show',compact('product','user','institution'));
     }
 
-    public function productEdit($product_id)
+    public function productEdit($portal, $product_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Check if exists
         $product = Product::findOrFail($product_id);
         // Get institution taxes
@@ -856,13 +856,13 @@ class ProductController extends Controller
         return view('business.product_edit',compact('user','institution','product','taxes','units','salesAccounts','expenseAccounts','costOfGoodsSoldAccounts','stockAccounts'));
     }
 
-    public function productUpdate(Request $request,$product_id)
+    public function productUpdate(Request $request, $portal, $product_id)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         $product = Product::findOrFail($product_id);
 
         // check if product is a service or a good
@@ -959,12 +959,12 @@ class ProductController extends Controller
         return back()->withSuccess(__('Product successfully updated.'));
     }
 
-    public function productDelete($product_id)
+    public function productDelete($portal, $product_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Update product status
         $product = Product::findOrFail($product_id);
@@ -974,12 +974,12 @@ class ProductController extends Controller
         return back()->withSuccess(__('Product successfully deleted.'));
     }
 
-    public function productRestore($product_id)
+    public function productRestore($portal, $product_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Update product status
         $product = Product::findOrFail($product_id);
@@ -994,12 +994,12 @@ class ProductController extends Controller
 
 
     // Composite product CRUD
-    public function compositeProducts()
+    public function compositeProducts($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get products
 //        $compositeProducts = CompositeProduct::where('institution_id',$institution->id)->withCount('composite_product_products')->get();
         $compositeProducts = Product::where('institution_id',$institution->id)->where('is_composite_product',True)->withCount('composite_product_products')->get();
@@ -1007,13 +1007,13 @@ class ProductController extends Controller
         return view('business.composite_products',compact('user','institution','compositeProducts'));
     }
 
-    public function compositeProductCreate()
+    public function compositeProductCreate($portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get institution units
         $units = Unit::where('institution_id',$institution->id)->get();
         // Get institution accounts
@@ -1026,7 +1026,7 @@ class ProductController extends Controller
         return view('business.composite_product_create',compact('user','institution','taxes','salesAccounts','units','products'));
     }
 
-    public function compositeProductStore(Request $request)
+    public function compositeProductStore(Request $request, $portal)
     {
 
 //        return $request;
@@ -1034,7 +1034,7 @@ class ProductController extends Controller
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Create composite product
         $product = new Product();
@@ -1090,12 +1090,12 @@ class ProductController extends Controller
         return redirect()->route('business.composite.product.show',$product->id)->withSuccess(__('Composite product successfully stored.'));
     }
 
-    public function compositeProductShow($composite_product_id)
+    public function compositeProductShow($portal, $composite_product_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         $compositeProduct = Product::findOrFail($composite_product_id);
         $compositeProduct = Product::where('institution_id',$institution->id)->where('id',$composite_product_id)->withCount('order_products','sale_products','composite_product_products')->with('composite_product_products','product_taxes','user','status')->first();
@@ -1104,12 +1104,12 @@ class ProductController extends Controller
         return view('business.composite_product_show',compact('user','institution','compositeProduct','compositeProductProducts'));
     }
 
-    public function compositeProductEdit(Request $request, $composite_product_id)
+    public function compositeProductEdit(Request $request, $portal, $composite_product_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get institution units
         $units = Unit::where('institution_id',$institution->id)->get();
         // Get institution accounts
@@ -1128,13 +1128,13 @@ class ProductController extends Controller
         return view('business.composite_product_edit',compact('user','institution','compositeProduct','compositeProductProducts','units','salesAccounts','taxes','products'));
     }
 
-    public function compositeProductUpdate(Request $request, $product_id)
+    public function compositeProductUpdate(Request $request, $portal, $product_id)
     {
         return $request;
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // check if composite product exists
         $product = Product::findOrFail($product_id);
@@ -1214,7 +1214,7 @@ class ProductController extends Controller
         return redirect()->route('business.composite.product.show',$product->id)->withSuccess(__('Composite product successfully updated.'));
     }
 
-    public function compositeProductDelete($composite_product_id)
+    public function compositeProductDelete($portal, $composite_product_id)
     {
         return back()->withSuccess(__('Composite product successfully deleted.'));
     }
@@ -1223,12 +1223,12 @@ class ProductController extends Controller
 
 
 
-    public function productDiscountStore(Request $request, $product_id)
+    public function productDiscountStore(Request $request, $portal, $product_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Check if exists
         $product = Product::findOrFail($product_id);
 
@@ -1254,12 +1254,12 @@ class ProductController extends Controller
         return back()->withSuccess(__('Product discount successfully added.'));
     }
 
-    public function productDiscountUpdate(Request $request,$product_discount_id)
+    public function productDiscountUpdate(Request $request, $portal, $product_discount_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         $productDiscountExists = ProductDiscount::findOrFail($product_discount_id);
         $productDiscount = ProductDiscount::where('id',$product_discount_id)->first();
 
@@ -1273,12 +1273,12 @@ class ProductController extends Controller
         return back()->withSuccess(__('Product discount successfully updated.'));
     }
 
-    public function productDiscountDelete($product_discount_id)
+    public function productDiscountDelete($portal, $product_discount_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Check if the product discount exists
         $productDiscount = ProductDiscount::findOrFail($product_discount_id);
@@ -1291,12 +1291,12 @@ class ProductController extends Controller
 
 
 
-    public function productImageUpload(Request $request,$product_id)
+    public function productImageUpload(Request $request, $portal, $product_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Check if product exists
         $product = Product::findOrFail($product_id);
         // Get product
@@ -1351,14 +1351,14 @@ class ProductController extends Controller
 
         return back()->withSuccess(__('Product image successfully uploaded.'));
     }
-    
-    public function productImageDelete($product_image_id)
+
+    public function productImageDelete($portal, $product_image_id)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Check if the product image exists
         $productImage = ProductImage::findOrFail($product_image_id);

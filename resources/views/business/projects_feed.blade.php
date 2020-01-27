@@ -22,7 +22,7 @@
                     <a href="index.html">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.projects')}}">Projects</a>
+                    <a href="{{route('business.projects',$institution->portal)}}">Projects</a>
                 </li>
                 <li class="active">
                     <strong>Feed</strong>

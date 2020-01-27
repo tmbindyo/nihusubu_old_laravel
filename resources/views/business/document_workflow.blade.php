@@ -19,7 +19,7 @@
         <h2>Document Workflow</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li>
                 <a href="#">Human Resource</a>
@@ -31,7 +31,7 @@
     </div>
     <div class="col-lg-4">
         <div class="title-action">
-            <a href="{{route('business.document.workflow.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+            <a href="{{route('business.document.workflow.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
         </div>
     </div>
 </div>
@@ -77,8 +77,8 @@
                     </td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <a href="{{ route('business.document.workflow.show', 1) }}" class="btn-white btn btn-xs">View</a>
-                            <a href="{{ route('business.document.workflow.delete', 1) }}" class="btn-danger btn btn-xs">Delete</a>
+                            <a href="{{ route('business.document.workflow.show', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-white btn btn-xs">View</a>
+                            <a href="{{ route('business.document.workflow.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn btn-xs">Delete</a>
                         </div>
                     </td>
                 </tr>

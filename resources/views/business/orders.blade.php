@@ -22,10 +22,10 @@
                 <h2>Orders</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li class="active">
                         <strong>Orders</strong>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-lg-2">
                 <div class="title-action">
-                    <a href="{{route('business.order.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Order </a>
+                    <a href="{{route('business.order.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Order </a>
                 </div>
             </div>
         </div>
@@ -76,8 +76,8 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.order.show', $order->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                    <a href="{{ route('business.order.edit', $order->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                    <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$order->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    <a href="{{ route('business.order.edit', ['portal'=>$institution->portal,'id'=>$order->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                                 </div>
                                             </td>
                                         </tr>

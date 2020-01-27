@@ -27,6 +27,8 @@ class CreateGoalsTable extends Migration
             $table->uuid('status_id');
             $table->uuid('account_id');
             $table->uuid('institution_id');
+            $table->boolean('is_institution');
+            $table->boolean('is_user');
 
             $table->timestamps();
             $table->softDeletes();

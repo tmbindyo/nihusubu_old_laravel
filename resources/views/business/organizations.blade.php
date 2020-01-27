@@ -23,7 +23,7 @@
             <h2>Organizations</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     CRM
@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.organization.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('business.organization.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -90,11 +90,11 @@
 
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.organization.show', $organization->id) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.organization.show', ['portal'=>$institution->portal,'id'=>$organization->id]) }}" class="btn-white btn btn-xs">View</a>
                                                     @if($organization->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                        <a href="{{ route('business.organization.restore', $organization->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.organization.restore', ['portal'=>$institution->portal,'id'=>$organization->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     @else
-                                                        <a href="{{ route('business.organization.delete', $organization->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                        <a href="{{ route('business.organization.delete', ['portal'=>$institution->portal,'id'=>$organization->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                     @endif
                                                 </div>
                                             </td>
@@ -170,11 +170,11 @@
 
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.organization.show', $organization->id) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.organization.show', ['portal'=>$institution->portal,'id'=>$organization->id]) }}" class="btn-white btn btn-xs">View</a>
                                                         @if($organization->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                            <a href="{{ route('business.organization.restore', $organization->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                            <a href="{{ route('business.organization.restore', ['portal'=>$institution->portal,'id'=>$organization->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                         @else
-                                                            <a href="{{ route('business.organization.delete', $organization->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                            <a href="{{ route('business.organization.delete', ['portal'=>$institution->portal,'id'=>$organization->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                         @endif
                                                     </div>
                                                 </td>

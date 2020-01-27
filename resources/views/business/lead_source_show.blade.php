@@ -23,10 +23,10 @@
             <h2>Lead Source's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.lead.sources')}}">Lead Source's</a>
+                    <a href="{{route('business.lead.sources',$institution->portal)}}">Lead Source's</a>
                 </li>
                 <li class="active">
                     <strong>Lead Source Create</strong>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.contact.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
+                <a href="{{route('business.contact.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
                         <div class="row">
                             <div class="col-sm-8 col-md-offset-2">
                                 <p>Edit.</p>
-                                <form method="post" action="{{ route('business.lead.source.update',$leadSource->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.lead.source.update',['portal'=>$institution->portal,'id'=>$leadSource->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -144,7 +144,7 @@
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group">
-                                            <a href="{{ route('business.contact.show', $contact->id) }}" class="btn-white btn btn-xs">View</a>
+                                            <a href="{{ route('business.contact.show', ['portal'=>$institution->portal,'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
                                         </div>
                                     </td>
                                 </tr>

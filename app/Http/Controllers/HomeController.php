@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Traits\UserTrait;
+use App\UserAccount;
+
 class HomeController extends Controller
 {
     /**
@@ -39,7 +41,6 @@ class HomeController extends Controller
                     break;
                 // business
                 case "Business":
-                    // return $user->user_accounts[0]->institution;
                     return redirect()->route('business.calendar',$user->user_accounts[0]->institution->portal);
                     break;
                 default:
@@ -50,6 +51,43 @@ class HomeController extends Controller
         // choose account
 
     }
+
+    public function activeUserAccount()
+    {
+        return view('dashboard');
+    }
+
+    public function viewUserAccounts()
+    {
+
+        // User
+        $user = $this->getUser();
+        // get user accounts
+        $userAccounts = UserAccount::where('user_id',$user->id)->get();
+        return view('dashboard',compact('userAccounts'));
+    }
+
+    public function activateUserAccount($user_account_id)
+    {
+        // User
+        $user = $this->getUser();
+        // update all user accounts as false
+        $userAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => 'false']);
+        // activate user account
+        $userAccounts = UserAccount::where('id',$user_account_id)->update(['is_active' => 'true']);
+        return redirect()->route('home');
+    }
+
+    public function deactivateUserAccounts()
+    {
+        // User
+        $user = $this->getUser();
+        // get user accounts
+        $userAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => 'false']);
+        return $user;
+    }
+
+
 
     public function admin()
     {

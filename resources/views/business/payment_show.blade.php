@@ -53,13 +53,13 @@
             <h2>Payment's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payments')}}">Accounts</a>
+                    <a href="{{route('business.payments',$institution->portal)}}">Accounts</a>
                 </li>
                 <li class="active">
                     <strong>Payment Create</strong>
@@ -68,7 +68,7 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('business.payment.refund.create',$payment->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Refund </a>
+                <a href="{{route('business.payment.refund.create',['portal'=>$institution->portal,'id'=>$payment->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Refund </a>
             </div>
         </div>
     </div>
@@ -237,7 +237,7 @@
                                                                 </td>
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
-                                                                        <a href="{{ route('business.refund.show', $refund->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.refund.show', ['portal'=>$institution->portal,'id'=>$refund->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -400,109 +400,6 @@
         width: 300px;
     }
 </style>
-
-<script>
-    $('.updateAlbumSetVisibility').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/set/status/')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            alert(this.responseText);
-        }
-    });
-
-</script>
-
-<script>
-    $('.updateAlbumSetDownload').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/set/download/status/')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            alert(this.responseText);
-        }
-    });
-
-</script>
-
-
-<script>
-    $('.generateAlbumPassword').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/generate/password')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            document.getElementById("album_password").value = this.responseText;
-            alert("Album Password Generated");
-        }
-    });
-
-</script>
-
-<script>
-    $('.generateAlbumPin').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/generate/pin')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            document.getElementById("download_pin").value = this.responseText;
-            alert("Album Pin Generated");
-        }
-    });
-
-</script>
-
-<script>
-    $('.restrictToEmail').on('click',function(){
-        var id = $(this).data('fid')
-        var email = document.getElementById("email_restriction").value
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/restrict/to/specific')}}'+'/'+id +'/email/'+email);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            alert(this.responseText);
-        }
-        location.reload();
-    });
-
-</script>
-
-<script>
-    $('.generateClientExclusiveAccessPassword').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('business/client/proof/generate/password')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            document.getElementById("client_exclusive_access_password").value = this.responseText;
-            alert("Client Exclusive Access Password Generated");
-        }
-    });
-
-</script>
-
 
 <script>
     $(window).load(function() {

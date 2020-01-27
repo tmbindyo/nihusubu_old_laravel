@@ -48,13 +48,13 @@
                 <h2>Estimates</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li>
-                        <a href="{{route('business.estimates')}}">Estimates</a>
+                        <a href="{{route('business.estimates',$institution->portal)}}">Estimates</a>
                     </li>
                     <li class="active">
                         <strong>Estimate Create</strong>
@@ -71,7 +71,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('business.estimate.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.estimate.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())

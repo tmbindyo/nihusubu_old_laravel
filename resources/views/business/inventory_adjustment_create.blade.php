@@ -86,13 +86,13 @@
         <h2>Inventory Adjustment</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.warehouses')}}">Inventory</a>
+                <a href="{{route('business.warehouses',$institution->portal)}}">Inventory</a>
             </li>
             <li>
-                <a href="{{route('business.inventory.adjustments')}}">Inventory Adjustments</a>
+                <a href="{{route('business.inventory.adjustments',$institution->portal)}}">Inventory Adjustments</a>
             </li>
             <li class="active">
                 <strong>Inventory Adjustment Create</strong>
@@ -118,7 +118,7 @@
             </div>
             <div class="ibox-content">
                 <div class="">
-                    <form method="post" action="{{ route('business.inventory.adjustment.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                    <form method="post" action="{{ route('business.inventory.adjustment.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                         @csrf
 
                         @if ($errors->any())

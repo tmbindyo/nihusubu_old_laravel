@@ -22,13 +22,13 @@
         <h2>Warehouse</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li>
                 Inventory
             </li>
             <li>
-                <a href="{{route('business.warehouses')}}">Warehouses</a>
+                <a href="{{route('business.warehouses',$institution->portal)}}">Warehouses</a>
             </li>
             <li class="active">
                 <strong>Warehouse</strong>
@@ -37,7 +37,7 @@
     </div>
     <div class="col-lg-4">
         <div class="title-action">
-            <a href="{{route('business.product.edit',1)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
+            <a href="{{route('business.product.edit',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
         </div>
     </div>
 </div>
@@ -212,7 +212,7 @@
                                                                    @endif
                                                                 </td>
                                                                 <td>
-                                                                    <a href="{{ route('business.inventory.adjustment.show', $inventoryAdjustment->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.inventory.adjustment.show', ['portal'=>$institution->portal,'id'=>$inventoryAdjustment->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -256,7 +256,7 @@
                                                                     {{$sourceTransferOrder->destination_warehouse->name}}
                                                                 </td>
                                                                 <td>
-                                                                    <a href="{{ route('business.transfer.order.show', $sourceTransferOrder->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$sourceTransferOrder->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -301,7 +301,7 @@
                                                                     {{$destinationTransferOrder->source_warehouse->name}}
                                                                 </td>
                                                                 <td>
-                                                                    <a href="{{ route('business.transfer.order.show', $destinationTransferOrder->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$destinationTransferOrder->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach

@@ -28,13 +28,13 @@
             <h2>Composite Product</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.products')}}">Products</a>
+                    <a href="{{route('business.products',$institution->portal)}}">Products</a>
                 </li>
                 <li>
-                    <a href="{{route('business.composite.products')}}">Composite Products</a>
+                    <a href="{{route('business.composite.products',$institution->portal)}}">Composite Products</a>
                 </li>
                 <li class="active">
                     <strong>Composite Product Products</strong>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="m-t text-righ">
 
-                                    <a href="{{route('business.product.show',$product->id)}}" class="btn btn-xs btn-outline btn-primary">View <i class="fa fa-long-arrow-right"></i> </a>
+                                    <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->id])}}" class="btn btn-xs btn-outline btn-primary">View <i class="fa fa-long-arrow-right"></i> </a>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                                                                     <td class="center">{{$order->status}}</td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('business.order.show', $order->order_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$order->order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -190,7 +190,7 @@
                                                                     <td class="center">{{$sale->status}}</td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('business.sale.show', $sale->sale_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>

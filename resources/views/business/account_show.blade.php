@@ -23,13 +23,13 @@
             <h2>Account</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
                     <strong>Accounting's</strong>
                 </li>
                 <li class="active">
-                   <a href="{{route('business.accounts')}}"><strong>Account's</strong></a>
+                   <a href="{{route('business.accounts',$institution->portal)}}"><strong>Account's</strong></a>
                 </li>
                 <li class="active">
                     <strong>Account</strong>
@@ -38,11 +38,11 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('business.account.adjustment.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
-                <a href="{{route('business.account.deposit.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
-                <a href="{{route('business.account.liability.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Liability </a>
-                <a href="{{route('business.account.loan.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
-                <a href="{{route('business.account.withdrawal.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
+                <a href="{{route('business.account.adjustment.create',['portal'=>$institution->portal,'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
+                <a href="{{route('business.account.deposit.create',['portal'=>$institution->portal,'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
+                <a href="{{route('business.account.liability.create',['portal'=>$institution->portal,'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Liability </a>
+                <a href="{{route('business.account.loan.create',['portal'=>$institution->portal,'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
+                <a href="{{route('business.account.withdrawal.create',['portal'=>$institution->portal,'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-8 col-md-offset-2">
-                                <form method="post" action="{{ route('business.account.update',$account->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.account.update',['portal'=>$institution->portal,'id'=>$account->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -239,9 +239,9 @@
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     @if($adjustments->status_id == "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
-                                                                        <a href="{{ route('business.account.adjustment.delete', $adjustments->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                        <a href="{{ route('business.account.adjustment.delete', ['portal'=>$institution->portal,'id'=>$adjustments->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                                     @elseif($adjustments->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('business.account.adjustment.restore', $adjustments->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                        <a href="{{ route('business.account.adjustment.restore', ['portal'=>$institution->portal,'id'=>$adjustments->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                                     @endif
                                                                 </div>
                                                             </td>
@@ -290,11 +290,11 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.deposit.show', $deposit->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.deposit.show', ['portal'=>$institution->portal,'id'=>$deposit->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @if($deposit->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                    <a href="{{ route('business.deposit.restore', $deposit->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                    <a href="{{ route('business.deposit.restore', ['portal'=>$institution->portal,'id'=>$deposit->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                                 @else
-                                                                    <a href="{{ route('business.deposit.delete', $deposit->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                    <a href="{{ route('business.deposit.delete', ['portal'=>$institution->portal,'id'=>$deposit->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                                 @endif
                                                             </div>
                                                         </td>
@@ -347,7 +347,7 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.liability.show', $liability->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.liability.show', ['portal'=>$institution->portal,'id'=>$liability->id]) }}" class="btn-white btn btn-xs">View</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -403,7 +403,7 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.loan.show', $loan->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.loan.show', ['portal'=>$institution->portal,'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -459,19 +459,19 @@
                                                             {{--                                todo check why route is album but id is album type--}}
                                                             <div class="btn-group">
                                                                 @if($payment->is_order == 1)
-                                                                    <a href="{{ route('business.order.show', $payment->order_id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$payment->order_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @elseif($payment->is_album == 1)
                                                                     @if($payment->album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4"))
-                                                                        <a href="{{ route('business.client.proof.show', $payment->album_id) }}" class="btn-white btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.client.proof.show', ['portal'=>$institution->portal,'id'=>$payment->album_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                     @elseif($payment->album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef"))
-                                                                        <a href="{{ route('business.personal.album.show', $payment->album_id) }}" class="btn-white btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.personal.album.show', ['portal'=>$institution->portal,'id'=>$payment->album_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                     @endif
                                                                 @elseif($payment->is_design == 1)
-                                                                    <a href="{{ route('business.design.show', $payment->design_id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.design.show', ['portal'=>$institution->portal,'id'=>$payment->design_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @elseif($payment->is_project == 1)
-                                                                    <a href="{{ route('business.project.show', $payment->project_id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.project.show', ['portal'=>$institution->portal,'id'=>$payment->project_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @elseif($payment->is_asset_action == 1)
-                                                                    <a href="{{ route('business.asset.action.show', $payment->asset_action_id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.asset.action.show', ['portal'=>$institution->portal,'id'=>$payment->asset_action_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @endif
                                                             </div>
                                                         </td>
@@ -521,7 +521,7 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.payment.show', $refund->payment_id) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.payment.show', ['portal'=>$institution->portal,'id'=>$refund->payment_id]) }}" class="btn-white btn btn-xs">View</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -588,7 +588,7 @@
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.expense.show', $transaction->expense_id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$transaction->expense_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -637,11 +637,11 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.withdrawal.show', $withdrawal->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.withdrawal.show', ['portal'=>$institution->portal,'id'=>$withdrawal->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @if($withdrawal->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                    <a href="{{ route('business.withdrawal.restore', $withdrawal->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                    <a href="{{ route('business.withdrawal.restore', ['portal'=>$institution->portal,'id'=>$withdrawal->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                                 @else
-                                                                    <a href="{{ route('business.withdrawal.delete', $withdrawal->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                    <a href="{{ route('business.withdrawal.delete', ['portal'=>$institution->portal,'id'=>$withdrawal->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                                 @endif
                                                             </div>
                                                         </td>

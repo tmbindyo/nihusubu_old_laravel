@@ -51,7 +51,7 @@
         <h2>Products</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
             </li>
             <li class="active">
                 <strong>Products</strong>
@@ -76,7 +76,7 @@
                     <div class="ibox-content">
 
                         <div class="">
-                            <form method="post" action="{{ route('business.product.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" action="{{ route('business.product.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

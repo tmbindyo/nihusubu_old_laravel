@@ -44,10 +44,10 @@
             <h2>Liability's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.liabilities')}}">Liability's</a>
+                    <a href="{{route('business.liabilities',$institution->portal)}}">Liability's</a>
                 </li>
                 <li class="active">
                     <strong>Liability</strong>
@@ -56,9 +56,9 @@
         </div>
         <div class="col-md-4">
             <div class="title-action">
-                <a href="{{route('business.liability.expense.create',$liability->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
-                <a href="{{route('business.account.show',$liability->account_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
-                <a href="{{route('business.contact.show',$liability->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                <a href="{{route('business.liability.expense.create',['portal'=>$institution->portal,'id'=>$liability->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
+                <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$liability->account_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
+                <a href="{{route('business.contact.show',['portal'=>$institution->portal,'id'=>$liability->contact_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
             </div>
         </div>
     </div>
@@ -125,7 +125,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.liability.update',$liability->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.liability.update',['portal'=>$institution->portal,'id'=>$liability->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -277,29 +277,29 @@
                                                             </td>
                                                             <td>
                                                                 @if($expense->is_order == 1)
-                                                                    <p><a href="{{route('business.order.show',$expense->order_id)}}" class="badge badge-success">Order</a></p>
+                                                                    <p><a href="{{route('business.order.show',['portal'=>$institution->portal,'id'=>$expense->order_id])}}" class="badge badge-success">Order</a></p>
                                                                 @elseif($expense->is_album == 1)
                                                                     <p>
                                                                         <a
                                                                         @if ($expense->album->album_type_id == '6fdf4858-01ce-43ff-bbe6-827f09fa1cef')
-                                                                            href="{{route('business.personal.album.show',$expense->album->id)}}"
+                                                                            href="{{route('business.personal.album.show',['portal'=>$institution->portal,'id'=>$expense->album->id])}}"
                                                                         @elseif ($expense->album->album_type_id == 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4')
-                                                                            href="{{route('business.client.proof.show',$expense->album->id)}}"
+                                                                            href="{{route('business.client.proof.show',['portal'=>$institution->portal,'id'=>$expense->album->id])}}"
                                                                          @endif  class="badge badge-primary">Album {{$expense->album->name}}
                                                                         </a>
                                                                     </p>
                                                                 @elseif($expense->is_project == 1)
-                                                                    <p><a href="{{route('business.project.show',$expense->project->id)}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
+                                                                    <p><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project->id])}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
                                                                 @elseif($expense->is_project == 1)
-                                                                    <p><a href="{{route('business.project.show',$expense->project_id)}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
+                                                                    <p><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project_id])}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
                                                                 @elseif($expense->is_liability == 1)
-                                                                    <p><a href="{{route('business.liability.show',$expense->liability_id)}}" class="badge badge-primary">Liability</a></p>
+                                                                    <p><a href="{{route('business.liability.show',['portal'=>$institution->portal,'id'=>$expense->liability_id])}}" class="badge badge-primary">Liability</a></p>
                                                                 @elseif($expense->is_transfer == 1)
-                                                                    <p><a href="{{route('business.transfer.show',$expense->transfer_id)}}" class="badge badge-primary">Transfer</a></p>
+                                                                    <p><a href="{{route('business.transfer.show',['portal'=>$institution->portal,'id'=>$expense->transfer_id])}}" class="badge badge-primary">Transfer</a></p>
                                                                 @elseif($expense->is_campaign == 1)
-                                                                    <p><a href="{{route('business.campaign.show',$expense->campaign_id)}}" class="badge badge-primary">Campaign</a></p>
+                                                                    <p><a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$expense->campaign_id])}}" class="badge badge-primary">Campaign</a></p>
                                                                 @elseif($expense->is_asset == 1)
-                                                                    <p><a href="{{route('business.asset.show',$expense->asset_id)}}" class="badge badge-primary">Asset</a></p>
+                                                                    <p><a href="{{route('business.asset.show',['portal'=>$institution->portal,'id'=>$expense->asset_id])}}" class="badge badge-primary">Asset</a></p>
                                                                 @else
                                                                     <p><span class="badge badge-info">None</span></p>
                                                                 @endif
@@ -315,7 +315,7 @@
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.expense.show', $expense->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
