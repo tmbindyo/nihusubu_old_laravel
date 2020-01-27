@@ -108,6 +108,11 @@
                                         <input type="number" id="balance" name="balance" required="required" placeholder="Account Balance" class="form-control input-lg">
                                         <i>account name</i>
                                     </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <textarea rows="5" name="notes" class="form-control input-lg" placeholder="Notes" ></textarea>
+                                        <i>notes</i>
+                                    </div>
 
                                     <br>
                                     <hr>

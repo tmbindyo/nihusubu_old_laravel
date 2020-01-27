@@ -43,10 +43,10 @@ class AccountController extends Controller
         // return $user;
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        return $institution;
+        // return $institution;
 
         // Get accounts
-        $accounts = Account::with('user','status')->where('institution_id',$institution->id)->get();
+        $accounts = Account::with('user','status')->where('institution_id',$institution->id)->where('is_institution',true)->get();
 
         return view('business.accounts',compact('accounts','user','institution'));
     }
@@ -78,6 +78,8 @@ class AccountController extends Controller
         $account->name = $request->name;
         $account->balance = $request->balance;
         $account->notes = $request->notes;
+        $account->is_user = False;
+        $account->is_institution = True;
         $account->user_id = $user->id;
         $account->institution_id = $institution->id;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -257,6 +259,8 @@ class AccountController extends Controller
         $accountAdjustment->institution_id = $institution->id;
         $accountAdjustment->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $accountAdjustment->account_id = $request->account;
+        $accountAdjustment->is_user = False;
+        $accountAdjustment->is_institution = True;
         $accountAdjustment->save();
 
         // update account
@@ -428,6 +432,8 @@ class AccountController extends Controller
         $deposit->institution_id = $institution->id;
         $deposit->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $deposit->user_id = $user->id;
+        $deposit->is_user = False;
+        $deposit->is_institution = True;
         $deposit->save();
 
         return redirect()->route('business.deposit.show',$deposit->id)->withSuccess('Deposit updated!');
@@ -562,6 +568,8 @@ class AccountController extends Controller
         $withdrawal->institution_id = $institution->id;
         $withdrawal->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $withdrawal->user_id = $user->id;
+        $withdrawal->is_user = False;
+        $withdrawal->is_institution = True;
         $withdrawal->save();
 
         return redirect()->route('business.withdrawal.show',$withdrawal->id)->withSuccess('Withdrawal updated!');
@@ -671,7 +679,7 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        $liabilities = Liability::with('user','status','account','account')->where('institution_id',$institution->id)->get();
+        $liabilities = Liability::with('user','status','account','account')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         return view('business.liabilities',compact('liabilities','user','institution'));
     }
 
@@ -724,6 +732,8 @@ class AccountController extends Controller
         // update accounts balance
         $account->balance = $accountBalance;
         $account->user_id = $user->id;
+        $account->is_user = False;
+        $account->is_institution = True;
         $account->save();
 
         return redirect()->route('business.liability.show',$liability->id)->withSuccess('Liability created!');
@@ -804,7 +814,7 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        $loans = Loan::with('user','status','account')->where('institution_id',$institution->id)->get();
+        $loans = Loan::with('user','status','account')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         return view('business.loans',compact('loans','user','institution'));
     }
 
@@ -861,6 +871,8 @@ class AccountController extends Controller
         // update accounts balance
         $account->balance = $accountBalance;
         $account->user_id = $user->id;
+        $account->is_user = False;
+        $account->is_institution = True;
         $account->save();
 
         return redirect()->route('business.loan.show',$loan->id)->withSuccess('Loan created!');
@@ -929,7 +941,7 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        $transfers = Transfer::with('user','status','source_account','destination_account')->where('institution_id',$institution->id)->get();
+        $transfers = Transfer::with('user','status','source_account','destination_account')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         return view('business.transfers',compact('transfers','user','institution'));
     }
 
@@ -986,6 +998,8 @@ class AccountController extends Controller
         // update accounts balance
         $sourceAccount->balance = $sourceAccountSubsequentAmount;
         $sourceAccount->user_id = $user->id;
+        $sourceAccount->is_user = False;
+        $sourceAccount->is_institution = True;
         $sourceAccount->save();
         $destinationAccount->balance = $destinationAccountSubsequentAmount;
         $destinationAccount->user_id = $user->id;

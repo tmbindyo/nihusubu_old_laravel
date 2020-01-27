@@ -483,6 +483,8 @@ class RegisterController extends Controller
         $account->notes = "Petty cash";
         $account->balance = 0;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $account->is_institution = True;
+        $account->is_user = False;
         $account->institution_id = $institution->id;
         $account->user_id = $user->id;
         $account->save();
@@ -497,6 +499,8 @@ class RegisterController extends Controller
         $frequencies->frequency = '1';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
+        $frequencies->is_institution = True;
+        $frequencies->is_user = False;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -505,6 +509,8 @@ class RegisterController extends Controller
         $frequencies->frequency = '1';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
+        $frequencies->is_institution = True;
+        $frequencies->is_user = False;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -513,6 +519,8 @@ class RegisterController extends Controller
         $frequencies->frequency = '2';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
+        $frequencies->is_institution = True;
+        $frequencies->is_user = False;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -521,6 +529,8 @@ class RegisterController extends Controller
         $frequencies->frequency = '1';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
+        $frequencies->is_institution = True;
+        $frequencies->is_user = False;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -529,6 +539,8 @@ class RegisterController extends Controller
         $frequencies->frequency = '3';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
+        $frequencies->is_institution = True;
+        $frequencies->is_user = False;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -537,6 +549,8 @@ class RegisterController extends Controller
         $frequencies->frequency = '6';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
+        $frequencies->is_institution = True;
+        $frequencies->is_user = False;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -545,6 +559,8 @@ class RegisterController extends Controller
         $frequencies->frequency = '1';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
+        $frequencies->is_institution = True;
+        $frequencies->is_user = False;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -553,6 +569,8 @@ class RegisterController extends Controller
         $frequencies->frequency = '2';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
+        $frequencies->is_institution = True;
+        $frequencies->is_user = False;
         $frequencies->save();
 
     }
@@ -620,6 +638,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -630,6 +650,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -640,6 +662,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -650,6 +674,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -660,6 +686,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -670,6 +698,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -680,6 +710,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -690,6 +722,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -700,6 +734,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -710,6 +746,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -720,6 +758,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -730,6 +770,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -740,6 +782,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -750,6 +794,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -760,6 +806,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -770,6 +818,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -780,6 +830,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -790,6 +842,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -800,6 +854,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -810,6 +866,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -820,6 +878,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -830,6 +890,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -840,6 +902,8 @@ class RegisterController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
         $expenseAccount->save();
 
     }

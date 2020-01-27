@@ -119,7 +119,7 @@
                                     <span class="s-plan-v1__price-mark">$</span>
                                     <span class="s-plan-v1__price-tag">4.99</span>
                                 </div>
-                                <button type="button" class="text-uppercase s-btn s-btn--sm s-btn--primary-bg g-radius--50 g-padding-x-50--xs">Signup</button>
+                                <a href="{{route('standard.signup')}}" class="text-uppercase s-btn s-btn--sm s-btn--primary-bg g-radius--50 g-padding-x-50--xs">Signup</a>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                                     <span class="s-plan-v1__price-mark">$</span>
                                     <span class="s-plan-v1__price-tag">9.99</span>
                                 </div>
-                                <button type="button" class="text-uppercase s-btn s-btn--sm s-btn--primary-bg g-radius--50 g-padding-x-50--xs">Signup</button>
+                                <a href="{{route('professional.signup')}}" class="text-uppercase s-btn s-btn--sm s-btn--primary-bg g-radius--50 g-padding-x-50--xs">Signup</a>
                             </div>
                         </div>
                     </div>

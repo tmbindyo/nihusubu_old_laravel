@@ -43,7 +43,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get expenses
-        $expenses = Expense::where('institution_id',$institution->id)->with('user','status','expense_account')->get();
+        $expenses = Expense::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','expense_account')->get();
         // return $expenses;
 
         return view('business.expenses',compact('expenses','user','institution'));
@@ -174,6 +174,8 @@ class ExpenseController extends Controller
         $expense->user_id = $user->id;
         $expense->institution_id = $institution->id;
         $expense->status_id = $request->status;
+        $expense->is_user = False;
+        $expense->is_institution = True;
 
         $expense->save();
 
@@ -420,7 +422,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get albums
-        $transactions = Transaction::where('institution_id',$institution->id)->with('user','status','account','expense')->get();
+        $transactions = Transaction::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','account','expense')->get();
         return view('business.transactions',compact('transactions','user','institution','transactions'));
 
     }
@@ -467,6 +469,8 @@ class ExpenseController extends Controller
         $transaction->user_id = $user->id;
         $transaction->institution_id = $institution->id;
         $transaction->status_id = $request->status;
+        $transaction->is_user = False;
+        $transaction->is_institution = True;
         $transaction->save();
 
         // account subtraction
@@ -633,7 +637,7 @@ class ExpenseController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        $payments = Payment::where('institution_id',$institution->id)->with('user','status','account')->get();
+        $payments = Payment::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','account')->get();
         return view('business.payments',compact('payments','user','institution'));
     }
 
@@ -727,6 +731,8 @@ class ExpenseController extends Controller
         $payment->account_id = $request->account;
         $payment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $payment->user_id = $user->id;
+        $payment->is_user = False;
+        $payment->is_institution = True;
         $payment->save();
 
         // credit account
@@ -776,7 +782,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // refunds
-        $refunds = Refund::where('institution_id',$institution->id)->with('user','status','account')->get();
+        $refunds = Refund::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','account')->get();
         return view('business.refunds',compact('refunds','user','institution'));
     }
 
@@ -825,6 +831,8 @@ class ExpenseController extends Controller
 
         $refund->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $refund->user_id = $user->id;
+        $refund->is_user = False;
+        $refund->is_institution = True;
         $refund->save();
 
         // update accounts balance

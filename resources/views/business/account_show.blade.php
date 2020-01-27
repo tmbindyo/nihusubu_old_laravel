@@ -98,9 +98,9 @@
                                     <br>
                                     <div class="row">
                                         <div class="has-warning">
-                                            <input type="number" name="goal" value="{{$account->goal}}" class="form-control input-lg">
+                                            <input type="number" name="balance" value="{{$account->balance}}" class="form-control input-lg" readonly>
                                         </div>
-                                        <i>goal</i>
+                                        <i>balance</i>
                                     </div>
                                     <br>
                                     <div class="row">
@@ -108,13 +108,6 @@
                                             <textarea rows="5" name="notes" class="form-control input-lg" >{{$account->notes}}</textarea>
                                         </div>
                                         <i>notes</i>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="has-warning">
-                                            <input type="number" name="balance" value="{{$account->balance}}" class="form-control input-lg" readonly>
-                                        </div>
-                                        <i>balance</i>
                                     </div>
                                     <br>
 
@@ -161,19 +154,6 @@
 
                                         <dt>Last Updated:</dt> <dd>{{$account->updated_at}}</dd>
                                         <dt>Created:</dt> <dd> {{$account->created_at}} </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <dl class="dl-horizontal">
-                                        <dt>Goal:</dt>
-                                        <dd>
-                                            <div class="progress progress-striped active m-b-sm">
-                                                <div style="width: {{$percentage}}%;" class="progress-bar"></div>
-                                            </div>
-                                            <small><strong>{{$percentage}}%</strong> to goal.</small>
-                                        </dd>
                                     </dl>
                                 </div>
                             </div>
