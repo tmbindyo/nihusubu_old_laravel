@@ -19,14 +19,14 @@ class SubsctiptionPaymentTypeTableSeeder extends Seeder
             'user_id' => 1,
         ]);
 
-        DB::table('plan_types')->insert([
+        DB::table('subscription_payment_types')->insert([
             'id' => 'a2e58e16-6578-4ca1-8058-b12a347fdc69',
             'name' => 'Paypal',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
         ]);
 
-        DB::table('plan_types')->insert([
+        DB::table('subscription_payment_types')->insert([
             'id' => 'ee2ab071-a0ad-4367-b6a0-e42fc5c57aa1',
             'name' => 'Card',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
