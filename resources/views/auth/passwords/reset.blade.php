@@ -113,7 +113,6 @@
                         <div class="col-lg-12">
                             <form role="form" method="POST" action="{{ route('password.update') }}">
                                 @csrf
-                                {{ $token }}
                                 <input type="hidden" name="token" value="{{ $token }}">
 
                                 <div class="form-group {{ $errors->has('email') ? ' has-danger' : '' }}">
