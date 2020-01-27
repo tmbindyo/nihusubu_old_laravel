@@ -30,9 +30,6 @@
                 <h2>
                     Set up your organization profile
                 </h2>
-                <p>
-                    This example show how to use Steps with jQuery Validation plugin.
-                </p>
 
                 <form id="form" action="{{ route('business.register.account') }}" method="post" class="wizard-big">
                     @csrf

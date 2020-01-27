@@ -925,4 +925,408 @@ class RegisterController extends Controller
 
     }
 
+
+
+    public function createPersonal(Request $request){
+        // return $request;
+        // user account validation
+        $validatedUserData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone_number' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        // return $validatedData;
+
+        // user account creation
+        $user = new User ();
+        $user->phone_number = $request->phone_number;
+        // $user->timezone = $request->timezone;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+
+        // create accounts
+        $userAccounts = $this->userAccountsSeeder($request, $user);
+        // create frequencies
+        $userFrequencies = $this->userFrequenciesSeeder($request, $user);
+        // create expense account
+        $userExpenseAccounts = $this->userExpenseAccountsSeeder($request, $user);
+        // create user account
+        $userAccount = $this->userUserAccountSeeder($request, $user);
+
+        // account creation
+        auth()->login($user);
+        return redirect()->route('home');
+    }
+
+    private function userAccountsSeeder($request, $user){
+
+        // Generate reference
+        $size = 5;
+        $reference = $this->getRandomString($size);
+
+        $account = new Account();
+        $account->reference = $reference;
+        $account->name = "Petty cash";
+        $account->notes = "Petty cash";
+        $account->balance = 0;
+        $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $account->is_institution = False;
+        $account->is_user = True;
+        $account->user_id = $user->id;
+        $account->save();
+
+    }
+
+    private function userFrequenciesSeeder($request, $user){
+
+        $frequencies = new Frequency();
+        $frequencies->name = 'Daily';
+        $frequencies->type = 'day';
+        $frequencies->frequency = '1';
+        $frequencies->user_id = $user->id;
+        $frequencies->is_institution = False;
+        $frequencies->is_user = True;
+        $frequencies->save();
+
+        $frequencies = new Frequency();
+        $frequencies->name = 'Weekly';
+        $frequencies->type = 'week';
+        $frequencies->frequency = '1';
+        $frequencies->user_id = $user->id;
+        $frequencies->is_institution = False;
+        $frequencies->is_user = True;
+        $frequencies->save();
+
+        $frequencies = new Frequency();
+        $frequencies->name = 'Bi Weekly';
+        $frequencies->type = 'week';
+        $frequencies->frequency = '2';
+        $frequencies->user_id = $user->id;
+        $frequencies->is_institution = False;
+        $frequencies->is_user = True;
+        $frequencies->save();
+
+        $frequencies = new Frequency();
+        $frequencies->name = 'Monthly';
+        $frequencies->type = 'month';
+        $frequencies->frequency = '1';
+        $frequencies->user_id = $user->id;
+        $frequencies->is_institution = False;
+        $frequencies->is_user = True;
+        $frequencies->save();
+
+        $frequencies = new Frequency();
+        $frequencies->name = 'Quarterly';
+        $frequencies->type = 'month';
+        $frequencies->frequency = '3';
+        $frequencies->user_id = $user->id;
+        $frequencies->is_institution = False;
+        $frequencies->is_user = True;
+        $frequencies->save();
+
+        $frequencies = new Frequency();
+        $frequencies->name = 'Semiannually';
+        $frequencies->type = 'month';
+        $frequencies->frequency = '6';
+        $frequencies->user_id = $user->id;
+        $frequencies->is_institution = False;
+        $frequencies->is_user = True;
+        $frequencies->save();
+
+        $frequencies = new Frequency();
+        $frequencies->name = 'Annually';
+        $frequencies->type = 'year';
+        $frequencies->frequency = '1';
+        $frequencies->user_id = $user->id;
+        $frequencies->is_institution = False;
+        $frequencies->is_user = True;
+        $frequencies->save();
+
+        $frequencies = new Frequency();
+        $frequencies->name = 'Bi Annually';
+        $frequencies->type = 'year';
+        $frequencies->frequency = '2';
+        $frequencies->user_id = $user->id;
+        $frequencies->is_institution = False;
+        $frequencies->is_user = True;
+        $frequencies->save();
+
+    }
+
+    private function userExpenseAccountsSeeder($request, $user){
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Cost Of Goods Sold';
+        $expenseAccount->code = 'COGS';
+        $expenseAccount->description = 'Cost of goods sold (COGS) refers to the direct costs of producing the goods sold by a company. This amount includes the cost of the materials and labor directly used to create the good. It excludes indirect expenses, such as distribution costs and sales force costs.';
+        $expenseAccount->account_type_id = 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Advertising and Marketing';
+        $expenseAccount->code = 'A&M';
+        $expenseAccount->description = 'Account to track the cost of advertising and marketing.';
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Automobile Expense';
+        $expenseAccount->code = 'AE';
+        $expenseAccount->description = "A deduction on actual cost of gas, oil, repairs, tires, washing, etc. plus a deduction for depreciation.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Bad Debt';
+        $expenseAccount->code = 'BD';
+        $expenseAccount->description = "Bad debt occasionally called accounts expense is a monetary amount owed to a creditor that is unlikely to be paid and, or which the creditor is not willing to take action to collect for various reasons, often due to the debtor not having the money to pay, for example due to a company going into liquidation or insolvency.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Bank Fees and Charges';
+        $expenseAccount->code = 'BF&C';
+        $expenseAccount->description = "Bank Fees and Charges.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Credit Card Charges';
+        $expenseAccount->code = 'CCC';
+        $expenseAccount->description = "Credit Card Charges.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Depreciation Expense';
+        $expenseAccount->code = 'DE';
+        $expenseAccount->description = "A depreciation expense is the amount deducted from gross profit to allow for a reduction in the value of something because of its age or how much it has been used.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'IT and Internet Expenses';
+        $expenseAccount->code = 'IT&IE';
+        $expenseAccount->description = "IT and Internet Expenses.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Janitorial Expense';
+        $expenseAccount->code = 'JE';
+        $expenseAccount->description = "Janitorial Expense.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Lodging';
+        $expenseAccount->code = 'L';
+        $expenseAccount->description = " Lodging expenses are usually a business expense that is incurred when someone must travel away from their home to do business.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Meals and Entertainment';
+        $expenseAccount->code = 'M&E';
+        $expenseAccount->description = " Expenses on meals and entertainment.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Office Supplies';
+        $expenseAccount->code = 'OS';
+        $expenseAccount->description = " Expenses on office supplies.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Other Expenses';
+        $expenseAccount->code = 'OE';
+        $expenseAccount->description = "Other expenses.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Parking';
+        $expenseAccount->code = 'Pa';
+        $expenseAccount->description = "Parking expenses.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Postage';
+        $expenseAccount->code = 'Po';
+        $expenseAccount->description = "Postage expenses.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Printing and Stationery';
+        $expenseAccount->code = 'P&S';
+        $expenseAccount->description = "Printing & stationery expenses include the cost of stationery items which are used daily in offices and the printed material for correspondence purposes.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Rent Expense';
+        $expenseAccount->code = 'RE';
+        $expenseAccount->description = "Rent expense is an account that lists the cost of occupying rental property.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Repairs and Maintenance';
+        $expenseAccount->code = 'R&M';
+        $expenseAccount->description = "The costs incurred to bring an asset back to an earlier condition or to keep the asset operating at its present condition (as opposed to improving the asset).";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Salaries and Employee Wages';
+        $expenseAccount->code = 'S&EW';
+        $expenseAccount->description = "Salaries and Employee Wages expenses.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Telephone Expenses';
+        $expenseAccount->code = 'TeE';
+        $expenseAccount->description = "Telephone Expenses.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Travel Expense';
+        $expenseAccount->code = 'TrE';
+        $expenseAccount->description = "Travel Expenses.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Uncategorized';
+        $expenseAccount->code = 'Un';
+        $expenseAccount->description = "Uncategorized expenses.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Uncategorized';
+        $expenseAccount->code = 'Un';
+        $expenseAccount->description = "Uncategorized expenses.";
+        $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = True;
+        $expenseAccount->save();
+
+    }
+
+    private function userUserAccountSeeder ($request, $user){
+        // account
+        $userAccount = new UserAccount();
+        $userAccount->user_id = $user->id;
+        $userAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $userAccount->is_institution = false;
+        $userAccount->is_active = true;
+        $userAccount->is_user = true;
+        $userAccount->is_admin = false;
+        $userAccount->user_type_id = '07c99d10-8e09-4861-83df-fdd3700d7e48';
+
+        $userAccount->save();
+
+    }
+
 }
