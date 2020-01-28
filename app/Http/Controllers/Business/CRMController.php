@@ -129,7 +129,7 @@ class CRMController extends Controller
         $campaign->user_id = $user->id;
         $campaign->institution_id = $institution->id;
         $campaign->save();
-        return redirect()->route('business.campaign.show',$campaign->id)->withSuccess('Campaign created!');
+        return redirect()->route('business.campaign.show',['portal'=>$institution->portal,'id'=>$campaign->id])->withSuccess('Campaign created!');
 
     }
 
@@ -368,7 +368,7 @@ class CRMController extends Controller
         $campaign->description = $request->description;
         $campaign->user_id = $user->id;
         $campaign->save();
-        return redirect()->route('business.campaign.show',$campaign->id)->withSuccess('Campaign updated!');
+        return redirect()->route('business.campaign.show',['portal'=>$institution->portal,'id'=>$campaign->id])->withSuccess('Campaign updated!');
 
     }
 
@@ -512,7 +512,7 @@ class CRMController extends Controller
         // $shippingAddress->save();
 
 
-        return redirect()->route('business.contact.show',$contact->id)->withSuccess(__('Contact '.$contact->name.' successfully created.'));
+        return redirect()->route('business.contact.show',['portal'=>$institution->portal,'id'=>$contact->id])->withSuccess(__('Contact '.$contact->name.' successfully created.'));
     }
 
     public function contactShow($portal, $contact_id)
@@ -640,27 +640,37 @@ class CRMController extends Controller
         DB::table('contact_contact_types')->whereIn('id', $contactContactTypeIds)->delete();
 
 
-        return redirect()->route('business.contact.show',$contact->id)->withSuccess('Contact updated!');
+        return redirect()->route('business.contact.show',['portal'=>$institution->portal,'id'=>$contact->id])->withSuccess('Contact updated!');
     }
 
     public function contactUpdateLeadToContact($portal, $contact_id)
     {
 
+        // User
+        $user = $this->getUser();
+        // Get institution
+        $institution = $this->getInstitution($portal);
+
         $contact = Contact::findOrFail($contact_id);
         $contact->is_lead = True;
         $contact->save();
-        return redirect()->route('business.contact.show',$contact->id)->withSuccess('Contact updated!');
+        return redirect()->route('business.contact.show',['portal'=>$institution->portal,'id'=>$contact->id])->withSuccess('Contact updated!');
     }
 
     public function contactContactTypeStore(Request $request, $portal, $contact_id)
     {
+
+        // User
+        $user = $this->getUser();
+        // Get institution
+        $institution = $this->getInstitution($portal);
 
         $contact = Contact::findOrFail($contact_id);
         $contactContactType = new ContactContactType();
         $contactContactType->contact_id;
         $contactContactType->contact_type_id = $request->contact_type;
         $contactContactType->save();
-        return redirect()->route('business.contact.show',$contact->id)->withSuccess('Contact updated!');
+        return redirect()->route('business.contact.show',['portal'=>$institution->portal,'id'=>$contact->id])->withSuccess('Contact updated!');
 
     }
 
@@ -737,7 +747,7 @@ class CRMController extends Controller
         $organization->user_id = $user->id;
         $organization->institution_id = $institution->id;
         $organization->save();
-        return redirect()->route('business.organization.show',$organization->id)->withSuccess('Organization created!');
+        return redirect()->route('business.organization.show',['portal'=>$institution->portal,'id'=>$organization->id])->withSuccess('Organization created!');
 
     }
 
@@ -804,7 +814,7 @@ class CRMController extends Controller
         $organization->description = $request->description;
         $organization->user_id = $user->id;
         $organization->save();
-        return redirect()->route('business.organization.show',$organization->id)->withSuccess('Organization updated!');
+        return redirect()->route('business.organization.show',['portal'=>$institution->portal,'id'=>$organization->id])->withSuccess('Organization updated!');
 
     }
 

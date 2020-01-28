@@ -32,4 +32,10 @@ class Refund extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // children
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
 }

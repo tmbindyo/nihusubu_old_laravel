@@ -32,4 +32,10 @@ class AccountAdjustment extends Model
     {
         return $this->belongsTo('App\Withdrawal');
     }
+
+    // children
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
 }

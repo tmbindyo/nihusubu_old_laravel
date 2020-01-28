@@ -22,6 +22,7 @@ use App\Traits\InstitutionTrait;
 use App\Http\Controllers\Controller;
 use App\Inventory;
 use App\SaleProduct;
+use App\ToDo;
 use App\Traits\ReferenceNumberTrait;
 
 class ExpenseController extends Controller
@@ -192,10 +193,12 @@ class ExpenseController extends Controller
             $expenseItem->user_id = $user->id;
             $expenseItem->expense_id = $expense->id;
             $expenseItem->status_id = $request->status;
+            $expenseItem->is_institution = True;
+            $expenseItem->is_user = False;
             $expenseItem->save();
         }
 
-        return redirect()->route('business.expense.show',$expense->id)->withSuccess('Expense '.$expense->reference.' successfully created!');
+        return redirect()->route('business.expense.show',['portal'=>$institution->portal, 'id'=>$expense->id])->withSuccess('Expense '.$expense->reference.' successfully created!');
     }
 
     public function expenseShow($portal, $expense_id)
@@ -210,8 +213,16 @@ class ExpenseController extends Controller
         $payments = Transaction::where('institution_id',$institution->id)->where('expense_id',$expense->id)->where('status_id','2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense','account','status')->get();
         // get pending payments
         $pendingPayments = Transaction::where('institution_id',$institution->id)->where('expense_id',$expense->id)->where('status_id','a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('expense','account','status')->get();
+        // Pending to dos
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','expense')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('expense_id',$expense->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','expense')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('expense_id',$expense->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','expense')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('expense_id',$expense->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','expense')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('expense_id',$expense->id)->get();
 
-        return view('business.expense_show',compact('expense','user','institution','payments','pendingPayments'));
+        return view('business.expense_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','expense','user','institution','payments','pendingPayments'));
     }
 
     public function expenseEdit($portal, $expense_id)
@@ -244,6 +255,8 @@ class ExpenseController extends Controller
     {
         // User
         $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -384,7 +397,7 @@ class ExpenseController extends Controller
         // Delete removed expense items
         DB::table('expense_items')->whereIn('id', $expenseItemIds)->delete();
 
-        return redirect()->route('business.expense.show',$expense->id)->withSuccess('Expense '.$expense->reference.' successfully updated!');
+        return redirect()->route('business.expense.show',['portal'=>$institution->portal,'id'=>$expense->id])->withSuccess('Expense '.$expense->reference.' successfully updated!');
     }
 
     public function expenseDelete($portal)
@@ -512,7 +525,7 @@ class ExpenseController extends Controller
             $account->save();
         }
 
-        return redirect()->route('business.expense.show',$transaction->expense_id)->withSuccess('Expense '.$transaction->reference.' successfully updated!');
+        return redirect()->route('business.expense.show',['portal'=>$institution->portal,'id'=>$transaction->expense_id])->withSuccess('Expense '.$transaction->reference.' successfully updated!');
 
     }
 
@@ -739,7 +752,7 @@ class ExpenseController extends Controller
         $account->balance = $accountBalance;
         $account->save();
 
-        return redirect()->route('business.payment.show',$payment->id)->withSuccess('Payment created!');
+        return redirect()->route('business.payment.show',['portal'=>$institution->portal,'id'=>$payment->id])->withSuccess('Payment created!');
     }
 
     public function paymentShow($portal, $payment_id)
@@ -752,7 +765,16 @@ class ExpenseController extends Controller
         $institution = $this->getInstitution($portal);
         // Get contact type
         $payment = Payment::with('user','status','refunds.account','loan','sale')->where('id',$payment_id)->first();
-        return view('business.payment_show',compact('payment','user','institution'));
+        // Pending to dos
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','payment')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('payment_id',$payment->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','payment')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('payment_id',$payment->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','payment')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('payment_id',$payment->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','payment')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('payment_id',$payment->id)->get();
+
+        return view('business.payment_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','payment','user','institution'));
     }
 
     public function paymentDelete($portal, $payment_id)
@@ -839,7 +861,7 @@ class ExpenseController extends Controller
         $account->balance = $accountBalance;
         $account->save();
 
-        return redirect()->route('business.refund.show',$refund->id)->withSuccess('Refund created!');
+        return redirect()->route('business.refund.show',['portal'=>$institution->portal,'id'=>$refund->id])->withSuccess('Refund created!');
     }
 
     public function refundShow($portal, $refund_id)
@@ -852,7 +874,16 @@ class ExpenseController extends Controller
         $institution = $this->getInstitution($portal);
         // Get contact type
         $refund = Refund::with('user','status','account','payment')->where('id',$refund_id)->first();
-        return view('business.refund_show',compact('refund','user','institution'));
+        // Pending to dos
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','refund')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('refund_id',$refund->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','refund')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('refund_id',$refund->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','refund')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('refund_id',$refund->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','refund')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('refund_id',$refund->id)->get();
+
+        return view('business.refund_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','refund','user','institution'));
     }
 
     public function refundUpdate(Request $request, $portal, $refund_id)
@@ -860,7 +891,7 @@ class ExpenseController extends Controller
 
         $refund = Refund::findOrFail($refund_id);
 
-        return redirect()->route('business.refund.show',$refund->id)->withSuccess('Refund updated!');
+        return back();
     }
 
     public function refundDelete($portal, $refund_id)

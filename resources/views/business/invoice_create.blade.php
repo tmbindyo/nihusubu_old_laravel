@@ -64,7 +64,7 @@
                                         <div class="col-md-12">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="contact" class="select2_demo_3 form-control input-lg">
+                                                <select name="contact" class="select2_demo_3 form-control required input-lg" required="required">
                                                     <option selected disabled>Select Customer</option>
                                                     @foreach($contacts as $contact)
                                                         <option value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
@@ -271,10 +271,15 @@
 <script>
     $(document).ready(function() {
         // Set date
+        console.log('var');
         var today = new Date();
+        console.log(today);
         var dd = today.getDate();
         var mm = today.getMonth();
         var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        mm ++;
         if (dd < 10){
             dd = '0'+dd;
         }
@@ -282,8 +287,10 @@
             mm = '0'+mm;
         }
         var date_today = mm + '/' + dd + '/' + yyyy;
-        document.getElementById("due_date").value = date_today;
+        var time_curr = h + ':' + m;
+        console.log(time_curr);
         document.getElementById("date").value = date_today;
+        document.getElementById("due_date").value = date_today;
     });
 
 </script>

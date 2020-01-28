@@ -16,6 +16,10 @@ class Loan extends Model
     {
         return $this->hasMany('App\Payment');
     }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
 
     // Parents
     public function account()

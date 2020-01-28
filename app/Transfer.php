@@ -16,6 +16,10 @@ class Transfer extends Model
     {
         return $this->hasMany('App\Expense');
     }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
 
     // Parents
     public function destination_account()

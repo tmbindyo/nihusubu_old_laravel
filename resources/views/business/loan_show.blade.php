@@ -312,10 +312,94 @@
             </div>
         </div>
 
+        {{--    To Do's    --}}
+        <div class="row m-t-lg">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>To Do's</h5>
+                        <div class="ibox-tools">
+                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <ul class="pending-to-do">
+                            @foreach($pendingToDos as $pendingToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$pendingToDo->due_date}}</small>
+                                        <h4>{{$pendingToDo->name}}</h4>
+                                        <p>{{$pendingToDo->notes}}.</p>
+                                        @if($pendingToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        <ul class="in-progress-to-do">
+                            @foreach($inProgressToDos as $inProgressToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$inProgressToDo->due_date}}</small>
+                                        <h4>{{$inProgressToDo->name}}</h4>
+                                        <p>{{$inProgressToDo->notes}}.</p>
+                                        @if($inProgressToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <ul class="overdue-to-do">
+                            @foreach($overdueToDos as $overdueToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$overdueToDo->due_date}}</small>
+                                        <h4>{{$overdueToDo->name}}</h4>
+                                        <p>{{$overdueToDo->notes}}.</p>
+                                        @if($overdueToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
+                                        @endif
+                                        @if($overdueToDo->status->name === "Pending")
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                        @elseif($overdueToDo->status->name === "In progress")
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <ul class="completed-to-do">
+                            @foreach($completedToDos as $completedToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$completedToDo->due_date}}</small>
+                                        <h4>{{$completedToDo->name}}</h4>
+                                        <p>{{$completedToDo->notes}}.</p>
+                                        @if($completedToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
 @endsection
+
+@include('business.layouts.modals.loan_to_do')
 
 @section('js')
 
@@ -369,58 +453,87 @@
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
-    <!-- Page-Level Scripts -->
-    <script>
-        $(document).ready(function(){
-            $('.dataTables-example').DataTable({
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function(){
+        $('.dataTables-example').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'ExampleFile'},
+                {extend: 'pdf', title: 'ExampleFile'},
 
-                    {extend: 'print',
-                     customize: function (win){
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
 
-                            $(win.document.body).find('table')
-                                    .addClass('compact')
-                                    .css('font-size', 'inherit');
-                    }
-                    }
-                ]
-
-            });
-
-            /* Init DataTables */
-            var oTable = $('#editable').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
-
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                }
+                }
+            ]
 
         });
 
-    </script>
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
 
 
+    });
 
+</script>
+
+{{--  Get due date to populate   --}}
+<script>
+    $(document).ready(function() {
+        // Set date
+        console.log('var');
+        var today = new Date();
+        console.log(today);
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        mm ++;
+        if (dd < 10){
+            dd = '0'+dd;
+        }
+        if (mm < 10){
+            mm = '0'+mm;
+        }
+        var date_today = mm + '/' + dd + '/' + yyyy;
+        var time_curr = h + ':' + m;
+        console.log(time_curr);
+        document.getElementById("start_date").value = date_today;
+        document.getElementById("end_date").value = date_today;
+        document.getElementById("start_time").value = time_curr;
+        document.getElementById("end_time").value = time_curr;
+
+        // Set time
+    });
+
+</script>
 
 <script>
     $(document).ready(function(){
@@ -532,6 +645,12 @@
 
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+        var elem_18 = document.querySelector('.js-switch_18');
+        var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
+
+        var elem_19 = document.querySelector('.js-switch_19');
+        var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
 
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',

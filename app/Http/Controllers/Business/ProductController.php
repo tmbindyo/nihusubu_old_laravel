@@ -674,7 +674,7 @@ class ProductController extends Controller
 
 //        return $products;
 
-        return view('business.products',compact('user','products'));
+        return view('business.products',compact('user','products','institution'));
     }
     public function productCreate($portal)
     {
@@ -693,8 +693,9 @@ class ProductController extends Controller
         // Get institution taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
 
-        return view('business.product_create',compact('user','units','taxes','salesAccounts','expenseAccounts','costOfGoodsSoldAccounts','stockAccounts'));
+        return view('business.product_create',compact('user','units','taxes','salesAccounts','expenseAccounts','costOfGoodsSoldAccounts','stockAccounts','institution'));
     }
+
     public function productStore(Request $request, $portal)
     {
         // User
@@ -814,7 +815,7 @@ class ProductController extends Controller
 
 
 
-        return redirect()->route('business.products')->withSuccess(__('Product successfully saved.'));
+        return redirect()->route('business.product.show',['portal'=>$institution->portal,'id'=>$product->id])->withSuccess(__('Product successfully saved.'));
     }
 
     public function productShow($portal, $product_id)
@@ -1087,7 +1088,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('business.composite.product.show',$product->id)->withSuccess(__('Composite product successfully stored.'));
+        return redirect()->route('business.composite.product.show',['portal'=>$institution->portal,'id'=>$product->id])->withSuccess(__('Composite product successfully stored.'));
     }
 
     public function compositeProductShow($portal, $composite_product_id)
@@ -1211,7 +1212,7 @@ class ProductController extends Controller
         $productTaxesIds = ProductTax::where('product_id',$product->id)->whereNotIn('tax_id',$productRequestTaxes)->select('id')->get()->toArray();
         DB::table('product_taxes')->whereIn('id', $productTaxesIds)->delete();
 
-        return redirect()->route('business.composite.product.show',$product->id)->withSuccess(__('Composite product successfully updated.'));
+        return redirect()->route('business.composite.product.show',['portal'=>$institution->portal,'id'=>$product->id])->withSuccess(__('Composite product successfully updated.'));
     }
 
     public function compositeProductDelete($portal, $composite_product_id)

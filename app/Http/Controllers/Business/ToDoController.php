@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Business;
 
-use App\Project;
 use App\ToDo;
 use App\Traits\UserTrait;
 use App\Traits\InstitutionTrait;
@@ -142,6 +141,84 @@ class ToDoController extends Controller
             $todo->campaign_id = $request->campaign;
         }else{
             $todo->is_campaign = False;
+        }
+
+        // account
+        if($request->is_account){
+            $todo->is_account = True;
+            $todo->account_id = $request->account;
+        }else{
+            $todo->is_account = False;
+        }
+        // account_adjustment
+        if($request->is_account_adjustment){
+            $todo->is_account_adjustment = True;
+            $todo->account_adjustment_id = $request->account_adjustment;
+        }else{
+            $todo->is_account_adjustment = False;
+        }
+        // deposit
+        if($request->is_deposit){
+            $todo->is_deposit = True;
+            $todo->deposit_id = $request->deposit;
+        }else{
+            $todo->is_deposit = False;
+        }
+        // liability
+        if($request->is_liability){
+            $todo->is_liability = True;
+            $todo->liability_id = $request->liability;
+        }else{
+            $todo->is_liability = False;
+        }
+        // loan
+        if($request->is_loan){
+            $todo->is_loan = True;
+            $todo->loan_id = $request->loan;
+        }else{
+            $todo->is_loan = False;
+        }
+        // withdrawal
+        if($request->is_withdrawal){
+            $todo->is_withdrawal = True;
+            $todo->withdrawal_id = $request->withdrawal;
+        }else{
+            $todo->is_withdrawal = False;
+        }
+        // expense
+        if($request->is_expense){
+            $todo->is_expense = True;
+            $todo->expense_id = $request->expense;
+        }else{
+            $todo->is_expense = False;
+        }
+        // payment
+        if($request->is_payment){
+            $todo->is_payment = True;
+            $todo->payment_id = $request->payment;
+        }else{
+            $todo->is_payment = False;
+        }
+        // refund
+        if($request->is_refund){
+            $todo->is_refund = True;
+            $todo->refund_id = $request->refund;
+        }else{
+            $todo->is_refund = False;
+        }
+        // transaction
+        if($request->is_transaction){
+            $todo->is_transaction = True;
+            $todo->transaction_id = $request->transaction;
+        }else{
+            $todo->is_transaction = False;
+        }
+        // transfer
+        if($request->is_transfer){
+            $todo->is_transfer = True;
+            $todo->transfer_id = $request->transfer;
+        }else{
+            $todo->is_transfer = False;
         }
 
         // Check if date is overdue to make the status overdue

@@ -91,6 +91,10 @@ class Expense extends Model
     {
         return $this->hasMany('App\ExpenseItem');
     }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
     public function transactions()
     {
         return $this->hasMany('App\Transaction');

@@ -169,7 +169,7 @@ class SaleController extends Controller
         $estimateTaxSet->tax = $tax;
         $estimateTaxSet->save();
 
-        return redirect()->route('business.estimate.show',$estimate->id)->withSuccess(__('Estimate successfully created.'));
+        return redirect()->route('business.estimate.show',['portal'=>$institution->portal,'id'=>$estimate->id])->withSuccess(__('Estimate successfully created.'));
     }
 
     public function estimateShow($portal, $estimate_id)
@@ -482,7 +482,7 @@ class SaleController extends Controller
         $invoiceTaxSet->tax = $tax;
         $invoiceTaxSet->save();
 
-        return redirect()->route('business.invoice.show',$invoice->id)->withSuccess(__('Invoice successfully created.'));
+        return redirect()->route('business.invoice.show',['portal'=>$institution->portal,'id'=>$invoice->id])->withSuccess(__('Invoice successfully created.'));
     }
 
     public function invoiceShow($portal, $invoice_id)
@@ -821,7 +821,7 @@ class SaleController extends Controller
         $saleTaxSet->tax = $tax;
         $saleTaxSet->save();
 
-        return redirect()->route('business.sale.show',$sale->id)->withSuccess(__('Sale successfully created.'));
+        return redirect()->route('business.sale.show',['portal'=>$institution->portal,'id'=>$sale->id])->withSuccess(__('Sale successfully created.'));
     }
 
     public function saleShow($portal, $sale_id)

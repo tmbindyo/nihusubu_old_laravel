@@ -64,6 +64,29 @@ class CreateToDosTable extends Migration
             $table->boolean('is_campaign');
             $table->uuid('campaign_id')->nullable();
 
+            $table->boolean('is_account');
+            $table->uuid('account_id')->nullable();
+            $table->boolean('is_account_adjustment');
+            $table->uuid('account_adjustment_id')->nullable();
+            $table->boolean('is_deposit');
+            $table->uuid('deposit_id')->nullable();
+            $table->boolean('is_liability');
+            $table->uuid('liability_id')->nullable();
+            $table->boolean('is_loan');
+            $table->uuid('loan_id')->nullable();
+            $table->boolean('is_withdrawal');
+            $table->uuid('withdrawal_id')->nullable();
+            $table->boolean('is_expense');
+            $table->uuid('expense_id')->nullable();
+            $table->boolean('is_payment');
+            $table->uuid('payment_id')->nullable();
+            $table->boolean('is_refund');
+            $table->uuid('refund_id')->nullable();
+            $table->boolean('is_transaction');
+            $table->uuid('transaction_id')->nullable();
+            $table->boolean('is_transfer');
+            $table->uuid('transfer_id')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

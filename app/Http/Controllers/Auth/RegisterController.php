@@ -123,7 +123,7 @@ class RegisterController extends Controller
         $institution->email = $request->business_email;
         $institution->phone_number = $request->business_phone_number;
         $institution->user_id = $user->id;
-        $institution->currency_id = $request->currency;
+        $institution->currency_id = "0839e6c9-20b3-4442-b3b6-5137a4d309ec";
         $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $institution->save();
 
@@ -900,6 +900,138 @@ class RegisterController extends Controller
         $expenseAccount->description = "Uncategorized expenses.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Discount';
+        $expenseAccount->code = 'D';
+        $expenseAccount->description = 'Account to track discount';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'General Income';
+        $expenseAccount->code = 'GE';
+        $expenseAccount->description = 'Account to track general income';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Interest Income';
+        $expenseAccount->code = 'IE';
+        $expenseAccount->description = 'Account to track Interest income';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Late Fee Income';
+        $expenseAccount->code = 'LFE';
+        $expenseAccount->description = 'Account to track the late fee income';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Other Charges';
+        $expenseAccount->code = 'OC';
+        $expenseAccount->description = 'Account to track the Other charges';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Sales';
+        $expenseAccount->code = 'S';
+        $expenseAccount->description = 'Account to track the Cost Of Sales';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Shipping Charge';
+        $expenseAccount->code = 'SC';
+        $expenseAccount->description = 'Account to track Shipping charges';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Finished Goods';
+        $expenseAccount->code = 'FG';
+        $expenseAccount->description = 'Account to track the Cost Of Goods Sold';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '4be20a9a-aee3-414c-b8ba-dcacf859cc9c';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Finished Goods';
+        $expenseAccount->code = 'FG';
+        $expenseAccount->description = 'Account to track the Cost Of Goods Sold';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '4be20a9a-aee3-414c-b8ba-dcacf859cc9c';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Inventory Asset';
+        $expenseAccount->code = 'IA';
+        $expenseAccount->description = 'Account to track the Cost Of Goods Sold';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '4be20a9a-aee3-414c-b8ba-dcacf859cc9c';
+        $expenseAccount->institution_id = $institution->id;
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_institution = True;
+        $expenseAccount->is_user = False;
+        $expenseAccount->save();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = 'Work In Progress';
+        $expenseAccount->code = 'WIP';
+        $expenseAccount->description = 'Account to track the Cost Of Goods Sold';
+        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $expenseAccount->account_type_id = '4be20a9a-aee3-414c-b8ba-dcacf859cc9c';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
         $expenseAccount->is_institution = True;

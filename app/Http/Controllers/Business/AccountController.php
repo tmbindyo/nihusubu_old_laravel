@@ -23,6 +23,7 @@ use App\Traits\InstitutionTrait;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
 use App\Sale;
+use App\ToDo;
 
 class AccountController extends Controller
 {
@@ -102,7 +103,17 @@ class AccountController extends Controller
         }else{
             $percentage = doubleval($goal)/$balance/100;
         }
-        return view('business.account_show',compact('account','user','institution','percentage'));
+
+        // Pending to dos
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','account')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('account_id',$account->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','account')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('account_id',$account->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','account')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('account_id',$account->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','account')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('account_id',$account->id)->get();
+
+        return view('business.account_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','account','user','institution','percentage'));
     }
 
     public function accountDepositCreate($portal,$account_id)
@@ -173,7 +184,7 @@ class AccountController extends Controller
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->save();
 
-        return redirect()->route('business.account.show',$account->id)->withSuccess('Account '.$account->reference.' successfully updated!');
+        return redirect()->route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id])->withSuccess('Account '.$account->reference.' successfully updated!');
     }
 
     public function accountDelete($portal, $account_id)
@@ -269,7 +280,7 @@ class AccountController extends Controller
         $account->user_id = $user->id;
         $account->save();
 
-        return redirect()->route('business.account.show',$account->id)->withSuccess('Account Adjustment successfully created!');
+        return redirect()->route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id])->withSuccess('Account Adjustment successfully created!');
 
     }
 
@@ -351,7 +362,7 @@ class AccountController extends Controller
         }
         // account subtraction
 
-        return redirect()->route('business.transaction.show')->withSuccess('Expense '.$transaction->reference.' successfully updated!');
+        return redirect()->route('business.transaction.show',['portal'=>$institution->portal,'id'=>$transaction->id])->withSuccess('Expense '.$transaction->reference.' successfully updated!');
 
     }
 
@@ -436,7 +447,7 @@ class AccountController extends Controller
         $deposit->is_institution = True;
         $deposit->save();
 
-        return redirect()->route('business.deposit.show',$deposit->id)->withSuccess('Deposit updated!');
+        return redirect()->route('business.deposit.show',['portal'=>$institution->portal,'id'=>$deposit->id])->withSuccess('Deposit updated!');
     }
 
     public function depositShow($portal, $deposit_id)
@@ -449,7 +460,16 @@ class AccountController extends Controller
         $institution = $this->getInstitution($portal);
         // get deposit
         $deposit = Deposit::with('user','status','account','account_adjustments')->where('institution_id',$institution->id)->where('id',$deposit_id)->first();
-        return view('business.deposit_show',compact('deposit','user','institution'));
+        // Pending to dos
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','deposit')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('deposit_id',$deposit->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','deposit')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('deposit_id',$deposit->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','deposit')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('deposit_id',$deposit->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','deposit')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('deposit_id',$deposit->id)->get();
+
+        return view('business.deposit_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','deposit','user','institution'));
     }
 
     public function depositAccountAdjustmentCreate($portal, $deposit_id)
@@ -514,7 +534,7 @@ class AccountController extends Controller
 
         // add transaction record
 
-        return redirect()->route('business.deposit.show',$deposit_id)->withSuccess('Deposit '. $deposit->name .' updated!');
+        return redirect()->route('business.deposit.show',['portal'=>$institution->portal,'id'=>$deposit_id])->withSuccess('Deposit '. $deposit->name .' updated!');
     }
 
 
@@ -572,7 +592,7 @@ class AccountController extends Controller
         $withdrawal->is_institution = True;
         $withdrawal->save();
 
-        return redirect()->route('business.withdrawal.show',$withdrawal->id)->withSuccess('Withdrawal updated!');
+        return redirect()->route('business.withdrawal.show',['portal'=>$institution->portal,'id'=>$withdrawal->id])->withSuccess('Withdrawal updated!');
     }
 
     public function withdrawalShow($portal, $withdrawal_id)
@@ -585,7 +605,16 @@ class AccountController extends Controller
         $institution = $this->getInstitution($portal);
         // get withdrawal
         $withdrawal = Withdrawal::with('user','status','account','account_adjustments')->where('institution_id',$institution->id)->where('id',$withdrawal_id)->first();
-        return view('business.withdrawal_show',compact('withdrawal','user','institution'));
+        // Pending to dos
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','withdrawal')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('withdrawal_id',$withdrawal->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','withdrawal')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('withdrawal_id',$withdrawal->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','withdrawal')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('withdrawal_id',$withdrawal->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','withdrawal')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('withdrawal_id',$withdrawal->id)->get();
+
+        return view('business.withdrawal_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','withdrawal','user','institution'));
     }
 
     public function withdrawalAccountAdjustmentCreate($portal, $withdrawal_id)
@@ -650,7 +679,7 @@ class AccountController extends Controller
 
         // add transaction record
 
-        return redirect()->route('business.withdrawal.show',$withdrawal_id)->withSuccess('Withdrawal '. $withdrawal->name .' updated!');
+        return redirect()->route('business.withdrawal.show',['portal'=>$institution->portal,'id'=>$withdrawal_id])->withSuccess('Withdrawal '. $withdrawal->name .' updated!');
     }
 
     public function withdrawalDelete($portal, $withdrawal_id)
@@ -727,16 +756,17 @@ class AccountController extends Controller
 
         $liability->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $liability->user_id = $user->id;
+        $liability->is_institution = True;
+        $liability->institution_id = $institution->id;
+        $liability->is_user = False;
         $liability->save();
 
         // update accounts balance
         $account->balance = $accountBalance;
         $account->user_id = $user->id;
-        $account->is_user = False;
-        $account->is_institution = True;
         $account->save();
 
-        return redirect()->route('business.liability.show',$liability->id)->withSuccess('Liability created!');
+        return redirect()->route('business.liability.show',['portal'=>$institution->portal,'id'=>$liability->id])->withSuccess('Liability created!');
     }
 
     public function liabilityShow($portal, $liability_id)
@@ -753,7 +783,16 @@ class AccountController extends Controller
         $contacts = Contact::with('organization')->where('institution_id',$institution->id)->get();
         // Get contact type
         $liability = Liability::with('user','status','account','contact.organization','expenses.transactions')->where('institution_id',$institution->id)->where('id',$liability_id)->first();
-        return view('business.liability_show',compact('accounts','contacts','liability','user','institution'));
+        // Pending to dos
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','liability')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('liability_id',$liability->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','liability')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('liability_id',$liability->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','liability')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('liability_id',$liability->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','liability')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('liability_id',$liability->id)->get();
+
+        return view('business.liability_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','accounts','contacts','liability','user','institution'));
     }
 
     // TODO expense for liability
@@ -786,7 +825,7 @@ class AccountController extends Controller
 
         $liability = Liability::findOrFail($liability_id);
 
-        return redirect()->route('business.liability.show',$liability->id)->withSuccess('Liability updated!');
+        return back();
     }
 
     public function liabilityDelete($portal, $liability_id)
@@ -864,6 +903,10 @@ class AccountController extends Controller
         $loan->contact_id = $request->contact;
         $loan->account_id = $request->account;
 
+        $loan->is_user = False;
+        $loan->is_institution = True;
+        $loan->institution_id = $institution->id;
+
         $loan->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $loan->user_id = $user->id;
         $loan->save();
@@ -871,11 +914,9 @@ class AccountController extends Controller
         // update accounts balance
         $account->balance = $accountBalance;
         $account->user_id = $user->id;
-        $account->is_user = False;
-        $account->is_institution = True;
         $account->save();
 
-        return redirect()->route('business.loan.show',$loan->id)->withSuccess('Loan created!');
+        return redirect()->route('business.loan.show',['portal'=>$institution->portal,'id'=>$loan->id])->withSuccess('Loan created!');
     }
 
     public function loanShow($portal, $loan_id)
@@ -892,7 +933,15 @@ class AccountController extends Controller
         $contacts = Contact::with('organization')->where('institution_id',$institution->id)->get();
         // Get contact type
         $loan = Loan::with('user','status','account','contact.organization','payments')->where('id',$loan_id)->where('institution_id',$institution->id)->first();
-        return view('business.loan_show',compact('accounts','contacts','loan','user','institution'));
+        // Pending to dos
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','loan')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('loan_id',$loan->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','loan')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('loan_id',$loan->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','loan')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('loan_id',$loan->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','loan')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('loan_id',$loan->id)->get();
+        return view('business.loan_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','accounts','contacts','loan','user','institution'));
     }
 
     public function loanPaymentCreate($portal, $loan_id)
@@ -912,7 +961,7 @@ class AccountController extends Controller
     {
 
         $loan = Loan::findOrFail($loan_id);
-        return redirect()->route('business.loan.show',$loan->id)->withSuccess('Loan updated!');
+        return back();
 
     }
 
@@ -992,6 +1041,8 @@ class AccountController extends Controller
 
         $transfer->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $transfer->user_id = $user->id;
+        $transfer->is_user = False;
+        $transfer->is_institution = True;
         $transfer->institution_id = $institution->id;
         $transfer->save();
 
@@ -1005,7 +1056,7 @@ class AccountController extends Controller
         $destinationAccount->user_id = $user->id;
         $destinationAccount->save();
 
-        return redirect()->route('business.transfer.show',$transfer->id)->withSuccess('Transfer created!');
+        return redirect()->route('business.transfer.show',['portal'=>$institution->portal,'id'=>$transfer->id])->withSuccess('Transfer created!');
     }
 
     public function transferShow($portal, $transfer_id)
@@ -1018,7 +1069,16 @@ class AccountController extends Controller
         $institution = $this->getInstitution($portal);
         // Get contact type
         $transfer = Transfer::with('user','status','source_account','destination_account','expenses')->where('institution_id',$institution->id)->where('id',$transfer_id)->first();
-        return view('business.transfer_show',compact('transfer','user','institution'));
+        // Pending to dos
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','transfer')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('transfer_id',$transfer->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','transfer')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('transfer_id',$transfer->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','transfer')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('transfer_id',$transfer->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','transfer')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('transfer_id',$transfer->id)->get();
+
+        return view('business.transfer_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','transfer','user','institution'));
     }
 
     public function transferExpenseCreate($portal, $transfer_id)
@@ -1045,7 +1105,7 @@ class AccountController extends Controller
         // $transfer->name = $request->name;
         // $transfer->save();
 
-        return redirect()->route('business.transfer.show',$transfer->id)->withSuccess('Contact type updated!');
+        return back();
     }
 
     public function transferDelete($portal, $transfer_id)

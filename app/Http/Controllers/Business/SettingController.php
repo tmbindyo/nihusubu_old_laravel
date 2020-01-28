@@ -131,7 +131,7 @@ class SettingController extends Controller
         $campaignType->institution_id = $institution->id;
         $campaignType->save();
 
-        return redirect()->route('business.campaign.type.show',$campaignType->id)->withSuccess('Campaign type updated!');
+        return redirect()->route('business.campaign.type.show',['portal'=>$institution->portal,'id'=>$campaignType->id])->withSuccess('Campaign type updated!');
     }
 
     public function campaignTypeShow($portal, $campaign_type_id)
@@ -149,12 +149,14 @@ class SettingController extends Controller
 
     public function campaignTypeUpdate(Request $request, $portal, $campaign_type_id)
     {
+        // Get institutions
+        $institution = $this->getInstitution($portal);
 
         $campaignType = CampaignType::findOrFail($campaign_type_id);
         $campaignType->name = $request->name;
         $campaignType->save();
 
-        return redirect()->route('business.campaign.type.show',$campaignType->id)->withSuccess('Campaign type updated!');
+        return redirect()->route('business.campaign.type.show',['portal'=>$institution->portal,'id'=>$campaignType->id])->withSuccess('Campaign type updated!');
     }
 
     public function campaignTypeDelete($portal, $campaign_type_id)
@@ -212,7 +214,7 @@ class SettingController extends Controller
         $contactType->institution_id = $institution->id;
         $contactType->save();
 
-        return redirect()->route('business.contact.type.show',$contactType->id)->withSuccess('Contact type created!');
+        return redirect()->route('business.contact.type.show',['portal'=>$institution->portal,'id'=>$contactType->id])->withSuccess('Contact type created!');
     }
 
     public function contactTypeShow($portal, $contact_type_id)
@@ -234,6 +236,8 @@ class SettingController extends Controller
     {
         // User
         $user = $this->getUser();
+        // Get institutions
+        $institution = $this->getInstitution($portal);
 
         // contact type update
         $contactType = ContactType::findOrFail($contact_type_id);
@@ -242,7 +246,7 @@ class SettingController extends Controller
         $contactType->user_id = $user->id;
         $contactType->save();
 
-        return redirect()->route('business.contact.type.show',$contactType->id)->withSuccess('Contact type updated!');
+        return redirect()->route('business.contact.type.show',['portal'=>$institution->portal,'id'=>$contactType->id])->withSuccess('Contact type updated!');
     }
 
     public function contactTypeDelete($portal, $contact_type_id)
@@ -300,7 +304,7 @@ class SettingController extends Controller
         $frequency->institution_id = $institution->id;
         $frequency->save();
 
-        return redirect()->route('business.frequency.show',$frequency->id)->withSuccess('Frequency created!');
+        return redirect()->route('business.frequency.show',['portal'=>$institution->portal,'id'=>$frequency->id])->withSuccess('Frequency created!');
     }
 
     public function frequencyShow($portal, $Frequency_id)
@@ -330,7 +334,7 @@ class SettingController extends Controller
         $frequency->user_id = $user->id;
         $frequency->save();
 
-        return redirect()->route('business.frequency.show',$frequency->id)->withSuccess('Frequency updated!');
+        return redirect()->route('business.frequency.show',['portal'=>$institution->portal,'id'=>$frequency->id])->withSuccess('Frequency updated!');
     }
 
     public function frequencyDelete($portal, $Frequency_id)
@@ -388,7 +392,7 @@ class SettingController extends Controller
         $leadSource->institution_id = $institution->id;
         $leadSource->save();
 
-        return redirect()->route('business.lead.source.show',$leadSource->id)->withSuccess('Expense account created!');
+        return redirect()->route('business.lead.source.show',['portal'=>$institution->portal,'id'=>$leadSource->id])->withSuccess('Expense account created!');
     }
 
     public function leadSourceShow($portal, $lead_source_id)
@@ -407,10 +411,13 @@ class SettingController extends Controller
     public function leadSourceUpdate(Request $request, $portal, $lead_source_id)
     {
 
+        // Institution
+        $institution = $this->getInstitution($portal);
+
         $leadSource = LeadSource::findOrFail($lead_source_id);
         $leadSource->name = $request->name;
         $leadSource->save();
-        return redirect()->route('business.lead.source.show',$leadSource->id)->withSuccess('Expense account updated!');
+        return redirect()->route('business.lead.source.show',['portal'=>$institution->portal,'id'=>$leadSource->id])->withSuccess('Expense account updated!');
     }
 
     public function leadSourceDelete($portal, $lead_source_id)
@@ -465,7 +472,7 @@ class SettingController extends Controller
         $title->user_id = $user->id;
         $title->institution_id = $institution->id;
         $title->save();
-        return redirect()->route('business.title.show',$title->id)->withSuccess(__('Title '.$title->name.' successfully created.'));
+        return redirect()->route('business.title.show',['portal'=>$institution->portal,'id'=>$title->id])->withSuccess(__('Title '.$title->name.' successfully created.'));
     }
 
     public function titleShow($portal, $title_id)
@@ -484,13 +491,15 @@ class SettingController extends Controller
     {
         // User
         $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
 
         $title = Title::findOrFail($title_id);
         $title->name = ($request->name);
         $title->user_id = $user->id;
         $title->save();
 
-        return redirect()->route('business.title.show',$title->id)->withSuccess('Title '.$title->name.' updated!');
+        return redirect()->route('business.title.show',['portal'=>$institution->portal,'id'=>$title->id])->withSuccess('Title '.$title->name.' updated!');
     }
 
     public function titleDelete($portal, $title_id)
@@ -550,7 +559,7 @@ class SettingController extends Controller
         $unit->user_id = $user->id;
         $unit->save();
 
-        return redirect()->route('business.unit.show',$unit->id)->withSuccess(__('Unit successfully created.'));
+        return redirect()->route('business.unit.show',['portal'=>$institution->portal,'id'=>$unit->id])->withSuccess(__('Unit successfully created.'));
     }
 
     public function unitShow($portal, $unit_id)

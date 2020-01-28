@@ -16,6 +16,10 @@ class Withdrawal extends Model
     {
         return $this->hasMany('App\AccountAdjustment');
     }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
 
     // parents
     public function account()

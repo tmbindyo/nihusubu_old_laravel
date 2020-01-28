@@ -86,9 +86,9 @@
                             {{$refund->reference}}
                             <span><i data-toggle="tooltip" data-placement="right" title="{{$refund->notes}}." class="fa fa-facebook-messenger"></i></span>
                         </td>
-                        <td>{{$refund->paid}}</td>
-                        <td>{{$refund->initial_balance}}</td>
-                        <td>{{$refund->current_balance}}</td>
+                        <td>{{$refund->amount}}</td>
+                        <td>{{$refund->initial_amount}}</td>
+                        <td>{{$refund->subsequent_amount}}</td>
                         <td>{{$refund->date}}</td>
                         <td>{{$refund->account->name}}</td>
                         <td>{{$refund->user->name}}</td>

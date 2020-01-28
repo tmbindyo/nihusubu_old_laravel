@@ -272,11 +272,11 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="number" id="creation_time" name="creation_time" required="required" placeholder="Creation/Value addition time" class="form-control input-lg">
+                                        <input type="number" id="creation_time" name="creation_time" placeholder="Creation/Value addition time" class="form-control input-lg">
                                         <i>Average time taken to manufacture/create or add value to it in minutes.</i>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="number" id="creation_cost" name="creation_cost" required="required" placeholder="Average Creation/Value Addition cost" class="form-control input-lg">
+                                        <input type="number" id="creation_cost" name="creation_cost" placeholder="Average Creation/Value Addition cost" class="form-control input-lg">
                                         <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
                                     </div>
                                 </div>

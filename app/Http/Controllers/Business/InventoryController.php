@@ -236,7 +236,7 @@ class InventoryController extends Controller
 
         }
 
-        return redirect()->route('business.transfer.orders')->withSuccess(__('Transfer order successfully stored.'));
+        return redirect()->route('business.transfer.orders',['portal'=>$institution->portal,'id'=>$transferOrder->id])->withSuccess(__('Transfer order successfully stored.'));
     }
 
     public function transferOrderShow($portal, $transfer_order_id)

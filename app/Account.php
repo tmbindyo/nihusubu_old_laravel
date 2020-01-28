@@ -54,6 +54,10 @@ class Account extends Model
     {
         return $this->hasMany('App\Transfer','source_account_id','id');
     }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
     public function transactions()
     {
         return $this->hasMany('App\Transaction');

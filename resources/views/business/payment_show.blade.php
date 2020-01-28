@@ -273,11 +273,94 @@
             </div>
         </div>
 
+        {{--    To Do's    --}}
+        <div class="row m-t-lg">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>To Do's</h5>
+                        <div class="ibox-tools">
+                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <ul class="pending-to-do">
+                            @foreach($pendingToDos as $pendingToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$pendingToDo->due_date}}</small>
+                                        <h4>{{$pendingToDo->name}}</h4>
+                                        <p>{{$pendingToDo->notes}}.</p>
+                                        @if($pendingToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        <ul class="in-progress-to-do">
+                            @foreach($inProgressToDos as $inProgressToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$inProgressToDo->due_date}}</small>
+                                        <h4>{{$inProgressToDo->name}}</h4>
+                                        <p>{{$inProgressToDo->notes}}.</p>
+                                        @if($inProgressToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <ul class="overdue-to-do">
+                            @foreach($overdueToDos as $overdueToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$overdueToDo->due_date}}</small>
+                                        <h4>{{$overdueToDo->name}}</h4>
+                                        <p>{{$overdueToDo->notes}}.</p>
+                                        @if($overdueToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
+                                        @endif
+                                        @if($overdueToDo->status->name === "Pending")
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                        @elseif($overdueToDo->status->name === "In progress")
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <ul class="completed-to-do">
+                            @foreach($completedToDos as $completedToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$completedToDo->due_date}}</small>
+                                        <h4>{{$completedToDo->name}}</h4>
+                                        <p>{{$completedToDo->notes}}.</p>
+                                        @if($completedToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
 @endsection
 
+@include('business.layouts.modals.payment_to_do')
 
 @section('js')
 
@@ -412,6 +495,38 @@
         });
 
     });
+</script>
+
+{{--  Get due date to populate   --}}
+<script>
+    $(document).ready(function() {
+        // Set date
+        console.log('var');
+        var today = new Date();
+        console.log(today);
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        mm ++;
+        if (dd < 10){
+            dd = '0'+dd;
+        }
+        if (mm < 10){
+            mm = '0'+mm;
+        }
+        var date_today = mm + '/' + dd + '/' + yyyy;
+        var time_curr = h + ':' + m;
+        console.log(time_curr);
+        document.getElementById("start_date").value = date_today;
+        document.getElementById("end_date").value = date_today;
+        document.getElementById("start_time").value = time_curr;
+        document.getElementById("end_time").value = time_curr;
+
+        // Set time
+    });
+
 </script>
 
 <!-- Page-Level Scripts -->
@@ -582,6 +697,54 @@
 
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+        var elem_4 = document.querySelector('.js-switch_4');
+        var switchery_4 = new Switchery(elem_4, { color: '#1AB394' });
+
+        var elem_5 = document.querySelector('.js-switch_5');
+        var switchery_5 = new Switchery(elem_5, { color: '#1AB394' });
+
+        var elem_6 = document.querySelector('.js-switch_6');
+        var switchery_6 = new Switchery(elem_6, { color: '#1AB394' });
+
+        var elem_7 = document.querySelector('.js-switch_7');
+        var switchery_7 = new Switchery(elem_7, { color: '#1AB394' });
+
+        var elem_8 = document.querySelector('.js-switch_8');
+        var switchery_8 = new Switchery(elem_8, { color: '#1AB394' });
+
+        var elem_9 = document.querySelector('.js-switch_9');
+        var switchery_9 = new Switchery(elem_9, { color: '#1AB394' });
+
+        var elem_10 = document.querySelector('.js-switch_10');
+        var switchery_10 = new Switchery(elem_10, { color: '#1AB394' });
+
+        var elem_11 = document.querySelector('.js-switch_11');
+        var switchery_11 = new Switchery(elem_11, { color: '#1AB394' });
+
+        var elem_12 = document.querySelector('.js-switch_12');
+        var switchery_12 = new Switchery(elem_12, { color: '#1AB394' });
+
+        var elem_13 = document.querySelector('.js-switch_13');
+        var switchery_13 = new Switchery(elem_13, { color: '#1AB394' });
+
+        var elem_14 = document.querySelector('.js-switch_14');
+        var switchery_14 = new Switchery(elem_14, { color: '#1AB394' });
+
+        var elem_15 = document.querySelector('.js-switch_15');
+        var switchery_15 = new Switchery(elem_15, { color: '#1AB394' });
+
+        var elem_16 = document.querySelector('.js-switch_16');
+        var switchery_16 = new Switchery(elem_16, { color: '#1AB394' });
+
+        var elem_17 = document.querySelector('.js-switch_17');
+        var switchery_17 = new Switchery(elem_17, { color: '#1AB394' });
+
+        var elem_18 = document.querySelector('.js-switch_18');
+        var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
+
+        var elem_19 = document.querySelector('.js-switch_19');
+        var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
 
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
