@@ -27,13 +27,18 @@
             <img alt="image" class="img-circle circle-border" src="https://s3.amazonaws.com/uifaces/faces/twitter/ok/128.jpg">
             </div>
             <h3>John Smith</h3>
-            <p>Your are in lock screen. Main app was shut down and you need to enter your passwor to go back to app.</p>
-            <form class="m-t" role="form" action="index.html">
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="******" required="">
-                </div>
-                <button type="submit" class="btn btn-primary block full-width">Unlock</button>
-            </form>
+            <p>Your are in lock screen. Main app was shut down and you need to select an account to access.</p>
+            @foreach($userAccounts as $userAccount)
+                @if($userAccount->user_type->name == "Business")
+                    <a href="{{route('activate.user.account',$userAccount->id)}}" class="btn btn-primary block full-width">Access {{$userAccount->institution->name}}</a>
+                @endif
+                @if($userAccount->user_type->name == "Admin")
+                    <a class="btn btn-primary block full-width">Access Admin Account</a>
+                @endif
+                @if($userAccount->user_type->name == "Personal")
+                    <a class="btn btn-primary block full-width">Access Personal Account</a>
+                @endif
+            @endforeach
         </div>
     </div>
 

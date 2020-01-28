@@ -61,27 +61,27 @@ class HomeController extends Controller
     {
 
         // User
-        $user = $this->getUser();
-        // get user accounts
-        $userAccounts = UserAccount::where('user_id',$user->id)->get();
-        return view('dashboard',compact('userAccounts'));
+        $user = Auth::user();
+        // get user accountsupdate user_accounts set
+        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution','user_type')->get();
+        return view('auth.business.lockscreen',compact('userAccounts'));
     }
 
     public function activateUserAccount($user_account_id)
     {
         // User
-        $user = $this->getUser();
+        $user = Auth::user();
         // update all user accounts as false
-        $userAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => 'false']);
+        $userAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => False]);
         // activate user account
-        $userAccounts = UserAccount::where('id',$user_account_id)->update(['is_active' => 'true']);
+        $userAccounts = UserAccount::where('id',$user_account_id)->update(['is_active' => True]);
         return redirect()->route('home');
     }
 
     public function deactivateUserAccounts()
     {
         // User
-        $user = $this->getUser();
+        $user = Auth::user();
         // get user accounts
         $userAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => 'false']);
         return $user;

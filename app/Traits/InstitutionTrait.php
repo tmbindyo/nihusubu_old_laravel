@@ -18,12 +18,12 @@ trait InstitutionTrait
         // get user
         // check if active
         // User
-        $user = $this->getUser();
-        $activeUserAccount = UserAccount::where('is_active',True)->where('user_id',$user->id)->first();
-        if(!$activeUserAccount){
-            // if user account active
-            return redirect()->route('');
-        }
+        // $user = $this->getUser();
+        // $activeUserAccount = UserAccount::where('is_active',True)->where('user_id',$user->id)->first();
+        // if(!$activeUserAccount){
+        //     // if user account active
+        //     return redirect()->route('view.user.accounts');
+        // }
 
 
         // system defined user
