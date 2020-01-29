@@ -30,17 +30,18 @@
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                    @foreach($user->user_accounts as $userAccount)
+                                    @foreach($user->inactive_user_account as $userAccount)
                                         @if($userAccount->user_type->name == "Business")
-                                            <li><a href="{{route('login')}}">{{$userAccount->institution->name}}</a></li>
+                                            <li><a href="{{route('activate.user.account',$userAccount->id)}}"> Access {{$userAccount->institution->name}} </a></li>
                                         @endif
                                         @if($userAccount->user_type->name == "Personal")
-                                            <li><a href="profile.html">Profile</a></li>
+                                            <li><a href="{{route('activate.user.account',$userAccount->id)}}">Access Personal Account</a></li>
                                         @endif
                                         @if($userAccount->user_type->name == "Admin")
-                                            <li><a href="profile.html">Profile</a></li>
+                                            <li><a href="{{route('activate.user.account',$userAccount->id)}}">Access Admin Account</a></li>
                                         @endif
                                     @endforeach
+                                    <li><a href="{{route('create.user.account')}}">Create New Account</a></li>
                                 </ul>
                 </div>
                 <div class="logo-element">

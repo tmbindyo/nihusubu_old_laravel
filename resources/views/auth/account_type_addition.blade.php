@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | 404 Error</title>
+    <title>nihusubu | Add Account</title>
 
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -19,26 +19,22 @@
 <body class="gray-bg">
 
 <div class="lock-word animated fadeInDown">
-    <span class="first-word">LOCKED</span><span>SCREEN</span>
+    {{--  <span class="first-word">Add</span><span>Account</span>  --}}
 </div>
     <div class="middle-box text-center lockscreen animated fadeInDown">
         <div>
             <div class="m-b-md">
             <img alt="image" class="img-circle circle-border" src="https://s3.amazonaws.com/uifaces/faces/twitter/ok/128.jpg">
             </div>
-            <h3>John Smith</h3>
+            <h3>{{$user->name}}</h3>
             <p>Your are in lock screen. Main app was shut down and you need to select an account to access.</p>
             @foreach($userAccounts as $userAccount)
-                @if($userAccount->user_type->name == "Business")
-                    <a href="{{route('activate.user.account',$userAccount->id)}}" class="btn btn-primary block full-width">Access {{$userAccount->institution->name}}</a>
-                @endif
-                @if($userAccount->user_type->name == "Admin")
-                    <a class="btn btn-primary block full-width">Access Admin Account</a>
-                @endif
-                @if($userAccount->user_type->name == "Personal")
-                    <a class="btn btn-primary block full-width">Access Personal Account</a>
+                @if($userAccount->user_type->name != "Personal")
+                    <a href="{{route('add.personal.account')}}" class="btn btn-primary block full-width">Add Personal Account</a>
                 @endif
             @endforeach
+            <br>
+            <a href="{{route('business.add')}}" class="btn btn-primary block full-width">Add Business Account</a>
         </div>
     </div>
 

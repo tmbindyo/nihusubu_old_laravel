@@ -30,8 +30,6 @@ trait UserTrait
             return $user;
         }
 
-        // system defined user
-        // $user = User::where('id',3)->first();
 
     }
 

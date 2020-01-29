@@ -20,6 +20,7 @@ Route::get('/user/account/select/{account_id}', 'HomeController@selectUserAccoun
 Route::get('/view/user/accounts', 'HomeController@viewUserAccounts')->name('view.user.accounts');
 Route::get('/activate/user/account/{account_id}', 'HomeController@activateUserAccount')->name('activate.user.account');
 Route::get('/deactivate/user/accounts', 'HomeController@deactivateUserAccounts')->name('deactivate.user.accounts');
+Route::get('/create/user/account', 'HomeController@createUserAccount')->name('create.user.account');
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -85,10 +86,13 @@ Route::get('/personal/signup', 'Business\AuthController@businessLogin')->name('p
 
 // Business auth
 Route::get('/business/login', 'Business\AuthController@businessLogin')->name('business.login');
-Route::get('/business/login/two/columns', 'Business\AuthController@businessLoginTwoColumns')->name('business.login.two.columns');
 Route::get('/business/forgot/password', 'Business\AuthController@businessForgotPassword')->name('business.forgot.password');
 Route::get('/business/register', 'Business\AuthController@businessRegisterPage')->name('business.register');
 Route::post('/business/register', 'Auth\RegisterController@createInstitution')->name('business.register.account');
+Route::get('/business/add', 'Business\AuthController@businessAdd')->name('business.add');
+Route::post('/business/add/store', 'HomeController@addInstitution')->name('business.add.account');
+
+Route::get('/add/personal/account', 'HomeController@addPersonal')->name('add.personal.account');
 
 
 // Personal auth

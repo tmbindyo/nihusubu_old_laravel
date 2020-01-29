@@ -230,7 +230,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="m-b-md">
-                                <h2>Contract with Zender Company</h2>
+                                {{--  <h2>Contract with Zender Company</h2>  --}}
                             </div>
                             <dl class="dl-horizontal">
                                 <dt>Status:</dt> <dd><span class="label {{$product->status->label}}">{{$product->status->name}}</span></dd>

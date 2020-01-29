@@ -27,4 +27,9 @@ class AuthController extends Controller
     {
         return view('auth.business.register');
     }
+
+    public function businessAdd()
+    {
+        return view('auth.create_new_account');
+    }
 }

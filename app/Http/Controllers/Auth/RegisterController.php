@@ -157,6 +157,56 @@ class RegisterController extends Controller
         return redirect()->route('home');
     }
 
+    public function addInstitution(Request $request){
+        return "add institution";
+        // get user
+        $user = Auth::user();
+
+        $validatedInstitutionData = $request->validate([
+            'business_name' => ['required', 'string', 'max:255', 'unique:institutions,name'],
+            'portal' => ['required', 'string', 'max:255', 'unique:institutions'],
+        ]);
+
+        // create instiution
+        $institution = new Institution();
+        $institution->name = $request->business_name;
+        $institution->portal = $request->portal;
+        $institution->email = $request->business_email;
+        $institution->phone_number = $request->business_phone_number;
+        $institution->user_id = $user->id;
+        $institution->currency_id = "0839e6c9-20b3-4442-b3b6-5137a4d309ec";
+        $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $institution->save();
+
+        // create units
+        $institutionUnits = $this->unitSeeder($request, $user,$institution);
+        // create taxes
+        $institutionTaxes = $this->taxesSeeder($request, $user,$institution);
+        // create warehouses
+        $institutionWarehouses = $this->warehousesSeeder($request, $user,$institution);
+        // create lead sources
+        $institutionLeadSources = $this->leadSourcesSeeder($request, $user, $institution);
+        // create titles
+        $institutionTitles = $this->titlesSeeder($request, $user, $institution);
+        // create contact types
+        $institutionContactTypes = $this->contactTypesSeeder($request, $user, $institution);
+        // create campaign types
+        $institutionCampaignTypes = $this->campaignTypesSeeder($request, $user, $institution);
+        // create accounts
+        $institutionAccounts = $this->accountsSeeder($request, $user, $institution);
+        // create frequencies
+        $institutionFrequencies = $this->frequenciesSeeder($request, $user, $institution);
+        // create reasons
+        $institutionReasons = $this->reasonsSeeder($request, $user, $institution);
+        // create expense account
+        $institutionExpenseAccounts = $this->expenseAccountsSeeder($request, $user, $institution);
+        // create user account
+        $userAccount = $this->userAccountSeeder($request, $user, $institution);
+
+        // account creation
+        return redirect()->route('activate.user.account',$userAccount->id);
+    }
+
     private function unitSeeder ($request, $user, $institution){
 
         $unit = new Unit();
@@ -1058,7 +1108,6 @@ class RegisterController extends Controller
     }
 
 
-
     public function createPersonal(Request $request){
         // return $request;
         // user account validation
@@ -1079,6 +1128,25 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
+        // create accounts
+        $userAccounts = $this->userAccountsSeeder($request, $user);
+        // create frequencies
+        $userFrequencies = $this->userFrequenciesSeeder($request, $user);
+        // create expense account
+        $userExpenseAccounts = $this->userExpenseAccountsSeeder($request, $user);
+        // create user account
+        $userAccount = $this->userUserAccountSeeder($request, $user);
+
+        // account creation
+        auth()->login($user);
+        return redirect()->route('home');
+    }
+
+    public function addPersonal(Request $request){
+        // return $request;
+        // get user
+        $user = Auth::user();
+        return $user;
 
         // create accounts
         $userAccounts = $this->userAccountsSeeder($request, $user);
@@ -1455,7 +1523,7 @@ class RegisterController extends Controller
         $userAccount->is_active = true;
         $userAccount->is_user = true;
         $userAccount->is_admin = false;
-        $userAccount->user_type_id = '07c99d10-8e09-4861-83df-fdd3700d7e48';
+        $userAccount->user_type_id = '5f29e668-9029-4278-a5e7-9ba9f96a20df';
 
         $userAccount->save();
 

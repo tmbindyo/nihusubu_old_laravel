@@ -41,7 +41,7 @@ class AccountController extends Controller
     {
         // User
         $user = $this->getUser();
-        return $user;
+        // return $user;
         // return $user;
         // Get the navbar values
         $institution = $this->getInstitution($portal);
