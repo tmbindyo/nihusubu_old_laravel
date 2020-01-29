@@ -60,17 +60,21 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Payment');
     }
-    public function product_group()
-    {
-        return $this->belongsTo('App\ProductGroup');
-    }
     public function product()
     {
         return $this->belongsTo('App\Product');
     }
+    public function product_group()
+    {
+        return $this->belongsTo('App\ProductGroup');
+    }
     public function refund()
     {
         return $this->belongsTo('App\Refund');
+    }
+    public function sale()
+    {
+        return $this->belongsTo('App\Sale');
     }
     public function status()
     {
@@ -96,10 +100,7 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Withdrawal');
     }
-    public function sale()
-    {
-        return $this->belongsTo('App\Sale');
-    }
+
 
 
     // Children

@@ -29,13 +29,13 @@ class ToDoController extends Controller
         $institution = $this->getInstitution($portal);
 
         // Pending to dos
-        $pendingToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale','contact','organization','campaign')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('institution_id',$institution->id)->where('is_institution',true)->where('user_id',$user->id)->get();
+        $pendingToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','institution','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('institution_id',$institution->id)->where('is_institution',true)->where('user_id',$user->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale','contact','organization','campaign')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('institution_id',$institution->id)->where('is_institution',true)->where('user_id',$user->id)->get();
+        $inProgressToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','institution','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('institution_id',$institution->id)->where('is_institution',true)->where('user_id',$user->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale','contact','organization','campaign')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('institution_id',$institution->id)->where('is_institution',true)->where('user_id',$user->id)->get();
+        $completedToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','institution','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('institution_id',$institution->id)->where('is_institution',true)->where('user_id',$user->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','assignee','institution','product','product_group','warehouse','sale','contact','organization','campaign')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('institution_id',$institution->id)->where('is_institution',true)->where('user_id',$user->id)->get();
+        $overdueToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','institution','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('institution_id',$institution->id)->where('is_institution',true)->where('user_id',$user->id)->get();
 
         return view('business.to_dos',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','institution'));
     }
@@ -50,7 +50,7 @@ class ToDoController extends Controller
         $institution = $this->getInstitution($portal);
 
         // parse due date to mysql format
-        $due_date = date('Y-m-d', strtotime($request->due_date));
+        $due_date = date('Y-m-d', strtotime($request->start_date));
         // date today
         $date_today = date('Y-m-d');
 
@@ -220,6 +220,7 @@ class ToDoController extends Controller
         }else{
             $todo->is_transfer = False;
         }
+
 
         // Check if date is overdue to make the status overdue
         // Check and compare if the task is overdue to set the relevant

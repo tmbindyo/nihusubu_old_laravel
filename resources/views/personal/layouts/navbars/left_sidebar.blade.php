@@ -6,13 +6,37 @@
                             <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/profile_small.jpg" />
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
-                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">{{$user->name}}</strong>
+                                </span>
+                                <span class="text-muted text-xs block">
+                                    @if($user->active_user_account->user_type->name == "Business")
+                                        {{$user->active_user_account->institution->name}}
+                                        <b class="caret"></b>
+                                    @elseif($user->active_user_account->user_type->name == "Personal")
+                                        Personal Account
+                                        <b class="caret"></b>
+                                    @elseif($user->active_user_account->user_type->name == "Admin")
+                                        Nihusubu Admin
+                                        <b class="caret"></b>
+                                    @endif
+                                </span>
+                        </span>
+                    </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="{{route('personal.profile')}}">Profile</a></li>
-                        <li><a href="mailbox.html">Mailbox</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{{route('logout')}}">Logout</a></li>
+                        @foreach($user->inactive_user_account as $userAccount)
+                            @if($userAccount->user_type->name == "Business")
+                                <li><a href="{{route('activate.user.account',$userAccount->id)}}"> Access {{$userAccount->institution->name}} </a></li>
+                            @endif
+                            @if($userAccount->user_type->name == "Personal")
+                                <li><a href="{{route('activate.user.account',$userAccount->id)}}">Access Personal Account</a></li>
+                            @endif
+                            @if($userAccount->user_type->name == "Admin")
+                                <li><a href="{{route('activate.user.account',$userAccount->id)}}">Access Admin Account</a></li>
+                            @endif
+                        @endforeach
+                        <li><a href="{{route('create.user.account')}}">Create New Account</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -20,9 +44,9 @@
                 </div>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'personal.dashboard' ) ?  'active' : '' }}">
+            {{--  <li class="nav-item {{ Route::currentRouteNamed( 'personal.dashboard' ) ?  'active' : '' }}">
                 <a href="{{ route('personal.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
-            </li>
+            </li>  --}}
 
             <li class="nav-item {{ Route::currentRouteNamed( 'personal.calendar' ) ?  'active' : '' }}">
                 <a href="{{ route('personal.calendar') }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>
@@ -32,9 +56,27 @@
                 <a href="{{ route('personal.to.dos') }}"><i class="fa fa-list"></i> <span class="nav-label">To Do </span></a>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'personal.budget' ) ?  'active' : '' }}">
-                <a href="{{ route('personal.budget') }}"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Budgeting</span></a>
+            <li>
+                <a href="#">
+                    <i class="fa fa-graduation-cap"></i>
+                    <span class="nav-label">Budgeting </span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.budget' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.budget')}}">
+                            Budgeting
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.budget' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.budget')}}">
+                            Income
+                        </a>
+                    </li>
+                </ul>
             </li>
+
+
 
             <li class="nav-item {{ Route::currentRouteNamed( 'personal.saccos' ) ?  'active' : '' }}">
                 <a href="{{ route('personal.saccos') }}"><i class="fa fa-database"></i> <span class="nav-label">Chama</span></a>

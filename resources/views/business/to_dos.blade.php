@@ -75,20 +75,56 @@
                                 <small>{{$pendingToDo->due_date}}</small>
                                 <h4>{{$pendingToDo->name}}</h4>
                                 <p class = "sticky-note-content" style = "height: 100%">{{$pendingToDo->notes}}.</p>
-                                @if($pendingToDo->is_album === 1)
-                                    <p><span class="badge badge-primary">{{$pendingToDo->album->name}}</span></p>
+                                @if($pendingToDo->is_account === 1)
+                                    <p><span class="badge badge-primary">Account:{{$pendingToDo->account->name}}</span></p>
                                 @endif
-                                @if($pendingToDo->is_assigned === 1)
-                                    <p><span class="badge badge-primary">Assigned:{{$pendingToDo->assigned->name}}</span></p>
+                                @if($pendingToDo->is_account_adjustment === 1)
+                                    <p><span class="badge badge-primary">Account Adjustment:{{$pendingToDo->account_adjustment->reference}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_campaign === 1)
+                                    <p><span class="badge badge-primary">Campaign:{{$pendingToDo->campaign->name}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_contact === 1)
+                                    <p><span class="badge badge-primary">Contact:{{$pendingToDo->contact->first_name}} {{$pendingToDo->contact->last_name}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_deposit === 1)
+                                    <p><span class="badge badge-primary">Deposit:{{$pendingToDo->deposit->reference}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_expense === 1)
+                                    <p><span class="badge badge-primary">Expense:{{$pendingToDo->expense->reference}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_liability === 1)
+                                    <p><span class="badge badge-primary">Liability:{{$pendingToDo->liability->reference}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_loan === 1)
+                                    <p><span class="badge badge-primary">Loan:{{$pendingToDo->loan->reference}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_organization === 1)
+                                    <p><span class="badge badge-primary">Organization:{{$pendingToDo->organization->name}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_payment === 1)
+                                    <p><span class="badge badge-primary">Payment:{{$pendingToDo->payment->reference}}</span></p>
                                 @endif
                                 @if($pendingToDo->is_product === 1)
                                     <p><span class="badge badge-primary">Product:{{$pendingToDo->product->name}}</span></p>
                                 @endif
+                                @if($pendingToDo->is_product_group === 1)
+                                    <p><span class="badge badge-primary">Product group:{{$pendingToDo->product_group->name}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_sale === 1)
+                                    <p><span class="badge badge-primary">Sale:{{$pendingToDo->sale->reference}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_transaction === 1)
+                                    <p><span class="badge badge-primary">Transaction:{{$pendingToDo->transaction->reference}}</span></p>
+                                @endif
+                                @if($pendingToDo->is_transfer === 1)
+                                    <p><span class="badge badge-primary">Transfer:{{$pendingToDo->transfer->reference}}</span></p>
+                                @endif
                                 @if($pendingToDo->is_warehouse === 1)
                                     <p><span class="badge badge-primary">Warehouse:{{$pendingToDo->warehouse->name}}</span></p>
                                 @endif
-                                @if($pendingToDo->is_sale === 1)
-                                    <p><span class="badge badge-primary">Sale:{{$pendingToDo->sale->name}}</span></p>
+                                @if($pendingToDo->is_withdrawal === 1)
+                                    <p><span class="badge badge-primary">Withdrawal:{{$pendingToDo->withdrawal->reference}}</span></p>
                                 @endif
                                 <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                             </div>
@@ -102,21 +138,59 @@
                                 <small>{{$inProgressToDo->due_date}}</small>
                                 <h4>{{$inProgressToDo->name}}</h4>
                                 <p>{{$inProgressToDo->notes}}.</p>
-                                @if($inProgressToDo->is_album === 1)
-                                    <p><span class="badge badge-primary">{{$inProgressToDo->album->name}}</span></p>
+
+                                @if($inProgressToDo->is_account === 1)
+                                    <p><span class="badge badge-primary">Account:{{$inProgressToDo->account->name}}</span></p>
                                 @endif
-                                @if($inProgressToDo->is_assigned === 1)
-                                    <p><span class="badge badge-primary">Assigned:{{$inProgressToDo->assigned->name}}</span></p>
+                                @if($inProgressToDo->is_account_adjustment === 1)
+                                    <p><span class="badge badge-primary">Account Adjustment:{{$inProgressToDo->account_adjustment->reference}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_campaign === 1)
+                                    <p><span class="badge badge-primary">Campaign:{{$inProgressToDo->campaign->name}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_contact === 1)
+                                    <p><span class="badge badge-primary">Contact:{{$inProgressToDo->contact->first_name}} {{$inProgressToDo->contact->last_name}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_deposit === 1)
+                                    <p><span class="badge badge-primary">Deposit:{{$inProgressToDo->deposit->reference}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_expense === 1)
+                                    <p><span class="badge badge-primary">Expense:{{$inProgressToDo->expense->reference}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_liability === 1)
+                                    <p><span class="badge badge-primary">Liability:{{$inProgressToDo->liability->reference}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_loan === 1)
+                                    <p><span class="badge badge-primary">Loan:{{$inProgressToDo->loan->reference}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_organization === 1)
+                                    <p><span class="badge badge-primary">Organization:{{$inProgressToDo->organization->name}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_payment === 1)
+                                    <p><span class="badge badge-primary">Payment:{{$inProgressToDo->payment->reference}}</span></p>
                                 @endif
                                 @if($inProgressToDo->is_product === 1)
                                     <p><span class="badge badge-primary">Product:{{$inProgressToDo->product->name}}</span></p>
                                 @endif
+                                @if($inProgressToDo->is_product_group === 1)
+                                    <p><span class="badge badge-primary">Product group:{{$inProgressToDo->product_group->name}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_sale === 1)
+                                    <p><span class="badge badge-primary">Sale:{{$inProgressToDo->sale->reference}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_transaction === 1)
+                                    <p><span class="badge badge-primary">Transaction:{{$inProgressToDo->transaction->reference}}</span></p>
+                                @endif
+                                @if($inProgressToDo->is_transfer === 1)
+                                    <p><span class="badge badge-primary">Transfer:{{$inProgressToDo->transfer->reference}}</span></p>
+                                @endif
                                 @if($inProgressToDo->is_warehouse === 1)
                                     <p><span class="badge badge-primary">Warehouse:{{$inProgressToDo->warehouse->name}}</span></p>
                                 @endif
-                                @if($inProgressToDo->is_sale === 1)
-                                    <p><span class="badge badge-primary">Sale:{{$inProgressToDo->sale->name}}</span></p>
+                                @if($inProgressToDo->is_withdrawal === 1)
+                                    <p><span class="badge badge-primary">Withdrawal:{{$inProgressToDo->withdrawal->reference}}</span></p>
                                 @endif
+
                                 <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                             </div>
                         </li>
@@ -129,26 +203,66 @@
                                 <small>{{$overdueToDo->due_date}}</small>
                                 <h4>{{$overdueToDo->task}}</h4>
                                 <p>{{$overdueToDo->notes}}.</p>
-                                @if($overdueToDo->is_album === 1)
-                                    <p><span class="badge badge-primary">{{$overdueToDo->album->name}}</span></p>
+
+                                @if($overdueToDo->is_account === 1)
+                                    <p><span class="badge badge-primary">Account:{{$overdueToDo->account->name}}</span></p>
                                 @endif
+                                @if($overdueToDo->is_account_adjustment === 1)
+                                    <p><span class="badge badge-primary">Account Adjustment:{{$overdueToDo->account_adjustment->reference}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_campaign === 1)
+                                    <p><span class="badge badge-primary">Campaign:{{$overdueToDo->campaign->name}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_contact === 1)
+                                    <p><span class="badge badge-primary">Contact:{{$overdueToDo->contact->first_name}} {{$overdueToDo->contact->last_name}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_deposit === 1)
+                                    <p><span class="badge badge-primary">Deposit:{{$overdueToDo->deposit->reference}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_expense === 1)
+                                    <p><span class="badge badge-primary">Expense:{{$overdueToDo->expense->reference}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_liability === 1)
+                                    <p><span class="badge badge-primary">Liability:{{$overdueToDo->liability->reference}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_loan === 1)
+                                    <p><span class="badge badge-primary">Loan:{{$overdueToDo->loan->reference}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_organization === 1)
+                                    <p><span class="badge badge-primary">Organization:{{$overdueToDo->organization->name}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_payment === 1)
+                                    <p><span class="badge badge-primary">Payment:{{$overdueToDo->payment->reference}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_product === 1)
+                                    <p><span class="badge badge-primary">Product:{{$overdueToDo->product->name}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_product_group === 1)
+                                    <p><span class="badge badge-primary">Product group:{{$overdueToDo->product_group->name}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_sale === 1)
+                                    <p><span class="badge badge-primary">Sale:{{$overdueToDo->sale->reference}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_transaction === 1)
+                                    <p><span class="badge badge-primary">Transaction:{{$overdueToDo->transaction->reference}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_transfer === 1)
+                                    <p><span class="badge badge-primary">Transfer:{{$overdueToDo->transfer->reference}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_warehouse === 1)
+                                    <p><span class="badge badge-primary">Warehouse:{{$overdueToDo->warehouse->name}}</span></p>
+                                @endif
+                                @if($overdueToDo->is_withdrawal === 1)
+                                    <p><span class="badge badge-primary">Withdrawal:{{$overdueToDo->withdrawal->reference}}</span></p>
+                                @endif
+
+
                                 @if($overdueToDo->status->name === "Pending")
                                     <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                 @elseif($overdueToDo->status->name === "In progress")
                                     <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                 @endif
-                                @if($overdueToDo->is_assigned === 1)
-                                    <p><span class="badge badge-primary">Assigned:{{$overdueToDo->assigned->name}}</span></p>
-                                @endif
-                                @if($overdueToDo->is_product === 1)
-                                    <p><span class="badge badge-primary">Product:{{$overdueToDo->product->name}}</span></p>
-                                @endif
-                                @if($overdueToDo->is_warehouse === 1)
-                                    <p><span class="badge badge-primary">Warehouse:{{$overdueToDo->warehouse->name}}</span></p>
-                                @endif
-                                @if($overdueToDo->is_sale === 1)
-                                    <p><span class="badge badge-primary">Sale:{{$overdueToDo->sale->name}}</span></p>
-                                @endif
+
                                 <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                             </div>
                         </li>
@@ -161,21 +275,59 @@
                                 <small>{{$completedToDo->due_date}}</small>
                                 <h4>{{$completedToDo->task}}</h4>
                                 <p>{{$completedToDo->notes}}.</p>
-                                @if($completedToDo->is_album === 1)
-                                    <p><span class="badge badge-primary">{{$completedToDo->album->name}}</span></p>
+
+                                @if($completedToDo->is_account === 1)
+                                    <p><span class="badge badge-primary">Account:{{$completedToDo->account->name}}</span></p>
                                 @endif
-                                @if($completedToDo->is_assigned === 1)
-                                    <p><span class="badge badge-primary">Assigned:{{$completedToDo->assigned->name}}</span></p>
+                                @if($completedToDo->is_account_adjustment === 1)
+                                    <p><span class="badge badge-primary">Account Adjustment:{{$completedToDo->account_adjustment->reference}}</span></p>
+                                @endif
+                                @if($completedToDo->is_campaign === 1)
+                                    <p><span class="badge badge-primary">Campaign:{{$completedToDo->campaign->name}}</span></p>
+                                @endif
+                                @if($completedToDo->is_contact === 1)
+                                    <p><span class="badge badge-primary">Contact:{{$completedToDo->contact->first_name}} {{$completedToDo->contact->last_name}}</span></p>
+                                @endif
+                                @if($completedToDo->is_deposit === 1)
+                                    <p><span class="badge badge-primary">Deposit:{{$completedToDo->deposit->reference}}</span></p>
+                                @endif
+                                @if($completedToDo->is_expense === 1)
+                                    <p><span class="badge badge-primary">Expense:{{$completedToDo->expense->reference}}</span></p>
+                                @endif
+                                @if($completedToDo->is_liability === 1)
+                                    <p><span class="badge badge-primary">Liability:{{$completedToDo->liability->reference}}</span></p>
+                                @endif
+                                @if($completedToDo->is_loan === 1)
+                                    <p><span class="badge badge-primary">Loan:{{$completedToDo->loan->reference}}</span></p>
+                                @endif
+                                @if($completedToDo->is_organization === 1)
+                                    <p><span class="badge badge-primary">Organization:{{$completedToDo->organization->name}}</span></p>
+                                @endif
+                                @if($completedToDo->is_payment === 1)
+                                    <p><span class="badge badge-primary">Payment:{{$completedToDo->payment->reference}}</span></p>
                                 @endif
                                 @if($completedToDo->is_product === 1)
                                     <p><span class="badge badge-primary">Product:{{$completedToDo->product->name}}</span></p>
                                 @endif
+                                @if($completedToDo->is_product_group === 1)
+                                    <p><span class="badge badge-primary">Product group:{{$completedToDo->product_group->name}}</span></p>
+                                @endif
+                                @if($completedToDo->is_sale === 1)
+                                    <p><span class="badge badge-primary">Sale:{{$completedToDo->sale->reference}}</span></p>
+                                @endif
+                                @if($completedToDo->is_transaction === 1)
+                                    <p><span class="badge badge-primary">Transaction:{{$completedToDo->transaction->reference}}</span></p>
+                                @endif
+                                @if($completedToDo->is_transfer === 1)
+                                    <p><span class="badge badge-primary">Transfer:{{$completedToDo->transfer->reference}}</span></p>
+                                @endif
                                 @if($completedToDo->is_warehouse === 1)
                                     <p><span class="badge badge-primary">Warehouse:{{$completedToDo->warehouse->name}}</span></p>
                                 @endif
-                                @if($completedToDo->is_sale === 1)
-                                    <p><span class="badge badge-primary">Sale:{{$completedToDo->sale->name}}</span></p>
+                                @if($completedToDo->is_withdrawal === 1)
+                                    <p><span class="badge badge-primary">Withdrawal:{{$completedToDo->withdrawal->reference}}</span></p>
                                 @endif
+
                                 <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                             </div>
                         </li>

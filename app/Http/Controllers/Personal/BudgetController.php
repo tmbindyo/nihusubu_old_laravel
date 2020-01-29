@@ -2,14 +2,25 @@
 
 namespace App\Http\Controllers\Personal;
 
+use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class BudgetController extends Controller
 {
+
+    use UserTrait;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function budget()
     {
-        return view('personal.budget');
+        // User
+        $user = $this->getUser();
+        return view('personal.budget',compact('user'));
     }
     public function budgetStore()
     {

@@ -74,9 +74,12 @@ class HomeController extends Controller
     {
         // User
         $user = Auth::user();
+
+        // Get personal user account
+        $personalUserAccount = UserAccount::where('user_id',$user->id)->where('user_type_id','5f29e668-9029-4278-a5e7-9ba9f96a20df')->with('institution','user_type')->first();
         // get user accountsupdate user_accounts set
         $userAccounts = UserAccount::where('user_id',$user->id)->with('institution','user_type')->get();
-        return view('auth.account_type_addition',compact('userAccounts','user'));
+        return view('auth.account_type_addition',compact('userAccounts','user','personalUserAccount'));
     }
 
     public function viewUserAccounts()
