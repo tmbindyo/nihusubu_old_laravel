@@ -847,6 +847,18 @@ class SaleController extends Controller
         return view('business.sale_show',compact('user','institution','sale','payments'));
     }
 
+    public function salePrint($portal, $invoice_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get sale
+        $sale = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
+//        return $sale;
+        return view('business.sale_print',compact('user','institution','sale'));
+    }
+
     public function salePaymentCreate($portal, $sale_id)
     {
         // User
