@@ -69,8 +69,6 @@ class CreateToDosTable extends Migration
             $table->boolean('is_account_adjustment');
             $table->uuid('account_adjustment_id')->nullable();
             $table->boolean('is_deposit');
-            $table->uuid('chama_id')->nullable();
-            $table->boolean('is_chama');
             $table->uuid('deposit_id')->nullable();
             $table->boolean('is_liability');
             $table->uuid('liability_id')->nullable();
@@ -88,6 +86,15 @@ class CreateToDosTable extends Migration
             $table->uuid('transaction_id')->nullable();
             $table->boolean('is_transfer');
             $table->uuid('transfer_id')->nullable();
+
+            $table->boolean('is_chama');
+            $table->uuid('chama_id')->nullable();
+            $table->boolean('is_chama_member');
+            $table->uuid('chama_member_id')->nullable();
+            $table->boolean('is_chama_meeting');
+            $table->uuid('chama_meeting_id')->nullable();
+            $table->boolean('is_chama_meeting_minutes');
+            $table->uuid('chama_meeting_minutes_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
