@@ -69,6 +69,8 @@ class CreateToDosTable extends Migration
             $table->boolean('is_account_adjustment');
             $table->uuid('account_adjustment_id')->nullable();
             $table->boolean('is_deposit');
+            $table->uuid('chama_id')->nullable();
+            $table->boolean('is_chama');
             $table->uuid('deposit_id')->nullable();
             $table->boolean('is_liability');
             $table->uuid('liability_id')->nullable();
