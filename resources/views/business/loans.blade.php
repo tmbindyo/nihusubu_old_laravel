@@ -23,7 +23,7 @@
             <h2>Loans</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Settings
@@ -69,11 +69,12 @@
                             <thead>
                                 <tr>
                                     <th>Reference</th>
-                                    <th>Amount</th>
+                                    <th>Principal</th>
+                                    <th>Interest</th>
+                                    <th>Total</th>
                                     <th>Paid</th>
                                     <th>Date</th>
                                     <th>Due Date</th>
-                                    <th>User</th>
                                     <th>Account</th>
                                     <th>Contact</th>
                                     <th>User</th>
@@ -88,11 +89,12 @@
                                             {{$loan->reference}}
                                             <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->notes}}." class="fa fa-facebook-messenger"></i></span>
                                         </td>
-                                        <td>{{$loan->amount}}</td>
+                                        <td>{{$loan->principal}}</td>
+                                        <td>{{$loan->interest}}</td>
+                                        <td>{{$loan->total}}</td>
                                         <td>{{$loan->paid}}</td>
                                         <td>{{$loan->date}}</td>
                                         <td>{{$loan->due_date}}</td>
-                                        <td>{{$loan->user->name}}</td>
                                         <td>{{$loan->account->name}}</td>
                                         <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
                                         <td>{{$loan->user->name}}</td>
@@ -116,11 +118,12 @@
                             <tfoot>
                                 <tr>
                                     <th>Reference</th>
-                                    <th>Amount</th>
+                                    <th>Principal</th>
+                                    <th>Interest</th>
+                                    <th>Total</th>
                                     <th>Paid</th>
                                     <th>Date</th>
                                     <th>Due Date</th>
-                                    <th>User</th>
                                     <th>Account</th>
                                     <th>Contact</th>
                                     <th>User</th>

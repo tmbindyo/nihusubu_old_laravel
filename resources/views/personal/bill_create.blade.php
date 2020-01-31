@@ -24,7 +24,7 @@
                 <h2>Bills</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('personal.dashboard')}}">Home</a>
+                        <a href="{{route('personal.calendar')}}">Home</a>
                     </li>
                     <li>
                         <a href="{{route('personal.expenses')}}">Expenses</a>

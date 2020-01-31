@@ -43,7 +43,7 @@
             <h2>Contact's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('personal.dashboard')}}">Home</a>
+                    <a href="{{route('personal.calendar')}}">Home</a>
                 </li>
                 <li>
                     <a href="#">Settings</a>
@@ -150,51 +150,6 @@
                                         <div class="has-warning">
                                             <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Email">
                                             <i>email</i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <select name="organization" class="select2_demo_organization form-control input-lg">
-                                            <option></option>
-                                            @foreach($organizations as $organization)
-                                                <option value="{{$organization->id}}">{{$organization->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>organization</i>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple required="required">
-                                            <option></option>
-                                            @foreach($contactTypes as $contactType)
-                                                <option value="{{$contactType->id}}">{{$contactType->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>contact types</i>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <select name="lead_source" class="select2_demo_lead_source form-control input-lg">
-                                            <option></option>
-                                            @foreach($leadSources as $leadSource)
-                                                <option value="{{$leadSource->id}}">{{$leadSource->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>lead source</i>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="has-warning">
-                                            <select name="campaign" class="select2_demo_campaign form-control input-lg">
-                                                <option></option>
-                                                @foreach($campaigns as $campaign)
-                                                    <option value="{{$campaign->id}}">{{$campaign->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <i>campaign</i>
                                         </div>
                                     </div>
                                 </div>

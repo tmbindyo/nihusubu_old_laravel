@@ -43,7 +43,7 @@
             <h2>Liability's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('personal.dashboard')}}">Home</a>
+                    <a href="{{route('personal.calendar')}}">Home</a>
                 </li>
                 <li>
                     CRM
@@ -103,8 +103,29 @@
                                 <div class="col-md-10 col-md-offset-1">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" placeholder="Amount" class="form-control input-lg">
-                                        <i>amount</i>
+                                        <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" value="0" class="form-control input-lg">
+                                        <i>principal</i>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-3"> 
+                                            <div class="has-warning">
+                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="0" max="100" class="form-control input-lg">
+                                                <i>key in interest in percentage</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3"> 
+                                            <div class="has-warning">
+                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="0" max="100" class="form-control input-lg">
+                                                <i>key in interest amount</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <div class="has-warning">
+                                                <input type="number" id="total" name="total" required="required" readonly value="0" class="form-control input-lg">
+                                                <i>total</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
@@ -222,6 +243,36 @@
 
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+<script>
+
+    function getPercentAmount() {
+        var principal = document.getElementById('principal').value;
+        var interest = document.getElementById('interest').value;
+        {{--  get percentage  --}}
+        var percentage = interest /100;
+        var interest_amount = parseFloat(principal) * parseFloat(percentage);
+        var payback = parseFloat(principal) + parseFloat(interest_amount);
+        {{--  set values  --}}
+        document.getElementById("interest_amount").value = interest_amount;
+        document.getElementById("total").value = payback;
+
+    }
+    
+    function getPercentFromAmount() {
+        var principal = document.getElementById('principal').value;
+        var interest_amount = document.getElementById('interest_amount').value;
+        {{--  get total  --}}
+        var total = parseFloat(principal)+parseFloat(interest_amount)
+        {{--  get percentage  --}}
+        var percentage = parseFloat(interest_amount)/parseFloat(principal)
+        var interestPercentage = parseFloat(percentage)*100;
+        {{--  set values  --}}
+        document.getElementById("interest").value = interestPercentage;
+        document.getElementById("total").value = total;
+
+    }
+</script>
 
 <script>
     $(document).ready(function(){

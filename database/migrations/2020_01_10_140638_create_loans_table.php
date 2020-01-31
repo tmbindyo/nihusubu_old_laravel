@@ -19,7 +19,9 @@ class CreateLoansTable extends Migration
             $table->string('reference');
             $table->longText('about');
 
-            $table->decimal('amount',20,2);
+            $table->decimal('total',20,2);
+            $table->decimal('principal',20,2);
+            $table->double('interest',200,2)->nullable();
             $table->double('paid',200,2)->nullable();
 
             $table->date('date');
@@ -32,8 +34,10 @@ class CreateLoansTable extends Migration
             $table->uuid('institution_id')->nullable();
             $table->boolean('is_chama');
             $table->uuid('chama_id')->nullable();
+            $table->uuid('member_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('contact_id')->nullable();
+
 
             $table->timestamps();
             $table->softDeletes();

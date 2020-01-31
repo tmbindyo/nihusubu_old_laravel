@@ -39,7 +39,7 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get inventory adjustments
-        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->where('is_institution',true)->select('id')->get()->toArray();
+        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventoryAdjustments = InventoryAdjustment::whereIn('warehouse_id', $institutionWarehouses)->with('warehouse','user','status','account','reason')->get();
 //        return $inventoryAdjustments;
         return view('business.inventory_adjustments',compact('user','institution','inventoryAdjustments'));

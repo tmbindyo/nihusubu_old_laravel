@@ -673,7 +673,9 @@ class AccountController extends Controller
         $liability->reference = $reference;
         $liability->about = $request->about;
 
-        $liability->amount = $request->amount;
+        $liability->total = $request->total;
+        $liability->principal = $request->principal;
+        $liability->interest = $request->interest;
         $liability->paid = 0;
 
         $liability->date = date('Y-m-d', strtotime($request->date));
@@ -807,7 +809,9 @@ class AccountController extends Controller
         $loan->reference = $reference;
         $loan->about = $request->about;
 
-        $loan->amount = $request->amount;
+        $loan->total = $request->total;
+        $loan->principal = $request->principal;
+        $loan->interest = $request->interest;
         $loan->paid = 0;
 
         $loan->date = date('Y-m-d', strtotime($request->date));
@@ -818,6 +822,7 @@ class AccountController extends Controller
 
         $loan->is_user = True;
         $loan->is_institution = False;
+        $loan->is_chama = False;
 
         $loan->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $loan->user_id = $user->id;

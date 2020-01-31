@@ -23,7 +23,7 @@
             <h2>Liabilities</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('personal.dashboard')}}">Home</a>
+                    <a href="{{route('personal.calendar')}}">Home</a>
                 </li>
                 <li>
                     Settings
@@ -69,11 +69,12 @@
                 <thead>
                 <tr>
                     <th>Reference</th>
-                    <th>Amount</th>
+                    <th>Principal</th>
+                    <th>Interest</th>
+                    <th>Total</th>
                     <th>Paid</th>
                     <th>Date</th>
                     <th>Due Date</th>
-                    <th>User</th>
                     <th>Account</th>
                     <th>Contact</th>
                     <th>User</th>
@@ -88,7 +89,9 @@
                             {{$liability->reference}}
                             <span><i data-toggle="tooltip" data-placement="right" title="{{$liability->notes}}." class="fa fa-facebook-messenger"></i></span>
                         </td>
-                        <td>{{$liability->amount}}</td>
+                        <td>{{$liability->principal}}</td>
+                        <td>{{$liability->interest}}</td>
+                        <td>{{$liability->total}}</td>
                         <td>{{$liability->paid}}</td>
                         <td>{{$liability->date}}</td>
                         <td>{{$liability->due_date}}</td>
@@ -116,11 +119,12 @@
                 <tfoot>
                 <tr>
                     <th>Reference</th>
-                    <th>Amount</th>
+                    <th>Principal</th>
+                    <th>Interest</th>
+                    <th>Total</th>
                     <th>Paid</th>
                     <th>Date</th>
                     <th>Due Date</th>
-                    <th>User</th>
                     <th>Account</th>
                     <th>Contact</th>
                     <th>User</th>

@@ -44,7 +44,7 @@
             <h2>Contact's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('personal.dashboard')}}">Home</a>
+                    <a href="{{route('personal.calendar')}}">Home</a>
                 </li>
                 <li class="active">
                     <a href="{{route('personal.contacts')}}">Contact's</a>
@@ -58,13 +58,6 @@
             <div class="title-action">
                 <a href="{{route('personal.contact.liability.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Liability </a>
                 <a href="{{route('personal.contact.loan.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Loan </a>
-                <a href="{{route('personal.contact.sale.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
-                @if($contact->campaign_id)
-                    <a href="{{route('personal.campaign.show',$contact->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
-                @endif
-                @if($contact->organization_id)
-                    <a href="{{route('personal.organization.show',$contact->organization_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Organization </a>
-                @endif
             </div>
         </div>
     </div>
@@ -164,51 +157,6 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <select name="organization" class="select2_demo_organization form-control input-lg">
-                                                <option></option>
-                                                @foreach($organizations as $organization)
-                                                    <option @if($contact->organization_id == $organization->id) selected @endif value="{{$organization->id}}">{{$organization->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <i>organization</i>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <select required="required" name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple>
-                                                <option></option>
-                                                @foreach($contactTypes as $contactType)
-                                                    <option @foreach($contactContactTypes as $contactContactType) @if($contactType->id === $contactContactType->contact_type->id) selected @endif @endforeach value="{{$contactType->id}}">{{$contactType->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <i>contact types</i>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <select name="lead_source" class="select2_demo_lead_source form-control input-lg">
-                                                <option></option>
-                                                @foreach($leadSources as $leadSource)
-                                                    <option @if($contact->lead_source_id == $leadSource->id) selected @endif value="{{$leadSource->id}}">{{$leadSource->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <i>lead source</i>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                <select name="campaign" class="select2_demo_campaign form-control input-lg">
-                                                    <option></option>
-                                                    @foreach($campaigns as $campaign)
-                                                        <option @if($contact->campaign_id == $campaign->id) selected @endif value="{{$campaign->id}}">{{$campaign->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <i>campaign</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="has-warning">
                                                 <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required">{{$contact->about}}</textarea>
@@ -272,7 +220,6 @@
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a href="#liabilities" data-toggle="tab">Liability</a></li>
                                             <li class=""><a href="#loans" data-toggle="tab">Loan</a></li>
-                                            <li class=""><a href="#sales" data-toggle="tab">Sales</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -280,90 +227,6 @@
                                 <div class="panel-body">
 
                                     <div class="tab-content">
-                                        <div class="tab-pane" id="sales">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Created</th>
-                                                        <th>Total</th>
-                                                        <th>Discount</th>
-                                                        <th>Refunded</th>
-                                                        <th>Products</th>
-                                                        <th>State</th>
-                                                        <th>Client</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($sales as $sale)
-                                                        <tr class="gradeX">
-                                                            <td>
-                                                                {{$sale->sale_number}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$sale->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                            </td>
-                                                            <td>{{$sale->created_at}}</td>
-                                                            <td>{{$sale->total}}</td>
-                                                            <td>{{$sale->discount}}</td>
-                                                            <td>{{$sale->refund}}</td>
-                                                            <td>{{$sale->sale_products_count}}</td>
-
-                                                            <td>
-                                                                @if($sale->is_returned == 1 )
-                                                                    <span class="label label-warning">Returned</span>
-                                                                @endif
-                                                                @if($sale->is_refunded == 1 )
-                                                                    <span class="label label-danger">Refunded</span>
-                                                                @endif
-                                                                @if($sale->is_delivery == 1 )
-                                                                    <span class="label label-success">Delivered</span>
-                                                                @endif
-                                                                @if($sale->is_paid == 1 )
-                                                                    <span class="label label-success">Paid</span>
-                                                                @endif
-                                                                @if($sale->is_client == 1 )
-                                                                    <span class="label label-primary">Client</span>
-                                                                @else
-                                                                    <span class="label label-primary">User</span>
-                                                                @endif
-                                                                @if($sale->is_draft == 1 )
-                                                                    <span class="label label-info">Draft</span>
-                                                                @endif
-                                                            </td>
-
-                                                            <td>{{$sale->contact->first_name}} {{$sale->contact->last_name}} @if($sale->contact->organization) [{{$sale->contact->organization->name}}]@endif</td>
-                                                            <td>
-                                                                <span class="label {{$sale->status->label}}">{{$sale->status->name}}</span>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('personal.sale.show', $sale->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Created</th>
-                                                        <th>Total</th>
-                                                        <th>Discount</th>
-                                                        <th>Refunded</th>
-                                                        <th>Products</th>
-                                                        <th>State</th>
-                                                        <th>Client</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
                                         <div class="tab-pane active" id="liabilities">
 
                                             <div class="table-responsive">

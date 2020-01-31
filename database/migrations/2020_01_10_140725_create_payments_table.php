@@ -25,11 +25,14 @@ class CreatePaymentsTable extends Migration
             $table->double('initial_balance', 20, 2)->nullable();
             $table->double('current_balance', 20, 2)->nullable();
 
+            $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
+            $table->boolean('is_institution');
+            $table->uuid('institution_id')->nullable();
+            $table->boolean('is_chama');
+            $table->uuid('chama_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('account_id');
-            $table->boolean('is_institution');
-            $table->boolean('is_user');
 
             $table->boolean('is_loan');
             $table->uuid('loan_id')->nullable();

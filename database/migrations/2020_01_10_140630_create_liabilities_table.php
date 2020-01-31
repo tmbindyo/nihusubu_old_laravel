@@ -19,8 +19,10 @@ class CreateLiabilitiesTable extends Migration
             $table->string('reference');
             $table->longText('about');
 
-            $table->decimal('amount',20,2);
-            $table->decimal('paid',20,2);
+            $table->decimal('total',20,2);
+            $table->decimal('principal',20,2);
+            $table->double('interest',200,2)->nullable();
+            $table->double('paid',200,2)->nullable();
 
             $table->date('date');
             $table->date('due_date');

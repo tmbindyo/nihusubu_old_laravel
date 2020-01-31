@@ -28,8 +28,10 @@ class CreateContactsTable extends Migration
             $table->string('city')->nullable();
             $table->string('postal_code')->nullable();
 
+            $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->boolean('is_institution');
             $table->uuid('institution_id')->nullable();
             $table->boolean('is_organization');
             $table->uuid('organization_id')->nullable();

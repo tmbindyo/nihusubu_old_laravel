@@ -23,7 +23,7 @@
             <h2>Liabilities</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Settings
@@ -69,11 +69,12 @@
                 <thead>
                 <tr>
                     <th>Reference</th>
-                    <th>Amount</th>
+                    <th>Principal</th>
+                    <th>Interest</th>
+                    <th>Total</th>
                     <th>Paid</th>
                     <th>Date</th>
                     <th>Due Date</th>
-                    <th>User</th>
                     <th>Account</th>
                     <th>Contact</th>
                     <th>User</th>
@@ -88,11 +89,12 @@
                             {{$liability->reference}}
                             <span><i data-toggle="tooltip" data-placement="right" title="{{$liability->notes}}." class="fa fa-facebook-messenger"></i></span>
                         </td>
-                        <td>{{$liability->amount}}</td>
+                        <td>{{$liability->principal}}</td>
+                        <td>{{$liability->interest}}</td>
+                        <td>{{$liability->total}}</td>
                         <td>{{$liability->paid}}</td>
                         <td>{{$liability->date}}</td>
                         <td>{{$liability->due_date}}</td>
-                        <td>{{$liability->user->name}}</td>
                         <td>{{$liability->account->name}}</td>
                         <td>{{$liability->contact->first_name}} {{$liability->contact->last_name}}</td>
                         <td>{{$liability->user->name}}</td>
@@ -116,11 +118,12 @@
                 <tfoot>
                 <tr>
                     <th>Reference</th>
-                    <th>Amount</th>
+                    <th>Principal</th>
+                    <th>Interest</th>
+                    <th>Total</th>
                     <th>Paid</th>
                     <th>Date</th>
                     <th>Due Date</th>
-                    <th>User</th>
                     <th>Account</th>
                     <th>Contact</th>
                     <th>User</th>

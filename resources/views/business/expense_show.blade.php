@@ -51,7 +51,7 @@
             <h2>Expense</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     <a href="{{route('business.accounts',$institution->portal)}}">Accounts</a>
@@ -371,13 +371,6 @@
                     <ul class="tag-list" style="padding: 0">
                         @if($expense->is_order == 1)
                             <li><a href="{{route('business.order.show',['portal'=>$institution->portal,'id'=>$expense->order->id])}}"><i class="fa fa-shopping-cart"></i> {{$expense->order->order_number}}</a></li>
-                        @endif
-                            @if($expense->is_album == 1)
-                                @if($expense->album->album_type_id = "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
-                                    <li><a href="{{route('business.client.proof.show',['portal'=>$institution->portal,'id'=>$expense->album->id])}}"><i class="fa fa-camera"></i> {{$expense->album->name}}</a></li>
-                                @elseif($expense->album->album_type_id = "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
-                                    <li><a href="{{route('business.personal.album.show',['portal'=>$institution->portal,'id'=>$expense->album->id])}}"><i class="fa fa-camera"></i> {{$expense->album->name}}</a></li>
-                                @endif
                         @endif
                         @if($expense->is_project == 1)
                             <li><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project->id])}}"><i class="fa fa-trello"></i> {{$expense->project->name}}</a></li>

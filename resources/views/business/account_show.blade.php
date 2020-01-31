@@ -52,7 +52,7 @@
             <h2>Account</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
                     <strong>Accounting's</strong>
@@ -469,12 +469,6 @@
                                                             <div class="btn-group">
                                                                 @if($payment->is_order == 1)
                                                                     <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$payment->order_id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                @elseif($payment->is_album == 1)
-                                                                    @if($payment->album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4"))
-                                                                        <a href="{{ route('business.client.proof.show', ['portal'=>$institution->portal,'id'=>$payment->album_id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                    @elseif($payment->album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef"))
-                                                                        <a href="{{ route('business.personal.album.show', ['portal'=>$institution->portal,'id'=>$payment->album_id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                    @endif
                                                                 @elseif($payment->is_design == 1)
                                                                     <a href="{{ route('business.design.show', ['portal'=>$institution->portal,'id'=>$payment->design_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @elseif($payment->is_project == 1)
