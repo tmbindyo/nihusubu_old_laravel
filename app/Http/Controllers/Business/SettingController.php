@@ -102,9 +102,9 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // get campaign types
-        $campaignTypes = CampaignType::where('institution_id',$institution->id)->with('user','status')->get();
+        $campaignTypes = CampaignType::where('institution_id',$institution->id)->where('is_institution',True)->with('user','status')->get();
         // get campaign types
-        $deletedCampaignTypes = CampaignType::where('institution_id',$institution->id)->with('user','status')->onlyTrashed()->get();
+        $deletedCampaignTypes = CampaignType::where('institution_id',$institution->id)->where('is_institution',True)->with('user','status')->onlyTrashed()->get();
         return view('business.campaign_types',compact('campaignTypes','user','institution','deletedCampaignTypes'));
     }
 
@@ -143,7 +143,7 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // Get campaign type
-        $campaignType = CampaignType::with('user','status','campaigns.user')->where('id',$campaign_type_id)->withCount('campaigns')->first();
+        $campaignType = CampaignType::with('user','status','campaigns.user')->where('is_institution',True)->where('id',$campaign_type_id)->withCount('campaigns')->first();
         return view('business.campaign_type_show',compact('campaignType','user','institution'));
     }
 
@@ -185,9 +185,9 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // contact types
-        $contactTypes = ContactType::with('user','status')->where('institution_id',$institution->id)->get();
+        $contactTypes = ContactType::with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->get();
         // deleted contact types
-        $deletedContactTypes = ContactType::with('user','status')->where('institution_id',$institution->id)->onlyTrashed()->get();
+        $deletedContactTypes = ContactType::with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->onlyTrashed()->get();
         return view('business.contact_types',compact('contactTypes','user','institution','deletedContactTypes'));
     }
 
@@ -274,9 +274,9 @@ class SettingController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // get frequencies
-        $frequencies = Frequency::with('user')->where('institution_id',$institution->id)->get();
+        $frequencies = Frequency::with('user')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get deleted frequencies
-        $deletedFrequencies = Frequency::with('user')->where('institution_id',$institution->id)->onlyTrashed()->get();
+        $deletedFrequencies = Frequency::with('user')->where('institution_id',$institution->id)->where('is_institution',true)->onlyTrashed()->get();
         return view('business.frequencies',compact('frequencies','user','institution','deletedFrequencies'));
     }
 
@@ -309,14 +309,14 @@ class SettingController extends Controller
 
     public function frequencyShow($portal, $Frequency_id)
     {
-        // Check if contact type exists
+        // Check if frequency exists
         $frequencyExists = Frequency::findOrFail($Frequency_id);
         // User
         $user = $this->getUser();
         // Get institution
         $institution = $this->getInstitution($portal);
-        // Get contact type
-        $frequency = Frequency::with('user','expenses')->where('id',$Frequency_id)->withCount('expenses')->first();
+        // Get frequency
+        $frequency = Frequency::with('user','expenses')->where('institution_id',$institution->id)->where('is_institution',true)->where('id',$Frequency_id)->withCount('expenses')->first();
         return view('business.frequency_show',compact('frequency','user','institution'));
     }
 
@@ -363,9 +363,9 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // lead sources
-        $leadSources = LeadSource::with('user','status')->get();
+        $leadSources = LeadSource::with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->get();
         // deleted lead sources
-        $deletedLeadSources = LeadSource::with('user','status')->where('institution_id',$institution->id)->onlyTrashed()->get();
+        $deletedLeadSources = LeadSource::with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->onlyTrashed()->get();
         return view('business.lead_sources',compact('leadSources','deletedLeadSources','user','institution'));
     }
 
@@ -444,12 +444,13 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // get titles
-        $titles = Title::where('institution_id',$institution->id)->with('user','status')->get();
+        $titles = Title::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status')->get();
         // get deleted titles
-        $deletedTitles = Title::where('institution_id',$institution->id)->with('user','status')->onlyTrashed()->get();
+        $deletedTitles = Title::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status')->onlyTrashed()->get();
 
         return view('business.titles',compact('titles','user','institution','titles','deletedTitles'));
     }
+
     public function titleCreate($portal)
     {
         // User
@@ -471,6 +472,8 @@ class SettingController extends Controller
         $title->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $title->user_id = $user->id;
         $title->institution_id = $institution->id;
+        $title->is_user = False;
+        $title->is_institution = True;
         $title->save();
         return redirect()->route('business.title.show',['portal'=>$institution->portal,'id'=>$title->id])->withSuccess(__('Title '.$title->name.' successfully created.'));
     }
@@ -483,7 +486,7 @@ class SettingController extends Controller
         $institution = $this->getInstitution($portal);
         // Check if title exists
         $titleExists = Title::findOrFail($title_id);
-        $title = Title::with('user','status','contacts')->withCount('contacts')->where('id',$title_id)->first();
+        $title = Title::with('user','status','contacts')->where('institution_id',$institution->id)->where('is_institution',true)->withCount('contacts')->where('id',$title_id)->first();
         return view('business.title_show',compact('title','user','institution'));
     }
 

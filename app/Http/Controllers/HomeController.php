@@ -493,6 +493,7 @@ class HomeController extends Controller
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->is_institution = True;
         $account->is_user = False;
+        $account->is_chama = False;
         $account->institution_id = $institution->id;
         $account->user_id = $user->id;
         $account->save();
@@ -1100,6 +1101,7 @@ class HomeController extends Controller
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->is_institution = False;
         $account->is_user = True;
+        $account->is_chama = True;
         $account->user_id = $user->id;
         $account->save();
 

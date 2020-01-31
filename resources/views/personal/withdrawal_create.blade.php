@@ -1,4 +1,4 @@
-@extends('business.layouts.app')
+@extends('personal.layouts.app')
 
 @section('title', 'Withdrawal Create')
 
@@ -43,13 +43,13 @@
             <h2>Withdrawal's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
+                    <a href="{{route('personal.dashboard')}}">Home</a>
                 </li>
                 <li>
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id])}}">Account</a>
+                    <a href="{{route('personal.account.show',$account->id)}}">Account</a>
                 </li>
                 <li class="active">
                     <strong>Withdrawal Create</strong>
@@ -87,7 +87,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.withdrawal.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.withdrawal.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

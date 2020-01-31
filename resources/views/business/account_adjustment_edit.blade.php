@@ -1,6 +1,6 @@
 @extends('business.layouts.app')
 
-@section('title', ' Transacti Create')
+@section('title', ' Account Adjustment Edit')
 
 @section('css')
 

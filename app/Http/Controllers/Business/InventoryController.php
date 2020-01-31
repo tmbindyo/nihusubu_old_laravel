@@ -39,7 +39,7 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get inventory adjustments
-        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->where('is_institution',true)->select('id')->get()->toArray();
         $inventoryAdjustments = InventoryAdjustment::whereIn('warehouse_id', $institutionWarehouses)->with('warehouse','user','status','account','reason')->get();
 //        return $inventoryAdjustments;
         return view('business.inventory_adjustments',compact('user','institution','inventoryAdjustments'));
@@ -52,13 +52,13 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // Get reasons
         $reasons = Reason::where('institution_id',$institution->id)->get();
         // Warehouse
         $warehouses = Warehouse::where('institution_id',$institution->id)->get();
         // Products
-        $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
+        $products = Product::where('institution_id',$institution->id)->where('is_institution',true)->with('inventory')->get();
 
         return view('business.inventory_adjustment_create',compact('user','institution','accounts','reasons','warehouses','products'));
     }
@@ -181,11 +181,11 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // Warehouse
         $warehouses = Warehouse::where('institution_id',$institution->id)->get();
         // Products
-        $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
+        $products = Product::where('institution_id',$institution->id)->where('is_institution',true)->with('inventory')->get();
 
 
         return view('business.transfer_order_create',compact('user','institution','accounts','warehouses','products'));

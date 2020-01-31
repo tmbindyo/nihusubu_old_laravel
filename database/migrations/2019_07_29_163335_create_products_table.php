@@ -36,7 +36,7 @@ class CreateProductsTable extends Migration
             $table->uuid('purchase_account_id')->nullable();
             $table->uuid('unit_id')->nullable();
             $table->uuid('status_id');
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
             $table->uuid('inventory_account_id')->nullable();
             $table->uuid('preferred_vendor_id')->nullable();
             $table->uuid('product_group_id')->nullable();

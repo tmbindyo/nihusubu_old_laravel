@@ -32,7 +32,7 @@ class CreateSalesTable extends Migration
 
             $table->uuid('contact_id')->nullable();
             $table->uuid('project_id')->nullable();
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

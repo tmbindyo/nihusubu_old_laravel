@@ -1,4 +1,4 @@
-@extends('business.layouts.app')
+@extends('personal.layouts.app')
 
 @section('title', 'Transfer Create')
 
@@ -43,13 +43,13 @@
             <h2>Transfer's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
+                    <a href="{{route('personal.dashboard')}}">Home</a>
                 </li>
                 <li>
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('business.transfers',$institution->portal)}}">Transfer's</a>
+                    <a href="{{route('personal.transfers')}}">Transfer's</a>
                 </li>
                 <li class="active">
                     <strong>Transfer Create</strong>
@@ -87,7 +87,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.transfer.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.transfer.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

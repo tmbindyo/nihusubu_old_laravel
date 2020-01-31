@@ -1,4 +1,4 @@
-@extends('business.layouts.app')
+@extends('personal.layouts.app')
 
 @section('title', 'Liabilities')
 
@@ -23,7 +23,7 @@
             <h2>Liabilities</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
+                    <a href="{{route('personal.dashboard')}}">Home</a>
                 </li>
                 <li>
                     Settings
@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.liability.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Liability </a>
+                <a href="{{route('personal.liability.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Liability </a>
             </div>
         </div>
     </div>
@@ -102,11 +102,11 @@
 
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('business.liability.show', ['portal'=>$institution->portal,'id'=>$liability->id]) }}" class="btn-white btn btn-xs">View</a>
+                                <a href="{{ route('personal.liability.show', $liability->id) }}" class="btn-white btn btn-xs">View</a>
                                 @if($liability->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                    <a href="{{ route('business.liability.restore', ['portal'=>$institution->portal,'id'=>$liability->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                    <a href="{{ route('personal.liability.restore', $liability->id) }}" class="btn-warning btn btn-xs">Restore</a>
                                 @else
-                                    <a href="{{ route('business.liability.delete', ['portal'=>$institution->portal,'id'=>$liability->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                    <a href="{{ route('personal.liability.delete', $liability->id) }}" class="btn-danger btn btn-xs">Delete</a>
                                 @endif
                             </div>
                         </td>

@@ -1,4 +1,4 @@
-@extends('business.layouts.app')
+@extends('personal.layouts.app')
 
 @section('title', 'Transfer Create')
 
@@ -53,13 +53,13 @@
             <h2>Transfer's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
+                    <a href="{{route('personal.dashboard')}}">Home</a>
                 </li>
                 <li>
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.transfers',$institution->portal)}}">Transfers</a>
+                    <a href="{{route('personal.transfers')}}">Transfers</a>
                 </li>
                 <li class="active">
                     <strong>Transfer Create</strong>
@@ -68,7 +68,7 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('business.transfer.expense.create',['portal'=>$institution->portal,'id'=>$transfer->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
+                <a href="{{route('personal.transfer.expense.create',$transfer->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.transfer.update',['portal'=>$institution->portal,'id'=>$transfer->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.transfer.update',$transfer->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -238,29 +238,29 @@
                                                             </td>
                                                             <td>
                                                                 @if($expense->is_order == 1)
-                                                                    <p><a href="{{route('business.order.show',['portal'=>$institution->portal,'id'=>$expense->order_id])}}" class="badge badge-success">Order</a></p>
+                                                                    <p><a href="{{route('personal.order.show',$expense->order_id)}}" class="badge badge-success">Order</a></p>
                                                                 @elseif($expense->is_album == 1)
                                                                     <p>
                                                                         <a
                                                                         @if ($expense->album->album_type_id == '6fdf4858-01ce-43ff-bbe6-827f09fa1cef')
-                                                                            href="{{route('business.personal.album.show',['portal'=>$institution->portal,'id'=>$expense->album->id])}}"
+                                                                            href="{{route('personal.personal.album.show',$expense->album->id)}}"
                                                                         @elseif ($expense->album->album_type_id == 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4')
-                                                                            href="{{route('business.client.proof.show',['portal'=>$institution->portal,'id'=>$expense->album->id])}}"
+                                                                            href="{{route('personal.client.proof.show',$expense->album->id)}}"
                                                                          @endif  class="badge badge-primary">Album {{$expense->album->name}}
                                                                         </a>
                                                                     </p>
                                                                 @elseif($expense->is_project == 1)
-                                                                    <p><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project->id])}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
+                                                                    <p><a href="{{route('personal.project.show',project->id)}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
                                                                 @elseif($expense->is_project == 1)
-                                                                    <p><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project_id])}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
+                                                                    <p><a href="{{route('personal.project.show',$expense->project_id)}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
                                                                 @elseif($expense->is_liability == 1)
-                                                                    <p><a href="{{route('business.liability.show',['portal'=>$institution->portal,'id'=>$expense->liability_id])}}" class="badge badge-primary">Liability</a></p>
+                                                                    <p><a href="{{route('personal.liability.show',$expense->liability_id)}}" class="badge badge-primary">Liability</a></p>
                                                                 @elseif($expense->is_transfer == 1)
-                                                                    <p><a href="{{route('business.transfer.show',['portal'=>$institution->portal,'id'=>$expense->transfer_id])}}" class="badge badge-primary">Transfer</a></p>
+                                                                    <p><a href="{{route('personal.transfer.show',$expense->transfer_id)}}" class="badge badge-primary">Transfer</a></p>
                                                                 @elseif($expense->is_campaign == 1)
-                                                                    <p><a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$expense->campaign_id])}}" class="badge badge-primary">Campaign</a></p>
+                                                                    <p><a href="{{route('personal.campaign.show',$expense->campaign_id)}}" class="badge badge-primary">Campaign</a></p>
                                                                 @elseif($expense->is_asset == 1)
-                                                                    <p><a href="{{route('business.asset.show',['portal'=>$institution->portal,'id'=>$expense->asset_id])}}" class="badge badge-primary">Asset</a></p>
+                                                                    <p><a href="{{route('personal.asset.show',$expense->asset_id)}}" class="badge badge-primary">Asset</a></p>
                                                                 @else
                                                                     <p><span class="badge badge-info">None</span></p>
                                                                 @endif
@@ -276,7 +276,7 @@
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('personal.expense.show', $expense->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -313,11 +313,94 @@
             </div>
         </div>
 
+        {{--    To Do's    --}}
+        <div class="row m-t-lg">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>To Do's</h5>
+                        <div class="ibox-tools">
+                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <ul class="pending-to-do">
+                            @foreach($pendingToDos as $pendingToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$pendingToDo->due_date}}</small>
+                                        <h4>{{$pendingToDo->name}}</h4>
+                                        <p>{{$pendingToDo->notes}}.</p>
+                                        @if($pendingToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('personal.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        <ul class="in-progress-to-do">
+                            @foreach($inProgressToDos as $inProgressToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$inProgressToDo->due_date}}</small>
+                                        <h4>{{$inProgressToDo->name}}</h4>
+                                        <p>{{$inProgressToDo->notes}}.</p>
+                                        @if($inProgressToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('personal.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <ul class="overdue-to-do">
+                            @foreach($overdueToDos as $overdueToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$overdueToDo->due_date}}</small>
+                                        <h4>{{$overdueToDo->name}}</h4>
+                                        <p>{{$overdueToDo->notes}}.</p>
+                                        @if($overdueToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
+                                        @endif
+                                        @if($overdueToDo->status->name === "Pending")
+                                            <a href="{{route('personal.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                        @elseif($overdueToDo->status->name === "In progress")
+                                            <a href="{{route('personal.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <ul class="completed-to-do">
+                            @foreach($completedToDos as $completedToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$completedToDo->due_date}}</small>
+                                        <h4>{{$completedToDo->name}}</h4>
+                                        <p>{{$completedToDo->notes}}.</p>
+                                        @if($completedToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('personal.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
 @endsection
 
+@include('personal.layouts.modals.transfer_to_do')
 
 @section('js')
 
@@ -512,6 +595,39 @@
 
     }
 </script>
+
+{{--  Get due date to populate   --}}
+<script>
+    $(document).ready(function() {
+        // Set date
+        console.log('var');
+        var today = new Date();
+        console.log(today);
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        mm ++;
+        if (dd < 10){
+            dd = '0'+dd;
+        }
+        if (mm < 10){
+            mm = '0'+mm;
+        }
+        var date_today = mm + '/' + dd + '/' + yyyy;
+        var time_curr = h + ':' + m;
+        console.log(time_curr);
+        document.getElementById("start_date").value = date_today;
+        document.getElementById("end_date").value = date_today;
+        document.getElementById("start_time").value = time_curr;
+        document.getElementById("end_time").value = time_curr;
+
+        // Set time
+    });
+
+</script>
+
 <script>
     $(document).ready(function(){
 
@@ -622,6 +738,12 @@
 
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+        var elem_18 = document.querySelector('.js-switch_18');
+        var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
+
+        var elem_19 = document.querySelector('.js-switch_19');
+        var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
 
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',

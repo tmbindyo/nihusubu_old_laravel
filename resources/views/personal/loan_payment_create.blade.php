@@ -1,4 +1,4 @@
-@extends('business.layouts.app')
+@extends('personal.layouts.app')
 
 @section('title', 'Payment Create')
 
@@ -43,13 +43,13 @@
             <h2>Payment's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
+                    <a href="{{route('personal.dashboard')}}">Home</a>
                 </li>
                 <li>
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payments',$institution->portal)}}">Payments</a>
+                    <a href="{{route('personal.payments')}}">Payments</a>
                 </li>
                 <li class="active">
                     <strong>Payment Create</strong>
@@ -87,7 +87,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.payment.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.payment.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

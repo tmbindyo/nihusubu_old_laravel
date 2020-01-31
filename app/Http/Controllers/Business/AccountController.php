@@ -45,7 +45,6 @@ class AccountController extends Controller
         // return $user;
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        // return $institution;
 
         // Get accounts
         $accounts = Account::with('user','status')->where('institution_id',$institution->id)->where('is_institution',true)->get();
@@ -82,6 +81,7 @@ class AccountController extends Controller
         $account->notes = $request->notes;
         $account->is_user = False;
         $account->is_institution = True;
+        $account->is_chama = False;
         $account->user_id = $user->id;
         $account->institution_id = $institution->id;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -96,7 +96,7 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get account
-        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->with('status','user','loans','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions')->first();
+        $account = Account::where('id',$account_id)->where('is_institution',true)->where('institution_id',$institution->id)->with('status','user','loans','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions')->first();
         $goal = $account->goal;
         $balance = $account->balance;
         if ($balance == 0){
@@ -106,13 +106,13 @@ class AccountController extends Controller
         }
 
         // Pending to dos
-        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','account')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('account_id',$account->id)->get();
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','account')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('account_id',$account->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','account')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('account_id',$account->id)->get();
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','account')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('account_id',$account->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','account')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('account_id',$account->id)->get();
+        $completedToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','account')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('account_id',$account->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','account')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('account_id',$account->id)->get();
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','account')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('account_id',$account->id)->get();
 
         return view('business.account_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','account','user','institution','percentage'));
     }
@@ -125,7 +125,7 @@ class AccountController extends Controller
         $institution = $this->getInstitution($portal);
         // get account
         $account = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->where('is_institution',true)->first();
         return view('business.deposit_create',compact('account','user','institution'));
     }
 
@@ -137,9 +137,9 @@ class AccountController extends Controller
         $institution = $this->getInstitution($portal);
         // get accounts
         $account = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$account_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         // get contacts
-        $contacts = Contact::with('organization')->where('institution_id',$institution->id)->get();
+        $contacts = Contact::with('organization')->where('is_institution',true)->where('institution_id',$institution->id)->get();
         return view('business.account_liability_create',compact('user','institution','account','contacts'));
     }
 
@@ -151,9 +151,9 @@ class AccountController extends Controller
         $institution = $this->getInstitution($portal);
         // get accounts
         $account = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$account_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         // get contacts
-        $contacts = Contact::with('organization')->where('institution_id',$institution->id)->get();
+        $contacts = Contact::with('organization')->where('is_institution',true)->where('institution_id',$institution->id)->get();
         return view('business.account_loan_create',compact('user','institution','account','contacts'));
     }
 
@@ -165,7 +165,7 @@ class AccountController extends Controller
         $institution = $this->getInstitution($portal);
         // get account
         $account = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$account_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         return view('business.withdrawal_create',compact('account','user','institution'));
     }
 
@@ -177,7 +177,7 @@ class AccountController extends Controller
         $institution = $this->getInstitution($portal);
         // select account type
         $accountExists = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$account_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         $account->name = $request->name;
         $account->goal = $request->goal;
         $account->notes = $request->notes;
@@ -222,10 +222,10 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get account
         $accountExists = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$account_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
 
         return view('business.account_adjustment_create',compact('account','user','institution','accounts'));
 
@@ -243,7 +243,7 @@ class AccountController extends Controller
         $reference = $this->getRandomString($size);
 
         // get account
-        $account = Account::where('id',$request->account)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$request->account)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         $accountAdjustment = new AccountAdjustment();
 
         if($request->is_deposit == "on"){
@@ -276,7 +276,7 @@ class AccountController extends Controller
         $accountAdjustment->save();
 
         // update account
-        $account = Account::where('id',$request->account)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$request->account)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         $account->balance = doubleval($account->balance)+doubleval($request->amount);
         $account->user_id = $user->id;
         $account->save();
@@ -292,13 +292,11 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        // Get the design status counts
-        $journalsStatusCount = $this->expensesStatusCount();
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // Get albums
-        $transactions = Transaction::with('user','status','source_account','destination_account','account','expense')->where('institution_id',$institution->id)->get();
-        return view('business.account_adjustment_create',compact('transactions','user','institution','journalsStatusCount','transactions','accounts'));
+        $transactions = Transaction::with('user','status','source_account','destination_account','account','expense')->where('is_institution',true)->where('institution_id',$institution->id)->get();
+        return view('business.account_adjustment_create',compact('transactions','user','institution','transactions','accounts'));
 
     }
 
@@ -339,7 +337,7 @@ class AccountController extends Controller
         {
             if ($request->is_expense == "on")
             {
-                $account = Account::where('id',$request->account)->where('institution_id',$institution->id)->first();
+                $account = Account::where('id',$request->account)->where('is_institution',true)->where('institution_id',$institution->id)->first();
                 $account->balance = doubleval($account->balance)-doubleval($request->amount);
                 $account->user_id = $user->id;
                 $account->save();
@@ -347,14 +345,14 @@ class AccountController extends Controller
             {
 
                 // credit source
-                $account = Account::where('id',$request->source_account)->where('institution_id',$institution->id)->first();
+                $account = Account::where('id',$request->source_account)->where('is_institution',true)->where('institution_id',$institution->id)->first();
                 $account->balance = doubleval($account->balance)-doubleval($request->amount);
                 $account->user_id = $user->id;
                 $account->save();
 
 
                 // debit destination
-                $account = Account::where('id',$request->destination_account)->where('institution_id',$institution->id)->first();
+                $account = Account::where('id',$request->destination_account)->where('is_institution',true)->where('institution_id',$institution->id)->first();
                 $account->balance = doubleval($account->balance)+doubleval($request->amount);
                 $account->user_id = $user->id;
                 $account->save();
@@ -376,13 +374,13 @@ class AccountController extends Controller
         // Check if exists
         $accountAdjustmentExists = AccountAdjustment::findOrFail($account_adjustment_id);
         // get adjustment account
-        $accountAdjustment = AccountAdjustment::where('id',$account_adjustment_id)->where('institution_id',$institution->id)->first();
+        $accountAdjustment = AccountAdjustment::where('id',$account_adjustment_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         $accountAdjustment->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
         $accountAdjustment->user_id = $user->id;
         $accountAdjustment->save();
 
         // reinburse
-        $account = Account::where('id',$accountAdjustment->account_id)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$accountAdjustment->account_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         $account->balance = doubleval($account->balance)-doubleval($accountAdjustment->amount);
         $account->user_id = $user->id;
         $account->save();
@@ -398,13 +396,13 @@ class AccountController extends Controller
         // Check if exists
         $accountAdjustmentExists = AccountAdjustment::findOrFail($account_adjustment_id);
         // get adjustment account
-        $accountAdjustment = AccountAdjustment::where('id',$account_adjustment_id)->where('institution_id',$institution->id)->first();
+        $accountAdjustment = AccountAdjustment::where('id',$account_adjustment_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         $accountAdjustment->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
         $accountAdjustment->user_id = $user->id;
         $accountAdjustment->save();
 
         // reinburse account
-        $account = Account::where('id',$accountAdjustment->account_id)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$accountAdjustment->account_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         $account->balance = doubleval($account->balance)+doubleval($accountAdjustment->amount);
         $account->user_id = $user->id;
         $account->save();
@@ -460,15 +458,15 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get deposit
-        $deposit = Deposit::with('user','status','account','account_adjustments')->where('institution_id',$institution->id)->where('id',$deposit_id)->first();
+        $deposit = Deposit::with('user','status','account','account_adjustments')->where('institution_id',$institution->id)->where('is_institution',true)->where('id',$deposit_id)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','deposit')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('deposit_id',$deposit->id)->get();
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','deposit')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('deposit_id',$deposit->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','deposit')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('deposit_id',$deposit->id)->get();
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','deposit')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('deposit_id',$deposit->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','deposit')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('deposit_id',$deposit->id)->get();
+        $completedToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','deposit')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('deposit_id',$deposit->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','deposit')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('deposit_id',$deposit->id)->get();
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','deposit')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('deposit_id',$deposit->id)->get();
 
         return view('business.deposit_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','deposit','user','institution'));
     }
@@ -481,13 +479,13 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get deposit
         $depositExists = Deposit::findOrFail($deposit_id);
-        $deposit = Deposit::with('user','status','account','account_adjustments')->where('institution_id',$institution->id)->where('id',$deposit_id)->first();
+        $deposit = Deposit::with('user','status','account','account_adjustments')->where('is_institution',true)->where('institution_id',$institution->id)->where('id',$deposit_id)->first();
         // get account
         $accountExists = Account::findOrFail($deposit->account_id);
-        $account = Account::where('id',$deposit->account_id)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$deposit->account_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
 
         return view('business.deposit_account_adjustment_create',compact('deposit','account','user','institution','accounts'));
 
@@ -529,11 +527,6 @@ class AccountController extends Controller
         $accountAdjustment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $accountAdjustment->user_id = $user->id;
         $accountAdjustment->save();
-
-
-        // update account
-
-        // add transaction record
 
         return redirect()->route('business.deposit.show',['portal'=>$institution->portal,'id'=>$deposit_id])->withSuccess('Deposit '. $deposit->name .' updated!');
     }
@@ -605,15 +598,15 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get withdrawal
-        $withdrawal = Withdrawal::with('user','status','account','account_adjustments')->where('institution_id',$institution->id)->where('id',$withdrawal_id)->first();
+        $withdrawal = Withdrawal::with('user','status','account','account_adjustments')->where('institution_id',$institution->id)->where('is_institution',true)->where('id',$withdrawal_id)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','withdrawal')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('withdrawal_id',$withdrawal->id)->get();
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','withdrawal')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('withdrawal_id',$withdrawal->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','withdrawal')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('withdrawal_id',$withdrawal->id)->get();
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','withdrawal')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('withdrawal_id',$withdrawal->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','withdrawal')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('withdrawal_id',$withdrawal->id)->get();
+        $completedToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','withdrawal')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('withdrawal_id',$withdrawal->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','withdrawal')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('withdrawal_id',$withdrawal->id)->get();
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','withdrawal')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('withdrawal_id',$withdrawal->id)->get();
 
         return view('business.withdrawal_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','withdrawal','user','institution'));
     }
@@ -626,13 +619,13 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get withdrawal
         $withdrawalExists = Withdrawal::findOrFail($withdrawal_id);
-        $withdrawal = Withdrawal::with('user','status','account','account_adjustments')->where('institution_id',$institution->id)->where('id',$withdrawal_id)->first();
+        $withdrawal = Withdrawal::with('user','status','account','account_adjustments')->where('is_institution',true)->where('institution_id',$institution->id)->where('id',$withdrawal_id)->first();
         // get account
         $accountExists = Account::findOrFail($withdrawal->account_id);
-        $account = Account::where('id',$withdrawal->account_id)->where('institution_id',$institution->id)->first();
+        $account = Account::where('id',$withdrawal->account_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
 
         return view('business.withdrawal_account_adjustment_create',compact('withdrawal','account','user','institution','accounts'));
 
@@ -675,11 +668,6 @@ class AccountController extends Controller
         $accountAdjustment->user_id = $user->id;
         $accountAdjustment->save();
 
-
-        // update account
-
-        // add transaction record
-
         return redirect()->route('business.withdrawal.show',['portal'=>$institution->portal,'id'=>$withdrawal_id])->withSuccess('Withdrawal '. $withdrawal->name .' updated!');
     }
 
@@ -720,9 +708,9 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get contacts
-        $contacts = Contact::with('organization')->where('institution_id',$institution->id)->get();
+        $contacts = Contact::with('organization')->where('is_institution',true)->where('institution_id',$institution->id)->get();
         return view('business.liability_create',compact('user','institution','accounts','contacts'));
     }
 
@@ -779,19 +767,19 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get contacts
-        $contacts = Contact::with('organization')->where('institution_id',$institution->id)->get();
+        $contacts = Contact::with('organization')->where('is_institution',true)->where('institution_id',$institution->id)->get();
         // Get contact type
-        $liability = Liability::with('user','status','account','contact.organization','expenses.transactions')->where('institution_id',$institution->id)->where('id',$liability_id)->first();
+        $liability = Liability::with('user','status','account','contact.organization','expenses.transactions')->where('is_institution',true)->where('institution_id',$institution->id)->where('id',$liability_id)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','liability')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('liability_id',$liability->id)->get();
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','liability')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('liability_id',$liability->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','liability')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('liability_id',$liability->id)->get();
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','liability')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('liability_id',$liability->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','liability')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('liability_id',$liability->id)->get();
+        $completedToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','liability')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('liability_id',$liability->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','liability')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('liability_id',$liability->id)->get();
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','liability')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('liability_id',$liability->id)->get();
 
         return view('business.liability_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','accounts','contacts','liability','user','institution'));
     }
@@ -804,19 +792,19 @@ class AccountController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // expense accounts
-        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->get();
+        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get sales
-        $sales = Sale::with('status')->where('institution_id',$institution->id)->get();
+        $sales = Sale::with('status')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // expense statuses
         $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // get transfers
-        $transfers = Transfer::where('institution_id',$institution->id)->get();
+        $transfers = Transfer::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get campaign
-        $campaigns = Campaign::where('institution_id',$institution->id)->get();
+        $campaigns = Campaign::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get liabilities
-        $liability = Liability::where('id',$liability_id)->where('institution_id',$institution->id)->first();
+        $liability = Liability::where('id',$liability_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         // get frequencies
-        $frequencies = Frequency::where('institution_id',$institution->id)->get();
+        $frequencies = Frequency::where('institution_id',$institution->id)->where('is_institution',true)->get();
 
         return view('business.liability_expense_create',compact('liability','campaigns','sales','user','institution','frequencies','expenseAccounts','transfers','expenseStatuses'));
     }
@@ -854,7 +842,7 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        $loans = Loan::with('user','status','account')->where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $loans = Loan::with('user','status','account')->where('is_institution',true)->where('institution_id',$institution->id)->where('is_institution',true)->get();
         return view('business.loans',compact('loans','user','institution'));
     }
 
@@ -865,9 +853,9 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get contacts
-        $contacts = Contact::with('organization')->where('institution_id',$institution->id)->get();
+        $contacts = Contact::with('organization')->where('is_institution',true)->where('institution_id',$institution->id)->get();
         return view('business.loan_create',compact('user','institution','accounts','contacts'));
     }
 
@@ -929,19 +917,19 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get contacts
-        $contacts = Contact::with('organization')->where('institution_id',$institution->id)->get();
+        $contacts = Contact::with('organization')->where('is_institution',true)->where('institution_id',$institution->id)->get();
         // Get contact type
-        $loan = Loan::with('user','status','account','contact.organization','payments')->where('id',$loan_id)->where('institution_id',$institution->id)->first();
+        $loan = Loan::with('user','status','account','contact.organization','payments')->where('is_institution',true)->where('id',$loan_id)->where('institution_id',$institution->id)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','loan')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('loan_id',$loan->id)->get();
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','loan')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('loan_id',$loan->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','loan')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('loan_id',$loan->id)->get();
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','loan')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('loan_id',$loan->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','loan')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('loan_id',$loan->id)->get();
+        $completedToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','loan')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('loan_id',$loan->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','loan')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('loan_id',$loan->id)->get();
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','loan')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('loan_id',$loan->id)->get();
         return view('business.loan_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','accounts','contacts','loan','user','institution'));
     }
 
@@ -952,7 +940,7 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // loans
         $loan = Loan::findOrFail($loan_id);
         return view('business.loan_payment_create',compact('user','institution','accounts','loan'));
@@ -991,7 +979,7 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        $transfers = Transfer::with('user','status','source_account','destination_account')->where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $transfers = Transfer::with('user','status','source_account','destination_account')->where('is_institution',true)->where('institution_id',$institution->id)->where('is_institution',true)->get();
         return view('business.transfers',compact('transfers','user','institution'));
     }
 
@@ -1002,7 +990,7 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         return view('business.transfer_create',compact('user','institution','accounts'));
     }
 
@@ -1069,15 +1057,15 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // Get contact type
-        $transfer = Transfer::with('user','status','source_account','destination_account','expenses')->where('institution_id',$institution->id)->where('id',$transfer_id)->first();
+        $transfer = Transfer::with('user','status','source_account','destination_account','expenses')->where('is_institution',true)->where('institution_id',$institution->id)->where('id',$transfer_id)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('institution_id',$institution->id)->with('user','status','transfer')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('transfer_id',$transfer->id)->get();
+        $pendingToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','transfer')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('transfer_id',$transfer->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('institution_id',$institution->id)->with('user','status','transfer')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('transfer_id',$transfer->id)->get();
+        $inProgressToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','transfer')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('transfer_id',$transfer->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('institution_id',$institution->id)->with('user','status','transfer')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('transfer_id',$transfer->id)->get();
+        $completedToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','transfer')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('transfer_id',$transfer->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('institution_id',$institution->id)->with('user','status','transfer')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('transfer_id',$transfer->id)->get();
+        $overdueToDos = ToDo::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','transfer')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('transfer_id',$transfer->id)->get();
 
         return view('business.transfer_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','transfer','user','institution'));
     }
@@ -1095,7 +1083,7 @@ class AccountController extends Controller
         // expense statuses
         $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // expense accounts
-        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->get();
+        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution',true)->get();
         return view('business.transfer_expense_create',compact('transfer','user','institution','journalsStatusCount','expenseStatuses','expenseAccounts'));
     }
 

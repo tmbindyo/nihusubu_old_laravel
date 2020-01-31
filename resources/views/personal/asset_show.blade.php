@@ -525,7 +525,7 @@
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="{{route('business.warehouse.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                        <a href="{{route('personal.warehouse.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
                                         <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                     </div>
                                 </td>

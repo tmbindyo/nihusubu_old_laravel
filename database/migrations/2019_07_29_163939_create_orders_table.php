@@ -42,7 +42,7 @@ class CreateOrdersTable extends Migration
             $table->boolean('has_uploads');
             $table->boolean('is_paid');
             $table->boolean('is_cleared');
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

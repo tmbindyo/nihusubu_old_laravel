@@ -376,6 +376,8 @@ class RegisterController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
+        $titles->is_institution = True;
+        $titles->is_user = False;
         $titles->save();
 
         $titles = new Title();
@@ -383,6 +385,8 @@ class RegisterController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
+        $titles->is_institution = True;
+        $titles->is_user = False;
         $titles->save();
 
         $titles = new Title();
@@ -390,6 +394,8 @@ class RegisterController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
+        $titles->is_institution = True;
+        $titles->is_user = False;
         $titles->save();
 
         $titles = new Title();
@@ -397,6 +403,8 @@ class RegisterController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
+        $titles->is_institution = True;
+        $titles->is_user = False;
         $titles->save();
 
         $titles = new Title();
@@ -404,6 +412,8 @@ class RegisterController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
+        $titles->is_institution = True;
+        $titles->is_user = False;
         $titles->save();
 
     }
@@ -535,6 +545,7 @@ class RegisterController extends Controller
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->is_institution = True;
         $account->is_user = False;
+        $account->is_chama = False;
         $account->institution_id = $institution->id;
         $account->user_id = $user->id;
         $account->save();
@@ -1156,6 +1167,8 @@ class RegisterController extends Controller
         $userExpenseAccounts = $this->userExpenseAccountsSeeder($request, $user);
         // create user account
         $userAccount = $this->userUserAccountSeeder($request, $user);
+        // create user titles
+        $titlesAccount = $this->userTitlesSeeder($request, $user);
 
         // account creation
         auth()->login($user);
@@ -1176,6 +1189,7 @@ class RegisterController extends Controller
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->is_institution = False;
         $account->is_user = True;
+        $account->is_chama = False;
         $account->user_id = $user->id;
         $account->save();
 
@@ -1254,6 +1268,50 @@ class RegisterController extends Controller
         $frequencies->is_institution = False;
         $frequencies->is_user = True;
         $frequencies->save();
+
+    }
+
+    private function userTitlesSeeder($request, $user){
+
+        $titles = new Title();
+        $titles->name = 'Mr';
+        $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $titles->user_id = $user->id;
+        $titles->is_institution = False;
+        $titles->is_user = True;
+        $titles->save();
+
+        $titles = new Title();
+        $titles->name = 'Mrs';
+        $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $titles->user_id = $user->id;
+        $titles->is_institution = False;
+        $titles->is_user = True;
+        $titles->save();
+
+        $titles = new Title();
+        $titles->name = 'Ms';
+        $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $titles->user_id = $user->id;
+        $titles->is_institution = False;
+        $titles->is_user = True;
+        $titles->save();
+
+        $titles = new Title();
+        $titles->name = 'Dr';
+        $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $titles->user_id = $user->id;
+        $titles->is_institution = False;
+        $titles->is_user = True;
+        $titles->save();
+
+        $titles = new Title();
+        $titles->name = 'Prof';
+        $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $titles->user_id = $user->id;
+        $titles->is_institution = False;
+        $titles->is_user = True;
+        $titles->save();
 
     }
 

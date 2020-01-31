@@ -28,7 +28,7 @@ class CreateProjectsTable extends Migration
             $table->integer('project_owner')->unsigned();
             $table->uuid('status_id');
             $table->uuid('customer_id');
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
 
             $table->uuid('is_customer');
             $table->boolean('is_public');

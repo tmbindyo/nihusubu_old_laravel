@@ -14,8 +14,15 @@ class CreateChamaMembersTable extends Migration
     public function up()
     {
         Schema::create('chama_members', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+            $table->uuid('chama_id');
+            $table->uuid('role_id');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

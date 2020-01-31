@@ -10,6 +10,7 @@ use Auth;
 
 class ToDoController extends Controller
 {
+
     use UserTrait;
 
     public function __construct()
@@ -18,32 +19,32 @@ class ToDoController extends Controller
     }
 
     // Getting all the to dos
-    public function toDos($portal)
+    public function toDos()
     {
         // User
         $user = $this->getUser();
 
         // Pending to dos
-        $pendingToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','institution','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('is_user',true)->where('user_id',$user->id)->get();
+        $pendingToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('user_id',$user->id)->where('is_user',true)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','institution','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('is_user',true)->where('user_id',$user->id)->get();
+        $inProgressToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('user_id',$user->id)->where('is_user',true)->get();
         // Completed to dos
-        $completedToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','institution','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('is_user',true)->where('user_id',$user->id)->get();
+        $completedToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('user_id',$user->id)->where('is_user',true)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','institution','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('is_user',true)->where('user_id',$user->id)->get();
+        $overdueToDos = ToDo::with('account','account_adjustment','assignee','campaign','contact','deposit','expense','liability','loan','organization','payment','product','product_group','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('user_id',$user->id)->where('is_user',true)->get();
 
         return view('personal.to_dos',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user'));
     }
 
     // Store to do
-    public function toDoStore(Request $request, $portal)
+    public function toDoStore(Request $request)
     {
 
         // User
         $user = $this->getUser();
 
         // parse due date to mysql format
-        $due_date = date('Y-m-d', strtotime($request->due_date));
+        $due_date = date('Y-m-d', strtotime($request->start_date));
         // date today
         $date_today = date('Y-m-d');
 
@@ -214,6 +215,7 @@ class ToDoController extends Controller
             $todo->is_transfer = False;
         }
 
+
         // Check if date is overdue to make the status overdue
         // Check and compare if the task is overdue to set the relevant
         if($due_date < $date_today) {
@@ -231,7 +233,7 @@ class ToDoController extends Controller
     }
 
     // Update to do
-    public function toDoUpdate(Request $request, $portal, $to_do_id)
+    public function toDoUpdate(Request $request, $to_do_id)
     {
 
         // User
@@ -249,7 +251,7 @@ class ToDoController extends Controller
     }
 
     // Update to do status, set to in progress
-    public function toDoSetInProgress($portal, $to_do_id)
+    public function toDoSetInProgress($to_do_id)
     {
 
         $todo = ToDo::findOrFail($to_do_id);
@@ -260,7 +262,7 @@ class ToDoController extends Controller
     }
 
     // Update to do status, mark as completed
-    public function toDoSetCompleted($portal, $to_do_id)
+    public function toDoSetCompleted($to_do_id)
     {
 
         $todo = ToDo::findOrFail($to_do_id);
@@ -272,7 +274,7 @@ class ToDoController extends Controller
     }
 
     // Delete to do
-    public function toDoDelete($portal, $to_do_id)
+    public function toDoDelete($to_do_id)
     {
 
         $todo = ToDo::findOrFail($to_do_id);

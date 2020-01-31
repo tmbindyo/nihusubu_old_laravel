@@ -1,6 +1,6 @@
-@extends('business.layouts.app')
+@extends('personal.layouts.app')
 
-@section('title', ' Transacti Create')
+@section('title', ' Account Adjustment Edit')
 
 @section('css')
 
@@ -50,13 +50,13 @@
                 <h2>Transactions</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard',$institution->portal)}}">Home</a>
+                        <a href="{{route('personal.dashboard')}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.orders',$institution->portal)}}">Orders</a>
+                        <a href="{{route('personal.orders')}}">Orders</a>
                     </li>
                     <li>
-                        <a href="{{route('business.expenses',$institution->portal)}}">Transactions</a>
+                        <a href="{{route('personal.expenses')}}">Transactions</a>
                     </li>
                     <li class="active">
                         <strong>Transaction Create</strong>
@@ -73,7 +73,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('business.transaction.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.transaction.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())

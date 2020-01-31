@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Chama;
+use App\ChamaMemberRole;
 use Illuminate\Http\Request;
 
-class ChamaController extends Controller
+class ChamaMemberRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ChamaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Chama  $chama
+     * @param  \App\ChamaMemberRole  $chamaMemberRole
      * @return \Illuminate\Http\Response
      */
-    public function show(Chama $chama)
+    public function show(ChamaMemberRole $chamaMemberRole)
     {
         //
     }
@@ -52,10 +52,10 @@ class ChamaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Chama  $chama
+     * @param  \App\ChamaMemberRole  $chamaMemberRole
      * @return \Illuminate\Http\Response
      */
-    public function edit(Chama $chama)
+    public function edit(ChamaMemberRole $chamaMemberRole)
     {
         //
     }
@@ -64,10 +64,10 @@ class ChamaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Chama  $chama
+     * @param  \App\ChamaMemberRole  $chamaMemberRole
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Chama $chama)
+    public function update(Request $request, ChamaMemberRole $chamaMemberRole)
     {
         //
     }
@@ -75,10 +75,10 @@ class ChamaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Chama  $chama
+     * @param  \App\ChamaMemberRole  $chamaMemberRole
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Chama $chama)
+    public function destroy(ChamaMemberRole $chamaMemberRole)
     {
         //
     }

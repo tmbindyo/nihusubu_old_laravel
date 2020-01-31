@@ -46,7 +46,7 @@ class CreateToDosTable extends Migration
             $table->integer('assignee_id')->unsigned()->nullable();
             $table->uuid('status_id');
             $table->boolean('is_institution');
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
             $table->boolean('is_user');
 
             $table->boolean('is_product');

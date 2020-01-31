@@ -20,7 +20,7 @@ class CreateWarehousesTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('address_id');
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
             $table->uuid('status_id');
 
             $table->boolean('is_primary');

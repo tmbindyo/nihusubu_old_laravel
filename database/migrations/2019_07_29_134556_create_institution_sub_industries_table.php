@@ -16,7 +16,7 @@ class CreateInstitutionSubIndustriesTable extends Migration
         Schema::create('institution_sub_industries', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
             $table->uuid('sub_industry_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
