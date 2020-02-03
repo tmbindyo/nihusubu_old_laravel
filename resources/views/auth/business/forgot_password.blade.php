@@ -44,7 +44,7 @@
                                     </span>
                                 @endif
 
-                                <button type="submit" class="btn btn-primary block full-width m-b">Send new password</button>
+                                <button type="submit" class="btn btn-primary block full-width m-b">Send Password Reset Link</button>
 
                             </form>
                         </div>

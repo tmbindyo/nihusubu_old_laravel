@@ -47,7 +47,7 @@
                                     <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" required autofocus>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary block full-width m-b">Send new password</button>
+                                <button type="submit" class="btn btn-primary block full-width m-b">Send Password Reset Link</button>
 
                                 {{--  <a class="btn btn-sm btn-white btn-block" href="{{route('login')}}">Login</a>  --}}
                                 {{--  <a class="btn btn-sm btn-white btn-block" href="{{route('register')}}">Create an account</a>  --}}

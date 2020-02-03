@@ -164,7 +164,7 @@
                     <fieldset>
                         <h2>User Information</h2>
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-10 col-md-offset-1">
                                 <div class="form-group">
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
@@ -218,13 +218,6 @@
                                     @endif
                                     <label>Confirm Password *</label>
                                     <input id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}"  type="password" class="form-control {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }} input-lg required">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="text-center">
-                                    <div style="margin-top: 20px">
-                                        <i class="fa fa-sign-in" style="font-size: 180px;color: #e5e5e5 "></i>
-                                    </div>
                                 </div>
                             </div>
                         </div>
