@@ -46,7 +46,7 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get product groups
-        $productGroups = ProductGroup::where('institution_id',$institution->id)->where('is_institution',true)->with('status')->withCount('products')->get();
+        $productGroups = ProductGroup::where('institution_id',$institution->id)->with('status')->withCount('products')->get();
 
         return view('business.product_groups',compact('user','institution','productGroups'));
     }

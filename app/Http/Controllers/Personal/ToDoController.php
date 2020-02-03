@@ -228,6 +228,7 @@ class ToDoController extends Controller
         $todo->user_id = $user->id;
         $todo->is_institution = False;
         $todo->is_user = True;
+        $todo->is_chama = False;
         $todo->save();
         return back()->withSuccess(__('To do successfully stored.'));
     }
