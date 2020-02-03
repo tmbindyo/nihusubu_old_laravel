@@ -24,6 +24,9 @@ class CreateUploadsTable extends Migration
             $table->longText('large_thumbnail')->nullable();
             $table->longText('banner')->nullable();
             $table->longText('file')->nullable();
+            $table->longText('original')->nullable();
+
+            $table->string('file_type');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

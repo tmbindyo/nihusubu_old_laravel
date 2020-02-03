@@ -220,6 +220,36 @@ class ToDoController extends Controller
         }else{
             $todo->is_transfer = False;
         }
+        
+        
+        // chama
+        if($request->is_chama){
+            $todo->is_chama = True;
+            $todo->chama_id = $request->chama;
+        }else{
+            $todo->is_chama = False;
+        }
+        // chama_member
+        if($request->is_chama_member){
+            $todo->is_chama_member = True;
+            $todo->chama_member_id = $request->chama_member;
+        }else{
+            $todo->is_chama_member = False;
+        }
+        // chama_meeting
+        if($request->is_chama_meeting){
+            $todo->is_chama_meeting = True;
+            $todo->chama_meeting_id = $request->chama_meeting;
+        }else{
+            $todo->is_chama_meeting = False;
+        }
+        // chama_meeting_minutes
+        if($request->is_chama_meeting_minutes){
+            $todo->is_chama_meeting_minutes = True;
+            $todo->chama_meeting_minutes_id = $request->chama_meeting_minutes;
+        }else{
+            $todo->is_chama_meeting_minutes = False;
+        }
 
 
         // Check if date is overdue to make the status overdue
@@ -235,7 +265,6 @@ class ToDoController extends Controller
         $todo->is_institution = True;
         $todo->institution_id = $institution->id;
         $todo->is_user = False;
-        $todo->is_chama = False;
         $todo->save();
         return back()->withSuccess(__('To do successfully stored.'));
     }

@@ -254,7 +254,7 @@ class ProductController extends Controller
 
         }
 
-        return redirect(route('business.product.groups'));
+        return redirect(route('business.product.group.show',['portal'=>$institution->portal,'id'=>$productGroup->id]));
 
     }
     public function productGroupShow($portal, $product_group_id)
@@ -1100,7 +1100,7 @@ class ProductController extends Controller
 
         $compositeProduct = Product::findOrFail($composite_product_id);
         $compositeProduct = Product::where('institution_id',$institution->id)->where('id',$composite_product_id)->withCount('order_products','sale_products','composite_product_products')->with('composite_product_products','product_taxes','user','status')->first();
-        $compositeProductProducts = CompositeProductProduct::where('institution_id',$institution->id)->where('composite_product_id',$compositeProduct->id)->with('product')->get();
+        $compositeProductProducts = CompositeProductProduct::where('composite_product_id',$compositeProduct->id)->with('product')->get();
         // return $compositeProductProducts;
         return view('business.composite_product_show',compact('user','institution','compositeProduct','compositeProductProducts'));
     }

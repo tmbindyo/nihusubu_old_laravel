@@ -66,7 +66,32 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
+                
                 <a href="{{route('business.expense.edit',['portal'=>$institution->portal,'id'=>$expense->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                @if($expense->is_inventory_adjustment == 1)
+                    <a href="{{route('business.inventory.adjustment.show',['portal'=>$institution->portal,'id'=>$expense->inventory_adjustment_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Inventory Adjustment </a>
+                @endif
+                @if($expense->is_transfer_order == 1)
+                    <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal,'id'=>$expense->transfer_order_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transfer Order </a>
+                @endif
+                @if($expense->is_warehouse == 1)
+                    <a href="{{route('business.warehouse.show',['portal'=>$institution->portal,'id'=>$expense->warehouse_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Warehouse </a>
+                @endif
+                @if($expense->is_campaign == 1)
+                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$expense->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                @endif
+                @if($expense->is_sale == 1)
+                    <a href="{{route('business.sale.show',['portal'=>$institution->portal,'id'=>$expense->sale_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Sale </a>
+                @endif
+                @if($expense->is_liability == 1)
+                    <a href="{{route('business.liability.show',['portal'=>$institution->portal,'id'=>$expense->liability_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Liability </a>
+                @endif
+                @if($expense->is_transfer == 1)
+                    <a href="{{route('business.transfer.show',['portal'=>$institution->portal,'id'=>$expense->transfer_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transfer </a>
+                @endif
+                @if($expense->is_transaction == 1)
+                    <a href="{{route('business.transaction.show',['portal'=>$institution->portal,'id'=>$expense->transaction_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transaction </a>
+                @endif
             </div>
         </div>
     </div>
@@ -177,10 +202,10 @@
 
                         </span>
                         <div class="m-t-sm">
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-mail-forward"></i> Send</a>
-                                <a href="#" class="btn btn-danger btn-sm"> Cancel</a>
-                            </div>
+                            <h4>Expense description</h4>
+                            <p class="small">
+                                {{$expense->notes}}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -189,7 +214,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInUp">
                     <div class="ibox">
                         <div class="ibox-content">
@@ -352,48 +377,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="wrapper wrapper-content project-manager">
-                    <h4>Expense description</h4>
-                    <p class="small">
-                        {{$expense->notes}}
-                    </p>
-                    <p class="small font-bold">
-                        @if($expense->is_recurring == 1)
-                        <span><i class="fa fa-circle text-warning"></i>
-                            Recurring
-                        </span>
-                        @endif
-                    </p>
-                    <h5>Relationship</h5>
-                    <ul class="tag-list" style="padding: 0">
-                        @if($expense->is_order == 1)
-                            <li><a href="{{route('business.order.show',['portal'=>$institution->portal,'id'=>$expense->order->id])}}"><i class="fa fa-shopping-cart"></i> {{$expense->order->order_number}}</a></li>
-                        @endif
-                        @if($expense->is_project == 1)
-                            <li><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project->id])}}"><i class="fa fa-trello"></i> {{$expense->project->name}}</a></li>
-                        @endif
-                        @if($expense->is_design == 1)
-                            <li><a href="{{route('business.design.show',['portal'=>$institution->portal,'id'=>$expense->design->id])}}"><i class="fa fa-paint-brush"></i> {{$expense->design->name}}</a></li>
-                        @endif
-                        @if($expense->is_transfer == 1 )
-                            <li><a href="{{route('business.transfer.show',['portal'=>$institution->portal,'id'=>$expense->transfer->id])}}"><i class="fa fa-share"></i> {{$expense->transfer->reference}}</a></li>
-                        @endif
-                        @if($expense->is_campaign == 1 )
-                            <li><a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$expense->campaign->id])}}"><i class="fa fa-share"></i> {{$expense->campaign->name}}</a></li>
-                        @endif
-                        @if($expense->is_asset == 1 )
-                            <li><a href="{{route('business.asset.show',['portal'=>$institution->portal,'id'=>$expense->asset->id])}}"><i class="fa fa-share"></i> {{$expense->asset->name}}</a></li>
-                        @endif
-                        @if($expense->is_liability == 1 )
-                            <li><a href="{{route('business.liability.show',['portal'=>$institution->portal,'id'=>$expense->liability->id])}}"><i class="fa fa-share"></i> {{$expense->liability->reference}}</a></li>
-                        @endif
-                        @if($expense->is_transaction == 1)
-                            <li><a href="#"><i class="fa fa-dollar"></i> {{$expense->transaction->reference}}</a></li>
-                        @endif
-                    </ul>
                 </div>
             </div>
         </div>

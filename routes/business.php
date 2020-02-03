@@ -140,7 +140,7 @@ Route::get('/{portal}/warehouses', 'Business\InventoryController@warehouses')->n
 Route::post('/{portal}/warehouse/store', 'Business\InventoryController@warehouseStore')->name('business.warehouse.store');
 Route::get('/{portal}/warehouse/show/{warehouse_id}', 'Business\InventoryController@warehouseShow')->name('business.warehouse.show');
 Route::get('/{portal}/warehouse/edit/{warehouse_id}', 'Business\InventoryController@warehouseEdit')->name('business.warehouse.edit');
-Route::get('/{portal}/warehouse/update/{warehouse_id}', 'Business\InventoryController@warehouseUpdate')->name('business.warehouse.update');
+Route::post('/{portal}/warehouse/update/{warehouse_id}', 'Business\InventoryController@warehouseUpdate')->name('business.warehouse.update');
 Route::get('/{portal}/warehouse/delete/{warehouse_id}', 'Business\InventoryController@warehouseDelete')->name('business.warehouse.delete');
 
 

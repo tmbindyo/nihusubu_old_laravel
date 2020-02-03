@@ -41,7 +41,7 @@
 
     </div>
     <!-- chat content -->
-    @include('business.layouts.navbars.chat')
+    {{--  @include('business.layouts.navbars.chat')  --}}
     <!-- /chat content -->
 
     <!-- right sidebar content -->

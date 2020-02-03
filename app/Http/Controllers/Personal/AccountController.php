@@ -404,6 +404,8 @@ class AccountController extends Controller
         $deposit->user_id = $user->id;
         $deposit->is_user = True;
         $deposit->is_institution = False;
+        $deposit->is_income = True;
+        $deposit->is_chama = True;
         $deposit->save();
 
         return redirect()->route('personal.deposit.show',$deposit->id)->withSuccess('Deposit updated!');

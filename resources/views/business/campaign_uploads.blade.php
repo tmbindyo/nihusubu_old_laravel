@@ -49,7 +49,7 @@
             <div class="ibox float-e-margins">
                 <div class="tab-content">
                     <div class="panel-body">
-                        <form id="my-awesome-dropzone" class="dropzone" action="{{route('business.campaign.upload.store',['portal'=>,$institution->portal,'id'=>$campaign->id])}}">
+                        <form id="my-awesome-dropzone" class="dropzone" action="{{route('business.campaign.upload.store',['portal'=>$institution->portal,'id'=>$campaign->id])}}">
                             @csrf
                             <div class="dropzone-previews"></div>
                         </form>
@@ -59,42 +59,7 @@
         </div>
         {{--  Uploads  --}}
         <div class="row">
-            <div class="col-lg-3">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                        <div class="file-manager">
-                            <h5>Show:</h5>
-                            <a href="#" class="file-control active">Ale</a>
-                            <a href="#" class="file-control">Documents</a>
-                            <a href="#" class="file-control">Audio</a>
-                            <a href="#" class="file-control">Images</a>
-                            <div class="hr-line-dashed"></div>
-                            <h5>Folders</h5>
-                            <ul class="folder-list" style="padding: 0">
-                                <li><a href=""><i class="fa fa-folder"></i> Files</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Pictures</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Web pages</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Illustrations</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Films</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Books</a></li>
-                            </ul>
-                            <h5 class="tag-title">Tags</h5>
-                            <ul class="tag-list" style="padding: 0">
-                                <li><a href="">Family</a></li>
-                                <li><a href="">Work</a></li>
-                                <li><a href="">Home</a></li>
-                                <li><a href="">Children</a></li>
-                                <li><a href="">Holidays</a></li>
-                                <li><a href="">Music</a></li>
-                                <li><a href="">Photography</a></li>
-                                <li><a href="">Film</a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-9 animated fadeInRight">
+            <div class="col-lg-12 animated fadeInRight">
                 <div class="row">
                     <div class="col-lg-12">
 
@@ -124,7 +89,7 @@
                                         {{$upload->name}}
                                         <br/>
                                         <small>Added: {{$upload->created_at}}</small>
-                                        <a href="{{route('business.campaign.upload.download',$upload->id)}}" class="btn btn-xs btn-primary btn-block">Download</a>
+                                        <a href="{{route('business.campaign.upload.download',['portal'=>$institution->portal, 'id'=>$upload->id])}}" class="btn btn-xs btn-primary btn-block">Download</a>
                                     </div>
                                 </div>
                             </a>

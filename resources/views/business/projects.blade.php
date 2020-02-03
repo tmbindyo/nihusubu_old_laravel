@@ -63,7 +63,7 @@
                                         <span class="label label-primary">Active</span>
                                     </td>
                                     <td class="project-title">
-                                        <a href="project_detail.html">Contract with Zender Company</a>
+                                        <a href="project_detail.html">{{--  <h2>Contract with Zender Company</h2>  --}}</a>
                                         <br/>
                                         <small>Created 14.08.2014</small>
                                     </td>

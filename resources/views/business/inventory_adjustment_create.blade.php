@@ -89,9 +89,6 @@
                 <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.warehouses',$institution->portal)}}">Inventory</a>
-            </li>
-            <li>
                 <a href="{{route('business.inventory.adjustments',$institution->portal)}}">Inventory Adjustments</a>
             </li>
             <li class="active">

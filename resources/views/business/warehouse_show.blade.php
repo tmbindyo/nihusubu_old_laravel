@@ -45,8 +45,129 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
 
-    {{--  Warehouse details  --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Warehouse Update <small>Form</small></h5>
+                    
+                </div>
 
+                <div class="ibox-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form method="post" action="{{ route('business.warehouse.update',['portal'=>$institution->portal,'id'=>$warehouse->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                            @csrf
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            <div class="col-md-12">
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="has-warning">
+                                            <input type="text" id="name" name="name" required="required" value="{{$warehouse->name}}" class="form-control input-lg">
+                                            <i>name</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" id="street" name="street" required="required" value="{{$warehouse->address->street}}" class="form-control input-lg">
+                                            <i>street</i>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" name="town" id="town" class="form-control input-lg" value="{{$warehouse->address->town}}">
+                                            <i>town</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" id="po_box" name="po_box" required="required" value="{{$warehouse->address->po_box}}" class="form-control input-lg">
+                                            <i>po box</i>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" name="postal_code" id="postal_code" class="form-control input-lg" value="{{$warehouse->address->postal_code}}">
+                                            <i>postal code</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" id="address_line_1" name="address_line_1" required="required" value="{{$warehouse->address->address_line_1}}" class="form-control input-lg">
+                                            <i>address line 1</i>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" name="address_line_2" id="address_line_2" class="form-control input-lg" value="{{$warehouse->address->address_line_2}}">
+                                            <i>address line 2</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" id="email" name="email" required="required" value="{{$warehouse->address->email}}" class="form-control input-lg">
+                                            <i>email</i>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" name="phone_number" id="phone_number" class="form-control input-lg" value="{{$warehouse->address->phone_number}}">
+                                            <i>phone number</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <hr>
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('UPDATE') }}</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--  Warehouse details  --}}
     <div class="row">
         <div class="col-lg-3">
             <div class="widget style1 navy-bg">
@@ -70,7 +191,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>
+                                    {{--  <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>  --}}
                                     <h2>{{$warehouse->name}}</h2>
                                 </div>
                                 <dl class="dl-horizontal">

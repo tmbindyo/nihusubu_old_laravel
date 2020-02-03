@@ -234,13 +234,13 @@ class ExpenseController extends Controller
         // Get expense account
         $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get orders
-        $sales = Sale::where('institution_id',$institution->id)->where('is_institution',true)->with('status')->get();
+        $sales = Sale::where('institution_id',$institution->id)->with('status')->get();
         // expense statuses
         $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // get transfers
         $transfers = Transfer::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get campaign
-        $campaigns = Campaign::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $campaigns = Campaign::where('institution_id',$institution->id)->get();
         // get liabilities
         $liabilities = Liability::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get frequencies
@@ -459,6 +459,13 @@ class ExpenseController extends Controller
 
     public function transactionStore(Request $request, $portal)
     {
+        // check balance
+        $accountBalance = Account::findOrFail($request->account);
+        // check if this is an overdraft
+        if($request->expense > $accountBalance->balance){
+            return back()->withWarning(__('This payment will overdraft the account.'));
+        }
+
         // get expense
         $expense = Expense::findOrFail($request->expense);
         // User
@@ -484,6 +491,7 @@ class ExpenseController extends Controller
         $transaction->status_id = $request->status;
         $transaction->is_user = False;
         $transaction->is_institution = True;
+        $transaction->is_chama = True;
         $transaction->save();
 
         // account subtraction

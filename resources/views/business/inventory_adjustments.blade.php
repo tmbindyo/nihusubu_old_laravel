@@ -84,7 +84,6 @@
                                             <td class="text-right">
                                                 <div class="btn-group">
                                                     <a href="{{route('business.inventory.adjustment.show',['portal'=>$institution->portal,'id'=>$inventoryAdjustment->id])}}" class="btn-primary btn-outline btn btn-xs">View</a>
-                                                    <a href="{{route('business.inventory.adjustment.edit',['portal'=>$institution->portal,'id'=>$inventoryAdjustment->id])}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                                 </div>
                                             </td>
                                         </tr>

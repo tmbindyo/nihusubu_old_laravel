@@ -53,13 +53,13 @@
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.orders',$institution->portal)}}">Orders</a>
-                </li>
-                <li>
                     <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
                 </li>
+                <li>
+                    <a href="{{route('business.expense.show',['portal'=>$institution->portal,'id'=>$expense->id])}}">Expense</a>
+                </li>
                 <li class="active">
-                    <strong>Expense Create</strong>
+                    <strong>Expense Edit</strong>
                 </li>
             </ol>
         </div>
@@ -233,7 +233,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_transfer" name="is_transfer" type="checkbox">
+                                            <input id="is_transfer" name="is_transfer" type="checkbox" @if($expense->is_transfer == 1) checked @endif>
                                             <label for="is_transfer">
                                                 Transfer
                                             </label>
@@ -254,7 +254,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_campaign" name="is_campaign" type="checkbox">
+                                            <input id="is_campaign" name="is_campaign" type="checkbox" @if($expense->is_campaign == 1) checked @endif>
                                             <label for="is_campaign">
                                                 Campaign
                                             </label>
@@ -278,7 +278,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_liability" name="is_liability" type="checkbox">
+                                            <input id="is_liability" name="is_liability" type="checkbox" @if($expense->is_liability == 1) checked @endif>
                                             <label for="is_liability">
                                                 Liability
                                             </label>

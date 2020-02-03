@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="m-t text-righ">
 
-                                    <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->id])}}" class="btn btn-xs btn-outline btn-primary">View <i class="fa fa-long-arrow-right"></i> </a>
+                                    <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->product->id])}}" class="btn btn-xs btn-outline btn-primary">View <i class="fa fa-long-arrow-right"></i> </a>
                                 </div>
                             </div>
                         </div>
@@ -89,8 +89,8 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="m-b-md">
-                                        <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>
-                                        <h2>Contract with Zender Company</h2>
+                                        {{--  <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>  --}}
+                                        {{--  <h2>Contract with Zender Company</h2>  --}}
                                     </div>
                                     <dl class="dl-horizontal">
                                         <dt>Status:</dt> <dd><span class="label {{$compositeProduct->status->label}}">{{$compositeProduct->status->name}}</span></dd>

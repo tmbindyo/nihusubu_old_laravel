@@ -458,8 +458,8 @@
                                                             <td>{{$inventory_adjustment_product->created_at}}</td>
                                                             {{--  Quantity based  --}}
                                                             @if($inventory_adjustment_product->inventory_adjustment->is_value_adjustment == 0)
-                                                                <td>{{$inventory_adjustment_product->initial_warehouse_amount}}</td>
-                                                                <td>{{$inventory_adjustment_product->subsequent_warehouse_quantity}}</td>
+                                                                <td>{{$inventory_adjustment_product->initial_quantity}}</td>
+                                                                <td>{{$inventory_adjustment_product->subsequent_quantity}}</td>
                                                                 <td>{{$inventory_adjustment_product->quantity}}</td>
                                                                 <td><p><span class="label label-info">Quantity Based</span></p></td>
                                                             {{--  Value based  --}}
@@ -522,7 +522,7 @@
                                                             <td>{{$transfer_order_product->quantity}}</td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$transfer_order_product->$transfer_order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$transfer_order_product->transfer_order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>

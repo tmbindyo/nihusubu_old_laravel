@@ -58,7 +58,7 @@ class InventoryController extends Controller
         // Warehouse
         $warehouses = Warehouse::where('institution_id',$institution->id)->get();
         // Products
-        $products = Product::where('institution_id',$institution->id)->where('is_institution',true)->with('inventory')->get();
+        $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
 
         return view('business.inventory_adjustment_create',compact('user','institution','accounts','reasons','warehouses','products'));
     }
@@ -124,7 +124,7 @@ class InventoryController extends Controller
         }
 
 
-        return back()->withSuccess(__('Inventory adjustment successfully stored.'));
+        return redirect()->route('business.inventory.adjustment.show',['portal'=>$institution->portal,'id'=>$inventoryAdjustment->id])->withSuccess(__('Inventory adjustment successfully stored.'));
     }
 
     public function inventoryAdjustmentShow($portal, $inventory_adjustment_id)
@@ -185,7 +185,7 @@ class InventoryController extends Controller
         // Warehouse
         $warehouses = Warehouse::where('institution_id',$institution->id)->get();
         // Products
-        $products = Product::where('institution_id',$institution->id)->where('is_institution',true)->with('inventory')->get();
+        $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
 
 
         return view('business.transfer_order_create',compact('user','institution','accounts','warehouses','products'));
@@ -217,8 +217,10 @@ class InventoryController extends Controller
         foreach ($request->item_details as $transfer){
 
             $sourceWarehouse = Inventory::where('warehouse_id', $request->source_warehouse)->where('product_id', $transfer['product_id'])->first();
+            
+            
             $destinationWarehouse = Inventory::where('warehouse_id', $request->destination_warehouse)->where('product_id', $transfer['product_id'])->first();
-//            return $destinationWarehouse;
+            
 
             $transferOrderProduct = new TransferOrderProduct();
             $transferOrderProduct->source_warehouse_initial_amount = $sourceWarehouse->quantity;
@@ -234,9 +236,19 @@ class InventoryController extends Controller
             $transferOrderProduct->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
             $transferOrderProduct->save();
 
+            // deduct from source
+            $sourceWarehouse->date = date("Y/m/d");
+            $sourceWarehouse->quantity = $source_subsequent_amount;
+            $sourceWarehouse->save();
+
+            // add to destination
+            $destinationWarehouse->date = date("Y/m/d");
+            $destinationWarehouse->quantity = $destination_subsequent_amount;
+            $destinationWarehouse->save();
+
         }
 
-        return redirect()->route('business.transfer.orders',['portal'=>$institution->portal,'id'=>$transferOrder->id])->withSuccess(__('Transfer order successfully stored.'));
+        return redirect()->route('business.transfer.order.show',['portal'=>$institution->portal,'id'=>$transferOrder->id])->withSuccess(__('Transfer order successfully stored.'));
     }
 
     public function transferOrderShow($portal, $transfer_order_id)
@@ -293,7 +305,7 @@ class InventoryController extends Controller
 
         // Warehouse address
         $address = new Address();
-        $address->attention = $request->attention;
+        // $address->attention = $request->attention;
 
         $address->street = $request->street;
         $address->town = $request->town;
@@ -370,6 +382,33 @@ class InventoryController extends Controller
 
     public function warehouseUpdate(Request $request, $portal, $warehouse_id)
     {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Check if warehouse exists
+        $warehouse = Warehouse::findOrFail($warehouse_id);
+        $warehouse = Warehouse::where('id',$warehouse_id)->withCount('inventories')->with('status','user','address')->first();
+
+        // Warehouse address
+        $address = Address::where('id',$warehouse->address_id)->first();
+        // $address->attention = $request->attention;
+        $address->street = $request->street;
+        $address->town = $request->town;
+        $address->po_box = $request->po_box;
+        $address->postal_code = $request->postal_code;
+        $address->address_line_1 = $request->address_line_1;
+        $address->address_line_2 = $request->address_line_2;
+        $address->email = $request->email;
+        $address->phone_number = $request->phone_number;
+        $address->user_id = $user->id;
+        $address->save();
+
+        // Warehouse registration
+        $warehouse->name = $request->name;
+        $warehouse->user_id = $user->id;
+        $warehouse->save();
+
         return back()->withSuccess(__('Warehouse successfully updated.'));
     }
 
