@@ -127,6 +127,8 @@ class RegisterController extends Controller
         $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $institution->save();
 
+        // subscription
+        
         // create units
         $institutionUnits = $this->unitSeeder($request, $user,$institution);
         // create taxes
@@ -424,21 +426,27 @@ class RegisterController extends Controller
         $contactType->name = 'Client';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $contactType->institution_id = $institution->id;
+        $contactType->is_institution = True;
         $contactType->user_id = $user->id;
+        $contactType->is_user = False;
         $contactType->save();
 
         $contactType = new ContactType();
         $contactType->name = 'Partner';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $contactType->institution_id = $institution->id;
+        $contactType->is_institution = True;
         $contactType->user_id = $user->id;
+        $contactType->is_user = False;
         $contactType->save();
 
         $contactType = new ContactType();
         $contactType->name = 'Supplier';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $contactType->institution_id = $institution->id;
+        $contactType->is_institution = True;
         $contactType->user_id = $user->id;
+        $contactType->is_user = False;
         $contactType->save();
 
     }
@@ -1147,33 +1155,15 @@ class RegisterController extends Controller
         $userExpenseAccounts = $this->userExpenseAccountsSeeder($request, $user);
         // create user account
         $userAccount = $this->userUserAccountSeeder($request, $user);
+        // create user contact types
+        $userContactType = $this->useContactTypeSeeder($request, $user);
 
         // account creation
         auth()->login($user);
         return redirect()->route('home');
     }
 
-    public function addPersonal(Request $request){
-        // return $request;
-        // get user
-        $user = Auth::user();
-        return $user;
 
-        // create accounts
-        $userAccounts = $this->userAccountsSeeder($request, $user);
-        // create frequencies
-        $userFrequencies = $this->userFrequenciesSeeder($request, $user);
-        // create expense account
-        $userExpenseAccounts = $this->userExpenseAccountsSeeder($request, $user);
-        // create user account
-        $userAccount = $this->userUserAccountSeeder($request, $user);
-        // create user titles
-        $titlesAccount = $this->userTitlesSeeder($request, $user);
-
-        // account creation
-        auth()->login($user);
-        return redirect()->route('home');
-    }
 
     private function userAccountsSeeder($request, $user){
 
@@ -1584,6 +1574,18 @@ class RegisterController extends Controller
         $userAccount->user_type_id = '5f29e668-9029-4278-a5e7-9ba9f96a20df';
 
         $userAccount->save();
+
+    }
+
+    private function useContactTypeSeeder($request, $user){
+
+        $contactType = new ContactType();
+        $contactType->name = 'Spouse';
+        $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $contactType->is_institution = False;
+        $contactType->user_id = $user->id;
+        $contactType->is_user = True;
+        $contactType->save();
 
     }
 

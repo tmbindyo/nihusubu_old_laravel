@@ -25,12 +25,15 @@ class CreateDepositsTable extends Migration
             $table->decimal('amount',20,2);
             $table->decimal('subsequent_amount',20,2);
 
+            $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
+            $table->boolean('is_institution');
+            $table->uuid('institution_id')->nullable();
+            $table->boolean('is_income');
+            $table->uuid('income_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('account_id');
-            $table->uuid('institution_id')->nullable();
-            $table->boolean('is_institution');
-            $table->boolean('is_user');
+            $table->boolean('is_chama');
 
             $table->timestamps();
             $table->softDeletes();

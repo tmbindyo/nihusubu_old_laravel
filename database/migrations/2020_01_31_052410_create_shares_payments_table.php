@@ -16,8 +16,10 @@ class CreateSharesPaymentsTable extends Migration
         Schema::create('shares_payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->double('amount',200,2);
-            $table->double('total',200,2);
+            $table->decimal('shares',20,2);
+            $table->decimal('amount',20,2);
+            $table->decimal('value',20,2);
+
             $table->date('date');
 
             $table->integer('user_id')->unsigned();

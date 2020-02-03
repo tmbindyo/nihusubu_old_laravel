@@ -17,7 +17,6 @@ class CreateChamaMemberRolesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name', 200);
-            $table->string('description', 200);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

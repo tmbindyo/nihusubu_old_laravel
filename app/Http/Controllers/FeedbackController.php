@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ChamaMeetingMinutes;
+use App\Feedback;
 use Illuminate\Http\Request;
 
-class ChamaMeetingMinutesController extends Controller
+class FeedbackController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ChamaMeetingMinutesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ChamaMeetingMinutes  $chamaMeetingMinutes
+     * @param  \App\Feedback  $feedback
      * @return \Illuminate\Http\Response
      */
-    public function show(ChamaMeetingMinutes $chamaMeetingMinutes)
+    public function show(Feedback $feedback)
     {
         //
     }
@@ -52,10 +52,10 @@ class ChamaMeetingMinutesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ChamaMeetingMinutes  $chamaMeetingMinutes
+     * @param  \App\Feedback  $feedback
      * @return \Illuminate\Http\Response
      */
-    public function edit(ChamaMeetingMinutes $chamaMeetingMinutes)
+    public function edit(Feedback $feedback)
     {
         //
     }
@@ -64,10 +64,10 @@ class ChamaMeetingMinutesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ChamaMeetingMinutes  $chamaMeetingMinutes
+     * @param  \App\Feedback  $feedback
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ChamaMeetingMinutes $chamaMeetingMinutes)
+    public function update(Request $request, Feedback $feedback)
     {
         //
     }
@@ -75,10 +75,10 @@ class ChamaMeetingMinutesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ChamaMeetingMinutes  $chamaMeetingMinutes
+     * @param  \App\Feedback  $feedback
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ChamaMeetingMinutes $chamaMeetingMinutes)
+    public function destroy(Feedback $feedback)
     {
         //
     }

@@ -17,8 +17,8 @@ class CreateWelfaresTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('location', 200);
-            $table->double('amount',200,2);
-            $table->double('paid',200,2);
+            $table->decimal('amount',20,2);
+            $table->decimal('paid',20,2);
             $table->date('due_date');
 
             $table->integer('user_id')->unsigned();
@@ -26,6 +26,7 @@ class CreateWelfaresTable extends Migration
             $table->uuid('status_id');
             $table->uuid('meeting_id');
             $table->uuid('chama_id');
+            $table->uuid('welfare_type_id');
 
             $table->timestamps();
             $table->softDeletes();

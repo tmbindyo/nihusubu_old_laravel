@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChamaMeetingMinutesTable extends Migration
+class CreatePenaltiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateChamaMeetingMinutesTable extends Migration
      */
     public function up()
     {
-        Schema::create('chama_meeting_minutes', function (Blueprint $table) {
+        Schema::create('penalties', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('location', 200);
-            $table->longText('minutes');
+            $table->longText('reason');
+
+            $table->decimal('amount',20,2);
+            $table->date('date');
 
             $table->integer('user_id')->unsigned();
+            $table->integer('member_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('meeting_id');
             $table->uuid('chama_id');
 
             $table->timestamps();
@@ -36,6 +38,6 @@ class CreateChamaMeetingMinutesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chama_meeting_minutes');
+        Schema::dropIfExists('penalties');
     }
 }

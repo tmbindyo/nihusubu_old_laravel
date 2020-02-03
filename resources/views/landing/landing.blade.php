@@ -30,7 +30,7 @@
                     <div class="col-lg-6 col-sm-6 g-hor-centered-row__col g-text-center--xs g-text-left--md g-margin-b-60--xs g-margin-b-0--md">
                         <div class="s-promo-block-v1__square-effect g-margin-b-60--xs">
                             <h1 class="g-font-size-32--xs g-font-size-45--sm g-font-size-50--lg g-color--white">Nihusubu</h1>
-                            <p class="g-font-size-20--xs g-font-size-26--md g-color--white g-margin-b-0--xs">Reimagining the real app experience<br>and leading brands.</p>
+                            <p class="g-font-size-20--xs g-font-size-26--md g-color--white g-margin-b-0--xs">Follow the money.</p>
                         </div>
                         <span class="g-display-block--xs g-display-inline-block--lg g-margin-b-10--xs g-margin-b-10--lg">
                             <a href="#" class="s-btn s-btn--xs s-btn--white-brd g-padding-x-30--xs g-radius--50">

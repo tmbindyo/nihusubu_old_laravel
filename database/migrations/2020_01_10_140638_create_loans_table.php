@@ -21,20 +21,21 @@ class CreateLoansTable extends Migration
 
             $table->decimal('total',20,2);
             $table->decimal('principal',20,2);
-            $table->double('interest',200,2)->nullable();
-            $table->double('paid',200,2)->nullable();
+            $table->decimal('interest',20,8)->nullable();
+            $table->decimal('interest_amount',20,8)->nullable();
+            $table->decimal('paid',20,2)->nullable();
 
             $table->date('date');
             $table->date('due_date');
 
             $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
-            $table->uuid('account_id')->nullable();
             $table->boolean('is_institution');
             $table->uuid('institution_id')->nullable();
             $table->boolean('is_chama');
             $table->uuid('chama_id')->nullable();
             $table->uuid('member_id')->nullable();
+            $table->uuid('account_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('contact_id')->nullable();
 

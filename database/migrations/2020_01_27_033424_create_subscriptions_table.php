@@ -18,15 +18,13 @@ class CreateSubscriptionsTable extends Migration
 
             $table->string('name', 200);
 
+            $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
+            $table->boolean('is_institution');
+            $table->uuid('institution_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('subscription_type_id');
             $table->uuid('plan_id');
-
-            // institution
-            $table->boolean('is_institution');
-            $table->uuid('institution_id')->nullable();
-            $table->boolean('is_user');
 
             $table->timestamps();
             $table->softDeletes();

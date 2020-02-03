@@ -27,9 +27,9 @@
         @include('business.layouts.navbars.header')
         <!-- top navbar -->
 
-        <!-- top navbar -->
+        <!-- popup -->
         @include('business.layouts.popover.popover')
-        <!-- top navbar -->
+        <!-- popup -->
 
         <!-- page content -->
         @yield ('content')

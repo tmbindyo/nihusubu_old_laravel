@@ -138,14 +138,31 @@
                                         </div>
                                     @endif
 
-                                    <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$loan->amount}}" class="form-control input-lg">
-                                        <i>amount</i>
-                                    </div>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="paid" name="paid" required="required" value="{{$loan->paid}}" class="form-control input-lg" readonly>
-                                        <i>paid</i>
+                                        <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" value="{{$loan->principal}}" class="form-control input-lg">
+                                        <i>principal</i>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-3"> 
+                                            <div class="has-warning">
+                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="{{$loan->interest}}" max="100" step="0.00001" class="form-control input-lg">
+                                                <i>key in interest in percentage</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3"> 
+                                            <div class="has-warning">
+                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="{{$loan->interest_amount}}" class="form-control input-lg">
+                                                <i>key in interest amount</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6"> 
+                                            <div class="has-warning">
+                                                <input type="number" id="total" name="total" required="required" readonly value="{{$loan->total}}" class="form-control input-lg">
+                                                <i>total</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">

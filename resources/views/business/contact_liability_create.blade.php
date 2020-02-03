@@ -110,13 +110,13 @@
                                     <div class="row">
                                         <div class="col-md-3"> 
                                             <div class="has-warning">
-                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="0" max="100" class="form-control input-lg">
+                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="0" max="100" step="0.00001" class="form-control input-lg">
                                                 <i>key in interest in percentage</i>
                                             </div>
                                         </div>
                                         <div class="col-md-3"> 
                                             <div class="has-warning">
-                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="0" max="100" class="form-control input-lg">
+                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="0" class="form-control input-lg">
                                                 <i>key in interest amount</i>
                                             </div>
                                         </div>
@@ -271,7 +271,7 @@
         var percentage = parseFloat(interest_amount)/parseFloat(principal)
         var interestPercentage = parseFloat(percentage)*100;
         {{--  set values  --}}
-        document.getElementById("interest").value = interestPercentage;
+        document.getElementById("interest").value = interestPercentage.toFixed(5);
         document.getElementById("total").value = total;
 
     }

@@ -86,7 +86,7 @@ class AccountController extends Controller
         $account->institution_id = $institution->id;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->save();
-        return redirect()->route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id])->withSuccess('Expense '.$account->reference.' successfully created!');
+        return redirect()->route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id])->withSuccess('Account '.$account->reference.' successfully created!');
     }
 
     public function accountShow($portal,$account_id)
@@ -361,7 +361,7 @@ class AccountController extends Controller
         }
         // account subtraction
 
-        return redirect()->route('business.transaction.show',['portal'=>$institution->portal,'id'=>$transaction->id])->withSuccess('Expense '.$transaction->reference.' successfully updated!');
+        return redirect()->route('business.transaction.show',['portal'=>$institution->portal,'id'=>$transaction->id])->withSuccess('Transaction '.$transaction->reference.' successfully updated!');
 
     }
 
@@ -727,7 +727,7 @@ class AccountController extends Controller
 
         // calculations
         $account = Account::findOrFail($request->account);
-        $accountBalance = doubleval($account->balance) + doubleval($request->amount);
+        $accountBalance = doubleval($account->balance) + doubleval($request->total);
 
         // store liability record
         $liability = new Liability();
@@ -737,6 +737,7 @@ class AccountController extends Controller
         $liability->total = $request->total;
         $liability->principal = $request->principal;
         $liability->interest = $request->interest;
+        $liability->interest_amount = $request->interest_amount;
         $liability->paid = 0;
 
         $liability->date = date('Y-m-d', strtotime($request->date));
@@ -747,9 +748,10 @@ class AccountController extends Controller
 
         $liability->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $liability->user_id = $user->id;
+        $liability->is_user = False;
         $liability->is_institution = True;
         $liability->institution_id = $institution->id;
-        $liability->is_user = False;
+        $liability->is_chama = False;
         $liability->save();
 
         // update accounts balance
@@ -796,13 +798,13 @@ class AccountController extends Controller
         // expense accounts
         $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get sales
-        $sales = Sale::with('status')->where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $sales = Sale::where('institution_id',$institution->id)->with('status')->get();
         // expense statuses
         $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // get transfers
         $transfers = Transfer::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get campaign
-        $campaigns = Campaign::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $campaigns = Campaign::where('institution_id',$institution->id)->get();
         // get liabilities
         $liability = Liability::where('id',$liability_id)->where('is_institution',true)->where('institution_id',$institution->id)->first();
         // get frequencies
@@ -875,10 +877,10 @@ class AccountController extends Controller
         // calculations
         $account = Account::findOrFail($request->account);
         // check if this is an overdraft
-        if($request->amount > $account->balance){
+        if($request->total > $account->balance){
             return back()->withWarning(__('This loan will overdraft the account.'));
         }
-        $accountBalance = doubleval($account->balance) - doubleval($request->amount);
+        $accountBalance = doubleval($account->balance) - doubleval($request->total);
 
         // store loan record
         $loan = new Loan();
@@ -888,6 +890,7 @@ class AccountController extends Controller
         $loan->total = $request->total;
         $loan->principal = $request->principal;
         $loan->interest = $request->interest;
+        $loan->interest_amount = $request->interest_amount;
         $loan->paid = 0;
 
         $loan->date = date('Y-m-d', strtotime($request->date));

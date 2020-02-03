@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Shares;
+use App\BudgetCategory;
 use Illuminate\Http\Request;
 
-class SharesController extends Controller
+class BudgetCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class SharesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Shares  $shares
+     * @param  \App\BudgetCategory  $budgetCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Shares $shares)
+    public function show(BudgetCategory $budgetCategory)
     {
         //
     }
@@ -52,10 +52,10 @@ class SharesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Shares  $shares
+     * @param  \App\BudgetCategory  $budgetCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shares $shares)
+    public function edit(BudgetCategory $budgetCategory)
     {
         //
     }
@@ -64,10 +64,10 @@ class SharesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Shares  $shares
+     * @param  \App\BudgetCategory  $budgetCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shares $shares)
+    public function update(Request $request, BudgetCategory $budgetCategory)
     {
         //
     }
@@ -75,10 +75,10 @@ class SharesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Shares  $shares
+     * @param  \App\BudgetCategory  $budgetCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shares $shares)
+    public function destroy(BudgetCategory $budgetCategory)
     {
         //
     }

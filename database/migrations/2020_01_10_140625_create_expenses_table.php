@@ -50,13 +50,15 @@ class CreateExpensesTable extends Migration
             $table->boolean('is_draft');
             $table->boolean('is_recurring');
 
+            $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
+            $table->boolean('is_institution');
+            $table->uuid('institution_id')->nullable();
+            $table->boolean('is_expense');
+            $table->uuid('expense_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('expense_account_id');
-            $table->uuid('institution_id')->nullable();
             $table->uuid('frequency_id')->nullable();
-            $table->boolean('is_institution');
-            $table->boolean('is_user');
 
             $table->timestamps();
             $table->softDeletes();

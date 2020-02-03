@@ -26,6 +26,10 @@
         @include('personal.layouts.navbars.header')
         <!-- top navbar -->
 
+        <!-- popup -->
+        @include('personal.layouts.popover.popover')
+        <!-- popup -->
+
         <!-- page content -->
         @yield ('content')
         <!-- /page content -->

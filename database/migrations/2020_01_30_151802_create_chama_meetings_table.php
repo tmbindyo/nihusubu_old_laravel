@@ -17,10 +17,12 @@ class CreateChamaMeetingsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('location', 200);
+            $table->string('description', 200);
+            $table->longText('minutes');
+            
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('description', 200);
-
+            
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('chama_id');

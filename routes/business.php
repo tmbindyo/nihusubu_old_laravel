@@ -479,3 +479,8 @@ Route::get('/{portal}/unit/show/{unit_id}', 'Business\SettingController@unitShow
 Route::post('/{portal}/unit/update/{unit_id}', 'Business\SettingController@unitUpdate')->name('business.unit.update');
 Route::get('/{portal}/unit/delete/{unit_id}', 'Business\SettingController@unitDelete')->name('business.unit.delete');
 Route::get('/{portal}/unit/restore/{unit_id}', 'Business\SettingController@unitRestore')->name('business.unit.restore');
+
+
+
+//Dashboard
+Route::get('/{portal}/feedback', 'Business\FeedbackController@feedback')->name('business.feedback');

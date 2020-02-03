@@ -20,12 +20,12 @@ class CreateExpenseAccountsTable extends Migration
             $table->string('code');
             $table->longText('description');
 
+            $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
+            $table->boolean('is_institution');
+            $table->uuid('institution_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('account_type_id');
-            $table->uuid('institution_id')->nullable();
-            $table->boolean('is_institution');
-            $table->boolean('is_user');
 
             $table->timestamps();
             $table->softDeletes();

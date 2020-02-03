@@ -59,13 +59,13 @@ class ExpenseController extends Controller
         // expense accounts
         $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get sales
-        $sales = Sale::where('institution_id',$institution->id)->where('is_institution',true)->with('status')->get();
+        $sales = Sale::where('institution_id',$institution->id)->with('status')->get();
         // expense statuses
         $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // get transfers
         $transfers = Transfer::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get campaign
-        $campaigns = Campaign::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $campaigns = Campaign::where('institution_id',$institution->id)->get();
         // get liabilities
         $liabilities = Liability::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get frequencies

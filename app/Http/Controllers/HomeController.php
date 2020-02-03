@@ -1067,6 +1067,7 @@ class HomeController extends Controller
     }
 
 
+    
 
     public function addPersonal(Request $request){
         // return $request;
@@ -1081,6 +1082,10 @@ class HomeController extends Controller
         $userExpenseAccounts = $this->userExpenseAccountsSeeder($request, $user);
         // create user account
         $userAccount = $this->userUserAccountSeeder($request, $user);
+        // create user titles
+        $titlesAccount = $this->userTitlesSeeder($request, $user);
+        // create user contact types
+        $userContactType = $this->useContactTypeSeeder($request, $user);
 
         // account creation
         auth()->login($user);
@@ -1456,6 +1461,62 @@ class HomeController extends Controller
         $userAccount = $this->activateUserAccount($userAccount->id);
 
 
+
+    }
+
+    private function userTitlesSeeder($request, $user){
+
+        $titles = new Title();
+        $titles->name = 'Mr';
+        $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $titles->user_id = $user->id;
+        $titles->is_institution = False;
+        $titles->is_user = True;
+        $titles->save();
+
+        $titles = new Title();
+        $titles->name = 'Mrs';
+        $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $titles->user_id = $user->id;
+        $titles->is_institution = False;
+        $titles->is_user = True;
+        $titles->save();
+
+        $titles = new Title();
+        $titles->name = 'Ms';
+        $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $titles->user_id = $user->id;
+        $titles->is_institution = False;
+        $titles->is_user = True;
+        $titles->save();
+
+        $titles = new Title();
+        $titles->name = 'Dr';
+        $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $titles->user_id = $user->id;
+        $titles->is_institution = False;
+        $titles->is_user = True;
+        $titles->save();
+
+        $titles = new Title();
+        $titles->name = 'Prof';
+        $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $titles->user_id = $user->id;
+        $titles->is_institution = False;
+        $titles->is_user = True;
+        $titles->save();
+
+    }
+
+    private function useContactTypeSeeder($request, $user){
+
+        $contactType = new ContactType();
+        $contactType->name = 'Spouse';
+        $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $contactType->is_institution = False;
+        $contactType->user_id = $user->id;
+        $contactType->is_user = True;
+        $contactType->save();
 
     }
 

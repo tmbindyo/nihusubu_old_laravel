@@ -7,8 +7,8 @@ use App\Sale;
 use App\Loan;
 use App\ToDo;
 use App\Status;
-use App\Contact;
 use App\Deposit;
+use App\Contact;
 use App\Expense;
 use App\Account;
 use App\Transfer;
@@ -75,7 +75,7 @@ class AccountController extends Controller
         $account->user_id = $user->id;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->save();
-        return redirect()->route('personal.account.show',$account->id)->withSuccess('Expense '.$account->reference.' successfully created!');
+        return redirect()->route('personal.account.show',$account->id)->withSuccess('Account '.$account->reference.' successfully created!');
     }
 
     public function accountShow($account_id)
@@ -262,7 +262,7 @@ class AccountController extends Controller
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // get accounts
-        $accounts = Account::where('is_true',True)->where('user_id',$user->id)->get();
+        $accounts = Account::where('is_user',True)->where('user_id',$user->id)->get();
         // Get transactions
         $transactions = Transaction::with('user','status','source_account','destination_account','account','expense')->where('user_id',$user->id)->where('is_user',True)->get();
         return view('personal.account_adjustment_create',compact('transactions','user','journalsStatusCount','transactions','accounts'));
@@ -328,7 +328,7 @@ class AccountController extends Controller
         }
         // account subtraction
 
-        return redirect()->route('personal.transaction.show',$transaction->id)->withSuccess('Expense '.$transaction->reference.' successfully updated!');
+        return redirect()->route('personal.transaction.show',$transaction->id)->withSuccess('Transaction '.$transaction->reference.' successfully updated!');
 
     }
 
@@ -666,7 +666,7 @@ class AccountController extends Controller
 
         // calculations
         $account = Account::findOrFail($request->account);
-        $accountBalance = doubleval($account->balance) + doubleval($request->amount);
+        $accountBalance = doubleval($account->balance) + doubleval($request->total);
 
         // store liability record
         $liability = new Liability();
@@ -676,6 +676,7 @@ class AccountController extends Controller
         $liability->total = $request->total;
         $liability->principal = $request->principal;
         $liability->interest = $request->interest;
+        $liability->interest_amount = $request->interest_amount;
         $liability->paid = 0;
 
         $liability->date = date('Y-m-d', strtotime($request->date));
@@ -686,8 +687,11 @@ class AccountController extends Controller
 
         $liability->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $liability->user_id = $user->id;
+
         $liability->is_institution = False;
         $liability->is_user = True;
+        $liability->is_chama = True;
+
         $liability->save();
 
         // update accounts balance
@@ -799,10 +803,10 @@ class AccountController extends Controller
         // calculations
         $account = Account::findOrFail($request->account);
         // check if this is an overdraft
-        if($request->amount > $account->balance){
+        if($request->total > $account->balance){
             return back()->withWarning(__('This loan will overdraft the account.'));
         }
-        $accountBalance = doubleval($account->balance) - doubleval($request->amount);
+        $accountBalance = doubleval($account->balance) - doubleval($request->total);
 
         // store loan record
         $loan = new Loan();

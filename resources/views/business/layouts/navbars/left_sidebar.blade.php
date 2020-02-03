@@ -53,7 +53,7 @@
                 <a href="{{ route('business.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li> --}}
 
-           <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar',$institution->portal ) ?  'active' : '' }}">
+            <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar',$institution->portal ) ?  'active' : '' }}">
                <a href="{{ route('business.calendar',$institution->portal) }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>
             </li>
 
@@ -373,6 +373,10 @@
                     </li>  --}}
                 </ul>
             </li>
+
+            <li class="nav-item {{ Route::currentRouteNamed( 'business.feedback',$institution->portal ) ?  'active' : '' }}">
+                <a href="{{ route('business.feedback',$institution->portal) }}"><i class="fa fa-mail-reply-all"></i> <span class="nav-label">Feedback </span></a>
+             </li>
 
         </ul>
 

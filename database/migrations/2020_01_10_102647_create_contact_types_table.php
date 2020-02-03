@@ -18,8 +18,10 @@ class CreateContactTypesTable extends Migration
 
             $table->string('name');
 
+            $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->boolean('is_institution');
             $table->uuid('institution_id')->nullable();
 
             $table->timestamps();

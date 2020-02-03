@@ -102,9 +102,9 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // get campaign types
-        $campaignTypes = CampaignType::where('institution_id',$institution->id)->where('is_institution',True)->with('user','status')->get();
+        $campaignTypes = CampaignType::where('institution_id',$institution->id)->with('user','status')->get();
         // get campaign types
-        $deletedCampaignTypes = CampaignType::where('institution_id',$institution->id)->where('is_institution',True)->with('user','status')->onlyTrashed()->get();
+        $deletedCampaignTypes = CampaignType::where('institution_id',$institution->id)->with('user','status')->onlyTrashed()->get();
         return view('business.campaign_types',compact('campaignTypes','user','institution','deletedCampaignTypes'));
     }
 
@@ -363,9 +363,9 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // lead sources
-        $leadSources = LeadSource::with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->get();
+        $leadSources = LeadSource::with('user','status')->where('institution_id',$institution->id)->get();
         // deleted lead sources
-        $deletedLeadSources = LeadSource::with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->onlyTrashed()->get();
+        $deletedLeadSources = LeadSource::with('user','status')->where('institution_id',$institution->id)->onlyTrashed()->get();
         return view('business.lead_sources',compact('leadSources','deletedLeadSources','user','institution'));
     }
 

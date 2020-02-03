@@ -26,13 +26,15 @@ class CreateTransactionsTable extends Migration
             $table->date('date');
             $table->date('billed')->nullable();
 
+            $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('account_id')->nullable();
             $table->uuid('expense_id')->nullable();
-            $table->uuid('institution_id')->nullable();
             $table->boolean('is_institution');
-            $table->boolean('is_user');
+            $table->uuid('institution_id')->nullable();
+            $table->boolean('is_chama');
+            $table->uuid('chama_id')->nullable();
 
             $table->boolean('is_billed')->nullable();
             $table->boolean('is_confirmed')->nullable();

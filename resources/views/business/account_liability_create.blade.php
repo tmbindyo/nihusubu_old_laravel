@@ -110,34 +110,13 @@
                                     <div class="row">
                                         <div class="col-md-3"> 
                                             <div class="has-warning">
-                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="0" max="100" class="form-control input-lg">
+                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="0" max="100" step="0.00001" class="form-control input-lg">
                                                 <i>key in interest in percentage</i>
                                             </div>
                                         </div>
                                         <div class="col-md-3"> 
                                             <div class="has-warning">
-                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="0" max="100" class="form-control input-lg">
-                                                <i>key in interest amount</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6"> 
-                                            <div class="has-warning">
-                                                <input type="number" id="total" name="total" required="required" readonly value="0" class="form-control input-lg">
-                                                <i>total</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-3"> 
-                                            <div class="has-warning">
-                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="0" max="100" class="form-control input-lg">
-                                                <i>key in interest in percentage</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3"> 
-                                            <div class="has-warning">
-                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="0" max="100" class="form-control input-lg">
+                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="0" class="form-control input-lg">
                                                 <i>key in interest amount</i>
                                             </div>
                                         </div>
@@ -275,7 +254,7 @@
         var interest_amount = parseFloat(principal) * parseFloat(percentage);
         var payback = parseFloat(principal) + parseFloat(interest_amount);
         {{--  set values  --}}
-        document.getElementById("interest_amount").value = interest_amount;
+        document.getElementById("interest_amount").value = interest_amount.toFixed(5);
         document.getElementById("total").value = payback;
 
     }

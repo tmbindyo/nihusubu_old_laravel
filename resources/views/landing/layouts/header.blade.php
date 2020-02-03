@@ -9,7 +9,7 @@
                         <a href="{{route("landing")}}" class="s-header__logo-link">
                             {{--  TODO Change logo  --}}
                             <img style="width: 50px;" class="s-header__logo-img s-header__logo-img-default" src="{{ asset('logo_transparent.png') }}" alt="Nihusubu">
-                            <img class="s-header__logo-img s-header__logo-img-shrink" src="{{ asset('nihusubu.png') }}" alt="Nihusubu">
+                            {{--  <img class="s-header__logo-img s-header__logo-img-shrink" src="{{ asset('logo_transparent.png') }}" alt="Nihusubu">  --}}
                         </a>
                     </div>
                     <!-- End Logo -->
@@ -38,12 +38,12 @@
                 <!-- Menu List -->
                 <ul class="list-unstyled s-header__nav-menu">
                     <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'landing' ) ?  '-is-active' : '' }}" href="{{route("landing")}}">Home</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'about' ) ?  '-is-active' : '' }}" href="{{route("about")}}">About</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'team' ) ?  '-is-active' : '' }}" href="{{route("team")}}">Team</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'services' ) ?  '-is-active' : '' }}" href="{{route("services")}}">Services</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'events' ) ?  '-is-active' : '' }}" href="{{route("events")}}">Events</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'faq' ) ?  '-is-active' : '' }}" href="{{route("faq")}}">FAQ</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'contacts' ) ?  '-is-active' : '' }}" href="{{route("contacts")}}">Contacts</a></li>
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'about' ) ?  '-is-active' : '' }}" href="{{route("about")}}">About</a></li>  --}}
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'team' ) ?  '-is-active' : '' }}" href="{{route("team")}}">Team</a></li>  --}}
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'services' ) ?  '-is-active' : '' }}" href="{{route("services")}}">Services</a></li>  --}}
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'events' ) ?  '-is-active' : '' }}" href="{{route("events")}}">Events</a></li>  --}}
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'faq' ) ?  '-is-active' : '' }}" href="{{route("faq")}}">FAQ</a></li>  --}}
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'contacts' ) ?  '-is-active' : '' }}" href="{{route("contacts")}}">Contacts</a></li>  --}}
                 </ul>
                 <!-- End Menu List -->
             </div>
