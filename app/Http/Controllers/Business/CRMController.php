@@ -307,7 +307,11 @@ class CRMController extends Controller
     {
         $uploadExists = Upload::findOrFail($upload_id);
         $upload = Upload::where('id',$upload_id)->first();
+
+        // return $upload->original;
         $file_path = public_path($upload->original);
+        return $file_path;
+
         return response()->download($file_path);
     }
 
