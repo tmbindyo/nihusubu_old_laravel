@@ -33,6 +33,7 @@
                 {{--  todo return --}}
                 <a href="{{route('business.sale.payment.create',['portal'=>$institution->portal,'id'=>$sale->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Payment </a>
                 <a href="{{route('business.sale.print',['portal'=>$institution->portal,'id'=>$sale->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Invoice </a>
+                <a href="{{route('business.contact.show',['portal'=>$institution->portal,'id'=>$sale->contact_id])}}" class="btn btn-success btn-outline"><i class="fa fa-eye"></i> Contact </a>
             </div>
         </div>
     </div>
@@ -172,7 +173,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Payments</h5>
-                        
+
                     </div>
                     <div class="ibox-content">
 

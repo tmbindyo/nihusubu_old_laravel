@@ -78,7 +78,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Contact <small>edit</small></h5>
-                        
+
                     </div>
                     <div class="ibox-content">
                         <div class="row">
@@ -286,7 +286,7 @@
                                                     @foreach($sales as $sale)
                                                         <tr class="gradeX">
                                                             <td>
-                                                                {{$sale->sale_number}}
+                                                                {{$sale->reference}}
                                                                 <span><i data-toggle="tooltip" data-placement="right" title="{{$sale->notes}}." class="fa fa-facebook-messenger"></i></span>
                                                             </td>
                                                             <td>{{$sale->created_at}}</td>
@@ -368,7 +368,7 @@
                                                     @foreach($liabilities as $liability)
                                                         <tr class="gradeX">
                                                             <td>{{$liability->reference}}</td>
-                                                            <td>{{$liability->amount}}</td>
+                                                            <td>{{$liability->total}}</td>
                                                             <td>{{$liability->paid}}</td>
                                                             <td>{{$liability->date}}</td>
                                                             <td>{{$liability->due_date}}</td>
@@ -426,7 +426,7 @@
                                                                     {{$loan->reference}}
                                                                     <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->notes}}." class="fa fa-facebook-messenger"></i></span>
                                                                 </td>
-                                                                <td>{{$loan->amount}}</td>
+                                                                <td>{{$loan->total}}</td>
                                                                 <td>{{$loan->paid}}</td>
                                                                 <td>{{$loan->date}}</td>
                                                                 <td>{{$loan->due_date}}</td>
