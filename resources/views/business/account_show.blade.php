@@ -83,7 +83,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Account <small>edit</small></h5>
-                        
+
                     </div>
                     <div class="ibox-content">
                         <div class="row">
@@ -329,7 +329,7 @@
                                                             {{$liability->reference}}
                                                             <span><i data-toggle="tooltip" data-placement="right" title="{{$liability->about}}." class="fa fa-facebook-messenger"></i></span>
                                                         </td>
-                                                        <td>{{$liability->amount}}</td>
+                                                        <td>{{$liability->total}}</td>
                                                         <td>{{$liability->paid}}</td>
                                                         <td>{{$liability->date}}</td>
                                                         <td>{{$liability->due_date}}</td>
@@ -385,7 +385,7 @@
                                                             {{$loan->reference}}
                                                             <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->about}}." class="fa fa-facebook-messenger"></i></span>
                                                         </td>
-                                                        <td>{{$loan->amount}}</td>
+                                                        <td>{{$loan->total}}</td>
                                                         <td>{{$loan->paid}}</td>
                                                         <td>{{$loan->date}}</td>
                                                         <td>{{$loan->due_date}}</td>
@@ -441,7 +441,7 @@
                                                             <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
                                                         </td>
                                                         <td>{{$payment->date}}</td>
-                                                        <td>{{$payment->initial_amount}}</td>
+                                                        <td>{{$payment->initial_balance}}</td>
                                                         <td>{{$payment->amount}}</td>
                                                         <td>{{$payment->current_balance}}</td>
                                                         <td>{{$payment->user->name}}</td>
@@ -449,8 +449,8 @@
                                                             <span class="label {{$payment->status->label}}">{{$payment->status->name}}</span>
                                                         </td>
                                                         <td class="text-right">
-                                                            {{--                                todo check why route is album but id is album type--}}
                                                             <div class="btn-group">
+                                                                <a href="{{ route('business.payment.show', ['portal'=>$institution->portal,'id'=>$payment->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @if($payment->is_order == 1)
                                                                     <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$payment->order_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @elseif($payment->is_design == 1)
@@ -508,7 +508,7 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.payment.show', ['portal'=>$institution->portal,'id'=>$refund->payment_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.refund.show', ['portal'=>$institution->portal,'id'=>$refund->id]) }}" class="btn-white btn btn-xs">View</a>
                                                             </div>
                                                         </td>
                                                     </tr>

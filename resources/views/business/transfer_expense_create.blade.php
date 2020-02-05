@@ -53,11 +53,11 @@
                         <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.orders',$institution->portal)}}">Orders</a>
+                        <a href="{{route('business.transfers',$institution->portal)}}">Transfers</a>
                     </li>
-                    <li>
+                    {{--  <li>
                         <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
-                    </li>
+                    </li>  --}}
                     <li class="active">
                         <strong>Expense Create</strong>
                     </li>

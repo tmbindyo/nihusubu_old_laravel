@@ -1,6 +1,6 @@
 @extends('business.layouts.app')
 
-@section('title', ' Transacti Create')
+@section('title', ' Transaction Create')
 
 @section('css')
 
@@ -56,7 +56,7 @@
                         <a href="{{route('business.accounts',$institution->portal)}}">Accounts</a>
                     </li>
                     <li>
-                        <a href="{{route('business.expenses',$institution->portal)}}">Transactions</a>
+                        <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
                     </li>
                     <li class="active">
                         <strong>Transaction Create</strong>

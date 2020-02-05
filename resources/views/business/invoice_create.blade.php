@@ -179,6 +179,18 @@
                                     </div>
                                     <br>
                                     <hr>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <textarea required name="customer_notes" placeholder="Notes" class="form-control" rows="7"></textarea>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <textarea required name="terms_and_conditions" placeholder="Terms and Conditions" class="form-control" rows="7"></textarea>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <hr>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>
                                     </div>

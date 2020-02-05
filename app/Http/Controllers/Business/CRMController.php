@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Business;
 
 use DB;
+use App\Tax;
 use App\Loan;
 use App\Sale;
 use App\ToDo;
@@ -15,6 +16,7 @@ use App\Account;
 use App\Campaign;
 use App\Liability;
 use App\Frequency;
+use App\Inventory;
 use App\UploadType;
 use App\LeadSource;
 use App\ContactType;
@@ -27,8 +29,6 @@ use Illuminate\Http\Request;
 use App\Traits\InstitutionTrait;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
-use App\Inventory;
-use App\Tax;
 use App\Traits\DocumentExtensionTrait;
 use Illuminate\Support\Facades\Storage;
 

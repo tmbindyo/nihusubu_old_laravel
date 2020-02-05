@@ -19,7 +19,10 @@ class CreateFeedbackTable extends Migration
             $table->string('name', 200);
             $table->longText('description');
 
+            $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
+            $table->boolean('is_institution');
+            $table->uuid('institution_id')->nullable();
             $table->uuid('status_id');
 
             $table->timestamps();

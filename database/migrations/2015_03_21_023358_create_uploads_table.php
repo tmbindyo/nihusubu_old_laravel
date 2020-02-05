@@ -33,6 +33,7 @@ class CreateUploadsTable extends Migration
             $table->uuid('upload_type_id');
             $table->uuid('institution_id')->nullable();
             $table->uuid('campaign_id')->nullable();
+            $table->uuid('feedback_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

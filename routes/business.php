@@ -424,6 +424,7 @@ Route::get('/{portal}/reminders', 'Business\SettingController@reminders')->name(
 // Campaign types
 Route::get('/{portal}/campaign/types', 'Business\SettingController@campaignTypes')->name('business.campaign.types');
 Route::get('/{portal}/campaign/type/create', 'Business\SettingController@campaignTypeCreate')->name('business.campaign.type.create');
+Route::get('/{portal}/campaign/type/{campaign_type_id}/campaign/create', 'Business\SettingController@campaignTypeCampaignCreate')->name('business.campaign.type.campaign.create');
 Route::post('/{portal}/campaign/type/store', 'Business\SettingController@campaignTypeStore')->name('business.campaign.type.store');
 Route::get('/{portal}/campaign/type/show/{campaign_type_id}', 'Business\SettingController@campaignTypeShow')->name('business.campaign.type.show');
 Route::post('/{portal}/campaign/type/update/{campaign_type_id}', 'Business\SettingController@campaignTypeUpdate')->name('business.campaign.type.update');
@@ -483,4 +484,15 @@ Route::get('/{portal}/unit/restore/{unit_id}', 'Business\SettingController@unitR
 
 
 //Dashboard
-Route::get('/{portal}/feedback', 'Business\FeedbackController@feedback')->name('business.feedback');
+Route::get('/{portal}/feedbacks', 'Business\FeedbackController@feedbacks')->name('business.feedbacks');
+Route::get('/{portal}/feedback/create', 'Business\FeedbackController@feedbackCreate')->name('business.feedback.create');
+Route::post('/{portal}/feedback/store', 'Business\FeedbackController@feedbackStore')->name('business.feedback.store');
+Route::get('/{portal}/feedback/show/{unit_id}', 'Business\FeedbackController@feedbackShow')->name('business.feedback.show');
+Route::post('/{portal}/feedback/update/{unit_id}', 'Business\FeedbackController@feedbackUpdate')->name('business.feedback.update');
+Route::get('/{portal}/feedback/delete/{unit_id}', 'Business\FeedbackController@feedbackDelete')->name('business.feedback.delete');
+Route::get('/{portal}/feedback/restore/{unit_id}', 'Business\FeedbackController@feedbackRestore')->name('business.feedback.restore');
+
+// Feedback uploads
+Route::get('/{portal}/feedback/uploads/{feedback_id}', 'Business\FeedbackController@feedbackUploads')->name('business.feedback.uploads');
+Route::post('/{portal}/feedback/upload/store/{feedback_id}', 'Business\FeedbackController@feedbackUploadStore')->name('business.feedback.upload.store');
+Route::get('/{portal}/feedback/upload/download/{upload_id}', 'Business\FeedbackController@feedbackUploadDownload')->name('business.feedback.upload.download');

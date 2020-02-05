@@ -38,7 +38,7 @@
     </div>
     <div class="col-md-3">
         <div class="title-action">
-            <a href="{{route('business.campaign.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Campaign </a>
+            <a href="{{route('business.campaign.type.campaign.create',['portal'=>$institution->portal,'id'=>$campaignType->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Campaign </a>
         </div>
     </div>
 </div>
@@ -136,7 +136,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($campaignType->campaigns as $campaign)
+                    @foreach($campaigns as $campaign)
                         <tr class="gradeX">
                             <td>{{$campaign->name}}</td>
                             <td>{{$campaign->campaign_type->name}}</td>

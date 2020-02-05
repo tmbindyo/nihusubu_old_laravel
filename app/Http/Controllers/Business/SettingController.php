@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\Campaign;
 use App\CampaignType;
 use App\ContactContactType;
 use App\ContactType;
@@ -143,8 +144,23 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // Get campaign type
-        $campaignType = CampaignType::with('user','status','campaigns.user')->where('is_institution',True)->where('id',$campaign_type_id)->withCount('campaigns')->first();
-        return view('business.campaign_type_show',compact('campaignType','user','institution'));
+        $campaignType = CampaignType::with('user','status','campaigns.user')->where('id',$campaign_type_id)->withCount('campaigns')->first();
+        $campaigns = Campaign::with('user','status','campaign_type')->where('institution_id',$institution->id)->where('campaign_type_id',$campaignType->id)->get();
+        return view('business.campaign_type_show',compact('campaignType','user','institution','campaigns'));
+    }
+
+    public function campaignTypeCampaignCreate($portal,$campaign_type_id)
+    {
+
+        // User
+        $user = $this->getUser();
+        // Get institution
+        $institution = $this->getInstitution($portal);
+        // campaign types
+        $campaignType = CampaignType::with('user','status','campaigns.user')->where('id',$campaign_type_id)->withCount('campaigns')->first();
+        $campaignTypes = CampaignType::where('institution_id',$institution->id)->get();
+        return view('business.campaign_type_campaign_create',compact('user','institution','campaignTypes','campaignType'));
+
     }
 
     public function campaignTypeUpdate(Request $request, $portal, $campaign_type_id)
@@ -212,6 +228,8 @@ class SettingController extends Controller
         $contactType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $contactType->user_id = $user->id;
         $contactType->institution_id = $institution->id;
+        $contactType->is_institution = True;
+        $contactType->is_user = False;
         $contactType->save();
 
         return redirect()->route('business.contact.type.show',['portal'=>$institution->portal,'id'=>$contactType->id])->withSuccess('Contact type created!');
@@ -242,7 +260,6 @@ class SettingController extends Controller
         // contact type update
         $contactType = ContactType::findOrFail($contact_type_id);
         $contactType->name = $request->name;
-        $contactType->description = $request->description;
         $contactType->user_id = $user->id;
         $contactType->save();
 
@@ -302,6 +319,8 @@ class SettingController extends Controller
         $frequency->frequency = $request->frequency;
         $frequency->user_id = $user->id;
         $frequency->institution_id = $institution->id;
+        $frequency->is_institution = True;
+        $frequency->is_user = False;
         $frequency->save();
 
         return redirect()->route('business.frequency.show',['portal'=>$institution->portal,'id'=>$frequency->id])->withSuccess('Frequency created!');

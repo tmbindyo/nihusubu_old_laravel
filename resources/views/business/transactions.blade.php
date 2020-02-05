@@ -19,7 +19,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Transaction</h2>
+            <h2>Transaction (Expense Payments)</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>

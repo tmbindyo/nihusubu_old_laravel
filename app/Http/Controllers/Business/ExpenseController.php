@@ -753,7 +753,9 @@ class ExpenseController extends Controller
         $payment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $payment->user_id = $user->id;
         $payment->is_user = False;
+        $payment->is_chama = False;
         $payment->is_institution = True;
+        $payment->institution_id = $institution->id;
         $payment->save();
 
         // credit account

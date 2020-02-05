@@ -280,7 +280,7 @@
 
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.transactions',$institution->portal ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'business.transactions',$institution->portal)}}">
-                            Transactions
+                            Transactions (Expense Payments)
                         </a>
                     </li>
 
@@ -374,8 +374,8 @@
                 </ul>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'business.feedback',$institution->portal ) ?  'active' : '' }}">
-                <a href="{{ route('business.feedback',$institution->portal) }}"><i class="fa fa-mail-reply-all"></i> <span class="nav-label">Feedback </span></a>
+            <li class="nav-item {{ Route::currentRouteNamed( 'business.feedbacks',$institution->portal ) ?  'active' : '' }}">
+                <a href="{{ route('business.feedbacks',$institution->portal) }}"><i class="fa fa-mail-reply-all"></i> <span class="nav-label">Feedback </span></a>
              </li>
 
         </ul>

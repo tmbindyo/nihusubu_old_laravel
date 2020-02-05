@@ -59,7 +59,7 @@
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payments',$institution->portal)}}">Accounts</a>
+                    <a href="{{route('business.payments',$institution->portal)}}">Payments</a>
                 </li>
                 <li class="active">
                     <strong>Payment Create</strong>
@@ -79,7 +79,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Payment Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">

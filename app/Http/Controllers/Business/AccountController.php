@@ -1088,13 +1088,11 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        // Get the design status counts
-        $journalsStatusCount = $this->expensesStatusCount();
         // expense statuses
         $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // expense accounts
         $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution',true)->get();
-        return view('business.transfer_expense_create',compact('transfer','user','institution','journalsStatusCount','expenseStatuses','expenseAccounts'));
+        return view('business.transfer_expense_create',compact('transfer','user','institution','expenseStatuses','expenseAccounts'));
     }
 
     public function transferUpdate(Request $request, $portal, $transfer_id)
