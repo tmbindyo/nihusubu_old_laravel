@@ -116,7 +116,7 @@
 
                     <div class="ibox">
                         <div class="ibox-title">
-                            <h5>Cart Summary</h5>
+                            <h5>Invoice Summary</h5>
                         </div>
                         <div class="ibox-content">
                             <span>

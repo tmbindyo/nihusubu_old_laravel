@@ -15,7 +15,7 @@
 @section('content')
 
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <h2>Estimate</h2>
                 <ol class="breadcrumb">
                     <li>
@@ -32,7 +32,7 @@
                     </li>
                 </ol>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="title-action">
                     @if($estimate->is_invoice == 0)
                         <a href="{{route('business.estimate.edit',['portal'=>$institution->portal,'id'=>$estimate->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
@@ -42,6 +42,7 @@
 
                     @endif
                     <a href="{{route('business.estimate.print',['portal'=>$institution->portal,'id'=>$estimate->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
+                    <a href="{{route('business.contact.show',['portal'=>$institution->portal,'id'=>$estimate->contact_id])}}" class="btn btn-success btn-outline"><i class="fa fa-eye"></i> Contact </a>
                 </div>
             </div>
         </div>
@@ -116,7 +117,7 @@
 
                     <div class="ibox">
                         <div class="ibox-title">
-                            <h5>Cart Summary</h5>
+                            <h5>Estimate Summary</h5>
                         </div>
                         <div class="ibox-content">
                             <span>
@@ -164,12 +165,6 @@
                                     </address> --}}
                                 {{-- @endif --}}
                             </span>
-                            <div class="m-t-sm">
-                                <div class="btn-group">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-mail-forward"></i> Send</a>
-                                    <a href="#" class="btn btn-danger btn-sm"> Cancel</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
