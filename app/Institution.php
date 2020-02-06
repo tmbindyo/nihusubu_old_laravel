@@ -32,6 +32,10 @@ class Institution extends Model
     {
         return $this->belongsTo('App\Upload','logo_id');
     }
+    public function plan()
+    {
+        return $this->belongsTo('App\Plan');
+    }
     public function primary_contact()
     {
         return $this->belongsTo('App\PrimaryContact','primary_contact_id','id');
@@ -62,6 +66,10 @@ class Institution extends Model
     public function branches()
     {
         return $this->hasMany('App\Branch');
+    }
+    public function budgets()
+    {
+        return $this->hasMany('App\Budget');
     }
     public function composite_products()
     {

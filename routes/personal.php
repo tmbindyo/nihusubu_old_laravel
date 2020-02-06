@@ -58,6 +58,7 @@ Route::get('/income/delete/{income_id}', 'Personal\IncomeController@incomeDelete
 
 // Budget
 Route::get('/budget', 'Personal\BudgetController@budget')->name('personal.budget');
+Route::get('/budget/create', 'Personal\BudgetController@budgetCreate')->name('personal.budget.create');
 Route::post('/budget/store', 'Personal\BudgetController@budgetStore')->name('personal.budget.store');
 Route::get('/budget/show/{budget_id}', 'Personal\BudgetController@budgetShow')->name('personal.budget.show');
 Route::get('/budget/edit/{budget_id}', 'Personal\BudgetController@budgetEdit')->name('personal.budget.edit');

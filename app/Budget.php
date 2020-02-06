@@ -6,12 +6,20 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class WelfareType extends Model
+class Budget extends Model
 {
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
     // parents
+    public function expense_account()
+    {
+        return $this->belongsTo('App\ExpenseAccount');
+    }
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');

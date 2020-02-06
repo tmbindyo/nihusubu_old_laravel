@@ -16,7 +16,7 @@ class CreateSubscriptionsTable extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name', 200);
+            $table->decimal('amount', 20,2);
 
             $table->boolean('is_user');
             $table->integer('user_id')->unsigned();

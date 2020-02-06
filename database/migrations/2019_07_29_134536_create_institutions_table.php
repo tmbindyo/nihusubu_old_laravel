@@ -25,14 +25,15 @@ class CreateInstitutionsTable extends Migration
             $table->string('location', 200)->nullable();
             $table->date('inventory_start_date')->nullable();
 
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+            $table->uuid('plan_id');
             $table->uuid('logo_id')->nullable();
             $table->uuid('address_id')->nullable();
             $table->uuid('currency_id');
             $table->uuid('fiscal_year_id')->nullable();
             $table->uuid('language_id')->nullable();
             $table->uuid('timezone_id')->nullable();
-            $table->integer('user_id')->unsigned();
-            $table->uuid('status_id');
             $table->uuid('primary_contact_id')->nullable();
 
             $table->timestamps();

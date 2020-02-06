@@ -24,8 +24,8 @@ class PlanTableSeeder extends Seeder
 
         DB::table('plans')->insert([
             'id' => '410f31ed-47be-4658-930a-a47f2839ebf5',
-            'name' => 'Personal Finance',
-            'description' => 'Personal Finance',
+            'name' => 'STANDARD',
+            'description' => 'STANDARD',
             'price' => '500',
             'plan_type_id' => '7dd05c3c-7526-498b-9fbb-d0c766a678ac',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
@@ -34,8 +34,8 @@ class PlanTableSeeder extends Seeder
 
         DB::table('plans')->insert([
             'id' => '34ae6893-5329-46b4-99a9-3cde1367fb55',
-            'name' => 'Personal Finance',
-            'description' => 'Personal Finance',
+            'name' => 'PROFESSIONAL',
+            'description' => 'PROFESSIONAL',
             'price' => '900',
             'plan_type_id' => '7dd05c3c-7526-498b-9fbb-d0c766a678ac',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',

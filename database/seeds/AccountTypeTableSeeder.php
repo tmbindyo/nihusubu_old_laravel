@@ -109,7 +109,7 @@ class AccountTypeTableSeeder extends Seeder
 
         DB::table('account_types')->insert([
             'id' => 'af7b5592-8c36-4746-b369-a3985c90fd0b',
-            'name' => 'Health, Personal Care ',
+            'name' => 'Health, Personal Care',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
             'is_institution' => false,

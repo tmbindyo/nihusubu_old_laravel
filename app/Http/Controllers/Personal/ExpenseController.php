@@ -52,21 +52,34 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // expense accounts
-        $expenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('is_user',true)->get();
-        // get sales
-        $sales = Sale::where('user_id',$user->id)->where('is_user',true)->with('status')->get();
+        $expenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('is_user',true)->with('account_type')->get();
+
+        // account types
+        $billExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','163fa506-9762-422a-a981-cce20b21f1ad')->where('is_user',true)->with('account_type')->get();
+        $cashExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','8c0c1829-b6cf-4d38-b640-755db25460ae')->where('is_user',true)->with('account_type')->get();
+        $feesExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','17401c1e-1423-40bc-846a-008b0e72373c')->where('is_user',true)->with('account_type')->get();
+        $foodExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','008315c2-ee90-4e55-80cc-de2a8bc0472a')->where('is_user',true)->with('account_type')->get();
+        $healthExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','af7b5592-8c36-4746-b369-a3985c90fd0b')->where('is_user',true)->with('account_type')->get();
+        $homeLivingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','1c523f60-ab8f-4dd7-88ca-a70863507a3b')->where('is_user',true)->with('account_type')->get();
+        $incomeExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','6943fd67-ba09-4fc3-986a-3550ae959b33')->where('is_user',true)->with('account_type')->get();
+        $kidsExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','84ccf3c6-74fb-4af9-b4b2-7bef9d0469b8')->where('is_user',true)->with('account_type')->get();
+        $leisureExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','55faadc5-6275-4d19-809e-dc56e555929f')->where('is_user',true)->with('account_type')->get();
+        $loansExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','6269dc50-cfc9-4b3f-8c91-a1adc6bb998e')->where('is_user',true)->with('account_type')->get();
+        $noExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','c7c1a0a0-8775-45a7-a84b-92a8dac302d3')->where('is_user',true)->with('account_type')->get();
+        $shoppingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','83569f71-59dc-46f0-a92f-fdac4ad922aa')->where('is_user',true)->with('account_type')->get();
+        $transportExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','7b05bf74-08e0-4692-becd-799b11d24dba')->where('is_user',true)->with('account_type')->get();
+        $wealthCreationExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','46089cb5-ef46-4d9f-af5c-9676d7a55ed4')->where('is_user',true)->with('account_type')->get();
+
         // expense statuses
         $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // get transfers
         $transfers = Transfer::where('user_id',$user->id)->where('is_user',true)->get();
-        // get campaign
-        $campaigns = Campaign::where('user_id',$user->id)->where('is_user',true)->get();
         // get liabilities
         $liabilities = Liability::where('user_id',$user->id)->where('is_user',true)->get();
         // get frequencies
         $frequencies = Frequency::where('user_id',$user->id)->where('is_user',true)->get();
 
-        return view('personal.expense_create',compact('liabilities','campaigns','sales','user','frequencies','expenseAccounts','transfers','expenseStatuses'));
+        return view('personal.expense_create',compact('wealthCreationExpenseAccounts','transportExpenseAccounts','shoppingExpenseAccounts','noExpenseAccounts','loansExpenseAccounts','leisureExpenseAccounts','kidsExpenseAccounts','incomeExpenseAccounts','homeLivingExpenseAccounts','healthExpenseAccounts','foodExpenseAccounts','feesExpenseAccounts','cashExpenseAccounts','billExpenseAccounts','liabilities','user','frequencies','expenseAccounts','transfers','expenseStatuses'));
     }
 
     public function expenseStore(Request $request)

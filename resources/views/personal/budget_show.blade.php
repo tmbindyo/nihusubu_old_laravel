@@ -1,6 +1,6 @@
 @extends('personal.layouts.app')
 
-@section('title', 'Account')
+@section('title', 'Budget')
 
 @section('css')
 
@@ -49,29 +49,24 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-5">
-            <h2>Account</h2>
+            <h2>Budget</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('personal.calendar')}}">Home</a>
                 </li>
                 <li class="active">
-                    <strong>Accounting's</strong>
+                    <strong>Budgeting's</strong>
                 </li>
                 <li class="active">
-                   <a href="{{route('personal.accounts')}}"><strong>Account's</strong></a>
+                   <a href="{{route('personal.budgets')}}"><strong>Budget's</strong></a>
                 </li>
                 <li class="active">
-                    <strong>Account</strong>
+                    <strong>Budget</strong>
                 </li>
             </ol>
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('personal.account.adjustment.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
-                <a href="{{route('personal.account.deposit.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
-                <a href="{{route('personal.account.liability.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Liability </a>
-                <a href="{{route('personal.account.loan.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
-                <a href="{{route('personal.account.withdrawal.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
             </div>
         </div>
     </div>
@@ -82,13 +77,13 @@
             <div class="col-lg-9">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Account <small>edit</small></h5>
+                        <h5>Budget <small>edit</small></h5>
 
                     </div>
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-8 col-md-offset-2">
-                                <form method="post" action="{{ route('personal.account.update',$account->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.budget.update',$budget->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -104,21 +99,21 @@
 
                                     <div class="row">
                                         <div class="has-warning">
-                                            <input type="name" name="name" value="{{$account->name}}" class="form-control input-lg">
+                                            <input type="name" name="name" value="{{$budget->name}}" class="form-control input-lg">
                                         </div>
                                         <i>name</i>
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="has-warning">
-                                            <input type="number" name="balance" value="{{$account->balance}}" class="form-control input-lg" readonly>
+                                            <input type="number" name="balance" value="{{$budget->balance}}" class="form-control input-lg" readonly>
                                         </div>
                                         <i>balance</i>
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="has-warning">
-                                            <textarea rows="5" name="notes" class="form-control input-lg" >{{$account->notes}}</textarea>
+                                            <textarea rows="5" name="notes" class="form-control input-lg" >{{$budget->notes}}</textarea>
                                         </div>
                                         <i>notes</i>
                                     </div>
@@ -137,7 +132,7 @@
                 <div class="wrapper wrapper-content project-manager">
                     <h4>Acount description</h4>
                     <p class="small">
-                        {{$account->notes}}
+                        {{$budget->notes}}
                     </p>
                 </div>
             </div>
@@ -151,7 +146,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$account->status->label}}">{{$account->status->name}}</span></dd>
+                                        <dt>Status:</dt> <dd><span class="label {{$budget->status->label}}">{{$budget->status->name}}</span></dd>
                                     </dl>
                                 </div>
                             </div>
@@ -159,14 +154,14 @@
                                 <div class="col-lg-5">
                                     <dl class="dl-horizontal">
 
-                                        <dt>Created by:</dt> <dd>{{$account->user->name}}</dd>
+                                        <dt>Created by:</dt> <dd>{{$budget->user->name}}</dd>
                                     </dl>
                                 </div>
                                 <div class="col-lg-7" id="cluster_info">
                                     <dl class="dl-horizontal" >
 
-                                        <dt>Last Updated:</dt> <dd>{{$account->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$account->created_at}} </dd>
+                                        <dt>Last Updated:</dt> <dd>{{$budget->updated_at}}</dd>
+                                        <dt>Created:</dt> <dd> {{$budget->created_at}} </dd>
                                     </dl>
                                 </div>
                             </div>
@@ -176,7 +171,7 @@
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#account-adjustments" data-toggle="tab">Account Adjustments</a></li>
+                                            <li class="active"><a href="#budget-adjustments" data-toggle="tab">Budget Adjustments</a></li>
                                             <li class=""><a href="#deposits" data-toggle="tab">Deposits</a></li>
                                             <li class=""><a href="#liabilities" data-toggle="tab">Liabilities</a></li>
                                             <li class=""><a href="#loans" data-toggle="tab">Loans</a></li>
@@ -191,7 +186,7 @@
                                 <div class="panel-body">
 
                                     <div class="tab-content">
-                                    <div class="tab-pane active" id="account-adjustments">
+                                    <div class="tab-pane active" id="budget-adjustments">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                                 <thead>
@@ -208,15 +203,15 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($account->account_adjustments as $adjustments)
+                                                    @foreach($budget->budget_adjustments as $adjustments)
                                                         <tr class="gradeX">
                                                             <td>
                                                                 {{$adjustments->reference}}
                                                                 <span><i data-toggle="tooltip" data-placement="right" title="{{$adjustments->notes}}." class="fa fa-facebook-messenger"></i></span>
                                                             </td>
                                                             <td>{{$adjustments->amount}}</td>
-                                                            <td>{{$adjustments->initial_account_amount}}</td>
-                                                            <td>{{$adjustments->subsequent_account_amount}}</td>
+                                                            <td>{{$adjustments->initial_budget_amount}}</td>
+                                                            <td>{{$adjustments->subsequent_budget_amount}}</td>
                                                             <td>{{$adjustments->date}}</td>
                                                             <td>
                                                                 @if($adjustments->is_deposit == 1)
@@ -232,9 +227,9 @@
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     @if($adjustments->status_id == "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
-                                                                        <a href="{{ route('personal.account.adjustment.delete',$adjustments->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                        <a href="{{ route('personal.budget.adjustment.delete',$adjustments->id) }}" class="btn-danger btn btn-xs">Delete</a>
                                                                     @elseif($adjustments->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('personal.account.adjustment.restore',$adjustments->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                        <a href="{{ route('personal.budget.adjustment.restore',$adjustments->id) }}" class="btn-warning btn btn-xs">Restore</a>
                                                                     @endif
                                                                 </div>
                                                             </td>
@@ -270,7 +265,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($account->deposits as $deposit)
+                                                @foreach($budget->deposits as $deposit)
                                                     <tr class="gradeX">
                                                         <td>
                                                             {{$deposit->reference}}
@@ -323,13 +318,13 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($account->liabilities as $liability)
+                                                @foreach($budget->liabilities as $liability)
                                                     <tr class="gradeX">
                                                         <td>
                                                             {{$liability->reference}}
                                                             <span><i data-toggle="tooltip" data-placement="right" title="{{$liability->about}}." class="fa fa-facebook-messenger"></i></span>
                                                         </td>
-                                                        <td>{{$liability->total}}</td>
+                                                        <td>{{$liability->amount}}</td>
                                                         <td>{{$liability->paid}}</td>
                                                         <td>{{$liability->date}}</td>
                                                         <td>{{$liability->due_date}}</td>
@@ -379,13 +374,13 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($account->loans as $loan)
+                                                @foreach($budget->loans as $loan)
                                                     <tr class="gradeX">
                                                         <td>
                                                             {{$loan->reference}}
                                                             <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->about}}." class="fa fa-facebook-messenger"></i></span>
                                                         </td>
-                                                        <td>{{$loan->total}}</td>
+                                                        <td>{{$loan->amount}}</td>
                                                         <td>{{$loan->paid}}</td>
                                                         <td>{{$loan->date}}</td>
                                                         <td>{{$loan->due_date}}</td>
@@ -434,7 +429,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($account->payments as $payment)
+                                                @foreach($budget->payments as $payment)
                                                     <tr class="gradeX">
                                                         <td>
                                                             {{$payment->reference}}
@@ -500,7 +495,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($account->refunds as $refund)
+                                                @foreach($budget->refunds as $refund)
                                                     <tr class="gradeX">
                                                         <td>
                                                             {{$refund->reference}}
@@ -551,7 +546,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($account->transactions as $transaction)
+                                                    @foreach($budget->transactions as $transaction)
                                                         <tr class="gradeX">
                                                             <td>
                                                                 {{$transaction->reference}}
@@ -617,7 +612,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($account->withdrawals as $withdrawal)
+                                                @foreach($budget->withdrawals as $withdrawal)
                                                     <tr class="gradeX">
                                                         <td>
                                                             {{$withdrawal->reference}}
@@ -753,7 +748,7 @@
 
 @endsection
 
-@include('personal.layouts.modals.account_to_do')
+@include('personal.layouts.modals.budget_to_do')
 
 @section('js')
 

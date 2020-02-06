@@ -27,7 +27,7 @@ trait InstitutionTrait
 
 
         // system defined user
-        $institution = Institution::where('portal',$portal)->with('currency','address')->first();
+        $institution = Institution::where('portal',$portal)->with('currency','address','plan')->first();
         if($institution){
             return $institution;
         }else{

@@ -1,6 +1,6 @@
 @extends('personal.layouts.app')
 
-@section('title', ' Expense Create')
+@section('title', ' Budget Create')
 
 @section('css')
 
@@ -47,19 +47,19 @@
 
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>Expenses</h2>
+                <h2>Budgets</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="{{route('personal.calendar')}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('personal.expenses')}}">Orders</a>
+                        <a href="{{route('personal.budgets')}}">Orders</a>
                     </li>
                     <li>
-                        <a href="{{route('personal.expenses')}}">Expenses</a>
+                        <a href="{{route('personal.budgets')}}">Budgets</a>
                     </li>
                     <li class="active">
-                        <strong>Expense Create</strong>
+                        <strong>Budget Create</strong>
                     </li>
                 </ol>
             </div>
@@ -73,7 +73,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('personal.expense.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.budget.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -90,106 +90,45 @@
                                     <br>
 
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-8">
                                             {{--  expense account  --}}
                                             <div class="has-warning">
                                                 <select name="expense_account" class="select-2 form-control input-lg">
                                                     <option selected disabled>Select Expense Account</option>
-                                                    <optgroup label="Bills, Utilities">
-                                                        @foreach($billExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Cash, Transfers">
-                                                        @foreach($cashExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Fees, Government Payments">
-                                                        @foreach($feesExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Food, Dining">
-                                                        @foreach($foodExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Health, Personal Care">
-                                                        @foreach($healthExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Home and Living">
-                                                        @foreach($homeLivingExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Income">
-                                                        @foreach($incomeExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Kids, Family">
-                                                        @foreach($kidsExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Leisure, Entertainment">
-                                                        @foreach($leisureExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Loans">
-                                                        @foreach($loansExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="No Category">
-                                                        @foreach($noExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Shopping">
-                                                        @foreach($shoppingExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Transport">
-                                                        @foreach($transportExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    <optgroup label="Wealth Creation">
-                                                        @foreach($wealthCreationExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                        @endforeach
-                                                    </optgroup>
+                                                    @foreach($expenseAccounts as $expenseAccount)
+                                                        <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="has-warning" id="data_1">
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                    <input type="text" name="date" id="date" class="form-control input-lg" required value="7/27/2019">
-                                                </div>
-                                                <i> expense date.</i>
-                                            </div>
 
                                         </div>
                                     </div>
                                     {{--  Product  --}}
                                     <div class="row">
-
+                                        <div class="col-md-12">
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="has-warning" id="data_1">
+                                                        <div class="input-group date">
+                                                            <span class="input-group-addon">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </span>
+                                                            <input type="text" name="date" id="date" class="form-control input-lg" required value="7/27/2019">
+                                                        </div>
+                                                        <i> budget date.</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <hr>
                                     {{--table--}}
                                     <div class="row">
-                                        <table class="table table-bordered" id = "expense_table">
+                                        <table class="table table-bordered" id = "budget_table">
                                             <thead>
                                             <tr>
                                                 <th>Item Details</th>
@@ -253,6 +192,32 @@
                                         </div>
                                     </div>
                                     <hr>
+                                    {{--  Tie budget to something  --}}
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            {{--  Customer  --}}
+                                            <div class="checkbox checkbox-info">
+                                                <input id="is_order" name="is_order" type="checkbox">
+                                                <label for="is_order">
+                                                    Order
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="has-warning">
+                                                <div class="has-warning">
+                                                    <select name="order" class="select-2 form-control input-lg">
+                                                        <option selected disabled>Select Order</option>
+                                                        @foreach($sales as $sale)
+                                                            <option value="{{$sale->id}}" >{{$sale->order_number}} [{{$sale->total}}] ({{$sale->created_at}})</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
 
                                     <br>
                                     <div class="row">
@@ -277,6 +242,30 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-2">
+                                            {{--  Customer  --}}
+                                            <div class="checkbox checkbox-info">
+                                                <input id="is_campaign" name="is_campaign" type="checkbox">
+                                                <label for="is_campaign">
+                                                    Campaign
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="has-warning">
+                                                <div class="has-warning">
+                                                    <select name="campaign" class="select-2 form-control input-lg">
+                                                        <option selected disabled>Select Campaign</option>
+                                                        @foreach($campaigns as $campaign)
+                                                            <option value="{{$campaign->id}}" >{{$campaign->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
                                         <div class="col-md-2">
                                             {{--  Customer  --}}
                                             <div class="checkbox checkbox-info">

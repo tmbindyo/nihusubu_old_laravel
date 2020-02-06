@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubscriptionPaymentsTable extends Migration
+class CreateBudgetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateSubscriptionPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('subscription_payments', function (Blueprint $table) {
+        Schema::create('budgets', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
             $table->decimal('amount', 20,2);
 
+            $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
+            $table->boolean('is_institution');
+            $table->uuid('institution_id');
             $table->uuid('status_id');
-            $table->uuid('subscription_type_id');
+            $table->uuid('expense_account_id');
 
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +37,6 @@ class CreateSubscriptionPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscription_payments');
+        Schema::dropIfExists('budgets');
     }
 }
