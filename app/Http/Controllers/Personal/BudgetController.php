@@ -49,6 +49,7 @@ class BudgetController extends Controller
         $shoppingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','83569f71-59dc-46f0-a92f-fdac4ad922aa')->where('is_user',true)->with('account_type')->get();
         $transportExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','7b05bf74-08e0-4692-becd-799b11d24dba')->where('is_user',true)->with('account_type')->get();
         $wealthCreationExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','46089cb5-ef46-4d9f-af5c-9676d7a55ed4')->where('is_user',true)->with('account_type')->get();
+        
         return view('personal.budget_create',compact('wealthCreationExpenseAccounts','transportExpenseAccounts','shoppingExpenseAccounts','noExpenseAccounts','loansExpenseAccounts','leisureExpenseAccounts','kidsExpenseAccounts','incomeExpenseAccounts','homeLivingExpenseAccounts','healthExpenseAccounts','foodExpenseAccounts','feesExpenseAccounts','cashExpenseAccounts','billExpenseAccounts','user'));
     }
 

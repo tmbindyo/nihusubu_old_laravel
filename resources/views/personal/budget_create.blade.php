@@ -172,21 +172,6 @@
                                             <div class="has-warning" id="data_1">
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                    <input type="text" name="date" id="date" class="form-control input-lg" required value="7/27/2019">
-                                                </div>
-                                                <i> expense date.</i>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-8 col-md-offset-2">
-                                            <div class="has-warning" id="data_1">
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon">
                                                         <i class="fa fa-dollar"></i>
                                                     </span>
                                                     <input type="text" name="date" id="date" class="form-control input-lg" required value="0">
