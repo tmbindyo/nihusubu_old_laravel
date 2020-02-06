@@ -26,6 +26,7 @@ class CreateExpenseAccountsTable extends Migration
             $table->uuid('institution_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('account_type_id');
+            $table->boolean('is_set')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

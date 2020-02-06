@@ -21,7 +21,7 @@ class CreateBudgetsTable extends Migration
             $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
             $table->boolean('is_institution');
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('expense_account_id');
 

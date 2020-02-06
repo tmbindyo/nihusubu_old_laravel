@@ -53,10 +53,7 @@
                         <a href="{{route('personal.calendar')}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('personal.budgets')}}">Orders</a>
-                    </li>
-                    <li>
-                        <a href="{{route('personal.budgets')}}">Budgets</a>
+                        <a href="{{route('personal.budget')}}">Budgets</a>
                     </li>
                     <li class="active">
                         <strong>Budget Create</strong>
@@ -90,279 +87,115 @@
                                     <br>
 
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-8 col-md-offset-2">
                                             {{--  expense account  --}}
                                             <div class="has-warning">
                                                 <select name="expense_account" class="select-2 form-control input-lg">
                                                     <option selected disabled>Select Expense Account</option>
-                                                    @foreach($expenseAccounts as $expenseAccount)
-                                                        <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
-                                                    @endforeach
+                                                    <optgroup label="Bills, Utilities">
+                                                        @foreach($billExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Cash, Transfers">
+                                                        @foreach($cashExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Fees, Government Payments">
+                                                        @foreach($feesExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Food, Dining">
+                                                        @foreach($foodExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Health, Personal Care">
+                                                        @foreach($healthExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Home and Living">
+                                                        @foreach($homeLivingExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Income">
+                                                        @foreach($incomeExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Kids, Family">
+                                                        @foreach($kidsExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Leisure, Entertainment">
+                                                        @foreach($leisureExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Loans">
+                                                        @foreach($loansExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="No Category">
+                                                        @foreach($noExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Shopping">
+                                                        @foreach($shoppingExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Transport">
+                                                        @foreach($transportExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                    <optgroup label="Wealth Creation">
+                                                        @foreach($wealthCreationExpenseAccounts as $expenseAccount)
+                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                        @endforeach
+                                                    </optgroup>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-
-                                        </div>
-                                    </div>
-                                    {{--  Product  --}}
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="has-warning" id="data_1">
-                                                        <div class="input-group date">
-                                                            <span class="input-group-addon">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </span>
-                                                            <input type="text" name="date" id="date" class="form-control input-lg" required value="7/27/2019">
-                                                        </div>
-                                                        <i> budget date.</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <hr>
-                                    {{--table--}}
-                                    <div class="row">
-                                        <table class="table table-bordered" id = "budget_table">
-                                            <thead>
-                                            <tr>
-                                                <th>Item Details</th>
-                                                <th>Quantity</th>
-                                                <th>Rate</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <input name="item_details[0][item]" type="text" class="form-control input-lg item-detail">
-                                                </td>
-                                                <td>
-                                                    <input oninput = "changeItemQuantity(this)" name="item_details[0][quantity]" type="number" class="form-control input-lg item-quantity" value = "0" min = "0">
-                                                </td>
-                                                <td>
-                                                    <input oninput = "changeItemRate(this)" name="item_details[0][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "0" min = "0">
-                                                </td>
-                                                <td>
-                                                    <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
-                                    </div>
-
-                                    {{--sub totals--}}
-                                    <div class="row">
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <label>Sub Total</label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input name="subtotal" type = "number" class="pull-right input-lg form-control" id = "items-subtotal" readonly value="0">
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-2  col-md-offset-5">
-                                                <label>Adjustment</label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
-                                            <div class="col-md-2 col-md-offset-1">
-                                                <input name="adjustment" oninput = "itemTotalChange()" type="number" class="form-control input-lg" id = "adjustment-value" value = "0">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <p class="pull-right" id = "adjustment-text">0</p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <p>Total</p>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type = "number" name = "grand_total" id = "grand-total" class="pull-right input-lg form-control" value = "0" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    {{--  Tie budget to something  --}}
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            {{--  Customer  --}}
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_order" name="is_order" type="checkbox">
-                                                <label for="is_order">
-                                                    Order
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="has-warning">
-                                                <div class="has-warning">
-                                                    <select name="order" class="select-2 form-control input-lg">
-                                                        <option selected disabled>Select Order</option>
-                                                        @foreach($sales as $sale)
-                                                            <option value="{{$sale->id}}" >{{$sale->order_number}} [{{$sale->total}}] ({{$sale->created_at}})</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            {{--  Customer  --}}
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_transfer" name="is_transfer" type="checkbox">
-                                                <label for="is_transfer">
-                                                    Transfer
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="has-warning">
-                                                <div class="has-warning">
-                                                    <select name="transfer" class="select-2 form-control input-lg">
-                                                        <option selected disabled>Select Transfer</option>
-                                                        @foreach($transfers as $transfer)
-                                                            <option value="{{$transfer->id}}" >{{$transfer->reference}} [{{$transfer->amount}}] ({{$transfer->date}})</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            {{--  Customer  --}}
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_campaign" name="is_campaign" type="checkbox">
-                                                <label for="is_campaign">
-                                                    Campaign
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="has-warning">
-                                                <div class="has-warning">
-                                                    <select name="campaign" class="select-2 form-control input-lg">
-                                                        <option selected disabled>Select Campaign</option>
-                                                        @foreach($campaigns as $campaign)
-                                                            <option value="{{$campaign->id}}" >{{$campaign->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-2">
-                                            {{--  Customer  --}}
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_liability" name="is_liability" type="checkbox">
-                                                <label for="is_liability">
-                                                    Liability
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="has-warning">
-                                                <div class="has-warning">
-                                                    <select name="liability" class="select-2 form-control input-lg">
-                                                        <option selected disabled>Select Liability</option>
-                                                        @foreach($liabilities as $liability)
-                                                            <option value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <hr>
-
-
-                                    {{--attachments--}}
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_recurring" name="is_recurring" type="checkbox">
-                                                <label for="is_recurring">
-                                                    Recurring
-                                                </label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Check this option if you want to save this as a draft for further editing." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="has-warning">
-                                                <select name="frequency" class="select-2 form-control input-lg">
-                                                    <option selected disabled>Select frequency</option>
-                                                    @foreach($frequencies as $frequency)
-                                                        <option value="{{$frequency->id}}" >{{$frequency->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-8 col-md-offset-2">
                                             <div class="has-warning" id="data_1">
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="start_date" id="date" class="form-control input-lg" required required value="7/27/2019">
+                                                    <input type="text" name="date" id="date" class="form-control input-lg" required value="7/27/2019">
                                                 </div>
-                                                <i> start date.</i>
+                                                <i> expense date.</i>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="has-warning" id="data_1">
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                    <input type="text" name="end_date" id="date" class="form-control input-lg" required value="7/27/2019">
-                                                </div>
-                                                <i> end date (leave blank if no end date)</i>
-                                            </div>
+
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            {{--  Customer  --}}
-                                            <div class="has-warning">
-                                                <select name="status" class="select-2 form-control input-lg" required>
-                                                    <option selected disabled>Select status</option>
-                                                    @foreach($expenseStatuses as $status)
-                                                        <option value="{{$status->id}}" >{{$status->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            {{--  Customer  --}}
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_draft" name="is_draft" type="checkbox">
-                                                <label for="is_draft">
-                                                    Save As Draft
-                                                </label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Check this option if you want to save this as a draft for further editing." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                <textarea required name="notes" placeholder="Notes" class="form-control" rows="7"></textarea>
+                                        <div class="col-md-8 col-md-offset-2">
+                                            <div class="has-warning" id="data_1">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-dollar"></i>
+                                                    </span>
+                                                    <input type="text" name="date" id="date" class="form-control input-lg" required value="0">
+                                                </div>
+                                                <i> budget.</i>
                                             </div>
                                         </div>
                                     </div>
+                                    <br>
 
                                     <hr>
                                     <div class="text-center">
