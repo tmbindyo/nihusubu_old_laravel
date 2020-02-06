@@ -69,21 +69,21 @@
             </li>
             {{--  TODO Create twitter page  --}}
             <li class="s-header__action-item">
-                <a class="s-header__action-link" href="https://twitter.com/nihusubu">
+                <a class="s-header__action-link" target="_blank" href="https://twitter.com/nihusubu">
                     <i class="g-padding-r-5--xs ti-twitter"></i>
                     <span class="g-display-none--xs g-display-inline-block--sm">Twitter</span>
                 </a>
             </li>
             {{--  TODO Create youtube page  --}}
             <li class="s-header__action-item">
-                <a class="s-header__action-link" href="https://youtube.com/nihusubu">
+                <a class="s-header__action-link" target="_blank" href="https://youtube.com/nihusubu">
                     <i class="g-padding-r-5--xs ti-youtube"></i>
                     <span class="g-display-none--xs g-display-inline-block--sm">Youtube</span>
                 </a>
             </li>
             {{--  TODO Create instagram page  --}}
             <li class="s-header__action-item">
-                <a class="s-header__action-link" href="https://instagram.com/nihusubu">
+                <a class="s-header__action-link" target="_blank" href="https://instagram.com/nihusubu">
                     <i class="g-padding-r-5--xs ti-instagram"></i>
                     <span class="g-display-none--xs g-display-inline-block--sm">Instagram</span>
                 </a>

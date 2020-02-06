@@ -58,7 +58,7 @@
                     <strong>Budgeting's</strong>
                 </li>
                 <li class="active">
-                   <a href="{{route('personal.budgets')}}"><strong>Budget's</strong></a>
+                   <a href="{{route('personal.budget')}}"><strong>Budget's</strong></a>
                 </li>
                 <li class="active">
                     <strong>Budget</strong>
@@ -171,14 +171,7 @@
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#budget-adjustments" data-toggle="tab">Budget Adjustments</a></li>
-                                            <li class=""><a href="#deposits" data-toggle="tab">Deposits</a></li>
-                                            <li class=""><a href="#liabilities" data-toggle="tab">Liabilities</a></li>
-                                            <li class=""><a href="#loans" data-toggle="tab">Loans</a></li>
-                                            <li class=""><a href="#payments" data-toggle="tab">Payments</a></li>
-                                            <li class=""><a href="#refunds" data-toggle="tab">Refunds</a></li>
-                                            <li class=""><a href="#transactions" data-toggle="tab">Transactions</a></li>
-                                            <li class=""><a href="#withdrawals" data-toggle="tab">Withdrawals</a></li>
+                                            <li class="active"><a href="#expenses" data-toggle="tab">Budget Adjustments</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -186,104 +179,66 @@
                                 <div class="panel-body">
 
                                     <div class="tab-content">
-                                    <div class="tab-pane active" id="budget-adjustments">
+                                    <div class="tab-pane active" id="expenses">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                                 <thead>
                                                 <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Initial</th>
-                                                    <th>Subsequent</th>
+                                                    <th>Recurring</th>
+                                                    <th>Type</th>
+                                                    <th>Expense #</th>
                                                     <th>Date</th>
-                                                    <th>Deposit</th>
-                                                    <th>User</th>
+                                                    <th>Created</th>
+                                                    <th>Expense Account</th>
+                                                    <th>Total</th>
+                                                    <th>Paid</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($budget->budget_adjustments as $adjustments)
-                                                        <tr class="gradeX">
-                                                            <td>
-                                                                {{$adjustments->reference}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$adjustments->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                            </td>
-                                                            <td>{{$adjustments->amount}}</td>
-                                                            <td>{{$adjustments->initial_budget_amount}}</td>
-                                                            <td>{{$adjustments->subsequent_budget_amount}}</td>
-                                                            <td>{{$adjustments->date}}</td>
-                                                            <td>
-                                                                @if($adjustments->is_deposit == 1)
-                                                                    <span class="label label-success">Deposit</span>
-                                                                @else
-                                                                    <span class="label label-success">Non Deposit</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>{{$adjustments->user->name}}</td>
-                                                            <td>
-                                                                <span class="label {{$adjustments->status->label}}">{{$adjustments->status->name}}</span>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    @if($adjustments->status_id == "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
-                                                                        <a href="{{ route('personal.budget.adjustment.delete',$adjustments->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                    @elseif($adjustments->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('personal.budget.adjustment.restore',$adjustments->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                    @endif
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Initial</th>
-                                                    <th>Subsequent</th>
-                                                    <th>Date</th>
-                                                    <th>Deposit</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="deposits">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($budget->deposits as $deposit)
-                                                    <tr class="gradeX">
+                                                @foreach($expenseAccountExpenses as $expense)
+                                                    <tr class="gradeA">
                                                         <td>
-                                                            {{$deposit->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$deposit->about}}." class="fa fa-facebook-messenger"></i></span>
+                                                            @if($expense->is_recurring == 1)
+                                                                <p><span class="badge badge-success">True</span></p>
+                                                            @else
+                                                                <p><span class="badge badge-success">False</span></p>
+                                                            @endif
                                                         </td>
-                                                        <td>{{$deposit->amount}}</td>
-                                                        <td>{{$deposit->user->name}}</td>
                                                         <td>
-                                                            <span class="label {{$deposit->status->label}}">{{$deposit->status->name}}</span>
+                                                            @if($expense->is_inventory_adjustment == 1)
+                                                                <p><a href="{{route('personal.inventory.adjustment',$expense->inventory_adjustment_id)}}" class="badge badge-success">Inventory Adjustment</a></p>
+                                                            @elseif($expense->is_transfer_order == 1)
+                                                                <p><a href="{{route('personal.transfer.order.show',$expense->transfer_order_id)}}" class="badge badge-primary">Transfer Order</a></p>
+                                                            @elseif($expense->is_warehouse == 1)
+                                                                <p><a href="{{route('personal.warehouse.show',$expense->warehouse_id)}}" class="badge badge-primary">Warehouse</a></p>
+                                                            @elseif($expense->is_campaign == 1)
+                                                                <p><a href="{{route('personal.campaign.show',$expense->campaign_id)}}" class="badge badge-primary">Campaign</a></p>
+                                                            @elseif($expense->is_sale == 1)
+                                                                <p><a href="{{route('personal.sale.show',$expense->sale_id)}}" class="badge badge-primary">Sale</a></p>
+                                                            @elseif($expense->is_liability == 1)
+                                                                <p><a href="{{route('personal.liability.show',$expense->liability_id)}}" class="badge badge-primary">Liability</a></p>
+                                                            @elseif($expense->is_transfer == 1)
+                                                                <p><a href="{{route('personal.transfer.show',$expense->transfer_id)}}" class="badge badge-primary">Transfer</a></p>
+                                                            @elseif($expense->is_transaction == 1)
+                                                                <p><a href="{{route('personal.transaction.show',$expense->transaction_id)}}" class="badge badge-primary">Transaction</a></p>
+                                                            @else
+                                                                <p><span class="badge badge-info">None</span></p>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{$expense->reference}}</td>
+                                                        <td>{{$expense->date}}</td>
+                                                        <td>{{$expense->created_at}}</td>
+                                                        <td>@if ($expense->expense_account){{$expense->expense_account->name}} @endif</td>
+                                                        <td>{{$expense->total}}</td>
+                                                        <td>{{$expense->paid}}</td>
+                                                        <td>
+                                                            <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('personal.deposit.show',$deposit->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                @if($deposit->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                    <a href="{{ route('personal.deposit.restore',$deposit->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                @else
-                                                                    <a href="{{ route('personal.deposit.delete',$deposit->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                @endif
+                                                                <a href="{{ route('personal.expense.show', $expense->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -291,358 +246,16 @@
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="liabilities">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
+                                                    <th>Recurring</th>
+                                                    <th>Type</th>
+                                                    <th>Expense #</th>
+                                                    <th>Date</th>
+                                                    <th>Created</th>
+                                                    <th>Expense Account</th>
+                                                    <th>Total</th>
                                                     <th>Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Contact</th>
-                                                    <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($budget->liabilities as $liability)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$liability->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$liability->about}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$liability->amount}}</td>
-                                                        <td>{{$liability->paid}}</td>
-                                                        <td>{{$liability->date}}</td>
-                                                        <td>{{$liability->due_date}}</td>
-                                                        <td>{{$liability->contact->first_name}} {{$liability->contact->last_name}}</td>
-                                                        <td>{{$liability->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$liability->status->label}}">{{$liability->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('personal.liability.show',$liability->id) }}" class="btn-white btn btn-xs">View</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Contact</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="loans">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Contact</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($budget->loans as $loan)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$loan->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->about}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$loan->amount}}</td>
-                                                        <td>{{$loan->paid}}</td>
-                                                        <td>{{$loan->date}}</td>
-                                                        <td>{{$loan->due_date}}</td>
-                                                        <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
-                                                        <td>{{$loan->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('personal.loan.show',$loan->id) }}" class="btn-white btn btn-xs">View</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Contact</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="payments">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Date</th>
-                                                    <th>Initial</th>
-                                                    <th>Paid</th>
-                                                    <th>Balance</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($budget->payments as $payment)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$payment->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$payment->date}}</td>
-                                                        <td>{{$payment->initial_amount}}</td>
-                                                        <td>{{$payment->amount}}</td>
-                                                        <td>{{$payment->current_balance}}</td>
-                                                        <td>{{$payment->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$payment->status->label}}">{{$payment->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            {{--                                todo check why route is album but id is album type--}}
-                                                            <div class="btn-group">
-                                                                @if($payment->is_order == 1)
-                                                                    <a href="{{ route('personal.order.show',$payment->order_id) }}" class="btn-white btn btn-xs">View</a>
-                                                                @elseif($payment->is_album == 1)
-                                                                    @if($payment->album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4"))
-                                                                        <a href="{{ route('personal.client.proof.show',$payment->album_id) }}" class="btn-white btn btn-xs">View</a>
-                                                                    @elseif($payment->album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef"))
-                                                                        <a href="{{ route('personal.personal.album.show',$payment->album_id) }}" class="btn-white btn btn-xs">View</a>
-                                                                    @endif
-                                                                @elseif($payment->is_design == 1)
-                                                                    <a href="{{ route('personal.design.show',$payment->design_id) }}" class="btn-white btn btn-xs">View</a>
-                                                                @elseif($payment->is_project == 1)
-                                                                    <a href="{{ route('personal.project.show',$payment->project_id) }}" class="btn-white btn btn-xs">View</a>
-                                                                @elseif($payment->is_asset_action == 1)
-                                                                    <a href="{{ route('personal.asset.action.show',$payment->asset_action_id) }}" class="btn-white btn btn-xs">View</a>
-                                                                @endif
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Date</th>
-                                                    <th>Initial</th>
-                                                    <th>Paid</th>
-                                                    <th>Balance</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="refunds">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Date</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($budget->refunds as $refund)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$refund->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$refund->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$refund->amount}}</td>
-                                                        <td>{{$refund->date}}</td>
-                                                        <td>{{$refund->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$refund->status->label}}">{{$refund->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('personal.payment.show',$refund->payment_id) }}" class="btn-white btn btn-xs">View</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Date</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="transactions">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                <thead>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Amount</th>
-                                                        <th>Initial</th>
-                                                        <th>Subsequent</th>
-                                                        <th>Date</th>
-                                                        <th>User</th>
-                                                        <th>Billed</th>
-                                                        <th>Confirmed</th>
-                                                        <th>Status</th>
-                                                        <th width="13em">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($budget->transactions as $transaction)
-                                                        <tr class="gradeX">
-                                                            <td>
-                                                                {{$transaction->reference}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$transaction->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                            </td>
-                                                            <td>{{$transaction->amount}}</td>
-                                                            <td>{{$transaction->initial_amount}}</td>
-                                                            <td>{{$transaction->subsequent_amount}}</td>
-                                                            <td>{{$transaction->date}}</td>
-                                                            <td>{{$transaction->user->name}}</td>
-                                                            <td>
-                                                                @if($transaction->is_billed == 1)
-                                                                    <span class="label label-success"> Billed </span>
-                                                                @else
-                                                                    <span class="label label-warning"> Not Billed </span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @if($transaction->is_confirmed == 1)
-                                                                    <span class="label label-success"> Confirmed </span>
-                                                                @else
-                                                                    <span class="label label-warning"> Not Confirmed </span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <span class="label {{$transaction->status->label}}">{{$transaction->status->name}}</span>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('personal.expense.show',$transaction->expense_id) }}" class="btn-white btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Amount</th>
-                                                        <th>Initial</th>
-                                                        <th>Subsequent</th>
-                                                        <th>Date</th>
-                                                        <th>User</th>
-                                                        <th>Billed</th>
-                                                        <th>Confirmed</th>
-                                                        <th>Status</th>
-                                                        <th width="13em">Action</th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="withdrawals">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($budget->withdrawals as $withdrawal)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$withdrawal->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$withdrawal->about}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$withdrawal->amount}}</td>
-                                                        <td>{{$withdrawal->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$withdrawal->status->label}}">{{$withdrawal->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('personal.withdrawal.show',$withdrawal->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                @if($withdrawal->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                    <a href="{{ route('personal.withdrawal.restore',$withdrawal->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                @else
-                                                                    <a href="{{ route('personal.withdrawal.delete',$withdrawal->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                @endif
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>

@@ -24,6 +24,10 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\User','assignee_id', 'id');
     }
+    public function budget()
+    {
+        return $this->belongsTo('App\Budget');
+    }
     public function campaign()
     {
         return $this->belongsTo('App\Campaign');

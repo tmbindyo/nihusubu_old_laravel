@@ -169,12 +169,12 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-8 col-md-offset-2">
-                                            <div class="has-warning" id="data_1">
+                                            <div class="has-warning">
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-dollar"></i>
                                                     </span>
-                                                    <input type="text" name="date" id="date" class="form-control input-lg" required value="0">
+                                                    <input type="number" name="amount" id="amount" class="form-control input-lg" required value="0">
                                                 </div>
                                                 <i> budget.</i>
                                             </div>

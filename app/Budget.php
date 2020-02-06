@@ -24,6 +24,10 @@ class Budget extends Model
     {
         return $this->belongsTo('App\Status');
     }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
     public function user()
     {
         return $this->belongsTo('App\User');

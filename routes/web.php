@@ -79,10 +79,10 @@ Route::get("/register/{provider}", "Auth\LoginController@redirectToProvider");
 Route::get("/callback/{provider}", "Auth\LoginController@handleProviderCallback");
 
 
-
-Route::get('/standard/signup', 'Business\AuthController@businessLogin')->name('standard.signup');
-Route::get('/professional/signup', 'Business\AuthController@businessLogin')->name('professional.signup');
-Route::get('/personal/signup', 'Business\AuthController@businessLogin')->name('personal.signup');
+// signup
+Route::get('/standard/signup', 'Business\AuthController@standardSignupLogin')->name('standard.signup');
+Route::get('/professional/signup', 'Business\AuthController@professionalLogin')->name('professional.signup');
+Route::get('/personal/signup', 'Business\AuthController@personalSignup')->name('personal.signup');
 
 // Business auth
 Route::get('/business/login', 'Business\AuthController@businessLogin')->name('business.login');

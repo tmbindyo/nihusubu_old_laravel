@@ -224,7 +224,7 @@
         </div>
         <!-- End Testimonials -->
 
-        <!-- Clients -->
+        {{--  <!-- Clients -->
         <div class="g-container--md g-padding-y-80--xs g-padding-y-100--sm">
             <!-- Swiper Clients -->
             <div class="s-swiper js__swiper-clients">
@@ -258,7 +258,7 @@
             </div>
             <!-- End Swiper Clients -->
         </div>
-        <!-- End Clients -->
+        <!-- End Clients -->  --}}
 
         <!-- Contact -->
         <div class="s-promo-block-v7 g-bg-position--center g-bg-color--dark-light" style="background: url('src="{{ asset('landing') }}/img/1920x1080/05.jpg') no-repeat;">

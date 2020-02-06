@@ -96,6 +96,9 @@ class CreateToDosTable extends Migration
             $table->boolean('is_chama_meeting_minutes');
             $table->uuid('chama_meeting_minutes_id')->nullable();
 
+            $table->boolean('is_budget');
+            $table->uuid('budget_id')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

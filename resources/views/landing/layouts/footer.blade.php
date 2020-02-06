@@ -13,10 +13,10 @@
                 </div>
                 <div class="col-sm-2 g-margin-b-20--xs g-margin-b-0--md">
                     <ul class="list-unstyled g-ul-li-tb-5--xs g-margin-b-0--xs">
-                        <li><a class="g-font-size-15--xs g-color--white-opacity" href="https://twitter.com/nihusubu">Twitter</a></li>
-                        <li><a class="g-font-size-15--xs g-color--white-opacity" href="https://facebook.com/nihusubu">Facebook</a></li>
-                        <li><a class="g-font-size-15--xs g-color--white-opacity" href="https://instagram.com/nihusubu">Instagram</a></li>
-                        <li><a class="g-font-size-15--xs g-color--white-opacity" href="https://youtube.com/nihusubu">YouTube</a></li>
+                        <li><a class="g-font-size-15--xs g-color--white-opacity" target="_blank" href="https://twitter.com/nihusubu">Twitter</a></li>
+                        <li><a class="g-font-size-15--xs g-color--white-opacity" target="_blank" href="https://facebook.com/nihusubu">Facebook</a></li>
+                        <li><a class="g-font-size-15--xs g-color--white-opacity" target="_blank" href="https://instagram.com/nihusubu">Instagram</a></li>
+                        <li><a class="g-font-size-15--xs g-color--white-opacity" target="_blank" href="https://youtube.com/nihusubu">YouTube</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-2 g-margin-b-40--xs g-margin-b-0--md">

@@ -4,23 +4,29 @@ namespace App\Http\Controllers\Business;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Plan;
 
 class AuthController extends Controller
 {
 
-    public function businessLogin()
+
+
+    public function standardSignupLogin()
     {
-        return view('auth.business.login');
+
+        $plan = Plan::where('id','410f31ed-47be-4658-930a-a47f2839ebf5')->first();
+        return view('auth.business_register',compact('plan'));
     }
 
-    public function businessLoginTwoColumns()
+    public function professionalLogin()
     {
-        return view('auth.business.login_two_columns');
+        $plan = Plan::where('id','34ae6893-5329-46b4-99a9-3cde1367fb55')->first();
+        return view('auth.business_register',compact('plan'));
     }
 
-    public function businessForgotPassword()
+    public function personalSignup()
     {
-        return view('auth.business.forgot_password');
+        return back()->withErrors("Coming soon");
     }
 
     public function businessRegisterPage()
