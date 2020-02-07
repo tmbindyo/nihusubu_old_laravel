@@ -80,23 +80,17 @@ Route::get("/callback/{provider}", "Auth\LoginController@handleProviderCallback"
 
 
 // signup
-Route::get('/standard/signup', 'Business\AuthController@standardSignupLogin')->name('standard.signup');
-Route::get('/professional/signup', 'Business\AuthController@professionalLogin')->name('professional.signup');
-Route::get('/personal/signup', 'Business\AuthController@personalSignup')->name('personal.signup');
+Route::get('/business/signup', 'Business\AuthController@businessSignup')->name('business.signup');
 
-// Business auth
-Route::get('/business/login', 'Business\AuthController@businessLogin')->name('business.login');
-Route::get('/business/forgot/password', 'Business\AuthController@businessForgotPassword')->name('business.forgot.password');
-Route::get('/business/register', 'Business\AuthController@businessRegisterPage')->name('business.register');
+// business account signup
+Route::get('/standard/signup', 'Business\AuthController@standardSignup')->name('standard.signup');
+Route::get('/professional/signup', 'Business\AuthController@professionalSignup')->name('professional.signup');
 Route::post('/business/register', 'Auth\RegisterController@createInstitution')->name('business.register.account');
 Route::get('/business/add', 'Business\AuthController@businessAdd')->name('business.add');
 Route::post('/business/add/store', 'HomeController@addInstitution')->name('business.add.account');
 
+
+// personal account sugnup
+Route::get('/personal/signup', 'Business\AuthController@personalSignup')->name('personal.signup');
 Route::get('/add/personal/account', 'HomeController@addPersonal')->name('add.personal.account');
 
-
-// Personal auth
-Route::get('/personal/login', 'Personal\AuthController@personalLogin')->name('personal.login');
-Route::get('/personal/login/two/columns', 'Personal\AuthController@personalLoginTwoColumns')->name('personal.login.two.columns');
-Route::get('/personal/forgot/password', 'Personal\AuthController@personalForgotPassword')->name('personal.forgot.password');
-Route::get('/personal/register', 'Personal\AuthController@personalRegisterPage')->name('personal.register');
