@@ -116,7 +116,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="date" id="date" class="form-control input-lg" required value="7/27/2019">
+                                                            <input type="text" name="date" id="date" class="form-control input-lg" required>
                                                         </div>
                                                         <i> expense date.</i>
                                                     </div>
@@ -245,7 +245,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="start_date" id="date" class="form-control input-lg" required required value="7/27/2019">
+                                                    <input type="text" name="start_date" id="start_date" class="form-control input-lg" required required>
                                                 </div>
                                                 <i> start date.</i>
                                             </div>
@@ -256,7 +256,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="end_date" id="date" class="form-control input-lg" required value="7/27/2019">
+                                                    <input type="text" name="end_date" id="end_date" class="form-control input-lg" required>
                                                 </div>
                                                 <i> end date (leave blank if no end date)</i>
                                             </div>
@@ -375,6 +375,37 @@
 
 <!-- TouchSpin -->
 <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+{{--  Get due date to populate   --}}
+    <script>
+        $(document).ready(function() {
+            // Set date
+            console.log('var');
+            var today = new Date();
+            console.log(today);
+            var dd = today.getDate();
+            var mm = today.getMonth();
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            mm ++;
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date_today = mm + '/' + dd + '/' + yyyy;
+            var time_curr = h + ':' + m;
+            console.log(time_curr);
+            document.getElementById("date").value = date_today;
+            document.getElementById("start_date").value = date_today;
+            document.getElementById("end_date").value = date_today;
+
+            // Set time
+        });
+
+    </script>
 
 <script>
     $(document).ready(function() {

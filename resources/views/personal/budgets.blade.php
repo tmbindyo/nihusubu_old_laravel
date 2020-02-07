@@ -65,51 +65,51 @@
                 <div class="ibox-content">
 
                     <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Expense Account</th>
-                    <th>Budget</th>
-                    <th>Spent</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($budgets as $budget)
-                    <tr class="gradeX">
-                        <td>{{$budget->expense_account->name}}</td>
-                        <td>{{$budget->amount}}</td>
-                        <td>{{$budget->amount}}</td>
-                        <td>{{$budget->user->name}}</td>
-                        <td>
-                            <span class="label {{$budget->status->label}}">{{$budget->status->name}}</span>
-                        </td>
-                        <td class="text-right">
-                            <div class="btn-group">
-                                <a href="{{ route('personal.budget.show',$budget->id) }}" class="btn-white btn btn-xs">View</a>
-                                @if($budget->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                    <a href="{{ route('personal.budget.restore',$budget->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                @else
-                                    <a href="{{ route('personal.budget.delete',$budget->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Expense Account</th>
-                    <th>Budget</th>
-                    <th>Spent</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-                </table>
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Expense Account</th>
+                                    <th>Budget</th>
+                                    <th>Spent</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($budgets as $budget)
+                                    <tr class="gradeX">
+                                        <td>{{$budget->expense_account->name}}</td>
+                                        <td>{{$budget->amount}}</td>
+                                        <td>{{$budget->amount}}</td>
+                                        <td>{{$budget->user->name}}</td>
+                                        <td>
+                                            <span class="label {{$budget->status->label}}">{{$budget->status->name}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="{{ route('personal.budget.show',$budget->id) }}" class="btn-white btn btn-xs">View</a>
+                                                @if($budget->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                    <a href="{{ route('personal.budget.restore',$budget->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                @else
+                                                    <a href="{{ route('personal.budget.delete',$budget->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Expense Account</th>
+                                    <th>Budget</th>
+                                    <th>Spent</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
 
                 </div>

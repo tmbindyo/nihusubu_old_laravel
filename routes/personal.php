@@ -304,6 +304,15 @@ Route::post('/title/update/{title_id}', 'Personal\SettingController@titleUpdate'
 Route::get('/title/delete/{title_id}', 'Personal\SettingController@titleDelete')->name('personal.title.delete');
 Route::get('/title/restore/{title_id}', 'Personal\SettingController@titleRestore')->name('personal.title.restore');
 
+// Expense accounts
+Route::get('/expense/accounts', 'Personal\SettingController@expenseAccounts')->name('personal.expense.accounts');
+Route::get('/expense/account/create', 'Personal\SettingController@expenseAccountCreate')->name('personal.expense.account.create');
+Route::post('/expense/account/store', 'Personal\SettingController@expenseAccountStore')->name('personal.expense.account.store');
+Route::get('/expense/account/show/{title_id}', 'Personal\SettingController@expenseAccountShow')->name('personal.expense.account.show');
+Route::post('/expense/account/update/{title_id}', 'Personal\SettingController@expenseAccountUpdate')->name('personal.expense.account.update');
+Route::get('/expense/account/delete/{title_id}', 'Personal\SettingController@expenseAccountDelete')->name('personal.expense.account.delete');
+Route::get('/expense/account/restore/{title_id}', 'Personal\SettingController@expenseAccountRestore')->name('personal.expense.account.restore');
+
 
 // Settings
 Route::get('/commitments', 'Personal\SettingController@commitments')->name('personal.commitments');

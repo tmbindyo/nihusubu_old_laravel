@@ -125,7 +125,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="date" id="date" class="form-control input-lg" required value="7/27/2019">
+                                                            <input type="text" name="date" id="date" class="form-control input-lg" required">
                                                         </div>
                                                         <i> adjustment date.</i>
                                                     </div>
@@ -234,6 +234,35 @@
     $(document).ready(function() {
         $('.select-2').select2();
     });
+</script>
+
+{{--  Get due date to populate   --}}
+<script>
+    $(document).ready(function() {
+        // Set date
+        console.log('var');
+        var today = new Date();
+        console.log(today);
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        mm ++;
+        if (dd < 10){
+            dd = '0'+dd;
+        }
+        if (mm < 10){
+            mm = '0'+mm;
+        }
+        var date_today = mm + '/' + dd + '/' + yyyy;
+        var time_curr = h + ':' + m;
+        console.log(time_curr);
+        document.getElementById("date").value = date_today;
+
+        // Set time
+    });
+
 </script>
 
 <script>

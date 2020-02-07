@@ -116,7 +116,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="date" id="date" class="form-control input-lg" required value="7/27/2019">
+                                                            <input type="text" name="date" id="date" class="form-control input-lg" required>
                                                         </div>
                                                         <i> expense date.</i>
                                                     </div>
@@ -216,6 +216,27 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-2">
+                                            {{--  Customer  --}}
+                                            <div class="checkbox checkbox-info">
+                                                <input id="is_liability" name="is_liability" type="checkbox">
+                                                <label for="is_liability">
+                                                    Liability
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="has-warning">
+                                                <div class="has-warning">
+                                                    <select name="liability" class="select-2 form-control input-lg">
+                                                        <option selected disabled>Select Liability</option>
+                                                        @foreach($liabilities as $liability)
+                                                            <option value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
 
@@ -265,30 +286,6 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            {{--  Customer  --}}
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_liability" name="is_liability" type="checkbox">
-                                                <label for="is_liability">
-                                                    Liability
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="has-warning">
-                                                <div class="has-warning">
-                                                    <select name="liability" class="select-2 form-control input-lg">
-                                                        <option selected disabled>Select Liability</option>
-                                                        @foreach($liabilities as $liability)
-                                                            <option value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
                                     <hr>
 
 
@@ -319,7 +316,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="start_date" id="date" class="form-control input-lg" required required value="7/27/2019">
+                                                    <input type="text" name="start_date" id="start_date" class="form-control input-lg" required>
                                                 </div>
                                                 <i> start date.</i>
                                             </div>
@@ -330,7 +327,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="end_date" id="date" class="form-control input-lg" required value="7/27/2019">
+                                                    <input type="text" name="end_date" id="end_date" class="form-control input-lg" required>
                                                 </div>
                                                 <i> end date (leave blank if no end date)</i>
                                             </div>
@@ -348,6 +345,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <br>
                                             {{--  Customer  --}}
                                             <div class="checkbox checkbox-info">
                                                 <input id="is_draft" name="is_draft" type="checkbox">
@@ -356,6 +354,29 @@
                                                 </label>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Check this option if you want to save this as a draft for further editing." class="fa fa-2x fa-question-circle"></i></span>
                                             </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="checkbox checkbox-info">
+                                                        <input id="is_paid" name="is_paid" type="checkbox" checked>
+                                                        <label for="is_paid">
+                                                            Paid
+                                                        </label>
+                                                        <span><i data-toggle="tooltip" data-placement="right" title="Check if the expense has already been paid for." class="fa fa-2x fa-question-circle"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="has-warning">
+                                                        <select name="account" class="select-2 form-control input-lg">
+                                                            <option selected disabled>Select Account</option>
+                                                            @foreach($accounts as $account)
+                                                                <option value="{{$account->id}}" >{{$account->name}} [{{$account->balance}}]</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning">
@@ -449,6 +470,37 @@
 
 <!-- TouchSpin -->
 <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+{{--  Get due date to populate   --}}
+    <script>
+        $(document).ready(function() {
+            // Set date
+            console.log('var');
+            var today = new Date();
+            console.log(today);
+            var dd = today.getDate();
+            var mm = today.getMonth();
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            mm ++;
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date_today = mm + '/' + dd + '/' + yyyy;
+            var time_curr = h + ':' + m;
+            console.log(time_curr);
+            document.getElementById("date").value = date_today;
+            document.getElementById("start_date").value = date_today;
+            document.getElementById("end_date").value = date_today;
+
+            // Set time
+        });
+
+    </script>
 
 <script>
     $(document).ready(function() {

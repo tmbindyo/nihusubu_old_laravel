@@ -258,6 +258,11 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.expense.accounts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.expense.accounts')}}">
+                            Expense Accounts
+                        </a>
+                    </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'personal.titles' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'personal.titles')}}">
                             Titles

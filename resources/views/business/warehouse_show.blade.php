@@ -228,7 +228,7 @@
                                 </dd>
                             </dl>
                         </div>
-                        <div class="row">
+                        {{--  <div class="row">
                             <div class="col-lg-12">
                                 <dl class="dl-horizontal">
                                     <dt>Volume:</dt>
@@ -240,7 +240,7 @@
                                     </dd>
                                 </dl>
                             </div>
-                        </div>
+                        </div>  --}}
                         <div class="row m-t-sm">
                             <div class="col-lg-12">
                                 <div class="panel blank-panel">

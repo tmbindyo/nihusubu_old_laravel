@@ -96,14 +96,14 @@
                                     </td>
                                     <td class="desc">
                                         <h3>
-                                            <a href="{{route('personal.product.show',$product->id)}}" class="text-navy">
+                                            {{--  <a href="{{route('personal.product.show',$product->id)}}" class="text-navy">  --}}
                                                 {{$product->name}}
                                             </a>
                                         </h3>
 
 
                                         <div class="m-t-sm">
-                                            <a href="{{route('personal.expense.product.delete',$product->id)}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
+                                            {{--  <a href="{{route('personal.expense.product.delete',$product->id)}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>  --}}
                                         </div>
                                     </td>
 

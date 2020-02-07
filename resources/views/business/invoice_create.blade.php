@@ -74,7 +74,7 @@
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="has-warning">
+                                                    <div class="has-warning" id="data_1">
                                                         <div class="input-group date">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
@@ -86,7 +86,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="has-warning">
-                                                        <div class="input-group date">
+                                                        <div class="input-group date" id="data_1">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>

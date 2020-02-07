@@ -234,7 +234,7 @@
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#expenses" data-toggle="tab">Budget Adjustments</a></li>
+                                            <li class="active"><a href="#expenses" data-toggle="tab">Expenses</a></li>
                                         </ul>
                                     </div>
                                 </div>

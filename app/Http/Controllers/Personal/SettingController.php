@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Personal;
 
+use App\AccountType;
+use App\Budget;
+use App\Expense;
+use App\ExpenseAccount;
 use App\Title;
 use App\Traits\UserTrait;
 use Illuminate\Http\Request;
@@ -91,6 +95,99 @@ class SettingController extends Controller
         $title->restore();
 
         return back()->withSuccess(__('Title '.$title->name.' successfully restored.'));
+    }
+
+
+
+
+    // expenseAccounts
+    public function expenseAccounts()
+    {
+        // User
+        $user = $this->getUser();
+        // get expenseAccounts
+        $expenseAccounts = ExpenseAccount::where('is_user',true)->where('user_id',$user->id)->with('user','status','account_type')->get();
+        // get deleted expenseAccounts
+        $deletedExpenseAccounts = ExpenseAccount::where('is_user',true)->where('user_id',$user->id)->with('user','status','account_type')->onlyTrashed()->get();
+
+        return view('personal.expense_accounts',compact('expenseAccounts','user','expenseAccounts','deletedExpenseAccounts'));
+    }
+
+    public function expenseAccountCreate()
+    {
+        // User
+        $user = $this->getUser();
+        // Account types
+        $accountTypes = AccountType::where('is_user',True)->get();
+        return view('personal.expense_account_create',compact('user','accountTypes'));
+    }
+
+    public function expenseAccountStore(Request $request)
+    {
+        // User
+        $user = $this->getUser();
+
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = ($request->name);
+        $expenseAccount->code = ($request->code);
+        $expenseAccount->description = ($request->description);
+        $expenseAccount->account_type_id = ($request->account_type);
+        $expenseAccount->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->is_user = True;
+        $expenseAccount->is_institution = False;
+        $expenseAccount->save();
+        return redirect()->route('personal.expense.account.show',$expenseAccount->id)->withSuccess(__('Expense account '.$expenseAccount->name.' successfully created.'));
+    }
+
+    public function expenseAccountShow($expenseAccount_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Account types
+        $accountTypes = AccountType::where('is_user',True)->get();
+        // Check if expenseAccount exists
+        $expenseAccountExists = ExpenseAccount::findOrFail($expenseAccount_id);
+        $expenseAccount = ExpenseAccount::with('user','status','budget','expenses')->where('is_user',true)->withCount('expenses')->where('id',$expenseAccount_id)->first();
+        // expense account expenses
+        $expenseAccountExpenses = Expense::where('expense_account_id',$expenseAccount->id)->get();
+        // expense account budget
+        $expenseAccountBudget = Budget::where('expense_account_id',$expenseAccount->id)->get();
+        return view('personal.expense_account_show',compact('expenseAccount','user','accountTypes','expenseAccountExpenses','expenseAccountBudget'));
+    }
+
+    public function expenseAccountUpdate(Request $request,$expenseAccount_id)
+    {
+        // User
+        $user = $this->getUser();
+
+        $expenseAccount = ExpenseAccount::findOrFail($expenseAccount_id);
+        $expenseAccount->name = ($request->name);
+        $expenseAccount->code = ($request->code);
+        $expenseAccount->description = ($request->description);
+        $expenseAccount->account_type_id = ($request->account_type);
+        $expenseAccount->user_id = $user->id;
+        $expenseAccount->save();
+
+        return redirect()->route('personal.expense.account.show',$expenseAccount->id)->withSuccess('Expense account '.$expenseAccount->name.' updated!');
+    }
+
+    public function expenseAccountDelete($expenseAccount_id)
+    {
+
+        $expenseAccount = ExpenseAccount::findOrFail($expenseAccount_id);
+        $expenseAccount->delete();
+
+        return back()->withSuccess(__('Expense account '.$expenseAccount->name.' successfully deleted.'));
+    }
+
+    public function expenseAccountRestore($expenseAccount_id)
+    {
+
+        $expenseAccount = ExpenseAccount::withTrashed()->findOrFail($expenseAccount_id);
+        $expenseAccount->restore();
+
+        return back()->withSuccess(__('Expense account '.$expenseAccount->name.' successfully restored.'));
     }
 
 

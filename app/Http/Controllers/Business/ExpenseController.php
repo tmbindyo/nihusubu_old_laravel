@@ -70,13 +70,15 @@ class ExpenseController extends Controller
         $liabilities = Liability::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get frequencies
         $frequencies = Frequency::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        // accounts
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
 
-        return view('business.expense_create',compact('liabilities','campaigns','sales','user','institution','frequencies','expenseAccounts','transfers','expenseStatuses'));
+        return view('business.expense_create',compact('liabilities','campaigns','sales','user','institution','frequencies','expenseAccounts','transfers','expenseStatuses','accounts'));
     }
 
     public function expenseStore(Request $request, $portal)
     {
-//        return $request;
+
         // User
         $user = $this->getUser();
         // Institution
@@ -164,10 +166,10 @@ class ExpenseController extends Controller
             $expense->is_draft = False;
         }
 
+        $expense->paid = 0;
         $expense->sub_total = $request->subtotal;
         $expense->adjustment = $request->adjustment;
         $expense->total = $request->grand_total;
-        $expense->paid = 0;
 
         $expense->notes = $request->notes;
 
@@ -179,6 +181,71 @@ class ExpenseController extends Controller
         $expense->is_institution = True;
 
         $expense->save();
+
+
+        // update paid if expense is already paid
+        if ($request->is_paid == "on"){
+            // get expense
+            $expense = Expense::findOrFail($expense->id);
+            $size = 5;
+            $reference = $this->getRandomString($size);
+            $transaction = new Transaction();
+            $transaction->expense_id = $expense->id;
+            $transaction->account_id = $request->account;
+            $transaction->amount = $request->grand_total;
+
+            $transaction->initial_amount = 0;
+            $transaction->subsequent_amount = 0;
+
+            $transaction->reference = $reference;
+            $transaction->date = date('Y-m-d', strtotime($request->date));
+            $transaction->notes = $request->notes;
+            $transaction->user_id = $user->id;
+            $transaction->institution_id = $institution->id;
+            $transaction->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2';
+            $transaction->is_user = False;
+            $transaction->is_institution = True;
+            $transaction->is_chama = True;
+            $transaction->save();
+
+            // update expense paid
+            $expense->paid = doubleval(0)+doubleval($request->grand_total);
+            $expense->save();
+            // if liability
+            if ($expense->is_liability == 1){
+                $liability = Liability::findOrFail($expense->liability_id);
+                $liability->paid = doubleval($liability->paid)+doubleval($request->amount);
+                $liability->save();
+            }
+            // sale
+            if ($expense->is_sale == 1){
+                $sale = Sale::findOrFail($expense->sale_id);
+                $sale->paid = doubleval($sale->paid)+doubleval($request->amount);
+                $sale->save();
+            }
+            // campaign
+            if ($expense->is_campaign == 1){
+                $campaign = Campaign::findOrFail($expense->campaign_id);
+                $campaign->actual_cost = doubleval($campaign->actual_cost)+doubleval($request->amount);
+                $campaign->save();
+            }
+
+            // account subtraction
+            $account = Account::where('id',$request->account)->where('is_institution',true)->first();
+
+            // update transaction
+            $transaction = Transaction::findOrFail($transaction->id);
+            $transaction->initial_amount = $account->balance;
+            $transaction->subsequent_amount = doubleval($account->balance)-doubleval($request->grand_total);
+            $transaction->save();
+
+            // update account balance
+            $account->balance = doubleval($account->balance)-doubleval($request->grand_total);
+            $account->save();
+
+
+        }
+
 
 
         // item details
@@ -462,7 +529,8 @@ class ExpenseController extends Controller
         // check balance
         $accountBalance = Account::findOrFail($request->account);
         // check if this is an overdraft
-        if($request->expense > $accountBalance->balance){
+        // return $request->amount .'>'. $accountBalance->balance;
+        if($request->amount > $accountBalance->balance){
             return back()->withWarning(__('This payment will overdraft the account.'));
         }
 
