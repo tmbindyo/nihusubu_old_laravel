@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBudgetCategoriesTable extends Migration
+class CreateGoalTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBudgetCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('budget_categories', function (Blueprint $table) {
+        Schema::create('goal_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateBudgetCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('budget_categories');
+        Schema::dropIfExists('goal_types');
     }
 }

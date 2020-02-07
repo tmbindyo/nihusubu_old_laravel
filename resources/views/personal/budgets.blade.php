@@ -68,8 +68,9 @@
                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Balance</th>
+                    <th>Expense Account</th>
+                    <th>Budget</th>
+                    <th>Spent</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -78,8 +79,9 @@
                 <tbody>
                 @foreach($budgets as $budget)
                     <tr class="gradeX">
-                        <td>{{$budget->name}}</td>
-                        <td>{{$budget->balance}}</td>
+                        <td>{{$budget->expense_account->name}}</td>
+                        <td>{{$budget->amount}}</td>
+                        <td>{{$budget->amount}}</td>
                         <td>{{$budget->user->name}}</td>
                         <td>
                             <span class="label {{$budget->status->label}}">{{$budget->status->name}}</span>
@@ -99,8 +101,9 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th>Name</th>
-                    <th>Balance</th>
+                    <th>Expense Account</th>
+                    <th>Budget</th>
+                    <th>Spent</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>

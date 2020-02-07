@@ -94,72 +94,72 @@
                                                     <option selected disabled>Select Expense Account</option>
                                                     <optgroup label="Bills, Utilities">
                                                         @foreach($billExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Cash, Transfers">
                                                         @foreach($cashExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Fees, Government Payments">
                                                         @foreach($feesExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Food, Dining">
                                                         @foreach($foodExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Health, Personal Care">
                                                         @foreach($healthExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Home and Living">
                                                         @foreach($homeLivingExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Income">
                                                         @foreach($incomeExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Kids, Family">
                                                         @foreach($kidsExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Leisure, Entertainment">
                                                         @foreach($leisureExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Loans">
                                                         @foreach($loansExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="No Category">
                                                         @foreach($noExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Shopping">
                                                         @foreach($shoppingExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Transport">
                                                         @foreach($transportExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Wealth Creation">
                                                         @foreach($wealthCreationExpenseAccounts as $expenseAccount)
-                                                            <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                            <option @if($expenseAccount->is_set == True) disabled="disabled" @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}} @if($expenseAccount->is_set == True) [{{$expenseAccount->budget->amount}}] @endif</option>
                                                         @endforeach
                                                     </optgroup>
                                                 </select>

@@ -12,10 +12,6 @@ class ExpenseAccount extends Model
     public $incrementing = false;
 
     // Children
-    public function budgets()
-    {
-        return $this->hasMany('App\Budget');
-    }
     public function expenses()
     {
         return $this->hasMany('App\Expense');
@@ -25,6 +21,10 @@ class ExpenseAccount extends Model
     public function account_type()
     {
         return $this->belongsTo('App\AccountType');
+    }
+    public function budget()
+    {
+        return $this->hasOne('App\Budget');
     }
     public function status()
     {

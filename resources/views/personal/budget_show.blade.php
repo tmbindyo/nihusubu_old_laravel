@@ -74,7 +74,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Budget <small>edit</small></h5>
@@ -99,25 +99,96 @@
 
                                     <div class="row">
                                         <div class="has-warning">
-                                            <input type="name" name="name" value="{{$budget->name}}" class="form-control input-lg">
+                                            <select name="expense_account" class="select-2 form-control input-lg" readonly>
+                                                <option selected disabled>Select Expense Account</option>
+                                                <optgroup label="Bills, Utilities">
+                                                    @foreach($billExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Cash, Transfers">
+                                                    @foreach($cashExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Fees, Government Payments">
+                                                    @foreach($feesExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Food, Dining">
+                                                    @foreach($foodExpenseAccounts as $expenseAccount)
+                                                        <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Health, Personal Care">
+                                                    @foreach($healthExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Home and Living">
+                                                    @foreach($homeLivingExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Income">
+                                                    @foreach($incomeExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Kids, Family">
+                                                    @foreach($kidsExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Leisure, Entertainment">
+                                                    @foreach($leisureExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Loans">
+                                                    @foreach($loansExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="No Category">
+                                                    @foreach($noExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Shopping">
+                                                    @foreach($shoppingExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Transport">
+                                                    @foreach($transportExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                                <optgroup label="Wealth Creation">
+                                                    @foreach($wealthCreationExpenseAccounts as $expenseAccount)
+                                                        <option @if($expenseAccount->id == $budget->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            </select>
                                         </div>
-                                        <i>name</i>
+                                        <i>expense account</i>
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="has-warning">
-                                            <input type="number" name="balance" value="{{$budget->balance}}" class="form-control input-lg" readonly>
+                                            <div class="input-group date">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-dollar"></i>
+                                                </span>
+                                                <input type="number" name="amount" id="amount" class="form-control input-lg" required value="{{$budget->amount}}">
+                                            </div>
+                                            <i> budget.</i>
                                         </div>
-                                        <i>balance</i>
                                     </div>
                                     <br>
-                                    <div class="row">
-                                        <div class="has-warning">
-                                            <textarea rows="5" name="notes" class="form-control input-lg" >{{$budget->notes}}</textarea>
-                                        </div>
-                                        <i>notes</i>
-                                    </div>
-                                    <br>
+                                    <hr>
 
                                     <div>
                                         <button class="btn btn-primary btn-block btn-lg m-t-n-xs" type="submit"><strong>Update</strong></button>
@@ -126,14 +197,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="wrapper wrapper-content project-manager">
-                    <h4>Acount description</h4>
-                    <p class="small">
-                        {{$budget->notes}}
-                    </p>
                 </div>
             </div>
         </div>

@@ -244,6 +244,14 @@ class ToDoController extends Controller
             $todo->is_chama_meeting_minutes = False;
         }
 
+        // budget
+        if($request->is_budget){
+            $todo->is_budget = True;
+            $todo->budget_id = $request->budget;
+        }else{
+            $todo->is_budget = False;
+        }
+
 
         // Check if date is overdue to make the status overdue
         // Check and compare if the task is overdue to set the relevant

@@ -25,6 +25,9 @@ class CreateIncomesTable extends Migration
             $table->uuid('status_id');
             $table->uuid('income_type_id');
 
+            $table->is_recurring('is_recurring');
+            $table->uuid('frequency_id')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -12,6 +12,14 @@ class Income extends Model
     public $incrementing = false;
 
     // parents
+    public function income_type()
+    {
+        return $this->belongsTo('App\IncomeType');
+    }
+    public function frequency()
+    {
+        return $this->belongsTo('App\Frequency');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');
