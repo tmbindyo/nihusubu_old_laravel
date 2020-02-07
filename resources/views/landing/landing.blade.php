@@ -62,7 +62,7 @@
 
                                 <div class="g-text-center--xs">
                                     <a href="{{route('login')}}" class="text-uppercase btn-block s-btn s-btn--md s-btn--white-bg g-radius--50 g-padding-x-50--xs g-margin-b-20--xs">Login</a>
-                                    <a href="{{route('register')}}" class="text-uppercase btn-block s-btn s-btn--md s-btn--white-bg g-radius--50 g-padding-x-50--xs g-margin-b-20--xs">Signup</a>
+                                    <a href="{{route('business.register')}}" class="text-uppercase btn-block s-btn s-btn--md s-btn--white-bg g-radius--50 g-padding-x-50--xs g-margin-b-20--xs">Signup</a>
                                 </div>
                             </form>
                         </div>
