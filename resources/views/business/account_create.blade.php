@@ -61,7 +61,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Account Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">
@@ -90,7 +90,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <input type="number" id="balance" name="balance" required="required" placeholder="Account Balance" class="form-control input-lg">
-                                        <i>account name</i>
+                                        <i>account balance</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">

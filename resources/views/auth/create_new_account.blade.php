@@ -133,17 +133,35 @@
                             </div>
                         </div>
                         <div>
-                            <div class="form-group">
-                                @if ($errors->has('currency'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('currency') }}</strong>
-                                    </span>
-                                @endif
-                                <label>Currency *</label>
-                                <select name="currency" id="currency" class="form-control input-lg {{ $errors->has('currency') ? ' is-invalid' : '' }} required">
-                                    <option selected id="0839e6c9-20b3-4442-b3b6-5137a4d309ec">KES - Kenyan Shillings</option>
-                                </select>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @if ($errors->has('currency'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('currency') }}</strong>
+                                        </span>
+                                    @endif
+                                    <label>Currency *</label>
+                                    <select name="currency" id="currency" class="form-control input-lg {{ $errors->has('currency') ? ' is-invalid' : '' }} required">
+                                        <option selected id="0839e6c9-20b3-4442-b3b6-5137a4d309ec">KES - Kenyan Shillings</option>
+                                    </select>
+                                </div>
                             </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @if ($errors->has('plan'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('plan') }}</strong>
+                                        </span>
+                                    @endif
+                                    <label>Currency *</label>
+                                    <select name="plan" id="plan" class="form-control input-lg {{ $errors->has('plan') ? ' is-invalid' : '' }} required">
+                                        @foreach($plans as $plan)
+                                            <option id="{{$plan->id}}">{{$plan->name}}[{{$plan->price}}]</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                     </fieldset>
 

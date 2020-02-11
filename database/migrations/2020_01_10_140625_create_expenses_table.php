@@ -56,6 +56,7 @@ class CreateExpensesTable extends Migration
             $table->uuid('institution_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('expense_account_id');
+            $table->uuid('account_id');
             $table->uuid('frequency_id')->nullable();
 
             $table->timestamps();

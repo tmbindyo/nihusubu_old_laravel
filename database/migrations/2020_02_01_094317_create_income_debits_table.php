@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIncomesTable extends Migration
+class CreateIncomeDebitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,29 +13,21 @@ class CreateIncomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('incomes', function (Blueprint $table) {
+        Schema::create('income_debits', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
             $table->string('reference', 200);
 
-            $table->string('name', 200);
-            $table->longText('description');
-
             $table->date('date');
-            $table->date('end_date')->nullable();
 
             $table->decimal('amount', 20,2);
 
+            $table->boolean('is_debited');
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('income_type_id');
+            $table->uuid('income_id');
             $table->uuid('account_id');
-
-            $table->boolean('is_variable');
-            $table->boolean('is_debit');
-
-            $table->boolean('is_recurring');
-            $table->uuid('frequency_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
@@ -49,6 +41,6 @@ class CreateIncomesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('incomes');
+        Schema::dropIfExists('income_debits');
     }
 }

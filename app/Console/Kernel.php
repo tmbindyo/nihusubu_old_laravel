@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\InstitutionRecurringExpense::class,
+        Commands\RecurringExpense::class,
+        Commands\RecurringIncome::class,
     ];
 
     /**
@@ -24,8 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('recurring:institution_expense')->daily();
+        $schedule->command('recurring:expense')->daily();
+        $schedule->command('recurring:income')->daily();
     }
 
     /**

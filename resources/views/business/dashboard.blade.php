@@ -115,7 +115,7 @@
         <div class="col-lg-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>New data for the report</h5> <span class="label label-primary">IN+</span>
+                    <h5>New data for the report</h5> <span class="label label-primary">N</span>
 
                 </div>
                 <div class="ibox-content">

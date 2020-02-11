@@ -178,6 +178,7 @@
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a href="#account-adjustments" data-toggle="tab">Account Adjustments</a></li>
                                             <li class=""><a href="#deposits" data-toggle="tab">Deposits</a></li>
+                                            <li class=""><a href="#incomes" data-toggle="tab">Income</a></li>
                                             <li class=""><a href="#liabilities" data-toggle="tab">Liabilities</a></li>
                                             <li class=""><a href="#loans" data-toggle="tab">Loans</a></li>
                                             <li class=""><a href="#payments" data-toggle="tab">Payments</a></li>
@@ -298,6 +299,64 @@
                                                 <tr>
                                                     <th>Reference</th>
                                                     <th>Amount</th>
+                                                    <th>User</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="incomes">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <thead>
+                                                <tr>
+                                                    <th>Reference</th>
+                                                    <th>Name</th>
+                                                    <th>Account</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                    <th>User</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($account->income_debits as $income)
+                                                    <tr class="gradeX">
+                                                        <td>
+                                                            {{$income->reference}}
+                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$income->about}}." class="fa fa-facebook-messenger"></i></span>
+                                                        </td>
+                                                        <td>{{$income->income->name}}</td>
+                                                        <td>{{$income->account->name}}</td>
+                                                        <td>{{$income->amount}}</td>
+                                                        <td>{{$income->date}}</td>
+                                                        <td>{{$income->user->name}}</td>
+                                                        <td>
+                                                            <span class="label {{$income->status->label}}">{{$income->status->name}}</span>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="btn-group">
+                                                                <a href="{{ route('personal.income.show',$income->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                @if($income->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                                    <a href="{{ route('personal.income.restore',$income->income->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                @else
+                                                                    <a href="{{ route('personal.income.delete',$income->income->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                @endif
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>Reference</th>
+                                                    <th>Name</th>
+                                                    <th>Account</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
                                                     <th>User</th>
                                                     <th>Status</th>
                                                     <th>Action</th>

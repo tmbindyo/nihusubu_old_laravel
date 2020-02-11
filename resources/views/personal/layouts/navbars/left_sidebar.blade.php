@@ -40,7 +40,7 @@
                     </ul>
                 </div>
                 <div class="logo-element">
-                    IN+
+                    N
                 </div>
             </li>
 
@@ -56,24 +56,13 @@
                 <a href="{{ route('personal.to.dos') }}"><i class="fa fa-list"></i> <span class="nav-label">To Do </span></a>
             </li>
 
-            <li>
-                <a href="#">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span class="nav-label">CRM </span>
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.contacts' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'personal.contacts')}}">
-                            Contacts
-                        </a>
-                    </li>
-                </ul>
+            <li class="nav-item {{ Route::currentRouteNamed( 'personal.contacts' ) ?  'active' : '' }}">
+                <a href="{{ route('personal.contacts') }}"><i class="fa fa-group"></i> <span class="nav-label">Contacts </span></a>
             </li>
 
             <li>
                 <a href="#">
-                    <i class="fa fa-graduation-cap"></i>
+                    <i class="fa fa-money"></i>
                     <span class="nav-label">Budgeting </span>
                     <span class="fa arrow"></span>
                 </a>
@@ -83,8 +72,8 @@
                             Budgeting
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.budget' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'personal.budget')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.income' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.income')}}">
                             Income
                         </a>
                     </li>

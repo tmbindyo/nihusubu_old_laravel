@@ -17,7 +17,7 @@
                     </ul>
                 </div>
                 <div class="logo-element">
-                    IN+
+                    N
                 </div>
             </li>
             <li class="">

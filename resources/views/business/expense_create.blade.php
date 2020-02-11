@@ -105,7 +105,24 @@
 
                                         </div>
                                     </div>
-                                    {{--  Product  --}}
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            {{--  expense account  --}}
+                                            <div class="has-warning">
+                                                <select name="expense_account" class="select-2 form-control input-lg">
+                                                    <option selected disabled>Select Account</option>
+                                                    @foreach($accounts as $account)
+                                                        <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                        </div>
+                                    </div>
+                                    {{--  date  --}}
                                     <div class="row">
                                         <div class="col-md-12">
                                             <br>
@@ -366,14 +383,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <div class="has-warning">
-                                                        <select name="account" class="select-2 form-control input-lg">
-                                                            <option selected disabled>Select Account</option>
-                                                            @foreach($accounts as $account)
-                                                                <option value="{{$account->id}}" >{{$account->name}} [{{$account->balance}}]</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
                                                 </div>
                                             </div>
 

@@ -322,3 +322,92 @@ Route::get('/commitment/show/{commitment_id}', 'Personal\SettingController@commi
 Route::get('/commitment/edit/{commitment_id}', 'Personal\SettingController@commitmentEdit')->name('personal.commitment.edit');
 Route::get('/commitment/update/{commitment_id}', 'Personal\SettingController@commitmentUpdate')->name('personal.commitment.update');
 Route::get('/commitment/delete/{commitment_id}', 'Personal\SettingController@commitmentDelete')->name('personal.commitment.delete');
+
+
+
+
+// Chamas
+// accounts
+Route::get('/chama/accounts', 'Personal\ChamaController@accounts')->name('personal.chama.accounts');
+Route::get('chama//account/create', 'Personal\ChamaController@accountCreate')->name('personal.chama.account.create');
+Route::post('/chama/account/store', 'Personal\ChamaController@accountStore')->name('personal.chama.account.store');
+Route::get('/chama/account/show/{account_id}', 'Personal\ChamaController@accountShow')->name('personal.chama.account.show');
+
+Route::get('/chama/account/deposit/create/{account_id}', 'Personal\ChamaController@accountDepositCreate')->name('personal.chama.account.deposit.create');
+Route::get('/chama/account/liability/create/{account_id}', 'Personal\ChamaController@accountLiabilityCreate')->name('personal.chama.account.liability.create');
+Route::get('/chama/account/loan/create/{account_id}', 'Personal\ChamaController@accountLoanCreate')->name('personal.account.chama.loan.create');
+Route::get('/chama/account/withdrawal/create/{account_id}', 'Personal\ChamaController@accountWithdrawalCreate')->name('personal.chama.account.withdrawal.create');
+
+Route::get('/chama/account/edit/{account_id}', 'Personal\ChamaController@accountEdit')->name('personal.chama.account.edit');
+Route::post('/chama/account/update/{account_id}', 'Personal\ChamaController@accountUpdate')->name('personal.chama.account.update');
+Route::get('/chama/account/delete/{account_id}', 'Personal\ChamaController@accountDelete')->name('personal.chama.account.delete');
+Route::get('/chama/account/restore/{account_id}', 'Personal\ChamaController@accountRestore')->name('personal.chama.account.restore');
+
+// deposits
+Route::post('/chama/deposit/store', 'Personal\AccountController@depositStore')->name('personal.deposit.store');
+Route::get('/chama/deposit/show/{deposit_id}', 'Personal\AccountController@depositShow')->name('personal.deposit.show');
+
+Route::get('/chama/deposit/account/adjustment/create/{deposit_id}', 'Personal\AccountController@depositAccountAdjustmentCreate')->name('personal.deposit.account.adjustment.create');
+
+Route::post('/chama/deposit/update/{deposit_id}', 'Personal\AccountController@depositUpdate')->name('personal.deposit.update');
+Route::get('/chama/deposit/delete/{deposit_id}', 'Personal\AccountController@depositDelete')->name('personal.deposit.delete');
+Route::get('/chama/deposit/restore/{deposit_id}', 'Personal\AccountController@depositRestore')->name('personal.deposit.restore');
+
+// withdrawals
+Route::post('/chama/withdrawal/store', 'Personal\AccountController@withdrawalStore')->name('personal.withdrawal.store');
+Route::get('/chama/withdrawal/show/{withdrawal_id}', 'Personal\AccountController@withdrawalShow')->name('personal.withdrawal.show');
+
+Route::get('/chama/withdrawal/account/adjustment/create/{withdrawal_id}', 'Personal\AccountController@withdrawalAccountAdjustmentCreate')->name('personal.withdrawal.account.adjustment.create');
+
+Route::post('/chama/withdrawal/update/{withdrawal_id}', 'Personal\AccountController@withdrawalUpdate')->name('personal.withdrawal.update');
+Route::get('/chama/withdrawal/delete/{withdrawal_id}', 'Personal\AccountController@withdrawalDelete')->name('personal.withdrawal.delete');
+Route::get('/chama/withdrawal/restore/{withdrawal_id}', 'Personal\AccountController@withdrawalRestore')->name('personal.withdrawal.restore');
+
+// account adjustment
+Route::get('/chama/account/adjustment/create/{account_id}', 'Personal\AccountController@accountAdjustmentCreate')->name('personal.account.adjustment.create');
+Route::get('/chama/account/adjustment/create/{account_id}', 'Personal\AccountController@accountAdjustmentCreate')->name('personal.account.adjustment.create');
+Route::post('/chama/account/adjustment/store', 'Personal\AccountController@accountAdjustmentStore')->name('personal.account.adjustment.store');
+Route::get('/chama/account/adjustment/edit/{account_id}', 'Personal\AccountController@accountAdjustmentEdit')->name('personal.account.adjustment.edit');
+Route::post('/chama/account/adjustment/update/{account_id}', 'Personal\AccountController@accountAdjustmentUpdate')->name('personal.account.adjustment.update');
+Route::get('/chama/account/adjustment/delete/{account_id}', 'Personal\AccountController@accountAdjustmentDelete')->name('personal.account.adjustment.delete');
+Route::get('/chama/account/adjustment/restore/{account_id}', 'Personal\AccountController@accountAdjustmentRestore')->name('personal.account.adjustment.restore');
+
+// liabilities
+Route::get('/chama/liabilities', 'Personal\AccountController@liabilities')->name('personal.liabilities');
+Route::get('/chama/liability/create', 'Personal\AccountController@liabilityCreate')->name('personal.liability.create');
+Route::post('/chama/liability/store', 'Personal\AccountController@liabilityStore')->name('personal.liability.store');
+Route::get('/chama/liability/show/{liability_id}', 'Personal\AccountController@liabilityShow')->name('personal.liability.show');
+
+Route::get('/chama/liability/expense/create/{liability_id}', 'Personal\AccountController@liabilityExpenseCreate')->name('personal.liability.expense.create');
+
+Route::get('/chama/liability/edit/{liability_id}', 'Personal\AccountController@liabilityEdit')->name('personal.liability.edit');
+Route::post('/chama/liability/update/{liability_id}', 'Personal\AccountController@liabilityUpdate')->name('personal.liability.update');
+Route::get('/chama/liability/delete/{liability_id}', 'Personal\AccountController@liabilityDelete')->name('personal.liability.delete');
+Route::get('/chama/liability/restore/{liability_id}', 'Personal\AccountController@liabilityRestore')->name('personal.liability.restore');
+
+
+// loans
+Route::get('/chama/loans', 'Personal\AccountController@loans')->name('personal.loans');
+Route::get('/chama/loan/create', 'Personal\AccountController@loanCreate')->name('personal.loan.create');
+Route::post('/chama/loan/store', 'Personal\AccountController@loanStore')->name('personal.loan.store');
+Route::get('/chama/loan/show/{loan_id}', 'Personal\AccountController@loanShow')->name('personal.loan.show');
+
+Route::get('/chama/loan/payment/create/{loan_id}', 'Personal\AccountController@loanPaymentCreate')->name('personal.loan.payment.create');
+
+Route::get('/chama/loan/edit/{loan_id}', 'Personal\AccountController@loanEdit')->name('personal.loan.edit');
+Route::post('/chama/loan/update/{loan_id}', 'Personal\AccountController@loanUpdate')->name('personal.loan.update');
+Route::get('/chama/loan/delete/{loan_id}', 'Personal\AccountController@loanDelete')->name('personal.loan.delete');
+Route::get('/chama/loan/restore/{loan_id}', 'Personal\AccountController@loanRestore')->name('personal.loan.restore');
+
+// transfers
+Route::get('/chama/transfers', 'Personal\AccountController@transfers')->name('personal.transfers');
+Route::get('/chama/transfer/create', 'Personal\AccountController@transferCreate')->name('personal.transfer.create');
+Route::post('/chama/transfer/store', 'Personal\AccountController@transferStore')->name('personal.transfer.store');
+Route::get('/chama/transfer/show/{transfer_id}', 'Personal\AccountController@transferShow')->name('personal.transfer.show');
+
+Route::get('/chama/transfer/expense/create/{transfer_id}', 'Personal\AccountController@transferExpenseCreate')->name('personal.transfer.expense.create');
+
+Route::get('/chama/transfer/edit/{transfer_id}', 'Personal\AccountController@transferEdit')->name('personal.transfer.edit');
+Route::post('/chama/transfer/update/{transfer_id}', 'Personal\AccountController@transferUpdate')->name('personal.transfer.update');
+Route::get('/chama/transfer/delete/{transfer_id}', 'Personal\AccountController@transferDelete')->name('personal.transfer.delete');
+Route::get('/chama/transfer/restore/{transfer_id}', 'Personal\AccountController@transferRestore')->name('personal.transfer.restore');

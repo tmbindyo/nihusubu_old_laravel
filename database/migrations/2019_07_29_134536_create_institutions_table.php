@@ -36,6 +36,8 @@ class CreateInstitutionsTable extends Migration
             $table->uuid('timezone_id')->nullable();
             $table->uuid('primary_contact_id')->nullable();
 
+            $table->boolean('is_active');
+
             $table->timestamps();
             $table->softDeletes();
         });

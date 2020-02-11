@@ -36,6 +36,7 @@ class AuthController extends Controller
 
     public function businessAdd()
     {
-        return view('auth.create_new_account');
+        $plans = Plan::where('plan_type_id','7dd05c3c-7526-498b-9fbb-d0c766a678ac')->get();
+        return view('auth.create_new_account',compact('plans'));
     }
 }

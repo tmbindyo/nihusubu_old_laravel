@@ -124,6 +124,7 @@ class RegisterController extends Controller
         $institution->phone_number = $request->business_phone_number;
         $institution->user_id = $user->id;
         $institution->plan_id = $request->plan;
+        $institution->is_active = True;
         $institution->currency_id = "0839e6c9-20b3-4442-b3b6-5137a4d309ec";
         $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $institution->save();

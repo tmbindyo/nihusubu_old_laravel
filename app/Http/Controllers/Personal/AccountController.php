@@ -83,14 +83,8 @@ class AccountController extends Controller
         // User
         $user = $this->getUser();
         // get account
-        $account = Account::where('id',$account_id)->where('is_user',True)->where('user_id',$user->id)->with('status','user','loans','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions')->first();
-        $goal = $account->goal;
-        $balance = $account->balance;
-        if ($balance == 0){
-            $percentage = 0;
-        }else{
-            $percentage = doubleval($goal)/$balance/100;
-        }
+        $accountExists = Account::findOrFail($account_id);
+        $account = Account::where('id',$account_id)->where('is_user',True)->where('user_id',$user->id)->with('status','user','loans','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions','income_debits.income','income_debits.account')->first();
 
         // Pending to dos
         $pendingToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','account')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('account_id',$account->id)->get();
@@ -101,7 +95,7 @@ class AccountController extends Controller
         // Overdue to dos
         $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','account')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('account_id',$account->id)->get();
 
-        return view('personal.account_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','account','user','percentage'));
+        return view('personal.account_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','account','user'));
     }
 
     public function accountDepositCreate($account_id)

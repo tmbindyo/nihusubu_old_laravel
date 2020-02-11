@@ -34,6 +34,14 @@ class Account extends Model
     {
         return $this->hasMany('App\Transfer','destination_account_id','id');
     }
+    public function incomes()
+    {
+        return $this->hasMany('App\Income');
+    }
+    public function income_debits()
+    {
+        return $this->hasMany('App\IncomeDebit');
+    }
     public function liabilities()
     {
         return $this->hasMany('App\Liability');

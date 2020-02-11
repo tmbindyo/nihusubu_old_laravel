@@ -107,7 +107,7 @@ class HomeController extends Controller
     {
         // User
         $user = Auth::user();
-        // get user accounts
+        // deactivate user accounts
         $userAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => False]);
         // redirect to account selection
         return redirect()->route('view.user.accounts');
@@ -130,6 +130,7 @@ class HomeController extends Controller
         $institution->phone_number = $request->business_phone_number;
         $institution->plan_id = $request->plan;
         $institution->user_id = $user->id;
+        $institution->is_active = True;
         $institution->currency_id = "0839e6c9-20b3-4442-b3b6-5137a4d309ec";
         $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $institution->save();
@@ -328,11 +329,14 @@ class HomeController extends Controller
 
     private function titlesSeeder($request, $user, $institution){
 
+
         $titles = new Title();
         $titles->name = 'Mr';
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
+        $titles->is_institution = True;
+        $titles->is_user = False;
         $titles->save();
 
         $titles = new Title();
@@ -340,6 +344,8 @@ class HomeController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
+        $titles->is_institution = True;
+        $titles->is_user = False;
         $titles->save();
 
         $titles = new Title();
@@ -347,6 +353,8 @@ class HomeController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
+        $titles->is_institution = True;
+        $titles->is_user = False;
         $titles->save();
 
         $titles = new Title();
@@ -354,6 +362,8 @@ class HomeController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
+        $titles->is_institution = True;
+        $titles->is_user = False;
         $titles->save();
 
         $titles = new Title();
@@ -361,6 +371,8 @@ class HomeController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
+        $titles->is_institution = True;
+        $titles->is_user = False;
         $titles->save();
 
     }
@@ -371,21 +383,27 @@ class HomeController extends Controller
         $contactType->name = 'Client';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $contactType->institution_id = $institution->id;
+        $contactType->is_institution = True;
         $contactType->user_id = $user->id;
+        $contactType->is_user = False;
         $contactType->save();
 
         $contactType = new ContactType();
         $contactType->name = 'Partner';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $contactType->institution_id = $institution->id;
+        $contactType->is_institution = True;
         $contactType->user_id = $user->id;
+        $contactType->is_user = False;
         $contactType->save();
 
         $contactType = new ContactType();
         $contactType->name = 'Supplier';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $contactType->institution_id = $institution->id;
+        $contactType->is_institution = True;
         $contactType->user_id = $user->id;
+        $contactType->is_user = False;
         $contactType->save();
 
     }
@@ -2411,7 +2429,7 @@ class HomeController extends Controller
         $userAccount->user_id = $user->id;
         $userAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $userAccount->is_institution = false;
-        $userAccount->is_active = false;
+        $userAccount->is_active = true;
         $userAccount->is_user = true;
         $userAccount->is_admin = false;
         $userAccount->user_type_id = '5f29e668-9029-4278-a5e7-9ba9f96a20df';

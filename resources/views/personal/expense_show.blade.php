@@ -177,9 +177,45 @@
 
                         </span>
                         <div class="m-t-sm">
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-mail-forward"></i> Send</a>
-                                <a href="#" class="btn btn-danger btn-sm"> Cancel</a>
+                            <div class="">
+                                <h4>Expense description</h4>
+                                <p class="small">
+                                    {{$expense->notes}}
+                                </p>
+                                <p class="small font-bold">
+                                    @if($expense->is_recurring == 1)
+                                    <span><i class="fa fa-circle text-warning"></i>
+                                        Recurring
+                                    </span>
+                                    @endif
+                                </p>
+                                <h5>Relationship</h5>
+                                <ul class="tag-list" style="padding: 0">
+                                    @if($expense->is_order == 1)
+                                        <li><a href="{{route('personal.order.show',$expense->order->id)}}"><i class="fa fa-shopping-cart"></i> {{$expense->order->order_number}}</a></li>
+                                    @endif
+                                    @if($expense->is_project == 1)
+                                        <li><a href="{{route('personal.project.show',$expense->project->id)}}"><i class="fa fa-trello"></i> {{$expense->project->name}}</a></li>
+                                    @endif
+                                    @if($expense->is_design == 1)
+                                        <li><a href="{{route('personal.design.show',$expense->design->id)}}"><i class="fa fa-paint-brush"></i> {{$expense->design->name}}</a></li>
+                                    @endif
+                                    @if($expense->is_transfer == 1 )
+                                        <li><a href="{{route('personal.transfer.show',$expense->transfer->id)}}"><i class="fa fa-share"></i> {{$expense->transfer->reference}}</a></li>
+                                    @endif
+                                    @if($expense->is_campaign == 1 )
+                                        <li><a href="{{route('personal.campaign.show',$expense->campaign->id)}}"><i class="fa fa-share"></i> {{$expense->campaign->name}}</a></li>
+                                    @endif
+                                    @if($expense->is_asset == 1 )
+                                        <li><a href="{{route('personal.asset.show',$expense->asset->id)}}"><i class="fa fa-share"></i> {{$expense->asset->name}}</a></li>
+                                    @endif
+                                    @if($expense->is_liability == 1 )
+                                        <li><a href="{{route('personal.liability.show',$expense->liability->id)}}"><i class="fa fa-share"></i> {{$expense->liability->reference}}</a></li>
+                                    @endif
+                                    @if($expense->is_transaction == 1)
+                                        <li><a href="#"><i class="fa fa-dollar"></i> {{$expense->transaction->reference}}</a></li>
+                                    @endif
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -189,7 +225,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInUp">
                     <div class="ibox">
                         <div class="ibox-content">
@@ -352,48 +388,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="wrapper wrapper-content project-manager">
-                    <h4>Expense description</h4>
-                    <p class="small">
-                        {{$expense->notes}}
-                    </p>
-                    <p class="small font-bold">
-                        @if($expense->is_recurring == 1)
-                        <span><i class="fa fa-circle text-warning"></i>
-                            Recurring
-                        </span>
-                        @endif
-                    </p>
-                    <h5>Relationship</h5>
-                    <ul class="tag-list" style="padding: 0">
-                        @if($expense->is_order == 1)
-                            <li><a href="{{route('personal.order.show',$expense->order->id)}}"><i class="fa fa-shopping-cart"></i> {{$expense->order->order_number}}</a></li>
-                        @endif
-                        @if($expense->is_project == 1)
-                            <li><a href="{{route('personal.project.show',$expense->project->id)}}"><i class="fa fa-trello"></i> {{$expense->project->name}}</a></li>
-                        @endif
-                        @if($expense->is_design == 1)
-                            <li><a href="{{route('personal.design.show',$expense->design->id)}}"><i class="fa fa-paint-brush"></i> {{$expense->design->name}}</a></li>
-                        @endif
-                        @if($expense->is_transfer == 1 )
-                            <li><a href="{{route('personal.transfer.show',$expense->transfer->id)}}"><i class="fa fa-share"></i> {{$expense->transfer->reference}}</a></li>
-                        @endif
-                        @if($expense->is_campaign == 1 )
-                            <li><a href="{{route('personal.campaign.show',$expense->campaign->id)}}"><i class="fa fa-share"></i> {{$expense->campaign->name}}</a></li>
-                        @endif
-                        @if($expense->is_asset == 1 )
-                            <li><a href="{{route('personal.asset.show',$expense->asset->id)}}"><i class="fa fa-share"></i> {{$expense->asset->name}}</a></li>
-                        @endif
-                        @if($expense->is_liability == 1 )
-                            <li><a href="{{route('personal.liability.show',$expense->liability->id)}}"><i class="fa fa-share"></i> {{$expense->liability->reference}}</a></li>
-                        @endif
-                        @if($expense->is_transaction == 1)
-                            <li><a href="#"><i class="fa fa-dollar"></i> {{$expense->transaction->reference}}</a></li>
-                        @endif
-                    </ul>
                 </div>
             </div>
         </div>

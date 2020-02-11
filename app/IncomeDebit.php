@@ -6,23 +6,19 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Income extends Model
+class IncomeDebit extends Model
 {
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
-    // parents
+    // children
     public function account()
     {
         return $this->belongsTo('App\Account');
     }
-    public function income_type()
+    public function income()
     {
-        return $this->belongsTo('App\IncomeType');
-    }
-    public function frequency()
-    {
-        return $this->belongsTo('App\Frequency');
+        return $this->belongsTo('App\Income');
     }
     public function status()
     {
@@ -33,9 +29,4 @@ class Income extends Model
         return $this->belongsTo('App\User');
     }
 
-    // Children
-    public function income_debits()
-    {
-        return $this->hasMany('App\IncomeDebit');
-    }
 }

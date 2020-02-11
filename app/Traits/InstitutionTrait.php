@@ -15,20 +15,21 @@ trait InstitutionTrait
     public function getInstitution($portal)
     {
 
-        // get user
-        // check if active
-        // User
-        // $user = $this->getUser();
-        // $activeUserAccount = UserAccount::where('is_active',True)->where('user_id',$user->id)->first();
-        // if(!$activeUserAccount){
-        //     // if user account active
-        //     return redirect()->route('view.user.accounts');
-        // }
-
 
         // system defined user
         $institution = Institution::where('portal',$portal)->with('currency','address','plan')->first();
         if($institution){
+            // Get user
+            $userCheck = Auth::user();
+            // check if user has active account
+            $userActiveAccount = UserAccount::where('user_id',$userCheck->id)->where('is_active',True)->first();
+
+            if($userActiveAccount->is_institution != True){
+                // deactivate user accounts
+                $userAccounts = UserAccount::where('user_id',$userCheck->id)->update(['is_active' => False]);
+                Auth::logout();
+            }
+
             return $institution;
         }else{
             // logout user or redirect user

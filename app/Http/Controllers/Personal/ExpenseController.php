@@ -78,6 +78,8 @@ class ExpenseController extends Controller
         $liabilities = Liability::where('user_id',$user->id)->where('is_user',true)->get();
         // get frequencies
         $frequencies = Frequency::where('user_id',$user->id)->where('is_user',true)->get();
+        // accounts
+        $accounts = Account::where('user_id',$user->id)->where('is_user',true)->get();
 
         return view('personal.expense_create',compact('wealthCreationExpenseAccounts','transportExpenseAccounts','shoppingExpenseAccounts','noExpenseAccounts','loansExpenseAccounts','leisureExpenseAccounts','kidsExpenseAccounts','incomeExpenseAccounts','homeLivingExpenseAccounts','healthExpenseAccounts','foodExpenseAccounts','feesExpenseAccounts','cashExpenseAccounts','billExpenseAccounts','liabilities','user','frequencies','expenseAccounts','transfers','expenseStatuses'));
     }
