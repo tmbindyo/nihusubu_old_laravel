@@ -1,4 +1,0 @@
-
-Note:
-
-In template folder, you have seen zips-for-upload folder. Please create that folder into zip file and upload created zip in Freshmail.

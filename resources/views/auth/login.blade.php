@@ -115,7 +115,7 @@
     <div class="middle-box text-center loginscreen animated fadeInDown">
         <div>
             <div>
-                <h1 class="logo-name">N</h1>
+                <img style="height:150px;" src="{{ asset('logo_transparent.png') }}" />
             </div>
             <h3>Welcome to nihusubu</h3>
             <p>Login in.</p>

@@ -13,9 +13,9 @@
 */
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('/user/account/select/{account_id}', 'HomeController@selectUserAccount')->name('select.user.account');
 Route::get('/view/user/accounts', 'HomeController@viewUserAccounts')->name('view.user.accounts');
 Route::get('/activate/user/account/{account_id}', 'HomeController@activateUserAccount')->name('activate.user.account');

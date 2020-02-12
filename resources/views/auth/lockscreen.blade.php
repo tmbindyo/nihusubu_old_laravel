@@ -26,7 +26,7 @@
             <div class="m-b-md">
             <img alt="image" class="img-circle circle-border" src="https://s3.amazonaws.com/uifaces/faces/twitter/ok/128.jpg">
             </div>
-            <h3>John Smith</h3>
+            <h3>{{$user->name}}</h3>
             <p>Your are in lock screen. Main app was shut down and you need to select an account to access.</p>
             @foreach($userAccounts as $userAccount)
                 @if($userAccount->user_type->name == "Business")
