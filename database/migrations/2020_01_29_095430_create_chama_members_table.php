@@ -20,6 +20,7 @@ class CreateChamaMembersTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('member_id');
             $table->uuid('chama_id');
             $table->uuid('member_role_id');
 

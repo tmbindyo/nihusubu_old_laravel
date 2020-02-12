@@ -39,22 +39,37 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('personal.chama.accounts')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Accounts </a>
-                <a href="{{route('personal.chama.loans')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Loans </a>
-                <a href="{{route('personal.accounts')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Meetings </a>
-                <a href="{{route('personal.accounts')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Members </a>
-                <a href="{{route('personal.accounts')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Merry Go Round </a>
-                <a href="{{route('personal.accounts')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Penalties </a>
-                <a href="{{route('personal.accounts')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Shares </a>
-                <a href="{{route('personal.accounts')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Welfare </a>
             </div>
         </div>
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">
 
-        <div class="row m-b-lg m-t-lg">
-            <button class="btn btn-primary dim btn-large-dim" type="button"><i class="fa fa-money"></i></button>
+        <div class="row m-b-lg m-t-lg text-center">
+            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-money"> Accounts</i>
+            </a>
+            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-money"> Loans</i>
+            </a>
+            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-money"> Meetings</i>
+            </a>
+            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-money"> Members</i>
+            </a>
+            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-money"> Merry Go Round</i>
+            </a>
+            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-money"> Penalties</i>
+            </a>
+            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-money"> Shares</i>
+            </a>
+            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-money"> Welfare</i>
+            </a>
         </div>
         <div class="row m-b-lg m-t-lg">
             <div class="col-md-6">

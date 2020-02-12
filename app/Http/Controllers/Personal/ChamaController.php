@@ -281,29 +281,38 @@ class ChamaController extends Controller
 
 
 
-    public function chamaAccounts()
+    public function chamaAccounts($chama_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
+        return $chama;
+        //
+        $chama = Chama::where('chama_id',$chama_id)->first();
         // Get accounts
-        $accounts = Account::with('user','status')->where('is_chama',true)->get();
+        $accounts = Account::with('user','status')->where('is_chama',true)->where('chama_id',$chama->id)->get();
 
-        return view('personal.chama_accounts',compact('accounts','user'));
+        return view('personal.chama_accounts',compact('accounts','user','chama'));
     }
 
-    public function chamaAccountCreate()
+    public function chamaAccountCreate($chama_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
 
-        return view('personal.chama_account_create',compact('user'));
+        return view('personal.chama_account_create',compact('user','chama'));
     }
 
-    public function chamaAccountStore(Request $request)
+    public function chamaAccountStore(Request $request, $chama_id)
     {
 //        return $request;
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -323,10 +332,12 @@ class ChamaController extends Controller
         return redirect()->route('personal.account.show',$account->id)->withSuccess('Account '.$account->reference.' successfully created!');
     }
 
-    public function chamaAccountShow($account_id)
+    public function chamaAccountShow($chama_id, $account_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get account
         $account = Account::where('id',$account_id)->where('is_user',True)->where('user_id',$user->id)->with('status','user','loans','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions')->first();
         $goal = $account->goal;
@@ -346,58 +357,68 @@ class ChamaController extends Controller
         // Overdue to dos
         $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','account')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('account_id',$account->id)->get();
 
-        return view('personal.account_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','account','user','percentage'));
+        return view('personal.account_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','account','user','percentage','chama'));
     }
 
-    public function chamaAccountDepositCreate($account_id)
+    public function chamaAccountDepositCreate($chama_id, $account_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get account
         $account = Account::findOrFail($account_id);
         $account = Account::where('id',$account_id)->where('is_user',True)->where('user_id',$user->id)->first();
 
-        return view('personal.deposit_create',compact('account','user'));
+        return view('personal.deposit_create',compact('account','user','chama'));
     }
 
-    public function chamaAccountLiabilityCreate($account_id)
+    public function chamaAccountLiabilityCreate($chama_id, $account_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $account = Account::findOrFail($account_id);
         $account = Account::where('id',$account_id)->where('is_user',True)->where('user_id',$user->id)->first();
         // get contacts
         $contacts = Contact::with('organization')->where('is_user',True)->where('user_id',$user->id)->get();
-        return view('personal.account_liability_create',compact('user','account','contacts'));
+        return view('personal.account_liability_create',compact('user','account','contacts','chama'));
     }
 
-    public function chamaAccountLoanCreate($account_id)
+    public function chamaAccountLoanCreate($chama_id, $account_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $account = Account::findOrFail($account_id);
         $account = Account::where('id',$account_id)->where('is_user',True)->where('user_id',$user->id)->first();
         // get contacts
         $contacts = Contact::with('organization')->where('is_user',True)->where('user_id',$user->id)->get();
-        return view('personal.account_loan_create',compact('user','account','contacts'));
+        return view('personal.account_loan_create',compact('user','account','contacts','chama'));
     }
 
-    public function chamaAccountWithdrawalCreate($account_id)
+    public function chamaAccountWithdrawalCreate($chama_id, $account_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get account
         $account = Account::findOrFail($account_id);
         $account = Account::where('id',$account_id)->where('is_user',True)->where('user_id',$user->id)->first();
-        return view('personal.withdrawal_create',compact('account','user'));
+        return view('personal.withdrawal_create',compact('account','user','chama'));
     }
 
-    public function chamaAccountUpdate(Request $request, $account_id)
+    public function chamaAccountUpdate(Request $request, $chama_id, $account_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // select account type
         $accountExists = Account::findOrFail($account_id);
         $account = Account::where('id',$account_id)->where('is_user',True)->where('user_id',$user->id)->first();
@@ -411,10 +432,12 @@ class ChamaController extends Controller
         return redirect()->route('personal.account.show',$account->id)->withSuccess('Account '.$account->reference.' successfully updated!');
     }
 
-    public function chamaAccountDelete($account_id)
+    public function chamaAccountDelete($chama_id, $account_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // delete account
         $account = Account::findOrFail($account_id);
         $account->delete();
@@ -422,10 +445,12 @@ class ChamaController extends Controller
         return back()->withSuccess(__('Account '.$account->name.' successfully restored.'));
     }
 
-    public function chamaAccountRestore($account_id)
+    public function chamaAccountRestore($chama_id, $account_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $account = Account::withTrashed()->findOrFail($account_id);
         $account->restore();
@@ -433,26 +458,30 @@ class ChamaController extends Controller
         return back()->withSuccess(__('Account '.$account->name.' successfully restored.'));
     }
 
-    public function chamaAccountAdjustmentCreate($account_id)
+    public function chamaAccountAdjustmentCreate($chama_id, $account_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $accounts = Account::where('is_user',True)->get();
         // get account
         $accountExists = Account::findOrFail($account_id);
         $account = Account::where('id',$account_id)->where('is_user',True)->where('user_id',$user->id)->first();
 
-        return view('personal.account_adjustment_create',compact('account','user','accounts'));
+        return view('personal.account_adjustment_create',compact('account','user','accounts','chama'));
 
     }
 
-    public function chamaAccountAdjustmentStore(Request $request)
+    public function chamaAccountAdjustmentStore(Request $request, $chama_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // new transaction
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -499,26 +528,30 @@ class ChamaController extends Controller
 
     }
 
-    public function chamaAccountAdjustmentEdit()
+    public function chamaAccountAdjustmentEdit($chama_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // get accounts
         $accounts = Account::where('is_user',True)->where('user_id',$user->id)->get();
         // Get transactions
         $transactions = Transaction::with('user','status','source_account','destination_account','account','expense')->where('user_id',$user->id)->where('is_user',True)->get();
-        return view('personal.account_adjustment_create',compact('transactions','user','journalsStatusCount','transactions','accounts'));
+        return view('personal.account_adjustment_create',compact('transactions','user','journalsStatusCount','transactions','accounts','chama'));
 
     }
 
-    public function chamaAccountAdjustmentUpdate(Request $request)
+    public function chamaAccountAdjustmentUpdate(Request $request, $chama_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // new transaction
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -577,10 +610,12 @@ class ChamaController extends Controller
 
     }
 
-    public function chamaAccountAdjustmentDelete($account_adjustment_id)
+    public function chamaAccountAdjustmentDelete($chama_id, $account_adjustment_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // Check if exists
         $accountAdjustmentExists = AccountAdjustment::findOrFail($account_adjustment_id);
         // get adjustment account
@@ -597,10 +632,12 @@ class ChamaController extends Controller
         return back()->withSuccess(__('Account adjustment '.$accountAdjustment->reference.' successfully deleted.'));
     }
 
-    public function chamaAccountAdjustmentRestore($account_adjustment_id)
+    public function chamaAccountAdjustmentRestore($chama_id, $account_adjustment_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // Check if exists
         $accountAdjustmentExists = AccountAdjustment::findOrFail($account_adjustment_id);
         // get adjustment account
@@ -620,11 +657,13 @@ class ChamaController extends Controller
 
 
     // deposits
-    public function depositStore(Request $request)
+    public function chamaDepositStore(Request $request, $chama_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -656,12 +695,14 @@ class ChamaController extends Controller
         return redirect()->route('personal.deposit.show',$deposit->id)->withSuccess('Deposit updated!');
     }
 
-    public function depositShow($deposit_id)
+    public function chamaDepositShow($chama_id, $deposit_id)
     {
         // Check if action type exists
         $depositExists = Deposit::findOrFail($deposit_id);
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get deposit
         $deposit = Deposit::with('user','status','account','account_adjustments')->where('is_user',True)->where('user_id',$user->id)->where('id',$deposit_id)->first();
         // Pending to dos
@@ -673,14 +714,16 @@ class ChamaController extends Controller
         // Overdue to dos
         $overdueToDos = ToDo::where('is_user',True)->where('user_id',$user->id)->with('user','status','deposit')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('deposit_id',$deposit->id)->get();
 
-        return view('personal.deposit_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','deposit','user'));
+        return view('personal.deposit_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','deposit','user','chama'));
     }
 
-    public function depositAccountAdjustmentCreate($deposit_id)
+    public function chamaDepositAccountAdjustmentCreate($chama_id, $deposit_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $accounts = Account::where('is_user',True)->where('user_id',$user->id)->get();
         // get deposit
@@ -690,15 +733,17 @@ class ChamaController extends Controller
         $accountExists = Account::findOrFail($deposit->account_id);
         $account = Account::where('id',$deposit->account_id)->where('is_user',True)->where('user_id',$user->id)->first();
 
-        return view('personal.deposit_account_adjustment_create',compact('deposit','account','user','accounts'));
+        return view('personal.deposit_account_adjustment_create',compact('deposit','account','user','accounts','chama'));
 
     }
 
-    public function depositUpdate(Request $request, $deposit_id)
+    public function chamaDepositUpdate(Request $request, $chama_id, $deposit_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $deposit = Deposit::findOrFail($deposit_id);
         $deposit->about = $request->about;
@@ -733,8 +778,10 @@ class ChamaController extends Controller
     }
 
 
-    public function depositDelete($deposit_id)
+    public function chamaDepositDelete($chama_id, $deposit_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $deposit = Deposit::findOrFail($deposit_id);
         $deposit->delete();
@@ -742,8 +789,10 @@ class ChamaController extends Controller
         return back()->withSuccess(__('Deposit '.$deposit->name.' successfully deleted.'));
     }
 
-    public function depositRestore($deposit_id)
+    public function chamaDepositRestore($chama_id, $deposit_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $deposit = Deposit::withTrashed()->findOrFail($deposit_id);
         $deposit->restore();
@@ -753,11 +802,13 @@ class ChamaController extends Controller
 
 
     // withdrawals
-    public function withdrawalStore(Request $request)
+    public function chamaDithdrawalStore(Request $request, $chama_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -787,12 +838,14 @@ class ChamaController extends Controller
         return redirect()->route('personal.withdrawal.show',$withdrawal->id)->withSuccess('Withdrawal updated!');
     }
 
-    public function withdrawalShow($withdrawal_id)
+    public function chamaDithdrawalShow($chama_id, $withdrawal_id)
     {
         // Check if action type exists
         $withdrawalExists = Withdrawal::findOrFail($withdrawal_id);
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get withdrawal
         $withdrawal = Withdrawal::with('user','status','account','account_adjustments')->where('is_user',True)->where('user_id',$user->id)->where('id',$withdrawal_id)->first();
         // Pending to dos
@@ -804,14 +857,16 @@ class ChamaController extends Controller
         // Overdue to dos
         $overdueToDos = ToDo::where('is_user',True)->where('user_id',$user->id)->with('user','status','withdrawal')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('withdrawal_id',$withdrawal->id)->get();
 
-        return view('personal.withdrawal_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','withdrawal','user'));
+        return view('personal.withdrawal_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','withdrawal','user','chama'));
     }
 
-    public function withdrawalAccountAdjustmentCreate($withdrawal_id)
+    public function chamaDithdrawalAccountAdjustmentCreate($chama_id, $withdrawal_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $accounts = Account::where('is_user',True)->where('user_id',$user->id)->get();
         // get withdrawal
@@ -821,15 +876,17 @@ class ChamaController extends Controller
         $accountExists = Account::findOrFail($withdrawal->account_id);
         $account = Account::where('id',$withdrawal->account_id)->where('is_user',True)->where('user_id',$user->id)->first();
 
-        return view('personal.withdrawal_account_adjustment_create',compact('withdrawal','account','user','accounts'));
+        return view('personal.withdrawal_account_adjustment_create',compact('withdrawal','account','user','accounts','chama'));
 
     }
 
-    public function withdrawalUpdate(Request $request, $withdrawal_id)
+    public function chamaDithdrawalUpdate(Request $request, $chama_id, $withdrawal_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $withdrawal = Withdrawal::findOrFail($withdrawal_id);
         $withdrawal->about = $request->about;
@@ -863,8 +920,10 @@ class ChamaController extends Controller
         return redirect()->route('personal.withdrawal.show',$withdrawal_id)->withSuccess('Withdrawal '. $withdrawal->name .' updated!');
     }
 
-    public function withdrawalDelete($withdrawal_id)
+    public function chamaDithdrawalDelete($chama_id, $withdrawal_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $withdrawal = Withdrawal::findOrFail($withdrawal_id);
         $withdrawal->delete();
@@ -872,8 +931,10 @@ class ChamaController extends Controller
         return back()->withSuccess(__('Withdrawal '.$withdrawal->name.' successfully deleted.'));
     }
 
-    public function withdrawalRestore($withdrawal_id)
+    public function chamaDithdrawalRestore($chama_id, $withdrawal_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $withdrawal = Withdrawal::withTrashed()->findOrFail($withdrawal_id);
         $withdrawal->restore();
@@ -883,30 +944,38 @@ class ChamaController extends Controller
 
 
     //liabilities
-    public function liabilities()
+    public function chamaLiabilities($chama_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
+        // get liabilities
         $liabilities = Liability::with('user','status','account','account')->where('is_user',True)->where('user_id',$user->id)->get();
-        return view('personal.liabilities',compact('liabilities','user'));
+
+        return view('personal.liabilities',compact('liabilities','user','chama'));
     }
 
-    public function liabilityCreate()
+    public function chamaLiabilityCreate($chama_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $accounts = Account::where('is_user',True)->where('user_id',$user->id)->get();
         // get contacts
         $contacts = Contact::with('organization')->where('is_user',True)->where('user_id',$user->id)->get();
-        return view('personal.liability_create',compact('user','accounts','contacts'));
+        return view('personal.liability_create',compact('user','accounts','contacts','chama'));
     }
 
-    public function liabilityStore(Request $request)
+    public function chamaLiabilityStore(Request $request, $chama_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -949,12 +1018,14 @@ class ChamaController extends Controller
         return redirect()->route('personal.liability.show',$liability->id)->withSuccess('Liability created!');
     }
 
-    public function liabilityShow($liability_id)
+    public function chamaLiabilityShow($chama_id, $liability_id)
     {
         // Check if contact type exists
         $liabilityExists = Liability::findOrFail($liability_id);
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $accounts = Account::where('is_user',True)->where('user_id',$user->id)->get();
         // get contacts
@@ -970,14 +1041,16 @@ class ChamaController extends Controller
         // Overdue to dos
         $overdueToDos = ToDo::where('is_user',True)->where('user_id',$user->id)->with('user','status','liability')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('liability_id',$liability->id)->get();
 
-        return view('personal.liability_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','accounts','contacts','liability','user'));
+        return view('personal.liability_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','accounts','contacts','liability','user','chama'));
     }
 
     // TODO expense for liability
-    public function liabilityExpenseCreate($liability_id)
+    public function chamaLiabilityExpenseCreate($chama_id, $liability_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // expense accounts
         $expenseAccounts = ExpenseAccount::where('is_user',True)->where('user_id',$user->id)->get();
         // expense statuses
@@ -989,27 +1062,33 @@ class ChamaController extends Controller
         // get frequencies
         $frequencies = Frequency::where('is_user',True)->where('user_id',$user->id)->get();
 
-        return view('personal.liability_expense_create',compact('liability','campaigns','sales','user','frequencies','expenseAccounts','transfers','expenseStatuses'));
+        return view('personal.liability_expense_create',compact('liability','campaigns','sales','user','frequencies','expenseAccounts','transfers','expenseStatuses','chama'));
     }
 
-    public function liabilityUpdate(Request $request, $liability_id)
+    public function chamaLiabilityUpdate(Request $request, $chama_id, $liability_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $liability = Liability::findOrFail($liability_id);
 
         return back();
     }
 
-    public function liabilityDelete($liability_id)
+    public function chamaLiabilityDelete($chama_id, $liability_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $liability = Liability::findOrFail($liability_id);
         $liability->delete();
 
         return back()->withSuccess(__('Liability '.$liability->name.' successfully deleted.'));
     }
-    public function liabilityRestore($liability_id)
+    public function chamaLiabilityRestore($chama_id, $liability_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $liability = Liability::withTrashed()->findOrFail($liability_id);
         $liability->restore();
@@ -1019,30 +1098,37 @@ class ChamaController extends Controller
 
 
     // loans
-    public function loans()
+    public function chamaLoans($chama_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
+        // get loans
         $loans = Loan::with('user','status','account')->where('user_id',$user->id)->where('is_user',true)->get();
-        return view('personal.loans',compact('loans','user'));
+        return view('personal.loans',compact('loans','user','chama'));
     }
 
-    public function loanCreate()
+    public function chamaLoanCreate($chama_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $accounts = Account::where('user_id',$user->id)->where('is_user',True)->get();
         // get contacts
         $contacts = Contact::with('organization')->where('user_id',$user->id)->where('is_user',True)->get();
-        return view('personal.loan_create',compact('user','accounts','contacts'));
+        return view('personal.loan_create',compact('user','accounts','contacts','chama'));
     }
 
-    public function loanStore(Request $request)
+    public function chamaLoanStore(Request $request, $chama_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -1087,12 +1173,14 @@ class ChamaController extends Controller
         return redirect()->route('personal.loan.show',$loan->id)->withSuccess('Loan created!');
     }
 
-    public function loanShow($loan_id)
+    public function chamaLoanShow($chama_id, $loan_id)
     {
         // Check if contact type exists
         $loanExists = Loan::findOrFail($loan_id);
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $accounts = Account::where('user_id',$user->id)->where('is_user',True)->get();
         // get contacts
@@ -1107,38 +1195,46 @@ class ChamaController extends Controller
         $completedToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','loan')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('loan_id',$loan->id)->get();
         // Overdue to dos
         $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','loan')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('loan_id',$loan->id)->get();
-        return view('personal.loan_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','accounts','contacts','loan','user'));
+        return view('personal.loan_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','accounts','contacts','loan','user','chama'));
     }
 
-    public function loanPaymentCreate($loan_id)
+    public function chamaLoanPaymentCreate($chama_id, $loan_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $accounts = Account::where('user_id',$user->id)->where('is_user',True)->get();
         // loans
         $loan = Loan::findOrFail($loan_id);
-        return view('personal.loan_payment_create',compact('user','accounts','loan'));
+        return view('personal.loan_payment_create',compact('user','accounts','loan','chama'));
     }
 
-    public function loanUpdate(Request $request, $loan_id)
+    public function chamaLoanUpdate(Request $request, $chama_id, $loan_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $loan = Loan::findOrFail($loan_id);
         return back();
 
     }
 
-    public function loanDelete($loan_id)
+    public function chamaLoanDelete($chama_id, $loan_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $loan = Loan::findOrFail($loan_id);
         $loan->delete();
 
         return back()->withSuccess(__('Loan '.$loan->name.' successfully deleted.'));
     }
-    public function loanRestore($loan_id)
+    public function chamaLoanRestore($chama_id, $loan_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $loan = Loan::withTrashed()->findOrFail($loan_id);
         $loan->restore();
@@ -1148,28 +1244,35 @@ class ChamaController extends Controller
 
 
     //transfers
-    public function transfers()
+    public function chamaTransfers($chama_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
+        // transfers
         $transfers = Transfer::with('user','status','source_account','destination_account')->where('user_id',$user->id)->where('is_user',true)->get();
-        return view('personal.transfers',compact('transfers','user'));
+        return view('personal.transfers',compact('transfers','user','chama'));
     }
 
-    public function transferCreate()
+    public function chamaTransferCreate($chama_id)
     {
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // get accounts
         $accounts = Account::where('user_id',$user->id)->where('is_user',true)->get();
-        return view('personal.transfer_create',compact('user','accounts'));
+        return view('personal.transfer_create',compact('user','accounts','chama'));
     }
 
-    public function transferStore(Request $request)
+    public function chamaTransferStore(Request $request, $chama_id)
     {
 
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         // generate reference
         $size = 5;
@@ -1216,12 +1319,14 @@ class ChamaController extends Controller
         return redirect()->route('personal.transfer.show',$transfer->id)->withSuccess('Transfer created!');
     }
 
-    public function transferShow($transfer_id)
+    public function chamaTransferShow($chama_id, $transfer_id)
     {
         // Check if contact type exists
         $transferExists = Transfer::findOrFail($transfer_id);
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // Get contact type
         $transfer = Transfer::with('user','status','source_account','destination_account','expenses')->where('user_id',$user->id)->where('is_user',True)->where('id',$transfer_id)->first();
         // Pending to dos
@@ -1233,26 +1338,30 @@ class ChamaController extends Controller
         // Overdue to dos
         $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','transfer')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('transfer_id',$transfer->id)->get();
 
-        return view('personal.transfer_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','transfer','user'));
+        return view('personal.transfer_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','transfer','user','chama'));
     }
 
-    public function transferExpenseCreate($transfer_id)
+    public function chamaTransferExpenseCreate($chama_id, $transfer_id)
     {
         // get transfer
         $transfer = Transfer::findOrFail($transfer_id);
         // User
         $user = $this->getUser();
+        // Chama
+        $chama = $this->getChama($chama_id);
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // expense statuses
         $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // expense accounts
         $expenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('is_user',True)->get();
-        return view('personal.transfer_expense_create',compact('transfer','user','journalsStatusCount','expenseStatuses','expenseAccounts'));
+        return view('personal.transfer_expense_create',compact('transfer','user','journalsStatusCount','expenseStatuses','expenseAccounts','chama'));
     }
 
-    public function transferUpdate(Request $request, $transfer_id)
+    public function chamaTransferUpdate(Request $request, $chama_id, $transfer_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $transfer = Transfer::findOrFail($transfer_id);
         // $transfer->name = $request->name;
@@ -1261,16 +1370,20 @@ class ChamaController extends Controller
         return back();
     }
 
-    public function transferDelete($transfer_id)
+    public function chamaTransferDelete($chama_id, $transfer_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $transfer = Transfer::findOrFail($transfer_id);
         $transfer->delete();
 
         return back()->withSuccess(__('Transfer '.$transfer->name.' successfully deleted.'));
     }
-    public function transferRestore($transfer_id)
+    public function chamaTransferRestore($chama_id, $transfer_id)
     {
+        // Chama
+        $chama = $this->getChama($chama_id);
 
         $transfer = Transfer::withTrashed()->findOrFail($transfer_id);
         $transfer->restore();
