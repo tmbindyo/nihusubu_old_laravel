@@ -44,7 +44,7 @@
         <div class="col-lg-2">
             <div class="title-action">
                 {{--  todo add item to composite products modal  --}}
-                <a href="#" data-toggle="modal" data-target="#compositeProductRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                {{--  <a href="#" data-toggle="modal" data-target="#compositeProductRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>  --}}
             </div>
         </div>
     </div>

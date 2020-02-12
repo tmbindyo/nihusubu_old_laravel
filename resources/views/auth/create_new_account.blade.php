@@ -23,7 +23,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div>
 
-                <h5 class="logo-name">N</h5>
+                <img style="height:150px;" src="{{ asset('logo_transparent.png') }}" />
 
             </div>
             <div class="ibox-content">

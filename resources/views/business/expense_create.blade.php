@@ -110,7 +110,7 @@
                                         <div class="col-md-8">
                                             {{--  expense account  --}}
                                             <div class="has-warning">
-                                                <select name="expense_account" class="select-2 form-control input-lg">
+                                                <select name="account" class="select-2 form-control input-lg">
                                                     <option selected disabled>Select Account</option>
                                                     @foreach($accounts as $account)
                                                         <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>

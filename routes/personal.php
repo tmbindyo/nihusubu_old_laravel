@@ -327,6 +327,14 @@ Route::get('/commitment/delete/{commitment_id}', 'Personal\SettingController@com
 
 
 // Chamas
+Route::get('/chamas', 'Personal\ChamaController@chamas')->name('personal.chamas');
+Route::get('/chama/create', 'Personal\ChamaController@chamaCreate')->name('personal.chama.create');
+Route::post('/chama/store', 'Personal\ChamaController@chamaStore')->name('personal.chama.store');
+Route::get('/chama/show/{chama_id}', 'Personal\ChamaController@chamaShow')->name('personal.chama.show');
+Route::post('/chama/update/{chama_id}', 'Personal\ChamaController@chamaUpdate')->name('personal.chama.update');
+Route::get('/chama/delete/{chama_id}', 'Personal\ChamaController@chamaDelete')->name('personal.chama.delete');
+Route::get('/chama/restore/{chama_id}', 'Personal\ChamaController@chamaRestore')->name('personal.chama.restore');
+
 // accounts
 Route::get('/chama/accounts', 'Personal\ChamaController@accounts')->name('personal.chama.accounts');
 Route::get('chama//account/create', 'Personal\ChamaController@accountCreate')->name('personal.chama.account.create');

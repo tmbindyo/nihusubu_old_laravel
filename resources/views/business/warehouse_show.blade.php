@@ -50,7 +50,7 @@
             <div class="ibox">
                 <div class="ibox-title">
                     <h5>Warehouse Update <small>Form</small></h5>
-                    
+
                 </div>
 
                 <div class="ibox-content">
@@ -314,10 +314,10 @@
                                                                     {{$inventoryAdjustment->inventory_adjustment_number}}
                                                                 </td>
                                                                 <td>
-                                                                    {{$inventoryAdjustment->date}}
+                                                                    {{$inventoryAdjustment->created_at}}
                                                                 </td>
                                                                 <td>
-                                                                    {{$inventoryAdjustment->reason}}
+                                                                    {{$inventoryAdjustment->reason->name}}
                                                                 </td>
                                                                 <td>
                                                                     {{$inventoryAdjustment->description}}

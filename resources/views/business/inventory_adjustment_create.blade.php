@@ -189,7 +189,7 @@
                                 <label>  </label>
                                 {{--  Description  --}}
                                 <div class="">
-                                    <textarea rows="5" id="description" name="description" class="form-control input-lg" placeholder="Description"></textarea>
+                                    <textarea rows="5" id="description" name="description" required class="form-control input-lg" placeholder="Description"></textarea>
                                     <i>Describe your product group.</i>
                                 </div>
 

@@ -177,6 +177,7 @@ class ExpenseController extends Controller
         $expense->user_id = $user->id;
         $expense->institution_id = $institution->id;
         $expense->status_id = $request->status;
+        $expense->account_id = $request->account;
         $expense->is_user = False;
         $expense->is_institution = True;
 
@@ -741,7 +742,7 @@ class ExpenseController extends Controller
         // loans
         $loans = Loan::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // sales
-        $sales = Sale::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $sales = Sale::where('institution_id',$institution->id)->get();
         return view('business.payment_create',compact('user','institution','accounts','loans','sales'));
     }
 

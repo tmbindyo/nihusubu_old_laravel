@@ -24,7 +24,7 @@
     <div class="middle-box text-center lockscreen animated fadeInDown">
         <div>
             <div class="m-b-md">
-            <img alt="image" class="img-circle circle-border" src="https://s3.amazonaws.com/uifaces/faces/twitter/ok/128.jpg">
+                <img style="height:150px;" src="{{ asset('logo_transparent.png') }}" />
             </div>
             <h3>John Smith</h3>
             <p>Your are in lock screen. Main app was shut down and you need to enter your passwor to go back to app.</p>

@@ -37,18 +37,22 @@ class ChamaController extends Controller
 
 
     // chamas
-    public function chamas($portal)
+    public function chamas()
     {
         // User
         $user = $this->getUser();
         // chama members
-        $userChamas = ChamaMember::where('user_id',$user->id)->select('id')->get()->toArray();
+        $userChamas = ChamaMember::where('user_id',$user->id)->select('chama_id')->get()->toArray();
+
+        // return $userChamas;
         // get chamas
         $chamas = Chama::whereIn('id',$userChamas)->with('user','status')->get();
+
+        // return $chamas;
         // get deleted chamas
         $deletedChamas = Chama::whereIn('id',$userChamas)->with('user','status')->onlyTrashed()->get();
 
-        return view('personal.chamas',compact('chamas','user','institution','chamas','deletedChamas'));
+        return view('personal.chamas',compact('chamas','user','chamas','deletedChamas'));
     }
 
     public function chamaCreate()
@@ -66,6 +70,9 @@ class ChamaController extends Controller
 
         $chama = new Chama();
         $chama->name = ($request->name);
+        $chama->description = ($request->description);
+        $chama->share_price = ($request->share_price);
+        $chama->interest = ($request->interest);
         $chama->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $chama->user_id = $user->id;
         $chama->save();
@@ -73,6 +80,14 @@ class ChamaController extends Controller
         // chama welfare types
         $walfareType = new WelfareType();
         $walfareType->name = "Funeral";
+        $walfareType->user_id = $user->id;
+        $walfareType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $walfareType->chama_id = $chama->id;
+        $walfareType->save();
+
+        // chama welfare types
+        $walfareType = new WelfareType();
+        $walfareType->name = "Wedding";
         $walfareType->user_id = $user->id;
         $walfareType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $walfareType->chama_id = $chama->id;
@@ -107,16 +122,31 @@ class ChamaController extends Controller
         $chamaMemberMemberRole->user_id = $user->id;
         $chamaMemberMemberRole->save();
 
+
         // add user as membber
         $chamaMember = new ChamaMember();
         $chamaMember->shares = 0;
         $chamaMember->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $chamaMember->member_role_id = $chamaMemberChairRole->id;
+
+        // Chama member type
+        if($request->member_role == "chair"){
+            // chair
+            $chamaMember->member_role_id = $chamaMemberChairRole->id;
+        }elseif($request->member_role == "tresurer"){
+            // tresurer
+            $chamaMember->member_role_id = $chamaMemberTreasurerRole->id;
+        }elseif($request->member_role == "secretary"){
+            // secretary
+            $chamaMember->member_role_id = $chamaMemberSecretaryRole->id;
+        }elseif($request->member_role == "member"){
+            // member
+            $chamaMember->member_role_id = $chamaMemberMemberRole->id;
+        }
+
         $chamaMember->user_id = $user->id;
         $chamaMember->chama_id = $chama->id;
         $chamaMember->save();
 
-        
         return redirect()->route('personal.chama.show',$chama->id)->withSuccess(__('Chama '.$chama->name.' successfully created.'));
     }
 
@@ -126,8 +156,8 @@ class ChamaController extends Controller
         $user = $this->getUser();
         // Check if chama exists
         $chamaExists = Chama::findOrFail($chama_id);
-        $chama = Chama::with('user','status','contacts')->where('id',$chama_id)->withCount('chama_members')->first();
-        return view('personal.chama_show',compact('chama','user','institution'));
+        $chama = Chama::with('user','status','chama_members')->where('id',$chama_id)->withCount('chama_members')->first();
+        return view('personal.chama_show',compact('chama','user'));
     }
 
     public function chamaUpdate(Request $request, $chama_id)
@@ -251,25 +281,25 @@ class ChamaController extends Controller
 
 
 
-    public function accounts()
+    public function chamaAccounts()
     {
         // User
         $user = $this->getUser();
         // Get accounts
-        $accounts = Account::with('user','status')->where('user_id',$user->id)->where('is_user',true)->get();
+        $accounts = Account::with('user','status')->where('is_chama',true)->get();
 
-        return view('personal.accounts',compact('accounts','user'));
+        return view('personal.chama_accounts',compact('accounts','user'));
     }
 
-    public function accountCreate()
+    public function chamaAccountCreate()
     {
         // User
         $user = $this->getUser();
 
-        return view('personal.account_create',compact('user'));
+        return view('personal.chama_account_create',compact('user'));
     }
 
-    public function accountStore(Request $request)
+    public function chamaAccountStore(Request $request)
     {
 //        return $request;
         // User
@@ -293,7 +323,7 @@ class ChamaController extends Controller
         return redirect()->route('personal.account.show',$account->id)->withSuccess('Account '.$account->reference.' successfully created!');
     }
 
-    public function accountShow($account_id)
+    public function chamaAccountShow($account_id)
     {
         // User
         $user = $this->getUser();
@@ -319,7 +349,7 @@ class ChamaController extends Controller
         return view('personal.account_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','account','user','percentage'));
     }
 
-    public function accountDepositCreate($account_id)
+    public function chamaAccountDepositCreate($account_id)
     {
         // User
         $user = $this->getUser();
@@ -330,7 +360,7 @@ class ChamaController extends Controller
         return view('personal.deposit_create',compact('account','user'));
     }
 
-    public function accountLiabilityCreate($account_id)
+    public function chamaAccountLiabilityCreate($account_id)
     {
         // User
         $user = $this->getUser();
@@ -342,7 +372,7 @@ class ChamaController extends Controller
         return view('personal.account_liability_create',compact('user','account','contacts'));
     }
 
-    public function accountLoanCreate($account_id)
+    public function chamaAccountLoanCreate($account_id)
     {
         // User
         $user = $this->getUser();
@@ -354,7 +384,7 @@ class ChamaController extends Controller
         return view('personal.account_loan_create',compact('user','account','contacts'));
     }
 
-    public function accountWithdrawalCreate($account_id)
+    public function chamaAccountWithdrawalCreate($account_id)
     {
         // User
         $user = $this->getUser();
@@ -364,7 +394,7 @@ class ChamaController extends Controller
         return view('personal.withdrawal_create',compact('account','user'));
     }
 
-    public function accountUpdate(Request $request, $account_id)
+    public function chamaAccountUpdate(Request $request, $account_id)
     {
         // User
         $user = $this->getUser();
@@ -381,7 +411,7 @@ class ChamaController extends Controller
         return redirect()->route('personal.account.show',$account->id)->withSuccess('Account '.$account->reference.' successfully updated!');
     }
 
-    public function accountDelete($account_id)
+    public function chamaAccountDelete($account_id)
     {
         // User
         $user = $this->getUser();
@@ -392,7 +422,7 @@ class ChamaController extends Controller
         return back()->withSuccess(__('Account '.$account->name.' successfully restored.'));
     }
 
-    public function accountRestore($account_id)
+    public function chamaAccountRestore($account_id)
     {
         // User
         $user = $this->getUser();
@@ -403,7 +433,7 @@ class ChamaController extends Controller
         return back()->withSuccess(__('Account '.$account->name.' successfully restored.'));
     }
 
-    public function accountAdjustmentCreate($account_id)
+    public function chamaAccountAdjustmentCreate($account_id)
     {
 
         // User
@@ -418,7 +448,7 @@ class ChamaController extends Controller
 
     }
 
-    public function accountAdjustmentStore(Request $request)
+    public function chamaAccountAdjustmentStore(Request $request)
     {
 
         // User
@@ -469,7 +499,7 @@ class ChamaController extends Controller
 
     }
 
-    public function accountAdjustmentEdit()
+    public function chamaAccountAdjustmentEdit()
     {
 
         // User
@@ -484,7 +514,7 @@ class ChamaController extends Controller
 
     }
 
-    public function accountAdjustmentUpdate(Request $request)
+    public function chamaAccountAdjustmentUpdate(Request $request)
     {
 
         // User
@@ -547,7 +577,7 @@ class ChamaController extends Controller
 
     }
 
-    public function accountAdjustmentDelete($account_adjustment_id)
+    public function chamaAccountAdjustmentDelete($account_adjustment_id)
     {
         // User
         $user = $this->getUser();
@@ -567,7 +597,7 @@ class ChamaController extends Controller
         return back()->withSuccess(__('Account adjustment '.$accountAdjustment->reference.' successfully deleted.'));
     }
 
-    public function accountAdjustmentRestore($account_adjustment_id)
+    public function chamaAccountAdjustmentRestore($account_adjustment_id)
     {
         // User
         $user = $this->getUser();

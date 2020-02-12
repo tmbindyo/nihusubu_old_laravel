@@ -94,6 +94,7 @@ class InventoryController extends Controller
 
         foreach ($request->item_details as $itemDetail){
 
+            // return $itemDetail['new_on_hand'];
             // Check if product exists
             $product = Product::findOrFail($itemDetail['details']);
 
@@ -112,13 +113,15 @@ class InventoryController extends Controller
             if ($request->mode_of_adjustment == "quantity"){
                 // Quantity adjustment
                 // Adjust inventory
+                // return $itemDetail['new_on_hand'];
                 $inventory = Inventory::where('product_id',$product->id)->where('warehouse_id',$request->warehouse)->first();
-                $inventory->quantity = $itemDetail['new_on_hand'];
+                $inventories = Inventory::all();
+                // return $inventories;
+                $inventory->quantity = doubleval($itemDetail['new_on_hand']);
                 $inventory->save();
             }elseif ($request->mode_of_adjustment == "value"){
 
             }
-
 
             // Value adjustment
         }
@@ -217,10 +220,10 @@ class InventoryController extends Controller
         foreach ($request->item_details as $transfer){
 
             $sourceWarehouse = Inventory::where('warehouse_id', $request->source_warehouse)->where('product_id', $transfer['product_id'])->first();
-            
-            
+
+
             $destinationWarehouse = Inventory::where('warehouse_id', $request->destination_warehouse)->where('product_id', $transfer['product_id'])->first();
-            
+
 
             $transferOrderProduct = new TransferOrderProduct();
             $transferOrderProduct->source_warehouse_initial_amount = $sourceWarehouse->quantity;

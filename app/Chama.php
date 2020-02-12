@@ -20,4 +20,10 @@ class Chama extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    // Children
+    public function chama_members()
+    {
+        return $this->hasMany('App\ChamaMember');
+    }
 }

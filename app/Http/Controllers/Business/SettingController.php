@@ -36,6 +36,7 @@ class SettingController extends Controller
 
         return view('business.organization.profile',compact('user','institution'));
     }
+
     public function openingBalances($portal)
     {
         // User
@@ -326,27 +327,27 @@ class SettingController extends Controller
         return redirect()->route('business.frequency.show',['portal'=>$institution->portal,'id'=>$frequency->id])->withSuccess('Frequency created!');
     }
 
-    public function frequencyShow($portal, $Frequency_id)
+    public function frequencyShow($portal, $frequency_id)
     {
         // Check if frequency exists
-        $frequencyExists = Frequency::findOrFail($Frequency_id);
+        $frequencyExists = Frequency::findOrFail($frequency_id);
         // User
         $user = $this->getUser();
         // Get institution
         $institution = $this->getInstitution($portal);
         // Get frequency
-        $frequency = Frequency::with('user','expenses')->where('institution_id',$institution->id)->where('is_institution',true)->where('id',$Frequency_id)->withCount('expenses')->first();
+        $frequency = Frequency::with('user','expenses')->where('institution_id',$institution->id)->where('is_institution',true)->where('id',$frequency_id)->withCount('expenses')->first();
         return view('business.frequency_show',compact('frequency','user','institution'));
     }
 
-    public function frequencyUpdate(Request $request, $portal, $Frequency_id)
+    public function frequencyUpdate(Request $request, $portal, $frequency_id)
     {
         // User
         $user = $this->getUser();
         // Get institution
         $institution = $this->getInstitution($portal);
 
-        $frequency = Frequency::findOrFail($Frequency_id);
+        $frequency = Frequency::findOrFail($frequency_id);
         $frequency->name = $request->name;
         $frequency->type = $request->type;
         $frequency->frequency = $request->frequency;
@@ -356,18 +357,18 @@ class SettingController extends Controller
         return redirect()->route('business.frequency.show',['portal'=>$institution->portal,'id'=>$frequency->id])->withSuccess('Frequency updated!');
     }
 
-    public function frequencyDelete($portal, $Frequency_id)
+    public function frequencyDelete($portal, $frequency_id)
     {
 
-        $frequency = Frequency::findOrFail($Frequency_id);
+        $frequency = Frequency::findOrFail($frequency_id);
         $frequency->delete();
 
         return back()->withSuccess(__('Frequeny '.$frequency->name.' successfully deleted.'));
     }
-    public function frequencyRestore($portal, $Frequency_id)
+    public function frequencyRestore($portal, $frequency_id)
     {
 
-        $frequency = Frequency::withTrashed()->findOrFail($Frequency_id);
+        $frequency = Frequency::withTrashed()->findOrFail($frequency_id);
         $frequency->restore();
 
         return back()->withSuccess(__('Frequeny '.$frequency->name.' successfully restored.'));

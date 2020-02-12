@@ -6,6 +6,7 @@ use App\AccountType;
 use App\Budget;
 use App\Expense;
 use App\ExpenseAccount;
+use App\Frequency;
 use App\Title;
 use App\Traits\UserTrait;
 use Illuminate\Http\Request;
@@ -188,6 +189,89 @@ class SettingController extends Controller
         $expenseAccount->restore();
 
         return back()->withSuccess(__('Expense account '.$expenseAccount->name.' successfully restored.'));
+    }
+
+
+
+
+    // frequency
+    public function Frequencies()
+    {
+        // User
+        $user = $this->getUser();
+        // get frequencies
+        $frequencies = Frequency::with('user')->where('user_id',$user->id)->where('is_user',true)->get();
+        // get deleted frequencies
+        $deletedFrequencies = Frequency::with('user')->where('user_id',$user->id)->where('is_user',true)->onlyTrashed()->get();
+        return view('personal.frequencies',compact('frequencies','user','deletedFrequencies'));
+    }
+
+    public function frequencyCreate()
+    {
+        // User
+        $user = $this->getUser();
+        return view('personal.frequency_create',compact('user'));
+    }
+
+    public function frequencyStore(Request $request)
+    {
+        // User
+        $user = $this->getUser();
+
+        $frequency = new Frequency();
+        $frequency->name = $request->name;
+        $frequency->type = $request->type;
+        $frequency->frequency = $request->frequency;
+        $frequency->user_id = $user->id;
+        $frequency->is_institution = False;
+        $frequency->is_user = True;
+        $frequency->save();
+
+        return redirect()->route('personal.frequency.show',$frequency->id)->withSuccess('Frequency created!');
+    }
+
+    public function frequencyShow($frequency_id)
+    {
+        // Check if frequency exists
+        $frequencyExists = Frequency::findOrFail($frequency_id);
+        // User
+        $user = $this->getUser();
+        // Get frequency
+        $frequency = Frequency::with('user','expenses')->where('user_id',$user->id)->where('is_user',true)->where('id',$frequency_id)->withCount('expenses')->first();
+
+        return view('personal.frequency_show',compact('frequency','user'));
+    }
+
+    public function frequencyUpdate(Request $request, $frequency_id)
+    {
+        // User
+        $user = $this->getUser();
+
+        $frequency = Frequency::findOrFail($frequency_id);
+        $frequency->name = $request->name;
+        $frequency->type = $request->type;
+        $frequency->frequency = $request->frequency;
+        $frequency->user_id = $user->id;
+        $frequency->save();
+
+        return redirect()->route('personal.frequency.show',$frequency->id)->withSuccess('Frequency updated!');
+    }
+
+    public function frequencyDelete($frequency_id)
+    {
+
+        $frequency = Frequency::findOrFail($frequency_id);
+        $frequency->delete();
+
+        return back()->withSuccess(__('Frequeny '.$frequency->name.' successfully deleted.'));
+    }
+    public function frequencyRestore($frequency_id)
+    {
+
+        $frequency = Frequency::withTrashed()->findOrFail($frequency_id);
+        $frequency->restore();
+
+        return back()->withSuccess(__('Frequeny '.$frequency->name.' successfully restored.'));
     }
 
 

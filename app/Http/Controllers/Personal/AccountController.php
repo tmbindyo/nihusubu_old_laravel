@@ -206,6 +206,14 @@ class AccountController extends Controller
         $size = 5;
         $reference = $this->getRandomString($size);
 
+        // check if all required fields have been provided
+        // $validatedInstitutionData = $request->validate([
+        //     'account' => ['required'],
+        //     'amount' => ['required', 'string', 'max:255'],
+        //     'adjustment_date' => ['required', 'string'],
+        //     'notes' => ['required', 'string', 'min:1'],
+        // ]);
+
         // get account
         $account = Account::where('id',$request->account)->where('is_user',True)->where('user_id',$user->id)->first();
         $accountAdjustment = new AccountAdjustment();

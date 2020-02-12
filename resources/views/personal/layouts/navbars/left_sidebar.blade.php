@@ -80,13 +80,23 @@
                 </ul>
             </li>
 
-            <li>
+
+            <li class="nav-item {{ Route::currentRouteNamed( 'personal.chamas' ) ?  'active' : '' }}">
+                <a href="{{ route('personal.chamas') }}"><i class="fa fa-sliders"></i> <span class="nav-label">Chamas </span></a>
+            </li>
+
+            {{--  <li>
                 <a href="#">
                     <i class="fa fa-sliders"></i>
                     <span class="nav-label">Chama</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.chamas' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.chamas')}}">
+                            Chamas
+                        </a>
+                    </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'personal.titles' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'personal.titles')}}">
                             Accounts
@@ -138,7 +148,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>  --}}
 
             <li>
                 <a href="#">
@@ -250,6 +260,11 @@
                     <li class="nav-item {{ Route::currentRouteNamed( 'personal.expense.accounts' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'personal.expense.accounts')}}">
                             Expense Accounts
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.frequencies' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.frequencies')}}">
+                            Frequency
                         </a>
                     </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'personal.titles' ) ?  'active' : '' }}">
