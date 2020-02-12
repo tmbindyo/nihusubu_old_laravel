@@ -344,7 +344,7 @@
                                             <strong>{{ $errors->first('plan') }}</strong>
                                         </span>
                                     @endif
-                                    <label>Currency *</label>
+                                    <label>Plan *</label>
                                     <select name="plan" id="plan" class="form-control input-lg {{ $errors->has('plan') ? ' is-invalid' : '' }} required">
                                         @foreach($plans as $plan)
                                             <option id="{{$plan->id}}">{{$plan->name}}[{{$plan->price}}]</option>

@@ -337,7 +337,7 @@ Route::get('/chama/restore/{chama_id}', 'Personal\ChamaController@chamaRestore')
 
 // accounts
 Route::get('/chama/accounts', 'Personal\ChamaController@accounts')->name('personal.chama.accounts');
-Route::get('chama//account/create', 'Personal\ChamaController@accountCreate')->name('personal.chama.account.create');
+Route::get('chama/account/create', 'Personal\ChamaController@accountCreate')->name('personal.chama.account.create');
 Route::post('/chama/account/store', 'Personal\ChamaController@accountStore')->name('personal.chama.account.store');
 Route::get('/chama/account/show/{account_id}', 'Personal\ChamaController@accountShow')->name('personal.chama.account.show');
 
@@ -395,17 +395,17 @@ Route::get('/chama/liability/restore/{liability_id}', 'Personal\AccountControlle
 
 
 // loans
-Route::get('/chama/loans', 'Personal\AccountController@loans')->name('personal.loans');
-Route::get('/chama/loan/create', 'Personal\AccountController@loanCreate')->name('personal.loan.create');
-Route::post('/chama/loan/store', 'Personal\AccountController@loanStore')->name('personal.loan.store');
-Route::get('/chama/loan/show/{loan_id}', 'Personal\AccountController@loanShow')->name('personal.loan.show');
+Route::get('/chama/loans', 'Personal\AccountController@loans')->name('personal.chama.loans');
+Route::get('/chama/loan/create', 'Personal\AccountController@loanCreate')->name('personal.chama.loan.create');
+Route::post('/chama/loan/store', 'Personal\AccountController@loanStore')->name('personal.chama.loan.store');
+Route::get('/chama/loan/show/{loan_id}', 'Personal\AccountController@loanShow')->name('personal.chama.loan.show');
 
-Route::get('/chama/loan/payment/create/{loan_id}', 'Personal\AccountController@loanPaymentCreate')->name('personal.loan.payment.create');
+Route::get('/chama/loan/payment/create/{loan_id}', 'Personal\AccountController@loanPaymentCreate')->name('personal.chama.loan.payment.create');
 
-Route::get('/chama/loan/edit/{loan_id}', 'Personal\AccountController@loanEdit')->name('personal.loan.edit');
-Route::post('/chama/loan/update/{loan_id}', 'Personal\AccountController@loanUpdate')->name('personal.loan.update');
-Route::get('/chama/loan/delete/{loan_id}', 'Personal\AccountController@loanDelete')->name('personal.loan.delete');
-Route::get('/chama/loan/restore/{loan_id}', 'Personal\AccountController@loanRestore')->name('personal.loan.restore');
+Route::get('/chama/loan/edit/{loan_id}', 'Personal\AccountController@loanEdit')->name('personal.chama.loan.edit');
+Route::post('/chama/loan/update/{loan_id}', 'Personal\AccountController@loanUpdate')->name('personal.chama.loan.update');
+Route::get('/chama/loan/delete/{loan_id}', 'Personal\AccountController@loanDelete')->name('personal.chama.loan.delete');
+Route::get('/chama/loan/restore/{loan_id}', 'Personal\AccountController@loanRestore')->name('personal.chama.loan.restore');
 
 // transfers
 Route::get('/chama/transfers', 'Personal\AccountController@transfers')->name('personal.transfers');
