@@ -117,20 +117,7 @@ class RegisterController extends Controller
         ]);
 
         // create instiution
-        $institution = new Institution();
-        $institution->name = $request->business_name;
-        $institution->portal = $request->portal;
-        $institution->email = $request->business_email;
-        $institution->phone_number = $request->business_phone_number;
-        $institution->user_id = $user->id;
-        $institution->plan_id = $request->plan;
-        $institution->is_active = True;
-        $institution->currency_id = "0839e6c9-20b3-4442-b3b6-5137a4d309ec";
-        $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
-        $institution->save();
-
-        // subscription
-
+        $institution = $this->institutionSeeder($request, $user);
         // create units
         $institutionUnits = $this->unitSeeder($request, $user,$institution);
         // create taxes
@@ -156,9 +143,28 @@ class RegisterController extends Controller
         // create user account
         $userAccount = $this->userAccountSeeder($request, $user, $institution);
 
+
         // account creation
         auth()->login($user);
+        $user->sendEmailVerificationNotification();
+
         return redirect()->route('home');
+    }
+
+    private function institutionSeeder ($request, $user){
+
+        $institution = new Institution();
+        $institution->name = $request->business_name;
+        $institution->portal = $request->portal;
+        $institution->email = $request->business_email;
+        $institution->phone_number = $request->business_phone_number;
+        $institution->user_id = $user->id;
+        $institution->plan_id = $request->plan;
+        $institution->is_active = True;
+        $institution->currency_id = "0839e6c9-20b3-4442-b3b6-5137a4d309ec";
+        $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $institution->save();
+
     }
 
     private function unitSeeder ($request, $user, $institution){
@@ -1073,7 +1079,6 @@ class RegisterController extends Controller
         $userAccount->is_admin = false;
         $userAccount->institution_id = $institution->id;
         $userAccount->user_type_id = '07c99d10-8e09-4861-83df-fdd3700d7e48';
-
         $userAccount->save();
 
     }
@@ -1112,10 +1117,8 @@ class RegisterController extends Controller
 
         // account creation
         auth()->login($user);
-        return redirect()->route('home');
+        // return redirect()->route('home');
     }
-
-
 
     private function userAccountsSeeder($request, $user){
 

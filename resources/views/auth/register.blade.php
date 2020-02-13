@@ -159,7 +159,7 @@
                     Set up your organization profile
                 </h2>
 
-                <form id="form" action="{{ route('business.register.account') }}" method="post" class="wizard-big">
+                <form id="form" action="{{ route('business.store.account') }}" method="post" class="wizard-big">
                     @csrf
                     <h1>Account</h1>
                     <fieldset>

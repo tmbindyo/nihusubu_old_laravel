@@ -86,6 +86,7 @@ Route::get('/business/signup', 'Business\AuthController@businessSignup')->name('
 Route::get('/standard/signup', 'Business\AuthController@standardSignup')->name('standard.signup');
 Route::get('/professional/signup', 'Business\AuthController@professionalSignup')->name('professional.signup');
 Route::post('/business/register', 'Auth\RegisterController@createInstitution')->name('business.register.account');
+Route::post('/business/store', 'Business\AuthController@createInstitution')->name('business.store.account');
 Route::get('/business/add', 'Business\AuthController@businessAdd')->name('business.add');
 Route::post('/business/add/store', 'HomeController@addInstitution')->name('business.add.account');
 
