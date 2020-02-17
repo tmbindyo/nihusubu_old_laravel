@@ -324,7 +324,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     @if ($errors->has('currency'))
@@ -347,9 +347,7 @@
                                     @endif
                                     <label>Plan *</label>
                                     <select name="plan" id="plan" class="form-control input-lg {{ $errors->has('plan') ? ' is-invalid' : '' }} required">
-                                        @foreach($plans as $plan)
-                                            <option id="{{$plan->id}}">{{$plan->name}}[{{$plan->price}}]</option>
-                                        @endforeach
+                                        <option id="{{$plan->id}}">{{$plan->name}}[{{$plan->price}}]</option>
                                     </select>
                                 </div>
                             </div>
