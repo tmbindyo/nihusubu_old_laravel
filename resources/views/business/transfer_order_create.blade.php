@@ -309,9 +309,9 @@
     <script>
         $(document).ready(function() {
             // Set date
-            console.log('var');
+            {{-- console.log('var'); --}}
             var today = new Date();
-            console.log(today);
+            {{-- console.log(today); --}}
             var dd = today.getDate();
             var mm = today.getMonth();
             var yyyy = today.getFullYear();
@@ -326,9 +326,11 @@
             }
             var date_today = mm + '/' + dd + '/' + yyyy;
             var time_curr = h + ':' + m;
-            console.log(time_curr);
+            {{-- console.log(time_curr); --}}
             document.getElementById("date").value = date_today;
-
+            // Populating the products' details by working with the initial value of the warehouse selection
+            returnWarehouseDetails(document.getElementsByName("source_warehouse")[0])
+            destinationwarehouseSelected(document.getElementsByName("destination_warehouse")[0])
             // Set time
         });
 
