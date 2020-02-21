@@ -545,7 +545,7 @@
             $(selector).chosen(config[selector]);
         }
 
-        $("#ionrange_1").ionRangeSlider({
+        /*$("#ionrange_1").ionRangeSlider({
             min: 0,
             max: 5000,
             type: 'double',
@@ -625,7 +625,7 @@
                 'min':  20,
                 'max':  80
             }
-        });
+        });*/
 
 
     </script>

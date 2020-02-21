@@ -545,7 +545,7 @@
             $(selector).chosen(config[selector]);
         }
 
-        $("#ionrange_1").ionRangeSlider({
+        /*$("#ionrange_1").ionRangeSlider({
             min: 0,
             max: 5000,
             type: 'double',
@@ -625,7 +625,7 @@
                 'min':  20,
                 'max':  80
             }
-        });
+        });*/
 
 
     </script>
@@ -753,7 +753,7 @@
                 var secondCell = row.insertCell(1);
                 var thirdCell = row.insertCell(2);
                 var fourthCell = row.insertCell(3)
-                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select'"+
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select chosen-select'"+
                                         "name = 'item_details["+tableValueArrayIndex+"][product_id]'></select>";
                 secondCell.innerHTML = "<div class='row'>"+
                                         "<div class='col-md-6'>"+
@@ -777,6 +777,12 @@
                 fourthCell.setAttribute("style", "width: 1em;")
                 var selectElement = row.getElementsByClassName("items-select");
                 populateDropdownOptionsWithProducts(selectElement[0]);
+                $(".chosen-select").chosen(
+                    {allow_single_deselect:true},
+                    {disable_search_threshold:10},
+                    {no_results_text:'Oops, nothing found!'},
+                    {width:"95%"}
+                );
                 tableValueArrayIndex++;
             };
         };

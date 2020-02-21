@@ -401,7 +401,7 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='select form-control input-lg select-product'>"+
+        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='chosen-select form-control input-lg select-product'>"+
                                 "<option>Select Product</option>"+
                                 "@foreach($products as $product)"+
                                 "<option value='{{$product->id}}' data-product-unit-price='{{$product->selling_price}}'>{{$product->name}}</option>"+
@@ -412,6 +412,12 @@
         fourthCell.innerHTML = "<input type='number' class='form-control input-lg item-total-price' name = 'item_details["+tableValueArrayIndex+"][total_price]' value = '0'>";
         fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
         fifthCell.setAttribute("style", "width: 1em;");
+        $(".chosen-select").chosen(
+            {allow_single_deselect:true},
+            {disable_search_threshold:10},
+            {no_results_text:'Oops, nothing found!'},
+            {width:"95%"}
+        );
         tableValueArrayIndex++;
     };
     function removeSelectedRow (e) {
@@ -573,12 +579,12 @@
 
         $('.demo1').colorpicker();
 
-        var divStyle = $('.back-change')[0].style;
+        /*var divStyle = $('.back-change')[0].style;
         $('#demo_apidemo').colorpicker({
             color: divStyle.backgroundColor
         }).on('changeColor', function(ev) {
             divStyle.backgroundColor = ev.color.toHex();
-        });
+        });*/
 
         $('.clockpicker').clockpicker();
 
@@ -723,7 +729,7 @@
 
     $(".dial").knob();
 
-    $("#basic_slider").noUiSlider({
+    /*$("#basic_slider").noUiSlider({
         start: 40,
         behaviour: 'tap',
         connect: 'upper',
@@ -751,7 +757,7 @@
             'min':  20,
             'max':  80
         }
-    });
+    });*/
 
 
 </script>
