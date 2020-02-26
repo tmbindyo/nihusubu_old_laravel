@@ -190,7 +190,7 @@
                                 {{--  Description  --}}
                                 <div class="">
                                     <textarea rows="5" id="description" name="description" required class="form-control input-lg" placeholder="Description"></textarea>
-                                    <i>Describe your product group.</i>
+                                    <i>describe the purpose of the inventory adjustment</i>
                                 </div>
 
 
@@ -310,9 +310,9 @@
     <script>
         $(document).ready(function() {
             // Set date
-            console.log('var');
+            // console.log('var');
             var today = new Date();
-            console.log(today);
+            // console.log(today);
             var dd = today.getDate();
             var mm = today.getMonth();
             var yyyy = today.getFullYear();
@@ -327,9 +327,10 @@
             }
             var date_today = mm + '/' + dd + '/' + yyyy;
             var time_curr = h + ':' + m;
-            console.log(time_curr);
+            // console.log(time_curr);
             document.getElementById("date").value = date_today;
-
+            // Populating the products in the warehouse by working with the initial value of the warehouse selection
+            selectWarehouseToAdjust(document.getElementsByName("warehouse")[0])
             // Set time
         });
 
@@ -544,7 +545,7 @@
             $(selector).chosen(config[selector]);
         }
 
-        $("#ionrange_1").ionRangeSlider({
+        /*$("#ionrange_1").ionRangeSlider({
             min: 0,
             max: 5000,
             type: 'double',
@@ -624,7 +625,7 @@
                 'min':  20,
                 'max':  80
             }
-        });
+        });*/
 
 
     </script>

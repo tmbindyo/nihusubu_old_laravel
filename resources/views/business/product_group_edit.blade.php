@@ -371,7 +371,7 @@
                                     </td>
                                     <td style = "width: 50%">
                                         <div class="has-warning">
-                                            <input type="text" value="{{$productGroup->attribute_options}}" name="attribute_options[]" class="form-control input-lg" id="tag-input" required >
+                                            <input type="text" value="{{$productAttributes}}" name="attribute_options[]" class="form-control input-lg" id="tag-input" required >
                                             <i>attribute options</i>
                                         </div>
                                     </td>
@@ -401,8 +401,8 @@
                                 @foreach ($productGroup->products as $product)
                                     <tr class="gradeA">
                                         <td><input type = 'text' class = 'form-control input-md' name = products[{{$itemIndex}}][name] value = "{{$product->name}}"</td>
-                                        <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][opening_stock_value] value = "{{$product->opening_stock_value}}"></td>
                                         <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][opening_stock] value = "{{$product->opening_stock}}"></td>
+                                        <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][opening_stock_value] value = "{{$product->opening_stock_value}}"></td>
                                         <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][purchase_price] value = "{{$product->purchase_price}}"></td>
                                         <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][selling_price] value = "{{$product->selling_price}}"></td>
                                         <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][reorder_level] value = "{{$product->reorder_level}}"></td>
@@ -528,7 +528,7 @@
     {{--  Tag script  --}}
     <script>
         // https://github.com/jshjohnson/Choices
-        var productName = document.getElementById("product_name") // TODO: Look into adding an event listener for this
+        var productName = document.getElementById("product_name")
         var tagField = document.getElementById("tag-input");
         var tagsChoices = new Choices(tagField, {
             delimiter: ',',
@@ -561,13 +561,15 @@
                 var fourth_cell = row.insertCell(3)
                 var fifth_cell = row.insertCell(4)
                 var sixth_cell = row.insertCell(5)
-                var seventh_cell = row.insertCell(6)
-                first_cell.innerHTML = "<input type = 'text' class = 'form-control input-md' name = products["+itemIndex+"][name] value = "+productName.value+"-"+tagItem.value+">"
+                // var seventh_cell = row.insertCell(6)
+                first_cell.innerHTML = "<input type = 'text' class = 'form-control input-md' name = products["+itemIndex+"][name] value = ''>"
                 second_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock] value = 0>"
                 third_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][opening_stock_value] value = 0>"
                 fourth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][purchase_price] value = 0>"
                 fifth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][selling_price] value = 0>"
                 sixth_cell.innerHTML = "<input type = 'number' class = 'form-control input-md' name = products["+itemIndex+"][reorder_level] value = 0>"
+                var fieldValue = (productName.value) + "-" + (tagItem.value)
+                document.getElementsByName("products["+itemIndex+"][name]")[0].value = fieldValue
             } else if (addItem === false) {
                 var row = tableBody.deleteRow(itemIndex)
             }
@@ -719,12 +721,12 @@
 
             $('.demo1').colorpicker();
 
-            var divStyle = $('.back-change')[0].style;
+            /*var divStyle = $('.back-change')[0].style;
             $('#demo_apidemo').colorpicker({
                 color: divStyle.backgroundColor
             }).on('changeColor', function(ev) {
                 divStyle.backgroundColor = ev.color.toHex();
-            });
+            });*/
 
             $('.clockpicker').clockpicker();
 
@@ -869,7 +871,7 @@
 
         $(".dial").knob();
 
-        $("#basic_slider").noUiSlider({
+       /* $("#basic_slider").noUiSlider({
             start: 40,
             behaviour: 'tap',
             connect: 'upper',
@@ -897,7 +899,7 @@
                 'min':  20,
                 'max':  80
             }
-        });
+        });*/
 
 
     </script>

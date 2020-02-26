@@ -95,11 +95,11 @@
                                         {{--  todo only one should be selectable  --}}
                                         <p>Product Type</p>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="goods" value="goods" name="product_type" checked="">
+                                            <input type="radio" id="goods" value="goods" name="product_type" checked="" onclick = "productTypeSelected(this)">
                                             <label for="goods"> Goods </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="services" value="services" name="product_type">
+                                            <input type="radio" id="services" value="services" name="product_type" onclick = "productTypeSelected(this)">
                                             <label for="services"> Service </label>
                                         </div>
                                         {{--  Name  --}}
@@ -283,8 +283,8 @@
                                 <hr>
 
                                 {{--  Inventory information  --}}
-                                <h3 class="text-center">INVENTORY INFORMATION</h3>
-                                <div class="row">
+                                <h3 class="text-center" name = "inventory_information_header">INVENTORY INFORMATION</h3>
+                                <div class="row" name = "inventory_information_label">
                                     <div class="col-md-6">
                                         {{--  Inventory account  --}}
                                         <div class="row">
@@ -292,7 +292,7 @@
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
-                                                    <select name="inventory_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2">
+                                                    <select name="inventory_account" name="inventory_account" data-placeholder="Select Inventory Account" class="chosen-select inventory-account-chosen input-lg" style="width:100%;" tabindex="2">
                                                         <option value="" selected disabled>Select Inventory Account</option>
                                                         @foreach($stockAccounts as $account)
                                                             <option value="{{$account->id}}">{{$account->name}}</option>
@@ -312,14 +312,14 @@
                                     <div class="col-md-6">
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" name = "inventory_information">
                                     <div class="col-md-6">
                                         {{--  Opening stock  --}}
                                         <div class="row">
 
                                             <div class="col-md-11">
                                                 <label></label>
-                                                <input type="number" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg" placeholder="Opening Stock">
+                                                <input type="number" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg inventory" placeholder="Opening Stock">
                                                 <i>opening stock</i>
                                             </div>
                                             <div class="col-md-1">
@@ -336,7 +336,7 @@
 
                                             <div class="col-md-11">
                                                 <label></label>
-                                                <input type="number" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg" placeholder="Opening Stock Value">
+                                                <input type="number" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg inventory" placeholder="Opening Stock Value">
                                                 <i>opening stock value</i>
                                             </div>
                                             <div class="col-md-1">
@@ -347,14 +347,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" name = "inventory_information">
                                     <div class="col-md-6">
                                         {{--  Reorder Level  --}}
                                         <div class="row">
 
                                             <div class="col-md-11">
                                                 <label></label>
-                                                <input type="number" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg" placeholder="Reorder Level">
+                                                <input type="number" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg inventory" placeholder="Reorder Level">
                                                 <i>reorder level</i>
                                             </div>
                                             <div class="col-md-1">
@@ -466,6 +466,54 @@
             var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
             $('.click2edit').destroy();
         };
+    </script>
+
+    <script>
+        function productTypeSelected (e) {
+            if (e.value === "goods") {
+                // Getting the parent container
+                var invInformationSection = document.getElementsByName("inventory_information")
+                // Getting each element in the parent that's an input field
+                for (parent of invInformationSection){
+                    for (input of parent.getElementsByTagName("input")){
+                        // Removing the readonly attribute
+                        input.removeAttribute("readonly", true)
+                    }
+                }
+                // Enabling the select element
+                var invInformationSectionLabel = document.getElementsByName("inventory_account")[0]
+                invInformationSectionLabel.removeAttribute("disabled", true)
+                // Instance of chosen on the select element
+                $(".inventory-account-chosen").chosen(
+                    {allow_single_deselect:true},
+                    {disable_search_threshold:10},
+                    {no_results_text:'Oops, nothing found!'},
+                    {width:"95%"}
+                );
+                // Changing the inventory information section heading
+                var inventoryHeading = document.getElementsByName("inventory_information_header")[0]
+                inventoryHeading.innerHTML = "INVENTORY INFORMATION"
+            } else if (e.value === "services") {
+                // Getting the parent container
+                var invInformationSection = document.getElementsByName("inventory_information")
+                // Getting each element in the parent that's an input field
+                for (parent of invInformationSection){
+                    for (inputElement of parent.getElementsByTagName("input")){
+                        // Setting each element to readonly
+                        inputElement.setAttribute("readonly", true)
+                    }
+                }
+                // Destroying the instance of chosen that was making it hard to disable the inventory account select element
+                $(".inventory-account-chosen").chosen("destroy");
+                // Disabling the select element
+                var invInformationSectionLabel = document.getElementsByName("inventory_account")[0]
+                invInformationSectionLabel.setAttribute("disabled", true)
+                // Changing the inventory information section heading
+                var inventoryHeading = document.getElementsByName("inventory_information_header")[0]
+                inventoryHeading.innerHTML = "INVENTORY INFORMATION (Not Applicable for a Service)"
+            }
+        }
+    
     </script>
 
     <script>

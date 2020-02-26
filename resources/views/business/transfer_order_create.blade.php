@@ -309,9 +309,9 @@
     <script>
         $(document).ready(function() {
             // Set date
-            console.log('var');
+            {{-- console.log('var'); --}}
             var today = new Date();
-            console.log(today);
+            {{-- console.log(today); --}}
             var dd = today.getDate();
             var mm = today.getMonth();
             var yyyy = today.getFullYear();
@@ -326,9 +326,11 @@
             }
             var date_today = mm + '/' + dd + '/' + yyyy;
             var time_curr = h + ':' + m;
-            console.log(time_curr);
+            {{-- console.log(time_curr); --}}
             document.getElementById("date").value = date_today;
-
+            // Populating the products' details by working with the initial value of the warehouse selection
+            returnWarehouseDetails(document.getElementsByName("source_warehouse")[0])
+            destinationwarehouseSelected(document.getElementsByName("destination_warehouse")[0])
             // Set time
         });
 
@@ -543,7 +545,7 @@
             $(selector).chosen(config[selector]);
         }
 
-        $("#ionrange_1").ionRangeSlider({
+        /*$("#ionrange_1").ionRangeSlider({
             min: 0,
             max: 5000,
             type: 'double',
@@ -623,7 +625,7 @@
                 'min':  20,
                 'max':  80
             }
-        });
+        });*/
 
 
     </script>
@@ -751,7 +753,7 @@
                 var secondCell = row.insertCell(1);
                 var thirdCell = row.insertCell(2);
                 var fourthCell = row.insertCell(3)
-                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select'"+
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select chosen-select'"+
                                         "name = 'item_details["+tableValueArrayIndex+"][product_id]'></select>";
                 secondCell.innerHTML = "<div class='row'>"+
                                         "<div class='col-md-6'>"+
@@ -775,6 +777,12 @@
                 fourthCell.setAttribute("style", "width: 1em;")
                 var selectElement = row.getElementsByClassName("items-select");
                 populateDropdownOptionsWithProducts(selectElement[0]);
+                $(".chosen-select").chosen(
+                    {allow_single_deselect:true},
+                    {disable_search_threshold:10},
+                    {no_results_text:'Oops, nothing found!'},
+                    {width:"95%"}
+                );
                 tableValueArrayIndex++;
             };
         };

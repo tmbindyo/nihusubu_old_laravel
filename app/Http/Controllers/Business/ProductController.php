@@ -295,7 +295,13 @@ class ProductController extends Controller
         $productGroup = ProductGroup::where('id',$product_group_id)->with('products','product_group_taxes')->first();
         // return $productGroup;
 
-        return view('business.product_group_edit',compact('user','institution','taxes','units','productGroup','salesAccounts','expenseAccounts','costOfGoodsSoldAccounts','stockAccounts'));
+        $productAttributes = array();
+        foreach ($productGroup->products as $product) {
+            array_push($productAttributes, explode("-", $product->name)[1]);
+        }
+        $productAttributes = implode(",", $productAttributes);
+
+        return view('business.product_group_edit',compact('user','institution','taxes','units','productGroup','salesAccounts','expenseAccounts','costOfGoodsSoldAccounts','stockAccounts','productAttributes'));
     }
 
     public function productGroupUpdate(Request $request, $portal, $product_group_id)
