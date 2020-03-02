@@ -1,6 +1,6 @@
 @extends('personal.layouts.app')
 
-@section('title', 'Deposit Create')
+@section('title', 'Withdrawal Show')
 
 @section('css')
 
@@ -49,29 +49,32 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-5">
-            <h2>Deposit's</h2>
+        <div class="col-lg-7">
+            <h2>Withdrawal's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('personal.calendar')}}">Home</a>
+                    <a href="{{route('personal.dashboard',)}}">Home</a>
                 </li>
                 <li>
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('personal.accounts')}}">Accounts</a>
+                    <a href="{{route('personal.chama.show',$chama->id)}}">Chama</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('personal.account.show',$deposit->account->id)}}">Account</a>
+                    <a href="{{route('personal.chama.accounts',$chama->id)}}">Accounts</a>
                 </li>
                 <li class="active">
-                    <strong>Deposit Create</strong>
+                    <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id,'account_id'=>$withdrawal->account_id])}}">Account</a>
+                </li>
+                <li class="active">
+                    <strong>Withdrawal Create</strong>
                 </li>
             </ol>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-5">
             <div class="title-action">
-                <a href="{{route('personal.deposit.account.adjustment.create',$deposit->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
+                <a href="{{route('personal.chama.withdrawal.account.adjustment.create',['chama_id'=>$chama->id,'withdrawal_id'=>$withdrawal->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
             </div>
         </div>
     </div>
@@ -81,7 +84,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Deposit Registration <small>Form</small></h5>
+                        <h5>Withdrawal Registration <small>Form</small></h5>
 
                     </div>
 
@@ -89,7 +92,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('personal.deposit.update',$deposit->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.withdrawal.update',$withdrawal->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -105,7 +108,7 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$deposit->amount}}" class="form-control input-lg" readonly>
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$withdrawal->amount}}" class="form-control input-lg" readonly>
                                         <i>amount</i>
                                     </div>
                                     <br>
@@ -114,7 +117,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" class="form-control input-lg" value="{{$deposit->date}}" readonly>
+                                            <input type="text" required="required" name="date" class="form-control input-lg" value="{{$withdrawal->date}}" readonly>
                                         </div>
                                         <i>What is the start date of the event?</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -122,14 +125,14 @@
                                     <br>
                                     <div class="has-warning" readonly>
                                         <select name="account" class="select2_demo_tag form-control input-lg">
-                                            <option value="{{$deposit->account->id}}">{{$deposit->account->name}} [{{$deposit->account->balance}}]</option>
+                                            <option value="{{$withdrawal->account->id}}">{{$withdrawal->account->name}} [{{$withdrawal->account->balance}}]</option>
                                         </select>
-                                        <i>account</i>
+                                        <i>type</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg" readonly>{{$deposit->about}}</textarea>
-                                        <i>about deposit</i>
+                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg" readonly>{{$withdrawal->about}}</textarea>
+                                        <i>about withdrawal</i>
                                     </div>
 
                                     <br>
@@ -160,7 +163,7 @@
                                     <div class="m-b-md">
                                     </div>
                                     <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$deposit->status->label}}">{{$deposit->status->name}}</span></dd>
+                                        <dt>Status:</dt> <dd><span class="label {{$withdrawal->status->label}}">{{$withdrawal->status->name}}</span></dd>
                                     </dl>
                                 </div>
                             </div>
@@ -168,14 +171,14 @@
                                 <div class="col-lg-5">
                                     <dl class="dl-horizontal">
 
-                                        <dt>Created by:</dt> <dd>{{$deposit->user->name}}</dd>
+                                        <dt>Created by:</dt> <dd>{{$withdrawal->user->name}}</dd>
                                     </dl>
                                 </div>
                                 <div class="col-lg-7" id="cluster_info">
                                     <dl class="dl-horizontal" >
 
-                                        <dt>Last Updated:</dt> <dd>{{$deposit->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$deposit->created_at}} </dd>
+                                        <dt>Last Updated:</dt> <dd>{{$withdrawal->updated_at}}</dd>
+                                        <dt>Created:</dt> <dd> {{$withdrawal->created_at}} </dd>
                                     </dl>
                                 </div>
                             </div>
@@ -185,7 +188,7 @@
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#account_adjustments" data-toggle="tab">Account Adjustments</a></li>
+                                            <li class="active"><a href="#account_adjustments" data-toggle="tab">Adjustments</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -207,7 +210,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($deposit->account_adjustments as $accountAdjustment)
+                                                        @foreach($withdrawal->account_adjustments as $accountAdjustment)
                                                             <tr class="gradeX">
                                                                 <td>{{$accountAdjustment->first_name}} {{$accountAdjustment->last_name}}</td>
                                                                 <td>{{$accountAdjustment->email}}</td>
@@ -332,13 +335,12 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 
 @endsection
 
-@include('personal.layouts.modals.deposit_to_do')
+@include('personal.layouts.modals.withdrawal_to_do')
 
 @section('js')
 
@@ -475,6 +477,38 @@
     });
 </script>
 
+{{--  Get due date to populate   --}}
+<script>
+    $(document).ready(function() {
+        // Set date
+        console.log('var');
+        var today = new Date();
+        console.log(today);
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        mm ++;
+        if (dd < 10){
+            dd = '0'+dd;
+        }
+        if (mm < 10){
+            mm = '0'+mm;
+        }
+        var date_today = mm + '/' + dd + '/' + yyyy;
+        var time_curr = h + ':' + m;
+        console.log(time_curr);
+        document.getElementById("start_date").value = date_today;
+        document.getElementById("end_date").value = date_today;
+        document.getElementById("start_time").value = time_curr;
+        document.getElementById("end_time").value = time_curr;
+
+        // Set time
+    });
+
+</script>
+
 <!-- Page-Level Scripts -->
 <script>
     $(document).ready(function(){
@@ -533,39 +567,6 @@
 
     }
 </script>
-
-{{--  Get due date to populate   --}}
-<script>
-    $(document).ready(function() {
-        // Set date
-        console.log('var');
-        var today = new Date();
-        console.log(today);
-        var dd = today.getDate();
-        var mm = today.getMonth();
-        var yyyy = today.getFullYear();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        mm ++;
-        if (dd < 10){
-            dd = '0'+dd;
-        }
-        if (mm < 10){
-            mm = '0'+mm;
-        }
-        var date_today = mm + '/' + dd + '/' + yyyy;
-        var time_curr = h + ':' + m;
-        console.log(time_curr);
-        document.getElementById("start_date").value = date_today;
-        document.getElementById("end_date").value = date_today;
-        document.getElementById("start_time").value = time_curr;
-        document.getElementById("end_time").value = time_curr;
-
-        // Set time
-    });
-
-</script>
-
 <script>
     $(document).ready(function(){
 
@@ -676,6 +677,48 @@
 
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+        var elem_4 = document.querySelector('.js-switch_4');
+        var switchery_4 = new Switchery(elem_4, { color: '#1AB394' });
+
+        var elem_5 = document.querySelector('.js-switch_5');
+        var switchery_5 = new Switchery(elem_5, { color: '#1AB394' });
+
+        var elem_6 = document.querySelector('.js-switch_6');
+        var switchery_6 = new Switchery(elem_6, { color: '#1AB394' });
+
+        var elem_7 = document.querySelector('.js-switch_7');
+        var switchery_7 = new Switchery(elem_7, { color: '#1AB394' });
+
+        var elem_8 = document.querySelector('.js-switch_8');
+        var switchery_8 = new Switchery(elem_8, { color: '#1AB394' });
+
+        var elem_9 = document.querySelector('.js-switch_9');
+        var switchery_9 = new Switchery(elem_9, { color: '#1AB394' });
+
+        var elem_10 = document.querySelector('.js-switch_10');
+        var switchery_10 = new Switchery(elem_10, { color: '#1AB394' });
+
+        var elem_11 = document.querySelector('.js-switch_11');
+        var switchery_11 = new Switchery(elem_11, { color: '#1AB394' });
+
+        var elem_12 = document.querySelector('.js-switch_12');
+        var switchery_12 = new Switchery(elem_12, { color: '#1AB394' });
+
+        var elem_13 = document.querySelector('.js-switch_13');
+        var switchery_13 = new Switchery(elem_13, { color: '#1AB394' });
+
+        var elem_14 = document.querySelector('.js-switch_14');
+        var switchery_14 = new Switchery(elem_14, { color: '#1AB394' });
+
+        var elem_15 = document.querySelector('.js-switch_15');
+        var switchery_15 = new Switchery(elem_15, { color: '#1AB394' });
+
+        var elem_16 = document.querySelector('.js-switch_16');
+        var switchery_16 = new Switchery(elem_16, { color: '#1AB394' });
+
+        var elem_17 = document.querySelector('.js-switch_17');
+        var switchery_17 = new Switchery(elem_17, { color: '#1AB394' });
 
         var elem_18 = document.querySelector('.js-switch_18');
         var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });

@@ -1,6 +1,6 @@
 @extends('personal.layouts.app')
 
-@section('title', 'Chama Account Create')
+@section('title', 'Chama Deposit Create')
 
 @section('css')
 
@@ -40,21 +40,22 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Account's</h2>
+            <h2>Deposit's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('personal.calendar')}}">Home</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="{{route('personal.chama.show',$chama->id)}}">Chama</a>
                 </li>
                 <li class="active">
-
-                    <a href="{{route('personal.chama.accounts',$chama->id)}}">Account's</a>
-                    <a href="{{route('personal.chama.accounts',$chama->id)}}">Account's</a>
+                    <a href="{{route('personal.chama.accounts',$chama->id)}}">Accounts</a>
                 </li>
                 <li class="active">
-                    <strong>Account Create</strong>
+                    <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id,'account_id'=>$account->id])}}">Account</a>
+                </li>
+                <li class="active">
+                    <strong>Deposit Create</strong>
                 </li>
             </ol>
         </div>
@@ -65,7 +66,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Account Registration <small>Form</small></h5>
+                        <h5>Deposit Registration <small>Form</small></h5>
 
                     </div>
 
@@ -73,7 +74,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('personal.chama.account.store',$chama->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.chama.deposit.store',$chama->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -89,19 +90,33 @@
                                 <div class="col-md-10 col-md-offset-1">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" placeholder="Account Name" class="form-control input-lg">
-                                        <i>account name</i>
+                                        <input type="number" id="amount" name="amount" required="required" placeholder="Amount" class="form-control input-lg">
+                                        <i>amount</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning" id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <input type="text" required="required" name="date" id="date" class="form-control input-lg">
+                                        </div>
+                                        <i>What is the start date of the event?</i>
+                                        <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="balance" name="balance" required="required" placeholder="Account Balance" class="form-control input-lg">
-                                        <i>account balance</i>
+                                        <select name="account" class="select2_demo_tag form-control input-lg">
+                                            <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                        </select>
+                                        <i>account</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" name="notes" class="form-control input-lg" placeholder="Notes" ></textarea>
-                                        <i>notes</i>
+                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        <i>about deposit</i>
                                     </div>
+
 
                                     <br>
                                     <hr>
@@ -172,6 +187,35 @@
 
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+{{--  Get due date to populate   --}}
+    <script>
+        $(document).ready(function() {
+            // Set date
+            console.log('var');
+            var today = new Date();
+            console.log(today);
+            var dd = today.getDate();
+            var mm = today.getMonth();
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            mm ++;
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date_today = mm + '/' + dd + '/' + yyyy;
+            var time_curr = h + ':' + m;
+            console.log(time_curr);
+            document.getElementById("date").value = date_today;
+
+            // Set time
+        });
+
+    </script>
 
 <script>
     $(document).ready(function(){

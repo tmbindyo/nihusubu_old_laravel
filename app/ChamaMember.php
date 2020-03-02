@@ -12,6 +12,14 @@ class ChamaMember extends Model
     public $incrementing = false;
 
     // parents
+    public function chama()
+    {
+        return $this->belongsTo('App\Chama');
+    }
+    public function chama_member_role()
+    {
+        return $this->belongsTo('App\ChamaMemberRole','member_role_id');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');

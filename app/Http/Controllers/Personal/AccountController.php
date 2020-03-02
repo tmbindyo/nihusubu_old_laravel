@@ -539,6 +539,7 @@ class AccountController extends Controller
         $withdrawal->user_id = $user->id;
         $withdrawal->is_user = True;
         $withdrawal->is_institution = False;
+        $withdrawal->is_chama = False;
         $withdrawal->save();
 
         return redirect()->route('personal.withdrawal.show',$withdrawal->id)->withSuccess('Withdrawal updated!');

@@ -59,10 +59,13 @@
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('personal.accounts')}}">Accounts</a>
+                    <a href="{{route('personal.chama.show',$chama->id)}}">Chama</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('personal.account.show',$deposit->account->id)}}">Account</a>
+                    <a href="{{route('personal.chama.accounts',$chama->id)}}">Accounts</a>
+                </li>
+                <li class="active">
+                    <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id, 'account_id'=>$deposit->account->id])}}">Account</a>
                 </li>
                 <li class="active">
                     <strong>Deposit Create</strong>
@@ -71,7 +74,7 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('personal.deposit.account.adjustment.create',$deposit->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
+                <a href="{{route('personal.chama.deposit.account.adjustment.create',['chama_id'=>$chama->id,'deposit_id'=>$deposit->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
             </div>
         </div>
     </div>

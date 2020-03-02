@@ -1,6 +1,6 @@
 @extends('personal.layouts.app')
 
-@section('title', 'Chama Create')
+@section('title', 'Chama '.$chama->name)
 
 @section('css')
 
@@ -45,30 +45,30 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
 
-        <div class="row m-b-lg m-t-lg text-center">
+        <div class="row  text-center">
             <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
-                <i class="fa fa-money"> Accounts</i>
+                <i class="fa fa-eye"> Accounts</i>
             </a>
-            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
-                <i class="fa fa-money"> Loans</i>
+            <a href="{{route('personal.chama.loans',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-eye"> Loans</i>
             </a>
-            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
-                <i class="fa fa-money"> Meetings</i>
+            <a href="{{route('personal.chama.meetings',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-eye"> Meetings</i>
             </a>
-            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
-                <i class="fa fa-money"> Members</i>
+            <a href="{{route('personal.chama.members',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-eye"> Members</i>
             </a>
-            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
-                <i class="fa fa-money"> Merry Go Round</i>
+            <a href="{{route('personal.chama.merry.go.round',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-eye"> Merry Go Round</i>
             </a>
-            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
-                <i class="fa fa-money"> Penalties</i>
+            <a href="{{route('personal.chama.penalties',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-eye"> Penalties</i>
             </a>
-            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
-                <i class="fa fa-money"> Shares</i>
+            <a href="{{route('personal.chama.shares',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-eye"> Shares</i>
             </a>
-            <a href="{{route('personal.chama.accounts',$chama->id)}}" class="btn btn-primary btn-lg">
-                <i class="fa fa-money"> Welfare</i>
+            <a href="{{route('personal.chama.welfare',$chama->id)}}" class="btn btn-primary btn-lg">
+                <i class="fa fa-eye"> Welfare</i>
             </a>
         </div>
         <div class="row m-b-lg m-t-lg">
@@ -129,353 +129,8 @@
                 <div id="sparkline1"></div>
             </div>
 
-
         </div>
 
-        <div class="row">
-
-            <div class="col-lg-3">
-
-                <div class="ibox">
-                    <div class="ibox-content">
-                            <h3>About Alex Smith</h3>
-
-                        <p class="small">
-                            There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in some form, by injected humour, or randomised words which don't.
-                            <br/>
-                            <br/>
-                            If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
-                            anything embarrassing
-                        </p>
-
-                        <p class="small font-bold">
-                            <span><i class="fa fa-circle text-navy"></i> Online status</span>
-                            </p>
-
-                    </div>
-                </div>
-
-                <div class="ibox">
-                    <div class="ibox-content">
-                        <h3>Followers and friends</h3>
-                        <p class="small">
-                            If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
-                            anything embarrassing
-                        </p>
-                        <div class="user-friends">
-                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a3.jpg"></a>
-                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a1.jpg"></a>
-                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a2.jpg"></a>
-                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a4.jpg"></a>
-                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a5.jpg"></a>
-                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a6.jpg"></a>
-                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a7.jpg"></a>
-                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a8.jpg"></a>
-                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a2.jpg"></a>
-                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a1.jpg"></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ibox">
-                    <div class="ibox-content">
-                        <h3>Personal friends</h3>
-                        <ul class="list-unstyled file-list">
-                            <li><a href=""><i class="fa fa-file"></i> Project_document.docx</a></li>
-                            <li><a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
-                            <li><a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
-                            <li><a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
-                            <li><a href=""><i class="fa fa-file-powerpoint-o"></i> Presentation.pptx</a></li>
-                            <li><a href=""><i class="fa fa-file"></i> 10_08_2015.docx</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="ibox">
-                    <div class="ibox-content">
-                        <h3>Private message</h3>
-
-                        <p class="small">
-                            Send private message to Alex Smith
-                        </p>
-
-                        <div class="form-group">
-                            <label>Subject</label>
-                            <input type="email" class="form-control" placeholder="Message subject">
-                        </div>
-                        <div class="form-group">
-                            <label>Message</label>
-                            <textarea class="form-control" placeholder="Your message" rows="3"></textarea>
-                        </div>
-                        <button class="btn btn-primary btn-block">Send</button>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-lg-5">
-
-                <div class="social-feed-box">
-
-                    <div class="pull-right social-action dropdown">
-                        <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-                            <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu m-t-xs">
-                            <li><a href="#">Config</a></li>
-                        </ul>
-                    </div>
-                    <div class="social-avatar">
-                        <a href="" class="pull-left">
-                            <img alt="image" src="{{ asset('inspinia') }}/img/a1.jpg">
-                        </a>
-                        <div class="media-body">
-                            <a href="#">
-                                Andrew Williams
-                            </a>
-                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-                        </div>
-                    </div>
-                    <div class="social-body">
-                        <p>
-                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
-                            default model text.
-                        </p>
-
-                        <div class="btn-group">
-                            <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
-                            <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
-                            <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
-                        </div>
-                    </div>
-                    <div class="social-footer">
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="{{ asset('inspinia') }}/img/a1.jpg">
-                            </a>
-                            <div class="media-body">
-                                <a href="#">
-                                    Andrew Williams
-                                </a>
-                                Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words.
-                                <br/>
-                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -
-                                <small class="text-muted">12.06.2014</small>
-                            </div>
-                        </div>
-
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="{{ asset('inspinia') }}/img/a2.jpg">
-                            </a>
-                            <div class="media-body">
-                                <a href="#">
-                                    Andrew Williams
-                                </a>
-                                Making this the first true generator on the Internet. It uses a dictionary of.
-                                <br/>
-                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a> -
-                                <small class="text-muted">10.07.2014</small>
-                            </div>
-                        </div>
-
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="{{ asset('inspinia') }}/img/a3.jpg">
-                            </a>
-                            <div class="media-body">
-                                <textarea class="form-control" placeholder="Write comment..."></textarea>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="social-feed-box">
-
-                    <div class="pull-right social-action dropdown">
-                        <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-                            <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu m-t-xs">
-                            <li><a href="#">Config</a></li>
-                        </ul>
-                    </div>
-                    <div class="social-avatar">
-                        <a href="" class="pull-left">
-                            <img alt="image" src="{{ asset('inspinia') }}/img/a6.jpg">
-                        </a>
-                        <div class="media-body">
-                            <a href="#">
-                                Andrew Williams
-                            </a>
-                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-                        </div>
-                    </div>
-                    <div class="social-body">
-                        <p>
-                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
-                            default model text.
-                        </p>
-                        <p>
-                            Lorem Ipsum as their
-                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
-                            default model text.
-                        </p>
-                        <img src="{{ asset('inspinia') }}/img/gallery/3.jpg" class="img-responsive">
-                        <div class="btn-group">
-                            <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
-                            <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
-                            <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
-                        </div>
-                    </div>
-                    <div class="social-footer">
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="{{ asset('inspinia') }}/img/a1.jpg">
-                            </a>
-                            <div class="media-body">
-                                <a href="#">
-                                    Andrew Williams
-                                </a>
-                                Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words.
-                                <br/>
-                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -
-                                <small class="text-muted">12.06.2014</small>
-                            </div>
-                        </div>
-
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="{{ asset('inspinia') }}/img/a2.jpg">
-                            </a>
-                            <div class="media-body">
-                                <a href="#">
-                                    Andrew Williams
-                                </a>
-                                Making this the first true generator on the Internet. It uses a dictionary of.
-                                <br/>
-                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a> -
-                                <small class="text-muted">10.07.2014</small>
-                            </div>
-                        </div>
-
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="{{ asset('inspinia') }}/img/a8.jpg">
-                            </a>
-                            <div class="media-body">
-                                <a href="#">
-                                    Andrew Williams
-                                </a>
-                                Making this the first true generator on the Internet. It uses a dictionary of.
-                                <br/>
-                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a> -
-                                <small class="text-muted">10.07.2014</small>
-                            </div>
-                        </div>
-
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="{{ asset('inspinia') }}/img/a3.jpg">
-                            </a>
-                            <div class="media-body">
-                                <textarea class="form-control" placeholder="Write comment..."></textarea>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-
-            </div>
-            <div class="col-lg-4 m-b-lg">
-                <div id="vertical-timeline" class="vertical-container light-timeline no-margins">
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <i class="fa fa-briefcase"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Meeting</h2>
-                            <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
-                            </p>
-                            <a href="#" class="btn btn-sm btn-primary"> More info</a>
-                                <span class="vertical-date">
-                                    Today <br>
-                                    <small>Dec 24</small>
-                                </span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon blue-bg">
-                            <i class="fa fa-file-text"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Send documents to Mike</h2>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-                            <a href="#" class="btn btn-sm btn-success"> Download document </a>
-                                <span class="vertical-date">
-                                    Today <br>
-                                    <small>Dec 24</small>
-                                </span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon lazur-bg">
-                            <i class="fa fa-coffee"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Coffee Break</h2>
-                            <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
-                            <a href="#" class="btn btn-sm btn-info">Read more</a>
-                            <span class="vertical-date"> Yesterday <br><small>Dec 23</small></span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon yellow-bg">
-                            <i class="fa fa-phone"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Phone with Jeronimo</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-                            <span class="vertical-date">Yesterday <br><small>Dec 23</small></span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <i class="fa fa-comments"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Chat with Monica and Sandra</h2>
-                            <p>Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p>
-                            <span class="vertical-date">Yesterday <br><small>Dec 23</small></span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
 
 
         <div class="row">
@@ -835,6 +490,47 @@
                 </div>
             </div>
             <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-content">
+                            <h3>About Alex Smith</h3>
+
+                        <p class="small">
+                            There are many variations of passages of Lorem Ipsum available, but the majority have
+                            suffered alteration in some form, by injected humour, or randomised words which don't.
+                            <br/>
+                            <br/>
+                            If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
+                            anything embarrassing
+                        </p>
+
+                        <p class="small font-bold">
+                            <span><i class="fa fa-circle text-navy"></i> Online status</span>
+                            </p>
+
+                    </div>
+                </div>
+
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <h3>Followers and friends</h3>
+                        <p class="small">
+                            If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
+                            anything embarrassing
+                        </p>
+                        <div class="user-friends">
+                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a3.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a1.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a2.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a4.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a5.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a6.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a7.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a8.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a2.jpg"></a>
+                            <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a1.jpg"></a>
+                        </div>
+                    </div>
+                </div>
                 <div class="wrapper wrapper-content project-manager">
                     <h4>Project description</h4>
                     <img src="{{ asset('inspinia') }}/img/zender_logo.png" class="img-responsive">

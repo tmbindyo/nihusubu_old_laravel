@@ -53,7 +53,7 @@
                         <a href="{{route('personal.calendar')}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('personal.expenses')}}">Account Adjustments</a>
+                        <a href="{{route('personal.chama.account.adjustment.show',['chama_id'=>$chama->id,'account_adjustment_id'=>$account_adjustment->id])}}">Account Adjustments</a>
                     </li>
                     <li class="active">
                         <strong>Account Adjustment Create</strong>
@@ -70,7 +70,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('personal.account.adjustment.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.chama.account.adjustment.store',$chama->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
