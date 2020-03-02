@@ -33,10 +33,11 @@
 
                 @endif
             @endforeach  --}}
-            @if($personalUserAccount)
+            // TODO: Add back after pushing to master
+            {{--  @if($personalUserAccount)
             @else
                 <a href="{{route('add.personal.account')}}" class="btn btn-primary block full-width">Add Personal Account</a>
-            @endif
+            @endif  --}}
             <br>
             <a href="{{route('business.add')}}" class="btn btn-primary block full-width">Add Business Account</a>
         </div>
