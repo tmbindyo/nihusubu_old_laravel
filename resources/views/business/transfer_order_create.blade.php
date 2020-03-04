@@ -4,15 +4,44 @@
 
 @section('css')
 
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
 
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
+
+<link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
+<link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
+
     {{--  Tags  --}}
     <style>
         .tags-input-wrapper {
@@ -57,13 +86,13 @@
         <h2>Transfer Order</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.warehouses')}}">Inventory</a>
+                <a href="{{route('business.warehouses',$institution->portal)}}">Inventory</a>
             </li>
             <li>
-                <a href="{{route('business.transfer.orders')}}">Transfer Orders</a>
+                <a href="{{route('business.transfer.orders',$institution->portal)}}">Transfer Orders</a>
             </li>
             <li class="active">
                 <strong>Transfer Order Create</strong>
@@ -89,7 +118,7 @@
             </div>
             <div class="ibox-content">
                 <div class="">
-                    <form method="post" action="{{ route('business.transfer.order.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                    <form method="post" action="{{ route('business.transfer.order.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                         @csrf
 
                         @if ($errors->any())
@@ -112,13 +141,13 @@
                                     <div class="input-group date">
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i></span>
-                                        <input type="text" class="form-control input-lg" value="03/04/2014">
+                                        <input type="text" name="date" id="date" class="form-control input-lg">
                                     </div>
                                 </div>
                                 <label>  </label>
                                 {{--  Reason  --}}
                                 <div class="has-warning">
-                                    <textarea name="reason" class="select form-control input-lg" placeholder="Reason"></textarea>
+                                    <textarea rows="5" name="reason" class="select form-control input-lg" placeholder="Reason"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -131,7 +160,7 @@
                             <div class="col-md-6">
                                 <label>  </label>
                                 <div class="has-warning">
-                                    <select onchange = "returnWarehouseDetails(this)" onfocus = "this.selectedIndex = 0" name="source_warehouse" class="select2_demo_3 form-control input-lg">
+                                    <select onchange = "returnWarehouseDetails(this)" onfocus = "this.selectedIndex = 0" name="source_warehouse" class="chosen-select form-control input-lg">
                                         <option disabled>Select Source Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -142,7 +171,7 @@
                             <div class="col-md-6">
                                 <label>  </label>
                                 <div class="has-warning">
-                                    <select onchange = "destinationwarehouseSelected(this)" onfocus = "this.selectedIndex = 0" name="destination_warehouse" class="select2_demo_3 form-control input-lg">
+                                    <select onchange = "destinationwarehouseSelected(this)" onfocus = "this.selectedIndex = 0" name="destination_warehouse" class="chosen-select form-control input-lg">
                                         <option disabled>Select Destination Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -170,7 +199,7 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select onchange = "returnProductDetails(this)" class="select2_demo_3 form-control input-lg items-select" name = "item_details[0][product_id]">
+                                            <select onchange = "returnProductDetails(this)" class="chosen-select form-control input-lg items-select" name = "item_details[0][product_id]">
                                                 <option>Select Item</option>
                                                 {{-- <option value="Bahamas">Bahamas</option> --}}
                                                 @foreach($products as $product)
@@ -275,6 +304,37 @@
     <!-- TouchSpin -->
     <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
+
+    {{--  Get due date to populate   --}}
+    <script>
+        $(document).ready(function() {
+            // Set date
+            {{-- console.log('var'); --}}
+            var today = new Date();
+            {{-- console.log(today); --}}
+            var dd = today.getDate();
+            var mm = today.getMonth();
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            mm ++;
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date_today = mm + '/' + dd + '/' + yyyy;
+            var time_curr = h + ':' + m;
+            {{-- console.log(time_curr); --}}
+            document.getElementById("date").value = date_today;
+            // Populating the products' details by working with the initial value of the warehouse selection
+            returnWarehouseDetails(document.getElementsByName("source_warehouse")[0])
+            destinationwarehouseSelected(document.getElementsByName("destination_warehouse")[0])
+            // Set time
+        });
+
+    </script>
 
     <script>
         $(document).ready(function(){
@@ -485,7 +545,7 @@
             $(selector).chosen(config[selector]);
         }
 
-        $("#ionrange_1").ionRangeSlider({
+        /*$("#ionrange_1").ionRangeSlider({
             min: 0,
             max: 5000,
             type: 'double',
@@ -565,7 +625,7 @@
                 'min':  20,
                 'max':  80
             }
-        });
+        });*/
 
 
     </script>
@@ -693,7 +753,7 @@
                 var secondCell = row.insertCell(1);
                 var thirdCell = row.insertCell(2);
                 var fourthCell = row.insertCell(3)
-                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select'"+
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select chosen-select'"+
                                         "name = 'item_details["+tableValueArrayIndex+"][product_id]'></select>";
                 secondCell.innerHTML = "<div class='row'>"+
                                         "<div class='col-md-6'>"+
@@ -717,6 +777,12 @@
                 fourthCell.setAttribute("style", "width: 1em;")
                 var selectElement = row.getElementsByClassName("items-select");
                 populateDropdownOptionsWithProducts(selectElement[0]);
+                $(".chosen-select").chosen(
+                    {allow_single_deselect:true},
+                    {disable_search_threshold:10},
+                    {no_results_text:'Oops, nothing found!'},
+                    {width:"95%"}
+                );
                 tableValueArrayIndex++;
             };
         };

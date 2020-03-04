@@ -26,21 +26,25 @@
         @include('personal.layouts.navbars.header')
         <!-- top navbar -->
 
+        <!-- popup -->
+        @include('personal.layouts.popover.popover')
+        <!-- popup -->
+
         <!-- page content -->
         @yield ('content')
         <!-- /page content -->
 
         <!-- footer -->
-    @include('business.layouts.navbars.footer')
+    @include('personal.layouts.navbars.footer')
         <!-- /footer -->
 
     </div>
     <!-- chat content -->
-    @include('business.layouts.navbars.chat')
+    @include('personal.layouts.navbars.chat')
     <!-- /chat content -->
 
     <!-- right sidebar content -->
-    @include('business.layouts.navbars.right_sidebar')
+    @include('personal.layouts.navbars.right_sidebar')
     <!-- /right sidebar content -->
 
 </div>

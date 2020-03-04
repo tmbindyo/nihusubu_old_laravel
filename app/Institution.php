@@ -12,22 +12,6 @@ class Institution extends Model
     public $incrementing = false;
 
     // Parents
-    public function status()
-    {
-        return $this->belongsTo('App\Status');
-    }
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-    public function logo()
-    {
-        return $this->belongsTo('App\Upload','logo_id');
-    }
-    public function primary_contact()
-    {
-        return $this->belongsTo('App\PrimaryContact','primary_contact_id','id');
-    }
     public function address()
     {
         return $this->belongsTo('App\Address');
@@ -44,87 +28,132 @@ class Institution extends Model
     {
         return $this->belongsTo('App\Language');
     }
+    public function logo()
+    {
+        return $this->belongsTo('App\Upload','logo_id');
+    }
+    public function plan()
+    {
+        return $this->belongsTo('App\Plan');
+    }
+    public function primary_contact()
+    {
+        return $this->belongsTo('App\PrimaryContact','primary_contact_id','id');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+    public function status()
+    {
+        return $this->belongsTo('App\Status');
+    }
     public function timezone()
     {
         return $this->belongsTo('App\Timezone');
     }
 
     // Children
-    public function roles()
+
+    public function accounts()
     {
-        return $this->hasMany('App\Role');
-    }
-    public function manufacturers()
-    {
-        return $this->hasMany('App\Manufacturer');
-    }
-    public function units()
-    {
-        return $this->hasMany('App\Unit');
+        return $this->hasMany('App\Account');
     }
     public function brands()
     {
         return $this->hasMany('App\Brand');
     }
-    public function institution_sub_industries()
-    {
-        return $this->hasMany('App\InstitutionSubIndustry');
-    }
     public function branches()
     {
         return $this->hasMany('App\Branch');
     }
-    public function warehouses()
+    public function budgets()
     {
-        return $this->hasMany('App\Warehouse');
+        return $this->hasMany('App\Budget');
     }
-    public function institution_services()
+    public function composite_products()
     {
-        return $this->hasMany('App\InstitutionService');
+        return $this->hasMany('App\CompositeProduct');
     }
-    public function uploads()
+    public function contacts()
     {
-        return $this->hasMany('App\Upload');
+        return $this->hasMany('App\Contact');
     }
     public function estimates()
     {
         return $this->hasMany('App\Estimate');
     }
-    public function to_dos()
+    public function expenses()
     {
-        return $this->hasMany('App\ToDo');
+        return $this->hasMany('App\Expense');
+    }
+    public function institution_sub_industries()
+    {
+        return $this->hasMany('App\InstitutionSubIndustry');
+    }
+    public function institution_services()
+    {
+        return $this->hasMany('App\InstitutionService');
     }
     public function invoices()
     {
         return $this->hasMany('App\Invoice');
     }
+    public function manufacturers()
+    {
+        return $this->hasMany('App\Manufacturer');
+    }
+    public function roles()
+    {
+        return $this->hasMany('App\Role');
+    }
     public function sales()
     {
         return $this->hasMany('App\Sale');
     }
-    public function product_groups()
+    public function units()
     {
-        return $this->hasMany('App\ProductGroup');
+        return $this->hasMany('App\Unit');
+    }
+    public function user_accounts()
+    {
+        return $this->hasMany('App\UserAccount');
+    }
+    public function uploads()
+    {
+        return $this->hasMany('App\Upload');
     }
     public function taxes()
     {
         return $this->hasMany('App\Tax');
     }
-    public function expenses()
+    public function to_dos()
     {
-        return $this->hasMany('App\Expense');
+        return $this->hasMany('App\ToDo');
+    }
+    public function product_groups()
+    {
+        return $this->hasMany('App\ProductGroup');
     }
     public function manual_journals()
     {
         return $this->hasMany('App\ManualJournal');
     }
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+    public function payment_terms()
+    {
+        return $this->hasMany('App\PaymentTerm');
+    }
+    public function payment_receiveds()
+    {
+        return $this->hasMany('App\PaymentReceived');
+    }
     public function purchase_orders()
     {
         return $this->hasMany('App\PurchaseOrder');
-    }
-    public function accounts()
-    {
-        return $this->hasMany('App\Account');
     }
     public function projects()
     {
@@ -134,14 +163,6 @@ class Institution extends Model
     {
         return $this->hasMany('App\ProjectRole');
     }
-    public function contacts()
-    {
-        return $this->hasMany('App\Contact');
-    }
-    public function transfer_orders()
-    {
-        return $this->hasMany('App\TransferOrder');
-    }
     public function purchase_order_settings()
     {
         return $this->hasMany('App\PurchaseOrderSetting');
@@ -150,24 +171,19 @@ class Institution extends Model
     {
         return $this->hasMany('App\Product');
     }
-    public function composite_products()
+
+    public function reasons()
     {
-        return $this->hasMany('App\CompositeProduct');
+        return $this->hasMany('App\Reason');
     }
-    public function payment_terms()
+
+    public function transfer_orders()
     {
-        return $this->hasMany('App\PaymentTerm');
+        return $this->hasMany('App\TransferOrder');
     }
-    public function orders()
+    public function warehouses()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany('App\Warehouse');
     }
-    public function payment_receiveds()
-    {
-        return $this->hasMany('App\PaymentReceived');
-    }public function reasons()
-{
-    return $this->hasMany('App\Reason');
-}
-    // institution relationship
+
 }

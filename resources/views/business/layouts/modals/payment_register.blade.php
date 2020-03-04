@@ -7,7 +7,7 @@
                 <h4 class="modal-title">Payment Registration</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('business.sale.record.payment',$sale->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('business.sale.record.payment',['portal'=>$institution->portal,'id'=>$sale->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())

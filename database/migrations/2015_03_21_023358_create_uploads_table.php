@@ -24,11 +24,16 @@ class CreateUploadsTable extends Migration
             $table->longText('large_thumbnail')->nullable();
             $table->longText('banner')->nullable();
             $table->longText('file')->nullable();
+            $table->longText('original')->nullable();
 
-            $table->uuid('upload_type_id');
-            $table->uuid('institution_id');
+            $table->string('file_type');
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('upload_type_id');
+            $table->uuid('institution_id')->nullable();
+            $table->uuid('campaign_id')->nullable();
+            $table->uuid('feedback_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

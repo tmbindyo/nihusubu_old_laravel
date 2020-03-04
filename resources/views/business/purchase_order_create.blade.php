@@ -24,13 +24,13 @@
                 <h2>Purchase Order</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.expenses')}}">Expenses</a>
+                        <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
                     </li>
                     <li>
-                        <a href="{{route('business.purchase.orders')}}">Purchase Orders</a>
+                        <a href="{{route('business.purchase.orders',$institution->portal)}}">Purchase Orders</a>
                     </li>
                     <li class="active">
                         <strong>Purchase Order Create</strong>
@@ -47,7 +47,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('business.product.group.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.product.group.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -67,15 +67,6 @@
                                             <div class="row">
                                                 <div class="col-md-1">
                                                     <span><i data-toggle="tooltip" data-placement="left" title="Enable this option if all the items in the group are eligible for sales return." class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                                </div>
-                                                {{--  Salutation  --}}
-                                                <div class="col-md-3">
-                                                    <div class="has-warning">
-                                                        <select class="select2_demo_3 form-control input-lg">
-                                                            <option>Select Salutation</option>
-                                                            <option value="Bahamas">Bahamas</option>
-                                                        </select>
-                                                    </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     {{--  First name  --}}

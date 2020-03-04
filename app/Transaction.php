@@ -12,6 +12,14 @@ class Transaction extends Model
     public $incrementing = false;
 
     // Parents
+    public function account()
+    {
+        return $this->belongsTo('App\Account');
+    }
+    public function expense()
+    {
+        return $this->belongsTo('App\Expense');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');
@@ -20,12 +28,10 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function source_account()
+
+    // children
+    public function to_dos()
     {
-        return $this->belongsTo('App\Account','source_account_id','id');
-    }
-    public function destination_account()
-    {
-        return $this->belongsTo('App\Account','destination_account_id','id');
+        return $this->hasMany('App\ToDo');
     }
 }

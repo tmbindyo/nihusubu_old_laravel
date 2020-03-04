@@ -22,6 +22,10 @@ class UserType extends Model
     }
 
     // Children
+    public function user_account()
+    {
+        return $this->hasMany('App\UserAccount');
+    }
     public function user_type_section()
     {
         return $this->hasMany('App\UserTypeSection');

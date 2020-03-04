@@ -8,8 +8,8 @@
                     <div class="s-header__logo">
                         <a href="{{route("landing")}}" class="s-header__logo-link">
                             {{--  TODO Change logo  --}}
-                            <img style="width: 50px;" class="s-header__logo-img s-header__logo-img-default" src="{{ asset('nihusubu.png') }}" alt="Nihusubu">
-                            <img class="s-header__logo-img s-header__logo-img-shrink" src="{{ asset('nihusubu.png') }}" alt="Nihusubu">
+                            <img style="width: 50px;" class="s-header__logo-img s-header__logo-img-default" src="{{ asset('logo_transparent.png') }}" alt="Nihusubu">
+                            {{--  <img class="s-header__logo-img s-header__logo-img-shrink" src="{{ asset('logo_transparent.png') }}" alt="Nihusubu">  --}}
                         </a>
                     </div>
                     <!-- End Logo -->
@@ -34,24 +34,16 @@
         <!-- Nav -->
         <nav class="s-header__nav js__scrollbar">
             <div class="container-fluid">
-                <!-- Menu List -->
-                <ul class="list-unstyled s-header__nav-menu">
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'corporate' ) ?  '-is-active' : '' }}" href="{{route("corporate")}}">Corporate</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'landing' ) ?  '-is-active' : '' }}" href="{{route("landing")}}">Landing</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'portfolio' ) ?  '-is-active' : '' }}" href="{{route("portfolio")}}">Portfolio</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'lawyer' ) ?  '-is-active' : '' }}" href="{{route("lawyer")}}">Lawyer</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'coming.soon' ) ?  '-is-active' : '' }}" href="{{route("coming.soon")}}">Coming Soon</a></li>
-                </ul>
-                <!-- End Menu List -->
 
                 <!-- Menu List -->
                 <ul class="list-unstyled s-header__nav-menu">
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'about' ) ?  '-is-active' : '' }}" href="{{route("about")}}">About</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'team' ) ?  '-is-active' : '' }}" href="{{route("team")}}">Team</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'services' ) ?  '-is-active' : '' }}" href="{{route("services")}}">Services</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'events' ) ?  '-is-active' : '' }}" href="{{route("events")}}">Events</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'faq' ) ?  '-is-active' : '' }}" href="{{route("faq")}}">FAQ</a></li>
-                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'contacts' ) ?  '-is-active' : '' }}" href="{{route("contacts")}}">Contacts</a></li>
+                    <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'landing' ) ?  '-is-active' : '' }}" href="{{route("landing")}}">Home</a></li>
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'about' ) ?  '-is-active' : '' }}" href="{{route("about")}}">About</a></li>  --}}
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'team' ) ?  '-is-active' : '' }}" href="{{route("team")}}">Team</a></li>  --}}
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'services' ) ?  '-is-active' : '' }}" href="{{route("services")}}">Services</a></li>  --}}
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'events' ) ?  '-is-active' : '' }}" href="{{route("events")}}">Events</a></li>  --}}
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'faq' ) ?  '-is-active' : '' }}" href="{{route("faq")}}">FAQ</a></li>  --}}
+                    {{--  <li class="s-header__nav-menu-item"><a class="s-header__nav-menu-link s-header__nav-menu-link-divider {{ Route::currentRouteNamed( 'contacts' ) ?  '-is-active' : '' }}" href="{{route("contacts")}}">Contacts</a></li>  --}}
                 </ul>
                 <!-- End Menu List -->
             </div>
@@ -77,21 +69,21 @@
             </li>
             {{--  TODO Create twitter page  --}}
             <li class="s-header__action-item">
-                <a class="s-header__action-link" href="https://twitter.com/nihusubu">
+                <a class="s-header__action-link" target="_blank" href="https://twitter.com/nihusubu">
                     <i class="g-padding-r-5--xs ti-twitter"></i>
                     <span class="g-display-none--xs g-display-inline-block--sm">Twitter</span>
                 </a>
             </li>
             {{--  TODO Create youtube page  --}}
             <li class="s-header__action-item">
-                <a class="s-header__action-link" href="https://youtube.com/nihusubu">
+                <a class="s-header__action-link" target="_blank" href="https://youtube.com/nihusubu">
                     <i class="g-padding-r-5--xs ti-youtube"></i>
                     <span class="g-display-none--xs g-display-inline-block--sm">Youtube</span>
                 </a>
             </li>
             {{--  TODO Create instagram page  --}}
             <li class="s-header__action-item">
-                <a class="s-header__action-link" href="https://instagram.com/nihusubu">
+                <a class="s-header__action-link" target="_blank" href="https://instagram.com/nihusubu">
                     <i class="g-padding-r-5--xs ti-instagram"></i>
                     <span class="g-display-none--xs g-display-inline-block--sm">Instagram</span>
                 </a>

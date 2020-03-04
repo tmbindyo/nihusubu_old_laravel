@@ -7,7 +7,7 @@
                 <h4 class="modal-title">Manual Journal Registration</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('business.manual.journal.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('business.manual.journal.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())

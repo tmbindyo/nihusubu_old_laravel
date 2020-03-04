@@ -22,13 +22,13 @@
         <h2>Warehouse</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
             </li>
             <li>
                 Inventory
             </li>
             <li>
-                <a href="{{route('business.warehouses')}}">Warehouses</a>
+                <a href="{{route('business.warehouses',$institution->portal)}}">Warehouses</a>
             </li>
             <li class="active">
                 <strong>Warehouse</strong>
@@ -37,7 +37,7 @@
     </div>
     <div class="col-lg-4">
         <div class="title-action">
-            <a href="{{route('business.product.edit',1)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
+            <a href="{{route('business.product.edit',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
         </div>
     </div>
 </div>
@@ -45,8 +45,129 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
 
-    {{--  Warehouse details  --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Warehouse Update <small>Form</small></h5>
 
+                </div>
+
+                <div class="ibox-content">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form method="post" action="{{ route('business.warehouse.update',['portal'=>$institution->portal,'id'=>$warehouse->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                            @csrf
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            <div class="col-md-12">
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="has-warning">
+                                            <input type="text" id="name" name="name" required="required" value="{{$warehouse->name}}" class="form-control input-lg">
+                                            <i>name</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" id="street" name="street" required="required" value="{{$warehouse->address->street}}" class="form-control input-lg">
+                                            <i>street</i>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" name="town" id="town" class="form-control input-lg" value="{{$warehouse->address->town}}">
+                                            <i>town</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" id="po_box" name="po_box" required="required" value="{{$warehouse->address->po_box}}" class="form-control input-lg">
+                                            <i>po box</i>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" name="postal_code" id="postal_code" class="form-control input-lg" value="{{$warehouse->address->postal_code}}">
+                                            <i>postal code</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" id="address_line_1" name="address_line_1" required="required" value="{{$warehouse->address->address_line_1}}" class="form-control input-lg">
+                                            <i>address line 1</i>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" name="address_line_2" id="address_line_2" class="form-control input-lg" value="{{$warehouse->address->address_line_2}}">
+                                            <i>address line 2</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" id="email" name="email" required="required" value="{{$warehouse->address->email}}" class="form-control input-lg">
+                                            <i>email</i>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="text" name="phone_number" id="phone_number" class="form-control input-lg" value="{{$warehouse->address->phone_number}}">
+                                            <i>phone number</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <hr>
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('UPDATE') }}</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--  Warehouse details  --}}
     <div class="row">
         <div class="col-lg-3">
             <div class="widget style1 navy-bg">
@@ -70,7 +191,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>
+                                    {{--  <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>  --}}
                                     <h2>{{$warehouse->name}}</h2>
                                 </div>
                                 <dl class="dl-horizontal">
@@ -107,7 +228,7 @@
                                 </dd>
                             </dl>
                         </div>
-                        <div class="row">
+                        {{--  <div class="row">
                             <div class="col-lg-12">
                                 <dl class="dl-horizontal">
                                     <dt>Volume:</dt>
@@ -119,15 +240,14 @@
                                     </dd>
                                 </dl>
                             </div>
-                        </div>
+                        </div>  --}}
                         <div class="row m-t-sm">
                             <div class="col-lg-12">
                                 <div class="panel blank-panel">
                                     <div class="panel-heading">
                                         <div class="panel-options">
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#updates" data-toggle="tab">Updates</a></li>
-                                                <li class=""><a href="#inventory" data-toggle="tab">Inventory</a></li>
+                                                <li class="active"><a href="#inventory" data-toggle="tab">Inventory</a></li>
                                                 <li class=""><a href="#adjustments" data-toggle="tab">Adjustments</a></li>
                                                 <li class=""><a href="#source-transfer-orders" data-toggle="tab">Source Transfer orders</a></li>
                                                 <li class=""><a href="#destination-transfer-orders" data-toggle="tab">Destination Transfer orders</a></li>
@@ -138,84 +258,7 @@
                                     <div class="panel-body">
 
                                         <div class="tab-content">
-                                            <div class="tab-pane active" id="updates">
-                                                <div class="feed-activity-list">
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a2.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right">2h ago</small>
-                                                            <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
-                                                            <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
-                                                            <div class="well">
-                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a3.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right">2h ago</small>
-                                                            <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
-                                                            <small class="text-muted">2 days ago at 8:30am</small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a4.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right text-navy">5h ago</small>
-                                                            <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
-                                                            <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
-                                                            <div class="actions">
-                                                                <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                                                                <a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a5.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right">2h ago</small>
-                                                            <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
-                                                            <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
-                                                            <div class="well">
-                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                                                Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/profile.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right">23h ago</small>
-                                                            <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
-                                                            <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-element">
-                                                        <a href="#" class="pull-left">
-                                                            <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a7.jpg">
-                                                        </a>
-                                                        <div class="media-body ">
-                                                            <small class="pull-right">46h ago</small>
-                                                            <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
-                                                            <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="tab-pane" id="inventory">
+                                            <div class="tab-pane active" id="inventory">
 
                                                 <div class="table-responsive">
                                                     <table class="table table-striped table-bordered table-hover dataTables-example" >
@@ -224,7 +267,6 @@
                                                             <th>Product</th>
                                                             <th>Quantity</th>
                                                             <th>Last Updated</th>
-                                                            <th>Action</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -235,8 +277,6 @@
                                                                 <td>{{$inventory->quantity}}
                                                                 </td>
                                                                 <td>{{$inventory->updated_at}}</td>
-                                                                <td class="center">4</td>
-                                                                <td class="center">X</td>
                                                             </tr>
                                                         @endforeach
 
@@ -246,7 +286,6 @@
                                                             <th>Product</th>
                                                             <th>Quantity</th>
                                                             <th>Last Updated</th>
-                                                            <th>Action</th>
                                                         </tr>
                                                         </tfoot>
                                                     </table>
@@ -275,10 +314,10 @@
                                                                     {{$inventoryAdjustment->inventory_adjustment_number}}
                                                                 </td>
                                                                 <td>
-                                                                    {{$inventoryAdjustment->date}}
+                                                                    {{$inventoryAdjustment->created_at}}
                                                                 </td>
                                                                 <td>
-                                                                    {{$inventoryAdjustment->reason}}
+                                                                    {{$inventoryAdjustment->reason->name}}
                                                                 </td>
                                                                 <td>
                                                                     {{$inventoryAdjustment->description}}
@@ -294,7 +333,7 @@
                                                                    @endif
                                                                 </td>
                                                                 <td>
-                                                                    <a href="{{ route('business.inventory.adjustment.show', $inventoryAdjustment->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.inventory.adjustment.show', ['portal'=>$institution->portal,'id'=>$inventoryAdjustment->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -338,7 +377,7 @@
                                                                     {{$sourceTransferOrder->destination_warehouse->name}}
                                                                 </td>
                                                                 <td>
-                                                                    <a href="{{ route('business.transfer.order.show', $sourceTransferOrder->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$sourceTransferOrder->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -383,7 +422,7 @@
                                                                     {{$destinationTransferOrder->source_warehouse->name}}
                                                                 </td>
                                                                 <td>
-                                                                    <a href="{{ route('business.transfer.order.show', $destinationTransferOrder->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$destinationTransferOrder->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach

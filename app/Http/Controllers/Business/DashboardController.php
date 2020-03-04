@@ -13,12 +13,17 @@ class DashboardController extends Controller
     use UserTrait;
     use institutionTrait;
 
-    public function dashboard()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function dashboard($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.dashboard',compact('user','institution'));
     }

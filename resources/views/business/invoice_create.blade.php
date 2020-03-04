@@ -21,13 +21,13 @@
                 <h2>Invoices</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li>
-                        <a href="{{route('business.invoices')}}">Invoices</a>
+                        <a href="{{route('business.invoices',$institution->portal)}}">Invoices</a>
                     </li>
                     <li class="active">
                         <strong>Invoice Create</strong>
@@ -44,7 +44,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('business.invoice.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.invoice.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -64,17 +64,17 @@
                                         <div class="col-md-12">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="customer" class="select2_demo_3 form-control input-lg">
+                                                <select name="contact" class="select2_demo_3 form-control required input-lg" required="required">
                                                     <option selected disabled>Select Customer</option>
-                                                    @foreach($customers as $customer)
-                                                        <option value="{{$customer->id}}">{{$customer->company_name}}: {{$customer->last_name}}, {{$customer->first_name}}</option>
+                                                    @foreach($contacts as $contact)
+                                                        <option value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="has-warning">
+                                                    <div class="has-warning" id="data_1">
                                                         <div class="input-group date">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
@@ -86,7 +86,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="has-warning">
-                                                        <div class="input-group date">
+                                                        <div class="input-group date" id="data_1">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
@@ -177,25 +177,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <br>
                                     <hr>
                                     <br>
-
-                                    <div class="ln_solid"></div>
-
-                                    <br>
-                                    {{--attachments--}}
                                     <div class="row">
-                                        <div class="col-md-6 col-md-offset-1">
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_draft" name="is_draft" type="checkbox">
-                                                <label for="is_draft">
-                                                    Save As Draft
-                                                </label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Check this option if you want to save this as a draft for further editing." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
+                                        <div class="col-md-6">
+                                            <textarea required name="customer_notes" placeholder="Notes" class="form-control" rows="7"></textarea>
+                                        </div>
 
+                                        <div class="col-md-6">
+                                            <textarea required name="terms_and_conditions" placeholder="Terms and Conditions" class="form-control" rows="7"></textarea>
                                         </div>
                                     </div>
+                                    <br>
                                     <hr>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>
@@ -289,10 +283,15 @@
 <script>
     $(document).ready(function() {
         // Set date
+        console.log('var');
         var today = new Date();
+        console.log(today);
         var dd = today.getDate();
         var mm = today.getMonth();
         var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        mm ++;
         if (dd < 10){
             dd = '0'+dd;
         }
@@ -300,8 +299,10 @@
             mm = '0'+mm;
         }
         var date_today = mm + '/' + dd + '/' + yyyy;
-        document.getElementById("due_date").value = date_today;
+        var time_curr = h + ':' + m;
+        console.log(time_curr);
         document.getElementById("date").value = date_today;
+        document.getElementById("due_date").value = date_today;
     });
 
 </script>

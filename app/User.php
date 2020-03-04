@@ -7,12 +7,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use SoftDeletes;
-
     use Notifiable;
-
 
     // Parents
     public function user_type()
@@ -32,6 +30,10 @@ class User extends Authenticatable
     public function address()
     {
         return $this->hasMany('App\Address');
+    }
+    public function assignee_todos()
+    {
+        return $this->hasMany('App\ToDo','id', 'assignee_id');
     }
     public function branches()
     {
@@ -76,10 +78,6 @@ class User extends Authenticatable
     public function expense_items()
     {
         return $this->hasMany('App\ExpenseItem');
-    }
-    public function expense_types()
-    {
-        return $this->hasMany('App\ExpenseType');
     }
     public function features()
     {
@@ -281,14 +279,6 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\SaleProduct');
     }
-    public function sale_types()
-    {
-        return $this->hasMany('App\SaleType');
-    }
-    public function salutations()
-    {
-        return $this->hasMany('App\Salutation');
-    }
     public function sections()
     {
         return $this->hasMany('App\Section');
@@ -364,6 +354,18 @@ class User extends Authenticatable
     public function units()
     {
         return $this->hasMany('App\Unit');
+    }
+    public function user_accounts()
+    {
+        return $this->hasMany('App\UserAccount');
+    }
+    public function active_user_account()
+    {
+        return $this->hasOne('App\UserAccount')->where('is_active',True);
+    }
+    public function inactive_user_account()
+    {
+        return $this->hasMany('App\UserAccount')->where('is_active',False);
     }
     public function uploads()
     {

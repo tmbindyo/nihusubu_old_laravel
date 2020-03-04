@@ -22,10 +22,10 @@
                 <h2>Payments Received</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li class="active">
                         <strong>Payments Received</strong>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-lg-2">
                 <div class="title-action">
-                    <a href="{{route('business.sale.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
+                    <a href="{{route('business.sale.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
                 </div>
             </div>
         </div>
@@ -77,8 +77,8 @@
                                             <td>{{$paymentReceived->refunded}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.sale.show', $paymentReceived->sale->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                    <a href="{{ route('business.sale.edit', $paymentReceived->sale->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                    <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$paymentReceived->sale->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    <a href="{{ route('business.sale.edit', ['portal'=>$institution->portal,'id'=>$paymentReceived->sale->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                                 </div>
                                             </td>
                                         </tr>

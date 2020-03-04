@@ -14,29 +14,33 @@ class Product extends Model
     public $incrementing = false;
 
     // Parents
-    public function status()
-    {
-        return $this->belongsTo('App\Status');
-    }
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
     public function institution()
     {
         return $this->belongsTo('App\Institution');
+    }
+    public function inventory_account()
+    {
+        return $this->belongsTo('App\Account','inventory_account_id','id');
     }
     public function selling_account()
     {
         return $this->belongsTo('App\Account','selling_account_id','id');
     }
+    public function status()
+    {
+        return $this->belongsTo('App\Status');
+    }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
     public function purchase_account()
     {
         return $this->belongsTo('App\Account','purchase_account_id','id');
-    }
-    public function inventory_account()
-    {
-        return $this->belongsTo('App\Account','inventory_account_id','id');
     }
     public function preferred_vendor()
     {

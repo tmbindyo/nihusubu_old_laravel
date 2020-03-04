@@ -22,10 +22,10 @@
                 <h2>Estimates</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li class="active">
                         <strong>Estimates</strong>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-lg-2">
                 <div class="title-action">
-                    <a href="{{route('business.estimate.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Estimate </a>
+                    <a href="{{route('business.estimate.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Estimate </a>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                                             <td>{{$estimate->reference}}</td>
                                             <td>{{$estimate->date}}</td>
                                             <td>{{$estimate->due_date}}</td>
-                                            <td>{{$estimate->customer->first_name}} {{$estimate->customer->last_name}}</td>
+                                            <td>{{$estimate->contact->first_name}} {{$estimate->contact->last_name}}</td>
                                             <td>{{$estimate->total}}</td>
                                             <td>
                                                 <p><span class="label {{$estimate->status->label}}">{{$estimate->status->name}}</span></p>
@@ -91,7 +91,7 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.estimate.show', $estimate->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    <a href="{{ route('business.estimate.show', ['portal'=>$institution->portal,'id'=>$estimate->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                 </div>
                                             </td>
                                         </tr>

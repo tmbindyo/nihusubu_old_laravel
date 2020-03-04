@@ -24,10 +24,10 @@
                 <h2>Payments Made</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li class="active">
                         <strong>Payments Made</strong>
@@ -133,7 +133,7 @@
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group">
-                                            <a href="{{route('business.expense.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                            <a href="{{route('business.expense.show',['portal'=>$institution->portal,'id'=>1])}}" class="btn-primary btn-outline btn btn-xs">View</a>
                                             <button class="btn-warning btn-outline btn btn-xs">Edit</button>
                                             <button class="btn-danger btn-outline btn btn-xs">Delete</button>
                                         </div>

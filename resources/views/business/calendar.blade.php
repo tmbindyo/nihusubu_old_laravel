@@ -25,17 +25,12 @@
         <h2>Calendar</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
             </li>
             <li class="active">
                 <strong>Calendar</strong>
             </li>
         </ol>
-    </div>
-    <div class="col-lg-4">
-        <div class="title-action">
-            <a href="#" data-toggle="modal" data-target="#calendarRegistration" aria-expanded="false" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
-        </div>
     </div>
 </div>
 
@@ -45,24 +40,8 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Striped Table </h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
+                    <h5>{{$institution->name}} Calendar  </h5>
+
                 </div>
                 <div class="ibox-content">
                     <div id="calendar"></div>
@@ -73,8 +52,6 @@
 </div>
 
 @endsection
-
-@include('business.layouts.modals.calendar_create')
 
 @section('js')
 
@@ -101,37 +78,7 @@
 <!-- Clock picker -->
 <script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
 
-{{--  Get due date to populate   --}}
-<script>
-    $(document).ready(function() {
-        // Set date
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth();
-        var yyyy = today.getFullYear();
-        if (dd < 10){
-            dd = '0'+dd;
-        }
-        if (mm < 10){
-            mm = '0'+mm;
-        }
-        var date_today = mm + '/' + dd + '/' + yyyy;
-        document.getElementById("date_due").value = date_today;
 
-        // Set time
-        var hh = today.getHours();
-        var min = today.getMinutes();
-        if (hh < 10){
-            hh = '0'+hh;
-        }
-        if (min < 10){
-            min = '0'+min;
-        }
-        var time_now = hh + ':' + min;
-        document.getElementById("time_due").value = "14:46";
-    });
-
-</script>
 
 {{--  Calendar  --}}
 <script>
@@ -187,50 +134,15 @@
                 }
             },
             events: [
+                @foreach ($toDos as $toDo)
                 {
-                    title: 'All Day Event',
-                    start: new Date(y, m, 1)
+                    title: '{{$toDo->name}}',
+                    start: new Date({{$toDo->start_year}}, {{$toDo->start_month-1}}, {{$toDo->start_day}}, {{$toDo->start_hour}}, {{$toDo->start_minute}}),
+                    @if($toDo->is_end_date == 1)
+                        end: new Date({{$toDo->end_year}}, {{$toDo->end_month-1}}, {{$toDo->end_day}} @if($toDo->is_end_time == 1), {{$toDo->end_hour}}, {{$toDo->end_minute}} @endif),
+                    @endif
                 },
-                {
-                    title: 'Long Event',
-                    start: new Date(y, m, d-5),
-                    end: new Date(y, m, d-2)
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d-3, 16, 0),
-                    allDay: false
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d+4, 16, 0),
-                    allDay: false
-                },
-                {
-                    title: 'Meeting',
-                    start: new Date(y, m, d, 10, 30),
-                    allDay: false
-                },
-                {
-                    title: 'Lunch',
-                    start: new Date(y, m, d, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    allDay: false
-                },
-                {
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d+1, 19, 0),
-                    end: new Date(y, m, d+1, 22, 30),
-                    allDay: false
-                },
-                {
-                    title: 'Click for Google',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: 'http://google.com/'
-                }
+                @endforeach
             ]
         });
 

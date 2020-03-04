@@ -51,10 +51,10 @@
         <h2>Assets</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.assets')}}">Assets</a>
+                <a href="{{route('business.assets',$institution->portal)}}">Assets</a>
             </li>
             <li class="active">
                 <strong>Asset Create</strong>
@@ -82,7 +82,7 @@
                     <div class="ibox-content">
 
                         <div class="">
-                            <form method="post" action="{{ route('business.asset.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" action="{{ route('business.asset.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

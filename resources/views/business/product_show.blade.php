@@ -22,10 +22,10 @@
         <h2>Product View</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.products')}}">Products</a>
+                <a href="{{route('business.products',$institution->portal)}}">Products</a>
             </li>
             <li class="active">
                 <strong>Product View</strong>
@@ -34,7 +34,7 @@
     </div>
     <div class="col-lg-4">
         <div class="title-action">
-            <a href="{{route('business.product.edit',$product->id)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
+            <a href="{{route('business.product.edit',['portal'=>$institution->portal,'id'=>$product->id])}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
         </div>
     </div>
 </div>
@@ -42,6 +42,93 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
 
+    {{-- infographics --}}
+    <div class="wrapper wrapper-content project-manager">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-dollar fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <span> Sales </span>
+                            <h2 class="font-bold">{{$product->sale_products_count}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-shopping-cart fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <span> Orders </span>
+                            <h2 class="font-bold">{{$product->order_products_count}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-database fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <span> Stock On Hand </span>
+                            @if($product->is_service == "1")
+                                <h2 class="font-bold">N/A</h2>
+                            @else
+                                        <h2 class="font-bold">{{$product->stock_on_hand->first()->stock_on_hand}}</h2>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if($product->is_service == "0")
+                <div class="col-md-3">
+                    <div class="widget style1 navy-bg">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-level-down fa-5x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span> Reorder Level </span>
+                                <h2 class="font-bold">{{$product->reorder_level}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if($product->is_service == "0")
+                <div class="col-md-3">
+                    <div class="widget style1 navy-bg">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-archive fa-5x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <span> Restocks </span>
+                                <h2 class="font-bold">{{$product->restock_count}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+        </div>
+    </div>
+
+    {{-- product description --}}
     <div class="row">
         <div class="col-lg-12">
 
@@ -106,9 +193,13 @@
 
                             <div>
                                 <div class="btn-group">
-                                    <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button>
-                                    <a href="{{route('business.expense.create')}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a>
-                                    <a href="{{ route('business.product.delete', $product->id) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
+                                    {{-- <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button> --}}
+                                    {{-- <a href="{{route('business.expense.create',$institution->portal)}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a> --}}
+                                    @if ($product->status_id == 'bc6170bf-299a-44f5-8362-8cdeed1f47b0')
+                                        <a href="{{ route('business.product.restore', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn btn-warning btn-sm"><i class="fa fa-check"></i> Restore </a>
+                                    @else
+                                        <a href="{{ route('business.product.delete', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
+                                    @endif
                                 </div>
                             </div>
 
@@ -132,14 +223,14 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-9">
+    <div class="col-lg-12">
         <div class="wrapper wrapper-content animated fadeInUp">
             <div class="ibox">
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="m-b-md">
-                                <h2>Contract with Zender Company</h2>
+                                {{--  <h2>Contract with Zender Company</h2>  --}}
                             </div>
                             <dl class="dl-horizontal">
                                 <dt>Status:</dt> <dd><span class="label {{$product->status->label}}">{{$product->status->name}}</span></dd>
@@ -191,23 +282,17 @@
                                                     <tr>
                                                         <th>Date</th>
                                                         <th>Quantity</th>
-                                                        <th>Rate</th>
+                                                        <th>Warehouse</th>
                                                         <th>Status</th>
-                                                        <th>Order</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($product->order_products as $order)
+                                                    @foreach($product->inventory as $inventory)
                                                         <tr class="gradeX">
-                                                            <td>{{$order->created_at}}</td>
-                                                            <td>{{$order->quantity}}</td>
-                                                            <td class="center">{{$order->rate}}</td>
-                                                            <td class="center">{{$order->status}}</td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('business.order.show', $order->order_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
+                                                            <td>{{$inventory->date}}</td>
+                                                            <td>{{$inventory->quantity}}</td>
+                                                            <td class="center">{{$inventory->warehouse->name}}</td>
+                                                            <td class="center">{{$inventory->status->name}}</td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
@@ -217,7 +302,6 @@
                                                         <th>Quantity</th>
                                                         <th>Rate</th>
                                                         <th>Status</th>
-                                                        <th>Order</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>
@@ -246,7 +330,7 @@
                                                             <td class="center">{{$order->status}}</td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.order.show', $order->order_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$order->order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -287,7 +371,7 @@
                                                             <td class="center">{{$sale->status}}</td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.sale.show', $sale->sale_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -331,7 +415,7 @@
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     @if($restock->is_opening_stock == 0)
-                                                                        <a href="{{ route('business.expense.show', $restock->expense_item->expense_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$restock->expense_item->expense_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                     @else
                                                                         <p><span class="label label-info">Opening Stock</span></p>
                                                                     @endif
@@ -374,8 +458,8 @@
                                                             <td>{{$inventory_adjustment_product->created_at}}</td>
                                                             {{--  Quantity based  --}}
                                                             @if($inventory_adjustment_product->inventory_adjustment->is_value_adjustment == 0)
-                                                                <td>{{$inventory_adjustment_product->initial_warehouse_amount}}</td>
-                                                                <td>{{$inventory_adjustment_product->subsequent_warehouse_quantity}}</td>
+                                                                <td>{{$inventory_adjustment_product->initial_quantity}}</td>
+                                                                <td>{{$inventory_adjustment_product->subsequent_quantity}}</td>
                                                                 <td>{{$inventory_adjustment_product->quantity}}</td>
                                                                 <td><p><span class="label label-info">Quantity Based</span></p></td>
                                                             {{--  Value based  --}}
@@ -387,7 +471,7 @@
                                                             @endif
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.inventory.adjustment.show', $inventory_adjustment_product->inventory_adjustment_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.inventory.adjustment.show', ['portal'=>$institution->portal,'id'=>$inventory_adjustment_product->inventory_adjustment_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -438,7 +522,7 @@
                                                             <td>{{$transfer_order_product->quantity}}</td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.transfer.order.show', $transfer_order_product->$transfer_order_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$transfer_order_product->transfer_order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -470,90 +554,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-
-        <div class="wrapper wrapper-content project-manager">
-
-
-            <div class="row">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-dollar fa-5x"></i>
-                        </div>
-                        <div class="col-xs-8 text-right">
-                            <span> Sales </span>
-                            <h2 class="font-bold">{{$product->sale_products_count}}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-shopping-cart fa-5x"></i>
-                        </div>
-                        <div class="col-xs-8 text-right">
-                            <span> Orders </span>
-                            <h2 class="font-bold">{{$product->order_products_count}}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <i class="fa fa-database fa-5x"></i>
-                        </div>
-                        <div class="col-xs-8 text-right">
-                            <span> Stock On Hand </span>
-                            @if($product->is_service == "1")
-                                <h2 class="font-bold">N/A</h2>
-                            @else
-                                        <h2 class="font-bold">{{$product->stock_on_hand->first()->stock_on_hand}}</h2>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            @if($product->is_service == "0")
-                <div class="row">
-                    <div class="widget style1 navy-bg">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <i class="fa fa-level-down fa-5x"></i>
-                            </div>
-                            <div class="col-xs-8 text-right">
-                                <span> Reorder Level </span>
-                                <h2 class="font-bold">{{$product->reorder_level}}</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if($product->is_service == "0")
-                <div class="row">
-                    <div class="widget style1 navy-bg">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <i class="fa fa-archive fa-5x"></i>
-                            </div>
-                            <div class="col-xs-8 text-right">
-                                <span> Restocks </span>
-                                <h2 class="font-bold">{{$product->restock_count}}</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
         </div>
     </div>
 </div>

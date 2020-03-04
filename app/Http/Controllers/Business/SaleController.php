@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\Account;
 use DB;
 use App\Address;
 use App\AlbumTag;
@@ -17,13 +18,13 @@ use App\Product;
 use App\ProductTax;
 use App\Sale;
 use App\SaleProduct;
-use App\Salutation;
 use App\Tax;
 use App\Traits\InstitutionTrait;
 use App\Traits\ReferenceNumberTrait;
 use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Payment;
 
 class SaleController extends Controller
 {
@@ -32,173 +33,33 @@ class SaleController extends Controller
     use InstitutionTrait;
     use ReferenceNumberTrait;
 
-    public function clients()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function estimates($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
-        // Get individual clients
-        $individualContacts = Contact::where('institution_id',$institution->id)->where('is_customer',True)->where('is_business',False)->with('billing_address','shipping_address','salutation','status','user')->get();
-        // Get company clients
-        $businessContacts = Contact::where('institution_id',$institution->id)->where('is_customer',True)->where('is_business',True)->with('billing_address','shipping_address','salutation','status','user')->get();
-
-        return view('business.clients',compact('user','institution','individualContacts','businessContacts'));
-    }
-
-    public function clientCreate()
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
-        //Salutation
-        $salutations = Salutation::get();
-        // Payment terms
-        $paymentTerms = PaymentTerm::where('institution_id',$institution->id)->get();
-
-        return view('business.client_create',compact('user','institution','salutations','paymentTerms'));
-    }
-
-    public function clientStore(Request $request)
-    {
-//        return $request;
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
-
-        // Billing Address
-        $billingAddress = new Address();
-        $billingAddress->attention = $request->attention;
-        $billingAddress->street = $request->billing_street;
-        $billingAddress->town = $request->billing_town;
-        $billingAddress->po_box = $request->billing_po_box;
-        $billingAddress->postal_code = $request->billing_postal_code;
-        $billingAddress->address_line_1 = $request->billing_address_line_1;
-        $billingAddress->address_line_2 = $request->billing_address_line_2;
-        $billingAddress->email = $request->billing_email;
-        $billingAddress->phone_number = $request->billing_phone_number;
-        $billingAddress->user_id = $user->id;
-        $billingAddress->address_type_id = '4be20a9a-aee3-414c-b8ba-dcacf859cc9c';
-        $billingAddress->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $billingAddress->save();
-
-
-        // Shipping address
-        $shippingAddress = new Address();
-        $shippingAddress->attention = $request->attention;
-        $shippingAddress->street = $request->shipping_street;
-        $shippingAddress->town = $request->shipping_town;
-        $shippingAddress->po_box = $request->shipping_po_box;
-        $shippingAddress->postal_code = $request->shipping_postal_code;
-        $shippingAddress->address_line_1 = $request->shipping_address_line_1;
-        $shippingAddress->address_line_2 = $request->shipping_address_line_2;
-        $shippingAddress->email = $request->shipping_email;
-        $shippingAddress->phone_number = $request->shipping_phone_number;
-        $shippingAddress->user_id = $user->id;
-        $shippingAddress->address_type_id = '07c99d10-8e09-4861-83df-fdd3700d7e48';
-        $shippingAddress->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $shippingAddress->save();
-
-        // Register client
-        $client = new Contact();
-        if ($request->customer_type == "individual")
-        {
-            $client->is_business = False;
-        }elseif ($request->customer_type == "business")
-        {
-            $client->is_business = True;
-        }
-        $client->is_customer = True;
-        $client->salutation_id = $request->salutation;
-        $client->first_name = $request->first_name;
-        $client->last_name = $request->last_name;
-        $client->company_name = $request->company_name;
-        $client->email = $request->email;
-        $client->phone_number = $request->phone_number;
-        $client->opening_balance = $request->opening_balance;
-        $client->balance = $request->opening_balance;
-        $client->website = $request->website;
-        $client->payment_term_id = $request->payment_term;
-        $client->shipping_address_id = $shippingAddress->id;
-        $client->billing_address_id = $billingAddress->id;
-        $client->user_id = $user->id;
-        $client->institution_id = $institution->id;
-        $client->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $client->save();
-
-        return redirect()->route('business.clients')->withSuccess(__('Client successfully created.'));
-    }
-
-    public function clientShow($client_id)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
-
-        return view('business.client_show',compact('user','institution'));
-    }
-
-    public function clientContactPersonShow($contact_person_id)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
-
-        return view('business.client_contact_person_show',compact('user','institution'));
-    }
-
-    public function clientContactPersonMessage($contact_person_id)
-    {
-        return back()->withSuccess(__('Message sent to .'));
-    }
-
-    public function clientEdit()
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
-
-        return view('business.client_edit',compact('user','institution'));
-    }
-
-    public function clientUpdate(Request $request, $client_id)
-    {
-        return back()->withSuccess(__('Client successfully updated.'));
-    }
-
-    public function clientDelete($client_id)
-    {
-        return back()->withSuccess(__('Client successfully deleted.'));
-    }
-
-
-    public function estimates()
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Estimates
-        $estimates = Sale::where('institution_id',$institution->id)->where('is_estimate',True)->with('status','customer')->get();
+        $estimates = Sale::where('institution_id',$institution->id)->where('is_estimate',True)->with('status','contact')->get();
 
 //        return $estimates;
 
         return view('business.estimates',compact('user','institution','estimates'));
     }
 
-    public function estimateCreate()
+    public function estimateCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
-        // Get customers
-        $customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        $institution = $this->getInstitution($portal);
+        // Get contacts
+        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -208,15 +69,15 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
 
-        return view('business.estimate_create',compact('user','institution','customers','taxes','inventories','products'));
+        return view('business.estimate_create',compact('user','institution','contacts','taxes','inventories','products'));
     }
 
-    public function estimateStore(Request $request)
+    public function estimateStore(Request $request, $portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
 //        return $request;
         // Generate reference
@@ -234,6 +95,8 @@ class SaleController extends Controller
         $estimate->discount = $request->discount;
         $estimate->total = $request->grand_total;
         $estimate->refund = 0;
+        $estimate->paid = 0;
+        $estimate->balance = $request->grand_total;
         $estimate->is_returned = False;
         $estimate->is_refunded = False;
         $estimate->is_product = True;
@@ -241,8 +104,9 @@ class SaleController extends Controller
 
         $estimate->is_estimate = True;
         $estimate->is_invoice = False;
-        $estimate->is_order = False;
         $estimate->is_sale = False;
+        $estimate->is_order = False;
+        $estimate->is_sample = False;
         // Todo impliment uploads for attachments
         $estimate->has_uploads = False;
         // Check if draft
@@ -253,7 +117,7 @@ class SaleController extends Controller
             $estimate->is_draft = False;
             $estimate->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
         }
-        $estimate->customer_id = $request->customer;
+        $estimate->contact_id = $request->contact;
         $estimate->institution_id = $institution->id;
         $estimate->user_id = $user->id;
         // estimate tax default
@@ -305,17 +169,17 @@ class SaleController extends Controller
         $estimateTaxSet->tax = $tax;
         $estimateTaxSet->save();
 
-        return redirect()->route('business.estimate.show',$estimate->id)->withSuccess(__('Estimate successfully created.'));
+        return redirect()->route('business.estimate.show',['portal'=>$institution->portal,'id'=>$estimate->id])->withSuccess(__('Estimate successfully created.'));
     }
 
-    public function estimateShow($estimate_id)
+    public function estimateShow($portal, $estimate_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
-        // Get customers
-        $customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        $institution = $this->getInstitution($portal);
+        // Get contacts
+        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -325,19 +189,20 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get estimate
-        $estimate = Sale::where('id',$estimate_id)->with('status','user','customer','sale_products.product.product_taxes')->withCount('sale_products')->first();
+        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact.organization','sale_products.product.product_taxes')->withCount('sale_products')->first();
+        // return $estimate;
 
         return view('business.estimate_show',compact('user','institution','estimate'));
     }
 
-    public function estimateEdit($estimate_id)
+    public function estimateEdit($portal, $estimate_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
-        // Get customers
-        $customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        $institution = $this->getInstitution($portal);
+        // Get contacts
+        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -347,20 +212,20 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get estimate
-        $estimate = Sale::where('id',$estimate_id)->with('status','user','customer','sale_products.product.product_taxes')->withCount('sale_products')->first();
+        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact','sale_products.product.product_taxes')->withCount('sale_products')->first();
 
-        return view('business.estimate_edit',compact('user','institution','customers','products','inventories','estimate'));
+        return view('business.estimate_edit',compact('user','institution','contacts','products','inventories','estimate'));
     }
 
-    public function estimateUpdate(Request $request, $estimate_id)
+    public function estimateUpdate(Request $request, $portal, $estimate_id)
     {
 //        return $request;
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Create estimate
-        $estimate = Sale::where('id',$estimate_id)->first();
+        $estimate = Sale::where('institution_id',$institution->id)->where('id',$estimate_id)->first();
         $estimate->customer_notes = $request->customer_notes;
         $estimate->terms_and_conditions = $request->terms_and_conditions;
         $estimate->date = date('Y-m-d', strtotime($request->date));
@@ -380,7 +245,7 @@ class SaleController extends Controller
             $estimate->is_draft = False;
             $estimate->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
         }
-        $estimate->customer_id = $request->customer;
+        $estimate->contact_id = $request->contact;
         $estimate->user_id = $user->id;
         $estimate->save();
         $tax = 0;
@@ -440,7 +305,7 @@ class SaleController extends Controller
         return back()->withSuccess(__('Estimate successfully updated.'));
     }
 
-    public function estimateConvertToInvoice($estimate_id)
+    public function estimateConvertToInvoice($portal, $estimate_id)
     {
 
         // User
@@ -455,12 +320,12 @@ class SaleController extends Controller
         return back()->withSuccess(__('Estimate successfully converted to sale.'));
     }
 
-    public function estimateDelete($estimate_id)
+    public function estimateDelete($portal, $estimate_id)
     {
         return back()->withSuccess(__('Estimate successfully deleted.'));
     }
 
-    public function estimateProductDelete($estimate_product_id)
+    public function estimateProductDelete($portal, $estimate_product_id)
     {
 //        return $estimate_product_id;
         $estimateProduct = SaleProduct::findOrFail($estimate_product_id);
@@ -475,40 +340,40 @@ class SaleController extends Controller
         return back()->withSuccess(__('Estimate product successfully deleted.'));
     }
 
-    public function estimatePrint($estimate_id)
+    public function estimatePrint($portal, $estimate_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get estimate
-        $estimate = Sale::where('id',$estimate_id)->with('status','user','customer.billing_address','sale_products.product')->withCount('sale_products')->first();
+        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
 //        return $estimate;
         return view('business.estimate_print',compact('user','institution','estimate'));
     }
 
 
 
-    public function invoices()
+    public function invoices($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Invoices
-        $invoices = Sale::where('institution_id',$institution->id)->where('is_invoice',True)->with('status','customer')->get();
+        $invoices = Sale::where('institution_id',$institution->id)->where('is_invoice',True)->with('status','contact')->get();
 
         return view('business.invoices',compact('user','institution','invoices'));
     }
 
-    public function invoiceCreate()
+    public function invoiceCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
-        // Get customers
-        $customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        $institution = $this->getInstitution($portal);
+        // Get contacts
+        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -518,15 +383,15 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
 
-        return view('business.invoice_create',compact('user','institution','products','inventories','customers','taxes'));
+        return view('business.invoice_create',compact('user','institution','products','inventories','contacts','taxes'));
     }
 
-    public function invoiceStore(Request $request)
+    public function invoiceStore(Request $request, $portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Generate reference
         $size = 5;
@@ -543,6 +408,8 @@ class SaleController extends Controller
         $invoice->discount = $request->discount;
         $invoice->total = $request->grand_total;
         $invoice->refund = 0;
+        $invoice->paid = 0;
+        $invoice->balance = $request->grand_total;
         $invoice->is_returned = False;
         $invoice->is_refunded = False;
         $invoice->is_product = True;
@@ -550,8 +417,9 @@ class SaleController extends Controller
 
         $invoice->is_estimate = False;
         $invoice->is_invoice = True;
-        $invoice->is_order = False;
         $invoice->is_sale = False;
+        $invoice->is_order = False;
+        $invoice->is_sample = False;
         // Todo impliment uploads for attachments
         $invoice->has_uploads = False;
         // Check if draft
@@ -562,7 +430,7 @@ class SaleController extends Controller
             $invoice->is_draft = False;
             $invoice->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
         }
-        $invoice->customer_id = $request->customer;
+        $invoice->contact_id = $request->contact;
         $invoice->institution_id = $institution->id;
         $invoice->user_id = $user->id;
         // invoice tax default
@@ -614,17 +482,17 @@ class SaleController extends Controller
         $invoiceTaxSet->tax = $tax;
         $invoiceTaxSet->save();
 
-        return redirect()->route('business.invoice.show',$invoice->id)->withSuccess(__('Invoice successfully created.'));
+        return redirect()->route('business.invoice.show',['portal'=>$institution->portal,'id'=>$invoice->id])->withSuccess(__('Invoice successfully created.'));
     }
 
-    public function invoiceShow($invoice_id)
+    public function invoiceShow($portal, $invoice_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
-        // Get customers
-        $customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        $institution = $this->getInstitution($portal);
+        // Get contacts
+        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -634,19 +502,19 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get invoice
-        $invoice = Sale::where('id',$invoice_id)->with('status','user','customer','sale_products.product.product_taxes')->withCount('sale_products')->first();
+        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product.product_taxes')->withCount('sale_products')->first();
 
         return view('business.invoice_show',compact('user','institution','invoice'));
     }
 
-    public function invoiceEdit($invoice_id)
+    public function invoiceEdit($portal, $invoice_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
-        // Get customers
-        $customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        $institution = $this->getInstitution($portal);
+        // Get contacts
+        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -656,18 +524,18 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get invoice
-        $invoice = Sale::where('id',$invoice_id)->with('status','user','customer','sale_products.product.product_taxes')->withCount('sale_products')->first();
+        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product.product_taxes')->withCount('sale_products')->first();
 
-        return view('business.invoice_edit',compact('user','institution','customers','products','inventories','invoice'));
+        return view('business.invoice_edit',compact('user','institution','contacts','products','inventories','invoice'));
     }
 
-    public function invoiceUpdate(Request $request, $invoice_id)
+    public function invoiceUpdate(Request $request, $portal, $invoice_id)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Create invoice
         $invoice = Sale::where('id',$invoice_id)->first();
         $invoice->customer_notes = $request->customer_notes;
@@ -689,7 +557,7 @@ class SaleController extends Controller
             $invoice->is_draft = False;
             $invoice->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
         }
-        $invoice->customer_id = $request->customer;
+        $invoice->contact_id = $request->contact;
         $invoice->user_id = $user->id;
         $invoice->save();
         $tax = 0;
@@ -750,7 +618,7 @@ class SaleController extends Controller
 
     }
 
-    public function invoiceConvertToSale($invoice_id)
+    public function invoiceConvertToSale($portal, $invoice_id)
     {
 
         // User
@@ -765,12 +633,12 @@ class SaleController extends Controller
         return back()->withSuccess(__('Invoice successfully converted to sale.'));
     }
 
-    public function invoiceDelete($invoice_id)
+    public function invoiceDelete($portal, $invoice_id)
     {
         return back()->withSuccess(__('Invoice successfully deleted.'));
     }
 
-    public function invoiceProductDelete($invoice_product_id)
+    public function invoiceProductDelete($portal, $invoice_product_id)
     {
 //        return $invoice_product_id;
         $invoiceProduct = SaleProduct::findOrFail($invoice_product_id);
@@ -785,14 +653,14 @@ class SaleController extends Controller
         return back()->withSuccess(__('Invoice product successfully deleted.'));
     }
 
-    public function invoicePrint($invoice_id)
+    public function invoicePrint($portal, $invoice_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get invoice
-        $invoice = Sale::where('id',$invoice_id)->with('status','user','customer.billing_address','sale_products.product')->withCount('sale_products')->first();
+        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
 //        return $invoice;
         return view('business.invoice_print',compact('user','institution','invoice'));
     }
@@ -800,100 +668,27 @@ class SaleController extends Controller
 
 
 
-    public function orders()
+    public function sales($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
-        // Orders
-        $orders = Sale::where('institution_id',$institution->id)->where('is_order',True)->with('status','customer')->get();
-
-        return view('business.orders',compact('user','institution','orders'));
-    }
-
-    public function orderCreate()
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
-        // Getting Products
-        $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
-        // Get Inventory
-        $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $inventories = Inventory::with('product','warehouse')->get();
-
-        return view('business.order_create',compact('user','institution','inventories','products'));
-    }
-
-    public function orderStore()
-    {
-        return back()->withSuccess(__('Order successfully created.'));
-    }
-
-    public function orderShow($order_id)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
-
-        return view('business.order_show',compact('user','institution'));
-    }
-
-    public function orderEdit($order_id)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
-
-        return view('business.order_edit',compact('user','institution'));
-    }
-
-    public function orderUpdate($order_id)
-    {
-        return back()->withSuccess(__('Order successfully updated.'));
-    }
-
-    public function orderDelete($order_id)
-    {
-        return back()->withSuccess(__('Order successfully deleted.'));
-    }
-
-    public function orderPrint($order_id)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
-
-        return view('business.order_print',compact('user','institution'));
-    }
-
-
-    public function sales()
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Sales
-        $sales = Sale::where('institution_id',$institution->id)->where('is_sale',True)->with('status','customer')->get();
+        $sales = Sale::where('institution_id',$institution->id)->where('is_sale',True)->with('status','contact')->get();
 
         return view('business.sales',compact('user','institution','sales'));
     }
 
-    public function saleCreate()
+    public function saleCreate($portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
-        // Get customers
-        $customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        $institution = $this->getInstitution($portal);
+        // Get contacts
+        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -903,16 +698,16 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
 
-        return view('business.sale_create',compact('user','institution','products','inventories','customers','taxes'));
+        return view('business.sale_create',compact('user','institution','products','inventories','contacts','taxes'));
     }
 
-    public function saleStore(Request $request)
+    public function saleStore(Request $request, $portal)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Generate reference
         $size = 5;
@@ -936,8 +731,8 @@ class SaleController extends Controller
 
         $sale->is_estimate = False;
         $sale->is_invoice = False;
-        $sale->is_order = False;
         $sale->is_sale = True;
+        $sale->is_order = False;
         // Todo impliment uploads for attachments
         $sale->has_uploads = False;
         // if paid
@@ -962,7 +757,7 @@ class SaleController extends Controller
         }else{
             $sale->is_sample = False;
         }
-        $sale->customer_id = $request->customer;
+        $sale->contact_id = $request->contact;
         $sale->institution_id = $institution->id;
         $sale->user_id = $user->id;
         // sale tax default
@@ -1026,17 +821,17 @@ class SaleController extends Controller
         $saleTaxSet->tax = $tax;
         $saleTaxSet->save();
 
-        return redirect()->route('business.sale.show',$sale->id)->withSuccess(__('Sale successfully created.'));
+        return redirect()->route('business.sale.show',['portal'=>$institution->portal,'id'=>$sale->id])->withSuccess(__('Sale successfully created.'));
     }
 
-    public function saleShow($sale_id)
+    public function saleShow($portal, $sale_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
-        // Get customers
-        $customers = Contact::where('institution_id',$institution->id)->where('is_customer',True)->with('billing_address','shipping_address')->get();
+        $institution = $this->getInstitution($portal);
+        // Get contacts
+        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -1046,37 +841,63 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get sale
-        $sale = Sale::where('id',$sale_id)->with('status','user','customer','sale_products.product.product_taxes','payments_received.status')->withCount('sale_products')->first();
-
-        return view('business.sale_show',compact('user','institution','sale'));
+        $sale = Sale::where('institution_id',$institution->id)->where('id',$sale_id)->with('status','user','contact','sale_products.product.product_taxes','payments_received.status')->withCount('sale_products')->first();
+        // payments
+        $payments = Payment::where('sale_id',$sale->id)->with('user','status','account')->get();
+        return view('business.sale_show',compact('user','institution','sale','payments'));
     }
 
-    public function saleEdit($sale_id)
+    public function salePrint($portal, $invoice_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
+        // Get sale
+        $sale = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
+//        return $sale;
+        return view('business.sale_print',compact('user','institution','sale'));
+    }
+
+    public function salePaymentCreate($portal, $sale_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // get accounts
+        $accounts = Account::where('institution_id',$institution->id)->get();
+        // sales
+        $sale = Sale::where('id',$sale_id)->first();
+        return view('business.sale_payment_create',compact('user','institution','accounts','sale'));
+    }
+
+    public function saleEdit($portal, $sale_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
 
         return view('business.sale_show',compact('user','institution'));
     }
 
-    public function saleUpdate($sale_id)
+    public function saleUpdate($portal, $sale_id)
     {
         return back()->withSuccess(__('Order successfully updated.'));
     }
 
-    public function saleDelete($sale_id)
+    public function saleDelete($portal, $sale_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return back()->withSuccess(__('Sale successfully deleted.'));
     }
 
-    public function saleProductDelete($sale_product_id)
+    public function saleProductDelete($portal, $sale_product_id)
     {
 //        return $sale_product_id;
         $saleProduct = SaleProduct::findOrFail($sale_product_id);
@@ -1091,7 +912,7 @@ class SaleController extends Controller
         return back()->withSuccess(__('Sale product successfully deleted.'));
     }
 
-    public function saleRecordPayment(Request $request, $sale_id)
+    public function saleRecordPayment(Request $request, $portal, $sale_id)
     {
 
         // User
@@ -1116,7 +937,7 @@ class SaleController extends Controller
         return back()->withSuccess(__('Sale payment successfully registered.'));
     }
 
-    public function saleRecordPaymentRefund(Request $request, $payment_received_id)
+    public function saleRecordPaymentRefund(Request $request, $portal, $payment_received_id)
     {
 
         // User
@@ -1134,12 +955,12 @@ class SaleController extends Controller
     }
 
 
-    public function paymentsReceived()
+    public function paymentsReceived($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Get received payments
         $saleIds = Sale::where('institution_id',$institution->id)->select('id')->get()->toArray();
@@ -1153,12 +974,12 @@ class SaleController extends Controller
         return view('business.payments_received',compact('user','institution','paymentsReceived'));
     }
 
-    public function paymentsReceivedStore(Request $request, $sale_id)
+    public function paymentsReceivedStore(Request $request, $portal, $sale_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Check if sale exists
         $sale = Sale::findOrFail($sale_id);
 

@@ -18,7 +18,7 @@ class CreateBranchesTable extends Migration
             $table->string('name', 200);
             $table->longText('description');
 
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
             $table->uuid('address_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

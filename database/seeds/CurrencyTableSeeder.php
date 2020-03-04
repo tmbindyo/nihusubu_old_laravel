@@ -13,7 +13,7 @@ class CurrencyTableSeeder extends Seeder
     {
         DB::table('currencies')->insert([
             'id' => '0839e6c9-20b3-4442-b3b6-5137a4d309ec',
-            'name' => 'Ksh',
+            'name' => 'KES',
             'description' => 'Kenyan Shillings',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,

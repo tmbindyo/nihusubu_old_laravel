@@ -15,33 +15,34 @@
 @section('content')
 
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <h2>Estimate</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li>
-                        <a href="{{route('business.estimates')}}">Estimates</a>
+                        <a href="{{route('business.estimates',$institution->portal)}}">Estimates</a>
                     </li>
                     <li class="active">
                         <strong>Estimate</strong>
                     </li>
                 </ol>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="title-action">
                     @if($estimate->is_invoice == 0)
-                        <a href="{{route('business.estimate.edit',$estimate->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
-                        <a href="{{route('business.estimate.convert.to.invoice',$estimate->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Invoice </a>
+                        <a href="{{route('business.estimate.edit',['portal'=>$institution->portal,'id'=>$estimate->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                        <a href="{{route('business.estimate.convert.to.invoice',['portal'=>$institution->portal,'id'=>$estimate->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Invoice </a>
                     @else
-                        <a href="{{route('business.invoice.show',$estimate->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Invoice </a>
+                        <a href="{{route('business.invoice.show',['portal'=>$institution->portal,'id'=>$estimate->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Invoice </a>
 
                     @endif
-                    <a href="{{route('business.estimate.print',$estimate->id)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
+                    <a href="{{route('business.estimate.print',['portal'=>$institution->portal,'id'=>$estimate->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
+                    <a href="{{route('business.contact.show',['portal'=>$institution->portal,'id'=>$estimate->contact_id])}}" class="btn btn-success btn-outline"><i class="fa fa-eye"></i> Contact </a>
                 </div>
             </div>
         </div>
@@ -73,7 +74,7 @@
                                         </td>
                                         <td class="desc">
                                             <h3>
-                                                <a href="{{route('business.product.show',$product->product->id)}}" class="text-navy">
+                                                <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->product->id])}}" class="text-navy">
                                                     {{$product->product->name}}
                                                 </a>
                                             </h3>
@@ -81,7 +82,7 @@
                                             {!! $product->product->description !!}
 
                                             <div class="m-t-sm">
-                                                <a href="{{route('business.estimate.product.delete',$product->id)}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
+                                                <a href="{{route('business.estimate.product.delete',['portal'=>$institution->portal,'id'=>$product->id])}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
                                             </div>
                                         </td>
 
@@ -116,7 +117,7 @@
 
                     <div class="ibox">
                         <div class="ibox-title">
-                            <h5>Cart Summary</h5>
+                            <h5>Estimate Summary</h5>
                         </div>
                         <div class="ibox-content">
                             <span>
@@ -144,32 +145,26 @@
 
                             <hr/>
                             <span class="text-muted small">
-                                @if($estimate->customer->is_business == 1)
-                                    {{--  if business  --}}
-                                    <address>
-                                        <strong>{{$estimate->customer->company_name}}</strong><br>
-                                        112 Street Avenu, 1080<br>
-                                        Miami, CT 445611<br>
-                                        <abbr title="Phone">P:</abbr> {{$estimate->customer->phone_number}}<br>
-                                        <abbr title="Email">E:</abbr> {{$estimate->customer->email}}
-                                    </address>
-                                @else
+                                {{-- @if($estimate->contact->organization === null) --}}
                                     {{--  if not business  --}}
-                                    <address>
-                                        <strong>{{$estimate->customer->first_name}} {{$estimate->customer->last_name}}</strong><br>
+                                    {{-- <address>
+                                        <strong>{{$estimate->contact->first_name}} {{$estimate->contact->last_name}}</strong><br>
                                         112 Street Avenu, 1080<br>
                                         Miami, CT 445611<br>
-                                        <abbr title="Phone">P:</abbr> {{$estimate->customer->phone_number}}<br>
-                                        <abbr title="Email">E:</abbr> {{$estimate->customer->email}}
-                                    </address>
-                                @endif
+                                        <abbr title="Phone">P:</abbr> {{$estimate->contact->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$estimate->contact->email}}
+                                    </address> --}}
+                                {{-- @else --}}
+                                    {{--  if business  --}}
+                                    {{-- <address>
+                                        <strong>{{$estimate->contact->organization->name}}</strong><br>
+                                        112 Street Avenu, 1080<br>
+                                        Miami, CT 445611<br>
+                                        <abbr title="Phone">P:</abbr> {{$estimate->contact->organization->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$estimate->contact->organization->email}}
+                                    </address> --}}
+                                {{-- @endif --}}
                             </span>
-                            <div class="m-t-sm">
-                                <div class="btn-group">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-mail-forward"></i> Send</a>
-                                    <a href="#" class="btn btn-danger btn-sm"> Cancel</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
 

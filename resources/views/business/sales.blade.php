@@ -22,10 +22,10 @@
                 <h2>Sales</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.dashboard')}}">Home</a>
+                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales')}}">Sales</a>
+                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                     </li>
                     <li class="active">
                         <strong>Sales</strong>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-lg-2">
                 <div class="title-action">
-                    <a href="{{route('business.sale.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
+                    <a href="{{route('business.sale.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
                 </div>
             </div>
         </div>
@@ -62,6 +62,7 @@
                                         <th>Due Date</th>
                                         <th>Customer</th>
                                         <th>Amount</th>
+                                        <th>Paid</th>
                                         <th>Status</th>
                                         <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                     </tr>
@@ -72,14 +73,15 @@
                                             <td>{{$sale->reference}}</td>
                                             <td>{{$sale->date}}</td>
                                             <td>{{$sale->due_date}}</td>
-                                            <td>{{$sale->customer->first_name}} {{$sale->customer->last_name}}</td>
+                                            <td>{{$sale->contact->first_name}} {{$sale->contact->last_name}}</td>
                                             <td>{{$sale->total}}</td>
+                                            <td>{{$sale->paid}}</td>
                                             <td>
                                                 <p><span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></p>
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.sale.show', $sale->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$sale->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -92,6 +94,7 @@
                                         <th>Due Date</th>
                                         <th>Customer</th>
                                         <th>Amount</th>
+                                        <th>Paid</th>
                                         <th>Status</th>
                                         <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                     </tr>

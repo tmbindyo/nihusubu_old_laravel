@@ -24,7 +24,7 @@
             <h2>Investment</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('personal.dashboard')}}">Home</a>
+                    <a href="{{route('personal.calendar')}}">Home</a>
                 </li>
                 <li>
                     <a href="#">Growth</a>
@@ -44,8 +44,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>
-                                    <h2>Contract with Zender Company</h2>
+                                    {{--  <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>  --}}
+                                    <h2>{{--  <h2>Contract with Zender Company</h2>  --}}</h2>
                                 </div>
                                 <dl class="dl-horizontal">
                                     <dt>Status:</dt> <dd><span class="label label-primary">Active</span></dd>

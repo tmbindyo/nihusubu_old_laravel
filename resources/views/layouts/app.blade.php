@@ -7,7 +7,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Argon Dashboard') }}</title>
+        <title>{{ config('app.name', 'nihusubu') }}</title>
         <!-- Favicon -->
         <link rel="shortcut icon" href="{{ asset('nihusubu.ico') }}" >
         <!-- Fonts -->

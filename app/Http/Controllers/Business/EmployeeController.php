@@ -13,223 +13,228 @@ class EmployeeController extends Controller
     use UserTrait;
     use institutionTrait;
 
-    public function employees()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function employees($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.employees',compact('user','institution'));
     }
-    public function employeeCreate()
+    public function employeeCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.employee_create',compact('user','institution'));
     }
-    public function employeeStore(Request $request)
+    public function employeeStore(Request $request, $portal)
     {
         return back()->withStatus(__('Employee successfully stored.'));
     }
-    public function employeeShow($employee_id)
+    public function employeeShow($portal, $employee_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.employee_show',compact('user','institution'));
     }
-    public function employeeEdit($employee_id)
+    public function employeeEdit($portal, $employee_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.employee_edit',compact('user','institution'));
     }
-    public function employeeUpdate(Request $request)
+    public function employeeUpdate(Request $request, $portal)
     {
         return back()->withStatus(__('Employee successfully updated.'));
     }
-    public function employeeDelete($employee_id)
+    public function employeeDelete($portal, $employee_id)
     {
         return back()->withStatus(__('Employee successfully deleted.'));
     }
 
-    public function leave()
+    public function leave($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.leave',compact('user','institution'));
     }
-    public function leaveCreate()
+    public function leaveCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.leave_create',compact('user','institution'));
     }
-    public function leaveStore(Request $request)
+    public function leaveStore(Request $request, $portal)
     {
         return back()->withStatus(__('Leave successfully stored.'));
     }
-    public function leaveShow($leave_id)
+    public function leaveShow($portal, $leave_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.leave_show',compact('user','institution'));
     }
-    public function leaveEdit($leave_id)
+    public function leaveEdit($portal, $leave_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.leave_edit',compact('user','institution'));
     }
-    public function leaveUpdate(Request $request)
+    public function leaveUpdate(Request $request, $portal)
     {
         return back()->withStatus(__('Leave successfully updated.'));
     }
-    public function leaveDelete($leave_id)
+    public function leaveDelete($portal, $leave_id)
     {
         return back()->withStatus(__('Leave successfully deleted.'));
     }
 
-    public function payroll()
+    public function payroll($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.payroll',compact('user','institution'));
     }
-    public function payrollHistory()
+    public function payrollHistory($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.payroll_history',compact('user','institution'));
     }
-    public function employeePayrollHistory()
+    public function employeePayrollHistory($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.employee_payroll_history',compact('user','institution'));
     }
-    public function payrollAnnualSalaryStatement()
+    public function payrollAnnualSalaryStatement($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.payroll_annual_salary_statement',compact('user','institution'));
     }
-    public function payrollProcess()
+    public function payrollProcess($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.payroll_process',compact('user','institution'));
     }
-    public function payrollProcessPayment()
+    public function payrollProcessPayment($portal)
     {
         return back()->withStatus(__('Payroll successfully processed.'));
     }
-    public function payrollSalaryAdjustment()
+    public function payrollSalaryAdjustment($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.payroll_salary_adjustment',compact('user','institution'));
     }
 
-    public function employer()
+    public function employer($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.employer',compact('user','institution'));
     }
 
-    public function humanResourceSettings()
+    public function humanResourceSettings($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.human_resource_settings',compact('user','institution'));
     }
 
-    public function workdaysUpdate()
+    public function workdaysUpdate($portal)
     {
         return back()->withStatus(__('Workday successfully updated.'));
     }
 
-    public function holidayStore()
+    public function holidayStore($portal)
     {
         return back()->withStatus(__('Holiday successfully created.'));
     }
-    public function holidayUpdate()
+    public function holidayUpdate($portal)
     {
         return back()->withStatus(__('Holiday successfully updated.'));
     }
-    public function holidayDelete()
+    public function holidayDelete($portal)
     {
         return back()->withStatus(__('Holiday successfully deleted.'));
     }
 
-    public function leaveTypeStore()
+    public function leaveTypeStore($portal)
     {
         return back()->withStatus(__('Leave Type successfully created.'));
     }
-    public function leaveTypeUpdate()
+    public function leaveTypeUpdate($portal)
     {
         return back()->withStatus(__('Leave Type successfully updated.'));
     }
-    public function leaveTypeDelete()
+    public function leaveTypeDelete($portal)
     {
         return back()->withStatus(__('Leave Type successfully deleted.'));
     }
 
-    public function earningPolicyStore()
+    public function earningPolicyStore($portal)
     {
         return back()->withStatus(__('Earning policy successfully created.'));
     }
-    public function earningPolicyUpdate()
+    public function earningPolicyUpdate($portal)
     {
         return back()->withStatus(__('Earning policy successfully updated.'));
     }
-    public function earningPolicyDelete()
+    public function earningPolicyDelete($portal)
     {
         return back()->withStatus(__('Earning policy successfully deleted.'));
     }

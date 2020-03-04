@@ -19,21 +19,24 @@ class CreateInstitutionsTable extends Migration
             $table->string('name', 200);
             $table->string('portal', 200);
             $table->string('kra_pin_number', 200)->nullable();
+            $table->string('email', 200)->nullable();
+            $table->string('phone_number', 200)->nullable();
             $table->string('website', 200)->nullable();
             $table->string('location', 200)->nullable();
             $table->date('inventory_start_date')->nullable();
 
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+            $table->uuid('plan_id');
             $table->uuid('logo_id')->nullable();
             $table->uuid('address_id')->nullable();
             $table->uuid('currency_id');
             $table->uuid('fiscal_year_id')->nullable();
             $table->uuid('language_id')->nullable();
             $table->uuid('timezone_id')->nullable();
-            $table->integer('user_id')->unsigned();
-            $table->uuid('status_id');
             $table->uuid('primary_contact_id')->nullable();
 
-            $table->boolean('has_custom_payment_terms');
+            $table->boolean('is_active');
 
             $table->timestamps();
             $table->softDeletes();

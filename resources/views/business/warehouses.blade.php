@@ -21,7 +21,7 @@
             <h2>Warehouses</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Inventory
@@ -61,7 +61,7 @@
                         </a>
                         <div class="contact-box-footer">
                             <div class="m-t-xs btn-group">
-                                <a href="{{route('business.warehouse.show',$warehouse->id)}}" class="btn btn-xs btn-outline btn-primary"> View </a>
+                                <a href="{{route('business.warehouse.show',['portal'=>$institution->portal,'id'=>$warehouse->id])}}" class="btn btn-xs btn-outline btn-primary"> View </a>
                                 <a href="" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-cross"></i> Delete</a>
                             </div>
                         </div>

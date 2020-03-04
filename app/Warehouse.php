@@ -12,21 +12,25 @@ class Warehouse extends Model
     public $incrementing = false;
 
     // Parents
-    public function status()
+    public function address()
     {
-        return $this->belongsTo('App\Status');
-    }
-    public function user()
-    {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Address');
     }
     public function institution()
     {
         return $this->belongsTo('App\Institution');
     }
-    public function address()
+    public function status()
     {
-        return $this->belongsTo('App\Address');
+        return $this->belongsTo('App\Status');
+    }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
     // Children

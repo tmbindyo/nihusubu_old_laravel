@@ -28,13 +28,13 @@
             <h2>Composite Product</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.products')}}">Products</a>
+                    <a href="{{route('business.products',$institution->portal)}}">Products</a>
                 </li>
                 <li>
-                    <a href="{{route('business.composite.products')}}">Composite Products</a>
+                    <a href="{{route('business.composite.products',$institution->portal)}}">Composite Products</a>
                 </li>
                 <li class="active">
                     <strong>Composite Product Products</strong>
@@ -44,14 +44,14 @@
         <div class="col-lg-2">
             <div class="title-action">
                 {{--  todo add item to composite products modal  --}}
-                <a href="#" data-toggle="modal" data-target="#compositeProductRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                {{--  <a href="#" data-toggle="modal" data-target="#compositeProductRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>  --}}
             </div>
         </div>
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            @foreach($compositeProduct->composite_product_products as $product)
+            @foreach($compositeProductProducts as $product)
                 <div class="col-md-3">
                     <div class="ibox">
                         <div class="ibox-content product-box">
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="m-t text-righ">
 
-                                    <a href="{{route('business.product.show',$product->id)}}" class="btn btn-xs btn-outline btn-primary">View <i class="fa fa-long-arrow-right"></i> </a>
+                                    <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->product->id])}}" class="btn btn-xs btn-outline btn-primary">View <i class="fa fa-long-arrow-right"></i> </a>
                                 </div>
                             </div>
                         </div>
@@ -89,8 +89,8 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="m-b-md">
-                                        <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>
-                                        <h2>Contract with Zender Company</h2>
+                                        {{--  <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>  --}}
+                                        {{--  <h2>Contract with Zender Company</h2>  --}}
                                     </div>
                                     <dl class="dl-horizontal">
                                         <dt>Status:</dt> <dd><span class="label {{$compositeProduct->status->label}}">{{$compositeProduct->status->name}}</span></dd>
@@ -149,7 +149,7 @@
                                                                     <td class="center">{{$order->status}}</td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('business.order.show', $order->order_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$order->order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -190,7 +190,7 @@
                                                                     <td class="center">{{$sale->status}}</td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('business.sale.show', $sale->sale_id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>

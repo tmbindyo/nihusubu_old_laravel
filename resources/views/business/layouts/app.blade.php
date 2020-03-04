@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <link rel="shortcut icon" href="{{ asset('') }}/nihusubu.ico" type="image/x-icon">
-
+    <link rel="shortcut icon" href="{{ asset('nihusubu.ico') }}" >
     <title>Nihusubu | @yield('title')</title>
 
     @yield('css')
@@ -27,9 +26,9 @@
         @include('business.layouts.navbars.header')
         <!-- top navbar -->
 
-        <!-- top navbar -->
+        <!-- popup -->
         @include('business.layouts.popover.popover')
-        <!-- top navbar -->
+        <!-- popup -->
 
         <!-- page content -->
         @yield ('content')
@@ -41,7 +40,7 @@
 
     </div>
     <!-- chat content -->
-    @include('business.layouts.navbars.chat')
+    {{--  @include('business.layouts.navbars.chat')  --}}
     <!-- /chat content -->
 
     <!-- right sidebar content -->

@@ -16,7 +16,7 @@ class CreateInstitutionServicesTable extends Migration
         Schema::create('institution_services', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->uuid('institution_id');
+            $table->uuid('institution_id')->nullable();
             $table->uuid('service_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

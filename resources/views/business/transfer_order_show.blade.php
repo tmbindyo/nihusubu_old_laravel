@@ -22,13 +22,13 @@
             <h2>Transer Order</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Inventory
                 </li>
                 <li class="active">
-                    <a href="{{route('business.transfer.orders')}}">Transer Orders</a>
+                    <a href="{{route('business.transfer.orders',$institution->portal)}}">Transer Orders</a>
                 </li>
                 <li class="active">
                     <strong>Transer Order</strong>
@@ -86,103 +86,8 @@
             </div>
 
         </div>
-        <div class="row">
 
-            <div class="col-lg-12">
-
-                <div class="ibox">
-                    <div class="ibox-title">
-                        Transfer Details
-                    </div>
-                    <div class="ibox-content">
-
-                        <div class="panel-group payments-method" id="accordion">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div class="pull-right">
-
-                                    </div>
-                                    <h5 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Credit Card</a>
-                                    </h5>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse collapse in">
-                                    <div class="panel-body">
-
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <h2>Summary</h2>
-                                                <strong>Order #:</strong>: {{$transferOrder->transfer_order_number}} <br/>
-                                                <strong>Date:</strong>: <span class="text-navy">{{$transferOrder->date}}</span>
-
-                                                <p class="m-t">
-                                                    {{$transferOrder->reason}}
-                                                </p>
-                                            </div>
-                                            <div class="col-md-8">
-
-                                                <form role="form" id="payment-form">
-                                                    <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <div class="form-group">
-                                                                <label>CARD NUMBER</label>
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control" name="Number" placeholder="Valid Card Number" required />
-                                                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-xs-7 col-md-7">
-                                                            <div class="form-group">
-                                                                <label>EXPIRATION DATE</label>
-                                                                <input type="text" class="form-control" name="Expiry" placeholder="MM / YY"  required/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-5 col-md-5 pull-right">
-                                                            <div class="form-group">
-                                                                <label>CV CODE</label>
-                                                                <input type="text" class="form-control" name="CVC" placeholder="CVC"  required/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <div class="form-group">
-                                                                <label>NAME OF CARD</label>
-                                                                <input type="text" class="form-control" name="nameCard" placeholder="NAME AND SURNAME"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <button class="btn btn-primary" type="submit">Make a payment!</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-
-                                            </div>
-
-                                        </div>
-
-
-
-
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
+        
 
     </div>
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -210,7 +115,7 @@
                                         </td>
                                         <td class="desc">
                                             <h3>
-                                                <a href="#" class="text-navy">
+                                                <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->product->id])}}" class="text-navy">
                                                     {{$product->product->name}}
                                                 </a>
                                             </h3>

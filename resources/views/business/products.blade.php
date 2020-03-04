@@ -21,7 +21,7 @@
             <h2>Products</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
                     <strong>Products</strong>
@@ -30,7 +30,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.product.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('business.product.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -39,77 +39,77 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Products / Services</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Products / Services</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="ibox-content">
+                    <div class="ibox-content">
 
-                    <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>SKU</th>
-                        <th>Stock on Hand</th>
-                        <th>Reorder Level</th>
-                        <th>Status</th>
-                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($products as $product)
-                        <tr class="gradeA">
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->unit->name}}</td>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>SKU</th>
+                                        <th>Stock on Hand</th>
+                                        <th>Reorder Level</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($products as $product)
+                                        <tr class="gradeA">
+                                            <td>{{$product->name}}</td>
+                                            <td>{{$product->unit->name}}</td>
 
-                            @if($product->is_service == "1")
-                                <td>N/A</td>
-                            @else
-                                <td>{{$product->stock_on_hand->first()->stock_on_hand}}</td>
-                            @endif
+                                            @if($product->is_service == "1")
+                                                <td>N/A</td>
+                                            @else
+                                                <td>{{$product->stock_on_hand->first()->stock_on_hand}}</td>
+                                            @endif
 
-                            <td class="center">{{$product->reorder_level}}</td>
-                            <td class="center">
-                                <p>@if ($product->is_service==1) Service: @elseif($product->is_service==0)Product: @endif <span class="label {{$product->status->label}}">{{$product->status->name}}</span></p>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <a href="{{ route('business.product.show', $product->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                    <a href="{{ route('business.product.edit', $product->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                    @if($product->status->name=="Discontinued")
-                                        <a href="{{ route('business.product.restore', $product->id) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
-                                    @else
-                                        <a href="{{ route('business.product.delete', $product->id) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                                    @endif
+                                            <td class="center">{{$product->reorder_level}}</td>
+                                            <td class="center">
+                                                <p>@if ($product->is_service==1) Service: @elseif($product->is_service==0)Product: @endif <span class="label {{$product->status->label}}">{{$product->status->name}}</span></p>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    <a href="{{ route('business.product.show', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    <a href="{{ route('business.product.edit', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                    @if($product->status->name=="Discontinued")
+                                                        <a href="{{ route('business.product.restore', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
+                                                    @else
+                                                        <a href="{{ route('business.product.delete', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                                    @endif
 
 
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>SKU</th>
-                        <th>Stock on Hand</th>
-                        <th>Reorder Level</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-                </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>SKU</th>
+                                        <th>Stock on Hand</th>
+                                        <th>Reorder Level</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
-        </div>
         </div>
     </div>
 

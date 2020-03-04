@@ -19,7 +19,7 @@
         <h2>Payroll</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
             </li>
             <li>
                 <a href="#">Human Resource</a>
@@ -31,9 +31,9 @@
     </div>
     <div class="col-lg-8">
         <div class="title-action">
-            <a href="{{route('business.payroll.annual.salary.statement')}}" class="btn btn-primary btn-outline"><i class="fa fa-book"></i> Annual Salary Statement </a>
-            <a href="{{route('business.payroll.history')}}" class="btn btn-primary btn-outline"><i class="fa fa-archive"></i> Payroll History </a>
-            <a href="{{route('business.payroll.process')}}" class="btn btn-danger btn-outline"><i class="fa fa-send"></i> Process Payroll </a>
+            <a href="{{route('business.payroll.annual.salary.statement',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-book"></i> Annual Salary Statement </a>
+            <a href="{{route('business.payroll.history',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-archive"></i> Payroll History </a>
+            <a href="{{route('business.payroll.process',$institution->portal)}}" class="btn btn-danger btn-outline"><i class="fa fa-send"></i> Process Payroll </a>
         </div>
     </div>
 </div>
@@ -155,7 +155,7 @@
                     <td class="text-right">
                         <div class="btn-group">
                             <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                            <a href="{{ route('business.variable.pay.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                            <a href="{{ route('business.variable.pay.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                         </div>
                     </td>
                 </tr>
@@ -228,7 +228,7 @@
                     <td class="text-right">
                         <div class="btn-group">
                             <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                            <a href="{{ route('business.variable.deduction.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                            <a href="{{ route('business.variable.deduction.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                         </div>
                     </td>
                 </tr>
@@ -301,7 +301,7 @@
                     <td class="text-right">
                         <div class="btn-group">
                             <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                            <a href="{{ route('business.variable.deduction.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                            <a href="{{ route('business.variable.deduction.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                         </div>
                     </td>
                 </tr>
@@ -372,7 +372,7 @@
                                 <td class="text-right">
                                     <div class="btn-group">
                                         <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                        <a href="{{ route('business.variable.deduction.delete', 1) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                        <a href="{{ route('business.variable.deduction.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                     </div>
                                 </td>
                             </tr>

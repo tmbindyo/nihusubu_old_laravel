@@ -24,7 +24,7 @@
             <h2>Asset</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('personal.dashboard')}}">Home</a>
+                    <a href="{{route('personal.calendar')}}">Home</a>
                 </li>
                 <li class="active">
                     <strong>Asset</strong>
@@ -525,7 +525,7 @@
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="{{route('business.warehouse.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                        <a href="{{route('personal.warehouse.show',1)}}" class="btn-primary btn-outline btn btn-xs">View</a>
                                         <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                     </div>
                                 </td>

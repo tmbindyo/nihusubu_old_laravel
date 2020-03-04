@@ -18,10 +18,10 @@
             <h2>Sale</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    <a href="{{route('business.sales')}}">Sales</a>
+                    <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
                 </li>
                 <li class="active">
                     <strong>Sale</strong>
@@ -30,11 +30,10 @@
         </div>
         <div class="col-lg-6">
             <div class="title-action">
-                <a href="#" data-toggle="modal" data-target="#paymentRegistration" aria-expanded="false" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Payment </a>
                 {{--  todo return --}}
-{{--                <a href="#" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Return </a>--}}
-{{--                <a href="#" class="btn btn-danger btn-outline"><i class="fa fa-pencil"></i> Issue </a>--}}
-                <a href="{{route('business.sale.print',$sale->id)}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Invoice </a>
+                <a href="{{route('business.sale.payment.create',['portal'=>$institution->portal,'id'=>$sale->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Payment </a>
+                <a href="{{route('business.sale.print',['portal'=>$institution->portal,'id'=>$sale->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Invoice </a>
+                <a href="{{route('business.contact.show',['portal'=>$institution->portal,'id'=>$sale->contact_id])}}" class="btn btn-success btn-outline"><i class="fa fa-eye"></i> Contact </a>
             </div>
         </div>
     </div>
@@ -62,7 +61,7 @@
                                         </td>
                                         <td class="desc">
                                             <h3>
-                                                <a href="{{route('business.product.show',$product->product->id)}}" class="text-navy">
+                                                <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->product->id])}}" class="text-navy">
                                                     {{$product->product->name}}
                                                 </a>
                                             </h3>
@@ -70,7 +69,7 @@
                                             {!! $product->product->description !!}
 
                                             <div class="m-t-sm">
-                                                <a href="{{route('business.sale.product.delete',$product->id)}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
+                                                <a href="{{route('business.sale.product.delete',['portal'=>$institution->portal,'id'=>$product->id])}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
                                             </div>
                                         </td>
 
@@ -105,7 +104,7 @@
 
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Cart Summary</h5>
+                        <h5>Sale Summary</h5>
                     </div>
                     <div class="ibox-content">
                             <span>
@@ -174,107 +173,80 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Payments</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
+
                     </div>
                     <div class="ibox-content">
 
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>
-                                <tr>
-                                    <th>Date </th>
-                                    <th>Paid</th>
-                                    <th>Refunded</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Amount</th>
+                                        <th>Initial</th>
+                                        <th>Subsequent</th>
+                                        <th>Date</th>
+                                        <th>Account</th>
+                                        <th>For</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($sale->payments_received as $payment_received)
-                                    <tr class="gradeX">
-                                        <td>{{$payment_received->date}}</td>
-                                        <td>{{$payment_received->paid}}</td>
-                                        <td>{{$payment_received->refunded}}</td>
-                                        <td>
-{{--                                            <p><span class="label {{$payment_received->status->label}}">{{$payment_received->status->name}}</span></p>--}}
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="btn-group">
-                                                <a href="#" data-toggle="modal" data-target="#{{$payment_received->id}}" aria-expanded="false"  class="btn-success btn-outline btn btn-xs">Refund</a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach($payments as $payment)
+                                        <tr class="gradeX">
+                                            <td>
+                                                {{$payment->reference}}
+                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                            </td>
+                                            <td>{{$payment->amount}}</td>
+                                            <td>{{$payment->initial_balance}}</td>
+                                            <td>{{$payment->current_balance}}</td>
+                                            <td>{{$payment->date}}</td>
+                                            <td>{{$payment->account->name}}</td>
+                                            <td>
+                                                @if($payment->is_order == 1)
+                                                    <span class="label label-success">Order: {{$payment->order->reference}}</span>
+                                                @elseif($payment->is_quote == 1)
+                                                    <span class="label label-success">Quote: {{$payment->quote->reference}}</span>
+                                                @elseif($payment->is_asset_action == 1)
+                                                    <span class="label label-success">Asset Action: {{$payment->asset_action->reference}}</span>
+                                                @elseif($payment->is_loan == 1)
+                                                    <span class="label label-success">Loan: {{$payment->loan->reference}}</span>
+                                                @endif
+                                            </td>
+                                            <td>{{$payment->user->name}}</td>
+                                            <td>
+                                                <span class="label {{$payment->status->label}}">{{$payment->status->name}}</span>
+                                            </td>
 
-                                    <div class="modal inmodal" id="{{$payment_received->id}}" tabindex="-1" role="dialog" aria-labelledby="paymentRegistrationLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content animated bounceInRight">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                    <i class="fa fa-dollar-sign modal-icon"></i>
-                                                    <h4 class="modal-title">Payment Registration</h4>
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    <a href="{{ route('business.payment.show', ['portal'=>$institution->portal,'id'=>$payment->id]) }}" class="btn-default btn btn-xs">Show</a>
+                                                    @if($payment->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                        <a href="{{ route('business.payment.restore', ['portal'=>$institution->portal,'id'=>$payment->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    @else
+                                                        <a href="{{ route('business.payment.delete', ['portal'=>$institution->portal,'id'=>$payment->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    @endif
                                                 </div>
-                                                <div class="modal-body">
-                                                    <form method="post" action="{{ route('business.sale.record.payment.refund',$payment_received->id) }}" autocomplete="off" class="form-horizontal form-label-left">
-                                                        @csrf
-
-                                                        @if ($errors->any())
-                                                            <div class="alert alert-danger">
-                                                                <ul>
-                                                                    @foreach ($errors->all() as $error)
-                                                                        <li>{{ $error }}</li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
-                                                        @endif
-
-                                                        <div class="row">
-                                                            <div class="">
-                                                                <div class="has-warning">
-                                                                    <input type="number" name="amount" required="required" max="{{$payment_received->paid}}" placeholder="Amount" class="form-control input-lg">
-                                                                    <i>amount paid</i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="ln_solid"></div>
-
-                                                        <div class="text-center">
-                                                            <button type="submit" class="btn btn-block btn-outline btn-lg btn-success mt-4">{{ __('Save') }}</button>
-                                                        </div>
-
-                                                    </form>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <th>Date </th>
-                                    <th>Paid</th>
-                                    <th>Refunded</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Amount</th>
+                                        <th>Initial</th>
+                                        <th>Subsequent</th>
+                                        <th>Date</th>
+                                        <th>Account</th>
+                                        <th>For</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -287,7 +259,6 @@
     </div>
 @endsection
 
-@include('business.layouts.modals.payment_register')
 
 @section('js')
 <!-- Mainly scripts -->

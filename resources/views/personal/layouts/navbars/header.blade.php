@@ -12,7 +12,7 @@
             <li>
                 <span class="m-r-sm text-muted welcome-message">Welcome to Nihusubu.</span>
             </li>
-            <li class="dropdown">
+            {{--  <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
                 </a>
@@ -106,19 +106,23 @@
                         </div>
                     </li>
                 </ul>
-            </li>
+            </li>  --}}
 
 
             <li>
-                <a href="{{route('logout')}}">
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-sign-out"></i> Log out
                 </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
             </li>
-            <li>
+            {{--  <li>
                 <a class="right-sidebar-toggle">
                     <i class="fa fa-tasks"></i>
                 </a>
-            </li>
+            </li>  --}}
         </ul>
 
     </nav>

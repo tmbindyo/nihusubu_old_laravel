@@ -7,7 +7,7 @@
                 <h4 class="modal-title">Warehouse Registration</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('business.warehouse.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('business.warehouse.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())
@@ -22,15 +22,9 @@
 
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="has-warning">
                                 <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="">
-                                <input type="text" id="attention" name="attention" required="required" placeholder="Attention" class="form-control input-lg">
                             </div>
                         </div>
                     </div>
@@ -49,6 +43,7 @@
                             </div>
                         </div>
                     </div>
+
                     <br>
                     <div class="row">
                         <div class="col-md-6">
@@ -63,6 +58,7 @@
                             </div>
                         </div>
                     </div>
+
                     <br>
                     <div class="row">
                         <div class="col-md-6">
@@ -77,6 +73,7 @@
                             </div>
                         </div>
                     </div>
+
                     <br>
                     <div class="row">
                         <div class="col-md-6">
@@ -91,6 +88,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <br>
                     <div class="ln_solid"></div>
 

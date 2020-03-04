@@ -25,27 +25,34 @@ class InventoryController extends Controller
     use institutionTrait;
     use ReferenceNumberTrait;
 
-    // Inventory adjustment CRUD
-    public function inventoryAdjustments()
+    public function __construct()
     {
+        $this->middleware('auth');
+    }
+
+    // Inventory adjustment CRUD
+    public function inventoryAdjustments($portal)
+    {
+
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get inventory adjustments
         $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventoryAdjustments = InventoryAdjustment::whereIn('warehouse_id', $institutionWarehouses)->with('warehouse','user','status','account','reason')->get();
 //        return $inventoryAdjustments;
         return view('business.inventory_adjustments',compact('user','institution','inventoryAdjustments'));
+
     }
-    public function inventoryAdjustmentCreate()
+    public function inventoryAdjustmentCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get institution accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // Get reasons
         $reasons = Reason::where('institution_id',$institution->id)->get();
         // Warehouse
@@ -55,14 +62,15 @@ class InventoryController extends Controller
 
         return view('business.inventory_adjustment_create',compact('user','institution','accounts','reasons','warehouses','products'));
     }
-    public function inventoryAdjustmentStore(Request $request)
+
+    public function inventoryAdjustmentStore(Request $request, $portal)
     {
 //        return $request;
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Generate reference number
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -86,6 +94,7 @@ class InventoryController extends Controller
 
         foreach ($request->item_details as $itemDetail){
 
+            // return $itemDetail['new_on_hand'];
             // Check if product exists
             $product = Product::findOrFail($itemDetail['details']);
 
@@ -104,74 +113,78 @@ class InventoryController extends Controller
             if ($request->mode_of_adjustment == "quantity"){
                 // Quantity adjustment
                 // Adjust inventory
+                // return $itemDetail['new_on_hand'];
                 $inventory = Inventory::where('product_id',$product->id)->where('warehouse_id',$request->warehouse)->first();
-                $inventory->quantity = $itemDetail['new_on_hand'];
+                $inventories = Inventory::all();
+                // return $inventories;
+                $inventory->quantity = doubleval($itemDetail['new_on_hand']);
                 $inventory->save();
             }elseif ($request->mode_of_adjustment == "value"){
 
             }
 
-
             // Value adjustment
         }
 
 
-        return back()->withSuccess(__('Inventory adjustment successfully stored.'));
+        return redirect()->route('business.inventory.adjustment.show',['portal'=>$institution->portal,'id'=>$inventoryAdjustment->id])->withSuccess(__('Inventory adjustment successfully stored.'));
     }
-    public function inventoryAdjustmentShow($inventory_adjustment_id)
+
+    public function inventoryAdjustmentShow($portal, $inventory_adjustment_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         $inventoryAdjustment = InventoryAdjustment::findOrFail($inventory_adjustment_id);
         $inventoryAdjustment = InventoryAdjustment::where('id',$inventory_adjustment_id)->with('inventory_adjustment_products.product','status','reason','account','warehouse','user')->withCount('inventory_adjustment_products')->first();
 
 //        return $inventoryAdjustment;
         return view('business.inventory_adjustment_show',compact('user','institution','inventoryAdjustment'));
     }
-    public function inventoryAdjustmentEdit($inventory_adjustment_id)
+
+    public function inventoryAdjustmentEdit($portal, $inventory_adjustment_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.inventory_adjustment_edit',compact('user','institution'));
     }
-    public function inventoryAdjustmentUpdate(Request $request, $inventory_adjustment_id)
+
+    public function inventoryAdjustmentUpdate(Request $request, $portal, $inventory_adjustment_id)
     {
         return back()->withSuccess(__('Inventory adjustment successfully updated.'));
     }
-    public function inventoryAdjustmentDelete(Request $request, $inventory_adjustment_id)
+
+    public function inventoryAdjustmentDelete(Request $request, $portal, $inventory_adjustment_id)
     {
         return back()->withSuccess(__('Inventory adjustment successfully deleted.'));
     }
 
     // Transfer order CRUD
-    public function transferOrders()
+    public function transferOrders($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get inventory adjustments
         $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $transferOrders = TransferOrder::where('institution_id', $institution->id)->with('source_warehouse','destination_warehouse','user','status')->get();
 
 //        return $transferOrders;
-
-//        return $transferOrders;
         return view('business.transfer_orders',compact('user','institution','transferOrders'));
     }
-    public function transferOrderCreate()
+    public function transferOrderCreate($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Get institution accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // Warehouse
         $warehouses = Warehouse::where('institution_id',$institution->id)->get();
         // Products
@@ -180,14 +193,15 @@ class InventoryController extends Controller
 
         return view('business.transfer_order_create',compact('user','institution','accounts','warehouses','products'));
     }
-    public function transferOrderStore(Request $request)
+
+    public function transferOrderStore(Request $request, $portal)
     {
 
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         $size = 5;
         $reference = $this->getRandomString($size);
 
@@ -206,8 +220,10 @@ class InventoryController extends Controller
         foreach ($request->item_details as $transfer){
 
             $sourceWarehouse = Inventory::where('warehouse_id', $request->source_warehouse)->where('product_id', $transfer['product_id'])->first();
+
+
             $destinationWarehouse = Inventory::where('warehouse_id', $request->destination_warehouse)->where('product_id', $transfer['product_id'])->first();
-//            return $destinationWarehouse;
+
 
             $transferOrderProduct = new TransferOrderProduct();
             $transferOrderProduct->source_warehouse_initial_amount = $sourceWarehouse->quantity;
@@ -223,64 +239,76 @@ class InventoryController extends Controller
             $transferOrderProduct->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
             $transferOrderProduct->save();
 
+            // deduct from source
+            $sourceWarehouse->date = date("Y/m/d");
+            $sourceWarehouse->quantity = $source_subsequent_amount;
+            $sourceWarehouse->save();
+
+            // add to destination
+            $destinationWarehouse->date = date("Y/m/d");
+            $destinationWarehouse->quantity = $destination_subsequent_amount;
+            $destinationWarehouse->save();
+
         }
 
-        return redirect()->route('business.transfer.orders')->withSuccess(__('Transfer order successfully stored.'));
+        return redirect()->route('business.transfer.order.show',['portal'=>$institution->portal,'id'=>$transferOrder->id])->withSuccess(__('Transfer order successfully stored.'));
     }
-    public function transferOrderShow($transfer_order_id)
+
+    public function transferOrderShow($portal, $transfer_order_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         $transferOrder = TransferOrder::findOrFail($transfer_order_id);
         $transferOrder = TransferOrder::where('id',$transfer_order_id)->with('source_warehouse.user','destination_warehouse.user','transfer_order_products.product')->withCount('transfer_order_products')->first();
-
-//        return $transferOrder;
-//
         return view('business.transfer_order_show',compact('user','institution','transferOrder'));
     }
-    public function transferOrderEdit($transfer_order_id)
+
+    public function transferOrderEdit($portal, $transfer_order_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.transfer_order_edit',compact('user','institution'));
     }
-    public function transferOrderUpdate(Request $request, $transfer_order_id)
+
+    public function transferOrderUpdate(Request $request, $portal, $transfer_order_id)
     {
         return back()->withSuccess(__('Transfer order successfully updated.'));
     }
-    public function transferOrderDelete(Request $request, $transfer_order_id)
+
+    public function transferOrderDelete(Request $request, $portal, $transfer_order_id)
     {
         return back()->withSuccess(__('Transfer order successfully deleted.'));
     }
 
 
     // Warehouse CRUD
-    public function warehouses()
+    public function warehouses($portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Warehouses
         $warehouses = Warehouse::where('institution_id',$institution->id)->with('address')->get();
 
         return view('business.warehouses',compact('user','institution','warehouses'));
     }
-    public function warehouseStore(Request $request)
+
+    public function warehouseStore(Request $request, $portal)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         // Warehouse address
         $address = new Address();
-        $address->attention = $request->attention;
+        // $address->attention = $request->attention;
 
         $address->street = $request->street;
         $address->town = $request->town;
@@ -306,7 +334,7 @@ class InventoryController extends Controller
         $warehouse->save();
 
         // Add inventory records for each warehouse and each product at 0
-        // Get all products
+        // Get products
         $productIds = Product::select('id')->get();
         foreach ($productIds as $productId){
             // Inventory record
@@ -321,13 +349,14 @@ class InventoryController extends Controller
 
         return back()->withSuccess(__('Warehouse successfully stored.'));
     }
-    public function warehouseShow($warehouse_id)
+
+    public function warehouseShow($portal, $warehouse_id)
     {
 
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         // Check if warehouse exists
         $warehouse = Warehouse::findOrFail($warehouse_id);
         $warehouse = Warehouse::where('id',$warehouse_id)->withCount('inventories')->with('status','user','address')->first();
@@ -343,37 +372,68 @@ class InventoryController extends Controller
 
         return view('business.warehouse_show',compact('user','institution','warehouse','inventories','inventoryAdjustments','sourceTransferOrders','destinationTransferOrders'));
     }
-    public function warehouseEdit($warehouse_id)
+
+    public function warehouseEdit($portal, $warehouse_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
 
         return view('business.warehouse_edit',compact('user','institution'));
     }
-    public function warehouseUpdate(Request $request, $warehouse_id)
-    {
-        return back()->withSuccess(__('Warehouse successfully updated.'));
-    }
-    public function warehouseDelete(Request $request, $warehouse_id)
+
+    public function warehouseUpdate(Request $request, $portal, $warehouse_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
+        // Check if warehouse exists
+        $warehouse = Warehouse::findOrFail($warehouse_id);
+        $warehouse = Warehouse::where('id',$warehouse_id)->withCount('inventories')->with('status','user','address')->first();
+
+        // Warehouse address
+        $address = Address::where('id',$warehouse->address_id)->first();
+        // $address->attention = $request->attention;
+        $address->street = $request->street;
+        $address->town = $request->town;
+        $address->po_box = $request->po_box;
+        $address->postal_code = $request->postal_code;
+        $address->address_line_1 = $request->address_line_1;
+        $address->address_line_2 = $request->address_line_2;
+        $address->email = $request->email;
+        $address->phone_number = $request->phone_number;
+        $address->user_id = $user->id;
+        $address->save();
+
+        // Warehouse registration
+        $warehouse->name = $request->name;
+        $warehouse->user_id = $user->id;
+        $warehouse->save();
+
+        return back()->withSuccess(__('Warehouse successfully updated.'));
+    }
+
+    public function warehouseDelete(Request $request, $portal, $warehouse_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
         $warehouse = Warehouse::findOrFail($warehouse_id);
         $warehouse->status_id = "d35b4cee-5594-4cfd-ad85-e489c9dcdeff";
         $warehouse->save();
 
         return back()->withSuccess(__('Warehouse successfully deleted.'));
     }
-    public function warehouseRestore(Request $request, $warehouse_id)
+
+    public function warehouseRestore(Request $request, $portal, $warehouse_id)
     {
         // User
         $user = $this->getUser();
         // Institution
-        $institution = $this->getInstitution();
+        $institution = $this->getInstitution($portal);
         $warehouse = Warehouse::findOrFail($warehouse_id);
         $warehouse->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $warehouse->save();

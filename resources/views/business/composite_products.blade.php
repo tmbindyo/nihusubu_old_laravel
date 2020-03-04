@@ -21,7 +21,7 @@
             <h2>Composite products</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
                     <strong>Composite products</strong>
@@ -30,7 +30,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.composite.product.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('business.composite.product.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -70,12 +70,12 @@
                             </td>
                             <td class="text-right">
                                 <div class="btn-group">
-                                    <a href="{{ route('business.composite.product.show', $product->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                    <a href="{{ route('business.composite.product.edit', $product->id) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                    <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                    <a href="{{ route('business.composite.product.edit', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                     @if($product->status->name=="Discontinued")
-                                        <a href="{{ route('business.composite.product.restore', $product->id) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
+                                        <a href="{{ route('business.composite.product.restore', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
                                     @else
-                                        <a href="{{ route('business.composite.product.delete', $product->id) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                        <a href="{{ route('business.composite.product.delete', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                     @endif
 
 

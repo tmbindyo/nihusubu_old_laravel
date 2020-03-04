@@ -22,7 +22,7 @@
             <h2>Inventory Adjustments</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
                     Inventory
@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.inventory.adjustment.create')}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> New </a>
+                <a href="{{route('business.inventory.adjustment.create',$institution->portal)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> New </a>
             </div>
         </div>
     </div>
@@ -83,8 +83,7 @@
                                             <td>{{$inventoryAdjustment->user->name}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{route('business.inventory.adjustment.show',$inventoryAdjustment->id)}}" class="btn-primary btn-outline btn btn-xs">View</a>
-                                                    <a href="{{route('business.inventory.adjustment.edit',$inventoryAdjustment->id)}}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                    <a href="{{route('business.inventory.adjustment.show',['portal'=>$institution->portal,'id'=>$inventoryAdjustment->id])}}" class="btn-primary btn-outline btn btn-xs">View</a>
                                                 </div>
                                             </td>
                                         </tr>

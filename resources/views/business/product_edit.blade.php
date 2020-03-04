@@ -59,10 +59,10 @@
         <h2>Product Edit</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.dashboard')}}">Home</a>
+                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
             </li>
             <li>
-                <a href="{{route('business.products')}}">Products</a>
+                <a href="{{route('business.products',$institution->portal)}}">Products</a>
             </li>
             <li class="active">
                 <strong>Product Edit</strong>
@@ -83,15 +83,13 @@
             <div class="tabs-container">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#product"> Product info</a></li>
-                    <li class=""><a data-toggle="tab" href="#discount"> Discount</a></li>
-                    <li class=""><a data-toggle="tab" href="#images"> Images</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <div id="product" class="tab-pane active">
                         <div class="panel-body">
 
-                            <form method="post" action="{{ route('business.product.update',$product->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" action="{{ route('business.product.update',['portal'=>$institution->portal,'id'=>$product->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -121,29 +119,31 @@
                                         </div>
 
                                         <br>
+                                        <br>
 
                                         {{--  Name  --}}
                                         <div class="has-warning">
                                             <label>  </label>
                                             <input type="text" id="name" name="name" required="required" class="form-control input-lg" value="{{$product->name}}">
-                                            <i>Give your product/service a name</i>
+                                            <i>name</i>
                                         </div>
+                                        <br>
                                         {{--  Product Unit  --}}
                                         <div class="row">
-                                            <div class="col-md-1">
-                                                <label></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label>  </label>
                                                     <select name="unit" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                                        <option value="">Select Unit</option>
+                                                        <option value="" disabled>Select Unit</option>
                                                         @foreach($units as $unit)
                                                             <option @if($product->unit_id == $unit->id) selected @endif value="{{$unit->id}}">{{$unit->name}}</option>
                                                         @endforeach()
                                                     </select>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <label></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
                                         </div>
 
@@ -179,40 +179,55 @@
                                         <h4 class="text-center">SALES INFORMATION</h4>
                                         {{--  Product purchase account  --}}
                                         <div class="row">
+
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <select name="selling_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                    <option value="" disabled>Select Selling Account</option>
+                                                    @foreach($salesAccounts as $account)
+                                                        <option @if($product->selling_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
+                                                    @endforeach()
+                                                </select>
+                                                <i>selling account</i>
+                                            </div>
                                             <div class="col-md-1">
                                                 <label></label>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <select name="selling_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                                    <option value="">Select Selling Account</option>
-                                                    @foreach($accounts as $account)
-                                                        <option @if($product->selling_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
-                                                    @endforeach()
-                                                </select>
-                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <h4 class="text-center">PURCHASE INFORMATION</h4>
                                         {{--  Product selling account  --}}
                                         <div class="row">
-                                            <div class="col-md-1">
-                                                <label class="text-danger"></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
+
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
                                                     <select name="purchase_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                                        <option value="">Select Purchase Account</option>
-                                                        @foreach($accounts as $account)
-                                                            <option @if($product->purchase_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
-                                                        @endforeach()
+                                                        <option value="" disabled>Select Purchase Account</option>
+                                                        <optgroup label="Exepense">
+                                                            @foreach($expenseAccounts as $account)
+                                                                <option @if($product->purchase_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
+                                                            @endforeach()
+                                                        </optgroup>
+
+                                                        <optgroup label="Costs Of Goods Sold">
+                                                            @foreach($costOfGoodsSoldAccounts as $account)
+                                                                <option @if($product->purchase_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
+                                                            @endforeach()
+                                                        </optgroup>
+
                                                     </select>
+                                                    <i>purchase account</i>
                                                 </div>
                                             </div>
+                                            <div class="col-md-1">
+                                                <label class="text-danger"></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +238,7 @@
                                         <div class="has-warning">
                                             <label class="text-danger"></label>
                                             <input type="text" id="selling_price" name="selling_price" required="required" value="{{$product->selling_price}}" class="form-control input-lg">
-                                            <i>Give your product a price</i>
+                                            <i>selling price</i>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -231,7 +246,7 @@
                                         <div class="has-warning">
                                             <label class="text-danger"></label>
                                             <input type="text" id="purchase_price" name="purchase_price" required="required" value="{{$product->purchase_price}}" class="form-control input-lg">
-                                            <i>Your product purchase price</i>
+                                            <i>purchase price</i>
                                         </div>
                                     </div>
                                 </div>
@@ -245,6 +260,7 @@
                                                 <option @foreach ($product->product_taxes as $product_tax) {{$product_tax->tax_id}}  @if($product_tax->tax_id == $tax->id) selected @endif @endforeach value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
                                             @endforeach()
                                         </select>
+                                        <i>taxes</i>
                                     </div>
                                 </div>
                                 <br>
@@ -282,21 +298,24 @@
                                     <div class="col-md-6">
                                         {{--  Inventory account  --}}
                                         <div class="row">
-                                            <div class="col-md-1">
-                                                <label class="text-danger"></label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="All inventory related transactions will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
+
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
                                                     <select name="inventory_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2">
-                                                        <option value="">Select Inventory Account</option>
-                                                        @foreach($accounts as $account)
+                                                        <option value="" disabled>Select Inventory Account</option>
+                                                        @foreach($stockAccounts as $account)
                                                             <option @if($product->inventory_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
                                                         @endforeach()
                                                     </select>
+                                                    <i>inventory account</i>
                                                 </div>
                                             </div>
+                                            <div class="col-md-1">
+                                                <label class="text-danger"></label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="All inventory related transactions will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+
                                         </div>
 
                                     </div>
@@ -308,28 +327,34 @@
                                     <div class="col-md-6">
                                         {{--  Opening stock  --}}
                                         <div class="row">
+
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <input type="number" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg" value="{{$product->opening_stock}}">
+                                                <i>opening stock</i>
+                                            </div>
                                             <div class="col-md-1">
                                                 <label></label>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <input type="number" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg" value="{{$product->opening_stock}}">
-                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         {{--  Opening stock value  --}}
                                         {{--  todo Make KES (currency) dynamic  --}}
                                         <div class="row">
+
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <input type="number" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg" value="{{$product->opening_stock}}">
+                                                <i>opening stock value</i>
+                                            </div>
                                             <div class="col-md-1">
                                                 <label></label>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Opening stock value refers to the average purchase price of your opening stock. (Per unit in KES)" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <input type="number" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg" value="{{$product->opening_stock}}">
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -338,14 +363,17 @@
                                     <div class="col-md-6">
                                         {{--  Reorder Level  --}}
                                         <div class="row">
+
+                                            <div class="col-md-11">
+                                                <label></label>
+                                                <input type="number" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg" value="{{$product->reorder_level}}">
+                                                <i>reorder level</i>
+                                            </div>
                                             <div class="col-md-1">
                                                 <label></label>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="Reorder level refers to the quantity of an item below which, an item is considered to be low on stock." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
-                                            <div class="col-md-11">
-                                                <label></label>
-                                                <input type="number" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg" value="{{$product->reorder_level}}">
-                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -362,112 +390,6 @@
                                 </div>
 
                             </form>
-                        </div>
-                    </div>
-                    <div id="discount" class="tab-pane">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="pull-right">
-                                    <button data-toggle="modal" data-target="#productDiscountRegistration" aria-expanded="false" class="btn btn-outline btn-primary"> <span class="fa fa-plus"></span> Add Discount</button>
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="table-responsive">
-                                <table class="table table-stripped table-bordered">
-
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            Quantity
-                                        </th>
-                                        <th>
-                                            Minimum
-                                        </th>
-                                        <th>
-                                            Discount
-                                        </th>
-                                        <th style="width: 20%">
-                                            Date start
-                                        </th>
-                                        <th style="width: 20%">
-                                            Date end
-                                        </th>
-                                        <th style="width: 11%">
-                                            Actions
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($product->product_discounts as $discount)
-                                        <tr>
-                                            <td>
-                                                <input type="text" class="form-control" value="{{$discount->quantity}}" disabled>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" value="{{$discount->minimum_items}}" disabled>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" value="{{$discount->discount}}" disabled>
-                                            </td>
-                                            <td>
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" class="form-control" value="{{$discount->start_date}}" disabled>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                    <input type="text" class="form-control" value="{{$discount->end_date}}" disabled>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                    {{--  product discount edit  --}}
-                                                    {{--  <button data-toggle="modal" data-target="#productDiscountEdit" aria-expanded="false" class="btn btn-warning"><i class="fa fa-pencil"></i> </button>  --}}
-                                                <a href="{{route('business.product.discount.delete',$discount->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i> </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div id="images" class="tab-pane">
-                        <div class="panel-body">
-
-                            <div class="row">
-                                <div class="pull-right">
-                                    <button data-toggle="modal" data-target="#productImageUpload" aria-expanded="false" class="btn btn-outline btn-primary"> <span class="fa fa-plus"></span> Product Image</button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                @foreach($product->product_images as $product_image)
-                                    <div class="col-md-3">
-                                        <div class="ibox">
-                                            <div class="ibox-content product-box">
-
-                                                <div class="product-imitation">
-                                                    <img src="{{ asset('') }}{{ $product_image->upload->small_thumbnail }}">
-                                                </div>
-                                                <div class="product-desc">
-
-                                                    <div class="m-t text-righ">
-
-                                                        <a href="{{route('business.product.image.delete',$product_image->id)}}" class="btn btn-xs btn-outline btn-warning btn-block center">Delete <i class="fa fa-cross"></i> </a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-
-
                         </div>
                     </div>
                 </div>

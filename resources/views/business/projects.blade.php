@@ -19,7 +19,7 @@
             <h2>Project list</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.dashboard')}}">Home</a>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
                     <strong>Projects</strong>
@@ -28,7 +28,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.project.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('business.project.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
                                         <span class="label label-primary">Active</span>
                                     </td>
                                     <td class="project-title">
-                                        <a href="project_detail.html">Contract with Zender Company</a>
+                                        <a href="project_detail.html">{{--  <h2>Contract with Zender Company</h2>  --}}</a>
                                         <br/>
                                         <small>Created 14.08.2014</small>
                                     </td>
@@ -81,8 +81,8 @@
                                         <a href=""><img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/a5.jpg"></a>
                                     </td>
                                     <td class="project-actions">
-                                        <a href="{{route('business.project.show',1)}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                                        <a href="{{route('business.project.edit',1)}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                        <a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>1])}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
+                                        <a href="{{route('business.project.edit',['portal'=>$institution->portal,'id'=>1])}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
                                     </td>
                                 </tr>
 
