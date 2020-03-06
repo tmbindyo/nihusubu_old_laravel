@@ -821,6 +821,8 @@ class AccountController extends Controller
         $loan->total = $request->total;
         $loan->principal = $request->principal;
         $loan->interest = $request->interest;
+        $loan->interest_amount = $request->interest_amount;
+        $loan->balance = $request->total;
         $loan->paid = 0;
 
         $loan->date = date('Y-m-d', strtotime($request->date));

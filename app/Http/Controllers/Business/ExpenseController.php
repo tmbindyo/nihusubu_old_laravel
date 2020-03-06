@@ -775,6 +775,8 @@ class ExpenseController extends Controller
             // update loan as paid
             $loan = Loan::findOrFail($request->loan);
             $paid = doubleval($request->amount) + doubleval($loan->paid);
+            $balance = doubleval($loan->principal) - $paid;
+            $loan->balance = $balance;
             $loan->paid = $paid;
             $loan->save();
         }else{

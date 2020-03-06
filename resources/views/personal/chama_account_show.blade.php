@@ -446,7 +446,7 @@
                                                         <td>{{$loan->paid}}</td>
                                                         <td>{{$loan->date}}</td>
                                                         <td>{{$loan->due_date}}</td>
-                                                        <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
+                                                        <td>{{$loan->chama_member->member->name}}</td>
                                                         <td>{{$loan->user->name}}</td>
                                                         <td>
                                                             <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>

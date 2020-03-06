@@ -12,6 +12,18 @@ class SharesPayment extends Model
     public $incrementing = false;
 
     // parents
+    public function account()
+    {
+        return $this->belongsTo('App\Account');
+    }
+    public function chama()
+    {
+        return $this->belongsTo('App\Chama');
+    }
+    public function chama_member()
+    {
+        return $this->belongsTo('App\ChamaMember','member_id');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');

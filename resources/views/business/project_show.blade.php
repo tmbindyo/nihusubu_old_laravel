@@ -108,7 +108,7 @@
                                                             <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
                                                             <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
                                                             <div class="well">
-                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                                                Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                                                                 Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                                                             </div>
                                                         </div>
@@ -146,7 +146,7 @@
                                                             <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
                                                             <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
                                                             <div class="well">
-                                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                                                Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                                                                 Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                                                             </div>
                                                         </div>

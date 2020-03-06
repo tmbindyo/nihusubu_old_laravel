@@ -25,8 +25,8 @@
                 <li>
                     <a href="{{route('personal.calendar')}}">Home</a>
                 </li>
-                <li>
-                    Settings
+                <li class="active">
+                    <a href="{{route('personal.chama.show',$chama->id)}}"><strong>Chama</strong></a>
                 </li>
                 <li class="active">
                     <strong>Members</strong>
@@ -34,169 +34,99 @@
             </ol>
         </div>
         <div class="col-md-3">
-            <div class="member-action">
-                <a href="{{route('personal.chama.member.create',$chama->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Member </a>
+            <div class="title-action">
+                <a href="{{route('personal.chama.member.create',$chama->id)}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Member </a>
             </div>
         </div>
     </div>
 
 
     <div class="wrapper wrapper-content animated fadeInRight">
-
-        {{--  members  --}}
         <div class="row">
             <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-member">
-                        <h5>Members</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                        </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Members</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#">Config option 1</a>
+                            </li>
+                            <li><a href="#">Config option 2</a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="ibox-content">
+                </div>
+                <div class="ibox-content">
 
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                <thead>
-                                    <tr>
-                                        <th>Account</th>
-                                        <th>Name</th>
-                                        <th>Phone number</th>
-                                        <th>Email</th>
-                                        <th>Registerer</th>
-                                        <th>Shares</th>
-                                        <th>Member Role</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Name</th>
+                                    <th>Phone number</th>
+                                    <th>Email</th>
+                                    <th>Registerer</th>
+                                    <th>Shares</th>
+                                    <th>Member Role</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($members as $member)
+                                    <tr class="gradeX">
+                                        <td>
+                                            @if($member->is_user == 1)
+                                                Nihusubu User
+                                            @else
+                                                Nihusubu User
+                                            @endif
+                                        </td>
+                                        <td>{{$member->name}}</td>
+                                        <td>{{$member->phone_number}}</td>
+                                        <td>{{$member->email}}</td>
+                                        <td>{{$member->user->name}}</td>
+                                        <td>{{$member->shares}}</td>
+                                        <td>{{$member->chama_member_role->name}}</td>
+                                        <td>
+                                            <span class="label {{$member->status->label}}">{{$member->status->name}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="{{ route('personal.chama.member.show', ['chama_id'=>$chama->id,'member_id'=>$member->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                <a href="{{ route('personal.chama.member.delete', ['chama_id'=>$chama->id,'member_id'=>$member->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($members as $member)
-                                        <tr class="gradeX">
-                                            <td>
-                                                @if($member->is_user == 1)
-                                                    Nihusubu User
-                                                @else
-                                                    Nihusubu User
-                                                @endif
-                                            </td>
-                                            <td>{{$member->name}}</td>
-                                            <td>{{$member->phone_number}}</td>
-                                            <td>{{$member->email}}</td>
-                                            <td>{{$member->user->name}}</td>
-                                            <td>{{$member->shares}}</td>
-                                            <td>{{$member->chama_member_role->name}}</td>
-                                            <td>
-                                                <span class="label {{$member->status->label}}">{{$member->status->name}}</span>
-                                            </td>
-                                            <td class="text-right">
-                                                <div class="btn-group">
-                                                    <a href="{{ route('personal.chama.member.show', ['chama_id'=>$chama->id,'member_id'=>$member->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('personal.chama.member.delete', ['chama_id'=>$chama->id,'member_id'=>$member->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Account</th>
-                                        <th>Name</th>
-                                        <th>Phone number</th>
-                                        <th>Email</th>
-                                        <th>Registerer</th>
-                                        <th>Shares</th>
-                                        <th>Member Role</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Name</th>
+                                    <th>Phone number</th>
+                                    <th>Email</th>
+                                    <th>Registerer</th>
+                                    <th>Shares</th>
+                                    <th>Member Role</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
+
                 </div>
             </div>
         </div>
-
-        {{--  deleted members  --}}
-        @if($deletedMembers->count())
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-member">
-                            <h5>Deleted Members</h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-wrench"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-                                    <li><a href="#">Config option 1</a>
-                                    </li>
-                                    <li><a href="#">Config option 2</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="ibox-content">
-
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>User</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($deletedMembers as $member)
-                                            <tr class="gradeX">
-                                                <td>{{$member->name}}</td>
-                                                <td>{{$member->user->name}}</td>
-                                                <td>
-                                                    <span class="label {{$member->status->label}}">{{$member->status->name}}</span>
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('personal.member.show', $member->id) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('personal.member.restore', $member->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>User</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
+        </div>
     </div>
 
 
@@ -226,8 +156,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', member: 'ExampleFile'},
-                    {extend: 'pdf', member: 'ExampleFile'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
 
                     {extend: 'print',
                      customize: function (win){

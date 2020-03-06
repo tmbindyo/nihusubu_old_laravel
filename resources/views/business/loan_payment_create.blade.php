@@ -64,7 +64,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Payment Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">
@@ -87,7 +87,7 @@
                                 <div class="col-md-10 col-md-offset-1">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$loan->amount}}" class="form-control input-lg">
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$loan->balance}}" class="form-control input-lg">
                                         <i>amount</i>
                                     </div>
                                     <br>
@@ -130,7 +130,7 @@
                                         <div class="col-md-4">
                                             <div class="has-warning">
                                                 <select name="loan" class="select2_demo_tag form-control input-lg">
-                                                    <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->amount}}]</option>
+                                                    <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
                                                 </select>
                                                 <i>loan</i>
                                             </div>

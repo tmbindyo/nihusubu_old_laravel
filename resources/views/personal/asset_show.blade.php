@@ -391,7 +391,7 @@
 
                         <div class="vertical-timeline-content">
                             <h2>Send documents to Mike</h2>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
+                            <p>Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
                             <a href="#" class="btn btn-sm btn-success"> Download document </a>
                             <span class="vertical-date">
                                         Today <br>
@@ -407,7 +407,7 @@
 
                         <div class="vertical-timeline-content">
                             <h2>Coffee Break</h2>
-                            <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
+                            <p>Go to shop and find some products. Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
                             <a href="#" class="btn btn-sm btn-info">Read more</a>
                             <span class="vertical-date"> Yesterday <br><small>Dec 23</small></span>
                         </div>

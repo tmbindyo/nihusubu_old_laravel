@@ -32,6 +32,10 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Campaign');
     }
+    public function chama_meeting()
+    {
+        return $this->belongsTo('App\ChamaMeeting');
+    }
     public function contact()
     {
         return $this->belongsTo('App\Contact');

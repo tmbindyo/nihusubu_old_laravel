@@ -71,7 +71,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Contact <small>edit</small></h5>
-                        
+
                     </div>
                     <div class="ibox-content">
                         <div class="row">
@@ -289,7 +289,7 @@
                                                                     {{$loan->reference}}
                                                                     <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->notes}}." class="fa fa-facebook-messenger"></i></span>
                                                                 </td>
-                                                                <td>{{$loan->amount}}</td>
+                                                                <td>{{$loan->principal}}</td>
                                                                 <td>{{$loan->paid}}</td>
                                                                 <td>{{$loan->date}}</td>
                                                                 <td>{{$loan->due_date}}</td>

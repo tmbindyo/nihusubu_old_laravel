@@ -191,8 +191,8 @@
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
-                                    <label>Email *</label>
-                                    <input id="email" name="email" type="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }} input-lg required email">
+                                    <label>Sign Up Email *</label>
+                                    <input id="email" name="email" type="email" placeholder="{{ __('Sign Up Email') }}" value="{{ old('email') }}" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }} input-lg required email">
                                 </div>
                                 <div class="form-group">
                                     @if ($errors->has('phone_number'))
@@ -257,7 +257,7 @@
                                             <strong>{{ $errors->first('business_email') }}</strong>
                                         </span>
                                     @endif
-                                    <label>Email *</label>
+                                    <label>Business Email *</label>
                                     <input id="business_email" name="business_email" placeholder="{{ __('Business Email') }}" value="{{ old('business_email') }}" type="text" class="form-control {{ $errors->has('business_email') ? ' is-invalid' : '' }} input-lg required email">
                                 </div>
                                 <div class="form-group">
