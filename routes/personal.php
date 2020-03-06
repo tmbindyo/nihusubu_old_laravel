@@ -284,6 +284,16 @@ Route::post('/transfer/update/{transfer_id}', 'Personal\AccountController@transf
 Route::get('/transfer/delete/{transfer_id}', 'Personal\AccountController@transferDelete')->name('personal.transfer.delete');
 Route::get('/transfer/restore/{transfer_id}', 'Personal\AccountController@transferRestore')->name('personal.transfer.restore');
 
+// Contact types
+Route::get('/contact/types', 'Personal\SettingController@contactTypes')->name('personal.contact.types');
+Route::get('/contact/type/create', 'Personal\SettingController@contactTypeCreate')->name('personal.contact.type.create');
+Route::post('/contact/type/store', 'Personal\SettingController@contactTypeStore')->name('personal.contact.type.store');
+Route::get('/contact/type/show/{contact_type_id}', 'Personal\SettingController@contactTypeShow')->name('personal.contact.type.show');
+Route::post('/contact/type/update/{contact_type_id}', 'Personal\SettingController@contactTypeUpdate')->name('personal.contact.type.update');
+Route::get('/contact/type/delete/{contact_type_id}', 'Personal\SettingController@contactTypeDelete')->name('personal.contact.type.delete');
+Route::get('/contact/type/restore/{contact_type_id}', 'Personal\SettingController@contactTypeRestore')->name('personal.contact.type.restore');
+
+
 
 // Frequencies
 Route::get('/frequencies', 'Personal\SettingController@frequencies')->name('personal.frequencies');

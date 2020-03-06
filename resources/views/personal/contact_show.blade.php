@@ -106,6 +106,15 @@
                                             </select>
                                             <i>title</i>
                                         </div>
+                                        <div class="col-md-6">
+                                            <select required="required" name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple>
+                                                <option></option>
+                                                @foreach($contactTypes as $contactType)
+                                                    <option @foreach($contactContactTypes as $contactContactType) @if($contactType->id === $contactContactType->contact_type->id) selected @endif @endforeach value="{{$contactType->id}}">{{$contactType->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <i>contact types</i>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="row">

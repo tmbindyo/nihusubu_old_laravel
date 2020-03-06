@@ -1,6 +1,6 @@
 @extends('personal.layouts.app')
 
-@section('title', 'Contact Create')
+@section('title', 'Contact Type Create')
 
 @section('css')
 
@@ -40,19 +40,16 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Contact's</h2>
+            <h2>Contact Type's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('personal.calendar')}}">Home</a>
                 </li>
-                <li>
-                    <a href="#">Settings</a>
+                <li class="active">
+                    <a href="{{route('personal.contact.types')}}">Contact Type's</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('personal.contacts')}}">Contact's</a>
-                </li>
-                <li class="active">
-                    <strong>Contact Create</strong>
+                    <strong>Contact Type Create</strong>
                 </li>
             </ol>
         </div>
@@ -63,7 +60,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Contact Registration <small>Form</small></h5>
+                        <h5>Contact Type Registration <small>Form</small></h5>
 
                     </div>
 
@@ -71,7 +68,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('personal.contact.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.contact.type.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -84,78 +81,12 @@
                                     </div>
                                 @endif
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="checkbox" name="is_lead" class="js-switch_3" />
-                                        <i>lead</i>
+                                <div class="col-md-10 col-md-offset-1">
+                                    <br>
+                                    <div class="has-warning">
+                                        <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
+                                        <i>name</i>
                                     </div>
-                                    <div class="col-md-6">
-
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <select required="required" name="title" class="select2_demo_title form-control input-lg">
-                                            <option></option>
-                                            @foreach($titles as $title)
-                                                <option value="{{$title->id}}">{{$title->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>title</i>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple required="required">
-                                            <option></option>
-                                            @foreach($contactTypes as $contactType)
-                                                <option value="{{$contactType->id}}">{{$contactType->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>contact types</i>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="has-warning">
-                                            <input type="text" id="first_name" name="first_name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="First Name">
-                                            <i>first name</i>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="has-warning">
-                                            <input type="text" id="last_name" name="last_name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Last Name">
-                                            <i>last name</i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="has-warning">
-                                            <input type="text" id="phone_number" name="phone_number" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Phone number">
-                                            <i>phone number</i>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="has-warning">
-                                            <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Email">
-                                            <i>email</i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="has-warning">
-                                            <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required" placeholder="About"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="col-md-12">
                                     <br>
                                     <hr>
 
@@ -172,6 +103,9 @@
                 </div>
             </div>
         </div>
+
+
+
     </div>
 
 @endsection
@@ -391,24 +325,12 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_title").select2({
-            placeholder: "Select Title",
+        $(".select2_demo_tag").select2({
+            placeholder: "Select Tags",
             allowClear: true
         });
-        $(".select2_demo_organization").select2({
-            placeholder: "Select Organization",
-            allowClear: true
-        });
-        $(".select2_demo_contact_type").select2({
-            placeholder: "Select Contact Type",
-            allowClear: true
-        });
-        $(".select2_demo_lead_source").select2({
-            placeholder: "Select Lead Source",
-            allowClear: true
-        });
-        $(".select2_demo_campaign").select2({
-            placeholder: "Select Campaign",
+        $(".select2_demo_category").select2({
+            placeholder: "Select Categories",
             allowClear: true
         });
 
