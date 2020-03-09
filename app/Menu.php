@@ -11,7 +11,7 @@ class Menu extends Model
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
-    protected $fillable = ['name','description','user_id','status_id','section_id'];
+    protected $fillable = ['name','description','user_id','status_id','section_id','route'];
 
     // Parents
     public function status()

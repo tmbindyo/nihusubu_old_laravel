@@ -13,6 +13,7 @@
 */
 
 Route::get('/section', 'SectionSeeder@SectionSeeder')->name('section');
+Route::get('/menu', 'SectionSeeder@MenuSeeder')->name('menu');
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Menu;
 use App\Section;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
@@ -2424,7 +2425,7 @@ class SectionSeeder extends Controller
 
         // personal routes
         // dashboard
-        $dashboardSection = Section::where('name','Dashboard')->where('is_personal',True)->first();
+        $dashboardSection = Section::where('name','Dashboard')->where('is_business',False)->first();
         $sectionData = [
             [
                 'name' => 'Dashboard',
@@ -2442,7 +2443,7 @@ class SectionSeeder extends Controller
         }
 
         // calendar
-        $calendarSection = Section::where('name','Calendar')->where('is_personal',True)->first();
+        $calendarSection = Section::where('name','Calendar')->where('is_business',False)->first();
         $sectionData = [
             [
                 'name' => 'calendar',
@@ -2460,7 +2461,7 @@ class SectionSeeder extends Controller
         }
 
         // to do
-        $toDoSection = Section::where('name','To Do')->where('is_personal',True)->first();
+        $toDoSection = Section::where('name','To Do')->where('is_business',False)->first();
         $sectionData = [
             [
                 'name' => 'toDos',
@@ -2518,7 +2519,7 @@ class SectionSeeder extends Controller
         }
 
         // budgeting
-        $budgetingSection = Section::where('name','Budgeting')->where('is_personal',True)->first();
+        $budgetingSection = Section::where('name','Buddgeting')->where('is_business',False)->first();
         $sectionData = [
             [
                 'name' => 'budget',
@@ -2641,7 +2642,7 @@ class SectionSeeder extends Controller
 
 
         // chama
-        $chamaSection = Section::where('name','Chamas')->where('is_personal',True)->first();
+        $chamaSection = Section::where('name','Chamas')->where('is_business',False)->first();
         $sectionData = [
             [
                 'name' => 'chamas',
@@ -3554,6 +3555,8 @@ class SectionSeeder extends Controller
             );
         }
 
+        $seededMenus = Menu::with('section')->get();
+        return $seededMenus;
 
     }
 }
