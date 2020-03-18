@@ -92,7 +92,6 @@
                     <i class="fa fa-database"></i>
                     <span class="nav-label">Inventory </span>
                     <span class="fa arrow"></span>
-{{--                    <span class="label label-info pull-right">16</span>--}}
                 </a>
                 <ul class="nav nav-second-level collapse">
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.inventory.adjustments',$institution->portal ) ?  'active' : '' }}">
@@ -335,42 +334,6 @@
                             Units
                         </a>
                     </li>
-{{--
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.accounts' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.accounts')}}">
-                            Accounts
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.opening.balances' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.opening.balances')}}">
-                            Opening Balances
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.users.roles' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.users.roles')}}">
-                            Users & Roles
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.currencies' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.currencies')}}">
-                            Currencies
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.taxes' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.taxes')}}">
-                            Taxes
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.emails' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.emails')}}">
-                            Emails
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.reminders' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.reminders')}}">
-                            Reminders
-                        </a>
-                    </li>  --}}
                 </ul>
             </li>
 

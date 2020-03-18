@@ -2,42 +2,6 @@
 
 @section('title', 'Liability')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-@endsection
-
-
-
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
@@ -104,7 +68,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Liability <small>edit</small></h5>
-                        
+
                     </div>
                     <div class="ibox-content">
                         <div class="row">
@@ -129,19 +93,19 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-3"> 
+                                        <div class="col-md-3">
                                             <div class="has-warning">
                                                 <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="{{$liability->interest}}" max="100" step="0.00001" class="form-control input-lg">
                                                 <i>key in interest in percentage</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-3"> 
+                                        <div class="col-md-3">
                                             <div class="has-warning">
                                                 <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="{{$liability->interest_amount}}" class="form-control input-lg">
                                                 <i>key in interest amount</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-6"> 
+                                        <div class="col-md-6">
                                             <div class="has-warning">
                                                 <input type="number" id="total" name="total" required="required" readonly value="{{$liability->total}}" class="form-control input-lg">
                                                 <i>total</i>
