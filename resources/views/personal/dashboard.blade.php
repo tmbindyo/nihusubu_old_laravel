@@ -101,7 +101,7 @@
                 </div>
             </div>
             <div class="m-t">
-                <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                <small>Sample Input dummy text of the printing and typesetting industry.</small>
             </div>
 
         </div>
@@ -142,7 +142,7 @@
                 <div class="ibox-content no-padding">
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Sample Input dummy text of the printing and typesetting industry.</p>
                             <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 minuts ago</small>
                         </li>
                         <li class="list-group-item">
@@ -161,7 +161,7 @@
                             <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 hour ago</small>
                         </li>
                         <li class="list-group-item">
-                            <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Sample Input dummy text of the printing and typesetting industry.</p>
                             <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 minuts ago</small>
                         </li>
                         <li class="list-group-item">
@@ -240,7 +240,7 @@
                                     <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
                                     <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
                                     <div class="well">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                        Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                                         Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                                     </div>
                                     <div class="pull-right">
@@ -318,7 +318,7 @@
                             </div>
                             <div class="col-xs-7 content">
                                 <p class="m-b-xs"><strong>Send documents to Mike</strong></p>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
+                                <p>Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
                             </div>
                         </div>
                     </div>
@@ -333,7 +333,7 @@
                                 <p class="m-b-xs"><strong>Coffee Break</strong></p>
                                 <p>
                                     Go to shop and find some products.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
+                                    Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
                                 </p>
                             </div>
                         </div>
@@ -532,7 +532,7 @@
                             <div>
                                 <small class="pull-right text-navy">1m ago</small>
                                 <strong>Monica Smith</strong>
-                                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</div>
+                                <div>Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum</div>
                                 <small class="text-muted">Today 5:60 pm - 12.06.2014</small>
                             </div>
                         </div>
@@ -927,7 +927,7 @@
                 <div class="ibox-content no-padding">
                     <ul class="list-group">
                         <li class="list-group-item">
-                            <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Sample Input dummy text of the printing and typesetting industry.</p>
                             <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 minuts ago</small>
                         </li>
                         <li class="list-group-item">
@@ -983,7 +983,7 @@
                             </div>
                             <div class="col-xs-7 content">
                                 <p class="m-b-xs"><strong>Send documents to Mike</strong></p>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
+                                <p>Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
                             </div>
                         </div>
                     </div>
@@ -998,7 +998,7 @@
                                 <p class="m-b-xs"><strong>Coffee Break</strong></p>
                                 <p>
                                     Go to shop and find some products.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
+                                    Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
                                 </p>
                             </div>
                         </div>

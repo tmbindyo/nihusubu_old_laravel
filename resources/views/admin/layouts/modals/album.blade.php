@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-laptop modal-icon"></i>
                 <h4 class="modal-title">Album Registration</h4>
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                <small class="font-bold">Sample Input dummy text of the printing and typesetting industry.</small>
             </div>
             <div class="modal-body">
                 <form method="post" action="{{ route('admin.album.save') }}" autocomplete="off" class="form-horizontal form-label-left">

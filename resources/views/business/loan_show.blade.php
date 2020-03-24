@@ -2,42 +2,6 @@
 
 @section('title', 'Loan')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-@endsection
-
-
-
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-7">
@@ -65,46 +29,13 @@
 
 
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-
-            <div class="col-lg-12">
-                <div>
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning m-r-sm">  </button>
-                                Albums
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-info m-r-sm">  </button>
-                                Projects
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary m-r-sm">  </button>
-                                Designs
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-info m-r-sm">  </button>
-                                Quotes
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div>
-
-                </div>
-            </div>
-
-        </div>
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Loan <small>edit</small></h5>
-                        
+
                     </div>
                     <div class="ibox-content">
                         <div class="row">
@@ -123,25 +54,40 @@
                                     @endif
 
                                     <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="paid" name="paid" required="required" value="{{$loan->paid}}" class="form-control input-lg">
+                                                <i>paid</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="balance" name="balance" required="required" value="{{$loan->balance}}" class="form-control input-lg">
+                                                <i>balance</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
                                     <div class="has-warning">
                                         <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" value="{{$loan->principal}}" class="form-control input-lg">
                                         <i>principal</i>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-3"> 
+                                        <div class="col-md-3">
                                             <div class="has-warning">
                                                 <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="{{$loan->interest}}" max="100" step="0.00001" class="form-control input-lg">
                                                 <i>key in interest in percentage</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-3"> 
+                                        <div class="col-md-3">
                                             <div class="has-warning">
                                                 <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="{{$loan->interest_amount}}" class="form-control input-lg">
                                                 <i>key in interest amount</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-6"> 
+                                        <div class="col-md-6">
                                             <div class="has-warning">
                                                 <input type="number" id="total" name="total" required="required" readonly value="{{$loan->total}}" class="form-control input-lg">
                                                 <i>total</i>

@@ -294,7 +294,7 @@ class AccountController extends Controller
         $institution = $this->getInstitution($portal);
         // get accounts
         $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
-        // Get albums
+        // Get transactions
         $transactions = Transaction::with('user','status','source_account','destination_account','account','expense')->where('is_institution',true)->where('institution_id',$institution->id)->get();
         return view('business.account_adjustment_create',compact('transactions','user','institution','transactions','accounts'));
 
@@ -893,6 +893,7 @@ class AccountController extends Controller
         $loan->principal = $request->principal;
         $loan->interest = $request->interest;
         $loan->interest_amount = $request->interest_amount;
+        $loan->balance = $request->total;
         $loan->paid = 0;
 
         $loan->date = date('Y-m-d', strtotime($request->date));

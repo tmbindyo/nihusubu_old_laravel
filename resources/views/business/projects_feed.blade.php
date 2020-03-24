@@ -2,16 +2,6 @@
 
 @section('title', ' Projects')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-@endsection
-
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -70,7 +60,7 @@
 
                                 <div class="vertical-timeline-content">
                                     <h2>Send documents to Mike</h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
+                                    <p>Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
                                     <a href="#" class="btn btn-sm btn-success"> Download document </a>
                                     <span class="vertical-date">
                                         Today <br/>
@@ -86,7 +76,7 @@
 
                                 <div class="vertical-timeline-content">
                                     <h2>Coffee Break</h2>
-                                    <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
+                                    <p>Go to shop and find some products. Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
                                     <a href="#" class="btn btn-sm btn-info">Read more</a>
                                     <span class="vertical-date"> Yesterday <br/><small>Dec 23</small></span>
                                 </div>
@@ -111,7 +101,7 @@
 
                                 <div class="vertical-timeline-content">
                                     <h2>Go to the doctor dr Smith</h2>
-                                    <p>Find some issue and go to doctor. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </p>
+                                    <p>Find some issue and go to doctor. Sample Input dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </p>
                                     <span class="vertical-date">Yesterday <br/><small>Dec 23</small></span>
                                 </div>
                             </div>

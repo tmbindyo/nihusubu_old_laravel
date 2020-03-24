@@ -402,7 +402,7 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // TODO expense delete
-        // Get albums
+        // Get expenses
         $expenses = Expense::with('user','status')->get();
 
         return view('personal.expenses',compact('expenses','user'));
@@ -413,7 +413,7 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // TODO expense restore
-        // Get albums
+        // Get expenses
         $expenses = Expense::with('user','status')->get();
 
         return view('personal.expenses',compact('expenses','user'));
@@ -425,7 +425,7 @@ class ExpenseController extends Controller
 
         // User
         $user = $this->getUser();
-        // Get albums
+        // Get transactions
         $transactions = Transaction::where('user_id',$user->id)->where('is_user',true)->with('user','status','account','expense')->get();
         return view('personal.transactions',compact('transactions','user','transactions'));
 
@@ -678,6 +678,8 @@ class ExpenseController extends Controller
             // update loan as paid
             $loan = Loan::findOrFail($request->loan);
             $paid = doubleval($request->amount) + doubleval($loan->paid);
+            $balance = doubleval($loan->principal) - $paid;
+            $loan->balance = $balance;
             $loan->paid = $paid;
             $loan->save();
         }else{

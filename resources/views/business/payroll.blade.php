@@ -2,403 +2,392 @@
 
 @section('title', 'Payroll')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-@endsection
 @section('content')
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-4">
-        <h2>Payroll</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
-            </li>
-            <li>
-                <a href="#">Human Resource</a>
-            </li>
-            <li class="active">
-                <strong>Payroll</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-lg-8">
-        <div class="title-action">
-            <a href="{{route('business.payroll.annual.salary.statement',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-book"></i> Annual Salary Statement </a>
-            <a href="{{route('business.payroll.history',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-archive"></i> Payroll History </a>
-            <a href="{{route('business.payroll.process',$institution->portal)}}" class="btn btn-danger btn-outline"><i class="fa fa-send"></i> Process Payroll </a>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-4">
+            <h2>Payroll</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                </li>
+                <li>
+                    <a href="#">Human Resource</a>
+                </li>
+                <li class="active">
+                    <strong>Payroll</strong>
+                </li>
+            </ol>
         </div>
-    </div>
-</div>
-
-<div class="wrapper wrapper-content animated fadeInRight">
-    {{--  employee list  --}}
-    <div class="row">
-        <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Employee List</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-
-                <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Basic Salary</th>
-                    <th>Effective Date</th>
-                    <th>Status</th>
-                    <th>Modified</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="gradeA">
-                    <td>akigen</td>
-                    <td>Andrew Kigen Cheruiyot</td>
-                    <td>Head of Creatives</td>
-                    <td>16100.00</td>
-                    <td>2018-07-01</td>
-                    <td>
-                        <span class="label label-primary">Confirmed</span>
-                    </td>
-                    <td>2018-07-01</td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <a href="{{ route('business.payroll.salary.adjustment', 1) }}" class="btn-info btn-outline btn btn-xs">Salary Adjustment</a>
-                            <a href="{{ route('business.employee.payroll.history', 1) }}" class="btn-info btn-outline btn btn-xs">History</a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Basic Salary</th>
-                    <th>Effective Date</th>
-                    <th>Status</th>
-                    <th>Modified</th>
-                    <th>Action</th>
-                </tr>
-            </tfoot>
-            </table>
-                </div>
-
+        <div class="col-lg-8">
+            <div class="title-action">
+                <a href="{{route('business.payroll.annual.salary.statement',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-book"></i> Annual Salary Statement </a>
+                <a href="{{route('business.payroll.history',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-archive"></i> Payroll History </a>
+                <a href="{{route('business.payroll.process',$institution->portal)}}" class="btn btn-danger btn-outline"><i class="fa fa-send"></i> Process Payroll </a>
             </div>
         </div>
     </div>
-    </div>
 
-    {{--  variable pay  --}}
-    <div class="row">
-        <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Variable Pay Settings</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        {{--  employee list  --}}
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Employee List</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="ibox-content">
+                <div class="ibox-content">
 
-                <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Amount Mode</th>
-                    <th>Qty Mode</th>
-                    <th>Status</th>
-                    <th>Modified</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="gradeA">
-                    <td>Food</td>
-                    <td>Food allowance</td>
-                    <td>5000.00</td>
-                    <td>1</td>
-                    <td></td>
-                    <td>Fixed Amount</td>
-                    <td>Fixed Quantity</td>
-                    <td>
-                        <span class="label label-primary">Active</span>
-                    </td>
-                    <td>2018-07-01</td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                            <a href="{{ route('business.variable.pay.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Code</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Amount Mode</th>
-                    <th>Qty Mode</th>
-                    <th>Status</th>
-                    <th>Modified</th>
-                    <th>Action</th>
-                </tr>
-            </tfoot>
-            </table>
+                    <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Basic Salary</th>
+                        <th>Effective Date</th>
+                        <th>Status</th>
+                        <th>Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="gradeA">
+                        <td>akigen</td>
+                        <td>Andrew Kigen Cheruiyot</td>
+                        <td>Head of Creatives</td>
+                        <td>16100.00</td>
+                        <td>2018-07-01</td>
+                        <td>
+                            <span class="label label-primary">Confirmed</span>
+                        </td>
+                        <td>2018-07-01</td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <a href="{{ route('business.payroll.salary.adjustment', 1) }}" class="btn-info btn-outline btn btn-xs">Salary Adjustment</a>
+                                <a href="{{ route('business.employee.payroll.history', 1) }}" class="btn-info btn-outline btn btn-xs">History</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Basic Salary</th>
+                        <th>Effective Date</th>
+                        <th>Status</th>
+                        <th>Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                </table>
+                    </div>
+
                 </div>
-
             </div>
         </div>
-    </div>
-    </div>
+        </div>
 
-    {{--  variable deduction  --}}
-    <div class="row">
-        <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Variable Deduction Settings</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
+        {{--  variable pay  --}}
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Variable Pay Settings</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="ibox-content">
+                <div class="ibox-content">
 
-                <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Amount Mode</th>
-                    <th>Qty Mode</th>
-                    <th>Status</th>
-                    <th>Modified</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="gradeA">
-                    <td>PAYE</td>
-                    <td>Pay As You Earn</td>
-                    <td>400.00</td>
-                    <td>1</td>
-                    <td></td>
-                    <td>Fixed Amount</td>
-                    <td>Fixed Quantity</td>
-                    <td>
-                        <span class="label label-primary">Active</span>
-                    </td>
-                    <td>2018-07-01</td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                            <a href="{{ route('business.variable.deduction.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Code</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Amount Mode</th>
-                    <th>Qty Mode</th>
-                    <th>Status</th>
-                    <th>Modified</th>
-                    <th>Action</th>
-                </tr>
-            </tfoot>
-            </table>
+                    <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Qty</th>
+                        <th>Unit</th>
+                        <th>Amount Mode</th>
+                        <th>Qty Mode</th>
+                        <th>Status</th>
+                        <th>Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="gradeA">
+                        <td>Food</td>
+                        <td>Food allowance</td>
+                        <td>5000.00</td>
+                        <td>1</td>
+                        <td></td>
+                        <td>Fixed Amount</td>
+                        <td>Fixed Quantity</td>
+                        <td>
+                            <span class="label label-primary">Active</span>
+                        </td>
+                        <td>2018-07-01</td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                <a href="{{ route('business.variable.pay.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Qty</th>
+                        <th>Unit</th>
+                        <th>Amount Mode</th>
+                        <th>Qty Mode</th>
+                        <th>Status</th>
+                        <th>Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                </table>
+                    </div>
+
                 </div>
-
             </div>
         </div>
-    </div>
-    </div>
+        </div>
 
-    {{--  bonus  --}}
-    <div class="row">
-        <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Bonus Settings</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
+        {{--  variable deduction  --}}
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Variable Deduction Settings</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="ibox-content">
+                <div class="ibox-content">
 
-                <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Amount Mode</th>
-                    <th>Qty Mode</th>
-                    <th>Status</th>
-                    <th>Modified</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="gradeA">
-                    <td>Customer Acquisition</td>
-                    <td>Percentage of contract brought</td>
-                    <td>400.00</td>
-                    <td>1</td>
-                    <td></td>
-                    <td>Fixed Amount</td>
-                    <td>Fixed Quantity</td>
-                    <td>
-                        <span class="label label-primary">Active</span>
-                    </td>
-                    <td>2018-07-01</td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                            <a href="{{ route('business.variable.deduction.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Code</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Qty</th>
-                    <th>Unit</th>
-                    <th>Amount Mode</th>
-                    <th>Qty Mode</th>
-                    <th>Status</th>
-                    <th>Modified</th>
-                    <th>Action</th>
-                </tr>
-            </tfoot>
-            </table>
+                    <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Qty</th>
+                        <th>Unit</th>
+                        <th>Amount Mode</th>
+                        <th>Qty Mode</th>
+                        <th>Status</th>
+                        <th>Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="gradeA">
+                        <td>PAYE</td>
+                        <td>Pay As You Earn</td>
+                        <td>400.00</td>
+                        <td>1</td>
+                        <td></td>
+                        <td>Fixed Amount</td>
+                        <td>Fixed Quantity</td>
+                        <td>
+                            <span class="label label-primary">Active</span>
+                        </td>
+                        <td>2018-07-01</td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                <a href="{{ route('business.variable.deduction.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Qty</th>
+                        <th>Unit</th>
+                        <th>Amount Mode</th>
+                        <th>Qty Mode</th>
+                        <th>Status</th>
+                        <th>Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                </table>
+                    </div>
+
                 </div>
-
             </div>
         </div>
-    </div>
-    </div>
+        </div>
 
-    {{--  statutory contribution  --}}
-    <div class="row">
-        <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Statutory Contribution Settings</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
+        {{--  bonus  --}}
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Bonus Settings</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="ibox-content">
+                <div class="ibox-content">
 
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example" >
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>Description</th>
-                                <th>Employer</th>
-                                <th>Amount Type</th>
-                                <th>Employee</th>
-                                <th>Amount Type</th>
-                                <th>Status</th>
-                                <th>Modified</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="gradeA">
-                                <td>Income Tax</td>
-                                <td>Employee income tax</td>
-                                <td>0</td>
-                                <td>Not Applicable</td>
-                                <td>16</td>
-                                <td>% Gross Income</td>
-                                <td>
-                                    <span class="label label-primary">Active</span>
-                                </td>
-                                <td>2018-07-01</td>
-                                <td class="text-right">
-                                    <div class="btn-group">
-                                        <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                        <a href="{{ route('business.variable.deduction.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Code</th>
-                                <th>Description</th>
-                                <th>Employer</th>
-                                <th>Amount Type</th>
-                                <th>Employee</th>
-                                <th>Amount Type</th>
-                                <th>Status</th>
-                                <th>Modified</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Qty</th>
+                        <th>Unit</th>
+                        <th>Amount Mode</th>
+                        <th>Qty Mode</th>
+                        <th>Status</th>
+                        <th>Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="gradeA">
+                        <td>Customer Acquisition</td>
+                        <td>Percentage of contract brought</td>
+                        <td>400.00</td>
+                        <td>1</td>
+                        <td></td>
+                        <td>Fixed Amount</td>
+                        <td>Fixed Quantity</td>
+                        <td>
+                            <span class="label label-primary">Active</span>
+                        </td>
+                        <td>2018-07-01</td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                <a href="{{ route('business.variable.deduction.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Qty</th>
+                        <th>Unit</th>
+                        <th>Amount Mode</th>
+                        <th>Qty Mode</th>
+                        <th>Status</th>
+                        <th>Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                </table>
+                    </div>
+
                 </div>
-
             </div>
         </div>
-    </div>
-    </div>
-</div>
+        </div>
 
+        {{--  statutory contribution  --}}
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Statutory Contribution Settings</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Description</th>
+                                    <th>Employer</th>
+                                    <th>Amount Type</th>
+                                    <th>Employee</th>
+                                    <th>Amount Type</th>
+                                    <th>Status</th>
+                                    <th>Modified</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="gradeA">
+                                    <td>Income Tax</td>
+                                    <td>Employee income tax</td>
+                                    <td>0</td>
+                                    <td>Not Applicable</td>
+                                    <td>16</td>
+                                    <td>% Gross Income</td>
+                                    <td>
+                                        <span class="label label-primary">Active</span>
+                                    </td>
+                                    <td>2018-07-01</td>
+                                    <td class="text-right">
+                                        <div class="btn-group">
+                                            <a href="#" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                            <a href="{{ route('business.variable.deduction.delete', ['portal'=>$institution->portal,'id'=>'1']) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Description</th>
+                                    <th>Employer</th>
+                                    <th>Amount Type</th>
+                                    <th>Employee</th>
+                                    <th>Amount Type</th>
+                                    <th>Status</th>
+                                    <th>Modified</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
 
 @endsection
 

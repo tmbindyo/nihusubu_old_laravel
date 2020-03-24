@@ -2,48 +2,6 @@
 
 @section('title', ' Composite products')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-@endsection
-
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
@@ -89,24 +47,41 @@
                                     <div class="col-md-8">
                                         {{--  Product type  --}}
                                         {{--  todo only one should be selectable  --}}
-                                        <p>Product Type</p>
-                                        <div class="radio radio-inline">
-                                            <input type="radio" id="goods" value="goods" name="product_type" checked="">
-                                            <label for="goods"> Goods </label>
-                                        </div>
-                                        <div class="radio radio-inline">
-                                            <input type="radio" id="services" value="services" name="product_type">
-                                            <label for="services"> Service </label>
+                                        <div class="has-warning">
+                                            @if ($errors->has('product_type'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('product_type') }}</strong>
+                                                </span>
+                                            @endif
+                                            <p>Product Type</p>
+                                            <div class="radio radio-inline">
+                                                <input type="radio" id="goods" value="goods" name="product_type" checked="">
+                                                <label for="goods"> Goods </label>
+                                            </div>
+                                            <div class="radio radio-inline">
+                                                <input type="radio" id="services" value="services" name="product_type">
+                                                <label for="services"> Service </label>
+                                            </div>
                                         </div>
                                         {{--  Product name  --}}
+                                        <br>
                                         <div class="has-warning">
-                                            <label>  </label>
+                                            @if ($errors->has('product_name'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('product_name') }}</strong>
+                                                </span>
+                                            @endif
                                             <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" placeholder="Product name">
                                             <i>name</i>
                                         </div>
+                                        <br>
                                         {{--  Product Unit  --}}
                                         <div class="has-warning">
-                                            <label>  </label>
+                                            @if ($errors->has('unit'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('unit') }}</strong>
+                                                </span>
+                                            @endif
                                             <select name="unit" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
                                                 <option disabled>Select Unit</option>
                                                 @foreach($units as $unit)
@@ -115,15 +90,21 @@
                                             </select>
                                             <i>unit</i>
                                         </div>
-                                        <label>  </label>
                                         {{--  Product returnable  --}}
                                         {{--todo description tooltip--}}
-                                        <div class="checkbox">
-                                            <input id="returnable" name="returnable" type="checkbox">
-                                            <label for="returnable">
-                                                Returnable Product
-                                            </label>
-                                            <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-question-circle fa-2x"></i></span>
+                                        <div class="has-warning">
+                                            @if ($errors->has('returnable'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('returnable') }}</strong>
+                                                </span>
+                                            @endif
+                                            <div class="checkbox">
+                                                <input id="returnable" name="returnable" type="checkbox">
+                                                <label for="returnable">
+                                                    Returnable Product
+                                                </label>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-question-circle fa-2x"></i></span>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -139,6 +120,11 @@
                                     <div class="col-md-6">
                                         {{--  Selling price  --}}
                                         <div class="has-warning">
+                                            @if ($errors->has('selling_price'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('selling_price') }}</strong>
+                                                </span>
+                                            @endif
                                             <label class="text-danger"></label>
                                             <input type="text" id="selling_price" name="selling_price" required="required" placeholder="Selling Price" class="form-control input-lg">
                                             <i>selling price</i>

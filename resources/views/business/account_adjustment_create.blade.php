@@ -2,47 +2,6 @@
 
 @section('title', ' Account Adjustment Create')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-@endsection
-
 @section('content')
 
         <div class="row wrapper border-bottom white-bg page-heading">
@@ -86,82 +45,62 @@
                                         </div>
                                     @endif
 
+
                                     <br>
                                     {{--  accounts  --}}
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="has-warning">
-                                                @if ($errors->has('name'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('account') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <select name="account" class="select-2 form-control input-lg">
-                                                    <option selected disabled>Select Account</option>
-                                                    @foreach($accounts as $accountSelected)
-                                                        <option @if($accountSelected->id == $account->id) selected @endif value="{{$accountSelected->id}}" >{{$accountSelected->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <i>account</i>
-                                            </div>
-                                        </div>
+                                    <div class="has-warning">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('account') }}</strong>
+                                            </span>
+                                        @endif
+                                        <select name="account" class="select-2 form-control input-lg">
+                                            <option selected disabled>Select Account</option>
+                                            @foreach($accounts as $accountSelected)
+                                                <option @if($accountSelected->id == $account->id) selected @endif value="{{$accountSelected->id}}" >{{$accountSelected->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <i>account</i>
                                     </div>
+                                    <br>
                                     {{--  amount  --}}
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="has-warning">
-                                                        @if ($errors->has('name'))
-                                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                                <strong>{{ $errors->first('amount') }}</strong>
-                                                            </span>
-                                                        @endif
-                                                        <input type="number" name="amount" value="{{ old('amount') }}" id="amount" class="form-control input-lg" required>
-                                                        <i> amount.</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="has-warning">
+                                        @if ($errors->has('amount'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('amount') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="number" name="amount" value="{{ old('amount') }}" id="amount" class="form-control input-lg" required>
+                                        <i> amount.</i>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    @if ($errors->has('name'))
-                                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                                            <strong>{{ $errors->first('date') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                    <div class="has-warning" id="data_1">
-                                                        <div class="input-group date">
-                                                            <span class="input-group-addon">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </span>
-                                                            <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" required">
-                                                        </div>
-                                                        <i> adjustment date.</i>
-                                                    </div>
-                                                </div>
+                                    <br>
+                                    {{--  adjustment date  --}}
+                                    <div class="">
+                                        @if ($errors->has('date'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('date') }}</strong>
+                                            </span>
+                                        @endif
+                                        <div class="has-warning" id="data_1">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
+                                                <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" required">
                                             </div>
+                                            <i> adjustment date.</i>
                                         </div>
                                     </div>
                                     <br>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="has-warning">
-                                                @if ($errors->has('name'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('notes') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <textarea name="notes" placeholder="Notes" class="form-control" rows="7">{{ old('notes') }}</textarea>
-                                            </div>
-                                        </div>
+                                    {{--  notes  --}}
+                                    <div class="has-warning">
+                                        @if ($errors->has('notes'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('notes') }}</strong>
+                                            </span>
+                                        @endif
+                                        <textarea name="notes" placeholder="Notes" class="form-control" rows="7">{{ old('notes') }}</textarea>
                                     </div>
-
                                     <br>
 
                                     <hr>
@@ -186,6 +125,7 @@
 
 @section('js')
 
+<<<<<<< HEAD
 
 
 <!-- Mainly scripts -->
@@ -250,6 +190,8 @@
 <!-- TouchSpin -->
 <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
+=======
+>>>>>>> 12aa099ef6da5b92d4704c714a00dde49b2c2307
 <script>
     $(document).ready(function() {
         $('.select-2').select2();

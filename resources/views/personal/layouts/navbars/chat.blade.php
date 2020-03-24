@@ -16,7 +16,7 @@
                 </small>
             </div>
             <div class="chat-message active">
-                Lorem Ipsum is simply dummy text input.
+                Sample Input dummy text input.
             </div>
 
         </div>
@@ -61,7 +61,7 @@
                 </small>
             </div>
             <div class="chat-message active">
-                I belive that. Lorem Ipsum is simply dummy text.
+                I belive that. Sample Input dummy text.
             </div>
         </div>
 

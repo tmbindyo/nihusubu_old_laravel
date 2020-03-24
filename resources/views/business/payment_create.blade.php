@@ -2,40 +2,6 @@
 
 @section('title', 'Payment Create')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-
-@endsection
-
-
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -64,7 +30,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Payment Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">
@@ -133,7 +99,7 @@
                                                 <select name="loan" class="select2_demo_tag form-control input-lg">
                                                     <option selected disabled >Select Loan</option>
                                                     @foreach ($loans as $loan)
-                                                        <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->amount}}]</option>
+                                                        <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
                                                     @endforeach
                                                 </select>
                                                 <i>loan</i>

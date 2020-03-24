@@ -2,40 +2,6 @@
 
 @section('title', 'Campaign Create')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-
-@endsection
-
-
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -64,7 +30,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Campaign Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">
@@ -87,18 +53,28 @@
                                 <div class="col-md-10 col-md-offset-1">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="text" id="name" name="name" required="required" value="{{ old('name') }}" placeholder="Name" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning" id="data_1">
+                                                @if ($errors->has('start_date'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('start_date') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" required="required" name="start_date" id="start_date" class="form-control input-lg">
+                                                    <input type="text" required="required" name="start_date" id="start_date" value="{{ old('start_date') }}" class="form-control input-lg">
                                                 </div>
                                                 <i>What is the start date of the campaign?</i>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -106,11 +82,16 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning" id="data_1">
+                                                @if ($errors->has('end_date'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('end_date') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" required="required" name="end_date" id="end_date" class="form-control input-lg">
+                                                    <input type="text" required="required" name="end_date" id="end_date" value="{{ old('end_date') }}" class="form-control input-lg">
                                                 </div>
                                                 <i>What is the end date of the campaign?</i>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -121,13 +102,23 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <input type="number" id="expected_revenue" name="expected_revenue" required="required" placeholder="Expected Revenue" class="form-control input-lg">
+                                                @if ($errors->has('expected_revenue'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('expected_revenue') }}</strong>
+                                                    </span>
+                                                @endif
+                                                <input type="number" id="expected_revenue" name="expected_revenue" value="{{ old('expected_revenue') }}" required="required" placeholder="Expected Revenue" class="form-control input-lg">
                                                 <i>expected revenue</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" placeholder="Budgeted Cost" class="form-control input-lg">
+                                                @if ($errors->has('budgeted_cost'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('budgeted_cost') }}</strong>
+                                                    </span>
+                                                @endif
+                                                <input type="number" id="budgeted_cost" name="budgeted_cost" value="{{ old('budgeted_cost') }}" required="required" placeholder="Budgeted Cost" class="form-control input-lg">
                                                 <i>budgeted cost</i>
                                             </div>
                                         </div>
@@ -144,12 +135,22 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        @if ($errors->has('description'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('description') }}</strong>
+                                            </span>
+                                        @endif
+                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg">{{ old('description') }}</textarea>
                                         <i>Give a brief description on what the project is about</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="expected_response" name="expected_response" required="required" placeholder="Expected response" class="form-control input-lg"></textarea>
+                                        @if ($errors->has('expected_response'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('expected_response') }}</strong>
+                                            </span>
+                                        @endif
+                                        <textarea rows="5" id="expected_response" name="expected_response" required="required" placeholder="Expected response" class="form-control input-lg">{{ old('expected_response') }}</textarea>
                                         <i>Give a the expected response</i>
                                     </div>
 

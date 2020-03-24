@@ -65,48 +65,48 @@
                 <div class="ibox-content">
 
                     <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Balance</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($accounts as $account)
-                    <tr class="gradeX">
-                        <td>{{$account->name}}</td>
-                        <td>{{$account->balance}}</td>
-                        <td>{{$account->user->name}}</td>
-                        <td>
-                            <span class="label {{$account->status->label}}">{{$account->status->name}}</span>
-                        </td>
-                        <td class="text-right">
-                            <div class="btn-group">
-                                <a href="{{ route('personal.chama.account.show',['chama_id'=>$chama->id,'account_id'=>$account->id]) }}" class="btn-white btn btn-xs">View</a>
-                                @if($account->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                    <a href="{{ route('personal.chama.account.restore',['chama_id'=>$chama->id,'account_id'=>$account->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                @else
-                                    <a href="{{ route('personal.chama.account.delete',['chama_id'=>$chama->id,'account_id'=>$account->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Balance</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-                </table>
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Balance</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($accounts as $account)
+                                    <tr class="gradeX">
+                                        <td>{{$account->name}}</td>
+                                        <td>{{$account->balance}}</td>
+                                        <td>{{$account->user->name}}</td>
+                                        <td>
+                                            <span class="label {{$account->status->label}}">{{$account->status->name}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="{{ route('personal.chama.account.show',['chama_id'=>$chama->id,'account_id'=>$account->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                @if($account->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                    <a href="{{ route('personal.chama.account.restore',['chama_id'=>$chama->id,'account_id'=>$account->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                @else
+                                                    <a href="{{ route('personal.chama.account.delete',['chama_id'=>$chama->id,'account_id'=>$account->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Balance</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
 
                 </div>

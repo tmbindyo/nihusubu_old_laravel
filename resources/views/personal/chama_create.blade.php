@@ -102,8 +102,23 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="has-warning">
-                                            <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Name">
-                                            <i>name</i>
+                                            <input type="number" id="shares" oninput="getShaveValue();" name="shares" required="required" value="1" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Member shares">
+                                            <i>the amount of shares that you hold(this will not credit the chama account and thus should be currently held shares)</i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="has-warning">
+                                            <input type="number" id="share_price" oninput="getShaveValue();" name="share_price" required="required" value="1" class="form-control input-lg">
+                                            <i>share price</i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="has-warning">
+                                            <input type="number" id="share_value" name="share_value" required="required" value="0" class="form-control input-lg" readonly>
+                                            <i>share value</i>
                                         </div>
                                     </div>
                                 </div>
@@ -111,8 +126,8 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="has-warning">
-                                            <input type="number" id="share_price" name="share_price" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Share price">
-                                            <i>share price</i>
+                                            <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Name">
+                                            <i>name</i>
                                         </div>
                                     </div>
                                 </div>
@@ -201,6 +216,23 @@
 
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+<script>
+
+    function getShaveValue() {
+        var shares = document.getElementById('shares').value;
+        var share_price = document.getElementById('share_price').value;
+        console.log(share_price);
+        {{--  get share value  --}}
+        var share_value = parseFloat(shares) * parseFloat(share_price);
+        console.log(share_value);
+        {{--  set share value  --}}
+        document.getElementById("share_value").value = share_value;
+
+
+    }
+
+</script>
 
 <script>
     $(document).ready(function(){

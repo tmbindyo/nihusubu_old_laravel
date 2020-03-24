@@ -64,7 +64,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Payment Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">
@@ -133,7 +133,7 @@
                                                 <select name="loan" class="select2_demo_tag form-control input-lg">
                                                     <option selected disabled >Select Loan</option>
                                                     @foreach ($loans as $loan)
-                                                        <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->amount}}]</option>
+                                                        <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
                                                     @endforeach
                                                 </select>
                                                 <i>loan</i>

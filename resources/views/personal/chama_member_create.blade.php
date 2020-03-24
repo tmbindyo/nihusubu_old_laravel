@@ -99,8 +99,23 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="shares" name="shares" required="required" placeholder="Shares" class="form-control input-lg">
-                                        <i>shares</i>
+                                        <input type="number" id="shares" oninput="getShaveValue();" name="shares" value="1" required="required" placeholder="Shares" class="form-control input-lg">
+                                        <i>the amount of shares that the member holds(this will not credit the chama account and thus should be currently held shares)</i>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="share_price" name="share_price" required="required" value="{{$chama->share_price}}" class="form-control input-lg" readonly>
+                                                <i>share price</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="share_value" name="share_value" required="required" value="{{$chama->share_price}}" class="form-control input-lg" readonly>
+                                                <i>share value</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
@@ -220,6 +235,23 @@
 
             // Set time
         });
+
+    </script>
+
+    <script>
+
+        function getShaveValue() {
+            var shares = document.getElementById('shares').value;
+            var share_price = document.getElementById('share_price').value;
+            console.log(share_price);
+            {{--  get share value  --}}
+            var share_value = parseFloat(shares) * parseFloat(share_price);
+            console.log(share_value);
+            {{--  set share value  --}}
+            document.getElementById("share_value").value = share_value;
+
+
+        }
 
     </script>
 

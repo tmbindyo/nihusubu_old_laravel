@@ -2,108 +2,27 @@
 
 @section('title', 'Create Product Group')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-    <link href="{{ asset('css') }}/choices.min.css" rel="stylesheet">
-
-
-    {{--  Tags  --}}
-    <style>
-        .tags-input-wrapper {
-            background: #ffffff;
-            padding: 10px;
-            border-radius: 4px;
-            max-width: 650px;
-            border: 1px solid #ccc
-        }
-
-        .tags-input-wrapper input {
-            border: none;
-            background: transparent;
-            outline: none;
-            width: 150px;
-        }
-
-        .tags-input-wrapper .tag {
-            display: inline-block;
-            background-color: #009432;
-            color: white;
-            border-radius: 20px;
-            padding: 0px 3px 0px 7px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-
-        .tags-input-wrapper .tag a {
-            margin: 0 7px 3px;
-            display: inline-block;
-            cursor: pointer;
-        }
-    </style>
-@endsection
-
-
-
 @section('content')
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-8">
-        <h2>Product Groups</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
-            </li>
-            <li>
-                <a href="{{route('business.products',$institution->portal)}}">Products</a>
-            </li>
-            <li>
-                <a href="{{route('business.product.groups',$institution->portal)}}">Product Groups</a>
-            </li>
-            <li class="active">
-                <strong>Product Group Create</strong>
-            </li>
-        </ol>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
+            <h2>Product Groups</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                </li>
+                <li>
+                    <a href="{{route('business.products',$institution->portal)}}">Products</a>
+                </li>
+                <li>
+                    <a href="{{route('business.product.groups',$institution->portal)}}">Product Groups</a>
+                </li>
+                <li class="active">
+                    <strong>Product Group Create</strong>
+                </li>
+            </ol>
+        </div>
     </div>
-</div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">

@@ -2,40 +2,6 @@
 
 @section('title', 'Payment Create')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-
-@endsection
-
-
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -64,7 +30,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Payment Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">
@@ -87,7 +53,7 @@
                                 <div class="col-md-10 col-md-offset-1">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$loan->amount}}" class="form-control input-lg">
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$loan->balance}}" class="form-control input-lg">
                                         <i>amount</i>
                                     </div>
                                     <br>
@@ -130,7 +96,7 @@
                                         <div class="col-md-4">
                                             <div class="has-warning">
                                                 <select name="loan" class="select2_demo_tag form-control input-lg">
-                                                    <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->amount}}]</option>
+                                                    <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
                                                 </select>
                                                 <i>loan</i>
                                             </div>
