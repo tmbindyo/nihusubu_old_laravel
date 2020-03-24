@@ -5,44 +5,42 @@
                 <div class="dropdown profile-element">
                     <span>
                         <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/profile_small.jpg" />
-                    </span>
-                    {{--  <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{$user->name}}</strong>  --}}
-                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                    <span class="clear">
-                                        <span class="block m-t-xs">
-                                            <strong class="font-bold">{{$user->name}}</strong>
-                                        </span>
-                                        <span class="text-muted text-xs block">
-                                            @if($user->active_user_account->user_type->name == "Business")
-                                                {{$user->active_user_account->institution->name}}
-                                                <b class="caret"></b>
-                                            @elseif($user->active_user_account->user_type->name == "Personal")
-                                                Personal Account
-                                                <b class="caret"></b>
-                                            @elseif($user->active_user_account->user_type->name == "Admin")
-                                                Nihusubu Admin
-                                                <b class="caret"></b>
-                                            @endif
-                                                {{--  {{$user->active_user_account}}  --}}
+                    </span>                    
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">{{$user->name}}</strong>
+                            </span>
+                            <span class="text-muted text-xs block">
+                                @if($user->active_user_account->user_type->name == "Business")
+                                    {{$user->active_user_account->institution->name}}
+                                    <b class="caret"></b>
+                                @elseif($user->active_user_account->user_type->name == "Personal")
+                                    Personal Account
+                                    <b class="caret"></b>
+                                @elseif($user->active_user_account->user_type->name == "Admin")
+                                    Nihusubu Admin
+                                    <b class="caret"></b>
+                                @endif
+                                    {{--  {{$user->active_user_account}}  --}}
 
-                                        </span>
-                                    </span>
-                                </a>
-                                <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                    @foreach($user->inactive_user_account as $userAccount)
-                                        @if($userAccount->user_type->name == "Business")
-                                            <li><a href="{{route('activate.user.account',$userAccount->id)}}"> Access {{$userAccount->institution->name}} </a></li>
-                                        @endif
-                                        @if($userAccount->user_type->name == "Personal")
-                                            <li><a href="{{route('activate.user.account',$userAccount->id)}}">Access Personal Account</a></li>
-                                        @endif
-                                        @if($userAccount->user_type->name == "Admin")
-                                            <li><a href="{{route('activate.user.account',$userAccount->id)}}">Access Admin Account</a></li>
-                                        @endif
-                                    @endforeach
-                                    <li><a href="{{route('create.user.account')}}">Create New Account</a></li>
-                                </ul>
+                            </span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        @foreach($user->inactive_user_account as $userAccount)
+                            @if($userAccount->user_type->name == "Business")
+                                <li><a href="{{route('activate.user.account',$userAccount->id)}}"> Access {{$userAccount->institution->name}} </a></li>
+                            @endif
+                            @if($userAccount->user_type->name == "Personal")
+                                <li><a href="{{route('activate.user.account',$userAccount->id)}}">Access Personal Account</a></li>
+                            @endif
+                            @if($userAccount->user_type->name == "Admin")
+                                <li><a href="{{route('activate.user.account',$userAccount->id)}}">Access Admin Account</a></li>
+                            @endif
+                        @endforeach
+                        <li><a href="{{route('create.user.account')}}">Create New Account</a></li>
+                    </ul>
                 </div>
                 <div class="logo-element">
                     <img alt="image" style="height: 20px;" src="{{ asset('inspinia') }}/img/nihusubu.jpg" />
@@ -167,74 +165,6 @@
                     </li>
                 </ul>
             </li>
-
-
-{{--            <li>--}}
-{{--                <a href="#">--}}
-{{--                    <i class="fa fa-folder"></i>--}}
-{{--                    <span class="nav-label">Projects </span>--}}
-{{--                    <span class="fa arrow"></span>--}}
-{{--                    <span class="label label-info pull-right">16</span>--}}
-{{--                </a>--}}
-{{--                <ul class="nav nav-second-level collapse">--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.projects.feed' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.projects.feed')}}">--}}
-{{--                            Feed--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.projects' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.projects')}}">--}}
-{{--                            Projects--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-
-{{--                </ul>--}}
-{{--            </li>--}}
-
-{{--            <li class="nav-item {{ Route::currentRouteNamed( 'business.assets' ) ?  'active' : '' }}">--}}
-{{--                <a href="{{ route('business.assets') }}"><i class="fa fa-archive"></i> <span class="nav-label">Assets</span></a>--}}
-{{--            </li>--}}
-
-{{--            <li class="nav-item {{ Route::currentRouteNamed( 'business.assets' ) ?  'active' : '' }}">--}}
-{{--                <a href="{{ route('business.assets') }}"><i class="fa fa-archive"></i> <span class="nav-label">Investments</span></a>--}}
-{{--            </li>--}}
-{{--            --}}
-{{--            <li>--}}
-{{--                <a href="#">--}}
-{{--                    <i class="fa fa-users"></i>--}}
-{{--                    <span class="nav-label">Human Resource </span>--}}
-{{--                    <span class="fa arrow"></span>--}}
-{{--                    <span class="label label-info pull-right">16</span>--}}
-{{--                </a>--}}
-{{--                <ul class="nav nav-second-level collapse">--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.employees' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.employees')}}">--}}
-{{--                            Employees--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.leave' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.leave')}}">--}}
-{{--                            Leave--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.payroll' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.payroll')}}">--}}
-{{--                            Payroll--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.employer' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.employer')}}">--}}
-{{--                            Employer--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="nav-item {{ Route::currentRouteNamed( 'business.human.resource.settings' ) ?  'active' : '' }}">--}}
-{{--                        <a itemprop="url" class="nav-link" href="{{route( 'business.human.resource.settings')}}">--}}
-{{--                            Settings--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-
-{{--                </ul>--}}
-{{--            </li>--}}
 
 
             <li>

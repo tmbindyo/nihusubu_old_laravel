@@ -154,68 +154,6 @@
 
 </div>
 
-<!-- Mainly scripts -->
-<script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-<script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<!-- Custom and plugin javascript -->
-<script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
-
-<!-- Data picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-<!-- Chosen -->
-<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
-
-<!-- JSKnob -->
-<script src="{{ asset('inspinia') }}/js/plugins/jsKnob/jquery.knob.js"></script>
-
-<!-- Input Mask-->
-<script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
-
-<!-- Data picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-<!-- NouSlider -->
-<script src="{{ asset('inspinia') }}/js/plugins/nouslider/jquery.nouislider.min.js"></script>
-
-<!-- Switchery -->
-<script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
-
-<!-- IonRangeSlider -->
-<script src="{{ asset('inspinia') }}/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-
-<!-- iCheck -->
-<script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
-
-<!-- MENU -->
-<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-<!-- Color picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-
-<!-- Clock picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
-
-<!-- Image cropper -->
-<script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
-
-<!-- Date range moment js same as full calendar plugin -->
-<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
-
-<!-- Date range picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
-
-<!-- Select2 -->
-<script src="path/to/select2.min.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
-
-<!-- TouchSpin -->
-<script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
-
 @yield('js')
 </body>
 </html>
