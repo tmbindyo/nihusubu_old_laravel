@@ -288,7 +288,7 @@
 <script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
 
 <!-- Select2 -->
-<script src="path/to/select2.min.js"></script>
+
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
 <!-- TouchSpin -->
