@@ -64,7 +64,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Contact Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">
@@ -103,6 +103,15 @@
                                             @endforeach
                                         </select>
                                         <i>title</i>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple required="required">
+                                            <option></option>
+                                            @foreach($contactTypes as $contactType)
+                                                <option value="{{$contactType->id}}">{{$contactType->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <i>contact types</i>
                                     </div>
                                 </div>
                                 <br>

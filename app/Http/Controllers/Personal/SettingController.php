@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Personal;
 
-use App\AccountType;
+use App\Title;
 use App\Budget;
 use App\Expense;
-use App\ExpenseAccount;
 use App\Frequency;
-use App\Title;
+use App\AccountType;
+use App\ContactType;
+use App\ExpenseAccount;
 use App\Traits\UserTrait;
+use App\ContactContactType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -22,31 +24,123 @@ class SettingController extends Controller
         $this->middleware('auth');
     }
 
+
+    // contact types
+    public function contactTypes()
+    {
+
+        // User
+        $user = $this->getUser();
+        // contact types
+        $contactTypes = ContactType::with('user','status')->where('user_id',$user->id)->where('is_user',True)->get();
+        // deleted contact types
+        $deletedContactTypes = ContactType::with('user','status')->where('user_id',$user->id)->where('is_user',True)->onlyTrashed()->get();
+        return view('personal.contact_types',compact('contactTypes','user','deletedContactTypes'));
+
+    }
+
+    public function contactTypeCreate()
+    {
+
+        // User
+        $user = $this->getUser();
+        return view('personal.contact_type_create',compact('user'));
+
+    }
+
+    public function contactTypeStore(Request $request)
+    {
+
+        // User
+        $user = $this->getUser();
+        $contactType = new ContactType();
+        $contactType->name = $request->name;
+        $contactType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $contactType->user_id = $user->id;
+        $contactType->is_institution = False;
+        $contactType->is_user = True;
+        $contactType->save();
+        return redirect()->route('personal.contact.type.show',$contactType->id)->withSuccess('Contact type created!');
+
+    }
+
+    public function contactTypeShow($contact_type_id)
+    {
+
+        // Check if contact type exists
+        $contactTypeExists = ContactType::findOrFail($contact_type_id);
+        // User
+        $user = $this->getUser();
+        // Get contact type
+        $contactType = ContactType::with('user','status')->where('id',$contact_type_id)->withCount('contact_type_contacts')->first();
+        // contact type contacts
+        $contactContactTypes = ContactContactType::with('user','status','contact')->where('contact_type_id',$contact_type_id)->get();
+        return view('personal.contact_type_show',compact('contactType','user','contactContactTypes'));
+
+    }
+
+    public function contactTypeUpdate(Request $request, $contact_type_id)
+    {
+
+        // User
+        $user = $this->getUser();
+        // contact type update
+        $contactType = ContactType::findOrFail($contact_type_id);
+        $contactType->name = $request->name;
+        $contactType->user_id = $user->id;
+        $contactType->save();
+        return redirect()->route('personal.contact.type.show',$contactType->id)->withSuccess('Contact type updated!');
+
+    }
+
+    public function contactTypeDelete($contact_type_id)
+    {
+
+        $contactType = ContactType::findOrFail($contact_type_id);
+        $contactType->delete();
+        return back()->withSuccess(__('Contact type '.$contactType->name.' successfully deleted.'));
+
+    }
+
+    public function contactTypeRestore($contact_type_id)
+    {
+
+        $contactType = ContactType::withTrashed()->findOrFail($contact_type_id);
+        $contactType->restore();
+        return back()->withSuccess(__('Contact type '.$contactType->name.' successfully restored.'));
+
+    }
+
+
+
     // titles
     public function titles()
     {
+
         // User
         $user = $this->getUser();
         // get titles
         $titles = Title::where('is_user',true)->where('user_id',$user->id)->with('user','status')->get();
         // get deleted titles
         $deletedTitles = Title::where('is_user',true)->where('user_id',$user->id)->with('user','status')->onlyTrashed()->get();
-
         return view('personal.titles',compact('titles','user','titles','deletedTitles'));
+
     }
 
     public function titleCreate()
     {
+
         // User
         $user = $this->getUser();
         return view('personal.title_create',compact('user'));
+
     }
 
     public function titleStore(Request $request)
     {
+
         // User
         $user = $this->getUser();
-
         $title = new Title();
         $title->name = ($request->name);
         $title->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -55,6 +149,7 @@ class SettingController extends Controller
         $title->is_institution = False;
         $title->save();
         return redirect()->route('personal.title.show',$title->id)->withSuccess(__('Title '.$title->name.' successfully created.'));
+
     }
 
     public function titleShow($title_id)
@@ -65,6 +160,7 @@ class SettingController extends Controller
         $titleExists = Title::findOrFail($title_id);
         $title = Title::with('user','status','contacts')->where('is_user',true)->withCount('contacts')->where('id',$title_id)->first();
         return view('personal.title_show',compact('title','user'));
+
     }
 
     public function titleUpdate(Request $request,$title_id)
@@ -76,8 +172,8 @@ class SettingController extends Controller
         $title->name = ($request->name);
         $title->user_id = $user->id;
         $title->save();
-
         return redirect()->route('personal.title.show',$title->id)->withSuccess('Title '.$title->name.' updated!');
+
     }
 
     public function titleDelete($title_id)

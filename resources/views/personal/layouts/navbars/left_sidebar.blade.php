@@ -150,7 +150,7 @@
                 </ul>
             </li>  --}}
 
-            <li>
+            {{--  <li>
                 <a href="#">
                     <i class="fa fa-graduation-cap"></i>
                     <span class="nav-label">Growth </span>
@@ -173,9 +173,9 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>  --}}
 
-            <li>
+            {{--  <li>
                 <a href="#">
                     <i class="fa fa-area-chart"></i>
                     <span class="nav-label">Trends </span>
@@ -193,7 +193,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>  --}}
 
             <li>
                 <a href="#"><i class="fa fa-dollar"></i> <span class="nav-label">Accounting</span><span class="fa arrow"></span></a>
@@ -257,6 +257,11 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.contact.types' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'personal.contact.types')}}">
+                            Contact Types
+                        </a>
+                    </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'personal.expense.accounts' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'personal.expense.accounts')}}">
                             Expense Accounts

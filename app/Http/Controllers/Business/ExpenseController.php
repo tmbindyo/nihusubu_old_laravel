@@ -475,7 +475,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // TODO expense delete
-        // Get albums
+        // Get expenses
         $expenses = Expense::with('user','status')->get();
 
         return view('business.expenses',compact('expenses','user','institution'));
@@ -488,7 +488,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // TODO expense restore
-        // Get albums
+        // Get expenses
         $expenses = Expense::with('user','status')->get();
 
         return view('business.expenses',compact('expenses','user','institution'));
@@ -502,7 +502,7 @@ class ExpenseController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        // Get albums
+        // Get transactions
         $transactions = Transaction::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','account','expense')->get();
         return view('business.transactions',compact('transactions','user','institution','transactions'));
 
@@ -775,6 +775,8 @@ class ExpenseController extends Controller
             // update loan as paid
             $loan = Loan::findOrFail($request->loan);
             $paid = doubleval($request->amount) + doubleval($loan->paid);
+            $balance = doubleval($loan->principal) - $paid;
+            $loan->balance = $balance;
             $loan->paid = $paid;
             $loan->save();
         }else{

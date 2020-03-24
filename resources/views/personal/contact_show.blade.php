@@ -71,7 +71,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Contact <small>edit</small></h5>
-                        
+
                     </div>
                     <div class="ibox-content">
                         <div class="row">
@@ -105,6 +105,15 @@
                                                 @endforeach
                                             </select>
                                             <i>title</i>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select required="required" name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple>
+                                                <option></option>
+                                                @foreach($contactTypes as $contactType)
+                                                    <option @foreach($contactContactTypes as $contactContactType) @if($contactType->id === $contactContactType->contact_type->id) selected @endif @endforeach value="{{$contactType->id}}">{{$contactType->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <i>contact types</i>
                                         </div>
                                     </div>
                                     <br>
@@ -289,7 +298,7 @@
                                                                     {{$loan->reference}}
                                                                     <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->notes}}." class="fa fa-facebook-messenger"></i></span>
                                                                 </td>
-                                                                <td>{{$loan->amount}}</td>
+                                                                <td>{{$loan->principal}}</td>
                                                                 <td>{{$loan->paid}}</td>
                                                                 <td>{{$loan->date}}</td>
                                                                 <td>{{$loan->due_date}}</td>

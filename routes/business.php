@@ -25,15 +25,15 @@ Route::get('/{portal}/campaigns', 'Business\CRMController@campaigns')->name('bus
 Route::get('/{portal}/campaign/create', 'Business\CRMController@campaignCreate')->name('business.campaign.create');
 Route::post('/{portal}/campaign/store', 'Business\CRMController@campaignStore')->name('business.campaign.store');
 Route::get('/{portal}/campaign/show/{campaign_id}', 'Business\CRMController@campaignShow')->name('business.campaign.show');
+Route::post('/{portal}/campaign/update/{campaign_id}', 'Business\CRMController@campaignUpdate')->name('business.campaign.update');
+Route::get('/{portal}/campaign/delete/{campaign_id}', 'Business\CRMController@campaignDelete')->name('business.campaign.delete');
+Route::get('/{portal}/campaign/restore/{campaign_id}', 'Business\CRMController@campaignRestore')->name('business.campaign.restore');
 
 Route::get('/{portal}/campaign/contact/create/{campaign_id}', 'Business\CRMController@campaignContactCreate')->name('business.campaign.contact.create');
 Route::get('/{portal}/campaign/deal/create/{campaign_id}', 'Business\CRMController@campaignDealCreate')->name('business.campaign.deal.create');
 Route::get('/{portal}/campaign/expense/create/{campaign_id}', 'Business\CRMController@campaignExpenseCreate')->name('business.campaign.expense.create');
 Route::get('/{portal}/campaign/organization/create/{campaign_id}', 'Business\CRMController@campaignOrganizationCreate')->name('business.campaign.organization.create');
 
-Route::post('/{portal}/campaign/update/{campaign_id}', 'Business\CRMController@campaignUpdate')->name('business.campaign.update');
-Route::get('/{portal}/campaign/delete/{campaign_id}', 'Business\CRMController@campaignDelete')->name('business.campaign.delete');
-Route::get('/{portal}/campaign/restore/{campaign_id}', 'Business\CRMController@campaignRestore')->name('business.campaign.restore');
 
 // Campaign uploads
 Route::get('/{portal}/campaign/uploads/{campaign_id}', 'Business\CRMController@campaignUploads')->name('business.campaign.uploads');
@@ -47,17 +47,14 @@ Route::get('/{portal}/contacts', 'Business\CRMController@contacts')->name('busin
 Route::get('/{portal}/contact/create', 'Business\CRMController@contactCreate')->name('business.contact.create');
 Route::post('/{portal}/contact/store', 'Business\CRMController@contactStore')->name('business.contact.store');
 Route::get('/{portal}/contact/show/{contact_id}', 'Business\CRMController@contactShow')->name('business.contact.show');
-
-Route::get('/{portal}/contact/liability/create/{contact_id}', 'Business\CRMController@contactLiabilityCreate')->name('business.contact.liability.create');
-Route::get('/{portal}/contact/loan/create/{contact_id}', 'Business\CRMController@contactLoanCreate')->name('business.contact.loan.create');
-Route::get('/{portal}/contact/sale/create/{contact_id}', 'Business\CRMController@contactSaleCreate')->name('business.contact.sale.create');
-
 Route::post('/{portal}/contact/update/{contact_id}', 'Business\CRMController@contactUpdate')->name('business.contact.update');
 Route::get('/{portal}/contact/delete/{contact_id}', 'Business\CRMController@contactDelete')->name('business.contact.delete');
 Route::get('/{portal}/contact/restore/{contact_id}', 'Business\CRMController@contactRestore')->name('business.contact.restore');
 
+Route::get('/{portal}/contact/liability/create/{contact_id}', 'Business\CRMController@contactLiabilityCreate')->name('business.contact.liability.create');
+Route::get('/{portal}/contact/loan/create/{contact_id}', 'Business\CRMController@contactLoanCreate')->name('business.contact.loan.create');
+Route::get('/{portal}/contact/sale/create/{contact_id}', 'Business\CRMController@contactSaleCreate')->name('business.contact.sale.create');
 Route::get('/{portal}/contact/update/lead/to/contact/{contact_id}', 'Business\CRMController@contactUpdateLeadToContact')->name('business.contact.update.lead.to.contact');
-Route::post('/{portal}/contact/contact/type/store/{contact_id}', 'Business\CRMController@contactContactTypeStore')->name('business.contact.contact.type.store');
 
 
 
@@ -72,13 +69,13 @@ Route::get('/{portal}/organizations', 'Business\CRMController@organizations')->n
 Route::get('/{portal}/organization/create', 'Business\CRMController@organizationCreate')->name('business.organization.create');
 Route::post('/{portal}/organization/store', 'Business\CRMController@organizationStore')->name('business.organization.store');
 Route::get('/{portal}/organization/show/{organization_id}', 'Business\CRMController@organizationShow')->name('business.organization.show');
+Route::post('/{portal}/organization/update/{organization_id}', 'Business\CRMController@organizationUpdate')->name('business.organization.update');
+Route::get('/{portal}/organization/delete/{organization_id}', 'Business\CRMController@organizationDelete')->name('business.organization.delete');
+Route::get('/{portal}/organization/restore/{organization_id}', 'Business\CRMController@organizationRestore')->name('business.organization.restore');
 
 Route::get('/{portal}/organization/contact/create/{organization_id}', 'Business\CRMController@organizationContactCreate')->name('business.organization.contact.create');
 Route::get('/{portal}/organization/deal/create/{organization_id}', 'Business\CRMController@organizationDealCreate')->name('business.organization.deal.create');
 
-Route::post('/{portal}/organization/update/{organization_id}', 'Business\CRMController@organizationUpdate')->name('business.organization.update');
-Route::get('/{portal}/organization/delete/{organization_id}', 'Business\CRMController@organizationDelete')->name('business.organization.delete');
-Route::get('/{portal}/organization/restore/{organization_id}', 'Business\CRMController@organizationRestore')->name('business.organization.restore');
 
 
 
@@ -91,6 +88,7 @@ Route::get('/{portal}/product/group/show/{product_group_id}', 'Business\ProductC
 Route::get('/{portal}/product/group/edit/{product_group_id}', 'Business\ProductController@productGroupEdit')->name('business.product.group.edit');
 Route::post('/{portal}/product/group/update/{product_group_id}', 'Business\ProductController@productGroupUpdate')->name('business.product.group.update');
 Route::get('/{portal}/product/group/delete/{product_group_id}', 'Business\ProductController@productGroupDelete')->name('business.product.group.delete');
+Route::get('/{portal}/product/group/restore/{product_group_id}', 'Business\ProductController@productGroupRestore')->name('business.product.group.deleterestore');
 
 Route::get('/{portal}/products', 'Business\ProductController@products')->name('business.products');
 Route::get('/{portal}/product/create', 'Business\ProductController@productCreate')->name('business.product.create');
@@ -108,8 +106,6 @@ Route::post('/{portal}/product/discount/store/{product_id}', 'Business\ProductCo
 Route::post('/{portal}/product/discount/update/{product_id}', 'Business\ProductController@productDiscountUpdate')->name('business.product.discount.update');
 Route::get('/{portal}/product/discount/delete/{product_id}', 'Business\ProductController@productDiscountDelete')->name('business.product.discount.delete');
 
-Route::get('/{portal}/product/tax/delete/{product_id}', 'Business\ProductController@productTaxDelete')->name('business.product.tax.delete');
-
 Route::get('/{portal}/composite/products', 'Business\ProductController@compositeProducts')->name('business.composite.products');
 Route::get('/{portal}/composite/product/create', 'Business\ProductController@compositeProductCreate')->name('business.composite.product.create');
 Route::post('/{portal}/composite/product/store', 'Business\ProductController@compositeProductStore')->name('business.composite.product.store');
@@ -117,6 +113,7 @@ Route::get('/{portal}/composite/product/show/{composite_product_id}', 'Business\
 Route::get('/{portal}/composite/product/edit/{composite_product_id}', 'Business\ProductController@compositeProductEdit')->name('business.composite.product.edit');
 Route::post('/{portal}/composite/product/update/{composite_product_id}', 'Business\ProductController@compositeProductUpdate')->name('business.composite.product.update');
 Route::get('/{portal}/composite/product/delete/{composite_product_id}', 'Business\ProductController@compositeProductDelete')->name('business.composite.product.delete');
+Route::get('/{portal}/composite/product/restore/{composite_product_id}', 'Business\ProductController@compositeProductDelete')->name('business.composite.product.delete');
 
 
 //Inventory
@@ -126,7 +123,8 @@ Route::post('/{portal}/inventory/adjustment/store', 'Business\InventoryControlle
 Route::get('/{portal}/inventory/adjustment/show/{inventory_adjustment_id}', 'Business\InventoryController@inventoryAdjustmentShow')->name('business.inventory.adjustment.show');
 Route::get('/{portal}/inventory/adjustment/edit/{inventory_adjustment_id}', 'Business\InventoryController@inventoryAdjustmentEdit')->name('business.inventory.adjustment.edit');
 Route::post('/{portal}/inventory/adjustment/update/{inventory_adjustment_id}', 'Business\InventoryController@inventoryAdjustmentUpdate')->name('business.inventory.adjustment.update');
-Route::get('/{portal}/inventory/adjustment/{inventory_adjustment_id}', 'Business\InventoryController@inventoryAdjustmentDelete')->name('business.inventory.adjustment.delete');
+Route::get('/{portal}/inventory/adjustment/delete/{inventory_adjustment_id}', 'Business\InventoryController@inventoryAdjustmentDelete')->name('business.inventory.adjustment.delete');
+Route::get('/{portal}/inventory/adjustment/restore/{inventory_adjustment_id}', 'Business\InventoryController@inventoryAdjustmentRestore')->name('business.inventory.adjustment.restore');
 
 Route::get('/{portal}/transfer/orders', 'Business\InventoryController@transferOrders')->name('business.transfer.orders');
 Route::get('/{portal}/transfer/order/create', 'Business\InventoryController@transferOrderCreate')->name('business.transfer.order.create');
@@ -135,6 +133,7 @@ Route::get('/{portal}/transfer/order/show/{transfer_order_id}', 'Business\Invent
 Route::get('/{portal}/transfer/order/edit/{transfer_order_id}', 'Business\InventoryController@transferOrderEdit')->name('business.transfer.order.edit');
 Route::post('/{portal}/transfer/order/update/{transfer_order_id}', 'Business\InventoryController@transferOrderUpdate')->name('business.transfer.order.update');
 Route::get('/{portal}/transfer/order/delete/{transfer_order_id}', 'Business\InventoryController@transferOrderDelete')->name('business.transfer.order.delete');
+Route::get('/{portal}/transfer/order/restore/{transfer_order_id}', 'Business\InventoryController@transferOrderRestore')->name('business.transfer.order.restore');
 
 Route::get('/{portal}/warehouses', 'Business\InventoryController@warehouses')->name('business.warehouses');
 Route::post('/{portal}/warehouse/store', 'Business\InventoryController@warehouseStore')->name('business.warehouse.store');
@@ -142,6 +141,7 @@ Route::get('/{portal}/warehouse/show/{warehouse_id}', 'Business\InventoryControl
 Route::get('/{portal}/warehouse/edit/{warehouse_id}', 'Business\InventoryController@warehouseEdit')->name('business.warehouse.edit');
 Route::post('/{portal}/warehouse/update/{warehouse_id}', 'Business\InventoryController@warehouseUpdate')->name('business.warehouse.update');
 Route::get('/{portal}/warehouse/delete/{warehouse_id}', 'Business\InventoryController@warehouseDelete')->name('business.warehouse.delete');
+Route::get('/{portal}/warehouse/restore/{warehouse_id}', 'Business\InventoryController@warehouseRestore')->name('business.warehouse.restore');
 
 
 // estimates
@@ -151,11 +151,11 @@ Route::post('/{portal}/estimate/store', 'Business\SaleController@estimateStore')
 Route::get('/{portal}/estimate/show/{estimate_id}', 'Business\SaleController@estimateShow')->name('business.estimate.show');
 Route::get('/{portal}/estimate/edit/{estimate_id}', 'Business\SaleController@estimateEdit')->name('business.estimate.edit');
 Route::post('/{portal}/estimate/update/{estimate_id}', 'Business\SaleController@estimateUpdate')->name('business.estimate.update');
-Route::get('/{portal}/estimate/convert/to/invoice/{estimate_id}', 'Business\SaleController@estimateConvertToInvoice')->name('business.estimate.convert.to.invoice');
 Route::get('/{portal}/estimate/delete/{estimate_id}', 'Business\SaleController@estimateDelete')->name('business.estimate.delete');
 Route::get('/{portal}/estimate/restore/{estimate_id}', 'Business\SaleController@estimateRestore')->name('business.estimate.restore');
 Route::get('/{portal}/estimate/print/{estimate_id}', 'Business\SaleController@estimatePrint')->name('business.estimate.print');
 // estimate product
+Route::get('/{portal}/estimate/convert/to/invoice/{estimate_id}', 'Business\SaleController@estimateConvertToInvoice')->name('business.estimate.convert.to.invoice');
 Route::get('/{portal}/estimate/product/delete/{estimate_product_id}', 'Business\SaleController@estimateProductDelete')->name('business.estimate.product.delete');
 
 // invoices
@@ -165,10 +165,11 @@ Route::post('/{portal}/invoice/store', 'Business\SaleController@invoiceStore')->
 Route::get('/{portal}/invoice/show/{invoice_id}', 'Business\SaleController@invoiceShow')->name('business.invoice.show');
 Route::get('/{portal}/invoice/edit/{invoice_id}', 'Business\SaleController@invoiceEdit')->name('business.invoice.edit');
 Route::post('/{portal}/invoice/update/{invoice_id}', 'Business\SaleController@invoiceUpdate')->name('business.invoice.update');
-Route::get('/{portal}/invoice/convert/to/sale/{estimate_id}', 'Business\SaleController@invoiceConvertToSale')->name('business.invoice.convert.to.sale');
 Route::get('/{portal}/invoice/delete/{invoice_id}', 'Business\SaleController@invoiceDelete')->name('business.invoice.delete');
+Route::get('/{portal}/invoice/restore/{invoice_id}', 'Business\SaleController@invoiceRestore')->name('business.invoice.restore');
 Route::get('/{portal}/invoice/print/{invoice_id}', 'Business\SaleController@invoicePrint')->name('business.invoice.print');
 
+Route::get('/{portal}/invoice/convert/to/sale/{estimate_id}', 'Business\SaleController@invoiceConvertToSale')->name('business.invoice.convert.to.sale');
 Route::get('/{portal}/invoice/product/delete/{invoice_product_id}', 'Business\SaleController@invoiceProductDelete')->name('business.invoice.product.delete');
 
 
@@ -177,16 +178,14 @@ Route::get('/{portal}/sales', 'Business\SaleController@sales')->name('business.s
 Route::get('/{portal}/sale/create', 'Business\SaleController@saleCreate')->name('business.sale.create');
 Route::post('/{portal}/sale/store', 'Business\SaleController@saleStore')->name('business.sale.store');
 Route::get('/{portal}/sale/show/{sale_id}', 'Business\SaleController@saleShow')->name('business.sale.show');
-
-Route::get('/{portal}/sale/payment/create/{sale_id}', 'Business\SaleController@salePaymentCreate')->name('business.sale.payment.create');
-
+Route::get('/{portal}/sale/print/{order_id}', 'Business\SaleController@salePrint')->name('business.sale.print');
 Route::get('/{portal}/sale/edit/{sale_id}', 'Business\SaleController@saleEdit')->name('business.sale.edit');
 Route::get('/{portal}/sale/update/{sale_id}', 'Business\SaleController@saleUpdate')->name('business.sale.update');
 Route::get('/{portal}/sale/delete/{sale_id}', 'Business\SaleController@saleDelete')->name('business.sale.delete');
-Route::get('/{portal}/sale/print/{order_id}', 'Business\SaleController@salePrint')->name('business.sale.print');
+Route::get('/{portal}/sale/restore/{sale_id}', 'Business\SaleController@saleRestore')->name('business.sale.restore');
 
+Route::get('/{portal}/sale/payment/create/{sale_id}', 'Business\SaleController@salePaymentCreate')->name('business.sale.payment.create');
 Route::get('/{portal}/sale/product/delete/{invoice_product_id}', 'Business\SaleController@saleProductDelete')->name('business.sale.product.delete');
-
 Route::post('/{portal}/sale/record/payment/{sale_id}', 'Business\SaleController@saleRecordPayment')->name('business.sale.record.payment');
 Route::post('/{portal}/sale/record/payment/refund/{payment_received_id}', 'Business\SaleController@saleRecordPaymentRefund')->name('business.sale.record.payment.refund');
 Route::get('/{portal}/payments/received', 'Business\SaleController@paymentsReceived')->name('business.payments.received');
@@ -199,39 +198,38 @@ Route::get('/{portal}/accounts', 'Business\AccountController@accounts')->name('b
 Route::get('/{portal}/account/create', 'Business\AccountController@accountCreate')->name('business.account.create');
 Route::post('/{portal}/account/store', 'Business\AccountController@accountStore')->name('business.account.store');
 Route::get('/{portal}/account/show/{account_id}', 'Business\AccountController@accountShow')->name('business.account.show');
+Route::get('/{portal}/account/edit/{account_id}', 'Business\AccountController@accountEdit')->name('business.account.edit');
+Route::post('/{portal}/account/update/{account_id}', 'Business\AccountController@accountUpdate')->name('business.account.update');
+Route::get('/{portal}/account/delete/{account_id}', 'Business\AccountController@accountDelete')->name('business.account.delete');
+Route::get('/{portal}/account/restore/{account_id}', 'Business\AccountController@accountRestore')->name('business.account.restore');
 
 Route::get('/{portal}/account/deposit/create/{account_id}', 'Business\AccountController@accountDepositCreate')->name('business.account.deposit.create');
 Route::get('/{portal}/account/liability/create/{account_id}', 'Business\AccountController@accountLiabilityCreate')->name('business.account.liability.create');
 Route::get('/{portal}/account/loan/create/{account_id}', 'Business\AccountController@accountLoanCreate')->name('business.account.loan.create');
 Route::get('/{portal}/account/withdrawal/create/{account_id}', 'Business\AccountController@accountWithdrawalCreate')->name('business.account.withdrawal.create');
 
-Route::get('/{portal}/account/edit/{account_id}', 'Business\AccountController@accountEdit')->name('business.account.edit');
-Route::post('/{portal}/account/update/{account_id}', 'Business\AccountController@accountUpdate')->name('business.account.update');
-Route::get('/{portal}/account/delete/{account_id}', 'Business\AccountController@accountDelete')->name('business.account.delete');
-Route::get('/{portal}/account/restore/{account_id}', 'Business\AccountController@accountRestore')->name('business.account.restore');
 
 // deposits
 Route::post('/{portal}/deposit/store', 'Business\AccountController@depositStore')->name('business.deposit.store');
 Route::get('/{portal}/deposit/show/{deposit_id}', 'Business\AccountController@depositShow')->name('business.deposit.show');
-
-Route::get('/{portal}/deposit/account/adjustment/create/{deposit_id}', 'Business\AccountController@depositAccountAdjustmentCreate')->name('business.deposit.account.adjustment.create');
-
 Route::post('/{portal}/deposit/update/{deposit_id}', 'Business\AccountController@depositUpdate')->name('business.deposit.update');
 Route::get('/{portal}/deposit/delete/{deposit_id}', 'Business\AccountController@depositDelete')->name('business.deposit.delete');
 Route::get('/{portal}/deposit/restore/{deposit_id}', 'Business\AccountController@depositRestore')->name('business.deposit.restore');
 
+Route::get('/{portal}/deposit/account/adjustment/create/{deposit_id}', 'Business\AccountController@depositAccountAdjustmentCreate')->name('business.deposit.account.adjustment.create');
+
+
 // withdrawals
 Route::post('/{portal}/withdrawal/store', 'Business\AccountController@withdrawalStore')->name('business.withdrawal.store');
 Route::get('/{portal}/withdrawal/show/{withdrawal_id}', 'Business\AccountController@withdrawalShow')->name('business.withdrawal.show');
-
-Route::get('/{portal}/withdrawal/account/adjustment/create/{withdrawal_id}', 'Business\AccountController@withdrawalAccountAdjustmentCreate')->name('business.withdrawal.account.adjustment.create');
-
 Route::post('/{portal}/withdrawal/update/{withdrawal_id}', 'Business\AccountController@withdrawalUpdate')->name('business.withdrawal.update');
 Route::get('/{portal}/withdrawal/delete/{withdrawal_id}', 'Business\AccountController@withdrawalDelete')->name('business.withdrawal.delete');
 Route::get('/{portal}/withdrawal/restore/{withdrawal_id}', 'Business\AccountController@withdrawalRestore')->name('business.withdrawal.restore');
 
+Route::get('/{portal}/withdrawal/account/adjustment/create/{withdrawal_id}', 'Business\AccountController@withdrawalAccountAdjustmentCreate')->name('business.withdrawal.account.adjustment.create');
+
+
 // account adjustment
-Route::get('/{portal}/account/adjustment/create/{account_id}', 'Business\AccountController@accountAdjustmentCreate')->name('business.account.adjustment.create');
 Route::get('/{portal}/account/adjustment/create/{account_id}', 'Business\AccountController@accountAdjustmentCreate')->name('business.account.adjustment.create');
 Route::post('/{portal}/account/adjustment/store', 'Business\AccountController@accountAdjustmentStore')->name('business.account.adjustment.store');
 Route::get('/{portal}/account/adjustment/edit/{account_id}', 'Business\AccountController@accountAdjustmentEdit')->name('business.account.adjustment.edit');
@@ -249,6 +247,7 @@ Route::get('/{portal}/expense/edit/{expense_id}', 'Business\ExpenseController@ex
 Route::post('/{portal}/expense/update/{expense_id}', 'Business\ExpenseController@expenseUpdate')->name('business.expense.update');
 Route::get('/{portal}/expense/delete/{expense_id}', 'Business\ExpenseController@expenseDelete')->name('business.expense.delete');
 Route::get('/{portal}/expense/restore/{expense_id}', 'Business\ExpenseController@expenseRestore')->name('business.expense.restore');
+
 Route::get('/{portal}/expense/product/delete/{expense_id}', 'Business\ExpenseController@expenseProductDelete')->name('business.expense.product.delete');
 Route::get('/{portal}/expense/product/restore/{expense_id}', 'Business\ExpenseController@expenseProductRestore')->name('business.expense.product.restore');
 
@@ -258,13 +257,13 @@ Route::get('/{portal}/liabilities', 'Business\AccountController@liabilities')->n
 Route::get('/{portal}/liability/create', 'Business\AccountController@liabilityCreate')->name('business.liability.create');
 Route::post('/{portal}/liability/store', 'Business\AccountController@liabilityStore')->name('business.liability.store');
 Route::get('/{portal}/liability/show/{liability_id}', 'Business\AccountController@liabilityShow')->name('business.liability.show');
-
-Route::get('/{portal}/liability/expense/create/{liability_id}', 'Business\AccountController@liabilityExpenseCreate')->name('business.liability.expense.create');
-
 Route::get('/{portal}/liability/edit/{liability_id}', 'Business\AccountController@liabilityEdit')->name('business.liability.edit');
 Route::post('/{portal}/liability/update/{liability_id}', 'Business\AccountController@liabilityUpdate')->name('business.liability.update');
 Route::get('/{portal}/liability/delete/{liability_id}', 'Business\AccountController@liabilityDelete')->name('business.liability.delete');
 Route::get('/{portal}/liability/restore/{liability_id}', 'Business\AccountController@liabilityRestore')->name('business.liability.restore');
+
+Route::get('/{portal}/liability/expense/create/{liability_id}', 'Business\AccountController@liabilityExpenseCreate')->name('business.liability.expense.create');
+
 
 
 // loans
@@ -272,13 +271,13 @@ Route::get('/{portal}/loans', 'Business\AccountController@loans')->name('busines
 Route::get('/{portal}/loan/create', 'Business\AccountController@loanCreate')->name('business.loan.create');
 Route::post('/{portal}/loan/store', 'Business\AccountController@loanStore')->name('business.loan.store');
 Route::get('/{portal}/loan/show/{loan_id}', 'Business\AccountController@loanShow')->name('business.loan.show');
-
-Route::get('/{portal}/loan/payment/create/{loan_id}', 'Business\AccountController@loanPaymentCreate')->name('business.loan.payment.create');
-
 Route::get('/{portal}/loan/edit/{loan_id}', 'Business\AccountController@loanEdit')->name('business.loan.edit');
 Route::post('/{portal}/loan/update/{loan_id}', 'Business\AccountController@loanUpdate')->name('business.loan.update');
 Route::get('/{portal}/loan/delete/{loan_id}', 'Business\AccountController@loanDelete')->name('business.loan.delete');
 Route::get('/{portal}/loan/restore/{loan_id}', 'Business\AccountController@loanRestore')->name('business.loan.restore');
+
+Route::get('/{portal}/loan/payment/create/{loan_id}', 'Business\AccountController@loanPaymentCreate')->name('business.loan.payment.create');
+
 
 
 // payments
@@ -286,11 +285,11 @@ Route::get('/{portal}/payments', 'Business\ExpenseController@payments')->name('b
 Route::get('/{portal}/payment/create', 'Business\ExpenseController@paymentCreate')->name('business.payment.create');
 Route::post('/{portal}/payment/store', 'Business\ExpenseController@paymentStore')->name('business.payment.store');
 Route::get('/{portal}/payment/show/{payment_id}', 'Business\ExpenseController@paymentShow')->name('business.payment.show');
+Route::get('/{portal}/payment/delete/{payment_id}', 'Business\ExpenseController@paymentDelete')->name('business.payment.delete');
+Route::get('/{portal}/payment/restore/{payment_id}', 'Business\ExpenseController@paymentRestore')->name('business.payment.restore');
 
 Route::get('/{portal}/payment/{payment_id}/refund/create', 'Business\ExpenseController@refundCreate')->name('business.payment.refund.create');
 
-Route::get('/{portal}/payment/delete/{payment_id}', 'Business\ExpenseController@paymentDelete')->name('business.payment.delete');
-Route::get('/{portal}/payment/restore/{payment_id}', 'Business\ExpenseController@paymentRestore')->name('business.payment.restore');
 
 
 // refunds
@@ -307,12 +306,14 @@ Route::get('/{portal}/refund/restore/{refund_id}', 'Business\ExpenseController@r
 Route::get('/{portal}/transactions', 'Business\ExpenseController@transactions')->name('business.transactions');
 Route::get('/{portal}/transaction/create/{expense_id}', 'Business\ExpenseController@transactionCreate')->name('business.transaction.create');
 Route::post('/{portal}/transaction/store', 'Business\ExpenseController@transactionStore')->name('business.transaction.store');
+Route::get('/{portal}/transaction/show/{transaction_id}', 'Business\ExpenseController@transactionShow')->name('business.transaction.show');
 Route::get('/{portal}/transaction/edit/{transaction_id}', 'Business\ExpenseController@transactionEdit')->name('business.transaction.edit');
 Route::post('/{portal}/transaction/update/{transaction_id}', 'Business\ExpenseController@transactionUpdate')->name('business.transaction.update');
-Route::get('/{portal}/transaction/billed/{transaction_id}', 'Business\ExpenseController@transactionBilled')->name('business.transaction.billed');
-Route::get('/{portal}/transaction/pending/payment/{transaction_id}', 'Business\ExpenseController@transactionPendingPayment')->name('business.transaction.pending.payment');
 Route::get('/{portal}/transaction/delete/{transaction_id}', 'Business\ExpenseController@transactionDelete')->name('business.transaction.delete');
 Route::get('/{portal}/transaction/restore/{transaction_id}', 'Business\ExpenseController@transactionRestore')->name('business.transaction.restore');
+
+Route::get('/{portal}/transaction/billed/{transaction_id}', 'Business\ExpenseController@transactionBilled')->name('business.transaction.billed');
+Route::get('/{portal}/transaction/pending/payment/{transaction_id}', 'Business\ExpenseController@transactionPendingPayment')->name('business.transaction.pending.payment');
 
 
 // transfers
@@ -320,13 +321,13 @@ Route::get('/{portal}/transfers', 'Business\AccountController@transfers')->name(
 Route::get('/{portal}/transfer/create', 'Business\AccountController@transferCreate')->name('business.transfer.create');
 Route::post('/{portal}/transfer/store', 'Business\AccountController@transferStore')->name('business.transfer.store');
 Route::get('/{portal}/transfer/show/{transfer_id}', 'Business\AccountController@transferShow')->name('business.transfer.show');
-
-Route::get('/{portal}/transfer/expense/create/{transfer_id}', 'Business\AccountController@transferExpenseCreate')->name('business.transfer.expense.create');
-
 Route::get('/{portal}/transfer/edit/{transfer_id}', 'Business\AccountController@transferEdit')->name('business.transfer.edit');
 Route::post('/{portal}/transfer/update/{transfer_id}', 'Business\AccountController@transferUpdate')->name('business.transfer.update');
 Route::get('/{portal}/transfer/delete/{transfer_id}', 'Business\AccountController@transferDelete')->name('business.transfer.delete');
 Route::get('/{portal}/transfer/restore/{transfer_id}', 'Business\AccountController@transferRestore')->name('business.transfer.restore');
+
+Route::get('/{portal}/transfer/expense/create/{transfer_id}', 'Business\AccountController@transferExpenseCreate')->name('business.transfer.expense.create');
+
 
 
 
@@ -424,13 +425,13 @@ Route::get('/{portal}/reminders', 'Business\SettingController@reminders')->name(
 // Campaign types
 Route::get('/{portal}/campaign/types', 'Business\SettingController@campaignTypes')->name('business.campaign.types');
 Route::get('/{portal}/campaign/type/create', 'Business\SettingController@campaignTypeCreate')->name('business.campaign.type.create');
-Route::get('/{portal}/campaign/type/{campaign_type_id}/campaign/create', 'Business\SettingController@campaignTypeCampaignCreate')->name('business.campaign.type.campaign.create');
 Route::post('/{portal}/campaign/type/store', 'Business\SettingController@campaignTypeStore')->name('business.campaign.type.store');
 Route::get('/{portal}/campaign/type/show/{campaign_type_id}', 'Business\SettingController@campaignTypeShow')->name('business.campaign.type.show');
 Route::post('/{portal}/campaign/type/update/{campaign_type_id}', 'Business\SettingController@campaignTypeUpdate')->name('business.campaign.type.update');
 Route::get('/{portal}/campaign/type/delete/{campaign_type_id}', 'Business\SettingController@campaignTypeDelete')->name('business.campaign.type.delete');
 Route::get('/{portal}/campaign/type/restore/{campaign_type_id}', 'Business\SettingController@campaignTypeRestore')->name('business.campaign.type.restore');
 
+Route::get('/{portal}/campaign/type/{campaign_type_id}/campaign/create', 'Business\SettingController@campaignTypeCampaignCreate')->name('business.campaign.type.campaign.create');
 
 // Contact types
 Route::get('/{portal}/contact/types', 'Business\SettingController@contactTypes')->name('business.contact.types');

@@ -2,47 +2,6 @@
 
 @section('title', ' Expense Create')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-@endsection
-
 @section('content')
 
         <div class="row wrapper border-bottom white-bg page-heading">
@@ -93,6 +52,11 @@
                                         <div class="col-md-8">
                                             {{--  expense account  --}}
                                             <div class="has-warning">
+                                                @if ($errors->has('expense_account'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('expense_account') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <select name="expense_account" class="select-2 form-control input-lg">
                                                     <option selected disabled>Select Expense Account</option>
                                                     @foreach($expenseAccounts as $expenseAccount)
@@ -112,11 +76,16 @@
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <div class="has-warning" id="data_1">
+                                                        @if ($errors->has('date'))
+                                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                                <strong>{{ $errors->first('date') }}</strong>
+                                                            </span>
+                                                        @endif
                                                         <div class="input-group date">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="date" id="date" class="form-control input-lg" required>
+                                                            <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" required>
                                                         </div>
                                                         <i> expense date.</i>
                                                     </div>
@@ -206,6 +175,11 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="has-warning">
+                                                @if ($errors->has('campaign'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('campaign') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="has-warning">
                                                     <select name="campaign" class="select-2 form-control input-lg">
                                                         <option value="{{$campaign->id}}" >{{$campaign->name}}</option>
@@ -231,6 +205,11 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="has-warning">
+                                                @if ($errors->has('frequency'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('frequency') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <select name="frequency" class="select-2 form-control input-lg">
                                                     <option selected disabled>Select frequency</option>
                                                     @foreach($frequencies as $frequency)
@@ -241,22 +220,32 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="has-warning" id="data_1">
+                                                @if ($errors->has('start_date'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('start_date') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="start_date" id="start_date" class="form-control input-lg" required required>
+                                                    <input type="text" name="start_date" id="start_date" value="{{ old('start_date') }}" class="form-control input-lg" required required>
                                                 </div>
                                                 <i> start date.</i>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="has-warning" id="data_1">
+                                                @if ($errors->has('end_date'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('end_date') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="end_date" id="end_date" class="form-control input-lg" required>
+                                                    <input type="text" name="end_date" id="end_date" value="{{ old('end_date') }}" class="form-control input-lg" required>
                                                 </div>
                                                 <i> end date (leave blank if no end date)</i>
                                             </div>
@@ -267,6 +256,11 @@
                                         <div class="col-md-6">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
+                                                @if ($errors->has('status'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('status') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <select name="status" class="select-2 form-control input-lg" required>
                                                     <option selected disabled>Select status</option>
                                                     @foreach($expenseStatuses as $status)
@@ -285,7 +279,12 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <textarea name="notes" placeholder="Notes" class="form-control" rows="7"></textarea>
+                                                @if ($errors->has('notes'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('notes') }}</strong>
+                                                    </span>
+                                                @endif
+                                                <textarea name="notes" placeholder="Notes" class="form-control" rows="7">{{ old('notes') }}</textarea>
                                             </div>
                                         </div>
                                     </div>

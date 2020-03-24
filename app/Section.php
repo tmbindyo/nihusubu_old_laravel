@@ -11,6 +11,8 @@ class Section extends Model
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
+    protected $fillable = ['name','description','user_id','status_id','is_business'];
+
     // Parents
     public function status()
     {

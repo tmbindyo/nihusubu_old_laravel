@@ -56,7 +56,9 @@ class CRMController extends Controller
         $contacts = Contact::where('user_id',$user->id)->where('is_user',True)->with('user','status','contact_type')->get();
         // get titles
         $titles = Title::where('user_id',$user->id)->where('is_user',True)->get();
-        return view('personal.contact_create',compact('contacts','user','titles'));
+        // get contact types
+        $contactTypes = ContactType::where('user_id',$user->id)->where('is_user',True)->get();
+        return view('personal.contact_create',compact('contacts','user','titles','contactTypes'));
     }
 
     public function contactStore(Request $request)
@@ -92,6 +94,7 @@ class CRMController extends Controller
         $contact->user_id = $user->id;
         $contact->is_user = True;
         $contact->is_institution = False;
+        $contact->is_chama = False;
         $contact->save();
 
         if($request->contact_types)
@@ -155,6 +158,12 @@ class CRMController extends Controller
         // get titles
         $titles = Title::where('user_id',$user->id)->where('is_user',True)->get();
 
+        // get contact types
+        $contactTypes = ContactType::where('user_id',$user->id)->where('is_user',True)->get();
+
+        // contact contact types
+        $contactContactTypes = ContactContactType::with('user','status','contact_type')->where('contact_id',$contact_id)->get();
+
         // ontact owed liability
         $liabilities = Liability::where('user_id',$user->id)->where('is_user',True)->with('user','status')->where('contact_id',$contact_id)->get();
         // contact loans
@@ -167,7 +176,7 @@ class CRMController extends Controller
         $completedToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','contact')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('contact_id',$contact->id)->get();
         // Overdue to dos
         $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','contact')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('contact_id',$contact->id)->get();
-        return view('personal.contact_show',compact('loans','overdueToDos','completedToDos','inProgressToDos','pendingToDos','liabilities','titles','contact','user','loans'));
+        return view('personal.contact_show',compact('loans','overdueToDos','completedToDos','inProgressToDos','pendingToDos','liabilities','titles','contact','user','loans','contactTypes','contactContactTypes'));
     }
 
     public function contactLiabilityCreate($contact_id)

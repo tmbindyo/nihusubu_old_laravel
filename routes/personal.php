@@ -284,6 +284,16 @@ Route::post('/transfer/update/{transfer_id}', 'Personal\AccountController@transf
 Route::get('/transfer/delete/{transfer_id}', 'Personal\AccountController@transferDelete')->name('personal.transfer.delete');
 Route::get('/transfer/restore/{transfer_id}', 'Personal\AccountController@transferRestore')->name('personal.transfer.restore');
 
+// Contact types
+Route::get('/contact/types', 'Personal\SettingController@contactTypes')->name('personal.contact.types');
+Route::get('/contact/type/create', 'Personal\SettingController@contactTypeCreate')->name('personal.contact.type.create');
+Route::post('/contact/type/store', 'Personal\SettingController@contactTypeStore')->name('personal.contact.type.store');
+Route::get('/contact/type/show/{contact_type_id}', 'Personal\SettingController@contactTypeShow')->name('personal.contact.type.show');
+Route::post('/contact/type/update/{contact_type_id}', 'Personal\SettingController@contactTypeUpdate')->name('personal.contact.type.update');
+Route::get('/contact/type/delete/{contact_type_id}', 'Personal\SettingController@contactTypeDelete')->name('personal.contact.type.delete');
+Route::get('/contact/type/restore/{contact_type_id}', 'Personal\SettingController@contactTypeRestore')->name('personal.contact.type.restore');
+
+
 
 // Frequencies
 Route::get('/frequencies', 'Personal\SettingController@frequencies')->name('personal.frequencies');
@@ -340,39 +350,38 @@ Route::get('/chama/{chama_id}/accounts', 'Personal\ChamaController@chamaAccounts
 Route::get('chama/{chama_id}/account/create', 'Personal\ChamaController@chamaAccountCreate')->name('personal.chama.account.create');
 Route::post('/chama/{chama_id}/account/store', 'Personal\ChamaController@chamaAccountStore')->name('personal.chama.account.store');
 Route::get('/chama/{chama_id}/account/show/{account_id}', 'Personal\ChamaController@chamaAccountShow')->name('personal.chama.account.show');
+Route::get('/chama/{chama_id}/account/edit/{account_id}', 'Personal\ChamaController@chamaAccountEdit')->name('personal.chama.account.edit');
+Route::post('/chama/{chama_id}/account/update/{account_id}', 'Personal\ChamaController@chamaAccountUpdate')->name('personal.chama.account.update');
+Route::get('/chama/{chama_id}/account/delete/{account_id}', 'Personal\ChamaController@chamaAccountDelete')->name('personal.chama.account.delete');
+Route::get('/chama/{chama_id}/account/restore/{account_id}', 'Personal\ChamaController@chamaAccountRestore')->name('personal.chama.account.restore');
 
 Route::get('/chama/{chama_id}/account/deposit/create/{account_id}', 'Personal\ChamaController@chamaAccountDepositCreate')->name('personal.chama.account.deposit.create');
 Route::get('/chama/{chama_id}/account/liability/create/{account_id}', 'Personal\ChamaController@chamaAccountLiabilityCreate')->name('personal.chama.account.liability.create');
 Route::get('/chama/{chama_id}/account/loan/create/{account_id}', 'Personal\ChamaController@chamaAccountLoanCreate')->name('personal.chama.account.loan.create');
 Route::get('/chama/{chama_id}/account/withdrawal/create/{account_id}', 'Personal\ChamaController@chamaAccountWithdrawalCreate')->name('personal.chama.account.withdrawal.create');
 
-Route::get('/chama/{chama_id}/account/edit/{account_id}', 'Personal\ChamaController@chamaAccountEdit')->name('personal.chama.account.edit');
-Route::post('/chama/{chama_id}/account/update/{account_id}', 'Personal\ChamaController@chamaAccountUpdate')->name('personal.chama.account.update');
-Route::get('/chama/{chama_id}/account/delete/{account_id}', 'Personal\ChamaController@chamaAccountDelete')->name('personal.chama.account.delete');
-Route::get('/chama/{chama_id}/account/restore/{account_id}', 'Personal\ChamaController@chamaAccountRestore')->name('personal.chama.account.restore');
 
 // deposits
 Route::post('/chama/{chama_id}/deposit/store', 'Personal\ChamaController@chamaDepositStore')->name('personal.chama.deposit.store');
 Route::get('/chama/{chama_id}/deposit/show/{deposit_id}', 'Personal\ChamaController@chamaDepositShow')->name('personal.chama.deposit.show');
-
-Route::get('/chama/{chama_id}/deposit/account/adjustment/create/{deposit_id}', 'Personal\ChamaController@chamaDepositAccountAdjustmentCreate')->name('personal.chama.deposit.account.adjustment.create');
-
 Route::post('/chama/{chama_id}/deposit/update/{deposit_id}', 'Personal\ChamaController@chamaDepositUpdate')->name('personal.chama.deposit.update');
 Route::get('/chama/{chama_id}/deposit/delete/{deposit_id}', 'Personal\ChamaController@chamaDepositDelete')->name('personal.chama.deposit.delete');
 Route::get('/chama/{chama_id}/deposit/restore/{deposit_id}', 'Personal\ChamaController@chamaDepositRestore')->name('personal.chama.deposit.restore');
 
+Route::get('/chama/{chama_id}/deposit/account/adjustment/create/{deposit_id}', 'Personal\ChamaController@chamaDepositAccountAdjustmentCreate')->name('personal.chama.deposit.account.adjustment.create');
+
+
 // withdrawals
 Route::post('/chama/{chama_id}/withdrawal/store', 'Personal\ChamaController@chamaWithdrawalStore')->name('personal.chama.withdrawal.store');
 Route::get('/chama/{chama_id}/withdrawal/show/{withdrawal_id}', 'Personal\ChamaController@chamaWithdrawalShow')->name('personal.chama.withdrawal.show');
-
-Route::get('/chama/{chama_id}/withdrawal/account/adjustment/create/{withdrawal_id}', 'Personal\ChamaController@chamaWithdrawalAccountAdjustmentCreate')->name('personal.chama.withdrawal.account.adjustment.create');
-
 Route::post('/chama/{chama_id}/withdrawal/update/{withdrawal_id}', 'Personal\ChamaController@chamaWithdrawalUpdate')->name('personal.chama.withdrawal.update');
 Route::get('/chama/{chama_id}/withdrawal/delete/{withdrawal_id}', 'Personal\ChamaController@chamaWithdrawalDelete')->name('personal.chama.withdrawal.delete');
 Route::get('/chama/{chama_id}/withdrawal/restore/{withdrawal_id}', 'Personal\ChamaController@chamaWithdrawalRestore')->name('personal.chama.withdrawal.restore');
 
+Route::get('/chama/{chama_id}/withdrawal/account/adjustment/create/{withdrawal_id}', 'Personal\ChamaController@chamaWithdrawalAccountAdjustmentCreate')->name('personal.chama.withdrawal.account.adjustment.create');
+
+
 // account adjustment
-Route::get('/chama/{chama_id}/account/adjustment/create/{account_id}', 'Personal\ChamaController@chamaAccountAdjustmentCreate')->name('personal.chama.account.adjustment.create');
 Route::get('/chama/{chama_id}/account/adjustment/create/{account_id}', 'Personal\ChamaController@chamaAccountAdjustmentCreate')->name('personal.chama.account.adjustment.create');
 Route::post('/chama/{chama_id}/account/adjustment/store', 'Personal\ChamaController@chamaAccountAdjustmentStore')->name('personal.chama.account.adjustment.store');
 Route::get('/chama/{chama_id}/account/adjustment/edit/{account_id}', 'Personal\ChamaController@chamaAccountAdjustmentEdit')->name('personal.chama.account.adjustment.edit');
@@ -385,13 +394,13 @@ Route::get('/chama/{chama_id}/liabilities', 'Personal\ChamaController@chamaLiabi
 Route::get('/chama/{chama_id}/liability/create', 'Personal\ChamaController@chamaLiabilityCreate')->name('personal.chama.liability.create');
 Route::post('/chama/{chama_id}/liability/store', 'Personal\ChamaController@chamaLiabilityStore')->name('personal.chama.liability.store');
 Route::get('/chama/{chama_id}/liability/show/{liability_id}', 'Personal\ChamaController@chamaLiabilityShow')->name('personal.chama.liability.show');
-
-Route::get('/chama/{chama_id}/liability/expense/create/{liability_id}', 'Personal\ChamaController@chamaLiabilityExpenseCreate')->name('personal.chama.liability.expense.create');
-
 Route::get('/chama/{chama_id}/liability/edit/{liability_id}', 'Personal\ChamaController@chamaLiabilityEdit')->name('personal.chama.liability.edit');
 Route::post('/chama/{chama_id}/liability/update/{liability_id}', 'Personal\ChamaController@chamaLiabilityUpdate')->name('personal.chama.liability.update');
 Route::get('/chama/{chama_id}/liability/delete/{liability_id}', 'Personal\ChamaController@chamaLiabilityDelete')->name('personal.chama.liability.delete');
 Route::get('/chama/{chama_id}/liability/restore/{liability_id}', 'Personal\ChamaController@chamaLiabilityRestore')->name('personal.chama.liability.restore');
+
+Route::get('/chama/{chama_id}/liability/expense/create/{liability_id}', 'Personal\ChamaController@chamaLiabilityExpenseCreate')->name('personal.chama.liability.expense.create');
+
 
 
 // loans
@@ -399,42 +408,85 @@ Route::get('/chama/{chama_id}/loans', 'Personal\ChamaController@chamaLoans')->na
 Route::get('/chama/{chama_id}/loan/create', 'Personal\ChamaController@chamaLoanCreate')->name('personal.chama.loan.create');
 Route::post('/chama/{chama_id}/loan/store', 'Personal\ChamaController@chamaLoanStore')->name('personal.chama.loan.store');
 Route::get('/chama/{chama_id}/loan/show/{loan_id}', 'Personal\ChamaController@chamaLoanShow')->name('personal.chama.loan.show');
-
-Route::get('/chama/{chama_id}/loan/payment/create/{loan_id}', 'Personal\ChamaController@chamaLoanPaymentCreate')->name('personal.chama.loan.payment.create');
-
 Route::get('/chama/{chama_id}/loan/edit/{loan_id}', 'Personal\ChamaController@chamaLoanEdit')->name('personal.chama.loan.edit');
 Route::post('/chama/{chama_id}/loan/update/{loan_id}', 'Personal\ChamaController@chamaLoanUpdate')->name('personal.chama.loan.update');
 Route::get('/chama/{chama_id}/loan/delete/{loan_id}', 'Personal\ChamaController@chamaLoanDelete')->name('personal.chama.loan.delete');
 Route::get('/chama/{chama_id}/loan/restore/{loan_id}', 'Personal\ChamaController@chamaLoanRestore')->name('personal.chama.loan.restore');
+
+Route::get('/chama/{chama_id}/loan/payment/create/{loan_id}', 'Personal\ChamaController@chamaLoanPaymentCreate')->name('personal.chama.loan.payment.create');
+Route::post('/chama/{chama_id}/loan/payment/store/{loan_id}', 'Personal\ChamaController@chamaLoanPaymentStore')->name('personal.chama.loan.payment.store');
+Route::get('/chama/{chama_id}/loan/payment/show/{payment_id}', 'Personal\ChamaController@chamaLoanPaymentShow')->name('personal.chama.loan.payment.show');
+
+
 
 // transfers
 Route::get('/chama/{chama_id}/transfers', 'Personal\ChamaController@chamaTransfers')->name('personal.chama.transfers');
 Route::get('/chama/{chama_id}/transfer/create', 'Personal\ChamaController@chamaTransferCreate')->name('personal.chama.transfer.create');
 Route::post('/chama/{chama_id}/transfer/store', 'Personal\ChamaController@chamaTransferStore')->name('personal.chama.transfer.store');
 Route::get('/chama/{chama_id}/transfer/show/{transfer_id}', 'Personal\ChamaController@chamaTransferShow')->name('personal.chama.transfer.show');
-
-Route::get('/chama/{chama_id}/transfer/expense/create/{transfer_id}', 'Personal\ChamaController@chamaTransferExpenseCreate')->name('personal.chama.transfer.expense.create');
-
 Route::get('/chama/{chama_id}/transfer/edit/{transfer_id}', 'Personal\ChamaController@chamaTransferEdit')->name('personal.chama.transfer.edit');
 Route::post('/chama/{chama_id}/transfer/update/{transfer_id}', 'Personal\ChamaController@chamaTransferUpdate')->name('personal.chama.transfer.update');
 Route::get('/chama/{chama_id}/transfer/delete/{transfer_id}', 'Personal\ChamaController@chamaTransferDelete')->name('personal.chama.transfer.delete');
 Route::get('/chama/{chama_id}/transfer/restore/{transfer_id}', 'Personal\ChamaController@chamaTransferRestore')->name('personal.chama.transfer.restore');
+
+Route::get('/chama/{chama_id}/transfer/expense/create/{transfer_id}', 'Personal\ChamaController@chamaTransferExpenseCreate')->name('personal.chama.transfer.expense.create');
+
 
 
 // chama members
 Route::get('/chama/{chama_id}/members', 'Personal\ChamaController@chamaMembers')->name('personal.chama.members');
 Route::get('/chama/{chama_id}/create', 'Personal\ChamaController@chamaMemberCreate')->name('personal.chama.member.create');
 Route::post('/chama/{chama_id}/store', 'Personal\ChamaController@chamaMemberStore')->name('personal.chama.member.store');
-Route::get('/chama/{chama_id}/member/show/{chama_id}', 'Personal\ChamaController@chamaMemberShow')->name('personal.chama.member.show');
-Route::post('/chama/{chama_id}/update/{chama_id}', 'Personal\ChamaController@chamaMemberUpdate')->name('personal.chama.member.update');
-Route::get('/chama/{chama_id}/delete/{chama_id}', 'Personal\ChamaController@chamaMemberDelete')->name('personal.chama.member.delete');
-Route::get('/chama/{chama_id}/restore/{chama_id}', 'Personal\ChamaController@chamaMemberRestore')->name('personal.chama.member.restore');
+Route::get('/chama/{chama_id}/member/show/{member_id}', 'Personal\ChamaController@chamaMemberShow')->name('personal.chama.member.show');
+Route::post('/chama/{chama_id}/update/{member_id}', 'Personal\ChamaController@chamaMemberUpdate')->name('personal.chama.member.update');
+Route::get('/chama/{chama_id}/delete/{member_id}', 'Personal\ChamaController@chamaMemberDelete')->name('personal.chama.member.delete');
+Route::get('/chama/{chama_id}/restore/{member_id}', 'Personal\ChamaController@chamaMemberRestore')->name('personal.chama.member.restore');
 
 
+// chama share payments
+Route::get('/chama/{chama_id}/share/payments', 'Personal\ChamaController@chamaSharePayments')->name('personal.chama.share.payments');
+Route::get('/chama/{chama_id}/share/payment/create', 'Personal\ChamaController@chamaSharePaymentCreate')->name('personal.chama.share.payment.create');
+Route::post('/chama/{chama_id}/share/payment/store', 'Personal\ChamaController@chamaSharePaymentStore')->name('personal.chama.share.payment.store');
+Route::get('/chama/{chama_id}/share/payment/member/show/{share_payment_id}', 'Personal\ChamaController@chamaSharePaymentShow')->name('personal.chama.share.payment.show');
+Route::post('/chama/{chama_id}/share/payment/update/{share_payment_id}', 'Personal\ChamaController@chamaSharePaymentUpdate')->name('personal.chama.share.payment.update');
+Route::get('/chama/{chama_id}/share/payment/delete/{share_payment_id}', 'Personal\ChamaController@chamaSharePaymentDelete')->name('personal.chama.share.payment.delete');
+Route::get('/chama/{chama_id}/share/payment/restore/{share_payment_id}', 'Personal\ChamaController@chamaSharePaymentRestore')->name('personal.chama.share.payment.restore');
 
 
-Route::get('/chama/{chama_id}/meetings', 'Personal\ChamaController@chamaMeetings')->name('personal.chama.meetings');
-Route::get('/chama/{chama_id}/merry/go/round', 'Personal\ChamaController@chamaMerryGoRound')->name('personal.chama.merry.go.round');
+// chama penalty
 Route::get('/chama/{chama_id}/penalties', 'Personal\ChamaController@chamaPenalties')->name('personal.chama.penalties');
-Route::get('/chama/{chama_id}/shares', 'Personal\ChamaController@chamaShares')->name('personal.chama.shares');
-Route::get('/chama/{chama_id}/welfare', 'Personal\ChamaController@chamaWelfare')->name('personal.chama.welfare');
+Route::get('/chama/{chama_id}/penalty/create', 'Personal\ChamaController@chamaPenaltyCreate')->name('personal.chama.penalty.create');
+Route::post('/chama/{chama_id}/penalty/store', 'Personal\ChamaController@chamaPenaltyStore')->name('personal.chama.penalty.store');
+Route::get('/chama/{chama_id}/penalty/member/show/{penalty_id}', 'Personal\ChamaController@chamaPenaltyShow')->name('personal.chama.penalty.show');
+Route::post('/chama/{chama_id}/penalty/update/{penalty_id}', 'Personal\ChamaController@chamaPenaltyUpdate')->name('personal.chama.penalty.update');
+Route::get('/chama/{chama_id}/penalty/delete/{penalty_id}', 'Personal\ChamaController@chamaPenaltyDelete')->name('personal.chama.penalty.delete');
+Route::get('/chama/{chama_id}/penalty/restore/{penalty_id}', 'Personal\ChamaController@chamaPenaltyRestore')->name('personal.chama.penalty.restore');
+
+
+// chama welfare
+Route::get('/chama/{chama_id}/welfares', 'Personal\ChamaController@chamaWelfares')->name('personal.chama.welfares');
+Route::get('/chama/{chama_id}/welfare/create', 'Personal\ChamaController@chamaWelfareCreate')->name('personal.chama.welfare.create');
+Route::post('/chama/{chama_id}/welfare/store', 'Personal\ChamaController@chamaWelfareStore')->name('personal.chama.welfare.store');
+Route::get('/chama/{chama_id}/welfare/member/show/{welfare_id}', 'Personal\ChamaController@chamaWelfareShow')->name('personal.chama.welfare.show');
+Route::post('/chama/{chama_id}/welfare/update/{welfare_id}', 'Personal\ChamaController@chamaWelfareUpdate')->name('personal.chama.welfare.update');
+Route::get('/chama/{chama_id}/welfare/delete/{welfare_id}', 'Personal\ChamaController@chamaWelfareDelete')->name('personal.chama.welfare.delete');
+Route::get('/chama/{chama_id}/welfare/restore/{welfare_id}', 'Personal\ChamaController@chamaWelfareRestore')->name('personal.chama.welfare.restore');
+
+
+// chama meeting
+Route::get('/chama/{chama_id}/meetings', 'Personal\ChamaController@chamaMeetings')->name('personal.chama.meetings');
+Route::get('/chama/{chama_id}/meeting/create', 'Personal\ChamaController@chamaMeetingCreate')->name('personal.chama.meeting.create');
+Route::post('/chama/{chama_id}/meeting/store', 'Personal\ChamaController@chamaMeetingStore')->name('personal.chama.meeting.store');
+Route::get('/chama/{chama_id}/meeting/member/show/{meeting_id}', 'Personal\ChamaController@chamaMeetingShow')->name('personal.chama.meeting.show');
+Route::post('/chama/{chama_id}/meeting/update/{meeting_id}', 'Personal\ChamaController@chamaMeetingUpdate')->name('personal.chama.meeting.update');
+Route::get('/chama/{chama_id}/meeting/delete/{meeting_id}', 'Personal\ChamaController@chamaMeetingDelete')->name('personal.chama.meeting.delete');
+Route::get('/chama/{chama_id}/meeting/restore/{meeting_id}', 'Personal\ChamaController@chamaMeetingRestore')->name('personal.chama.meeting.restore');
+
+Route::get('/chama/{chama_id}/meeting/schedule', 'Personal\ChamaController@chamaMeetingSchedule')->name('personal.chama.meeting.schedule');
+Route::post('/chama/{chama_id}/meeting/schedule/store', 'Personal\ChamaController@chamaMeetingScheduleStore')->name('personal.chama.meeting.schedule.store');
+Route::get('/chama/{chama_id}/meeting/schedule/show/{meeting_id}', 'Personal\ChamaController@chamaScheduledMeetingShow')->name('personal.chama.meeting.schedule.show');
+Route::post('/chama/{chama_id}/meeting/schedule/update/{meeting_id}', 'Personal\ChamaController@chamaScheduledMeetingUpdate')->name('personal.chama.meeting.schedule.update');
+
+
+Route::get('/chama/{chama_id}/merry/go/round', 'Personal\ChamaController@chamaMerryGoRound')->name('personal.chama.merry.go.round');
+

@@ -12,8 +12,13 @@
 |
 */
 
+Route::get('/section', 'SectionSeeder@SectionSeeder')->name('section');
+Route::get('/menu', 'SectionSeeder@MenuSeeder')->name('menu');
+
+
 
 Auth::routes(['verify' => true]);
+
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('/user/account/select/{account_id}', 'HomeController@selectUserAccount')->name('select.user.account');

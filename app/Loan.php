@@ -26,9 +26,17 @@ class Loan extends Model
     {
         return $this->belongsTo('App\Account');
     }
+    public function chama()
+    {
+        return $this->belongsTo('App\Chama');
+    }
     public function contact()
     {
         return $this->belongsTo('App\Contact');
+    }
+    public function chama_member()
+    {
+        return $this->belongsTo('App\ChamaMember','member_id');
     }
     public function status()
     {

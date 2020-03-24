@@ -65,46 +65,13 @@
 
 
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-
-            <div class="col-lg-12">
-                <div>
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning m-r-sm">  </button>
-                                Albums
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-info m-r-sm">  </button>
-                                Projects
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary m-r-sm">  </button>
-                                Designs
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-info m-r-sm">  </button>
-                                Quotes
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div>
-
-                </div>
-            </div>
-
-        </div>
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Liability <small>edit</small></h5>
-                        
+
                     </div>
                     <div class="ibox-content">
                         <div class="row">
@@ -129,19 +96,19 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-3"> 
+                                        <div class="col-md-3">
                                             <div class="has-warning">
                                                 <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="{{$liability->interest}}" max="100" step="0.00001" class="form-control input-lg">
                                                 <i>key in interest in percentage</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-3"> 
+                                        <div class="col-md-3">
                                             <div class="has-warning">
                                                 <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="{{$liability->interest_amount}}" class="form-control input-lg">
                                                 <i>key in interest amount</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-6"> 
+                                        <div class="col-md-6">
                                             <div class="has-warning">
                                                 <input type="number" id="total" name="total" required="required" readonly value="{{$liability->total}}" class="form-control input-lg">
                                                 <i>total</i>

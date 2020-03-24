@@ -362,7 +362,7 @@
                 <div class="sidebar-content">
                     <h4>Settings</h4>
                     <div class="small">
-                        I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        I belive that. Sample Input dummy text of the printing and typesetting industry.
                         And typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                         Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                     </div>
