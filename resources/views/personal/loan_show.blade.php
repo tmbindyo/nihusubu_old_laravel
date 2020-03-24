@@ -65,39 +65,6 @@
 
 
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-
-            <div class="col-lg-12">
-                <div>
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning m-r-sm">  </button>
-                                Albums
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-info m-r-sm">  </button>
-                                Projects
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary m-r-sm">  </button>
-                                Designs
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-info m-r-sm">  </button>
-                                Quotes
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div>
-
-                </div>
-            </div>
-
-        </div>
 
         <div class="row">
             <div class="col-lg-12">

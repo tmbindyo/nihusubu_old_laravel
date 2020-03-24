@@ -431,6 +431,7 @@ class CRMController extends Controller
         $contact->user_id = $user->id;
         $contact->is_institution = True;
         $contact->is_user = False;
+        $contact->is_chama = False;
         $contact->institution_id = $institution->id;
         $contact->save();
 
