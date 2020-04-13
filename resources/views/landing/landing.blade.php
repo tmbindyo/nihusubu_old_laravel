@@ -95,8 +95,8 @@
                                     <li><i class="g-font-size-13--xs g-color--primary g-margin-r-10--xs ti-check"></i> Powerful Documentation</li>
                                 </ul>
                                 <div class="g-margin-b-40--xs">
-                                    <span class="s-plan-v1__price-mark"></span>
-                                    <span class="s-plan-v1__price-tag">FREE</span>
+                                    <span class="s-plan-v1__price-mark">KES. </span>
+                                    <span class="s-plan-v1__price-tag">150</span>
                                 </div>
                                 <button type="button" class="text-uppercase s-btn s-btn--sm s-btn--primary-bg g-radius--50 g-padding-x-50--xs">Coming Soon</button>
                             </div>
