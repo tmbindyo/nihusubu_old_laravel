@@ -26,7 +26,7 @@
                     <strong>{{$institution->name}}</strong><br>
                     {{$institution->address->address_line_1}}<br>
                     {{$institution->address->town}}, {{$institution->address->street}}<br>
-                    @if ({{$institution->address->po_box}})P. O. Box {{$institution->address->po_box}}, {{$institution->address->postal_code}}@endif<br>
+                    @if ($institution->address->po_box) P. O. Box {{$institution->address->po_box}}, {{$institution->address->postal_code}} @endif <br>
                     <abbr title="Phone">P:</abbr> {{$institution->phone_number}}
                 </address>
             </div>
