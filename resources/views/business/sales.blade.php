@@ -60,7 +60,15 @@
                                             <td>{{$sale->reference}}</td>
                                             <td>{{$sale->date}}</td>
                                             <td>{{$sale->due_date}}</td>
-                                            <td>{{$sale->contact->first_name}} {{$sale->contact->last_name}}</td>
+
+                                            <td>
+                                                @if({$sale->contact)
+                                                    {{$sale->contact->first_name}} {{$sale->contact->last_name}}
+                                                @else
+                                                    <span class="label label-info"> NaN </span>
+                                                @endif
+                                            </td>
+
                                             <td>{{$sale->total}}</td>
                                             <td>{{$sale->paid}}</td>
                                             <td>
