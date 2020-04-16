@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Landing;
 
+use App\Address;
 use App\EmailSubscribe;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Institution;
+use App\Warehouse;
 
 class LandingController extends Controller
 {
@@ -92,6 +95,44 @@ class LandingController extends Controller
         $emailSubscription->save();
 
         return back()->withSuccess(__('You have sucessfully been subscribed.'));
+    }
+
+    public function addressPopulation (){
+        $institutions = Institution::all();
+        foreach ($institutions as $institution)
+        {
+            // check if address
+            if ($institution->address_id){
+                print "good";
+            }else{
+                // get primary warehouse
+                $primaryWarehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',True)->first();
+                // get warehouse address
+                $warehouseAddress = Address::where('id',$primaryWarehouse->address_id)->first();
+
+                // institution address
+                // warehouse address
+                $primaryAddress = new Address();
+                $primaryAddress->address_type_id = '804af9cb-0333-4926-87ab-ef7e8c13f462';
+                $primaryAddress->address_line_1 = $warehouseAddress->address_line_1;
+                $primaryAddress->address_line_2 = $warehouseAddress->address_line_2;
+                $primaryAddress->postal_code = $warehouseAddress->postal_code;
+                $primaryAddress->phone_number = $warehouseAddress->business_phone_number;
+                $primaryAddress->po_box = $warehouseAddress->po_box;
+                print $warehouseAddress;
+                $primaryAddress->town = $warehouseAddress->town;
+                $primaryAddress->street = $warehouseAddress->street;
+                $primaryAddress->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+                $primaryAddress->user_id = $warehouseAddress->user_id;
+                $primaryAddress->save();
+
+                // update institution address id
+            $institutionUpdate = Institution::where('id',$institution->id) ->update(['address_id' => $primaryAddress->id]);
+            }
+
+
+        }
+        return "Donw";
     }
 
 }

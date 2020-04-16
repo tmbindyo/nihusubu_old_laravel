@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
+Route::get('/address/population', 'Landing\LandingController@addressPopulation')->name('address.population');
 
 Route::get('/', 'Landing\LandingController@landing')->name('landing');
 

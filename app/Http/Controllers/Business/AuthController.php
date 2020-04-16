@@ -85,8 +85,10 @@ class AuthController extends Controller
             'portal' => ['required', 'string', 'max:255', 'unique:institutions'],
         ]);
 
+        // create address
+        $address = $this->addressSeeder($request, $user);
         // create instiution
-        $institution = $this->institutionSeeder($request, $user);
+        $institution = $this->institutionSeeder($request, $user, $address);
         // create units
         $institutionUnits = $this->unitSeeder($request, $user,$institution);
         // create taxes
@@ -113,6 +115,7 @@ class AuthController extends Controller
         $userAccount = $this->userAccountSeeder($request, $user, $institution);
 
 
+
         // account creation
         auth()->login($user);
         $user->sendEmailVerificationNotification($user);
@@ -120,7 +123,7 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
-    private function institutionSeeder ($request, $user){
+    private function institutionSeeder ($request, $user, $address){
 
         $institution = new Institution();
         $institution->name = $request->business_name;
@@ -130,12 +133,32 @@ class AuthController extends Controller
         $institution->user_id = $user->id;
         $institution->plan_id = $request->plan;
         $institution->is_active = True;
+        $institution->address_id = $address->id;
         $institution->currency_id = "0839e6c9-20b3-4442-b3b6-5137a4d309ec";
         $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $institution->save();
 
         return $institution;
 
+    }
+    private function addressSeeder ($request, $user){
+
+        $address = new Address();
+
+        $address->address_line_1 = $request->address_line_1;
+        $address->address_line_2 = $request->address_line_2;
+        $address->street = $request->street;
+        $address->town = $request->city;
+        $address->postal_code = $request->postal_code;
+        $address->phone_number= $request->business_phone_number;
+        $address->email = $request->business_email;
+
+        $address->address_type_id = '804af9cb-0333-4926-87ab-ef7e8c13f462';
+        $address->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $address->user_id = $user->id;
+        $address->save();
+
+        return $address;
     }
 
     private function unitSeeder ($request, $user, $institution){
@@ -212,6 +235,7 @@ class AuthController extends Controller
         $address->address_line_1 = $request->address_line_1;
         $address->address_line_2 = $request->address_line_2;
         $address->postal_code = $request->postal_code;
+        $address->phone_number = $request->business_phone_number;
         $address->po_box = $request->po_box;
         $address->town = $request->city;
         $address->street = $request->street;

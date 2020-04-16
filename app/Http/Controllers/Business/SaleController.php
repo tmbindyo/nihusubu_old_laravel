@@ -853,6 +853,7 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
+        // return $institution;
         // Get sale
         $sale = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
 //        return $sale;

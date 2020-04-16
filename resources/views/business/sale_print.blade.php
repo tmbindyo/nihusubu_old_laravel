@@ -26,7 +26,7 @@
                     <strong>{{$institution->name}}</strong><br>
                     {{$institution->address->address_line_1}}<br>
                     {{$institution->address->town}}, {{$institution->address->street}}<br>
-                    @if ($institution->address->po_box) P. O. Box {{$institution->address->po_box}}, {{$institution->address->postal_code}} @endif <br>
+                    {{-- @if ($institution->address->po_box) P. O. Box {{$institution->address->po_box}}, {{$institution->address->postal_code}} @endif <br> --}}
                     <abbr title="Phone">P:</abbr> {{$institution->phone_number}}
                 </address>
             </div>
@@ -74,7 +74,7 @@
                 @foreach($sale->sale_products as $product)
                     <tr>
                         <td><div><strong>{{$product->product->name}}</strong></div>
-                        <small>{{$product->description}}</small></td>
+                        <small>{{$product->product->description}}</small></td>
                         <td>{{$product->quantity}}</td>
                         <td>{{$product->rate}}</td>
                         <td>{{$product->amount}}</td>
