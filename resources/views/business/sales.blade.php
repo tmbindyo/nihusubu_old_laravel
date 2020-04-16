@@ -62,7 +62,7 @@
                                             <td>{{$sale->due_date}}</td>
 
                                             <td>
-                                                @if({$sale->contact)
+                                                @if($sale->contact)
                                                     {{$sale->contact->first_name}} {{$sale->contact->last_name}}
                                                 @else
                                                     <span class="label label-info"> NaN </span>
