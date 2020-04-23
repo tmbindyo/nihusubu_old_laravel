@@ -175,7 +175,8 @@
         <!-- End Subscribe -->
 
         <!-- Testimonials -->
-        <div class="g-hor-divider__dashed--sky-light g-padding-y-80--xs g-padding-y-125--xsm">
+        {{-- TODO commented out --}}
+        {{-- <div class="g-hor-divider__dashed--sky-light g-padding-y-80--xs g-padding-y-125--xsm">
             <div class="container g-text-center--xs">
                 <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--primary g-letter-spacing--2 g-margin-b-50--xs">Testimonials</p>
                 <div class="s-swiper js__swiper-testimonials">
@@ -221,7 +222,7 @@
                     <!-- End Arrows -->
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- End Testimonials -->
 
         {{--  <!-- Clients -->

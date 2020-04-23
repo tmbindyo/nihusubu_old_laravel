@@ -6,9 +6,9 @@
                 <div class="col-sm-2 g-margin-b-20--xs g-margin-b-0--md">
                     <ul class="list-unstyled g-ul-li-tb-5--xs g-margin-b-0--xs">
                         <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('landing')}}">Home</a></li>
-                        <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('about')}}">About</a></li>
-                        <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('services')}}">Services</a></li>
-                        <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('contacts')}}">Contact</a></li>
+                        {{-- <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('about')}}">About</a></li> --}}
+                        {{-- <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('services')}}">Services</a></li> --}}
+                        {{-- <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('contacts')}}">Contact</a></li> --}}
                     </ul>
                 </div>
                 <div class="col-sm-2 g-margin-b-20--xs g-margin-b-0--md">
@@ -29,7 +29,7 @@
                 <div class="col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 s-footer__logo g-padding-y-50--xs g-padding-y-0--md">
                     <h3 class="g-font-size-18--xs g-color--white">Nihusubu</h3>
                     {{--  TODO Description--}}
-                    <p class="g-color--white-opacity">Pending.</p>
+                    {{-- <p class="g-color--white-opacity">Pending.</p> --}}
                 </div>
             </div>
         </div>
