@@ -59,6 +59,10 @@ class LandingController extends Controller
     {
         return view('landing.coming_soon');
     }
+    public function termsAndConditions()
+    {
+        return view('landing.terms_and_conditions');
+    }
 
 
     public function emailSubscribe(Request $request)
@@ -132,7 +136,7 @@ class LandingController extends Controller
 
 
         }
-        return "Donw";
+        return "Done";
     }
 
 }

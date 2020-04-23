@@ -858,6 +858,21 @@ class SaleController extends Controller
         $sale = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
 //        return $sale;
         return view('business.sale_print',compact('user','institution','sale'));
+
+    }
+
+    public function saleSend(Request $request, $portal, $invoice_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // return $institution;
+        // Get sale
+        $sale = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
+//        return $sale;
+        return view('business.sale_print',compact('user','institution','sale'));
+
     }
 
     public function salePaymentCreate($portal, $sale_id)

@@ -65,7 +65,7 @@ Route::get('/coming/soon', 'Landing\LandingController@comingSoon')->name('coming
 
 //TODO create pages for privacy policy and terms and condition
 Route::get('/privacy/policy', 'Landing\LandingController@comingSoon')->name('privacy.policy');
-Route::get('/terms/and/conditions', 'Landing\LandingController@comingSoon')->name('terms.and.condition');
+Route::get('/terms/and/conditions', 'Landing\LandingController@termsAndConditions')->name('terms.and.conditions');
 
 
 // Authentication

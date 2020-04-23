@@ -361,7 +361,7 @@
                     <h1>Finish</h1>
                     <fieldset>
                         <h2>Terms and Conditions</h2>
-                        <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
+                        <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I agree with the <a target="_blank" href="{{route('terms.and.conditions')}}">Terms and Conditions</a>.</label>
 
                         {{-- <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button> --}}
                     </fieldset>

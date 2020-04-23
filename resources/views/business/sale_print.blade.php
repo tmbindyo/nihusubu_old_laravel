@@ -73,8 +73,16 @@
                 <tbody>
                 @foreach($sale->sale_products as $product)
                     <tr>
-                        <td><div><strong>{{$product->product->name}}</strong></div>
-                        <small>{{$product->product->description}}</small></td>
+                        <td>
+                            <div>
+                                <strong>
+                                    {{$product->product->name}}
+                                </strong>
+                            </div>
+                        <small>
+                            {!! $product->product->description !!}
+                        </small>
+                        </td>
                         <td>{{$product->quantity}}</td>
                         <td>{{$product->rate}}</td>
                         <td>{{$product->amount}}</td>
@@ -101,7 +109,7 @@
             </tr>
             <tr>
                 <td><strong>TOTAL :</strong></td>
-                <td>{{$sale->total}}</td>
+                <td>{{$sale->total+$sale->tax}}</td>
             </tr>
             </tbody>
         </table>
