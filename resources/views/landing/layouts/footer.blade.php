@@ -22,8 +22,8 @@
                 <div class="col-sm-2 g-margin-b-40--xs g-margin-b-0--md">
                     <ul class="list-unstyled g-ul-li-tb-5--xs g-margin-b-0--xs">
                         {{--  <li><a class="g-font-size-15--xs g-color--white-opacity" href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=nihusubu">Subscribe to Our Newsletter</a></li>  --}}
-                        <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('privacy.policy')}}">Privacy Policy</a></li>
-                        <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('terms.and.condition')}}">Terms &amp; Conditions</a></li>
+                        {{-- <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('privacy.policy')}}">Privacy Policy</a></li> --}}
+                        <li><a class="g-font-size-15--xs g-color--white-opacity" href="{{route('terms.and.conditions')}}">Terms &amp; Conditions</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 s-footer__logo g-padding-y-50--xs g-padding-y-0--md">
