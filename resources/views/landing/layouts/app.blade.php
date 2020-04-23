@@ -30,7 +30,7 @@
 <!--========== END PAGE CONTENT ==========-->
 
 <!--========== FOOTER ==========-->
-@include('landing.layouts.footer')
+{{-- @include('landing.layouts.footer') --}}
 <!--========== END FOOTER ==========-->
 
 <!--========== START JAVASCRIPTS ==========-->
