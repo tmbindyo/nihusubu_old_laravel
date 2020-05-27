@@ -559,13 +559,6 @@
 
         $('.demo1').colorpicker();
 
-        var divStyle = $('.back-change')[0].style;
-        $('#demo_apidemo').colorpicker({
-            color: divStyle.backgroundColor
-        }).on('changeColor', function(ev) {
-            divStyle.backgroundColor = ev.color.toHex();
-        });
-
         $('.clockpicker').clockpicker();
 
         $('input[name="daterange"]').daterangepicker();
@@ -768,36 +761,6 @@
     });
 
     $(".dial").knob();
-
-    $("#basic_slider").noUiSlider({
-        start: 40,
-        behaviour: 'tap',
-        connect: 'upper',
-        range: {
-            'min':  20,
-            'max':  80
-        }
-    });
-
-    $("#range_slider").noUiSlider({
-        start: [ 40, 60 ],
-        behaviour: 'drag',
-        connect: true,
-        range: {
-            'min':  20,
-            'max':  80
-        }
-    });
-
-    $("#drag-fixed").noUiSlider({
-        start: [ 40, 60 ],
-        behaviour: 'drag-fixed',
-        connect: true,
-        range: {
-            'min':  20,
-            'max':  80
-        }
-    });
 
 
 </script>

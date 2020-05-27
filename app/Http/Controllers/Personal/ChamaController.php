@@ -443,7 +443,7 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get account
-        $account = Account::where('id',$account_id)->where('is_chama',True)->where('chama_id',$chama->id)->with('status','user','loans.chama_member.member','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions',)->first();
+        $account = Account::where('id',$account_id)->where('is_chama',True)->where('chama_id',$chama->id)->with('status','user','loans.chama_member.member','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions')->first();
 
 
         // Pending to dos
@@ -1160,7 +1160,7 @@ class ChamaController extends Controller
         // get liabilities
         $liability = Liability::where('id',$liability_id)->where('is_user',True)->where('user_id',$user->id)->first();
         // get frequencies
-        $frequencies = Frequency::where('is_user',True)->where('user_id',$user->id)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_user',True)->where('user_id',$user->id)->get();
 
         return view('personal.chama_liability_expense_create',compact('liability','campaigns','sales','user','frequencies','expenseAccounts','transfers','expenseStatuses','chama'));
     }

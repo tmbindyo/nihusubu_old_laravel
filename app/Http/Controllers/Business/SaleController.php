@@ -59,7 +59,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -167,6 +167,7 @@ class SaleController extends Controller
         // Set estimate tax
         $estimateTaxSet = Sale::findOrFail($estimate->id);
         $estimateTaxSet->tax = $tax;
+        $estimateTaxSet->total = $estimateTaxSet->total + $tax;
         $estimateTaxSet->save();
 
         return redirect()->route('business.estimate.show',['portal'=>$institution->portal,'id'=>$estimate->id])->withSuccess(__('Estimate successfully created.'));
@@ -179,7 +180,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -202,7 +203,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -300,6 +301,7 @@ class SaleController extends Controller
         // Set estimate tax
         $estimateTaxSet = Sale::findOrFail($estimate->id);
         $estimateTaxSet->tax = $tax;
+        $estimateTaxSet->total = $estimateTaxSet->total + $tax;
         $estimateTaxSet->save();
 
         return back()->withSuccess(__('Estimate successfully updated.'));
@@ -373,7 +375,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -480,6 +482,7 @@ class SaleController extends Controller
         // Set invoice tax
         $invoiceTaxSet = Sale::findOrFail($invoice->id);
         $invoiceTaxSet->tax = $tax;
+        $invoiceTaxSet->total = $invoiceTaxSet->total + $tax;
         $invoiceTaxSet->save();
 
         return redirect()->route('business.invoice.show',['portal'=>$institution->portal,'id'=>$invoice->id])->withSuccess(__('Invoice successfully created.'));
@@ -492,7 +495,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -514,7 +517,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -612,6 +615,7 @@ class SaleController extends Controller
         // Set invoice tax
         $invoiceTaxSet = Sale::findOrFail($invoice->id);
         $invoiceTaxSet->tax = $tax;
+        $invoiceTaxSet->total = $invoiceTaxSet->total + $tax;
         $invoiceTaxSet->save();
 
         return back()->withSuccess(__('Invoice successfully updated.'));
@@ -688,7 +692,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -819,6 +823,8 @@ class SaleController extends Controller
         // Set sale tax
         $saleTaxSet = Sale::findOrFail($sale->id);
         $saleTaxSet->tax = $tax;
+        $saleTaxSet->total = $saleTaxSet->total + $tax;
+        $saleTaxSet->total = $saleTaxSet->total + $tax;
         $saleTaxSet->save();
 
         return redirect()->route('business.sale.show',['portal'=>$institution->portal,'id'=>$sale->id])->withSuccess(__('Sale successfully created.'));
@@ -831,7 +837,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->here('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -882,7 +888,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->get();
+        $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // sales
         $sale = Sale::where('id',$sale_id)->first();
         return view('business.sale_payment_create',compact('user','institution','accounts','sale'));
@@ -900,7 +906,7 @@ class SaleController extends Controller
 
     public function saleUpdate($portal, $sale_id)
     {
-        return back()->withSuccess(__('Order successfully updated.'));
+        return back()->withSuccess(__('Sale successfully updated.'));
     }
 
     public function saleDelete($portal, $sale_id)

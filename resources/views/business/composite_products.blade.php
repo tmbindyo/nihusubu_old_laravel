@@ -27,65 +27,65 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Composite products / Services</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Composite products / Services</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="ibox-content">
+                    <div class="ibox-content">
 
-                    <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Products</th>
-                        <th>Status</th>
-                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($compositeProducts as $product)
-                        <tr class="gradeA">
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->composite_product_products_count}}</td>
-                            <td class="center">
-                                <p>@if ($product->is_service==1) Service: @elseif($product->is_service==0)Product: @endif <span class="label {{$product->status->label}}">{{$product->status->name}}</span></p>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                    <a href="{{ route('business.composite.product.edit', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                    @if($product->status->name=="Discontinued")
-                                        <a href="{{ route('business.composite.product.restore', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
-                                    @else
-                                        <a href="{{ route('business.composite.product.delete', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                                    @endif
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Products</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($compositeProducts as $product)
+                                        <tr class="gradeA">
+                                            <td>{{$product->name}}</td>
+                                            <td>{{$product->composite_product_products_count}}</td>
+                                            <td class="center">
+                                                <p>@if ($product->is_service==1) Service: @elseif($product->is_service==0)Product: @endif <span class="label {{$product->status->label}}">{{$product->status->name}}</span></p>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    <a href="{{ route('business.composite.product.edit', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                    @if($product->status->name=="Discontinued")
+                                                        <a href="{{ route('business.composite.product.restore', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
+                                                    @else
+                                                        <a href="{{ route('business.composite.product.delete', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                                    @endif
 
 
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Products</th>
-                        <th>Status</th>
-                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
-                    </tr>
-                </tfoot>
-                </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Products</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
-        </div>
         </div>
     </div>
 

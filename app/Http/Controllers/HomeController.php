@@ -1054,18 +1054,6 @@ class HomeController extends Controller
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
-        $expenseAccount->name = 'Finished Goods';
-        $expenseAccount->code = 'FG';
-        $expenseAccount->description = 'Account to track the Cost Of Goods Sold';
-        $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
-        $expenseAccount->account_type_id = '4be20a9a-aee3-414c-b8ba-dcacf859cc9c';
-        $expenseAccount->institution_id = $institution->id;
-        $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
-        $expenseAccount->save();
-
-        $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Inventory Asset';
         $expenseAccount->code = 'IA';
         $expenseAccount->description = 'Account to track the Cost Of Goods Sold';

@@ -27,7 +27,7 @@
         <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="ibox">
                         <div class="ibox-content">
 
@@ -47,28 +47,30 @@
 
 
                                     <br>
-                                    <div class="col-md-10 col-md-offset-1">
+                                    <div class="col-md-12">
                                         {{--  statuses  --}}
                                         <div class="row">
                                             <div class="has-warning">
-                                                <select name="status" class="select-2 form-control input-lg">
-                                                    <option selected disabled>Select Statuses</option>
+                                                <select name="status" class="select2_status form-control input-lg">
+                                                    <option></option>
                                                     @foreach($transactionStatuses as $status)
                                                         <option value="{{$status->id}}" >{{$status->name}}</option>
                                                     @endforeach
                                                 </select>
+                                                <i> status.</i>
                                             </div>
                                         </div>
                                         <br>
                                         {{--  accounts  --}}
                                         <div class="row">
                                             <div class="has-warning">
-                                                <select name="account" class="select-2 form-control input-lg">
-                                                    <option selected disabled>Select Account</option>
+                                                <select name="account" class="select2_account form-control input-lg">
+                                                    <option></option>
                                                     @foreach($accounts as $account)
                                                         <option value="{{$account->id}}" >{{$account->name}} [{{$account->balance}}]</option>
                                                     @endforeach
                                                 </select>
+                                                <i> account.</i>
                                             </div>
                                         </div>
                                         <br>
@@ -95,14 +97,16 @@
                                         <div class="row">
                                             <div class="has-warning">
                                                 <textarea name="notes" placeholder="Notes" class="form-control" rows="7"></textarea>
+                                                <i> notes.</i>
                                             </div>
                                         </div>
                                         <br>
                                         <div class="row">
                                             <div class="has-warning">
-                                                <select name="expense" class="select-2 form-control input-lg">
+                                                <select name="expense" class="select2_expense form-control input-lg">
                                                     <option selected value="{{$expense->id}}" >{{$expense->reference}}|Ksh. {{$expense->total}}</option>
                                                 </select>
+                                                <i> expense.</i>
                                             </div>
                                         </div>
                                         <br>
@@ -224,14 +228,20 @@
     </script>
 
 <script>
-    $(document).ready(function() {
-        $('.select-2').select2();
-    });
-</script>
-
-<script>
     $(document).ready(function(){
 
+        $(".select2_account").select2({
+            placeholder: "Select Account",
+            allowClear: true
+        });
+        $(".select2_expense").select2({
+            placeholder: "Select Expense",
+            allowClear: true
+        });
+        $(".select2_status").select2({
+            placeholder: "Select Status",
+            allowClear: true
+        });
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",

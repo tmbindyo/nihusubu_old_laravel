@@ -17,6 +17,11 @@
                 <li class="active">
                     <a href="{{route('business.organizations',$institution->portal)}}">Organization's</a>
                 </li>
+                @isset($campaignExists)
+                    <li class="active">
+                        <a href="{{route('business.campaign.create',['portal'=>$institution->portal,'id'=>$campaignExists->id])}}">Campaign</a>
+                    </li>
+                @endisset
                 <li class="active">
                     <strong>Organization Create</strong>
                 </li>
@@ -26,7 +31,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Organization Registration <small>Form</small></h5>
@@ -109,11 +114,23 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="">
+                                        <div class="has-warning">
+                                            <select name="campaign" class="select2_campaign form-control input-lg">
+                                                <option></option>
+                                                @foreach ($campaigns as $campaign)
+                                                    <option @isset($campaignExists) @if($campaignExists->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}">{{$campaign->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <i>campaign</i>
+                                        </div>
+                                    </div>
+                                    <br>
                                     <div class="has-warning">
                                         <textarea rows="5" id="description" name="description" required="required" placeholder="Description" class="form-control input-lg"></textarea>
                                         <i>description</i>
                                     </div>
-                                    <br>
+
                                     <hr>
 
                                     <div class="text-center">
@@ -357,6 +374,10 @@
         });
         $(".select2_demo_parent_organization").select2({
             placeholder: "Select Parent Organization",
+            allowClear: true
+        });
+        $(".select2_campaign").select2({
+            placeholder: "Select Campaign",
             allowClear: true
         });
 

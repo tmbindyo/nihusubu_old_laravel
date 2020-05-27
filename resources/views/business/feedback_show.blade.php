@@ -31,7 +31,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Feedback Registration <small>Form</small></h5>

@@ -139,8 +139,8 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.contact.show', $contact->id) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.contact.restore', $contact->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal,'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.contact.restore', ['portal'=>$institution->portal,'id'=>$contact->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     </div>
                                                 </td>
                                             </tr>

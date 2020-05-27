@@ -417,7 +417,6 @@ Route::get('/{portal}/organization/profile', 'Business\SettingController@organiz
 Route::get('/{portal}/opening/balances', 'Business\SettingController@openingBalances')->name('business.opening.balances');
 Route::get('/{portal}/users/roles', 'Business\SettingController@usersAndRoles')->name('business.users.roles');
 Route::get('/{portal}/currencies', 'Business\SettingController@currencies')->name('business.currencies');
-Route::get('/{portal}/taxes', 'Business\SettingController@taxes')->name('business.taxes');
 Route::get('/{portal}/emails', 'Business\SettingController@emails')->name('business.emails');
 Route::get('/{portal}/reminders', 'Business\SettingController@reminders')->name('business.reminders');
 
@@ -438,6 +437,9 @@ Route::get('/{portal}/contact/types', 'Business\SettingController@contactTypes')
 Route::get('/{portal}/contact/type/create', 'Business\SettingController@contactTypeCreate')->name('business.contact.type.create');
 Route::post('/{portal}/contact/type/store', 'Business\SettingController@contactTypeStore')->name('business.contact.type.store');
 Route::get('/{portal}/contact/type/show/{contact_type_id}', 'Business\SettingController@contactTypeShow')->name('business.contact.type.show');
+
+Route::get('/{portal}/contact/type/contact/create/{contact_type_id}', 'Business\SettingController@contactTypeContactCreate')->name('business.contact.type.contact.create');
+
 Route::post('/{portal}/contact/type/update/{contact_type_id}', 'Business\SettingController@contactTypeUpdate')->name('business.contact.type.update');
 Route::get('/{portal}/contact/type/delete/{contact_type_id}', 'Business\SettingController@contactTypeDelete')->name('business.contact.type.delete');
 Route::get('/{portal}/contact/type/restore/{contact_type_id}', 'Business\SettingController@contactTypeRestore')->name('business.contact.type.restore');
@@ -471,6 +473,17 @@ Route::get('/{portal}/title/show/{title_id}', 'Business\SettingController@titleS
 Route::post('/{portal}/title/update/{title_id}', 'Business\SettingController@titleUpdate')->name('business.title.update');
 Route::get('/{portal}/title/delete/{title_id}', 'Business\SettingController@titleDelete')->name('business.title.delete');
 Route::get('/{portal}/title/restore/{title_id}', 'Business\SettingController@titleRestore')->name('business.title.restore');
+
+
+// units
+Route::get('/{portal}/taxes', 'Business\SettingController@taxes')->name('business.taxes');
+Route::get('/{portal}/tax/create', 'Business\SettingController@taxCreate')->name('business.tax.create');
+Route::post('/{portal}/tax/store', 'Business\SettingController@taxStore')->name('business.tax.store');
+Route::get('/{portal}/tax/show/{tax_id}', 'Business\SettingController@taxShow')->name('business.tax.show');
+Route::post('/{portal}/tax/update/{tax_id}', 'Business\SettingController@taxUpdate')->name('business.tax.update');
+Route::get('/{portal}/tax/delete/{tax_id}', 'Business\SettingController@taxDelete')->name('business.tax.delete');
+Route::get('/{portal}/tax/restore/{tax_id}', 'Business\SettingController@taxRestore')->name('business.tax.restore');
+
 
 
 // units

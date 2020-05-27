@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Contact Registration <small>Form</small></h5>
@@ -109,7 +109,7 @@
                                         <select name="organization" class="select2_demo_organization form-control input-lg">
                                             <option></option>
                                             @foreach($organizations as $organization)
-                                                <option value="{{$organization->id}}">{{$organization->name}}</option>
+                                                <option @isset($organizationExists) @if($organizationExists->id == $organization->id) selected @endif @endisset value="{{$organization->id}}">{{$organization->name}}</option>
                                             @endforeach
                                         </select>
                                         <i>organization</i>
@@ -118,7 +118,7 @@
                                         <select name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple required="required">
                                             <option></option>
                                             @foreach($contactTypes as $contactType)
-                                                <option value="{{$contactType->id}}">{{$contactType->name}}</option>
+                                                <option @isset($contactTypeExists) @if($contactTypeExists->id == $contactType->id) selected @endif @endisset value="{{$contactType->id}}">{{$contactType->name}}</option>
                                             @endforeach
                                         </select>
                                         <i>contact types</i>
@@ -130,18 +130,17 @@
                                         <select name="lead_source" class="select2_demo_lead_source form-control input-lg">
                                             <option></option>
                                             @foreach($leadSources as $leadSource)
-                                                <option value="{{$leadSource->id}}">{{$leadSource->name}}</option>
+                                                <option @isset($leadSourceExists) @if($leadSourceExists->id == $leadSource->id) selected @endif @endisset value="{{$leadSource->id}}">{{$leadSource->name}}</option>
                                             @endforeach
                                         </select>
                                         <i>lead source</i>
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="has-warning">
                                             <select name="campaign" class="select2_demo_campaign form-control input-lg">
                                                 <option></option>
                                                 @foreach($campaigns as $campaign)
-                                                    <option value="{{$campaign->id}}">{{$campaign->name}}</option>
+                                                    <option @isset($campaignExists) @if($campaignExists->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}">{{$campaign->name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>campaign</i>
@@ -158,7 +157,6 @@
                                 </div>
                                 <br>
                                 <div class="col-md-12">
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">

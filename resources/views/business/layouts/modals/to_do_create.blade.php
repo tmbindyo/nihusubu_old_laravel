@@ -84,7 +84,7 @@
                         <div class="col-md-5">
                             <div class="has-warning">
                                 <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" name="start_time" id="start_time" class="form-control input-lg" required>
+                                    <input type="text" name="start_time" data-mask="99:99" id="start_time" class="form-control input-lg" required>
                                     <span class="input-group-addon">
                                     <span class="fa fa-clock-o"></span>
                                     </span>
@@ -95,7 +95,7 @@
                         <div class="col-md-5">
                             <div class="has-warning" id="data_1">
                                 <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" name="end_time" id="end_time" class="form-control input-lg" value="09:30">
+                                    <input type="text" name="end_time" data-mask="99:99" id="end_time" class="form-control input-lg" value="09:30">
                                     <span class="input-group-addon">
                                     <span class="fa fa-clock-o"></span>
                                     </span>

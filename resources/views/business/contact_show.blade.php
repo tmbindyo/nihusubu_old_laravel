@@ -38,7 +38,7 @@
 
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-10">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Contact <small>edit</small></h5>

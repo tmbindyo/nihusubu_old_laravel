@@ -39,7 +39,7 @@ class IncomeController extends Controller
         // Income types
         $incomeTypes = IncomeType::all();
         // Frequency
-        $frequencies = Frequency::where('user_id',$user->id)->where('is_user',True)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id',$user->id)->where('is_user',True)->get();
         // Account
         $accounts = Account::where('user_id',$user->id)->where('is_user',True)->get();
         return view('personal.income_create',compact('user','incomeTypes','frequencies','accounts'));

@@ -49,10 +49,10 @@
                                 <br>
 
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         {{--  expense account  --}}
                                         <div class="has-warning">
-                                            <select name="expense_account" class="select-2 form-control input-lg">
+                                            <select name="expense_account" class="select2_account form-control input-lg">
                                                 @foreach($expenseAccounts as $expenseAccount)
                                                     <option @if($expenseAccount->id == $expense->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
                                                 @endforeach
@@ -60,32 +60,45 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-
+                                        <div class="has-warning" id="data_1">
+                                            <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                <input type="text" name="date" value="{{$expense->date}}" id="date" class="form-control input-lg" required>
+                                            </div>
+                                            <i> expense date.</i>
+                                        </div>
                                     </div>
                                 </div>
-                                {{--  Product  --}}
+                                <br>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="has-warning" id="data_1">
-                                                    <div class="input-group date">
-                                                            <span class="input-group-addon">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </span>
-                                                        <input type="text" name="date" value="{{$expense->date}}" id="date" class="form-control input-lg" required>
-                                                    </div>
-                                                    <i> expense date.</i>
-                                                </div>
-                                            </div>
+                                    <div class="col-md-6">
+                                        {{--  expense account  --}}
+                                        <div class="has-warning">
+                                            <select name="account" class="select2_account form-control input-lg" required>
+                                                <option></option>
+                                                @foreach($accounts as $account)
+                                                    <option @if($expense->account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                                @endforeach
+                                            </select>
+                                            <i>account</i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="checkbox checkbox-info">
+                                            <input id="is_paid" name="is_paid" type="checkbox" @if($expense->is_paid == True) checked @endif checked>
+                                            <label for="is_paid">
+                                                Paid
+                                            </label>
+                                            <span><i data-toggle="tooltip" data-placement="right" title="If checked, the selected account is deducted from the selected account." class="fa fa-2x fa-question-circle"></i></span>
                                         </div>
                                     </div>
                                 </div>
                                 <br>
                                 <hr>
                                 {{--table--}}
-                                <div class="row">
+                                <div class="">
                                     <table class="table table-bordered" id = "expense_table">
                                         <thead>
                                         <tr>
@@ -173,14 +186,35 @@
                                     <div class="col-md-4">
                                         <div class="has-warning">
                                             <div class="has-warning">
-                                                <select name="sale" class="select-2 form-control input-lg">
+                                                <select name="sale" class="select2_sale form-control input-lg">
                                                     @if($expense->is_sale == 0)
-                                                        <option selected disabled>Select Sale</option>
+                                                        <option></option>
                                                     @endif
                                                 @foreach($sales as $sale)
                                                         <option @if($sale->id == $expense->sale_id) selected @endif value="{{$sale->id}}" >{{$sale->sale_number}}</option>
                                                     @endforeach
 
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{--  Customer  --}}
+                                        <div class="checkbox checkbox-info">
+                                            <input id="is_liability" name="is_liability" type="checkbox" @if($expense->is_liability == 1) checked @endif>
+                                            <label for="is_liability">
+                                                Liability
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="has-warning">
+                                            <div class="has-warning">
+                                                <select name="liability" class="select2_liability form-control input-lg">
+                                                    <option></option>
+                                                    @foreach($liabilities as $liability)
+                                                        <option @if($liability->id == $expense->liability_id) selected @endif value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -201,8 +235,8 @@
                                     <div class="col-md-4">
                                         <div class="has-warning">
                                             <div class="has-warning">
-                                                <select name="transfer" class="select-2 form-control input-lg">
-                                                    <option selected disabled>Select Transfer</option>
+                                                <select name="transfer" class="select2_transfer form-control input-lg">
+                                                    <option></option>
                                                     @foreach($transfers as $transfer)
                                                         <option @if($transfer->id == $expense->transfer_id) selected @endif value="{{$transfer->id}}" >{{$transfer->reference}} [{{$transfer->amount}}] ({{$transfer->date}})</option>
                                                     @endforeach
@@ -222,34 +256,10 @@
                                     <div class="col-md-4">
                                         <div class="has-warning">
                                             <div class="has-warning">
-                                                <select name="campaign" class="select-2 form-control input-lg">
-                                                    <option selected disabled>Select Campaign</option>
+                                                <select name="campaign" class="select2_campaign form-control input-lg">
+                                                    <option></option>
                                                     @foreach($campaigns as $campaign)
                                                         <option @if($campaign->id == $expense->campaign_id) selected @endif value="{{$campaign->id}}" >{{$campaign->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        {{--  Customer  --}}
-                                        <div class="checkbox checkbox-info">
-                                            <input id="is_liability" name="is_liability" type="checkbox" @if($expense->is_liability == 1) checked @endif>
-                                            <label for="is_liability">
-                                                Liability
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="has-warning">
-                                            <div class="has-warning">
-                                                <select name="liability" class="select-2 form-control input-lg">
-                                                    <option selected disabled>Select Liability</option>
-                                                    @foreach($liabilities as $liability)
-                                                        <option @if($liability->id == $expense->liability_id) selected @endif value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -273,9 +283,9 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="has-warning">
-                                            <select name="frequency" class="select-2 form-control input-lg">
+                                            <select name="frequency" class="select2_frequency form-control input-lg">
                                                 @if($expense->is_frequency == 0)
-                                                    <option selected disabled>Select frequency</option>
+                                                    <option></option>
                                                 @endif
                                                 @foreach($frequencies as $frequency)
                                                     <option @if($frequency->id == $expense->frequency_id) selected @endif value="{{$frequency->id}}" >{{$frequency->name}}</option>
@@ -311,8 +321,8 @@
                                     <div class="col-md-6">
                                         {{--  Customer  --}}
                                         <div class="has-warning">
-                                            <select name="status" class="select-2 form-control input-lg" required>
-                                                <option selected disabled>Select status</option>
+                                            <select name="status" class="select2_status form-control input-lg" required>
+                                                <option></option>
                                                 @foreach($expenseStatuses as $status)
                                                     <option @if($status->id == $expense->status_id) selected @endif value="{{$status->id}}" >{{$status->name}}</option>
                                                 @endforeach
@@ -414,20 +424,48 @@
     <script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
 
     <!-- Select2 -->
-    
+
     <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
     <!-- TouchSpin -->
     <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('.select-2').select2();
-        });
-    </script>
-
-    <script>
         $(document).ready(function(){
+
+
+            $(".select2_account").select2({
+                placeholder: "Select Account",
+                allowClear: true
+            });
+            $(".select2_campaign").select2({
+                placeholder: "Select Campaign",
+                allowClear: true
+            });
+            $(".select2_expense_account").select2({
+                placeholder: "Select Expense Account",
+                allowClear: true
+            });
+            $(".select2_frequency").select2({
+                placeholder: "Select Frequency",
+                allowClear: true
+            });
+            $(".select2_liability").select2({
+                placeholder: "Select Liability",
+                allowClear: true
+            });
+            $(".select2_sale").select2({
+                placeholder: "Select Sale",
+                allowClear: true
+            });
+            $(".select2_status").select2({
+                placeholder: "Select Status",
+                allowClear: true
+            });
+            $(".select2_transfer").select2({
+                placeholder: "Select Transfer",
+                allowClear: true
+            });
 
 
             $('#data_1 .input-group.date').datepicker({

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Business;
 
 use App\Campaign;
 use App\CampaignType;
+use App\Contact;
 use App\ContactContactType;
 use App\ContactType;
 use App\Frequency;
@@ -15,6 +16,8 @@ use Illuminate\Http\Request;
 use App\Traits\InstitutionTrait;
 use App\Http\Controllers\Controller;
 use App\LeadSource;
+use App\Organization;
+use App\Tax;
 
 class SettingController extends Controller
 {
@@ -64,15 +67,6 @@ class SettingController extends Controller
 
         return view('business.currencies',compact('user','institution'));
     }
-    public function taxes($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution($portal);
-
-        return view('business.taxes',compact('user','institution'));
-    }
     public function emails($portal)
     {
         // User
@@ -104,9 +98,9 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // get campaign types
-        $campaignTypes = CampaignType::where('institution_id',$institution->id)->with('user','status')->get();
+        $campaignTypes = CampaignType::where('status_id',"c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id',$institution->id)->with('user','status')->get();
         // get campaign types
-        $deletedCampaignTypes = CampaignType::where('institution_id',$institution->id)->with('user','status')->onlyTrashed()->get();
+        $deletedCampaignTypes = CampaignType::where('status_id',"d35b4cee-5594-4cfd-ad85-e489c9dcdeff")->where('institution_id',$institution->id)->with('user','status')->get();
         return view('business.campaign_types',compact('campaignTypes','user','institution','deletedCampaignTypes'));
     }
 
@@ -152,7 +146,11 @@ class SettingController extends Controller
 
     public function campaignTypeCampaignCreate($portal,$campaign_type_id)
     {
-
+        // Check if campaign type exists
+        $campaignTypeExists = CampaignType::findOrFail($campaign_type_id);
+        if($campaignTypeExists->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
+            return back()->withWarning(__('Campaign '.$campaignTypeExists->name.' is deleted.'));
+        }
         // User
         $user = $this->getUser();
         // Get institution
@@ -160,7 +158,7 @@ class SettingController extends Controller
         // campaign types
         $campaignType = CampaignType::with('user','status','campaigns.user')->where('id',$campaign_type_id)->withCount('campaigns')->first();
         $campaignTypes = CampaignType::where('institution_id',$institution->id)->get();
-        return view('business.campaign_type_campaign_create',compact('user','institution','campaignTypes','campaignType'));
+        return view('business.campaign_create',compact('campaignTypeExists','user','institution','campaignTypes','campaignType'));
 
     }
 
@@ -178,17 +176,18 @@ class SettingController extends Controller
 
     public function campaignTypeDelete($portal, $campaign_type_id)
     {
-
         $campaignType = CampaignType::findOrFail($campaign_type_id);
-        $campaignType->delete();
+        $campaignType->status_id = "d35b4cee-5594-4cfd-ad85-e489c9dcdeff";
+        $campaignType->save();
 
         return back()->withSuccess(__('Campaign type '.$campaignType->name.' successfully deleted.'));
     }
     public function campaignTypeRestore($portal, $campaign_type_id)
     {
 
-        $campaignType = CampaignType::withTrashed()->findOrFail($campaign_type_id);
-        $campaignType->restore();
+        $campaignType = CampaignType::findOrFail($campaign_type_id);
+        $campaignType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $campaignType->save();
 
         return back()->withSuccess(__('Campaign type '.$campaignType->name.' successfully restored.'));
     }
@@ -202,9 +201,9 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // contact types
-        $contactTypes = ContactType::with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->get();
+        $contactTypes = ContactType::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->get();
         // deleted contact types
-        $deletedContactTypes = ContactType::with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->onlyTrashed()->get();
+        $deletedContactTypes = ContactType::where('status_id','d35b4cee-5594-4cfd-ad85-e489c9dcdeff')->with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->get();
         return view('business.contact_types',compact('contactTypes','user','institution','deletedContactTypes'));
     }
 
@@ -251,6 +250,31 @@ class SettingController extends Controller
         return view('business.contact_type_show',compact('contactType','user','contactContactTypes','institution'));
     }
 
+    public function contactTypeContactCreate($portal, $contact_type_id)
+    {
+        $contactTypeExists = ContactType::findOrFail($contact_type_id);
+        if($contactTypeExists->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
+            return back()->withWarning(__('Contact type '.$contactTypeExists->name.' is deleted.'));
+        }
+        // User
+        $user = $this->getUser();
+        // Get institution
+        $institution = $this->getInstitution($portal);
+        // get contacts
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user','status','contact_type')->where('is_institution',true)->get();
+        // get contact types
+        $contactTypes = ContactType::where('institution_id',$institution->id)->get();
+        // get organizations
+        $organizations = Organization::where('institution_id',$institution->id)->get();
+        // get titles
+        $titles = Title::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        // get lead sources
+        $leadSources = LeadSource::where('institution_id',$institution->id)->get();
+        // get campaigns
+        $campaigns = Campaign::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        return view('business.contact_create',compact('contactTypeExists','contacts','user','contactTypes','institution','organizations','titles','leadSources','campaigns'));
+    }
+
     public function contactTypeUpdate(Request $request, $portal, $contact_type_id)
     {
         // User
@@ -271,14 +295,16 @@ class SettingController extends Controller
     {
 
         $contactType = ContactType::findOrFail($contact_type_id);
-        $contactType->delete();
+        $contactType->status_id = "d35b4cee-5594-4cfd-ad85-e489c9dcdeff";
+        $contactType->save();
         return back()->withSuccess(__('Contact type '.$contactType->name.' successfully deleted.'));
     }
 
     public function contactTypeRestore($portal, $contact_type_id)
     {
 
-        $contactType = ContactType::withTrashed()->findOrFail($contact_type_id);
+        $contactType = ContactType::findOrFail($contact_type_id);
+        $contactType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $contactType->restore();
         return back()->withSuccess(__('Contact type '.$contactType->name.' successfully restored.'));
     }
@@ -292,9 +318,9 @@ class SettingController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // get frequencies
-        $frequencies = Frequency::with('user')->where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->with('user')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get deleted frequencies
-        $deletedFrequencies = Frequency::with('user')->where('institution_id',$institution->id)->where('is_institution',true)->onlyTrashed()->get();
+        $deletedFrequencies = Frequency::where("status_id","d35b4cee-5594-4cfd-ad85-e489c9dcdeff")->with('user')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         return view('business.frequencies',compact('frequencies','user','institution','deletedFrequencies'));
     }
 
@@ -318,6 +344,7 @@ class SettingController extends Controller
         $frequency->name = $request->name;
         $frequency->type = $request->type;
         $frequency->frequency = $request->frequency;
+        $frequency->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $frequency->user_id = $user->id;
         $frequency->institution_id = $institution->id;
         $frequency->is_institution = True;
@@ -361,15 +388,17 @@ class SettingController extends Controller
     {
 
         $frequency = Frequency::findOrFail($frequency_id);
-        $frequency->delete();
+        $frequency->status_id= "d35b4cee-5594-4cfd-ad85-e489c9dcdeff";
+        $frequency->save();
 
         return back()->withSuccess(__('Frequeny '.$frequency->name.' successfully deleted.'));
     }
     public function frequencyRestore($portal, $frequency_id)
     {
 
-        $frequency = Frequency::withTrashed()->findOrFail($frequency_id);
-        $frequency->restore();
+        $frequency = Frequency::findOrFail($frequency_id);
+        $frequency->status_id= "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $frequency->save();
 
         return back()->withSuccess(__('Frequeny '.$frequency->name.' successfully restored.'));
     }
@@ -541,6 +570,105 @@ class SettingController extends Controller
         $title->restore();
 
         return back()->withSuccess(__('Title '.$title->name.' successfully restored.'));
+    }
+
+    // taxes
+    public function taxes($portal)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Taxes
+        $taxes = Tax::where('institution_id',$institution->id)->with('status','user')->get();
+        $deletedTaxes = Tax::onlyTrashed()->get();
+        return view('business.taxes',compact('user','institution','taxes','deletedTaxes'));
+    }
+
+    public function taxCreate($portal)
+    {
+
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        return view('business.tax_create',compact('user','institution'));
+    }
+
+    public function taxStore(Request $request, $portal)
+    {
+
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Create tax
+        $tax = new Tax();
+        $tax->name = $request->name;
+        $tax->amount = $request->amount;
+
+        if ($request->is_percentage == "on"){
+            $tax->is_percentage = True;
+        }else{
+            $tax->is_percentage = False;
+        }
+
+        $tax->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $tax->institution_id = $institution->id;
+        $tax->user_id = $user->id;
+        $tax->save();
+
+        return redirect()->route('business.tax.show',['portal'=>$institution->portal,'id'=>$tax->id])->withSuccess(__('Tax successfully created.'));
+    }
+
+    public function taxShow($portal, $tax_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get tax
+        $tax = Tax::where('id',$tax_id)->with('status','user','product_taxes.products','composite_product_taxes.composite_products')->first();
+
+        return view('business.tax_show',compact('user','institution','tax'));
+    }
+
+    public function taxUpdate(Request $request,$portal,  $tax_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Create tax
+        $tax = Tax::findOrFail($tax_id);
+        $tax->name = $request->name;
+        $tax->amount = $request->amount;
+        if ($request->is_percentage == "on"){
+            $tax->is_percentage = True;
+        }else{
+            $tax->is_percentage = False;
+        }
+        $tax->user_id = $user->id;
+        $tax->save();
+        return back()->withSuccess(__('Tax '.$tax->name.' successfully updated.'));
+    }
+
+    public function taxDelete($portal, $tax_id)
+    {
+
+        // delete the tax
+        $tax = Tax::findOrFail($tax_id);
+        $tax->delete();
+
+        return back()->withSuccess(__('Tax successfully deleted.'));
+    }
+
+    public function taxRestore($portal, $tax_id)
+    {
+        // restore the tax
+        $tax = Tax::withTrashed()->findOrFail($tax_id);
+        $tax->restore();
+        return back()->withSuccess(__('Tax successfully restored.'));
     }
 
     // units

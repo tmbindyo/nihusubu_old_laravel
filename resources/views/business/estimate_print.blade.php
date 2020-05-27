@@ -26,33 +26,22 @@
                     <strong>{{$institution->name}}</strong><br>
                     {{$institution->address->address_line_1}}<br>
                     {{$institution->address->town}}, {{$institution->address->street}}<br>
-                    {{-- @if ($institution->address->po_box) P. O. Box {{$institution->address->po_box}}, {{$institution->address->postal_code}} @endif <br> --}}
-                    <abbr title="Phone">P:</abbr> {{$institution->phone_number}}
+                    <abbr title="Phone">P:</abbr> {{$institution->phone_number}}<br>
+                    <abbr title="Email">E:</abbr> {{$institution->email}}
                 </address>
             </div>
 
             <div class="col-sm-6 text-right">
                 <h4>Estimate No.</h4>
                 <h4 class="text-navy">{{$estimate->reference}}</h4>
-                <span>To:</span>
-                {{-- @if($estimate->contact->organization == null) --}}
-                    {{--  if not business  --}}
-                    {{-- <address>
-                        <strong>{{$estimate->contact->first_name}} {{$estimate->contact->last_name}}</strong><br>
-                        112 Street Avenu, 1080<br>
-                        Miami, CT 445611<br>
-                        <abbr title="Phone">P:</abbr> {{$estimate->contact->phone_number}}
-                    </address> --}}
-
-                {{-- @else --}}
-                    {{--  if business  --}}
-                    {{-- <address>
-                        <strong>{{$estimate->contact->name}}</strong><br>
-                        112 Street Avenu, 1080<br>
-                        Miami, CT 445611<br>
-                        <abbr title="Phone">P:</abbr> {{$estimate->contact->organization->phone_number}}
-                    </address> --}}
-                {{-- @endif --}}
+                @if($estimate->contact)
+                    <span>To:</span>
+                    <address>
+                        <strong>{{$estimate->contact->last_name}} {{$estimate->contact->first_name}}</strong><br>
+                        <abbr title="Phone">P:</abbr> {{$estimate->contact->phone_number}}<br>
+                        <abbr title="Email">E:</abbr> {{$estimate->contact->email}}
+                    </address>
+                @endif
                 <p>
                     <span><strong>Estimate Date:</strong> {{$estimate->date}} </span><br/>
                     <span><strong>Due Date:</strong> {{$estimate->due_date}}</span>
@@ -73,8 +62,10 @@
                 <tbody>
                 @foreach($estimate->sale_products as $product)
                     <tr>
-                        <td><div><strong>{{$product->product->name}}</strong></div>
-                            <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
+                        <td>
+                            <div><strong>{{$product->product->name}}</strong></div>
+                            <small>{!!$product->product->description!!}</small>
+                        </td>
                         <td>{{$product->quantity}}</td>
                         <td>{{$product->rate}}</td>
                         <td>{{$product->amount}}</td>

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Traits\InstitutionTrait;
 use App\Http\Controllers\Controller;
 use App\Traits\DocumentExtensionTrait;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 
 class FeedbackController extends Controller
@@ -137,21 +138,26 @@ class FeedbackController extends Controller
         $institution = $this->getInstitution($portal);
 
         $feedback = Feedback::where('institution_id',$institution->id)->where('id',$feedback_id)->first();
-        $originalFolderName = str_replace(' ', '', $portal.'/feedbacks/'.$feedback->name."/");
+        $originalFolderName = str_replace(' ', '', $portal.'/feedback/'.$feedback->name."/");
 
-        $file = $request->file('file');
+//        return $originalFolderName;
+
+//        $file = $request->file('file');
+//        $file_name_extension = $file->getClientOriginalName();
+//        $extension = $file->getClientOriginalExtension();
+
+        $file = Input::file("file");
+        $size = $request->file("file")->getSize();
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        Storage::disk('local')->putFileAs(
-            $originalFolderName,
-            $file,
-            $file_name_extension
-        );
+        $file->move(public_path()."/files/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/files/".$originalFolderName.$file_name_extension;
 
-        $path = public_path().$originalFolderName.$file_name_extension;
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+        $image_name = $file_name.'.'.$extension;
 
-        $size = $request->file('file')->getSize();
+//        $size = $request->file($path)->getSize();
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
 
@@ -164,7 +170,7 @@ class FeedbackController extends Controller
         $upload->extension = $extension;
         $upload->size = $size;
 
-        $upload->original = $originalFolderName.$image_name;
+        $upload->original = "files/".$originalFolderName.$image_name;
 
         $upload->feedback_id = $feedback_id;
         $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
@@ -182,22 +188,24 @@ class FeedbackController extends Controller
 
         // return $upload->original;
         $file_path = public_path($upload->original);
-        return response()->download('storage/'.$upload->original);
+        return response()->download($file_path);
     }
 
     public function feedbackDelete($portal, $feedback_id)
     {
 
         $feedback = Feedback::findOrFail($feedback_id);
-        $feedback->delete();
+        $feedback->status_id= "d35b4cee-5594-4cfd-ad85-e489c9dcdeff";
+        $feedback->save();
 
         return back()->withSuccess(__('Feedback '.$feedback->name.' successfully deleted.'));
     }
     public function feedbackRestore($portal, $feedback_id)
     {
 
-        $feedback = Feedback::withTrashed()->findOrFail($feedback_id);
-        $feedback->restore();
+        $feedback = Feedback::findOrFail($feedback_id);
+        $feedback->status_id= "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $feedback->save();
 
         return back()->withSuccess(__('Feedback '.$feedback->name.' successfully restored.'));
     }

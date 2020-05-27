@@ -77,7 +77,7 @@ class ExpenseController extends Controller
         // get liabilities
         $liabilities = Liability::where('user_id',$user->id)->where('is_user',true)->get();
         // get frequencies
-        $frequencies = Frequency::where('user_id',$user->id)->where('is_user',true)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id',$user->id)->where('is_user',true)->get();
         // accounts
         $accounts = Account::where('user_id',$user->id)->where('is_user',true)->get();
 
@@ -243,7 +243,7 @@ class ExpenseController extends Controller
         // get liabilities
         $liabilities = Liability::where('user_id',$user->id)->where('is_user',true)->get();
         // get frequencies
-        $frequencies = Frequency::where('user_id',$user->id)->where('is_user',true)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id',$user->id)->where('is_user',true)->get();
         // get expense
         $expense = Expense::where('user_id',$user->id)->where('is_user',true)->where('id',$expense_id)->with('transfer','status','expense_items','transaction','expense_account','frequency','user','account','campaign','contact','expense_account','inventory_adjustment','liability','sale','sale','warehouse')->withCount('expense_items')->first();
 

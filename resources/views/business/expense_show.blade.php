@@ -121,7 +121,7 @@
 
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Cart Summary</h5>
+                        <h5>Expense Summary</h5>
                     </div>
                     <div class="ibox-content">
                         <span>
@@ -160,7 +160,7 @@
 
                         </span>
                         <div class="m-t-sm">
-                            <h4>Expense description</h4>
+                            <h4>Description</h4>
                             <p class="small">
                                 {{$expense->notes}}
                             </p>

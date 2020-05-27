@@ -82,8 +82,8 @@
                                                     <strong>{{ $errors->first('unit') }}</strong>
                                                 </span>
                                             @endif
-                                            <select name="unit" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                                <option disabled>Select Unit</option>
+                                            <select name="unit" class="select2_unit form-control input-lg" required>
+                                                <option></option>
                                                 @foreach($units as $unit)
                                                     <option value="{{$unit->id}}">{{$unit->name}}</option>
                                                 @endforeach
@@ -140,8 +140,8 @@
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
-                                                    <select name="selling_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
-                                                        <option value="" selected disabled>Select Selling Account</option>
+                                                    <select name="selling_account" class="select2_selling_account form-control input-lg" required>
+                                                        <option></option>
                                                         @foreach($salesAccounts as $account)
                                                             <option value="{{$account->id}}">{{$account->name}}</option>
                                                         @endforeach
@@ -156,8 +156,8 @@
                                     <div class="col-md-6">
                                         {{--  Product Tax  --}}
                                         <label></label>
-                                        <select name="taxes[]" data-placeholder="Select Taxes" class="chosen-select input-lg" multiple style="width:100%;" tabindex="2">
-                                            <option disabled>Select tax</option>
+                                        <select name="taxes[]" class="select2_taxes form-control input-lg" multiple required>
+                                            <option></option>
                                             @foreach($taxes as $tax)
                                                 <option value="{{$tax->id}}">{{$tax->name}}</option>
                                             @endforeach
@@ -611,8 +611,16 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_3").select2({
-            placeholder: "Select a state",
+        $(".select2_selling_account").select2({
+            placeholder: "Select Selling Account",
+            allowClear: true
+        });
+        $(".select2_taxes").select2({
+            placeholder: "Select Taxes",
+            allowClear: true
+        });
+        $(".select2_unit").select2({
+            placeholder: "Select Unit",
             allowClear: true
         });
 

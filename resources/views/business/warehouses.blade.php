@@ -49,7 +49,7 @@
                         <div class="contact-box-footer">
                             <div class="m-t-xs btn-group">
                                 <a href="{{route('business.warehouse.show',['portal'=>$institution->portal,'id'=>$warehouse->id])}}" class="btn btn-xs btn-outline btn-primary"> View </a>
-                                <a href="" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-cross"></i> Delete</a>
+                                <a href="{{route('business.warehouse.delete',['portal'=>$institution->portal,'id'=>$warehouse->id])}}" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-cross"></i> Delete</a>
                             </div>
                         </div>
 
@@ -58,7 +58,41 @@
             @endforeach
 
         </div>
+        @if($deletedWarehouses)
+            <div class="row">
+                @foreach($deletedWarehouses as $warehouse)
+                    <div class="col-lg-3">
+                        <div class="contact-box center-version">
 
+                            <a href="profile.html">
+
+                                <span class="fa fa-4x fa-database"></span>
+
+
+
+                                <h3 class="m-b-xs"><strong>{{$warehouse->name}}</strong></h3>
+                                <address class="m-t-md">
+                                    {{$warehouse->address->town}}, {{$warehouse->address->street}}<br>
+                                    P. O. Box {{$warehouse->address->po_box}}, {{$warehouse->address->postal_code}}.<br>
+                                    <abbr title="Phone">P:</abbr> {{$warehouse->address->phone_number}}<br>
+                                    <abbr title="Email">E:</abbr> {{$warehouse->address->email}}
+                                </address>
+                                <br>
+                                <label class="label label-danger">Deleted</label>
+
+                            </a>
+                            <div class="contact-box-footer">
+                                <div class="m-t-xs btn-group">
+                                    <a href="{{route('business.warehouse.show',['portal'=>$institution->portal,'id'=>$warehouse->id])}}" class="btn btn-xs btn-outline btn-primary"> View </a>
+                                    <a href="{{route('business.warehouse.restore',['portal'=>$institution->portal,'id'=>$warehouse->id])}}" class="btn btn-xs btn-outline btn-warning"><i class="fa fa-cross"></i> Restore</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
     </div>
 
 @endsection

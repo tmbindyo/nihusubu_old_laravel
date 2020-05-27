@@ -66,7 +66,7 @@
                                     @foreach($feedbacks as $feedback)
                                         <tr class="gradeX">
                                             <td>{{$feedback->name}}</td>
-                                            <td>{{$feedback->date}}</td>
+                                            <td>{{$feedback->created_at}}</td>
                                             <td>{{$feedback->user->name}}</td>
                                             <td>
                                                 <span class="label {{$feedback->status->label}}">{{$feedback->status->name}}</span>

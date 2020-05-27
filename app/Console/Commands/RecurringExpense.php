@@ -50,7 +50,7 @@ class RecurringExpense extends Command
         $users = User::all();
         foreach ($users as $user){
 
-            $frequencies = Frequency::where('is_user',True)->where('user_id',$user->id)->get();
+            $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_user',True)->where('user_id',$user->id)->get();
 
             foreach ($frequencies as $frequency){
                 $datesum = date('d-m-Y', strtotime($today.' + '.$frequency->frequency.' '.$frequency->type));

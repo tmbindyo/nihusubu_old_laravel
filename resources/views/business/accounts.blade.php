@@ -28,77 +28,135 @@
 
 
     <div class="wrapper wrapper-content animated fadeInRight">
+        {{-- accounts --}}
         <div class="row">
             <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Accounts</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Accounts</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="ibox-content">
+                    <div class="ibox-content">
 
-                    <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Balance</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($accounts as $account)
-                    <tr class="gradeX">
-                        <td>{{$account->name}}</td>
-                        <td>{{$account->balance}}</td>
-                        <td>{{$account->user->name}}</td>
-                        <td>
-                            <span class="label {{$account->status->label}}">{{$account->status->name}}</span>
-                        </td>
-                        <td class="text-right">
-                            <div class="btn-group">
-                                <a href="{{ route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id]) }}" class="btn-white btn btn-xs">View</a>
-                                @if($account->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                    <a href="{{ route('business.account.restore',['portal'=>$institution->portal,'id'=>$account->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                @else
-                                    <a href="{{ route('business.account.delete',['portal'=>$institution->portal,'id'=>$account->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Balance</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-                </table>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Balance</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($accounts as $account)
+                                        <tr class="gradeX">
+                                            <td>{{$account->name}}</td>
+                                            <td>{{$account->balance}}</td>
+                                            <td>{{$account->user->name}}</td>
+                                            <td>
+                                                <span class="label {{$account->status->label}}">{{$account->status->name}}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    <a href="{{ route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    @if($account->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                        <a href="{{ route('business.account.restore',['portal'=>$institution->portal,'id'=>$account->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    @else
+                                                        <a href="{{ route('business.account.delete',['portal'=>$institution->portal,'id'=>$account->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Balance</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
         </div>
-        </div>
+
+        {{-- deleted accounts --}}
+        @if(count($deletedAccounts))
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Deleted Accounts</h5>
+                        </div>
+                        <div class="ibox-content">
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Balance</th>
+                                            <th>User</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($deletedAccounts as $account)
+                                            <tr class="gradeX">
+                                                <td>{{$account->name}}</td>
+                                                <td>{{$account->balance}}</td>
+                                                <td>{{$account->user->name}}</td>
+                                                <td>
+                                                    <span class="label {{$account->status->label}}">{{$account->status->name}}</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.account.restore',['portal'=>$institution->portal,'id'=>$account->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Balance</th>
+                                            <th>User</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 
 

@@ -15,7 +15,7 @@
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id])}}">Account</a>
+                    <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$accountExists->id])}}">Account</a>
                 </li>
                 <li class="active">
                     <strong>Withdrawal Create</strong>
@@ -69,10 +69,13 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_demo_tag form-control input-lg">
-                                            <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                        <select name="account" class="select2_account form-control input-lg">
+                                            <option></option>
+                                            @foreach ($accounts as $account)
+                                                <option @isset($accountExists) @if($accountExists->id == $account->id) selected @endif @endisset value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                            @endforeach
                                         </select>
-                                        <i>type</i>
+                                        <i>account</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
@@ -352,8 +355,8 @@
             placeholder: "Select Tags",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_account").select2({
+            placeholder: "Select Account",
             allowClear: true
         });
 
