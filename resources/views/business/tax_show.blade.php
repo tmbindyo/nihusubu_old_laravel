@@ -1,0 +1,330 @@
+@extends('business.layouts.app')
+
+@section('title', 'Tax Show')
+
+@section('content')
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-5">
+            <h2>Tax's</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                </li>
+                <li>
+                    CRM
+                </li>
+                <li class="active">
+                    <a href="{{route('business.taxes',$institution->portal)}}">Tax's</a>
+                </li>
+                <li class="active">
+                    <strong>Tax Create</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-7">
+            <div class="title-action">
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Tax Registration <small>Form</small></h5>
+
+                    </div>
+
+                    <div class="ibox-content">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="post" action="{{ route('business.tax.update',['portal'=>$institution->portal,'id'=>$tax->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                @csrf
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                <div class="col-md-12">
+                                    <br>
+                                    <div class="checkbox">
+                                        <input id="is_percentage" name="is_percentage" @if($tax->is_percentage == 1) checked @endif type="checkbox">
+                                        <label for="is_percentage">
+                                            percentage
+                                        </label>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the tax charged is a percentage of the price." class="fa fa-2x fa-question-circle"></i></span>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <input type="text" id="name" name="name" required="required" value="{{$tax->name}}" class="form-control input-lg">
+                                        <i>name</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$tax->amount}}" class="form-control input-lg">
+                                        <i>amount</i>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{--  details  --}}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content animated fadeInUp">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="m-b-md">
+                                    </div>
+                                    <dl class="dl-horizontal">
+                                        <dt>Status:</dt> <dd><span class="label {{$tax->status->label}}">{{$tax->status->name}}</span></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <dl class="dl-horizontal">
+
+                                        <dt>Created by:</dt> <dd>{{$tax->user->name}}</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-lg-7" id="cluster_info">
+                                    <dl class="dl-horizontal" >
+
+                                        <dt>Last Updated:</dt> <dd>{{$tax->updated_at}}</dd>
+                                        <dt>Created:</dt> <dd> {{$tax->created_at}} </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="row m-t-sm">
+                                <div class="col-lg-12">
+                                    <div class="panel blank-panel">
+                                        <div class="panel-heading">
+                                            <div class="panel-options">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a href="#products" data-toggle="tab">Products</a></li>
+                                                    <li class=""><a href="#composite-products" data-toggle="tab">Composite Products</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-body">
+
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="products">
+
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>SKU</th>
+                                                                    <th>Stock on Hand</th>
+                                                                    <th>Reorder Level</th>
+                                                                    <th>Status</th>
+                                                                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach($tax->product_taxes as $product_tax->product)
+                                                                    <tr class="gradeA">
+                                                                        <td>{{$product_tax->product->name}}</td>
+                                                                        <td>{{$product->unit->name}}</td>
+
+                                                                        @if($product_tax->product->is_service == "1")
+                                                                            <td>N/A</td>
+                                                                        @else
+                                                                            <td>{{$product_tax->product->stock_on_hand->first()->stock_on_hand}}</td>
+                                                                        @endif
+
+                                                                        <td class="center">{{$product_tax->product->reorder_level}}</td>
+                                                                        <td class="center">
+                                                                            <p>@if ($product_tax->product->is_service==1) Service: @elseif($product_tax->product->is_service==0)Product: @endif <span class="label {{$product_tax->product->status->label}}">{{$product_tax->product->status->name}}</span></p>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            <div class="btn-group">
+                                                                                <a href="{{ route('business.product.show', ['portal'=>$institution->portal,'id'=>$product_tax->product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                                <a href="{{ route('business.product.edit', ['portal'=>$institution->portal,'id'=>$product_tax->product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                                                @if($product_tax->product->status->name=="Discontinued")
+                                                                                    <a href="{{ route('business.product.restore', ['portal'=>$institution->portal,'id'=>$product_tax->product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
+                                                                                @else
+                                                                                    <a href="{{ route('business.product.delete', ['portal'=>$institution->portal,'id'=>$product_tax->product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                                                                @endif
+
+
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>SKU</th>
+                                                                    <th>Stock on Hand</th>
+                                                                    <th>Reorder Level</th>
+                                                                    <th>Status</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+                                                <div class="tab-pane" id="composite-products">
+
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Products</th>
+                                                                    <th>Status</th>
+                                                                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach($tax->composite_product_taxes as $composite_product_tax->composite_product)
+                                                                    <tr class="gradeA">
+                                                                        <td>{{$composite_product_tax->composite_product->name}}</td>
+                                                                        <td>{{$composite_product_tax->composite_product->composite_product_products_count}}</td>
+                                                                        <td class="center">
+                                                                            <p>@if ($composite_product_tax->composite_product->is_service==1) Service: @elseif($composite_product_tax->composite_product->is_service==0)Product: @endif <span class="label {{$composite_product_tax->composite_product->status->label}}">{{$composite_product_tax->composite_product->status->name}}</span></p>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            <div class="btn-group">
+                                                                                <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal,'id'=>$composite_product_tax->composite_product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                                <a href="{{ route('business.composite.product.edit', ['portal'=>$institution->portal,'id'=>$composite_product_tax->composite_product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                                                @if($composite_product_tax->composite_product->status->name=="Discontinued")
+                                                                                    <a href="{{ route('business.composite.product.restore', ['portal'=>$institution->portal,'id'=>$composite_product_tax->composite_product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
+                                                                                @else
+                                                                                    <a href="{{ route('business.composite.product.delete', ['portal'=>$institution->portal,'id'=>$composite_product_tax->composite_product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                                                                @endif
+
+
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Products</th>
+                                                                    <th>Status</th>
+                                                                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@endsection
+
+@section('js')
+
+    <!-- Mainly scripts -->
+    <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
+    <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
+
+
+    {{--  Data tables  --}}
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+
+@endsection

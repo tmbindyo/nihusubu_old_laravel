@@ -112,20 +112,6 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Deleted Organizations</h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-wrench"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-                                    <li><a href="#">Config option 1</a>
-                                    </li>
-                                    <li><a href="#">Config option 2</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                         <div class="ibox-content">
 
@@ -134,7 +120,6 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Type</th>
                                             <th>Phone Number</th>
                                             <th>Website</th>
                                             <th>Members</th>
@@ -146,7 +131,6 @@
                                         @foreach($deletedOrganizations as $organization)
                                             <tr class="gradeX">
                                                 <td>{{$organization->name}}</td>
-                                                <td>{{$organization->organization_type->name}}</td>
                                                 <td>{{$organization->phone_number}}</td>
                                                 <td>{{$organization->website}}</td>
                                                 <td>{{$organization->contacts_count}}</td>
@@ -157,11 +141,7 @@
                                                 <td class="text-right">
                                                     <div class="btn-group">
                                                         <a href="{{ route('business.organization.show', ['portal'=>$institution->portal,'id'=>$organization->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                        @if($organization->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                            <a href="{{ route('business.organization.restore', ['portal'=>$institution->portal,'id'=>$organization->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                        @else
-                                                            <a href="{{ route('business.organization.delete', ['portal'=>$institution->portal,'id'=>$organization->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                        @endif
+                                                        <a href="{{ route('business.organization.restore', ['portal'=>$institution->portal,'id'=>$organization->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -170,7 +150,6 @@
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Type</th>
                                             <th>Phone Number</th>
                                             <th>Website</th>
                                             <th>Members</th>

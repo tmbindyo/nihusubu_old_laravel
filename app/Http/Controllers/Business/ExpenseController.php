@@ -65,20 +65,24 @@ class ExpenseController extends Controller
         // get transfers
         $transfers = Transfer::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get campaign
-        $campaigns = Campaign::where('institution_id',$institution->id)->get();
+        $campaigns = Campaign::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // get liabilities
         $liabilities = Liability::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get frequencies
-        $frequencies = Frequency::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // accounts
-        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->get();
 
         return view('business.expense_create',compact('liabilities','campaigns','sales','user','institution','frequencies','expenseAccounts','transfers','expenseStatuses','accounts'));
     }
 
     public function expenseStore(Request $request, $portal)
     {
-
+        // check account balance
+        $account = Account::findOrFail($request->account);
+        if ($request->grand_total > $account->balance){
+            return back()->withWarning(__("You don't have enough funds in this account!"));
+        }
         // User
         $user = $this->getUser();
         // Institution
@@ -232,7 +236,7 @@ class ExpenseController extends Controller
             }
 
             // account subtraction
-            $account = Account::where('id',$request->account)->where('is_institution',true)->first();
+            $account = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('id',$request->account)->where('is_institution',true)->first();
 
             // update transaction
             $transaction = Transaction::findOrFail($transaction->id);
@@ -308,15 +312,17 @@ class ExpenseController extends Controller
         // get transfers
         $transfers = Transfer::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get campaign
-        $campaigns = Campaign::where('institution_id',$institution->id)->get();
+        $campaigns = Campaign::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // get liabilities
         $liabilities = Liability::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get frequencies
-        $frequencies = Frequency::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get expense
         $expense = Expense::where('institution_id',$institution->id)->where('is_institution',true)->where('id',$expense_id)->with('transfer','status','expense_items','transaction','expense_account','frequency','user','account','campaign','contact','expense_account','inventory_adjustment','liability','sale','sale','warehouse')->withCount('expense_items')->first();
+        // accounts
+        $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->get();
 
-        return view('business.expense_edit',compact('liabilities','campaigns','expense','user','institution','expenseAccounts','sales','expenseStatuses','transfers','frequencies'));
+        return view('business.expense_edit',compact('liabilities','campaigns','expense','user','institution','expenseAccounts','sales','expenseStatuses','transfers','frequencies','accounts'));
     }
 
     public function expenseUpdate(Request $request, $portal, $expense_id)
@@ -518,7 +524,7 @@ class ExpenseController extends Controller
         // get expenses
         $expense = Expense::findOrFail($expense_id);
         // accounts
-        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->get();
 
         // transaction statuses
         $transactionStatuses = Status::where('status_type_id','8f56fc70-6cd8-496f-9aec-89e5748968db')->get();
@@ -589,7 +595,7 @@ class ExpenseController extends Controller
                 $campaign->save();
             }
 
-            $account = Account::where('id',$request->account)->where('is_institution',true)->first();
+            $account = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('id',$request->account)->where('is_institution',true)->first();
 
             // update transaction
             $transaction = Transaction::findOrFail($transaction->id);
@@ -626,7 +632,7 @@ class ExpenseController extends Controller
             $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
             $expensePaid->save();
 
-            $account = Account::where('id',$request->account)->where('is_institution',true)->first();
+            $account = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('id',$request->account)->where('is_institution',true)->first();
 
             // update transaction
             $transaction = Transaction::findOrFail($transaction->id);
@@ -665,7 +671,7 @@ class ExpenseController extends Controller
         $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
         $expensePaid->save();
 
-        $account = Account::where('id',$request->account)->where('is_institution',true)->first();
+        $account = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('id',$request->account)->where('is_institution',true)->first();
 
         // update transaction
         $transaction = Transaction::findOrFail($transaction->id);
@@ -698,7 +704,7 @@ class ExpenseController extends Controller
         $transaction->save();
 
         // update account, credit previously paid amount
-        $account = Account::where('id',$transaction->account_id)->where('is_institution',true)->first();
+        $account = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('id',$transaction->account_id)->where('is_institution',true)->first();
         $account->balance = doubleval($account->balance) + doubleval($transaction->amount);
         $account->user_id = $user->id;
         $account->save();
@@ -738,7 +744,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // loans
         $loans = Loan::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // sales
@@ -896,7 +902,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // payment
         $payment = Payment::findOrFail($payment_id);
         return view('business.refund_create',compact('user','institution','accounts','payment'));

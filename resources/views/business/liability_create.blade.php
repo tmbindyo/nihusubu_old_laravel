@@ -12,8 +12,13 @@
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    CRM
+                    Accounting
                 </li>
+                @isset($liabilityAccount)
+                    <li class="active">
+                        <a href="{{ route('business.account.show',['portal'=>$institution->portal,'id'=>$liabilityAccount->id]) }}">Account</a>
+                    </li>
+                @endisset
                 <li class="active">
                     <a href="{{route('business.liabilities',$institution->portal)}}">Liability's</a>
                 </li>
@@ -26,7 +31,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Liability Registration <small>Form</small></h5>
@@ -50,7 +55,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-lg-12">
                                     <br>
                                     <div class="has-warning">
                                         <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" value="0" class="form-control input-lg">
@@ -101,23 +106,23 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_demo_account form-control input-lg">
+                                        <select name="account" class="select2_account form-control input-lg" required>
                                             <option></option>
                                             @foreach ($accounts as $account)
-                                                <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                                <option @isset($accountExists) @if($accountExists->id == $account->id) selected @endif @endisset value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
                                             @endforeach
                                         </select>
-                                        <i>source account</i>
+                                        <i>account</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="contact" class="select2_demo_contact form-control input-lg">
+                                        <select name="contact" class="select2_contact form-control input-lg" required>
                                             <option></option>
                                             @foreach ($contacts as $contact)
-                                                <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
+                                                <option @isset($contactExists) @if($contactExists->id == $contact->id) selected @endif @endisset value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                                             @endforeach
                                         </select>
-                                        <i>destination account</i>
+                                        <i>contact</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
@@ -125,9 +130,6 @@
                                         <i>Give a brief description on what the project is about</i>
                                     </div>
 
-
-
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">
@@ -425,11 +427,11 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_account").select2({
+        $(".select2_account").select2({
             placeholder: "Select Account",
             allowClear: true
         });
-        $(".select2_demo_contact").select2({
+        $(".select2_contact").select2({
             placeholder: "Select Contact",
             allowClear: true
         });

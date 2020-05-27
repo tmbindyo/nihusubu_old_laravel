@@ -29,7 +29,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Refund Registration <small>Form</small></h5>
@@ -72,8 +72,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning" readonly>
-                                        <select name="account" class="select2_demo_tag form-control input-lg">
-                                            <option value="{{$refund->account->id}}">{{$refund->account->name}} [{{$refund->account->balance}}]</option>
+                                        <select name="account" class="select2_demo_tag form-control input-lg" readonly>
+                                            <option selected value="{{$refund->account->id}}">{{$refund->account->name}} [{{$refund->account->balance}}]</option>
                                         </select>
                                         <i>account</i>
                                     </div>

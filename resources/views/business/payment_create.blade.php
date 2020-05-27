@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Payment Registration <small>Form</small></h5>
@@ -50,7 +50,50 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="has-warning">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <input name="is_loan" type="checkbox" class="js-switch_2" />
+                                                    <br>
+                                                    <i>check if loan.</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="has-warning">
+                                                <select name="loan" class="select2_loan form-control input-lg">
+                                                    <option></option>
+                                                    @foreach ($loans as $loan)
+                                                        <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>loan</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="has-warning">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <input name="is_sale" type="checkbox" class="js-switch_3" />
+                                                    <br>
+                                                    <i>check if sale.</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="has-warning">
+                                                <select name="sale" class="select2_sale form-control input-lg">
+                                                    <option></option>
+                                                    @foreach ($sales as $sale)
+                                                        <option value="{{$sale->id}}">{{$sale->reference}} [{{$sale->total}}]</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>sale</i>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <br>
                                     <div class="has-warning">
                                         <input type="number" id="amount" name="amount" required="required" placeholder="Paid" class="form-control input-lg">
@@ -69,8 +112,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Account</option>
+                                        <select name="account" class="select2_account form-control input-lg">
+                                            <option></option>
                                             @foreach ($accounts as $account)
                                                 <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
                                             @endforeach
@@ -82,55 +125,7 @@
                                         <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
                                         <i>notes</i>
                                     </div>
-                                    <br>
-                                    <div class="row">
 
-                                        <div class="col-md-2">
-                                            <div class="has-warning">
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <input name="is_loan" type="checkbox" class="js-switch_2" />
-                                                    <br>
-                                                    <i>check if loan.</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="has-warning">
-                                                <select name="loan" class="select2_demo_tag form-control input-lg">
-                                                    <option selected disabled >Select Loan</option>
-                                                    @foreach ($loans as $loan)
-                                                        <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
-                                                    @endforeach
-                                                </select>
-                                                <i>loan</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="has-warning">
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <input name="is_sale" type="checkbox" class="js-switch_3" />
-                                                    <br>
-                                                    <i>check if sale.</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="has-warning">
-                                                <select name="sale" class="select2_demo_tag form-control input-lg">
-                                                    <option selected disabled >Select Sale</option>
-                                                    @foreach ($sales as $sale)
-                                                        <option value="{{$sale->id}}">{{$sale->sale_number}} [{{$sale->total}}]</option>
-                                                    @endforeach
-                                                </select>
-                                                <i>sale</i>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">
@@ -406,6 +401,18 @@
         });
         $(".select2_demo_category").select2({
             placeholder: "Select Categories",
+            allowClear: true
+        });
+        $(".select2_account").select2({
+            placeholder: "Select Account",
+            allowClear: true
+        });
+        $(".select2_loan").select2({
+            placeholder: "Select Loan",
+            allowClear: true
+        });
+        $(".select2_sale").select2({
+            placeholder: "Select Sale",
             allowClear: true
         });
 

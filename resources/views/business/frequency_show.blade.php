@@ -29,7 +29,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Frequency <small>edit</small></h5>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-sm-8 col-md-offset-2">
+                            <div class="col-sm-12">
                                 <p>Edit.</p>
                                 <form method="post" action="{{ route('business.frequency.update',['portal'=>$institution->portal,'id'=>$frequency->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf

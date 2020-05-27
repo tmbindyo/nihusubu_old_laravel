@@ -29,134 +29,111 @@
     </div>
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content animated fadeInRight">
+                    <div class="ibox-content p-xl">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5>From:</h5>
+                                <address>
+                                    <strong>{{$institution->name}}</strong><br>
+                                    {{$institution->address->address_line_1}}<br>
+                                    {{$institution->address->town}}, {{$institution->address->street}}<br>
+                                    <abbr title="Phone">P:</abbr> {{$institution->phone_number}}<br>
+                                    <abbr title="Email">E:</abbr> {{$institution->email}}
+                                </address>
+                            </div>
 
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <span class="pull-right">(<strong>{{$sale->sale_products_count}}</strong>) items</span>
-                        <h5>Items</h5>
-                    </div>
-                    @foreach($sale->sale_products as $product)
-                        <div class="ibox-content">
+                            <div class="col-sm-6 text-right">
+                                <h4>Sale No.</h4>
+                                <h4 class="text-navy">{{$sale->reference}}</h4>
+                                <span>To:</span>
+                                <address>
+                                    <strong>{{$sale->contact->last_name}} {{$sale->contact->first_name}}</strong><br>
+                                    <abbr title="Phone">P:</abbr> {{$sale->contact->phone_number}}<br>
+                                    <abbr title="Email">E:</abbr> {{$sale->contact->email}}
+                                </address>
+                                {{-- <address>
+                                    <strong>Corporate, Inc.</strong><br>
+                                    112 Street Avenu, 1080<br>
+                                    Miami, CT 445611<br>
+                                    <abbr title="Phone">P:</abbr> (120) 9000-4321
+                                </address> --}}
+                                <p>
+                                    <span><strong>Invoice Date:</strong> {{$sale->date}} </span><br/>
+                                    <span><strong>Due Date:</strong> {{$sale->due_date}} </span>
+                                </p>
+                            </div>
+                        </div>
 
-
-                            <div class="table-responsive">
-                                <table class="table shoping-cart-table">
-
-                                    <tbody>
+                        <div class="table-responsive m-t">
+                            <table class="table invoice-table">
+                                <thead>
+                                <tr>
+                                    <th>Item List</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Total Price</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($sale->sale_products as $product)
                                     <tr>
-                                        <td width="90">
-                                            <div class="cart-product-imitation">
-                                            </div>
-                                        </td>
-                                        <td class="desc">
-                                            <h3>
-                                                <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->product->id])}}" class="text-navy">
+                                        <td>
+                                            <div>
+                                                <strong>
                                                     {{$product->product->name}}
-                                                </a>
-                                            </h3>
-
-                                            {!! $product->product->description !!}
-
-                                            <div class="m-t-sm">
-                                                <a href="{{route('business.sale.product.delete',['portal'=>$institution->portal,'id'=>$product->id])}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
+                                                </strong>
                                             </div>
+{{--                                            <small>{!!$product->product->description!!}</small>--}}
                                         </td>
-
-                                        <td>
-                                            <h4>
-                                                {{$product->rate}}
-                                            </h4>
-                                        </td>
-                                        <td width="65">
-                                            <input type="text" class="form-control" value="{{$product->quantity}}" readonly>
-                                        </td>
-                                        <td>
-                                            <h4>
-                                                {{$product->amount}}
-                                            </h4>
-                                        </td>
+                                        <td>{{$product->quantity}}</td>
+                                        <td>{{$product->rate}}</td>
+                                        <td>{{$product->amount}}</td>
                                     </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div><!-- /table-responsive -->
 
+                        <table class="table invoice-total">
+                            <tbody>
+                            <tr>
+                                <td><strong>Sub Total :</strong></td>
+                                <td>{{$sale->subtotal}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TAX :</strong></td>
+                                <td>{{$sale->tax}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Discount :</strong></td>
+                                <td>{{$sale->discount}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL :</strong></td>
+                                <td>{{$sale->total}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        {{-- <div class="text-right">
+                            <button class="btn btn-primary"><i class="fa fa-dollar"></i> Make A Payment</button>
+                        </div> --}}
+
+                        <div class="well m-t"><strong>Notes</strong>
+                            {{$sale->customer_notes}}
                         </div>
-                    @endforeach
-                    <div class="ibox-content">
 
-
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-3">
-
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Sale Summary</h5>
-                    </div>
-                    <div class="ibox-content">
-                            <span>
-                                Total
-                            </span>
-                        <h2 class="font-bold">
-                            {{$sale->total}}
-                        </h2>
-
-                        <hr/>
-                        <span>
-                                Tax
-                            </span>
-                        <h2 class="font-bold">
-                            {{$sale->tax}}
-                        </h2>
-
-                        <hr/>
-                        <span>
-                                Discount
-                            </span>
-                        <h2 class="font-bold">
-                            {{$sale->discount}}
-                        </h2>
-
-                        <hr/>
-                        @if($sale->customer)
-                            <span class="text-muted small">
-
-                                @if($sale->customer->is_business == 1)
-                                    {{--  if business  --}}
-                                    <address>
-                                            <strong>{{$sale->customer->company_name}}</strong><br>
-                                            112 Street Avenu, 1080<br>
-                                            Miami, CT 445611<br>
-                                            <abbr title="Phone">P:</abbr> {{$sale->customer->phone_number}}<br>
-                                            <abbr title="Email">E:</abbr> {{$sale->customer->email}}
-                                        </address>
-                                @else
-                                    {{--  if not business  --}}
-                                    <address>
-                                            <strong>{{$sale->customer->first_name}} {{$sale->customer->last_name}}</strong><br>
-                                            112 Street Avenu, 1080<br>
-                                            Miami, CT 445611<br>
-                                            <abbr title="Phone">P:</abbr> {{$sale->customer->phone_number}}<br>
-                                            <abbr title="Email">E:</abbr> {{$sale->customer->email}}
-                                        </address>
-                                @endif
-                            </span>
-                        @endif
-                        <div class="m-t-sm">
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-mail-forward"></i> Send</a>
-                                <a href="#" class="btn btn-danger btn-sm"> Cancel</a>
-                            </div>
+                        <div class="well m-t"><strong>Terms and Conditions</strong>
+                            {{$sale->terms_and_conditions}}
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+
+
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">

@@ -26,10 +26,6 @@ class Organization extends Model
     {
         return $this->belongsTo('App\Campaign');
     }
-    public function organization_type()
-    {
-        return $this->belongsTo('App\OrganizationType');
-    }
     public function parent_organization()
     {
         return $this->belongsTo('App\Organization','id', 'parent_account_id');

@@ -52,8 +52,8 @@
                                         <div class="col-md-12">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="contact" class="select2_demo_3 form-control required input-lg" required="required">
-                                                    <option selected disabled>Select Customer</option>
+                                                <select name="contact" class="select2_contact form-control required input-lg" required="required">
+                                                    <option></option>
                                                     @foreach($contacts as $contact)
                                                         <option value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
                                                     @endforeach
@@ -73,8 +73,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="has-warning">
-                                                        <div class="input-group date" id="data_1">
+                                                    <div class="has-warning" id="data_1">
+                                                        <div class="input-group date">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
@@ -89,7 +89,7 @@
                                     <br>
                                     <hr>
                                     {{--table--}}
-                                    <div class="row">
+                                    <div>
                                         <table class="table table-bordered" id = "invoice_table">
                                             <thead>
                                             <tr>
@@ -130,44 +130,24 @@
                                         <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                                     </div>
 
-                                    {{--sub totals--}}
+                                    <hr>
                                     <div class="row">
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <label>Sub Total</label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input name="subtotal" type = "number" class="pull-right form-control" id = "items-subtotal" readonly value="0">
-                                            </div>
+                                        <div class="col-md-4">
+                                            <input name="subtotal" type = "number" class="pull-right form-control input-lg" id = "items-subtotal" readonly value="0">
+                                            <i>sub Total</i>
                                         </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-1 col-md-offset-5">
-                                                <label>Adjustment</label>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value" value = "0">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <p class="pull-right" id = "adjustment-text">0</p>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control input-lg" id = "adjustment-value" value = "0">
+                                            <i>adjustment</i>
                                         </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <p>Total ()</p>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control" value = "0" readonly>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control input-lg" value = "0" readonly>
+                                            <i>grand total</i>
                                         </div>
                                     </div>
-                                    <br>
+
                                     <hr>
-                                    <br>
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <textarea required name="customer_notes" placeholder="Notes" class="form-control" rows="7"></textarea>
@@ -218,9 +198,16 @@
 <!-- Image cropper -->
 <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
 
+<!-- Select2 -->
+<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
 <script>
     $(document).ready(function(){
 
+        $(".select2_contact").select2({
+            placeholder: "Select Contact",
+            allowClear: true
+        });
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
@@ -435,7 +422,7 @@
         } else {
             adjustedValue = adjustedValueInputValue;
         };
-        document.getElementById("adjustment-text").innerHTML = adjustedValue;
+        document.getElementById("adjustment-value").innerHTML = adjustedValue;
         var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
         document.getElementById("grand-total").value = adjustedTotal;
     };

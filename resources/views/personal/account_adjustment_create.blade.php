@@ -91,8 +91,8 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div class="has-warning">
-                                                <select name="account" class="select-2 form-control input-lg">
-                                                    <option selected disabled>Select Account</option>
+                                                <select name="account" class="select2_account form-control input-lg">
+                                                    <option></option>
                                                     @foreach($accounts as $accountSelected)
                                                         <option @if($accountSelected->id == $account->id) selected @endif value="{{$accountSelected->id}}" >{{$accountSelected->name}}</option>
                                                     @endforeach
@@ -258,16 +258,14 @@
         });
 
     </script>
-    
-<script>
-    $(document).ready(function() {
-        $('.select-2').select2();
-    });
-</script>
 
 <script>
     $(document).ready(function(){
 
+        $(".select2_account").select2({
+            placeholder: "Select Account",
+            allowClear: true
+        });
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",

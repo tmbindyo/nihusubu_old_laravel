@@ -15,7 +15,9 @@
 Route::get('/section', 'SectionSeeder@SectionSeeder')->name('section');
 Route::get('/menu', 'SectionSeeder@MenuSeeder')->name('menu');
 
-
+Route::get('/debug-sentry', function () {
+    throw new Exception('My first Sentry error!');
+});
 
 Auth::routes(['verify' => true]);
 

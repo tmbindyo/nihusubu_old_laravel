@@ -39,7 +39,7 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get inventory adjustments
-        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->select('id')->get()->toArray();
         $inventoryAdjustments = InventoryAdjustment::whereIn('warehouse_id', $institutionWarehouses)->with('warehouse','user','status','account','reason')->get();
 //        return $inventoryAdjustments;
         return view('business.inventory_adjustments',compact('user','institution','inventoryAdjustments'));
@@ -52,11 +52,11 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution accounts
-        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // Get reasons
         $reasons = Reason::where('institution_id',$institution->id)->get();
         // Warehouse
-        $warehouses = Warehouse::where('institution_id',$institution->id)->get();
+        $warehouses = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->get();
         // Products
         $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
 
@@ -171,7 +171,7 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get inventory adjustments
-        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->select('id')->get()->toArray();
         $transferOrders = TransferOrder::where('institution_id', $institution->id)->with('source_warehouse','destination_warehouse','user','status')->get();
 
 //        return $transferOrders;
@@ -184,9 +184,9 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution accounts
-        $accounts = Account::where('institution_id',$institution->id)->where('is_institution',true)->get();
+        $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // Warehouse
-        $warehouses = Warehouse::where('institution_id',$institution->id)->get();
+        $warehouses = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->get();
         // Products
         $products = Product::where('institution_id',$institution->id)->with('inventory')->get();
 
@@ -294,9 +294,10 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Warehouses
-        $warehouses = Warehouse::where('institution_id',$institution->id)->with('address')->get();
+        $warehouses = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('address')->get();
+        $deletedWarehouses = Warehouse::where('institution_id',$institution->id)->where('status_id','d35b4cee-5594-4cfd-ad85-e489c9dcdeff')->with('address')->get();
 
-        return view('business.warehouses',compact('user','institution','warehouses'));
+        return view('business.warehouses',compact('user','institution','warehouses','deletedWarehouses'));
     }
 
     public function warehouseStore(Request $request, $portal)
@@ -417,9 +418,18 @@ class InventoryController extends Controller
 
     public function warehouseDelete(Request $request, $portal, $warehouse_id)
     {
+
+        // get products
+
+        // get inventory
+        // $inventory = Inventory::where('warehouse_id',$warehouse_id)->get();
+        $inventory = Inventory::where('warehouse_id',$warehouse_id)->where('quantity','>',0)->get();
+        if(count($inventory)){
+            return back()->withWarning(__('Warehouse still has stock registered to it. Warehouse can only be deleted with all stock at 0'));
+        }
         // User
         $user = $this->getUser();
-        // Institution
+        // Delete
         $institution = $this->getInstitution($portal);
         $warehouse = Warehouse::findOrFail($warehouse_id);
         $warehouse->status_id = "d35b4cee-5594-4cfd-ad85-e489c9dcdeff";

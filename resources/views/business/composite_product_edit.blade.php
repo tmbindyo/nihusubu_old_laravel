@@ -17,6 +17,9 @@
                     <a href="{{route('business.composite.products',$institution->portal)}}">Composite Products</a>
                 </li>
                 <li class="active">
+                    <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal,'id'=>$compositeProduct->id]) }}">Composite Product</a>
+                </li>
+                <li class="active">
                     <strong>Create Composite Products</strong>
                 </li>
             </ol>
@@ -65,7 +68,7 @@
                                         {{--  Product Unit  --}}
                                         <div class="has-warning">
                                             <label>  </label>
-                                            <select name="unit" class="select2_demo_3 form-control input-lg">
+                                            <select name="unit" class="select2_unit form-control input-lg" required>
                                                 <option disabled>Select Unit</option>
                                                 @foreach($units as $unit)
                                                     <option @if($compositeProduct->unit_id == $unit->id) selected @endif value="{{$unit->id}}">{{$unit->name}}</option>
@@ -112,7 +115,7 @@
                                             <div class="col-md-11">
                                                 <div class="has-warning">
                                                     <label class="text-danger"></label>
-                                                    <select name="selling_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                    <select name="selling_account" class="select2_selling_account form-control input-lg" required>
                                                         <option value="" selected disabled>Select Selling Account</option>
                                                         @foreach($salesAccounts as $account)
                                                             <option @if($compositeProduct->selling_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
@@ -128,7 +131,7 @@
                                     <div class="col-md-6">
                                         {{--  Product Tax  --}}
                                         <label></label>
-                                        <select name="taxes[]" data-placeholder="Select Taxes" class="chosen-select input-lg" multiple style="width:100%;" tabindex="2">
+                                        <select name="taxes[]" class="select2_taxes form-control input-lg" multiple required>
                                             <option disabled>Select tax</option>
                                             @foreach($taxes as $tax)
                                                 @foreach($compositeProduct->product_taxes as $productTax)
@@ -593,8 +596,16 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_3").select2({
-            placeholder: "Select a state",
+        $(".select2_selling_account").select2({
+            placeholder: "Select Selling Account",
+            allowClear: true
+        });
+        $(".select2_taxes").select2({
+            placeholder: "Select Taxes",
+            allowClear: true
+        });
+        $(".select2_unit").select2({
+            placeholder: "Select Unit",
             allowClear: true
         });
 

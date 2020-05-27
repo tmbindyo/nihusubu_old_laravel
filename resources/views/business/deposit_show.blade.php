@@ -34,7 +34,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Deposit Registration <small>Form</small></h5>
@@ -154,40 +154,62 @@
                                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                                                     <thead>
                                                         <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
+                                                            <th>Reference</th>
+                                                            <th>Amount</th>
+                                                            <th>Initial</th>
+                                                            <th>Subsequent</th>
+                                                            <th>Date</th>
+                                                            <th>Deposit</th>
                                                             <th>User</th>
                                                             <th>Status</th>
-                                                            <th>Action</th>
+                                                            <th width="13em">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($deposit->account_adjustments as $accountAdjustment)
-                                                            <tr class="gradeX">
-                                                                <td>{{$accountAdjustment->first_name}} {{$accountAdjustment->last_name}}</td>
-                                                                <td>{{$accountAdjustment->email}}</td>
-                                                                <td>{{$accountAdjustment->phone_number}}</td>
-                                                                <td>{{$accountAdjustment->user->name}}</td>
-                                                                <td>
-                                                                    <span class="label {{$accountAdjustment->status->label}}">{{$accountAdjustment->status->name}}</span>
-                                                                </td>
-                                                                <td class="text-right">
-                                                                    <div class="btn-group">
-                                                                        <a href="{{ route('business.account.adjustment.show', ['portal'=>$institution->portal,'id'=>$accountAdjustment->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
+                                                        @foreach($deposit->account_adjustments as $adjustments)
+                                                        <tr class="gradeX">
+                                                            <td>
+                                                                {{$adjustments->reference}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$adjustments->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                            </td>
+                                                            <td>{{$adjustments->amount}}</td>
+                                                            <td>{{$adjustments->initial_account_amount}}</td>
+                                                            <td>{{$adjustments->subsequent_account_amount}}</td>
+                                                            <td>{{$adjustments->date}}</td>
+                                                            <td>
+                                                                @if($adjustments->is_deposit == 1)
+                                                                    <span class="label label-success">Deposit</span>
+                                                                @else
+                                                                    <span class="label label-success">Non Deposit</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>{{$adjustments->user->name}}</td>
+                                                            <td>
+                                                                <span class="label {{$adjustments->status->label}}">{{$adjustments->status->name}}</span>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <div class="btn-group">
+                                                                    @if($adjustments->status_id == "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
+                                                                        <a href="{{ route('business.account.adjustment.delete', ['portal'=>$institution->portal,'id'=>$adjustments->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                    @elseif($adjustments->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                                        <a href="{{ route('business.account.adjustment.restore', ['portal'=>$institution->portal,'id'=>$adjustments->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                    @endif
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
+                                                            <th>Reference</th>
+                                                            <th>Amount</th>
+                                                            <th>Initial</th>
+                                                            <th>Subsequent</th>
+                                                            <th>Date</th>
+                                                            <th>Deposit</th>
                                                             <th>User</th>
                                                             <th>Status</th>
-                                                            <th>Action</th>
+                                                            <th width="13em">Action</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>

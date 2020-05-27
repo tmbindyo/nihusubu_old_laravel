@@ -53,12 +53,13 @@
 
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="contact" class="select2_demo_3 form-control input-lg" required="required">
-                                                    <option selected disabled>Select Customer</option>
+                                                <select name="contact" class="select2_contact form-control input-lg" required="required">
+                                                    <option></option>
                                                     @foreach($contacts as $contact)
-                                                        <option value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
+                                                        <option @isset($contactExists) @if($contactExists->id == $contact->id) selected @endif @endisset value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
                                                     @endforeach
                                                 </select>
+                                                <i> customer.</i>
                                             </div>
                                             <br>
                                             <div class="row">
@@ -90,7 +91,7 @@
                                     <br>
                                     <hr>
                                     {{--table--}}
-                                    <div class="row">
+                                    <div class="">
                                         <table class="table table-bordered" id = "sale_table">
                                             <thead>
                                             <tr>
@@ -103,7 +104,7 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_demo_3 form-control input-lg item-select">
+                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_product form-control input-lg item-select" required>
                                                         <option selected disabled>Select Item</option>
                                                         @foreach($products as $product)
                                                             @if($product->is_service == 0)
@@ -131,19 +132,22 @@
                                         <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                                     </div>
 
+                                    <br>
+                                    <br>
                                     {{--sub totals--}}
-                                    <div class="row">
+                                    <div class="">
                                         <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
+                                            <div class="col-md-3 col-md-offset-6">
                                                 <label>Sub Total</label>
                                             </div>
                                             <div class="col-md-3">
                                                 <input name="subtotal" type = "number" class="pull-right form-control" id = "items-subtotal" readonly value="0">
                                             </div>
                                         </div>
-                                        <hr>
+{{--                                        <hr>--}}
+                                        <br>
                                         <div class="row">
-                                            <div class="col-md-1 col-md-offset-5">
+                                            <div class="col-md-1 col-md-offset-6">
                                                 <label>Adjustment</label>
                                             </div>
                                             <div class="col-md-2">
@@ -158,7 +162,7 @@
                                         </div>
                                         <br>
                                         <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
+                                            <div class="col-md-3 col-md-offset-6">
                                                 <p>Total ()</p>
                                             </div>
                                             <div class="col-md-3">
@@ -219,9 +223,20 @@
 <!-- Image cropper -->
 <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
 
+<!-- Select2 -->
+<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
 <script>
     $(document).ready(function(){
 
+        $(".select2_contact").select2({
+            placeholder: "Select Contact",
+            allowClear: true
+        });
+        $(".select2_product").select2({
+            placeholder: "Select Product",
+            allowClear: true
+        });
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
@@ -363,7 +378,7 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_demo_3 form-control input-lg item-select'>"+
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_product form-control input-lg item-select'>"+
                                 "<option selected disabled>Select Item</option>"+
                                 "@foreach($products as $product)"+
                                 "@if($product->is_service == 0)"+

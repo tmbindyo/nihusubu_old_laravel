@@ -12,7 +12,7 @@
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    Settings
+                    Accounting
                 </li>
                 <li class="active">
                     <strong>Refunds</strong>

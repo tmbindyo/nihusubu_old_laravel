@@ -23,7 +23,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Unit Registration <small>Form</small></h5>
@@ -47,7 +47,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
                                         <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
@@ -55,9 +55,10 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea name="description" rows="5" class="select form-control input-lg" placeholder="Description"></textarea>
+                                        <textarea name="description" required rows="5" class="select form-control input-lg" placeholder="Description"></textarea>
+                                        <i>description</i>
                                     </div>
-                                    <br>
+
                                     <hr>
 
                                     <div class="text-center">

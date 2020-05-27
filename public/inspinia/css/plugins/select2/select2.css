@@ -27,7 +27,7 @@
     box-sizing: border-box;
     cursor: pointer;
     display: block;
-    min-height: 66px;
+    min-height: 44px;
     user-select: none;
     -webkit-user-select: none; }
     .select2-container .select2-selection--multiple .select2-selection__rendered {

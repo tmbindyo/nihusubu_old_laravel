@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Transfer Registration <small>Form</small></h5>
@@ -50,7 +50,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
                                         <input type="number" id="amount" name="amount" required="required" placeholder="Amount" class="form-control input-lg">
@@ -62,15 +62,15 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" id="date" class="form-control input-lg">
+                                            <input type="text" required="required" name="date" id="date" class="form-control input-lg" aria-required="true">
                                         </div>
                                         <i>What is the start date of the transfer?</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="source_account" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Source Account</option>
+                                        <select name="source_account" class="select2_source_account form-control input-lg" required>
+                                            <option></option>
                                             @foreach ($accounts as $sourceAccount)
                                                 <option value="{{$sourceAccount->id}}">{{$sourceAccount->name}} [{{$sourceAccount->balance}}]</option>
                                             @endforeach
@@ -79,8 +79,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="destination_account" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Destination Account</option>
+                                        <select name="destination_account" class="select2_destination_account form-control input-lg" required>
+                                            <option></option>
                                             @foreach ($accounts as $destinationAccount)
                                                 <option value="{{$destinationAccount->id}}">{{$destinationAccount->name}} [{{$destinationAccount->balance}}]</option>
                                             @endforeach
@@ -367,8 +367,12 @@
             placeholder: "Select Tags",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_source_account").select2({
+            placeholder: "Select Source Account",
+            allowClear: true
+        });
+        $(".select2_destination_account").select2({
+            placeholder: "Select Destination Account",
             allowClear: true
         });
 

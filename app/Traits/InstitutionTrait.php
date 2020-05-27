@@ -4,13 +4,11 @@ namespace App\Traits;
 
 use Auth;
 use App\Institution;
-use App\Traits\UserTrait;
 use App\UserAccount;
 
 trait InstitutionTrait
 {
 
-    use UserTrait;
 
     public function getInstitution($portal)
     {

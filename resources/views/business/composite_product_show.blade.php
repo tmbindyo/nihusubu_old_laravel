@@ -24,6 +24,7 @@
         </div>
         <div class="col-lg-2">
             <div class="title-action">
+                <a href="{{route('business.composite.product.edit',['portal'=>$institution->portal,'id'=>$compositeProduct->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-pencil"></i> Edit </a>
                 {{--  todo add item to composite products modal  --}}
                 {{--  <a href="#" data-toggle="modal" data-target="#compositeProductRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>  --}}
             </div>

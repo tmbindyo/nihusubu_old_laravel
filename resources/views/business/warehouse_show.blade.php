@@ -32,7 +32,7 @@
     <div class="wrapper wrapper-content animated fadeInRight">
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-md-12">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Warehouse Update <small>Form</small></h5>
@@ -200,19 +200,6 @@
                                         <dt>Created:</dt> <dd>{{$warehouse->created_at}}</dd>
                                     </dl>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <dl class="dl-horizontal">
-                                    <dt>Address:</dt>
-                                    <dd>
-                                        <address class="m-t-md">
-                                            {{$warehouse->address->town}}, {{$warehouse->address->street}}<br>
-                                            P. O. Box {{$warehouse->address->po_box}}, {{$warehouse->address->postal_code}}.<br>
-                                            <abbr title="Phone">P:</abbr> {{$warehouse->address->phone_number}}<br>
-                                            <abbr title="Email">E:</abbr> {{$warehouse->address->email}}
-                                        </address>
-                                    </dd>
-                                </dl>
                             </div>
                             {{--  <div class="row">
                                 <div class="col-lg-12">

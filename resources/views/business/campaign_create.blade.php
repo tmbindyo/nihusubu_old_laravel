@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Campaign Registration <small>Form</small></h5>
@@ -50,7 +50,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
                                         @if ($errors->has('name'))
@@ -128,7 +128,7 @@
                                         <select name="type" class="select2_demo_campaign_type form-control input-lg" required>
                                             <option></option>
                                             @foreach ($campaignTypes as $campaignType)
-                                                <option value="{{$campaignType->id}}">{{$campaignType->name}}</option>
+                                                <option @isset($campaignTypeExists) @if($campaignTypeExists->id == $campaignType->id) selected @endif @endisset() value="{{$campaignType->id}}">{{$campaignType->name}}</option>
                                             @endforeach
                                         </select>
                                         <i>campaign type</i>

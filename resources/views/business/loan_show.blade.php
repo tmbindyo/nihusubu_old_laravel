@@ -5,7 +5,7 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-7">
-            <h2>Loan's</h2>
+            <h2>Loan</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
@@ -31,7 +31,7 @@
     <div class="wrapper wrapper-content animated fadeInRight">
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Loan <small>edit</small></h5>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
+                            <div class="col-md-12">
                                 <form method="post" action="{{ route('business.loan.update',['portal'=>$institution->portal,'id'=>$loan->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 

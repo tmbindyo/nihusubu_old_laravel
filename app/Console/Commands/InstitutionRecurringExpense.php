@@ -53,7 +53,7 @@ class InstitutionRecurringExpense extends Command
         $institutions = Institution::where('is_active', True)->get();
         foreach ($institutions as $institution){
             // get institution frequencies
-            $frequencies = Frequency::where('is_institution',True)->where('institution_id',$institution->id)->get();
+            $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_institution',True)->where('institution_id',$institution->id)->get();
             foreach ($frequencies as $frequency){
 
                 $datesum = date('d-m-Y', strtotime($today.' + '.$frequency->frequency.' '.$frequency->type));

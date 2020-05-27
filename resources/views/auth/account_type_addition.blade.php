@@ -33,6 +33,7 @@
 
                 @endif
             @endforeach  --}}
+            <p><a target="_blank" href="{{route('terms.and.conditions')}}">Terms and Conditions</a></p>
             @if($personalUserAccount)
             @else
                 <a href="{{route('add.personal.account')}}" class="btn btn-primary block full-width">Add Personal Account</a>

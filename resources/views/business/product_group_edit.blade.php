@@ -54,7 +54,7 @@
 
                         {{--  Product  --}}
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 {{--  Product type  --}}
                                 <p>Product Type</p>
                                 <div class="radio radio-inline">
@@ -67,7 +67,8 @@
                                 </div>
 
                                 <br>
-                                <label>  </label>
+                                <br>
+
                                 {{--  Product group name  --}}
                                 <div class="has-warning">
                                     <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" value="{{$productGroup->name}}">
@@ -78,7 +79,6 @@
                                 <div class="row">
                                     <div class="col-md-11">
                                         <div class="has-warning">
-                                            <label>  </label>
                                             <select name="unit" class="select form-control input-lg" required>
                                                 <option value="" selected disabled>Select Unit</option>
                                                 @foreach($units as $unit)
@@ -89,7 +89,6 @@
                                         </div>
                                     </div>
                                     <div class="col-md-1">
-                                        <label></label>
                                         <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                     </div>
                                 </div>
@@ -108,6 +107,9 @@
                             </div>
                         </div>
                         <br>
+                        <hr>
+                        <br>
+                        <label>Description.</label>
                         {{--  Description  --}}
                         <textarea id="summernote" class="summernote" name="description">
                             {!! $productGroup->description!!}
@@ -319,7 +321,7 @@
 
                                 @foreach ($productGroup->products as $product)
                                     <tr class="gradeA">
-                                        <td><input type = 'text' class = 'form-control input-md' name = products[{{$itemIndex}}][name] value = "{{$product->name}}"</td>
+                                        <td><input type = 'text' class = 'form-control input-md' name = products[{{$itemIndex}}][name] value = "{{$product->name}}"></td>
                                         <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][opening_stock] value = "{{$product->opening_stock}}"></td>
                                         <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][opening_stock_value] value = "{{$product->opening_stock_value}}"></td>
                                         <td><input type = 'number' class = 'form-control input-md' name = products[{{$itemIndex}}][purchase_price] value = "{{$product->purchase_price}}"></td>

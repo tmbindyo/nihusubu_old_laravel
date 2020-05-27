@@ -33,20 +33,6 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Payments</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="ibox-content">
 
@@ -79,14 +65,10 @@
                                         <td>{{$payment->date}}</td>
                                         <td>{{$payment->account->name}}</td>
                                         <td>
-                                            @if($payment->is_order == 1)
-                                                <span class="label label-success">Order: {{$payment->order->reference}}</span>
-                                            @elseif($payment->is_quote == 1)
-                                                <span class="label label-success">Quote: {{$payment->quote->reference}}</span>
-                                            @elseif($payment->is_asset_action == 1)
-                                                <span class="label label-success">Asset Action: {{$payment->asset_action->reference}}</span>
-                                            @elseif($payment->is_loan == 1)
-                                                <span class="label label-success">Loan: {{$payment->loan->reference}}</span>
+                                            @if($payment->sale_id)
+                                                <span class="label label-success">Sale</span>
+                                            @elseif($payment->loan_id)
+                                                <span class="label label-success">Loan</span>
                                             @endif
                                         </td>
                                         <td>{{$payment->user->name}}</td>

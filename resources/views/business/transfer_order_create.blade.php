@@ -57,20 +57,21 @@
 
                         {{--  Product  --}}
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 {{--  Mode of adjustment  --}}
                                 <div class="has-warning" id="data_1">
-                                    <label class="font-noraml">Date</label>
                                     <div class="input-group date">
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i></span>
                                         <input type="text" name="date" id="date" class="form-control input-lg">
                                     </div>
+                                    <i>date</i>
                                 </div>
                                 <label>  </label>
                                 {{--  Reason  --}}
                                 <div class="has-warning">
-                                    <textarea rows="5" name="reason" class="select form-control input-lg" placeholder="Reason"></textarea>
+                                    <textarea rows="5" name="reason" required class="select form-control input-lg" placeholder="Reason"></textarea>
+                                    <i>description</i>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -81,7 +82,6 @@
                         <br>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>  </label>
                                 <div class="has-warning">
                                     <select onchange = "returnWarehouseDetails(this)" onfocus = "this.selectedIndex = 0" name="source_warehouse" class="chosen-select form-control input-lg">
                                         <option disabled>Select Source Warehouse</option>
@@ -89,10 +89,10 @@
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                         @endforeach
                                     </select>
+                                    <i>source warehouse</i>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label>  </label>
                                 <div class="has-warning">
                                     <select onchange = "destinationwarehouseSelected(this)" onfocus = "this.selectedIndex = 0" name="destination_warehouse" class="chosen-select form-control input-lg">
                                         <option disabled>Select Destination Warehouse</option>
@@ -100,14 +100,14 @@
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                         @endforeach
                                     </select>
+                                    <i>destination warehouse</i>
                                 </div>
                             </div>
                         </div>
                         <br>
-                        <hr>
                         <div class="row">
                             <div class="ibox-title">
-                                <h5>Border Table </h5>
+                                <h5>Transfer Details </h5>
                             </div>
                             <div class="ibox-content">
 
@@ -161,13 +161,9 @@
                                 <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                             </div>
                         </div>
+
                         <hr>
-                        <br>
 
-                        <div class="ln_solid"></div>
-
-                        <br>
-                        <br>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>
                         </div>

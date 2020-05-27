@@ -15,7 +15,7 @@
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id])}}">Account</a>
+                    <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$accountExists->id])}}">Account</a>
                 </li>
                 <li class="active">
                     <strong>Deposit Create</strong>
@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6 col-lg-offset-3">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Deposit Registration <small>Form</small></h5>
@@ -50,7 +50,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
                                         <input type="number" id="amount" name="amount" required="required" placeholder="Amount" class="form-control input-lg">
@@ -69,8 +69,11 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_demo_tag form-control input-lg">
-                                            <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                        <select name="account" class="select2_account form-control input-lg">
+                                            <option></option>
+                                            @foreach ($accounts as $account)
+                                                <option @isset($accountExists) @if($accountExists->id == $account->id) selected @endif @endisset value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                            @endforeach
                                         </select>
                                         <i>account</i>
                                     </div>
@@ -80,8 +83,6 @@
                                         <i>about deposit</i>
                                     </div>
 
-
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">
@@ -352,8 +353,8 @@
             placeholder: "Select Tags",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_account").select2({
+            placeholder: "Select Account",
             allowClear: true
         });
 

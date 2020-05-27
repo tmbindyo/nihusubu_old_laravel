@@ -27,8 +27,12 @@
         <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6 col-lg-offset-3">
                     <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Account Adjustment Registration <small>Form</small></h5>
+
+                        </div>
                         <div class="ibox-content">
 
                             <div class="">
@@ -54,14 +58,34 @@
                                                 <strong>{{ $errors->first('account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="account" class="select-2 form-control input-lg">
-                                            <option selected disabled>Select Account</option>
-                                            @foreach($accounts as $accountSelected)
-                                                <option @if($accountSelected->id == $account->id) selected @endif value="{{$accountSelected->id}}" >{{$accountSelected->name}}</option>
+                                        <select name="account" class="select2_account form-control input-lg">
+                                            <option></option>
+                                            @foreach ($accounts as $account)
+                                                <option @isset($depositExists) @if($depositExists->account_id == $account->id) selected @endif @endisset value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
                                             @endforeach
                                         </select>
                                         <i>account</i>
                                     </div>
+                                    <br>
+                                    @isset($depositExists)
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="has-warning">
+                                                    <select name="deposit" class="select2_deposit form-control input-lg">
+                                                        <option value="{{$depositExists->id}}" >{{$depositExists->reference}}[{{$depositExists->amount}}]</option>
+                                                    </select>
+                                                    <i> deposit.</i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="has-warning">
+                                                    <input type="checkbox" name="is_deposit" class="js-switch_3" aria-readonly="true" checked/>
+                                                    <br>
+                                                    <i>is deposit</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endisset
                                     <br>
                                     {{--  amount  --}}
                                     <div class="has-warning">
@@ -71,7 +95,7 @@
                                             </span>
                                         @endif
                                         <input type="number" name="amount" value="{{ old('amount') }}" id="amount" class="form-control input-lg" required>
-                                        <i> amount.</i>
+                                        <i> adjustment amount @isset($depositExists) [deposit amount ({{$depositExists->amount}})] @endisset.</i>
                                     </div>
                                     <br>
                                     {{--  adjustment date  --}}
@@ -86,7 +110,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </span>
-                                                <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" required">
+                                                <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" required>
                                             </div>
                                             <i> adjustment date.</i>
                                         </div>
@@ -99,7 +123,8 @@
                                                 <strong>{{ $errors->first('notes') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea name="notes" placeholder="Notes" class="form-control" rows="7">{{ old('notes') }}</textarea>
+                                        <textarea name="notes" placeholder="Notes" required class="form-control" rows="7">{{ old('notes') }}</textarea>
+                                        <i> notes.</i>
                                     </div>
                                     <br>
 
@@ -125,7 +150,6 @@
 
 @section('js')
 
-<<<<<<< HEAD
 
 
 <!-- Mainly scripts -->
@@ -190,14 +214,6 @@
 <!-- TouchSpin -->
 <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
-=======
->>>>>>> 12aa099ef6da5b92d4704c714a00dde49b2c2307
-<script>
-    $(document).ready(function() {
-        $('.select-2').select2();
-    });
-</script>
-
 {{--  Get due date to populate   --}}
 <script>
     $(document).ready(function() {
@@ -230,6 +246,14 @@
 <script>
     $(document).ready(function(){
 
+        $(".select2_account").select2({
+            placeholder: "Select Account",
+            allowClear: true
+        });
+        $(".select2_deposit").select2({
+            placeholder: "Select Deposit",
+            allowClear: true
+        });
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
@@ -269,6 +293,9 @@
             forceParse: false,
             autoclose: true
         });
+
+        var elem_3 = document.querySelector('.js-switch_3');
+        var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
 
 
 

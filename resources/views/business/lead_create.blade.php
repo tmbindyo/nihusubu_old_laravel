@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Lead Registration <small>Form</small></h5>
@@ -60,7 +60,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="has-warning">
-                                            <select required="required" name="title" class="select2_demo_title form-control input-lg">
+                                            <select required="required" name="title" class="select2_title form-control input-lg" aria-required="true">
                                                 <option></option>
                                                 @foreach($titles as $title)
                                                     <option value="{{$title->id}}">{{$title->name}}</option>
@@ -105,7 +105,7 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <select name="organization" class="select2_demo_organization form-control input-lg">
+                                        <select name="organization" class="select2_organization form-control input-lg">
                                             <option></option>
                                             @foreach($organizations as $organization)
                                                 <option value="{{$organization->id}}">{{$organization->name}}</option>
@@ -116,7 +116,7 @@
 
                                     <div class="col-md-6">
                                         <div class="has-warning">
-                                            <select required="required" name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple>
+                                            <select required="required" name="contact_types[]" class="select2_contact_type form-control input-lg" multiple>
                                                 <option></option>
                                                 @foreach($contactTypes as $contactType)
                                                     <option value="{{$contactType->id}}">{{$contactType->name}}</option>
@@ -129,7 +129,7 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <select required="required" name="lead_source" class="select2_demo_lead_source form-control input-lg">
+                                        <select required="required" name="lead_source" class="select2_lead_source form-control input-lg">
                                             <option></option>
                                             @foreach($leadSources as $leadSource)
                                                 <option value="{{$leadSource->id}}">{{$leadSource->name}}</option>
@@ -140,7 +140,7 @@
 
                                     <div class="col-md-6">
                                         <div class="has-warning">
-                                            <select name="campaign" class="select2_demo_campaign form-control input-lg">
+                                            <select name="campaign" class="select2_campaign form-control input-lg">
                                                 <option></option>
                                                 @foreach($campaigns as $campaign)
                                                     <option value="{{$campaign->id}}">{{$campaign->name}}</option>
@@ -158,7 +158,6 @@
                                         </div>
                                     </div>
 
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">
@@ -394,26 +393,34 @@
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         });
 
-        $(".select2_demo_1").select2();
-        $(".select2_demo_2").select2();
-        $(".select2_demo_title").select2({
+        $(".select2_1").select2();
+        $(".select2_2").select2();
+        $(".select2_title").select2({
             placeholder: "Select Title",
             allowClear: true
         });
-        $(".select2_demo_organization").select2({
+        $(".select2_organization").select2({
             placeholder: "Select Organization",
             allowClear: true
         });
-        $(".select2_demo_contact_type").select2({
+        $(".select2_contact_type").select2({
             placeholder: "Select Contact Types",
             allowClear: true
         });
-        $(".select2_demo_lead_source").select2({
+        $(".select2_lead_source").select2({
             placeholder: "Select Lead Source",
             allowClear: true
         });
-        $(".select2_demo_campaign").select2({
+        $(".select2_campaign").select2({
             placeholder: "Select Campaign",
+            allowClear: true
+        });
+        $(".select2_organization").select2({
+            placeholder: "Select Organization",
+            allowClear: true
+        });
+        $(".select2_title").select2({
+            placeholder: "Select Title",
             allowClear: true
         });
 

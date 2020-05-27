@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Payment Registration <small>Form</small></h5>
@@ -36,7 +36,7 @@
                     <div class="ibox-content">
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-lg-12">
                                 <form method="post" action="{{ route('business.payment.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
@@ -50,7 +50,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
                                         <input type="number" id="amount" name="amount" required="required" value="{{$loan->balance}}" class="form-control input-lg">
@@ -69,8 +69,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Account</option>
+                                        <select name="account" class="select2_account form-control input-lg">
+                                            <option></option>
                                             @foreach ($accounts as $account)
                                                 <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
                                             @endforeach
@@ -95,7 +95,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="has-warning">
-                                                <select name="loan" class="select2_demo_tag form-control input-lg">
+                                                <select name="loan" class="select2_loan form-control input-lg">
                                                     <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
                                                 </select>
                                                 <i>loan</i>
@@ -378,8 +378,13 @@
             placeholder: "Select Tags",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_loan").select2({
+            placeholder: "Select Loan",
+            allowClear: true
+        });
+
+        $(".select2_account").select2({
+            placeholder: "Select Account",
             allowClear: true
         });
 

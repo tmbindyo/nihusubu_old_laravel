@@ -24,15 +24,15 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Contact type <small>edit</small></h5>
+                        <h5>Title <small>edit</small></h5>
 
                     </div>
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-sm-8 col-md-offset-2">
+                            <div class="col-sm-12">
                                 <p>Edit.</p>
                                 <form method="post" action="{{ route('business.title.update',['portal'=>$institution->portal,'id'=>$title->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
@@ -51,7 +51,7 @@
                                         <input type="name" name="name" value="{{$title->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
-                                    <br>
+                                    <hr>
                                     <div>
                                         <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>Update</strong></button>
                                     </div>

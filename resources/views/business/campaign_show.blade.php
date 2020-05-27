@@ -1,6 +1,6 @@
 @extends('business.layouts.app')
 
-@section('title', 'Campaign Create')
+@section('title', 'Campaign')
 
 @section('content')
 
@@ -34,10 +34,10 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Campaign Registration <small>Form</small></h5>
+                        <h5>Campaign <small>Form</small></h5>
 
                     </div>
 

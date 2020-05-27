@@ -296,9 +296,9 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // get frequencies
-        $frequencies = Frequency::with('user')->where('user_id',$user->id)->where('is_user',true)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->with('user')->where('user_id',$user->id)->where('is_user',true)->get();
         // get deleted frequencies
-        $deletedFrequencies = Frequency::with('user')->where('user_id',$user->id)->where('is_user',true)->onlyTrashed()->get();
+        $deletedFrequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->with('user')->where('user_id',$user->id)->where('is_user',true)->onlyTrashed()->get();
         return view('personal.frequencies',compact('frequencies','user','deletedFrequencies'));
     }
 

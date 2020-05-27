@@ -57,7 +57,7 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution taxes
-        $taxes = Tax::where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get institution units
         $units = Unit::where('institution_id',$institution->id)->get();
         // Get institution accounts
@@ -71,10 +71,13 @@ class ProductController extends Controller
     public function productGroupStore(Request $request, $portal)
     {
 
+
         // User
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
+
+        // check if there are warehouses
 
         // Convert array to string
         $attributes = implode(' ', array_values($request->attribute));
@@ -91,6 +94,12 @@ class ProductController extends Controller
             $productGroup->is_service = True;
         }else{
             $productGroup->is_service = False;
+
+            $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
+            if(!$warehouse){
+                return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
+            }
+
         }
         $productGroup->name = $request->product_name;
         $productGroup->description = $request->description;
@@ -189,7 +198,7 @@ class ProductController extends Controller
 
                 // todo create stock tables for product
                 // Get primary warehouse
-                $warehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',True)->first();
+                $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',True)->first();
 
                 // create inventory record
                 $inventory = new Inventory();
@@ -264,7 +273,7 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution taxes
-        $taxes = Tax::where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get institution units
         $units = Unit::where('institution_id',$institution->id)->get();
         // Get institution accounts
@@ -282,7 +291,7 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution taxes
-        $taxes = Tax::where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get institution units
         $units = Unit::where('institution_id',$institution->id)->get();
         // Get institution accounts
@@ -448,7 +457,7 @@ class ProductController extends Controller
 
                     // todo create stock tables for product
                     // Get primary warehouse
-                    $warehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',True)->first();
+                    $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',True)->first();
 
                     // create inventory record
                     $inventory = new Inventory();
@@ -580,7 +589,7 @@ class ProductController extends Controller
 
                     // todo create stock tables for product
                     // Get primary warehouse
-                    $warehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',True)->first();
+                    $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',True)->first();
 
                     // create inventory record
                     $inventory = new Inventory();
@@ -695,9 +704,9 @@ class ProductController extends Controller
         $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution',true)->where('account_type_id','b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('account_type')->get();
         $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution',true)->where('account_type_id','ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('account_type')->get();
         $stockAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution',true)->where('account_type_id','4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('account_type')->get();
-        // $accounts = Account::where('institution_id',$institution->id)->get();
+        // $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get institution taxes
-        $taxes = Tax::where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
 
         return view('business.product_create',compact('user','units','taxes','salesAccounts','expenseAccounts','costOfGoodsSoldAccounts','stockAccounts','institution'));
     }
@@ -715,6 +724,10 @@ class ProductController extends Controller
             $product->is_service = True;
         }else{
             $product->is_service = False;
+            $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
+            if(!$warehouse){
+                return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
+            }
         }
 
         $product->name = $request->name;
@@ -755,7 +768,7 @@ class ProductController extends Controller
 
             // todo create stock tables for product
             // Get primary warehouse
-            $warehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',True)->first();
+            $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',True)->first();
 
             // create inventory record
             $inventory = new Inventory();
@@ -847,7 +860,7 @@ class ProductController extends Controller
         // Check if exists
         $product = Product::findOrFail($product_id);
         // Get institution taxes
-        $taxes = Tax::where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get institution units
         $units = Unit::where('institution_id',$institution->id)->get();
         // Get institution accounts
@@ -914,7 +927,7 @@ class ProductController extends Controller
 
         // todo create stock tables for product
         // Get primary warehouse
-        $warehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',True)->first();
+        $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',True)->first();
 
         // todo, it refactors it to the value put here which will erare the current stock value
         // create inventory
@@ -1026,7 +1039,7 @@ class ProductController extends Controller
         // Get institution accounts
         $salesAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution',true)->where('account_type_id','798077ba-ae21-4df0-8079-5a7c82afd90e')->with('account_type')->get();
         // Get institution taxes
-        $taxes = Tax::where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Products
         $products = Product::where('institution_id',$institution->id)->get();
 
@@ -1049,6 +1062,10 @@ class ProductController extends Controller
             $product->is_service = True;
         }else{
             $product->is_service = False;
+            $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
+            if(!$warehouse){
+                return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
+            }
         }
         if ($request->is_returnable == "on"){
             $product->is_returnable = True;
@@ -1122,7 +1139,7 @@ class ProductController extends Controller
         // Get institution accounts
         $salesAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('account_type_id','798077ba-ae21-4df0-8079-5a7c82afd90e')->with('account_type')->get();
         // Get institution taxes
-        $taxes = Tax::where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Products
         $products = Product::where('institution_id',$institution->id)->get();
         // check if exists

@@ -21,7 +21,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.contact.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact</a>
+                <a href="{{route('business.contact.type.contact.create',['portal'=>$institution->portal,'id'=>$contactType->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact</a>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Contact type <small>edit</small></h5>
@@ -37,8 +37,7 @@
                     </div>
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-sm-8 col-md-offset-2">
-                                <p>Edit.</p>
+                            <div class="col-sm-12">
                                 <form method="post" action="{{ route('business.contact.type.update',['portal'=>$institution->portal,'id'=>$contactType->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
@@ -56,7 +55,7 @@
                                         <input type="name" name="name" value="{{$contactType->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
-                                    <br>
+                                    <hr>
                                     <div>
                                         <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>Update</strong></button>
                                     </div>

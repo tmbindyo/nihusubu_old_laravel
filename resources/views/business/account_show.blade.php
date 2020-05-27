@@ -36,7 +36,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-6">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Account <small>edit</small></h5>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-sm-8 col-md-offset-2">
+                            <div class="col-sm-12">
                                 <form method="post" action="{{ route('business.account.update',['portal'=>$institution->portal,'id'=>$account->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
@@ -59,28 +59,28 @@
                                     @endif
 
 
-                                    <div class="row">
+                                    <div class="">
                                         <div class="has-warning">
                                             <input type="name" name="name" value="{{$account->name}}" class="form-control input-lg">
                                         </div>
                                         <i>name</i>
                                     </div>
                                     <br>
-                                    <div class="row">
+                                    <div class="">
                                         <div class="has-warning">
                                             <input type="number" name="balance" value="{{$account->balance}}" class="form-control input-lg" readonly>
                                         </div>
                                         <i>balance</i>
                                     </div>
                                     <br>
-                                    <div class="row">
+                                    <div class="">
                                         <div class="has-warning">
                                             <textarea rows="5" name="notes" class="form-control input-lg" >{{$account->notes}}</textarea>
                                         </div>
                                         <i>notes</i>
                                     </div>
                                     <br>
-
+                                    <hr>
                                     <div>
                                         <button class="btn btn-primary btn-block btn-lg m-t-n-xs" type="submit"><strong>Update</strong></button>
                                     </div>
@@ -88,14 +88,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="wrapper wrapper-content project-manager">
-                    <h4>Acount description</h4>
-                    <p class="small">
-                        {{$account->notes}}
-                    </p>
                 </div>
             </div>
         </div>

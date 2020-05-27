@@ -63,8 +63,10 @@
                                             </td>
                                             <td>{{$inventoryAdjustment->inventory_adjustment_number}}</td>
                                             <td>
-                                                @if($inventoryAdjustment->is_value_adjustment==1) Value
-                                                @else Quantity
+                                                @if($inventoryAdjustment->is_value_adjustment==1)
+                                                    Value
+                                                @else
+                                                    Quantity
                                                 @endif
                                             </td>
                                             <td>{{$inventoryAdjustment->user->name}}</td>

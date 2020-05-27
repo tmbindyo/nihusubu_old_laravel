@@ -5,7 +5,7 @@
                 <div class="dropdown profile-element">
                     <span>
                         <img alt="image" class="img-circle" src="{{ asset('inspinia') }}/img/profile_small.jpg" />
-                    </span>                    
+                    </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                             <span class="block m-t-xs">
@@ -51,12 +51,12 @@
                 <a href="{{ route('business.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li> --}}
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar',$institution->portal ) ?  'active' : '' }}">
-               <a href="{{ route('business.calendar',$institution->portal) }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>
-            </li>
-
             <li class="nav-item {{ Route::currentRouteNamed( 'business.to.dos',$institution->portal ) ?  'active' : '' }}">
                 <a href="{{ route('business.to.dos',$institution->portal) }}"><i class="fa fa-list"></i> <span class="nav-label">To Do </span></a>
+            </li>
+
+            <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar',$institution->portal ) ?  'active' : '' }}">
+               <a href="{{ route('business.calendar',$institution->portal) }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>
             </li>
 
             <li>
@@ -250,6 +250,12 @@
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.lead.sources',$institution->portal ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'business.lead.sources',$institution->portal)}}">
                             Lead source
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'business.taxes',$institution->portal ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'business.taxes',$institution->portal)}}">
+                            Taxes
                         </a>
                     </li>
 

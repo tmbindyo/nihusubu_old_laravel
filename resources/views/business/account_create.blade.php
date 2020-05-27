@@ -23,7 +23,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6 col-lg-offset-3">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Account Registration <small>Form</small></h5>
@@ -47,7 +47,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
                                         @if ($errors->has('name'))
@@ -55,8 +55,8 @@
                                                 <strong>{{ $errors->first('name') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="text" id="name" name="name" required="required" value="{{ old('name') }}" placeholder="Account Name" class="form-control input-lg">
-                                        <i>account name</i>
+                                        <input type="text" id="name" name="name" required="required" value="{{ old('name') }}" placeholder="Name" class="form-control input-lg">
+                                        <i>name</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
@@ -65,8 +65,8 @@
                                                 <strong>{{ $errors->first('balance') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="balance" name="balance" required="required" value="{{ old('balance') }}" placeholder="Account Balance" class="form-control input-lg">
-                                        <i>account balance</i>
+                                        <input type="number" id="balance" name="balance" required="required" value="{{ old('balance') }}" placeholder="Balance" class="form-control input-lg">
+                                        <i>balance</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">

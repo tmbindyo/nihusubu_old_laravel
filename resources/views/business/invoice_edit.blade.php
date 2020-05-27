@@ -6,7 +6,7 @@
 
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>Invoices</h2>
+                <h2>Invoice Edit</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
@@ -18,7 +18,7 @@
                         <a href="{{route('business.invoices',$institution->portal)}}">Invoices</a>
                     </li>
                     <li class="active">
-                        <strong>Invoice Create</strong>
+                        <strong>Invoice Edit</strong>
                     </li>
                 </ol>
             </div>
@@ -52,8 +52,8 @@
                                         <div class="col-md-12">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="contact" class="select2_demo_3 form-control input-lg">
-                                                    <option selected disabled>Select Customer</option>
+                                                <select name="contact" class="select2_contact form-control input-lg">
+                                                    <option></option>
                                                     @foreach($contacts as $contact)
                                                         <option @if($contact->id == $invoice->contact_id)selected @endif value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
                                                     @endforeach
@@ -62,7 +62,7 @@
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="has-warning">
+                                                    <div class="has-warning" id="data_1">
                                                         <div class="input-group date">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
@@ -73,7 +73,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="has-warning">
+                                                    <div class="has-warning" id="data_1">
                                                         <div class="input-group date">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
@@ -89,7 +89,7 @@
                                     <br>
                                     <hr>
                                     {{--table--}}
-                                    <div class="row">
+                                    <div class="">
                                         <table class="table table-bordered" id = "invoice_table">
                                             <thead>
                                             <tr>
@@ -139,61 +139,24 @@
                                         </table>
                                         <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                                     </div>
-
+                                    <hr>
                                     {{--sub totals--}}
                                     <div class="row">
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <label>Sub Total</label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input name="subtotal" type = "number" class="pull-right form-control" id = "items-subtotal" readonly value="{{$invoice->subtotal}}">
-                                            </div>
+                                        <div class="col-md-4">
+                                            <input name="subtotal" type = "number" class="pull-right form-control input-lg" id = "items-subtotal" readonly value="{{$invoice->subtotal}}">
+                                            <i>sub Total</i>
                                         </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-1 col-md-offset-5">
-                                                <label>Adjustment</label>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value" value = "{{$invoice->discount}}">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <p class="pull-right" id = "adjustment-text">0</p>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control input-lg" id = "adjustment-value" value = "{{$invoice->discount}}">
+                                            <i>adjustment</i>
                                         </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <p>Total ()</p>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control" value = "{{$invoice->total}}" readonly>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control input-lg" value = "{{$invoice->total}}" readonly>
+                                            <i>grand total</i>
                                         </div>
                                     </div>
-                                    <hr>
-                                    <br>
 
-                                    <div class="ln_solid"></div>
 
-                                    <br>
-                                    {{--attachments--}}
-                                    <div class="row">
-                                        <div class="col-md-6 col-md-offset-1">
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_draft" name="is_draft" type="checkbox">
-                                                <label for="is_draft">
-                                                    Save As Draft
-                                                </label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Check this option if you want to save this as a draft for further editing." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
-
-                                        </div>
-                                    </div>
                                     <hr>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>
@@ -234,9 +197,17 @@
 <!-- Image cropper -->
 <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
 
+<!-- Select2 -->
+<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
 <script>
     $(document).ready(function(){
 
+
+        $(".select2_contact").select2({
+            placeholder: "Select Contact",
+            allowClear: true
+        });
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
@@ -444,7 +415,7 @@
         } else {
             adjustedValue = adjustedValueInputValue;
         };
-        document.getElementById("adjustment-text").innerHTML = adjustedValue;
+        document.getElementById("adjustment-value").innerHTML = adjustedValue;
         var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
         document.getElementById("grand-total").value = adjustedTotal;
     };

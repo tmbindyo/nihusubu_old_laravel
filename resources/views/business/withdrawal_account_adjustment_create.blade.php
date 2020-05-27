@@ -12,10 +12,13 @@
                         <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.orders',$institution->portal)}}">Orders</a>
+                        <a href="{{route('business.accounts',$institution->portal)}}">Accounts</a>
                     </li>
                     <li>
-                        <a href="{{route('business.expenses',$institution->portal)}}">Account Adjustments</a>
+                        <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id])}}">Account</a>
+                    </li>
+                    <li>
+                        <a href="{{route('business.withdrawal.show',['portal'=>$institution->portal,'id'=>$withdrawal->id])}}">Withdrawal</a>
                     </li>
                     <li class="active">
                         <strong>Account Adjustment Create</strong>
@@ -27,8 +30,12 @@
         <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-8 col-lg-offset-2">
                     <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Withdrawal Account Adjustment <small>Form</small></h5>
+
+                        </div>
                         <div class="ibox-content">
 
                             <div class="">
@@ -48,10 +55,10 @@
                                     <br>
                                     {{--  accounts  --}}
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-12">
                                             <div class="has-warning">
-                                                <select name="account" class="select-2 form-control input-lg">
-                                                    <option selected disabled>Select Account</option>
+                                                <select name="account" class="select2_account form-control input-lg">
+                                                    <option></option>
                                                     @foreach($accounts as $accountSelected)
                                                         <option @if($accountSelected->id == $account->id) selected @endif value="{{$accountSelected->id}}" >{{$accountSelected->name}}[{{$accountSelected->balance}}]</option>
                                                     @endforeach
@@ -63,15 +70,15 @@
                                     <br>
                                     {{--  withdrawal  --}}
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-10">
                                             <div class="has-warning">
-                                                <select name="withdrawal" class="select-2 form-control input-lg">
+                                                <select name="withdrawal" class="select2_withdrawal form-control input-lg">
                                                     <option value="{{$withdrawal->id}}" >{{$withdrawal->reference}}[{{$withdrawal->amount}}]</option>
                                                 </select>
                                                 <i> withdrawal.</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <div class="has-warning">
                                                 <input type="checkbox" name="is_withdrawal" class="js-switch_3" checked/>
                                                 <br>
@@ -84,7 +91,7 @@
                                         <div class="col-md-12">
                                             <br>
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
                                                     <div class="has-warning">
                                                         <input type="number" name="amount" id="amount" class="form-control input-lg" required>
                                                         <i> amount ({{$withdrawal->amount}}).</i>
@@ -97,7 +104,8 @@
                                         <div class="col-md-12">
                                             <br>
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
+
                                                     <div class="has-warning" id="data_1">
                                                         <div class="input-group date">
                                                             <span class="input-group-addon">
@@ -112,14 +120,12 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="has-warning">
-                                                <textarea name="notes" placeholder="Notes" class="form-control" rows="7"></textarea>
-                                                <i> notes.</i>
-                                            </div>
-                                        </div>
+
+                                    <div class="has-warning">
+                                        <textarea name="notes" placeholder="Notes" class="form-control" rows="7"></textarea>
+                                        <i> notes.</i>
                                     </div>
+
 
                                     <br>
 
@@ -274,12 +280,6 @@
         });
 
     </script>
-
-<script>
-    $(document).ready(function() {
-        $('.select-2').select2();
-    });
-</script>
 
 
 <script>
@@ -454,12 +454,12 @@
             placeholder: "Select Tags",
             allowClear: true
         });
-        $(".select2_demo_design").select2({
-            placeholder: "Select Project",
+        $(".select2_account").select2({
+            placeholder: "Select Account",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_withdrawal").select2({
+            placeholder: "Select Withdrawal",
             allowClear: true
         });
 

@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2 col-md-12">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Payment Registration <small>Form</small></h5>
@@ -50,7 +50,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
                                         <input type="number" id="amount" name="amount" required="required" value="{{$sale->total}}" class="form-control input-lg">
@@ -69,8 +69,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Account</option>
+                                        <select name="account" class="select2_account form-control input-lg" required>
+                                            <option></option>
                                             @foreach ($accounts as $account)
                                                 <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
                                             @endforeach
@@ -379,6 +379,10 @@
         });
         $(".select2_demo_category").select2({
             placeholder: "Select Categories",
+            allowClear: true
+        });
+        $(".select2_account").select2({
+            placeholder: "Select Account",
             allowClear: true
         });
 

@@ -1,24 +1,21 @@
 @extends('business.layouts.app')
 
-@section('title', 'Organization Create')
+@section('title', 'Tax Create')
 
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Organization's</h2>
+            <h2>Tax's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
-                <li>
-                    CRM
+                <li class="active">
+                    <a href="{{route('business.taxes',$institution->portal)}}">Tax's</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.organizations',$institution->portal)}}">Organization's</a>
-                </li>
-                <li class="active">
-                    <strong>Organization Create</strong>
+                    <strong>Tax Create</strong>
                 </li>
             </ol>
         </div>
@@ -26,10 +23,10 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2 col-md-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Organization Registration <small>Form</small></h5>
+                        <h5>Tax Registration <small>Form</small></h5>
 
                     </div>
 
@@ -37,7 +34,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.organization.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.tax.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -52,123 +49,25 @@
 
                                 <div class="col-md-12">
                                     <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                @if ($errors->has('name'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('name') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <input type="text" id="name" name="name" value="{{ old('name') }}" required="required" placeholder="Name" class="form-control input-lg">
-                                                <i>name</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                @if ($errors->has('phone_number'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('phone_number') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required="required" placeholder="Phone Number" class="form-control input-lg">
-                                                <i>phone number</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                @if ($errors->has('email'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('email') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <input type="email" id="email" name="email" value="{{ old('email') }}" required="required" placeholder="Email" class="form-control input-lg">
-                                                <i>email</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                @if ($errors->has('website'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('website') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <input type="url" id="website" name="website" value="{{ old('website') }}" required="required" placeholder="Website" class="form-control input-lg">
-                                                <i>website</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                @if ($errors->has('campaign'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('campaign') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <select name="campaign" class="select2_demo_parent_organization form-control input-lg">
-                                                    <option value="{{$campaign->id}}">{{$campaign->name}}</option>
-                                                </select>
-                                                <i>campaign</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                @if ($errors->has('organization'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('organization') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg">
-                                                    <option></option>
-                                                    @foreach ($organizations as $organization)
-                                                        <option value="{{$organization->id}}">{{$organization->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <i>parent organization</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                @if ($errors->has('street'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('street') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <input type="text" id="street" name="street" value="{{ old('street') }}" required="required" placeholder="Street" class="form-control input-lg">
-                                                <i>street</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                @if ($errors->has('city'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('city') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <input type="text" id="city" name="city" value="{{ old('city') }}" required="required" placeholder="City" class="form-control input-lg">
-                                                <i>city</i>
-                                            </div>
-                                        </div>
+                                    {{--  Product returnable  --}}
+                                    <div class="checkbox">
+                                        <input id="is_percentage" name="is_percentage" type="checkbox">
+                                        <label for="is_percentage">
+                                            percentage
+                                        </label>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the tax charged is a percentage of the price." class="fa fa-2x fa-question-circle"></i></span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        @if ($errors->has('description'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('description') }}</strong>
-                                            </span>
-                                        @endif
-                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Description" class="form-control input-lg">{{ old('description') }}</textarea>
-                                        <i>description</i>
+                                        <input type="text" id="name" name="name" required placeholder="Name" class="form-control input-lg">
+                                        <i>name</i>
                                     </div>
                                     <br>
+                                    <div class="has-warning">
+                                        <input type="number" name="amount" class="select form-control input-lg" placeholder="Amount" required>
+                                        <i>amount</i>
+                                    </div>
+
                                     <hr>
 
                                     <div class="text-center">
@@ -406,19 +305,14 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_organization_type").select2({
-            placeholder: "Select Organization Type",
+        $(".select2_demo_tag").select2({
+            placeholder: "Select Tags",
             allowClear: true
         });
-        $(".select2_demo_parent_organization").select2({
-            placeholder: "Select Parent Organization",
+        $(".select2_demo_category").select2({
+            placeholder: "Select Categories",
             allowClear: true
         });
-        $(".select2_demo_campaign").select2({
-            placeholder: "Select Campaign",
-            allowClear: true
-        });
-
 
 
     });

@@ -34,25 +34,14 @@
             <div class="col-sm-6 text-right">
                 <h4>Sale No.</h4>
                 <h4 class="text-navy">{{$sale->reference}}</h4>
-                <span>To:</span>
-                {{-- @if($sale->contact->organization == null) --}}
-                    {{--  if not business  --}}
-                    {{-- <address>
-                        <strong>{{$sale->contact->first_name}} {{$sale->contact->last_name}}</strong><br>
-                        112 Street Avenu, 1080<br>
-                        Miami, CT 445611<br>
-                        <abbr title="Phone">P:</abbr> {{$sale->contact->phone_number}}
-                    </address> --}}
-
-                {{-- @else --}}
-                    {{--  if business  --}}
-                    {{-- <address>
-                        <strong>{{$sale->contact->name}}</strong><br>
-                        112 Street Avenu, 1080<br>
-                        Miami, CT 445611<br>
-                        <abbr title="Phone">P:</abbr> {{$sale->contact->organization->phone_number}}
-                    </address> --}}
-                {{-- @endif --}}
+                @if($sale->contact)
+                    <span>To:</span>
+                    <address>
+                        <strong>{{$sale->contact->last_name}} {{$sale->contact->first_name}}</strong><br>
+                        <abbr title="Phone">P:</abbr> {{$sale->contact->phone_number}}<br>
+                        <abbr title="Email">E:</abbr> {{$sale->contact->email}}
+                    </address>
+                @endif
                 <p>
                     <span><strong>Sale Date:</strong> {{$sale->date}} </span><br/>
                     <span><strong>Due Date:</strong> {{$sale->due_date}}</span>
@@ -76,11 +65,11 @@
                         <td>
                             <div>
                                 <strong>
-                                    {{$product->product->name}}
+                                    {!! $product->product->name !!}
                                 </strong>
                             </div>
                         <small>
-                            {!! $product->product->description !!}
+{{--                            {!! $product->product->description !!}--}}
                         </small>
                         </td>
                         <td>{{$product->quantity}}</td>
@@ -93,7 +82,7 @@
             </table>
         </div><!-- /table-responsive -->
 
-        <table class="table sale-total">
+        <table class="table invoice-total">
             <tbody>
             <tr>
                 <td><strong>Sub Total :</strong></td>

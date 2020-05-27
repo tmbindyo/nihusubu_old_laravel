@@ -24,6 +24,12 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
+                @if($payment->loan_id)
+                    <a href="{{route('business.loan.show',['portal'=>$institution->portal,'id'=>$payment->loan_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Loan </a>
+                @endif
+                @if($payment->sale_id)
+                    <a href="{{route('business.sale.show',['portal'=>$institution->portal,'id'=>$payment->sale_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
+                @endif
                 <a href="{{route('business.payment.refund.create',['portal'=>$institution->portal,'id'=>$payment->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Refund </a>
             </div>
         </div>
@@ -31,7 +37,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Payment Registration <small>Form</small></h5>
@@ -85,7 +91,6 @@
                                         <i>notes</i>
                                     </div>
 
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">
