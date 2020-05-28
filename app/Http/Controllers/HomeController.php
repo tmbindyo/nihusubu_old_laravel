@@ -89,7 +89,7 @@ class HomeController extends Controller
         $user = Auth::user();
         // get user accountsupdate user_accounts set
         $userAccounts = UserAccount::where('user_id',$user->id)->with('institution','user_type')->get();
-        return view('auth.lockscreen',compact('userAccounts'));
+        return view('auth.lockscreen',compact('userAccounts','user'));
     }
 
     public function activateUserAccount($user_account_id)
