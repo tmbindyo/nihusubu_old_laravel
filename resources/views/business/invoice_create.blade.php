@@ -102,7 +102,7 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_demo_3 form-control input-lg item-select">
+                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="chosen-select form-control input-lg item-select">
                                                         <option selected disabled>Select Item</option>
                                                         @foreach($products as $product)
                                                             @if($product->is_service == 0)
@@ -218,9 +218,11 @@
 <!-- Image cropper -->
 <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
 
+<!-- Chosen -->
+<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
+
 <script>
     $(document).ready(function(){
-
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
@@ -261,7 +263,12 @@
             autoclose: true
         });
 
-
+        $(".chosen-select").chosen({
+            width: "100%",
+            no_results_text:"Oops, nothing found!",
+            allow_single_deselect:true,
+            disable_search_threshold:10
+        });
 
     });
 
@@ -362,7 +369,7 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_demo_3 form-control input-lg item-select'>"+
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='chosen-select form-control input-lg item-select'>"+
                                 "<option selected disabled>Select Item</option>"+
                                 "@foreach($products as $product)"+
                                 "@if($product->is_service == 0)"+
@@ -380,6 +387,13 @@
         fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
         fifthCell.setAttribute("style", "width: 1em;")
         tableValueArrayIndex++;
+
+        $(".chosen-select").chosen({
+            width: "100%",
+            no_results_text:"Oops, nothing found!",
+            allow_single_deselect:true,
+            disable_search_threshold:10
+        });
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;
