@@ -237,8 +237,8 @@
                                             <strong>{{ $errors->first('business_name') }}</strong>
                                         </span>
                                     @endif
-                                    <label>Name *</label>
-                                    <input id="business_name" name="business_name" placeholder="{{ __('Business name') }}" value="{{ old('business_name') }}" type="text" class="form-control {{ $errors->has('business_name') ? ' is-invalid' : '' }} input-lg required">
+                                    <label>Business Name *</label>
+                                    <input id="business_name" name="business_name" placeholder="{{ __('Business name') }}" value="{{ old('business_name') }}" type="text" class="form-control {{ $errors->has('business_name') ? ' is-invalid' : '' }} input-lg required" onchange = "businessNameChange(this)">
                                 </div>
                                 <div class="form-group">
                                     @if ($errors->has('portal'))
@@ -469,17 +469,26 @@
                     form.submit();
                 }
             }).validate({
-                        errorPlacement: function (error, element)
-                        {
-                            element.before(error);
-                        },
-                        rules: {
-                            password_confirmation: {
-                                equalTo: "#password"
-                            }
-                        }
-                    });
+                errorPlacement: function (error, element)
+                {
+                    element.before(error);
+                },
+                rules: {
+                    password_confirmation: {
+                        equalTo: "#password"
+                    }
+                }
+            });
        });
+
+       // Automatically generate the business portal value based on the business name set
+       function businessNameChange (e) {
+            var businessName = e.value;
+            var portalUrl = businessName.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '').split(" ").join("-").toLowerCase()
+
+            var portalInputField = document.getElementById("portal");
+            portalInputField.value = portalUrl;
+       };
     </script>
 </body>
 
