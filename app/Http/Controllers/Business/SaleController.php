@@ -130,38 +130,45 @@ class SaleController extends Controller
 
         // Estimate products
         foreach ($request->item_details as $item) {
-            $data = $item['item'];
-            if (strpos($data, ':') !== false){
-                list($product_id, $inventory_id,) = explode(":", $data);
-                $warehouse_id = Inventory::where('id',$inventory_id)->first()->warehouse_id;
-            }else{
-                $product_id = $data;
-                $warehouse_id = '';
-            }
-
-            // Check if product has taxes
-            $taxes = ProductTax::where('product_id',$product_id)->with('tax')->get();
-            if ($taxes){
-                foreach ($taxes as $product_tax){
-                    $product_tax_value = doubleval($product_tax->tax->amount) * 0.01 * $item['amount'];
-                    $tax = doubleval($tax) + doubleval($product_tax_value);
+            if (isset($item["item"])){
+                $data = $item['item'];
+                if (strpos($data, ':') !== false){
+                    list($product_id, $inventory_id,) = explode(":", $data);
+                    $warehouse_id = Inventory::where('id',$inventory_id)->first()->warehouse_id;
+                }else{
+                    $product_id = $data;
+                    $warehouse_id = '';
                 }
-            }
 
-            $estimateProduct =  new SaleProduct();
-            $estimateProduct->rate = $item['rate'];
-            $estimateProduct->quantity = $item['quantity'];
-            $estimateProduct->amount = $item['amount'];
-            $estimateProduct->sale_id = $estimate->id;
-            $estimateProduct->refund_amount = 0;
-            $estimateProduct->warehouse_id = $warehouse_id;
-            $estimateProduct->is_product = True;
-            $estimateProduct->is_refunded = False;
-            $estimateProduct->is_returned = False;
-            $estimateProduct->product_id = $product_id;
-            $estimateProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
-            $estimateProduct->user_id = $user->id;
-            $estimateProduct->save();
+                // Check if product has taxes
+                $taxes = ProductTax::where('product_id',$product_id)->with('tax')->get();
+                if ($taxes){
+                    foreach ($taxes as $product_tax){
+                        $product_tax_value = doubleval($product_tax->tax->amount) * 0.01 * $item['amount'];
+                        $tax = doubleval($tax) + doubleval($product_tax_value);
+                    }
+                }
+
+                $estimateProduct =  new SaleProduct();
+                $estimateProduct->rate = $item['rate'];
+                $estimateProduct->quantity = $item['quantity'];
+                $estimateProduct->amount = $item['amount'];
+                $estimateProduct->sale_id = $estimate->id;
+                $estimateProduct->refund_amount = 0;
+                $estimateProduct->warehouse_id = $warehouse_id;
+                $estimateProduct->is_product = True;
+                $estimateProduct->is_refunded = False;
+                $estimateProduct->is_returned = False;
+                $estimateProduct->product_id = $product_id;
+                $estimateProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+                $estimateProduct->user_id = $user->id;
+                $estimateProduct->save();
+            }
+            else
+            {
+                ## TODO: Perhaps have some validation if no item is selected, instead of just skipping over item
+                continue;
+            }
         }
 
         // Set estimate tax
