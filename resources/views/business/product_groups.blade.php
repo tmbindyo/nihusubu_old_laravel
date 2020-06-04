@@ -118,8 +118,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'ProductGroups'},
+                    {extend: 'pdf', title: 'ProductGroups'},
 
                     {extend: 'print',
                      customize: function (win){

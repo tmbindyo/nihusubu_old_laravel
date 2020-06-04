@@ -121,8 +121,8 @@
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
+                {extend: 'excel', title: 'TransferOrders'},
+                {extend: 'pdf', title: 'TransferOrders'},
 
                 {extend: 'print',
                     customize: function (win){

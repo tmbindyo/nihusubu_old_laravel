@@ -197,8 +197,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Frequencies'},
+                    {extend: 'pdf', title: 'Frequencies'},
 
                     {extend: 'print',
                      customize: function (win){

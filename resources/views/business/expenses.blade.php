@@ -1,4 +1,4 @@
-@extends('business.layouts.app')
+Expenses@extends('business.layouts.app')
 
 @section('title', ' Expenses')
 
@@ -154,8 +154,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Expenses'},
+                    {extend: 'pdf', title: 'Expenses'},
 
                     {extend: 'print',
                         customize: function (win){

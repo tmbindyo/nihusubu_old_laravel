@@ -144,8 +144,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Refunds'},
+                    {extend: 'pdf', title: 'Refunds'},
 
                     {extend: 'print',
                      customize: function (win){

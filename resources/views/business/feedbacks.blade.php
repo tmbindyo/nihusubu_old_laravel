@@ -1,4 +1,4 @@
-@extends('business.layouts.app')
+Feedback@extends('business.layouts.app')
 
 @section('title', 'Feedbacks')
 
@@ -195,8 +195,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Feedback'},
+                    {extend: 'pdf', title: 'Feedback'},
 
                     {extend: 'print',
                      customize: function (win){

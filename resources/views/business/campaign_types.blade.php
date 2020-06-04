@@ -1,4 +1,4 @@
-@extends('business.layouts.app')
+Campaign Types@extends('business.layouts.app')
 
 @section('title', 'Campaign Types')
 
@@ -180,8 +180,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Campaign Types'},
+                    {extend: 'pdf', title: 'Campaign Types'},
 
                     {extend: 'print',
                      customize: function (win){

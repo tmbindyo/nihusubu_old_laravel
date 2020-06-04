@@ -153,8 +153,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Loans'},
+                    {extend: 'pdf', title: 'Loans'},
 
                     {extend: 'print',
                      customize: function (win){

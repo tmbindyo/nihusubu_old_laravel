@@ -204,8 +204,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Taxes'},
+                    {extend: 'pdf', title: 'Taxes'},
 
                     {extend: 'print',
                      customize: function (win){

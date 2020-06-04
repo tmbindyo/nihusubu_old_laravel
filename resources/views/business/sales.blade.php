@@ -129,8 +129,8 @@
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
+                {extend: 'excel', title: 'Sales'},
+                {extend: 'pdf', title: 'Sales'},
 
                 {extend: 'print',
                     customize: function (win){

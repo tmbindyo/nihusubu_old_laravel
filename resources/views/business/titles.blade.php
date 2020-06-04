@@ -177,8 +177,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Titles'},
+                    {extend: 'pdf', title: 'Titles'},
 
                     {extend: 'print',
                      customize: function (win){
