@@ -64,11 +64,11 @@
 
                                             <p>Product Type</p>
                                             <div class="radio radio-inline">
-                                                <input type="radio" id="goods" value="goods" name="product_type" @if($product->is_service == False)  checked="" @endif>
+                                                <input type="radio" id="goods" value="goods" name="product_type" @if($product->is_service == False)  checked="" @endif onclick = "productTypeSelected(this)">
                                                 <label for="goods"> Goods </label>
                                             </div>
                                             <div class="radio radio-inline">
-                                                <input type="radio" id="services" value="services" name="product_type" @if($product->is_service == True)  checked="" @endif>
+                                                <input type="radio" id="services" value="services" name="product_type" @if($product->is_service == True)  checked="" @endif onclick = "productTypeSelected(this)">
                                                 <label for="services"> Service </label>
                                             </div>
 
@@ -774,6 +774,54 @@
         }
     });
 
+</script>
+
+<script>
+    
+    function productTypeSelected (e) {
+        if (e.value === "goods") {
+            // Getting the parent container
+            var invInformationSection = document.getElementsByName("inventory_information")
+            // Getting each element in the parent that's an input field
+            for (parent of invInformationSection){
+                for (input of parent.getElementsByTagName("input")){
+                    // Removing the readonly attribute
+                    input.removeAttribute("readonly", true)
+                }
+            }
+            // Enabling the select element
+            var invInformationSectionLabel = document.getElementsByName("inventory_account")[0]
+            invInformationSectionLabel.removeAttribute("disabled", true)
+            // Instance of chosen on the select element
+            $(".inventory-account-chosen").chosen(
+                {allow_single_deselect:true},
+                {disable_search_threshold:10},
+                {no_results_text:'Oops, nothing found!'},
+                {width:"95%"}
+            );
+            // Changing the inventory information section heading
+            var inventoryHeading = document.getElementsByName("inventory_information_header")[0]
+            inventoryHeading.innerHTML = "INVENTORY INFORMATION"
+        } else if (e.value === "services") {
+            // Getting the parent container
+            var invInformationSection = document.getElementsByName("inventory_information")
+            // Getting each element in the parent that's an input field
+            for (parent of invInformationSection){
+                for (inputElement of parent.getElementsByTagName("input")){
+                    // Setting each element to readonly
+                    inputElement.setAttribute("readonly", true)
+                }
+            }
+            // Destroying the instance of chosen that was making it hard to disable the inventory account select element
+            $(".inventory-account-chosen").chosen("destroy");
+            // Disabling the select element
+            var invInformationSectionLabel = document.getElementsByName("inventory_account")[0]
+            invInformationSectionLabel.setAttribute("disabled", true)
+            // Changing the inventory information section heading
+            var inventoryHeading = document.getElementsByName("inventory_information_header")[0]
+            inventoryHeading.innerHTML = "INVENTORY INFORMATION (Not Applicable for a Service)"
+        }
+    }
 
 </script>
 @endsection
