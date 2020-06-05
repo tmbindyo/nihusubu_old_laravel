@@ -71,7 +71,7 @@
                                         <div class="col-md-11">
                                             <div class="has-warning">
                                                 <label>  </label>
-                                                <select name="unit" data-placeholder="Choose a Country..." class="select2 input-lg" style="width:100%;" tabindex="2" required>
+                                                <select name="unit" data-placeholder="Select a Unit of Measurement..." class="select2 input-lg" style="width:100%;" tabindex="2" required>
                                                     <option value="" selected disabled>Select Unit</option>
                                                     @foreach($units as $unit)
                                                     <option value="{{$unit->id}}">{{$unit->name}}</option>
@@ -131,7 +131,7 @@
 
                                         <div class="col-md-11">
                                             <label></label>
-                                            <select name="selling_account" data-placeholder="Choose a Country..." class="select2 input-lg" style="width:100%;" tabindex="2" required>
+                                            <select name="selling_account" data-placeholder="Select Selling Account..." class="select2 input-lg" style="width:100%;" tabindex="2" required>
                                                 <option value="" selected disabled>Select Selling Account</option>
                                                 @foreach($salesAccounts as $account)
                                                     <option value="{{$account->id}}">{{$account->name}}</option>
@@ -154,10 +154,10 @@
                                         <div class="col-md-11">
                                             <div class="has-warning">
                                                 <label class="text-danger"></label>
-                                                <select name="purchase_account" data-placeholder="Choose a Country..." class="select2 input-lg" style="width:100%;" tabindex="2" required>
+                                                <select name="purchase_account" data-placeholder="Select Purchase Account..." class="select2 input-lg" style="width:100%;" tabindex="2" required>
                                                     <option value="" selected disabled>Select Purchase Account</option>
 
-                                                    <optgroup label="Exepense">
+                                                    <optgroup label="Expense">
                                                         @foreach($expenseAccounts as $account)
                                                             <option value="{{$account->id}}">{{$account->name}}</option>
                                                         @endforeach()

@@ -59,11 +59,11 @@
                                 {{--  todo only one should be selectable  --}}
                                 <p>Mode of adjustment</p>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="value" value="value" name="mode_of_adjustment" checked="">
+                                    <input type="radio" id="value" value="value" name="mode_of_adjustment" onclick = "adjustmentTypeSelected(this)">
                                     <label for="value"> Value </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="quantity" value="quantity" name="mode_of_adjustment">
+                                    <input type="radio" id="quantity" value="quantity" name="mode_of_adjustment" onclick = "adjustmentTypeSelected(this)">
                                     <label for="quantity"> Quantity </label>
                                 </div>
                                 <br>
@@ -210,6 +210,15 @@
 
     <!-- Input Mask-->
     <script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+    <!-- Switchery -->
+    <script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
+
+    <!-- iCheck -->
+    <script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Color picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
 
     <!-- Data picker -->
     <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
@@ -690,6 +699,20 @@
         // Necessary to have this function since the elements edded dynamically are not searchable by default
         function initSelector () {
             $(".select2").select2();
+        };
+        // Called when the Mode of Adjustment is selected
+        function adjustmentTypeSelected (e) {
+            var accountSelectElement = document.getElementsByName("account")
+
+            if (e.value === "value") {
+                for (element of accountSelectElement) {
+                    element.removeAttribute("disabled", true)
+                }
+            } else if (e.value === "quantity") {
+                for (element of accountSelectElement) {
+                    element.setAttribute("disabled", true)
+                }
+            }
         };
     </script>
 
