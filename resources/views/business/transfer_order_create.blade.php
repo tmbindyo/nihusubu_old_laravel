@@ -83,7 +83,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="has-warning">
-                                    <select onchange = "returnWarehouseDetails(this)" onfocus = "this.selectedIndex = 0" name="source_warehouse" class="chosen-select form-control input-lg">
+                                    <select onchange = "returnWarehouseDetails(this)" onfocus = "this.selectedIndex = 0" name="source_warehouse" class="select2 form-control input-lg">
                                         <option disabled>Select Source Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -94,7 +94,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="has-warning">
-                                    <select onchange = "destinationwarehouseSelected(this)" onfocus = "this.selectedIndex = 0" name="destination_warehouse" class="chosen-select form-control input-lg">
+                                    <select onchange = "destinationwarehouseSelected(this)" onfocus = "this.selectedIndex = 0" name="destination_warehouse" class="select2 form-control input-lg">
                                         <option disabled>Select Destination Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -122,7 +122,7 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select onchange = "returnProductDetails(this)" class="chosen-select form-control input-lg items-select" name = "item_details[0][product_id]">
+                                            <select onchange = "returnProductDetails(this)" class="select2 form-control input-lg items-select" name = "item_details[0][product_id]" style = "width: 100%">
                                                 <option>Select Item</option>
                                                 {{-- <option value="Bahamas">Bahamas</option> --}}
                                                 @foreach($products as $product)
@@ -453,16 +453,8 @@
 
 
         });
-        var config = {
-            '.chosen-select'           : {},
-            '.chosen-select-deselect'  : {allow_single_deselect:true},
-            '.chosen-select-no-single' : {disable_search_threshold:10},
-            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-            '.chosen-select-width'     : {width:"95%"}
-        }
-        for (var selector in config) {
-            $(selector).chosen(config[selector]);
-        }
+        
+        $(".select2").select2();
 
         /*$("#ionrange_1").ionRangeSlider({
             min: 0,
@@ -672,8 +664,8 @@
                 var secondCell = row.insertCell(1);
                 var thirdCell = row.insertCell(2);
                 var fourthCell = row.insertCell(3)
-                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_demo_3 form-control input-lg items-select chosen-select'"+
-                                        "name = 'item_details["+tableValueArrayIndex+"][product_id]'></select>";
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2 form-control input-lg items-select'"+
+                                        "name = 'item_details["+tableValueArrayIndex+"][product_id]' style = 'width: 100%'></select>";
                 secondCell.innerHTML = "<div class='row'>"+
                                         "<div class='col-md-6'>"+
                                         "<small class='control-label'>Source Stock</small>"+
@@ -696,13 +688,9 @@
                 fourthCell.setAttribute("style", "width: 1em;")
                 var selectElement = row.getElementsByClassName("items-select");
                 populateDropdownOptionsWithProducts(selectElement[0]);
-                $(".chosen-select").chosen(
-                    {allow_single_deselect:true},
-                    {disable_search_threshold:10},
-                    {no_results_text:'Oops, nothing found!'},
-                    {width:"95%"}
-                );
                 tableValueArrayIndex++;
+
+                $(".select2").select2();
             };
         };
         function removeSelectedRow (e) {

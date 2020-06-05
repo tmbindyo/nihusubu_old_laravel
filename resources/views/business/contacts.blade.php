@@ -12,7 +12,7 @@
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
-                    <strong>Contact's</strong>
+                    <strong>Contacts</strong>
                 </li>
             </ol>
         </div>

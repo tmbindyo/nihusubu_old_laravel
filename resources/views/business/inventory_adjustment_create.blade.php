@@ -59,11 +59,11 @@
                                 {{--  todo only one should be selectable  --}}
                                 <p>Mode of adjustment</p>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="value" value="value" name="mode_of_adjustment" checked="">
+                                    <input type="radio" id="value" value="value" name="mode_of_adjustment" onclick = "adjustmentTypeSelected(this)">
                                     <label for="value"> Value </label>
                                 </div>
                                 <div class="radio radio-inline">
-                                    <input type="radio" id="quantity" value="quantity" name="mode_of_adjustment">
+                                    <input type="radio" id="quantity" value="quantity" name="mode_of_adjustment" onclick = "adjustmentTypeSelected(this)">
                                     <label for="quantity"> Quantity </label>
                                 </div>
                                 <br>
@@ -82,7 +82,7 @@
                                 {{--  Account  --}}
                                 <div class="has-warning">
                                     <label class="text-danger"></label>
-                                    <select name="account"  class="chosen-select form-control input-lg">
+                                    <select name="account"  class="select2 form-control input-lg">
                                         <option>Select Account</option>
                                         @foreach($accounts as $account)
                                             <option value="{{$account->id}}">{{$account->name}}</option>
@@ -92,7 +92,7 @@
                                 <label>  </label>
                                 {{--  Reason  --}}
                                 <div class="has-warning">
-                                    <select name="reason" class="chosen-select form-control input-lg">
+                                    <select name="reason" class="selec2 form-control input-lg">
                                         <option d>Select Reason</option>
                                         @foreach($reasons as $reason)
                                             <option value="{{$reason->id}}">{{$reason->name}}</option>
@@ -102,7 +102,7 @@
                                 <label>  </label>
                                 {{--  Warehouse  --}}
                                 <div class="has-warning">
-                                    <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="chosen-select form-control input-lg">
+                                    <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="select2 form-control input-lg">
                                         <option disabled>Select Warehouse</option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -142,7 +142,7 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="chosen-select form-control input-lg item-select">
+                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select2 form-control input-lg item-select" style = "width: 100%">
                                                 @foreach($products as $product)
                                                     <option value="{{$product->id}}" data-product-quantity="-20">{{$product->name}}</option>
                                                 @endforeach
@@ -210,6 +210,15 @@
 
     <!-- Input Mask-->
     <script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+    <!-- Switchery -->
+    <script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
+
+    <!-- iCheck -->
+    <script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Color picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
 
     <!-- Data picker -->
     <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
@@ -457,16 +466,8 @@
 
 
         });
-        var config = {
-            '.chosen-select'           : {},
-            '.chosen-select-deselect'  : {allow_single_deselect:true},
-            '.chosen-select-no-single' : {disable_search_threshold:10},
-            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-            '.chosen-select-width'     : {width:"95%"}
-        }
-        for (var selector in config) {
-            $(selector).chosen(config[selector]);
-        }
+        
+        $(".select2").select2();
 
         /*$("#ionrange_1").ionRangeSlider({
             min: 0,
@@ -568,6 +569,12 @@
         function selectWarehouseToAdjust (e) {
             selectedWarehouse = e.value;
             productsArray = [];
+            // Setting up a buffer value so that a product MUST be selected
+            productsArray.push({
+                "product_quantity": "",
+                "product_name": "Select Product",
+                "product_id": ""
+            })
             for (product of products) {
                 var productDetails = {};
                 var productQuantity = 0;
@@ -621,7 +628,7 @@
                 var thirdCell = row.insertCell(2);
                 var fourthCell = row.insertCell(3);
                 var fifthCell = row.insertCell(4);
-                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='chosen-select form-control input-lg item-select' name = 'item_details["+tableValueArrayIndex+"][details]'"+
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2 form-control input-lg item-select' name = 'item_details["+tableValueArrayIndex+"][details]'"+
                                         " data-placeholder='Choose an item...' style='width:100%;' tabindex='2' required></select>";
                 secondCell.innerHTML = "<input type='number' class='form-control input-lg items-on-hand' name = 'item_details["+tableValueArrayIndex+"][on_hand]' value = '0' readonly>";
                 thirdCell.innerHTML = "<input oninput = 'modifyItemsOnHand(this)'' type='number' class='form-control input-lg items-new-on-hand' name = 'item_details["+tableValueArrayIndex+"][new_on_hand]'>";
@@ -697,15 +704,20 @@
         // Makes the products dropdown searchable
         // Necessary to have this function since the elements edded dynamically are not searchable by default
         function initSelector () {
-            var config = {
-                '.chosen-select'           : {},
-                '.chosen-select-deselect'  : {allow_single_deselect:true},
-                '.chosen-select-no-single' : {disable_search_threshold:10},
-                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-                '.chosen-select-width'     : {width:"95%"}
-            }
-            for (var selector in config) {
-                $(selector).chosen(config[selector]);
+            $(".select2").select2();
+        };
+        // Called when the Mode of Adjustment is selected
+        function adjustmentTypeSelected (e) {
+            var accountSelectElement = document.getElementsByName("account")
+
+            if (e.value === "value") {
+                for (element of accountSelectElement) {
+                    element.removeAttribute("disabled", true)
+                }
+            } else if (e.value === "quantity") {
+                for (element of accountSelectElement) {
+                    element.setAttribute("disabled", true)
+                }
             }
         };
     </script>

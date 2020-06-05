@@ -15,7 +15,7 @@
                     <a href="#">Settings</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.contacts',$institution->portal)}}">Contact's</a>
+                    <a href="{{route('business.contacts',$institution->portal)}}">Contacts</a>
                 </li>
                 <li class="active">
                     <strong>Contact Create</strong>
@@ -414,16 +414,6 @@
 
 
     });
-    var config = {
-        '.chosen-select'           : {},
-        '.chosen-select-deselect'  : {allow_single_deselect:true},
-        '.chosen-select-no-single' : {disable_search_threshold:10},
-        '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-        '.chosen-select-width'     : {width:"95%"}
-    }
-    for (var selector in config) {
-        $(selector).chosen(config[selector]);
-    }
 
     $(".dial").knob();
 

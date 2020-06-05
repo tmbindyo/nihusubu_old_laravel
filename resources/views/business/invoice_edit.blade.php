@@ -106,7 +106,7 @@
                                             @foreach($invoice->sale_products as $saleProduct)
                                                 <tr>
                                                     <td>
-                                                        <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[{{$product_index}}][item]" class="select2_demo_3 form-control input-lg item-select">
+                                                        <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[{{$product_index}}][item]" class="select2 form-control input-lg item-select" style = "width: 100%">
                                                             @foreach($products as $product)
                                                                 @if($product->is_service == 0)
                                                                     @foreach($product->inventory as $inventory)
@@ -139,22 +139,44 @@
                                         </table>
                                         <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                                     </div>
-                                    <hr>
+
                                     {{--sub totals--}}
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <input name="subtotal" type = "number" class="pull-right form-control input-lg" id = "items-subtotal" readonly value="{{$invoice->subtotal}}">
-                                            <i>sub Total</i>
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-5">
+                                                <label>Sub Total</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input name="subtotal" type = "number" class="pull-right form-control" id = "items-subtotal" readonly value="{{$invoice->subtotal}}">
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control input-lg" id = "adjustment-value" value = "{{$invoice->discount}}">
-                                            <i>adjustment</i>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-1 col-md-offset-5">
+                                                <label>Adjustment</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value" value = "{{$invoice->discount}}">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p class="pull-right" id = "adjustment-text">0</p>
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control input-lg" value = "{{$invoice->total}}" readonly>
-                                            <i>grand total</i>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-5">
+                                                <p>Total ()</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control" value = "{{$invoice->total}}" readonly>
+                                            </div>
                                         </div>
                                     </div>
+                                    <hr>
+                                    <br>
 
 
                                     <hr>
@@ -199,6 +221,9 @@
 
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+<!-- Chosen -->
+<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
 
 <script>
     $(document).ready(function(){
@@ -248,7 +273,7 @@
             autoclose: true
         });
 
-
+        $(".select2").select2();
 
     });
 
@@ -342,7 +367,7 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_demo_3 form-control input-lg item-select'>"+
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2 form-control input-lg item-select' style = 'width: 100%'>"+
                                 "<option selected disabled>Select Item</option>"+
                                 "@foreach($products as $product)"+
                                 "@if($product->is_service == 0)"+
@@ -360,6 +385,8 @@
         fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
         fifthCell.setAttribute("style", "width: 1em;")
         tableValueArrayIndex++;
+
+        $(".select2").select2();
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;

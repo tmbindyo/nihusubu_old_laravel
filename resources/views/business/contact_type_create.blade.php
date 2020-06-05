@@ -12,7 +12,7 @@
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.contact.types',$institution->portal)}}">Contact Type's</a>
+                    <a href="{{route('business.contact.types',$institution->portal)}}">Contact Types</a>
                 </li>
                 <li class="active">
                     <strong>Contact Type Create</strong>
@@ -302,16 +302,6 @@
 
 
     });
-    var config = {
-        '.chosen-select'           : {},
-        '.chosen-select-deselect'  : {allow_single_deselect:true},
-        '.chosen-select-no-single' : {disable_search_threshold:10},
-        '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-        '.chosen-select-width'     : {width:"95%"}
-    }
-    for (var selector in config) {
-        $(selector).chosen(config[selector]);
-    }
 
     $(".dial").knob();
 
