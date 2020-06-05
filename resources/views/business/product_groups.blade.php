@@ -118,8 +118,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ProductGroups'},
-                    {extend: 'pdf', title: 'ProductGroups'},
+                    {extend: 'excel',
+                        title: 'ProductGroups',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'ProductGroups',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

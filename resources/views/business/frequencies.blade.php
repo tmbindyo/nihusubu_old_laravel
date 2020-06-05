@@ -197,8 +197,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'Frequencies'},
-                    {extend: 'pdf', title: 'Frequencies'},
+                    {extend: 'excel',
+                        title: 'Frequencies',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Frequencies',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

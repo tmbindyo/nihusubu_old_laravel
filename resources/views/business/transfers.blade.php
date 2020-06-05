@@ -33,87 +33,68 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Transfers</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="ibox-content">
 
                     <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Reference</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Source Account</th>
-                    <th>Destination Account</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($transfers as $transfer)
-                    <tr class="gradeX">
-                        <td>
-                            {{$transfer->reference}}
-                            <span><i data-toggle="tooltip" data-placement="right" title="{{$transfer->notes}}." class="fa fa-facebook-messenger"></i></span>
-                        </td>
-                        <td>{{$transfer->amount}}</td>
-                        <td>{{$transfer->date}}</td>
-                        <td>
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Source Account</th>
+                                    <th>Destination Account</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($transfers as $transfer)
+                                    <tr class="gradeX">
+                                        <td>
+                                            {{$transfer->reference}}
+                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$transfer->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                        </td>
+                                        <td>{{$transfer->amount}}</td>
+                                        <td>{{$transfer->date}}</td>
+                                        <td>
 
-                            <span class="label label-success"> {{$transfer->source_account->name}}</span>
-                            <span class="badge badge-success"> {{$transfer->source_initial_amount}} -> {{$transfer->source_subsequent_amount}}</span>
-                        </td>
-                        <td>
+                                            <span class="label label-success"> {{$transfer->source_account->name}}</span>
+                                            <span class="badge badge-success"> {{$transfer->source_initial_amount}} -> {{$transfer->source_subsequent_amount}}</span>
+                                        </td>
+                                        <td>
 
-                            <span class="label label-success"> {{$transfer->destination_account->name}}</span>
-                            <span class="badge badge-success"> {{$transfer->destination_initial_amount}} -> {{$transfer->destination_subsequent_amount}}</span>
-                        </td>
-                        <td>{{$transfer->user->name}}</td>
-                        <td>
-                            <span class="label {{$transfer->status->label}}">{{$transfer->status->name}}</span>
-                        </td>
+                                            <span class="label label-success"> {{$transfer->destination_account->name}}</span>
+                                            <span class="badge badge-success"> {{$transfer->destination_initial_amount}} -> {{$transfer->destination_subsequent_amount}}</span>
+                                        </td>
+                                        <td>{{$transfer->user->name}}</td>
+                                        <td>
+                                            <span class="label {{$transfer->status->label}}">{{$transfer->status->name}}</span>
+                                        </td>
 
-                        <td class="text-right">
-                            <div class="btn-group">
-                                <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal,'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
-{{--                                @if($transfer->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")--}}
-{{--                                    <a href="{{ route('business.transfer.restore', ['portal'=>$institution->portal,'id'=>$transfer->id]) }}" class="btn-warning btn btn-xs">Restore</a>--}}
-{{--                                @else--}}
-{{--                                    <a href="{{ route('business.transfer.delete', ['portal'=>$institution->portal,'id'=>$transfer->id]) }}" class="btn-danger btn btn-xs">Delete</a>--}}
-{{--                                @endif--}}
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Reference</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Source Account</th>
-                    <th>Destination Account</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-                </table>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal,'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Source Account</th>
+                                    <th>Destination Account</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
 
                 </div>
@@ -149,8 +130,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'Transfers'},
-                    {extend: 'pdf', title: 'Transfers'},
+                    {extend: 'excel',
+                        title: 'Transfers',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Transfers',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

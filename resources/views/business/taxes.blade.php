@@ -204,8 +204,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'Taxes'},
-                    {extend: 'pdf', title: 'Taxes'},
+                    {extend: 'excel',
+                        title: 'Taxes',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Taxes',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

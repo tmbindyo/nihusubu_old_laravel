@@ -210,8 +210,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'Campaigns'},
-                    {extend: 'pdf', title: 'Campaigns'},
+                    {extend: 'excel',
+                        title: 'Campaigns',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Campaigns',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

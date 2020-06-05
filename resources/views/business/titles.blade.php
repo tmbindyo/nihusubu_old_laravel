@@ -177,8 +177,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'Titles'},
-                    {extend: 'pdf', title: 'Titles'},
+                    {extend: 'excel',
+                        title: 'Titles',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Titles',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

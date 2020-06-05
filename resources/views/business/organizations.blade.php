@@ -1,4 +1,4 @@
-Organizations@extends('business.layouts.app')
+@extends('business.layouts.app')
 
 @section('title', 'Organizations')
 
@@ -194,8 +194,18 @@ Organizations@extends('business.layouts.app')
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'Organizations'},
-                    {extend: 'pdf', title: 'Organizations'},
+                    {extend: 'excel',
+                        title: 'Organizations',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Organizations',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

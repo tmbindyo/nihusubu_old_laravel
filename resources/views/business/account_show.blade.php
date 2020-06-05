@@ -132,6 +132,8 @@
                                             <li class=""><a href="#payments" data-toggle="tab">Payments</a></li>
                                             <li class=""><a href="#refunds" data-toggle="tab">Refunds</a></li>
                                             <li class=""><a href="#transactions" data-toggle="tab">Transactions</a></li>
+                                            <li class=""><a href="#source-transfer" data-toggle="tab">Transfers(Source Account)</a></li>
+                                            <li class=""><a href="#destination-transfer" data-toggle="tab">Transfers(Destination Account)</a></li>
                                             <li class=""><a href="#withdrawals" data-toggle="tab">Withdrawals</a></li>
                                         </ul>
                                     </div>
@@ -142,7 +144,7 @@
                                     <div class="tab-content">
                                     <div class="tab-pane active" id="account-adjustments">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <table class="table table-striped table-bordered table-hover dataTables-account-adjustments" >
                                                 <thead>
                                                 <tr>
                                                     <th>Reference</th>
@@ -208,7 +210,7 @@
                                     </div>
                                     <div class="tab-pane" id="deposits">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <table class="table table-striped table-bordered table-hover dataTables-deposits" >
                                                 <thead>
                                                 <tr>
                                                     <th>Reference</th>
@@ -257,7 +259,7 @@
                                     </div>
                                     <div class="tab-pane" id="liabilities">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <table class="table table-striped table-bordered table-hover dataTables-liabilities" >
                                                 <thead>
                                                 <tr>
                                                     <th>Reference</th>
@@ -313,7 +315,7 @@
                                     </div>
                                     <div class="tab-pane" id="loans">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <table class="table table-striped table-bordered table-hover dataTables-loans" >
                                                 <thead>
                                                 <tr>
                                                     <th>Reference</th>
@@ -369,7 +371,7 @@
                                     </div>
                                     <div class="tab-pane" id="payments">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <table class="table table-striped table-bordered table-hover dataTables-payments" >
                                                 <thead>
                                                 <tr>
                                                     <th>Reference</th>
@@ -431,7 +433,7 @@
                                     </div>
                                     <div class="tab-pane" id="refunds">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <table class="table table-striped table-bordered table-hover dataTables-refunds" >
                                                 <thead>
                                                 <tr>
                                                     <th>Reference</th>
@@ -478,7 +480,7 @@
                                     </div>
                                     <div class="tab-pane" id="transactions">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <table class="table table-striped table-bordered table-hover dataTables-transactions" >
                                                 <thead>
                                                     <tr>
                                                         <th>Reference</th>
@@ -547,9 +549,133 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <div class="tab-pane" id="source-transfer">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTables-source-transfers" >
+                                                <thead>
+                                                <tr>
+                                                    <th>Reference</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                    <th>Source Account</th>
+                                                    <th>Destination Account</th>
+                                                    <th>User</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($account->source_account as $transfer)
+                                                        <tr class="gradeX">
+                                                            <td>
+                                                                {{$transfer->reference}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$transfer->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                            </td>
+                                                            <td>{{$transfer->amount}}</td>
+                                                            <td>{{$transfer->date}}</td>
+                                                            <td>
+
+                                                                <span class="label label-success"> {{$transfer->source_account->name}}</span>
+                                                                <span class="badge badge-success"> {{$transfer->source_initial_amount}} -> {{$transfer->source_subsequent_amount}}</span>
+                                                            </td>
+                                                            <td>
+
+                                                                <span class="label label-success"> {{$transfer->destination_account->name}}</span>
+                                                                <span class="badge badge-success"> {{$transfer->destination_initial_amount}} -> {{$transfer->destination_subsequent_amount}}</span>
+                                                            </td>
+                                                            <td>{{$transfer->user->name}}</td>
+                                                            <td>
+                                                                <span class="label {{$transfer->status->label}}">{{$transfer->status->name}}</span>
+                                                            </td>
+
+                                                            <td class="text-right">
+                                                                <div class="btn-group">
+                                                                    <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal,'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>Reference</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                    <th>Source Account</th>
+                                                    <th>Destination Account</th>
+                                                    <th>User</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="destination-transfer">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTables-destination-transfers" >
+                                                <thead>
+                                                <tr>
+                                                    <th>Reference</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                    <th>Source Account</th>
+                                                    <th>Destination Account</th>
+                                                    <th>User</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($account->destination_account as $transfer)
+                                                    <tr class="gradeX">
+                                                        <td>
+                                                            {{$transfer->reference}}
+                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$transfer->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                        </td>
+                                                        <td>{{$transfer->amount}}</td>
+                                                        <td>{{$transfer->date}}</td>
+                                                        <td>
+
+                                                            <span class="label label-success"> {{$transfer->source_account->name}}</span>
+                                                            <span class="badge badge-success"> {{$transfer->source_initial_amount}} -> {{$transfer->source_subsequent_amount}}</span>
+                                                        </td>
+                                                        <td>
+
+                                                            <span class="label label-success"> {{$transfer->destination_account->name}}</span>
+                                                            <span class="badge badge-success"> {{$transfer->destination_initial_amount}} -> {{$transfer->destination_subsequent_amount}}</span>
+                                                        </td>
+                                                        <td>{{$transfer->user->name}}</td>
+                                                        <td>
+                                                            <span class="label {{$transfer->status->label}}">{{$transfer->status->name}}</span>
+                                                        </td>
+
+                                                        <td class="text-right">
+                                                            <div class="btn-group">
+                                                                <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal,'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>Reference</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                    <th>Source Account</th>
+                                                    <th>Destination Account</th>
+                                                    <th>User</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
                                     <div class="tab-pane" id="withdrawals">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <table class="table table-striped table-bordered table-hover dataTables-withdrawals" >
                                                 <thead>
                                                 <tr>
                                                     <th>Reference</th>
@@ -798,15 +924,22 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function(){
-            $('.dataTables-example').DataTable({
+            $('.dataTables-account-adjustments').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: '{{$account->name}} Account Adjustments'},
+                    {extend: 'pdf',
+                        title: '{{$account->name}} Account Adjustments',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }},
 
                     {extend: 'print',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        },
                      customize: function (win){
                             $(win.document.body).addClass('white-bg');
                             $(win.document.body).css('font-size', '10px');
@@ -815,6 +948,522 @@
                                     .addClass('compact')
                                     .css('font-size', 'inherit');
                     }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-deposits').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$account->name}} Deposits',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }},
+                    {extend: 'pdf',
+                        title: '{{$account->name}} Deposits',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }},
+
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-liabilities').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$account->name}} Liabilities',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }},
+                    {extend: 'pdf',
+                        title: '{{$account->name}} Liabilities',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }},
+
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-loans').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$account->name}} Loans',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }},
+                    {extend: 'pdf',
+                        title: '{{$account->name}} Loans',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }},
+
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-payments').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$account->name}} Payments',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$account->name}} Payments',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
+
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-refunds').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$account->name}} Refunds',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$account->name}} Refunds',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4]
+                        }
+                    },
+
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-transactions').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$account->name}} Transactions',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$account->name}} Transactions',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                        }
+                    },
+
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-source-transfers').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$account->name}} Source Transfers',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$account->name}} Source Transfers',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
+
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-destination-transfers').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$account->name}} Destination Account',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$account->name}} Destination Account',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
+
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-withdrawals').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$account->name}} Withdrawals',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$account->name}} Withdrawals',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
+
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
                     }
                 ]
 

@@ -144,8 +144,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'Refunds'},
-                    {extend: 'pdf', title: 'Refunds'},
+                    {extend: 'excel',
+                        title: 'Refunds',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Refunds',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

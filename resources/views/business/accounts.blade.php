@@ -186,8 +186,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ccounts'},
-                    {extend: 'pdf', title: 'ccounts'},
+                    {extend: 'excel',
+                        title: 'Accounts',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Accounts',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

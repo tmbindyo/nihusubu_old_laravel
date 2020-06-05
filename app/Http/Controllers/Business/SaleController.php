@@ -62,11 +62,11 @@ class SaleController extends Controller
         $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
-        // Get Inventory
         // Getting Products
         $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
+        // Get Inventory
         $inventories = Inventory::with('product','warehouse')->get();
 
         return view('business.estimate_create',compact('user','institution','contacts','taxes','inventories','products'));
@@ -78,12 +78,9 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-
-//        return $request;
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
-
         // Create estimate
         $estimate = new Sale();
         $estimate->reference = $reference;
@@ -101,7 +98,6 @@ class SaleController extends Controller
         $estimate->is_refunded = False;
         $estimate->is_product = True;
         $estimate->is_project = False;
-
         $estimate->is_estimate = True;
         $estimate->is_invoice = False;
         $estimate->is_sale = False;
@@ -124,10 +120,6 @@ class SaleController extends Controller
         $tax = 0;
         $estimate->tax = $tax;
         $estimate->save();
-
-        // to do check if its a service or a product
-
-
         // Estimate products
         foreach ($request->item_details as $item) {
             $data = $item['item'];
@@ -138,7 +130,6 @@ class SaleController extends Controller
                 $product_id = $data;
                 $warehouse_id = '';
             }
-
             // Check if product has taxes
             $taxes = ProductTax::where('product_id',$product_id)->with('tax')->get();
             if ($taxes){
@@ -147,7 +138,7 @@ class SaleController extends Controller
                     $tax = doubleval($tax) + doubleval($product_tax_value);
                 }
             }
-
+            // Estimate products
             $estimateProduct =  new SaleProduct();
             $estimateProduct->rate = $item['rate'];
             $estimateProduct->quantity = $item['quantity'];
@@ -163,7 +154,6 @@ class SaleController extends Controller
             $estimateProduct->user_id = $user->id;
             $estimateProduct->save();
         }
-
         // Set estimate tax
         $estimateTaxSet = Sale::findOrFail($estimate->id);
         $estimateTaxSet->tax = $tax;

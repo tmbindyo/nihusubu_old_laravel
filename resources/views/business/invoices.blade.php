@@ -131,8 +131,18 @@
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'Invoices'},
-                {extend: 'pdf', title: 'Invoices'},
+                {extend: 'excel',
+                    title: 'Invoices',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: 'Invoices',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

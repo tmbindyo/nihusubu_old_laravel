@@ -121,8 +121,18 @@
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'TransferOrders'},
-                {extend: 'pdf', title: 'TransferOrders'},
+                {extend: 'excel',
+                    title: 'TransferOrders',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: 'TransferOrders',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

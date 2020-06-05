@@ -129,8 +129,18 @@
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'Sales'},
-                {extend: 'pdf', title: 'Sales'},
+                {extend: 'excel',
+                    title: 'Sales',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: 'Sales',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

@@ -153,8 +153,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'Loans'},
-                    {extend: 'pdf', title: 'Loans'},
+                    {extend: 'excel',
+                        title: 'Loans',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Loans',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

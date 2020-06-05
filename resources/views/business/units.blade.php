@@ -194,8 +194,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'Units'},
-                    {extend: 'pdf', title: 'Units'},
+                    {extend: 'excel',
+                        title: 'Units',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Units',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

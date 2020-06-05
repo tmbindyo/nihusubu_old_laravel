@@ -117,8 +117,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel',
+                        title: 'Composite Products',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Composite Products',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

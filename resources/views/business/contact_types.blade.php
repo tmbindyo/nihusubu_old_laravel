@@ -191,8 +191,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ContactTypes'},
-                    {extend: 'pdf', title: 'ContactTypes'},
+                    {extend: 'excel',
+                        title: 'Contact Types',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Contact Types',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

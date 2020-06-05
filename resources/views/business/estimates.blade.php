@@ -131,8 +131,18 @@
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'Estimates'},
-                {extend: 'pdf', title: 'Estimates'},
+                {extend: 'excel',
+                    title: 'Estimates',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: 'Estimates',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

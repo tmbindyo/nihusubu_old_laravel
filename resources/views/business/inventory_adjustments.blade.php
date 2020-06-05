@@ -124,8 +124,18 @@
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'InventoryAdjustments'},
-                {extend: 'pdf', title: 'InventoryAdjustments'},
+                {extend: 'excel',
+                    title: 'InventoryAdjustments',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: 'InventoryAdjustments',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

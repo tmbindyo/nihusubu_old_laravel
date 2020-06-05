@@ -38,7 +38,7 @@
 
 
         <div class="row">
-            <div class="col-lg-10">
+            <div class="col-lg-9">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Contact <small>edit</small></h5>
@@ -231,64 +231,42 @@
                                         <div class="tab-pane" id="sales">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-sales" >
                                                     <thead>
                                                     <tr>
-                                                        <th>Reference</th>
-                                                        <th>Created</th>
-                                                        <th>Total</th>
-                                                        <th>Discount</th>
-                                                        <th>Refunded</th>
-                                                        <th>Products</th>
-                                                        <th>State</th>
-                                                        <th>Client</th>
+                                                        <th>Sale #</th>
+                                                        <th>Date</th>
+                                                        <th>Due Date</th>
+                                                        <th>Customer</th>
+                                                        <th>Amount</th>
+                                                        <th>Paid</th>
                                                         <th>Status</th>
-                                                        <th>Action</th>
+                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($sales as $sale)
                                                         <tr class="gradeX">
-                                                            <td>
-                                                                {{$sale->reference}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$sale->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                            </td>
-                                                            <td>{{$sale->created_at}}</td>
-                                                            <td>{{$sale->total}}</td>
-                                                            <td>{{$sale->discount}}</td>
-                                                            <td>{{$sale->refund}}</td>
-                                                            <td>{{$sale->sale_products_count}}</td>
+                                                            <td>{{$sale->reference}}</td>
+                                                            <td>{{$sale->date}}</td>
+                                                            <td>{{$sale->due_date}}</td>
 
                                                             <td>
-                                                                @if($sale->is_returned == 1 )
-                                                                    <span class="label label-warning">Returned</span>
-                                                                @endif
-                                                                @if($sale->is_refunded == 1 )
-                                                                    <span class="label label-danger">Refunded</span>
-                                                                @endif
-                                                                @if($sale->is_delivery == 1 )
-                                                                    <span class="label label-success">Delivered</span>
-                                                                @endif
-                                                                @if($sale->is_paid == 1 )
-                                                                    <span class="label label-success">Paid</span>
-                                                                @endif
-                                                                @if($sale->is_client == 1 )
-                                                                    <span class="label label-primary">Client</span>
+                                                                @if($sale->contact)
+                                                                    {{$sale->contact->first_name}} {{$sale->contact->last_name}}
                                                                 @else
-                                                                    <span class="label label-primary">User</span>
-                                                                @endif
-                                                                @if($sale->is_draft == 1 )
-                                                                    <span class="label label-info">Draft</span>
+                                                                    <span class="label label-info"> NaN </span>
                                                                 @endif
                                                             </td>
 
-                                                            <td>{{$sale->contact->first_name}} {{$sale->contact->last_name}} @if($sale->contact->organization) [{{$sale->contact->organization->name}}]@endif</td>
+                                                            <td>{{$sale->total}}</td>
+                                                            <td>{{$sale->paid}}</td>
                                                             <td>
-                                                                <span class="label {{$sale->status->label}}">{{$sale->status->name}}</span>
+                                                                <p><span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></p>
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$sale->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$sale->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -296,16 +274,14 @@
                                                     </tbody>
                                                     <tfoot>
                                                     <tr>
-                                                        <th>Reference</th>
-                                                        <th>Created</th>
-                                                        <th>Total</th>
-                                                        <th>Discount</th>
-                                                        <th>Refunded</th>
-                                                        <th>Products</th>
-                                                        <th>State</th>
-                                                        <th>Client</th>
+                                                        <th>Sale #</th>
+                                                        <th>Date</th>
+                                                        <th>Due Date</th>
+                                                        <th>Customer</th>
+                                                        <th>Amount</th>
+                                                        <th>Paid</th>
                                                         <th>Status</th>
-                                                        <th>Action</th>
+                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>
@@ -315,15 +291,19 @@
                                         <div class="tab-pane active" id="liabilities">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-liabilities" >
                                                     <thead>
                                                     <tr>
                                                         <th>Reference</th>
-                                                        <th>Amount</th>
+                                                        <th>Principal</th>
+                                                        <th>Interest</th>
+                                                        <th>Total</th>
                                                         <th>Paid</th>
                                                         <th>Date</th>
                                                         <th>Due Date</th>
                                                         <th>Account</th>
+                                                        <th>Contact</th>
+                                                        <th>User</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -331,18 +311,31 @@
                                                     <tbody>
                                                     @foreach($liabilities as $liability)
                                                         <tr class="gradeX">
-                                                            <td>{{$liability->reference}}</td>
+                                                            <td>
+                                                                {{$liability->reference}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$liability->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                            </td>
+                                                            <td>{{$liability->principal}}</td>
+                                                            <td>{{$liability->interest}}</td>
                                                             <td>{{$liability->total}}</td>
                                                             <td>{{$liability->paid}}</td>
                                                             <td>{{$liability->date}}</td>
                                                             <td>{{$liability->due_date}}</td>
                                                             <td>{{$liability->account->name}}</td>
+                                                            <td>{{$liability->contact->first_name}} {{$liability->contact->last_name}}</td>
+                                                            <td>{{$liability->user->name}}</td>
                                                             <td>
                                                                 <span class="label {{$liability->status->label}}">{{$liability->status->name}}</span>
                                                             </td>
+
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     <a href="{{ route('business.liability.show', ['portal'=>$institution->portal,'id'=>$liability->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @if($liability->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                                        <a href="{{ route('business.liability.restore', ['portal'=>$institution->portal,'id'=>$liability->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                    @else
+                                                                        <a href="{{ route('business.liability.delete', ['portal'=>$institution->portal,'id'=>$liability->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                    @endif
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -351,11 +344,15 @@
                                                     <tfoot>
                                                     <tr>
                                                         <th>Reference</th>
-                                                        <th>Amount</th>
+                                                        <th>Principal</th>
+                                                        <th>Interest</th>
+                                                        <th>Total</th>
                                                         <th>Paid</th>
                                                         <th>Date</th>
                                                         <th>Due Date</th>
                                                         <th>Account</th>
+                                                        <th>Contact</th>
+                                                        <th>User</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -367,7 +364,7 @@
                                         <div class="tab-pane" id="loans">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-loans" >
                                                     <thead>
                                                         <tr>
                                                             <th>Reference</th>
@@ -539,18 +536,18 @@
 @section('js')
 
 
-    <!-- Mainly scripts -->
-    <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-    <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
+<!-- Mainly scripts -->
+<script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
+<script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
+<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
 
-    <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
+<script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
+<script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
     <!-- Chosen -->
 <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
@@ -623,13 +620,137 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function(){
-            $('.dataTables-example').DataTable({
+            $('.dataTables-sales').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel',
+                        title: '{{$contact->first_name}} {{$contact->last_name}} Sales',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$contact->first_name}} {{$contact->last_name}} Sales',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-liabilities').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$contact->first_name}} {{$contact->last_name}} Liabilities',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$contact->first_name}} {{$contact->last_name}} Liabilities',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                        }
+                    },
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-loans').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$contact->first_name}} {{$contact->last_name}} Loans',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                        }},
+                    {extend: 'pdf',
+                        title: '{{$contact->first_name}} {{$contact->last_name}} Loans',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                        }},
 
                     {extend: 'print',
                      customize: function (win){

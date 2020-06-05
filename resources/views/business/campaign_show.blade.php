@@ -208,7 +208,7 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="contacts">
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-contacts" >
                                                     <thead>
                                                         <tr>
                                                             <th>Name</th>
@@ -254,7 +254,7 @@
                                         <div class="tab-pane" id="expenses">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-expenses" >
                                                     <thead>
                                                     <tr>
                                                         <th>Recurring</th>
@@ -315,7 +315,7 @@
                                         <div class="tab-pane" id="organizations">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-organizations" >
                                                     <thead>
                                                         <tr>
                                                             <th>Name</th>
@@ -604,13 +604,157 @@
 <!-- Page-Level Scripts -->
 <script>
     $(document).ready(function(){
-        $('.dataTables-example').DataTable({
+        $('.dataTables-contacts').DataTable({
             dom: '<"html5buttons"B>lTfgitp',
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
+                {extend: 'excel',
+                    title: '{{$campaign->name}} Contacts',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$campaign->name}} Contacts',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-expenses').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$campaign->name}} Expenses',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$campaign->name}} Expenses',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-organizations').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$campaign->name}} Organizations',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$campaign->name}} Organizations',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

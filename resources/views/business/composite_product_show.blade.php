@@ -62,17 +62,56 @@
             @endforeach
         </div>
 
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-dollar fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <span> Sales </span>
+                            <h2 class="font-bold">{{$compositeProduct->sale_products_count}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-dollar fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <span> Orders </span>
+                            <h2 class="font-bold">{{$compositeProduct->order_products_count}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-shopping-cart fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+                            <span> Orders </span>
+                            <h2 class="font-bold">{{$compositeProduct->composite_product_products_count}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 {{--        // Product details--}}
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInUp">
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="m-b-md">
-                                        {{--  <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>  --}}
-                                        {{--  <h2>Contract with Zender Company</h2>  --}}
                                     </div>
                                     <dl class="dl-horizontal">
                                         <dt>Status:</dt> <dd><span class="label {{$compositeProduct->status->label}}">{{$compositeProduct->status->name}}</span></dd>
@@ -100,8 +139,8 @@
                                         <div class="panel-heading">
                                             <div class="panel-options">
                                                 <ul class="nav nav-tabs">
-                                                    <li class="active"><a href="#orders" data-toggle="tab">Orders</a></li>
-                                                    <li class=""><a href="#sales" data-toggle="tab">Sales</a></li>
+{{--                                                    <li class="active"><a href="#orders" data-toggle="tab">Orders</a></li>--}}
+                                                    <li class="active"><a href="#sales" data-toggle="tab">Sales</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -109,48 +148,7 @@
                                         <div class="panel-body">
 
                                             <div class="tab-content">
-                                                <div class="tab-pane active" id="orders">
-
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                            <thead>
-                                                            <tr>
-                                                                <th>Date</th>
-                                                                <th>Quantity</th>
-                                                                <th>Rate</th>
-                                                                <th>Status</th>
-                                                                <th>Order</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            @foreach($compositeProduct->order_products as $order)
-                                                                <tr class="gradeX">
-                                                                    <td>{{$order->created_at}}</td>
-                                                                    <td>{{$order->quantity}}</td>
-                                                                    <td class="center">{{$order->rate}}</td>
-                                                                    <td class="center">{{$order->status}}</td>
-                                                                    <td class="text-right">
-                                                                        <div class="btn-group">
-                                                                            <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$order->order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <th>Date</th>
-                                                                <th>Quantity</th>
-                                                                <th>Rate</th>
-                                                                <th>Status</th>
-                                                                <th>Order</th>
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                                <div class="tab-pane" id="sales">
+                                                <div class="tab-pane active" id="sales">
 
                                                     <div class="table-responsive">
                                                         <table class="table table-striped table-bordered table-hover dataTables-example" >
@@ -202,56 +200,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-
-                <div class="wrapper wrapper-content project-manager">
-
-
-                    <div class="row">
-                        <div class="widget style1 navy-bg">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <i class="fa fa-dollar fa-5x"></i>
-                                </div>
-                                <div class="col-xs-8 text-right">
-                                    <span> Sales </span>
-                                    <h2 class="font-bold">{{$compositeProduct->sale_products_count}}</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="widget style1 navy-bg">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <i class="fa fa-dollar fa-5x"></i>
-                                </div>
-                                <div class="col-xs-8 text-right">
-                                    <span> Orders </span>
-                                    <h2 class="font-bold">{{$compositeProduct->order_products_count}}</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="widget style1 navy-bg">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
-                                </div>
-                                <div class="col-xs-8 text-right">
-                                    <span> Orders </span>
-                                    <h2 class="font-bold">{{$compositeProduct->composite_product_products_count}}</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
         </div>
     </div>
 @endsection
@@ -282,8 +230,18 @@
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
+                {extend: 'excel',
+                    title: '{{$compositeProduct->name}} Sales',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$compositeProduct->name}} Sales',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){
