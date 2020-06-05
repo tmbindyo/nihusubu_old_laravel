@@ -569,6 +569,12 @@
         function selectWarehouseToAdjust (e) {
             selectedWarehouse = e.value;
             productsArray = [];
+            // Setting up a buffer value so that a product MUST be selected
+            productsArray.push({
+                "product_quantity": "",
+                "product_name": "Select Product",
+                "product_id": ""
+            })
             for (product of products) {
                 var productDetails = {};
                 var productQuantity = 0;
