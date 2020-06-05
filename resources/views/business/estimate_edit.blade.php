@@ -271,13 +271,6 @@
             autoclose: true
         });
 
-        $(".chosen-select").chosen({
-            width: "100%",
-            no_results_text:"Oops, nothing found!",
-            allow_single_deselect:true,
-            disable_search_threshold:10
-        });
-
         $(".select2").select2();
 
     });

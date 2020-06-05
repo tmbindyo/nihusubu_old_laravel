@@ -168,7 +168,7 @@
                                                 @foreach($compositeProductProducts as $compositeProductProduct)
                                                     <tr>
                                                         <td>
-                                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="chosen-select form-control input-lg select-product">
+                                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select2 form-control input-lg select-product" style = "width: 100%">
                                                                 <option>Select Product</option>
                                                                 @foreach($products as $product)
                                                                     <option @if($compositeProductProduct->product_id ==$product->id) selected @endif value="{{$product->id}}" data-product-unit-price="{{$product->selling_price}}">{{$product->name}}</option>
@@ -362,7 +362,7 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='chosen-select form-control input-lg select-product'>"+
+        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='select2 form-control input-lg select-product' style = 'width: 100%'>"+
                                 "<option>Select Product</option>"+
                                 "@foreach($products as $product)"+
                                 "<option value='{{$product->id}}' data-product-unit-price='{{$product->selling_price}}'>{{$product->name}}</option>"+
@@ -373,13 +373,9 @@
         fourthCell.innerHTML = "<input type='number' class='form-control input-lg item-total-price' name = 'item_details["+tableValueArrayIndex+"][total_price]' value = '0'>";
         fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
         fifthCell.setAttribute("style", "width: 1em;");
-        $(".chosen-select").chosen(
-            {allow_single_deselect:true},
-            {disable_search_threshold:10},
-            {no_results_text:'Oops, nothing found!'},
-            {width:"95%"}
-        );
         tableValueArrayIndex++;
+
+        $(".select2").select2();
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;
@@ -635,16 +631,8 @@
 
 
     });
-    var config = {
-        '.chosen-select'           : {},
-        '.chosen-select-deselect'  : {allow_single_deselect:true},
-        '.chosen-select-no-single' : {disable_search_threshold:10},
-        '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-        '.chosen-select-width'     : {width:"95%"}
-    }
-    for (var selector in config) {
-        $(selector).chosen(config[selector]);
-    }
+
+    $(".select2").select2();
 
     $("#ionrange_1").ionRangeSlider({
         min: 0,

@@ -106,7 +106,7 @@
                                             @foreach($invoice->sale_products as $saleProduct)
                                                 <tr>
                                                     <td>
-                                                        <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[{{$product_index}}][item]" class="chosen-select form-control input-lg item-select">
+                                                        <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[{{$product_index}}][item]" class="select2 form-control input-lg item-select" style = "width: 100%">
                                                             @foreach($products as $product)
                                                                 @if($product->is_service == 0)
                                                                     @foreach($product->inventory as $inventory)
@@ -279,12 +279,7 @@
             autoclose: true
         });
 
-        $(".chosen-select").chosen({
-            width: "100%",
-            no_results_text:"Oops, nothing found!",
-            allow_single_deselect:true,
-            disable_search_threshold:10
-        });
+        $(".select2").select2();
 
     });
 
@@ -378,7 +373,7 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='chosen-select form-control input-lg item-select'>"+
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2 form-control input-lg item-select' style = 'width: 100%'>"+
                                 "<option selected disabled>Select Item</option>"+
                                 "@foreach($products as $product)"+
                                 "@if($product->is_service == 0)"+
@@ -397,12 +392,7 @@
         fifthCell.setAttribute("style", "width: 1em;")
         tableValueArrayIndex++;
 
-        $(".chosen-select").chosen({
-            width: "100%",
-            no_results_text:"Oops, nothing found!",
-            allow_single_deselect:true,
-            disable_search_threshold:10
-        });
+        $(".select2").select2();
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;

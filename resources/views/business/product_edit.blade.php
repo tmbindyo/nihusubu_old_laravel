@@ -87,7 +87,7 @@
                                                 <div class="col-md-11">
                                                     <div class="has-warning">
                                                         <label>  </label>
-                                                        <select name="unit" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                        <select name="unit" data-placeholder="Choose a Country..." class="select2 input-lg" style="width:100%;" tabindex="2" required>
                                                             <option value="" disabled>Select Unit</option>
                                                             @foreach($units as $unit)
                                                                 <option @if($product->unit_id == $unit->id) selected @endif value="{{$unit->id}}">{{$unit->name}}</option>
@@ -136,7 +136,7 @@
 
                                                 <div class="col-md-11">
                                                     <label></label>
-                                                    <select name="selling_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                    <select name="selling_account" data-placeholder="Choose a Country..." class="select2 input-lg" style="width:100%;" tabindex="2" required>
                                                         <option value="" disabled>Select Selling Account</option>
                                                         @foreach($salesAccounts as $account)
                                                             <option @if($product->selling_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
@@ -159,7 +159,7 @@
                                                 <div class="col-md-11">
                                                     <div class="has-warning">
                                                         <label class="text-danger"></label>
-                                                        <select name="purchase_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2" required>
+                                                        <select name="purchase_account" data-placeholder="Choose a Country..." class="select2 input-lg" style="width:100%;" tabindex="2" required>
                                                             <option value="" disabled>Select Purchase Account</option>
                                                             <optgroup label="Exepense">
                                                                 @foreach($expenseAccounts as $account)
@@ -209,7 +209,7 @@
                                         <div class="col-md-6">
                                             {{--  Product Tax  --}}
                                             <label></label>
-                                            <select name="taxes[]" data-placeholder="Select Taxes" class="chosen-select input-lg" multiple style="width:100%;" tabindex="2">
+                                            <select name="taxes[]" data-placeholder="Select Taxes" class="select2 input-lg" multiple style="width:100%;" tabindex="2">
                                                 @foreach($taxes as $tax)
                                                     <option @foreach ($product->product_taxes as $product_tax) {{$product_tax->tax_id}}  @if($product_tax->tax_id == $tax->id) selected @endif @endforeach value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
                                                 @endforeach()
@@ -256,7 +256,7 @@
                                                 <div class="col-md-11">
                                                     <div class="has-warning">
                                                         <label class="text-danger"></label>
-                                                        <select name="inventory_account" data-placeholder="Choose a Country..." class="chosen-select input-lg" style="width:100%;" tabindex="2">
+                                                        <select name="inventory_account" data-placeholder="Choose a Country..." class="select2 input-lg" style="width:100%;" tabindex="2">
                                                             <option value="" disabled>Select Inventory Account</option>
                                                             @foreach($stockAccounts as $account)
                                                                 <option @if($product->inventory_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
@@ -689,16 +689,8 @@
 
 
     });
-    var config = {
-        '.chosen-select'           : {},
-        '.chosen-select-deselect'  : {allow_single_deselect:true},
-        '.chosen-select-no-single' : {disable_search_threshold:10},
-        '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-        '.chosen-select-width'     : {width:"95%"}
-    }
-    for (var selector in config) {
-        $(selector).chosen(config[selector]);
-    }
+    
+    $(".select2").select2();
 
     $("#ionrange_1").ionRangeSlider({
         min: 0,
