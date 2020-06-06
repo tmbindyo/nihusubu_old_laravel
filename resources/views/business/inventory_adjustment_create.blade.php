@@ -54,7 +54,7 @@
 
                         {{--  Product  --}}
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 {{--  Mode of adjustment  --}}
                                 {{--  todo only one should be selectable  --}}
                                 <p>Mode of adjustment</p>
@@ -67,49 +67,65 @@
                                     <label for="quantity"> Quantity </label>
                                 </div>
                                 <br>
-                                <label>  </label>
+                                <br>
 
-                                {{--  Date  --}}
-                                <div class="has-warning" id="data_1">
-                                    <div class="input-group date">
-                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        <input name="date" id="date" type="text" class="form-control input-lg" required>
+
+
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        {{--  Account  --}}
+                                        <div class="has-warning">
+                                            <select name="account"  class="select2_account form-control input-lg">
+                                                <option></option>
+                                                @foreach($accounts as $account)
+                                                    <option value="{{$account->id}}">{{$account->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <i>account</i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        {{--  Date  --}}
+                                        <div class="has-warning" id="data_1">
+                                            <div class="input-group date">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input name="date" id="date" type="text" class="form-control input-lg" required>
+                                            </div>
+                                            <i>date</i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        {{--  Reason  --}}
+                                        <div class="has-warning">
+                                            <select name="reason" class="select2_reason form-control input-lg">
+                                                <option></option>
+                                                @foreach($reasons as $reason)
+                                                    <option value="{{$reason->id}}">{{$reason->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <i>reason</i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        {{--  Warehouse  --}}
+                                        <div class="has-warning">
+                                            <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="select2_warehouse form-control input-lg">
+                                                <option></option>
+                                                @foreach($warehouses as $warehouse)
+                                                    <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <i>warehouse</i>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <br>
 
-                                {{--  Account  --}}
-                                <div class="has-warning">
-                                    <label class="text-danger"></label>
-                                    <select name="account"  class="select2 form-control input-lg">
-                                        <option>Select Account</option>
-                                        @foreach($accounts as $account)
-                                            <option value="{{$account->id}}">{{$account->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <label>  </label>
-                                {{--  Reason  --}}
-                                <div class="has-warning">
-                                    <select name="reason" class="selec2 form-control input-lg">
-                                        <option d>Select Reason</option>
-                                        @foreach($reasons as $reason)
-                                            <option value="{{$reason->id}}">{{$reason->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <label>  </label>
-                                {{--  Warehouse  --}}
-                                <div class="has-warning">
-                                    <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="select2 form-control input-lg">
-                                        <option disabled>Select Warehouse</option>
-                                        @foreach($warehouses as $warehouse)
-                                            <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <label>  </label>
                                 {{--  Description  --}}
                                 <div class="">
                                     <textarea rows="5" id="description" name="description" required class="form-control input-lg" placeholder="Description"></textarea>
@@ -125,10 +141,9 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="ibox-title">
-                                <h5>Product Details </h5>
-                            </div>
-                            <div class="ibox-content">
+                            <h4 class="text-center text-navy">Product Details </h4>
+                            <br>
+                            <div class="">
 
                                 <table class="table table-bordered" id = "adjustment_table">
                                     <thead>
@@ -163,13 +178,9 @@
                                 <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                             </div>
                         </div>
+                        <br>
                         <hr>
-                        <br>
 
-                        <div class="ln_solid"></div>
-
-                        <br>
-                        <br>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>
                         </div>
@@ -466,8 +477,21 @@
 
 
         });
-        
+
         $(".select2").select2();
+
+        $(".select2_account").select2({
+            placeholder: "Select Account",
+            allowClear: true
+        });
+        $(".select2_reason").select2({
+            placeholder: "Select Reason",
+            allowClear: true
+        });
+        $(".select2_warehouse").select2({
+            placeholder: "Select Warehouse",
+            allowClear: true
+        });
 
         /*$("#ionrange_1").ionRangeSlider({
             min: 0,
@@ -628,8 +652,8 @@
                 var thirdCell = row.insertCell(2);
                 var fourthCell = row.insertCell(3);
                 var fifthCell = row.insertCell(4);
-                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2 form-control input-lg item-select' name = 'item_details["+tableValueArrayIndex+"][details]'"+
-                                        " data-placeholder='Choose an item...' style='width:100%;' tabindex='2' required></select>";
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_product form-control input-lg item-select' name = 'item_details["+tableValueArrayIndex+"][details]'"+
+                                        " data-placeholder='Select Product' style='width:100%;' tabindex='2' required></select>";
                 secondCell.innerHTML = "<input type='number' class='form-control input-lg items-on-hand' name = 'item_details["+tableValueArrayIndex+"][on_hand]' value = '0' readonly>";
                 thirdCell.innerHTML = "<input oninput = 'modifyItemsOnHand(this)'' type='number' class='form-control input-lg items-new-on-hand' name = 'item_details["+tableValueArrayIndex+"][new_on_hand]'>";
                 fourthCell.innerHTML = "<input type='number' class='form-control input-lg items-adjusted' placeholder='E.g +10, -10' name = 'item_details["+tableValueArrayIndex+"][adjusted]' readonly>";
@@ -704,7 +728,11 @@
         // Makes the products dropdown searchable
         // Necessary to have this function since the elements edded dynamically are not searchable by default
         function initSelector () {
-            $(".select2").select2();
+            $(".select2_product").select2({
+                placeholder: "Select Product",
+                allowClear: true
+            });
+            // $(".select2").select2();
         };
         // Called when the Mode of Adjustment is selected
         function adjustmentTypeSelected (e) {
@@ -736,11 +764,11 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $('.select').select2({
-                theme: "default"
-            })
-        });
-    </script>
+{{--    <script>--}}
+{{--        $(document).ready(function() {--}}
+{{--            $('.select').select2({--}}
+{{--                theme: "default"--}}
+{{--            })--}}
+{{--        });--}}
+{{--    </script>--}}
 @endsection

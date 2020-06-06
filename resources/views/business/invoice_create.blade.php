@@ -372,24 +372,26 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2 form-control input-lg item-select' style = 'width: 100%'>"+
-                                "<option selected disabled>Select Item</option>"+
-                                "@foreach($products as $product)"+
-                                "@if($product->is_service == 0)"+
-                                "@foreach($product->inventory as $inventory)"+
-                                "<option value='{{$product->id}}:{{$inventory->id}}' data-product-quantity = '{{$inventory->quantity}}' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}} [{{$inventory->warehouse->name}}]</option>"+
-                                "@endforeach"+
-                                "@else"+
-                                "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}}</option>"+
-                                "@endif"+
-                                "@endforeach"+
-                                "</select>";
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2 form-control input-lg select-product item-select' style = 'width: 100%'>"+
+            "<option selected disabled>Select Item</option>"+
+            "@foreach($products as $product)"+
+            "@if($product->is_service == 0)"+
+            "@foreach($product->inventory as $inventory)"+
+            "<option value='{{$product->id}}:{{$inventory->id}}' data-product-quantity = '{{$inventory->quantity}}' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}} [{{$inventory->warehouse->name}}]</option>"+
+            "@endforeach"+
+            "@else"+
+            "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}}</option>"+
+            "@endif"+
+            "@endforeach"+
+            "</select>";
         secondCell.innerHTML = "<input oninput = 'changeItemQuantity(this)' name='item_details["+tableValueArrayIndex+"][quantity]' type='number' class='form-control input-lg item-quantity' value = '0' min = '0'>";
         thirdCell.innerHTML = "<input oninput = 'changeItemRate(this)' name='item_details["+tableValueArrayIndex+"][rate]' type='number' class='form-control input-lg item-rate' placeholder='E.g +10, -10' value = '0' min = '0'>";
         fourthCell.innerHTML = "<input name='item_details["+tableValueArrayIndex+"][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
         fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
         fifthCell.setAttribute("style", "width: 1em;")
         tableValueArrayIndex++;
+
+        $(".select2").select2();
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;

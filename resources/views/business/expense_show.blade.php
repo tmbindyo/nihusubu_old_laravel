@@ -25,7 +25,8 @@
         <div class="col-lg-4">
             <div class="title-action">
 
-                <a href="{{route('business.expense.edit',['portal'=>$institution->portal,'id'=>$expense->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                <a href="{{route('business.expense.edit',['portal'=>$institution->portal,'id'=>$expense->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit</a>
+                <a href="{{route('business.transaction.create',['portal'=>$institution->portal,'id'=>$expense->id])}}" class="btn btn-warning btn-outline"> <i class="fa fa-dollar"></i> Make Payment</a>
                 @if($expense->is_inventory_adjustment == 1)
                     <a href="{{route('business.inventory.adjustment.show',['portal'=>$institution->portal,'id'=>$expense->inventory_adjustment_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Inventory Adjustment </a>
                 @endif
@@ -57,160 +58,123 @@
     <div class="wrapper wrapper-content animated fadeInRight">
 
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content animated fadeInRight">
+                    <div class="ibox-content p-xl">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5>By:</h5>
+                                <address>
+                                    <strong>{{$expense->user->name}}</strong>
+                                </address>
+                            </div>
 
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <span class="pull-right">(<strong>{{$expense->expense_items_count}}</strong>) items</span>
-                        <h5>Items</h5>
-                    </div>
-                    @foreach($expense->expense_items as $product)
-                        <div class="ibox-content">
+                            <div class="col-sm-6 text-right">
+                                <h4>Expense No.</h4>
+                                <h4 class="text-navy">{{$expense->reference}}</h4>
+                                <p>
+                                    <span><strong>Expense Date:</strong> <a href="#" class="text-navy"> {{$expense->date}} </a> </span><br/>
+                                </p>
+                                <h4>Expense Details:</h4>
+{{--                                <address>--}}
+{{--                                    <strong>{{$expense->contact->last_name}} {{$expense->contact->first_name}}</strong><br>--}}
+{{--                                    <abbr title="Phone">P:</abbr> {{$expense->contact->phone_number}}<br>--}}
+{{--                                    <abbr title="Email">E:</abbr> {{$expense->contact->email}}--}}
+{{--                                </address>--}}
+                                <address>
+                                    <strong>Status:</strong> <a><span >{{$expense->status->name}}</span></a><br>
+                                    <strong>Expense Account:</strong> <a href="#" class="text-navy"> {{$expense->expense_account->name}} </a><br>
+                                    <strong>Account:</strong> <a href="#" class="text-navy"> {{$expense->account->name}} </a><br>
+                                    @isset($expense->sale_id)
+                                        <strong>Sale:</strong> <a class="text-navy" href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$expense->sale_id]) }}">{{$expense->sale->reference}}</a><br>
+                                    @endisset()
+                                    @isset($expense->liability_id)
+                                        <strong>Liability:</strong> <a class="text-navy" href="{{ route('business.liability.show', ['portal'=>$institution->portal,'id'=>$expense->liability_id]) }}">{{$expense->liability->reference}}</a><br>
+                                    @endisset()
+                                    @isset($expense->transfer_id)
+                                        <strong>Transfer:</strong> <a class="text-navy" href="{{ route('business.transfer.show', ['portal'=>$institution->portal,'id'=>$expense->transfer_id]) }}">{{$expense->transfer->reference}}</a><br>
+                                    @endisset()
+                                    @isset($expense->campaign_id)
+                                        <strong>Campaign:</strong> <a class="text-navy" href="{{ route('business.campaign.show', ['portal'=>$institution->portal,'id'=>$expense->campaign_id]) }}">{{$expense->campaign->name}}</a><br>
+                                    @endisset()
+                                    <br>
+                                    @if($expense->is_recurring == 1)
+                                        <h5>Frequency</h5>
+                                        <strong>Frequency:</strong> <a href="#" class="text-navy"> {{$expense->frequency->name}}</a><br>
+                                        <strong>Start Repeat:</strong> <a href="#" class="text-navy"> {{$expense->start_repeat}}<br> </a>
+                                        <strong>End Repeat:</strong> <a href="#" class="text-navy"> {{$expense->end_repeat}} </a>
+                                    @endif
 
+                                </address>
 
-                        <div class="table-responsive">
-                            <table class="table shoping-cart-table">
+                            </div>
+                        </div>
 
-                                <tbody>
+                        <div class="table-responsive m-t">
+                            <table class="table invoice-table">
+                                <thead>
                                 <tr>
-                                    <td width="90">
-                                        <div class="cart-product-imitation">
-                                        </div>
-                                    </td>
-                                    <td class="desc">
-                                        <h3>
-                                            <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->id])}}" class="text-navy">
-                                                {{$product->name}}
-                                            </a>
-                                        </h3>
-
-
-                                        <div class="m-t-sm">
-                                            <a href="{{route('business.expense.product.delete',['portal'=>$institution->portal,'id'=>$product->id])}}" class="text-warning"><i class="fa fa-trash"></i> Remove item</a>
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        <h4>
-                                            {{$product->rate}}
-                                        </h4>
-                                    </td>
-                                    <td width="65">
-                                        <input type="text" class="form-control" value="{{$product->quantity}}" readonly>
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            {{$product->amount}}
-                                        </h4>
-                                    </td>
+                                    <th>Item List</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Total Price</th>
                                 </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($expense->expense_items as $product)
+                                    <tr>
+                                        <td>
+                                            <div><strong>{{$product->name}}</strong></div>
+                                        </td>
+                                        <td>{{$product->quantity}}</td>
+                                        <td>{{$product->rate}}</td>
+                                        <td>{{$product->amount}}</td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
+                        </div><!-- /table-responsive -->
+
+                        <table class="table invoice-total">
+                            <tbody>
+                            <tr>
+                                <td><strong>Sub Total :</strong></td>
+                                <td>{{$expense->subtotal}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TAX :</strong></td>
+                                <td>{{$expense->tax}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Discount :</strong></td>
+                                <td>{{$expense->discount}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TOTAL :</strong></td>
+                                <td>{{$expense->total}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        {{-- <div class="text-right">
+                            <button class="btn btn-primary"><i class="fa fa-dollar"></i> Make A Payment</button>
+                        </div> --}}
+
+                        <div class="well m-t"><strong>Description</strong>
+                            {{$expense->notes}}
                         </div>
 
                     </div>
-                    @endforeach
-                    <div class="ibox-content">
-
-
-                    </div>
                 </div>
-
-            </div>
-            <div class="col-md-3">
-
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Expense Summary</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <span>
-                            Total
-                        </span>
-                        <h2 class="font-bold">
-                            {{$expense->total}}
-                        </h2>
-
-                        <hr/>
-                        <span>
-                            Sub Total
-                        </span>
-                        <h2 class="font-bold">
-                            {{$expense->sub_total}}
-                        </h2>
-
-                        <hr/>
-                        <span>
-                            Discount
-                        </span>
-                        <h2 class="font-bold">
-                            {{$expense->adjustment}}
-                        </h2>
-
-                        <hr/>
-                        <span>
-                            Paid
-                        </span>
-                        <h2 class="font-bold">
-                            {{$expense->paid}}
-                        </h2>
-
-                        <hr/>
-                        <span class="text-muted small">
-
-                        </span>
-                        <div class="m-t-sm">
-                            <h4>Description</h4>
-                            <p class="small">
-                                {{$expense->notes}}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
+
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInUp">
                     <div class="ibox">
                         <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
-                                        @if($expense->is_draft == 1)
-                                            <a href="#" class="btn btn-white btn-xs pull-right"> Draft</a>
-                                        @endif
-                                        <h2>{{$expense->reference}}</h2>
-                                        <a href="{{route('business.transaction.create',['portal'=>$institution->portal,'id'=>$expense->id])}}" class="pull-right btn btn-primary btn-outline">Make Payment</a>
-                                    </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></dd>
-                                    </dl>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
 
-                                        <dt>Created by:</dt> <dd>{{$expense->user->name}}</dd>
-                                        <dt>Expense Account:</dt> <dd><a href="#" class="text-navy"> {{$expense->expense_account->name}}</a> </dd>
-                                        <dt>Date:</dt> <dd>{{$expense->date}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-
-                                        @if($expense->is_recurring == 1)
-                                            <dt>Frequency:</dt> <dd><a href="#" class="text-navy"> {{$expense->frequency->name}}</a> </dd>
-                                            <dt>Start Repeat:</dt> <dd> 	{{$expense->start_repeat}} </dd>
-                                            <dt>End Repeat:</dt> <dd> 	{{$expense->end_repeat}} </dd>
-                                        @endif
-                                    </dl>
-                                </div>
-                            </div>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                     <div class="panel blank-panel">
@@ -228,7 +192,7 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="tab-1">
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <table class="table table-striped table-bordered table-hover dataTables-payments" >
                                                             <thead>
                                                             <tr>
                                                                 <th>Date</th>
@@ -284,7 +248,7 @@
                                                 </div>
                                                 <div class="tab-pane" id="tab-2">
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <table class="table table-striped table-bordered table-hover dataTables-pending-payments" >
                                                             <thead>
                                                             <tr>
                                                                 <th>Date</th>
@@ -543,13 +507,81 @@
 {{--  Data tables  --}}
 <script>
     $(document).ready(function(){
-        $('.dataTables-example').DataTable({
+        $('.dataTables-payments').DataTable({
             dom: '<"html5buttons"B>lTfgitp',
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
+                {extend: 'excel',
+                    title: '{{$expense->reference}} Payments',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$expense->reference}} Payments',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-pending-payments').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$expense->reference}} Penidng Payemnts',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$expense->reference}} Penidng Payemnts',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

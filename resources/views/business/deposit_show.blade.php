@@ -461,8 +461,18 @@
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
+                {extend: 'excel',
+                    title: 'Deposit {{$deposit->reference}} Account Adjustments',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: 'Deposit {{$deposit->reference}} Account Adjustments',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

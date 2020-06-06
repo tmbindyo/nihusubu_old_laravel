@@ -71,20 +71,6 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Contact Type Contacts ({{$contactType->contacts_count}})</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="ibox-content">
 
@@ -164,8 +150,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel',
+                        title: '{{$contactType->name}} Contacts',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$contactType->name}} Contacts',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){
