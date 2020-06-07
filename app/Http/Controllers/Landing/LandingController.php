@@ -76,7 +76,7 @@ class LandingController extends Controller
     public function emailUnubscribe(Request $request)
     {
         $emailSubscription = EmailSubscribe::where('email', $request->email)->first();
-        if($emailSubscription){
+        if ($emailSubscription){
             $emailSubscription->status_id = 'e0050238-1d7b-4420-b297-ce4c41c700a3';
             $emailSubscription->save();
             return back()->withSuccess(__('You have sucessfully been subscribed.'));
