@@ -96,7 +96,7 @@ class LandingController extends Controller
         return back()->withSuccess(__('You have sucessfully been subscribed.'));
     }
 
-    public function addressPopulation ()
+    public function addressPopulation()
     {
         $institutions = Institution::all();
         foreach ($institutions as $institution) {
