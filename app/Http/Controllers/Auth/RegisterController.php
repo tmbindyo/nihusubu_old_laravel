@@ -152,7 +152,7 @@ class RegisterController extends Controller
         return redirect()->route('home');
     }
 
-    private function institutionSeeder ($request, $user)
+    private function institutionSeeder($request, $user)
     {
         $institution = new Institution();
         $institution->name = $request->business_name;
