@@ -169,7 +169,6 @@ class SectionSeeder extends Controller
             );
         }
         $section = Section::all();
-
     }
 
     public function menuSeeder()
