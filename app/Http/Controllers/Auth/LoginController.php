@@ -39,13 +39,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectToProvider($provider) {
+    public function redirectToProvider($provider)
+    {
 
         return Socialite::driver($provider)->redirect();
 
     }
 
-    public function handleProviderCallback($provider) {
+    public function handleProviderCallback($provider)
+    {
 
         // return $provider;
         $getInfo = Socialite::driver($provider)->user();
@@ -86,11 +88,13 @@ class LoginController extends Controller
     }
 
 
-    private function facebook($getInfo){
+    private function facebook($getInfo)
+    {
 
     }
 
-    private function google($getInfo){
+    private function google($getInfo)
+    {
         $token = $getInfo->token;
         $refreshToken = $getInfo->refreshToken; // not always provided
         $expiresIn = $getInfo->expiresIn;
@@ -118,11 +122,13 @@ class LoginController extends Controller
         // create user
     }
 
-    private function twitter($getInfo){
+    private function twitter($getInfo)
+    {
 
     }
-    
-    private function linkedIn($getInfo){
+
+    private function linkedIn($getInfo)
+    {
 
     }
 
