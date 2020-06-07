@@ -79,7 +79,7 @@
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
 
     <link href="{{ asset('css') }}/choices.min.css" rel="stylesheet">
-    
+
 
     {{--  Tags  --}}
     <style>
