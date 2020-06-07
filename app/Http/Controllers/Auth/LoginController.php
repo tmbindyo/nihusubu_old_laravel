@@ -83,7 +83,6 @@ class LoginController extends Controller
 
     }
 
-
     private function facebook($getInfo)
     {
         // facebook
