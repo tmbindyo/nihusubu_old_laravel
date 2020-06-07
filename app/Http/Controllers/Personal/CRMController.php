@@ -41,11 +41,11 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // Get contacts
-        $contacts = Contact::where('user_id',$user->id)->where('is_user',true)->where('is_lead', false)->with('status','contactType','title')->get();
+        $contacts = Contact::where('user_id',$user->id)->where('is_user', true)->where('is_lead', false)->with('status', 'contactType', 'title')->get();
         // Get deleted contacts
-        $deletedContacts = Contact::where('user_id',$user->id)->where('is_user',true)->where('is_lead', false)->with('status','contactType','title')->onlyTrashed()->get();
+        $deletedContacts = Contact::where('user_id',$user->id)->where('is_user', true)->where('is_lead', false)->with('status', 'contactType', 'title')->onlyTrashed()->get();
 
-        return view('personal.contacts',compact('contacts','user','deletedContacts'));
+        return view('personal.contacts',compact('contacts', 'user', 'deletedContacts'));
     }
 
     public function contactCreate()
@@ -53,12 +53,12 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // get contacts
-        $contacts = Contact::where('user_id',$user->id)->where('is_user',true)->with('user','status','contactType')->get();
+        $contacts = Contact::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'contactType')->get();
         // get titles
-        $titles = Title::where('user_id',$user->id)->where('is_user',true)->get();
+        $titles = Title::where('user_id',$user->id)->where('is_user', true)->get();
         // get contact types
-        $contactTypes = ContactType::where('user_id',$user->id)->where('is_user',true)->get();
-        return view('personal.contact_create',compact('contacts','user','titles','contactTypes'));
+        $contactTypes = ContactType::where('user_id',$user->id)->where('is_user', true)->get();
+        return view('personal.contact_create',compact('contacts', 'user', 'titles', 'contactTypes'));
     }
 
     public function contactStore(Request $request)
@@ -154,29 +154,29 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // contacts
-        $contact = Contact::where('user_id',$user->id)->where('is_user',true)->with('user','status')->where('id',$contact_id)->first();
+        $contact = Contact::where('user_id',$user->id)->where('is_user', true)->with('user', 'status')->where('id',$contact_id)->first();
         // get titles
-        $titles = Title::where('user_id',$user->id)->where('is_user',true)->get();
+        $titles = Title::where('user_id',$user->id)->where('is_user', true)->get();
 
         // get contact types
-        $contactTypes = ContactType::where('user_id',$user->id)->where('is_user',true)->get();
+        $contactTypes = ContactType::where('user_id',$user->id)->where('is_user', true)->get();
 
         // contact contact types
-        $contactContactTypes = ContactContactType::with('user','status','contactType')->where('contact_id',$contact_id)->get();
+        $contactContactTypes = ContactContactType::with('user', 'status', 'contactType')->where('contact_id',$contact_id)->get();
 
         // ontact owed liability
-        $liabilities = Liability::where('user_id',$user->id)->where('is_user',true)->with('user','status')->where('contact_id',$contact_id)->get();
+        $liabilities = Liability::where('user_id',$user->id)->where('is_user', true)->with('user', 'status')->where('contact_id',$contact_id)->get();
         // contact loans
-        $loans = Loan::where('user_id',$user->id)->where('is_user',true)->with('user','status')->where('contact_id',$contact_id)->get();
+        $loans = Loan::where('user_id',$user->id)->where('is_user', true)->with('user', 'status')->where('contact_id',$contact_id)->get();
         // Pending to dos
-        $pendingToDos = ToDo::where('user_id',$user->id)->where('is_user',true)->with('user','status','contact')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('contact_id',$contact->id)->get();
+        $pendingToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'contact')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('contact_id',$contact->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('user_id',$user->id)->where('is_user',true)->with('user','status','contact')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('contact_id',$contact->id)->get();
+        $inProgressToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'contact')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('contact_id',$contact->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('user_id',$user->id)->where('is_user',true)->with('user','status','contact')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('contact_id',$contact->id)->get();
+        $completedToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'contact')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('contact_id',$contact->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user',true)->with('user','status','contact')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('contact_id',$contact->id)->get();
-        return view('personal.contact_show',compact('loans','overdueToDos','completedToDos','inProgressToDos','pendingToDos','liabilities','titles','contact','user','loans','contactTypes','contactContactTypes'));
+        $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'contact')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('contact_id',$contact->id)->get();
+        return view('personal.contact_show',compact('loans', 'overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'liabilities', 'titles', 'contact', 'user', 'loans', 'contactTypes', 'contactContactTypes'));
     }
 
     public function contactLiabilityCreate($contact_id)
@@ -184,12 +184,12 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // get accounts
-        $accounts = Account::where('user_id',$user->id)->where('is_user',true)->get();
+        $accounts = Account::where('user_id',$user->id)->where('is_user', true)->get();
         // get contact
-        $contactLiability = Contact::where('user_id',$user->id)->where('is_user',true)->where('id',$contact_id)->with('organization')->first();
+        $contactLiability = Contact::where('user_id',$user->id)->where('is_user', true)->where('id',$contact_id)->with('organization')->first();
         // get contacts
-        $contacts = Contact::where('user_id',$user->id)->where('is_user',true)->with('organization')->get();
-        return view('personal.contact_liability_create',compact('contactLiability','user','accounts','contacts'));
+        $contacts = Contact::where('user_id',$user->id)->where('is_user', true)->with('organization')->get();
+        return view('personal.contact_liability_create',compact('contactLiability', 'user', 'accounts', 'contacts'));
     }
 
     public function contactLoanCreate($contact_id)
@@ -197,10 +197,10 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // get accounts
-        $accounts = Account::where('user_id',$user->id)->where('is_user',true)->get();
+        $accounts = Account::where('user_id',$user->id)->where('is_user', true)->get();
         // get contacts
-        $contact = Contact::where('user_id',$user->id)->where('is_user',true)->with('organization')->where('id',$contact_id)->first();
-        return view('personal.contact_loan_create',compact('user','accounts','contact'));
+        $contact = Contact::where('user_id',$user->id)->where('is_user', true)->with('organization')->where('id',$contact_id)->first();
+        return view('personal.contact_loan_create',compact('user', 'accounts', 'contact'));
     }
 
     public function contactSaleCreate($contact_id)
@@ -208,11 +208,11 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // products
-        $products = Product::where('user_id',$user->id)->where('is_user',true)->with('sub_type','size','status')->get();
+        $products = Product::where('user_id',$user->id)->where('is_user', true)->with('sub_type', 'size', 'status')->get();
         // contacts
-        $contact = Contact::where('user_id',$user->id)->where('is_user',true)->where('id',$contact_id)->with('organization')->first();
+        $contact = Contact::where('user_id',$user->id)->where('is_user', true)->where('id',$contact_id)->with('organization')->first();
 
-        return view('personal.contact_sale_create',compact('contact','products','user'));
+        return view('personal.contact_sale_create',compact('contact', 'products', 'user'));
     }
 
     public function contactUpdate(Request $request, $contact_id)

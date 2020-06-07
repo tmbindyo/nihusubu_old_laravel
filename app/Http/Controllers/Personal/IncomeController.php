@@ -29,7 +29,7 @@ class IncomeController extends Controller
         $user = $this->getUser();
         // get income
         $incomes = Income::where('user_id',$user->id)->with('incomeType')->get();
-        return view('personal.incomes',compact('user','incomes'));
+        return view('personal.incomes',compact('user', 'incomes'));
     }
 
     public function incomeCreate()
@@ -39,10 +39,10 @@ class IncomeController extends Controller
         // Income types
         $incomeTypes = IncomeType::all();
         // Frequency
-        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id',$user->id)->where('is_user',true)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id',$user->id)->where('is_user', true)->get();
         // Account
-        $accounts = Account::where('user_id',$user->id)->where('is_user',true)->get();
-        return view('personal.income_create',compact('user','incomeTypes','frequencies','accounts'));
+        $accounts = Account::where('user_id',$user->id)->where('is_user', true)->get();
+        return view('personal.income_create',compact('user', 'incomeTypes', 'frequencies', 'accounts'));
     }
 
     public function incomeStore(Request $request)
@@ -117,13 +117,13 @@ class IncomeController extends Controller
         $user = $this->getUser();
         // Income
         $incomeExists = Income::findOrFail($income_id);
-        $income = Income::where('id',$income_id)->with('frequency','incomeType','account','status','user','incomeDebits')->first();
+        $income = Income::where('id',$income_id)->with('frequency', 'incomeType', 'account', 'status', 'user', 'incomeDebits')->first();
         // Income debits
-        $incomeDebits = IncomeDebit::where('user_id',$user->id)->where('income_id',$income->id)->where('status_id','2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('income','account','status')->get();
+        $incomeDebits = IncomeDebit::where('user_id',$user->id)->where('income_id',$income->id)->where('status_id', '2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('income', 'account', 'status')->get();
         // get pending payments
-        $pendingIncomeDebits = IncomeDebit::where('user_id',$user->id)->where('income_id',$income->id)->where('status_id','a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('income','account','status')->get();
+        $pendingIncomeDebits = IncomeDebit::where('user_id',$user->id)->where('income_id',$income->id)->where('status_id', 'a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('income', 'account', 'status')->get();
 
-        return view('personal.income_show',compact('user','income','incomeDebits','pendingIncomeDebits'));
+        return view('personal.income_show',compact('user', 'income', 'incomeDebits', 'pendingIncomeDebits'));
 
     }
 

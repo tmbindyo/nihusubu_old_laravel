@@ -30,7 +30,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+        $this->middleware(['auth', 'verified']);
     }
 
     use UserTrait;
@@ -76,10 +76,10 @@ class HomeController extends Controller
         $user = Auth::user();
 
         // Get personal user account
-        $personalUserAccount = UserAccount::where('user_id',$user->id)->where('user_type_id','5f29e668-9029-4278-a5e7-9ba9f96a20df')->with('institution','userType')->first();
+        $personalUserAccount = UserAccount::where('user_id',$user->id)->where('user_type_id', '5f29e668-9029-4278-a5e7-9ba9f96a20df')->with('institution', 'userType')->first();
         // get user accountsupdate user_accounts set
-        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution','userType')->get();
-        return view('auth.account_type_addition',compact('userAccounts','user','personalUserAccount'));
+        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution', 'userType')->get();
+        return view('auth.account_type_addition',compact('userAccounts', 'user', 'personalUserAccount'));
     }
 
     public function viewUserAccounts()
@@ -88,8 +88,8 @@ class HomeController extends Controller
         // User
         $user = Auth::user();
         // get user accountsupdate user_accounts set
-        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution','userType')->get();
-        return view('auth.lockscreen',compact('userAccounts','user'));
+        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution', 'userType')->get();
+        return view('auth.lockscreen',compact('userAccounts', 'user'));
     }
 
     public function activateUserAccount($user_account_id)

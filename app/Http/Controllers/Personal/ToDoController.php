@@ -25,15 +25,15 @@ class ToDoController extends Controller
         $user = $this->getUser();
 
         // Pending to dos
-        $pendingToDos = ToDo::with('account','accountAdjustment','assignee','campaign','contact','deposit','expense','liability','loan','organization','payment','product','productGroup','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('user_id',$user->id)->where('is_user',true)->get();
+        $pendingToDos = ToDo::with('account', 'accountAdjustment', 'assignee', 'campaign', 'contact', 'deposit', 'expense', 'liability', 'loan', 'organization', 'payment', 'product', 'productGroup', 'sale', 'status', 'transaction', 'transfer', 'user', 'warehouse', 'withdrawal')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('user_id',$user->id)->where('is_user', true)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::with('account','accountAdjustment','assignee','campaign','contact','deposit','expense','liability','loan','organization','payment','product','productGroup','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('user_id',$user->id)->where('is_user',true)->get();
+        $inProgressToDos = ToDo::with('account', 'accountAdjustment', 'assignee', 'campaign', 'contact', 'deposit', 'expense', 'liability', 'loan', 'organization', 'payment', 'product', 'productGroup', 'sale', 'status', 'transaction', 'transfer', 'user', 'warehouse', 'withdrawal')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('user_id',$user->id)->where('is_user', true)->get();
         // Completed to dos
-        $completedToDos = ToDo::with('account','accountAdjustment','assignee','campaign','contact','deposit','expense','liability','loan','organization','payment','product','productGroup','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('user_id',$user->id)->where('is_user',true)->get();
+        $completedToDos = ToDo::with('account', 'accountAdjustment', 'assignee', 'campaign', 'contact', 'deposit', 'expense', 'liability', 'loan', 'organization', 'payment', 'product', 'productGroup', 'sale', 'status', 'transaction', 'transfer', 'user', 'warehouse', 'withdrawal')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('user_id',$user->id)->where('is_user', true)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::with('account','accountAdjustment','assignee','campaign','contact','deposit','expense','liability','loan','organization','payment','product','productGroup','sale','status','transaction','transfer','user','warehouse','withdrawal')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('user_id',$user->id)->where('is_user',true)->get();
+        $overdueToDos = ToDo::with('account', 'accountAdjustment', 'assignee', 'campaign', 'contact', 'deposit', 'expense', 'liability', 'loan', 'organization', 'payment', 'product', 'productGroup', 'sale', 'status', 'transaction', 'transfer', 'user', 'warehouse', 'withdrawal')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('user_id',$user->id)->where('is_user', true)->get();
 
-        return view('personal.to_dos',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user'));
+        return view('personal.to_dos',compact('pendingToDos', 'inProgressToDos', 'completedToDos', 'overdueToDos', 'user'));
     }
 
     // Store to do

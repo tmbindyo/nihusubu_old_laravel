@@ -45,11 +45,11 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Estimates
-        $estimates = Sale::where('institution_id',$institution->id)->where('is_estimate', true)->with('status','contact')->get();
+        $estimates = Sale::where('institution_id',$institution->id)->where('is_estimate', true)->with('status', 'contact')->get();
 
 //        return $estimates;
 
-        return view('business.estimates',compact('user','institution','estimates'));
+        return view('business.estimates',compact('user', 'institution', 'estimates'));
     }
 
     public function estimateCreate($portal)
@@ -59,17 +59,17 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization', 'title')->get();
         // Getting taxes
-        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Getting Products
         $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         // Get Inventory
-        $inventories = Inventory::with('product','warehouse')->get();
+        $inventories = Inventory::with('product', 'warehouse')->get();
 
-        return view('business.estimate_create',compact('user','institution','contacts','taxes','inventories','products'));
+        return view('business.estimate_create',compact('user', 'institution', 'contacts', 'taxes', 'inventories', 'products'));
     }
 
     public function estimateStore(Request $request, $portal)
@@ -203,7 +203,7 @@ class SaleController extends Controller
         $estimateTaxSet->total = $estimateTaxSet->total + $tax;
         $estimateTaxSet->save();
 
-        return redirect()->route('business.estimate.show',['portal'=>$institution->portal,'id'=>$estimate->id])->withSuccess(__('Estimate successfully created.'));
+        return redirect()->route('business.estimate.show',['portal'=>$institution->portal, 'id'=>$estimate->id])->withSuccess(__('Estimate successfully created.'));
     }
 
     public function estimateShow($portal, $estimate_id)
@@ -213,20 +213,20 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization', 'title')->get();
         // Getting taxes
-        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
         // Getting Products
         $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $inventories = Inventory::with('product','warehouse')->get();
+        $inventories = Inventory::with('product', 'warehouse')->get();
         // Get estimate
-        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact.organization','saleProducts.product.productTaxes')->withCount('saleProducts')->first();
+        $estimate = Sale::where('id',$estimate_id)->with('status', 'user', 'contact.organization', 'saleProducts.product.productTaxes')->withCount('saleProducts')->first();
         // return $estimate;
 
-        return view('business.estimate_show',compact('user','institution','estimate'));
+        return view('business.estimate_show',compact('user', 'institution', 'estimate'));
     }
 
     public function estimateEdit($portal, $estimate_id)
@@ -236,19 +236,19 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization', 'title')->get();
         // Getting taxes
-        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
         // Getting Products
         $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $inventories = Inventory::with('product','warehouse')->get();
+        $inventories = Inventory::with('product', 'warehouse')->get();
         // Get estimate
-        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact','saleProducts.product.productTaxes')->withCount('saleProducts')->first();
+        $estimate = Sale::where('id',$estimate_id)->with('status', 'user', 'contact', 'saleProducts.product.productTaxes')->withCount('saleProducts')->first();
 
-        return view('business.estimate_edit',compact('user','institution','contacts','products','inventories','estimate'));
+        return view('business.estimate_edit',compact('user', 'institution', 'contacts', 'products', 'inventories', 'estimate'));
     }
 
     public function estimateUpdate(Request $request, $portal, $estimate_id)
@@ -382,9 +382,9 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get estimate
-        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact','saleProducts.product')->withCount('saleProducts')->first();
+        $estimate = Sale::where('id',$estimate_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
 //        return $estimate;
-        return view('business.estimate_print',compact('user','institution','estimate'));
+        return view('business.estimate_print',compact('user', 'institution', 'estimate'));
     }
 
 
@@ -396,9 +396,9 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Invoices
-        $invoices = Sale::where('institution_id',$institution->id)->where('is_invoice', true)->with('status','contact')->get();
+        $invoices = Sale::where('institution_id',$institution->id)->where('is_invoice', true)->with('status', 'contact')->get();
 
-        return view('business.invoices',compact('user','institution','invoices'));
+        return view('business.invoices',compact('user', 'institution', 'invoices'));
     }
 
     public function invoiceCreate($portal)
@@ -408,17 +408,17 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization', 'title')->get();
         // Getting taxes
-        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
         // Getting Products
         $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $inventories = Inventory::with('product','warehouse')->get();
+        $inventories = Inventory::with('product', 'warehouse')->get();
 
-        return view('business.invoice_create',compact('user','institution','products','inventories','contacts','taxes'));
+        return view('business.invoice_create',compact('user', 'institution', 'products', 'inventories', 'contacts', 'taxes'));
     }
 
     public function invoiceStore(Request $request, $portal)
@@ -518,7 +518,7 @@ class SaleController extends Controller
         $invoiceTaxSet->total = $invoiceTaxSet->total + $tax;
         $invoiceTaxSet->save();
 
-        return redirect()->route('business.invoice.show',['portal'=>$institution->portal,'id'=>$invoice->id])->withSuccess(__('Invoice successfully created.'));
+        return redirect()->route('business.invoice.show',['portal'=>$institution->portal, 'id'=>$invoice->id])->withSuccess(__('Invoice successfully created.'));
     }
 
     public function invoiceShow($portal, $invoice_id)
@@ -528,19 +528,19 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization', 'title')->get();
         // Getting taxes
-        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
         // Getting Products
         $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $inventories = Inventory::with('product','warehouse')->get();
+        $inventories = Inventory::with('product', 'warehouse')->get();
         // Get invoice
-        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','saleProducts.product.productTaxes')->withCount('saleProducts')->first();
+        $invoice = Sale::where('id',$invoice_id)->with('status', 'user', 'contact', 'saleProducts.product.productTaxes')->withCount('saleProducts')->first();
 
-        return view('business.invoice_show',compact('user','institution','invoice'));
+        return view('business.invoice_show',compact('user', 'institution', 'invoice'));
     }
 
     public function invoiceEdit($portal, $invoice_id)
@@ -550,19 +550,19 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization', 'title')->get();
         // Getting taxes
-        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
         // Getting Products
         $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $inventories = Inventory::with('product','warehouse')->get();
+        $inventories = Inventory::with('product', 'warehouse')->get();
         // Get invoice
-        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','saleProducts.product.productTaxes')->withCount('saleProducts')->first();
+        $invoice = Sale::where('id',$invoice_id)->with('status', 'user', 'contact', 'saleProducts.product.productTaxes')->withCount('saleProducts')->first();
 
-        return view('business.invoice_edit',compact('user','institution','contacts','products','inventories','invoice'));
+        return view('business.invoice_edit',compact('user', 'institution', 'contacts', 'products', 'inventories', 'invoice'));
     }
 
     public function invoiceUpdate(Request $request, $portal, $invoice_id)
@@ -697,9 +697,9 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get invoice
-        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','saleProducts.product')->withCount('saleProducts')->first();
+        $invoice = Sale::where('id',$invoice_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
 //        return $invoice;
-        return view('business.invoice_print',compact('user','institution','invoice'));
+        return view('business.invoice_print',compact('user', 'institution', 'invoice'));
     }
 
 
@@ -712,9 +712,9 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Sales
-        $sales = Sale::where('institution_id',$institution->id)->where('is_sale', true)->with('status','contact')->get();
+        $sales = Sale::where('institution_id',$institution->id)->where('is_sale', true)->with('status', 'contact')->get();
 
-        return view('business.sales',compact('user','institution','sales'));
+        return view('business.sales',compact('user', 'institution', 'sales'));
     }
 
     public function saleCreate($portal)
@@ -725,17 +725,17 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization', 'title')->get();
         // Getting taxes
-        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
         // Getting Products
         $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $inventories = Inventory::with('product','warehouse')->get();
+        $inventories = Inventory::with('product', 'warehouse')->get();
 
-        return view('business.sale_create',compact('user','institution','products','inventories','contacts','taxes'));
+        return view('business.sale_create',compact('user', 'institution', 'products', 'inventories', 'contacts', 'taxes'));
     }
 
     public function saleStore(Request $request, $portal)
@@ -860,7 +860,7 @@ class SaleController extends Controller
         $saleTaxSet->total = $saleTaxSet->total + $tax;
         $saleTaxSet->save();
 
-        return redirect()->route('business.sale.show',['portal'=>$institution->portal,'id'=>$sale->id])->withSuccess(__('Sale successfully created.'));
+        return redirect()->route('business.sale.show',['portal'=>$institution->portal, 'id'=>$sale->id])->withSuccess(__('Sale successfully created.'));
     }
 
     public function saleShow($portal, $sale_id)
@@ -870,20 +870,20 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization', 'title')->get();
         // Getting taxes
-        $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
         // Getting Products
         $products = Product::where('institution_id',$institution->id)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
-        $inventories = Inventory::with('product','warehouse')->get();
+        $inventories = Inventory::with('product', 'warehouse')->get();
         // Get sale
-        $sale = Sale::where('institution_id',$institution->id)->where('id',$sale_id)->with('status','user','contact','saleProducts.product.productTaxes','paymentsReceived.status')->withCount('saleProducts')->first();
+        $sale = Sale::where('institution_id',$institution->id)->where('id',$sale_id)->with('status', 'user', 'contact', 'saleProducts.product.productTaxes', 'paymentsReceived.status')->withCount('saleProducts')->first();
         // payments
-        $payments = Payment::where('sale_id',$sale->id)->with('user','status','account')->get();
-        return view('business.sale_show',compact('user','institution','sale','payments'));
+        $payments = Payment::where('sale_id',$sale->id)->with('user', 'status', 'account')->get();
+        return view('business.sale_show',compact('user', 'institution', 'sale', 'payments'));
     }
 
     public function salePrint($portal, $invoice_id)
@@ -894,9 +894,9 @@ class SaleController extends Controller
         $institution = $this->getInstitution($portal);
         // return $institution;
         // Get sale
-        $sale = Sale::where('id',$invoice_id)->with('status','user','contact','saleProducts.product')->withCount('saleProducts')->first();
+        $sale = Sale::where('id',$invoice_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
 //        return $sale;
-        return view('business.sale_print',compact('user','institution','sale'));
+        return view('business.sale_print',compact('user', 'institution', 'sale'));
 
     }
 
@@ -908,9 +908,9 @@ class SaleController extends Controller
         $institution = $this->getInstitution($portal);
         // return $institution;
         // Get sale
-        $sale = Sale::where('id',$invoice_id)->with('status','user','contact','saleProducts.product')->withCount('saleProducts')->first();
+        $sale = Sale::where('id',$invoice_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
 //        return $sale;
-        return view('business.sale_print',compact('user','institution','sale'));
+        return view('business.sale_print',compact('user', 'institution', 'sale'));
 
     }
 
@@ -921,10 +921,10 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // sales
         $sale = Sale::where('id',$sale_id)->first();
-        return view('business.sale_payment_create',compact('user','institution','accounts','sale'));
+        return view('business.sale_payment_create',compact('user', 'institution', 'accounts', 'sale'));
     }
 
     public function saleEdit($portal, $sale_id)
@@ -934,7 +934,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.sale_show',compact('user','institution'));
+        return view('business.sale_show',compact('user', 'institution'));
     }
 
     public function saleUpdate($portal, $sale_id)
@@ -1020,13 +1020,13 @@ class SaleController extends Controller
         // Get received payments
         $saleIds = Sale::where('institution_id',$institution->id)->select('id')->get()->toArray();
         if ($saleIds){
-            $paymentsReceived = PaymentReceived::where('sale_id',$saleIds)->with('sale','status','user')->get();
+            $paymentsReceived = PaymentReceived::where('sale_id',$saleIds)->with('sale', 'status', 'user')->get();
         }
         else{
             $paymentsReceived = [];
         }
 
-        return view('business.payments_received',compact('user','institution','paymentsReceived'));
+        return view('business.payments_received',compact('user', 'institution', 'paymentsReceived'));
     }
 
     public function paymentsReceivedStore(Request $request, $portal, $sale_id)

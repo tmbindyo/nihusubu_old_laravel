@@ -25,7 +25,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.employees',compact('user','institution'));
+        return view('business.employees',compact('user', 'institution'));
     }
     public function employeeCreate($portal)
     {
@@ -34,7 +34,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.employee_create',compact('user','institution'));
+        return view('business.employee_create',compact('user', 'institution'));
     }
     public function employeeStore(Request $request, $portal)
     {
@@ -47,7 +47,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.employee_show',compact('user','institution'));
+        return view('business.employee_show',compact('user', 'institution'));
     }
     public function employeeEdit($portal, $employee_id)
     {
@@ -56,7 +56,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.employee_edit',compact('user','institution'));
+        return view('business.employee_edit',compact('user', 'institution'));
     }
     public function employeeUpdate(Request $request, $portal)
     {
@@ -74,7 +74,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.leave',compact('user','institution'));
+        return view('business.leave',compact('user', 'institution'));
     }
     public function leaveCreate($portal)
     {
@@ -83,7 +83,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.leave_create',compact('user','institution'));
+        return view('business.leave_create',compact('user', 'institution'));
     }
     public function leaveStore(Request $request, $portal)
     {
@@ -96,7 +96,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.leave_show',compact('user','institution'));
+        return view('business.leave_show',compact('user', 'institution'));
     }
     public function leaveEdit($portal, $leave_id)
     {
@@ -105,7 +105,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.leave_edit',compact('user','institution'));
+        return view('business.leave_edit',compact('user', 'institution'));
     }
     public function leaveUpdate(Request $request, $portal)
     {
@@ -123,7 +123,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.payroll',compact('user','institution'));
+        return view('business.payroll',compact('user', 'institution'));
     }
     public function payrollHistory($portal)
     {
@@ -132,7 +132,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.payroll_history',compact('user','institution'));
+        return view('business.payroll_history',compact('user', 'institution'));
     }
     public function employeePayrollHistory($portal)
     {
@@ -141,7 +141,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.employee_payroll_history',compact('user','institution'));
+        return view('business.employee_payroll_history',compact('user', 'institution'));
     }
     public function payrollAnnualSalaryStatement($portal)
     {
@@ -150,7 +150,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.payroll_annual_salary_statement',compact('user','institution'));
+        return view('business.payroll_annual_salary_statement',compact('user', 'institution'));
     }
     public function payrollProcess($portal)
     {
@@ -159,7 +159,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.payroll_process',compact('user','institution'));
+        return view('business.payroll_process',compact('user', 'institution'));
     }
     public function payrollProcessPayment($portal)
     {
@@ -172,7 +172,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.payroll_salary_adjustment',compact('user','institution'));
+        return view('business.payroll_salary_adjustment',compact('user', 'institution'));
     }
 
     public function employer($portal)
@@ -182,7 +182,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.employer',compact('user','institution'));
+        return view('business.employer',compact('user', 'institution'));
     }
 
     public function humanResourceSettings($portal)
@@ -192,7 +192,7 @@ class EmployeeController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.human_resource_settings',compact('user','institution'));
+        return view('business.human_resource_settings',compact('user', 'institution'));
     }
 
     public function workdaysUpdate($portal)

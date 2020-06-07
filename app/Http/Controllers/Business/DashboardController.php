@@ -25,6 +25,6 @@ class DashboardController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.dashboard',compact('user','institution'));
+        return view('business.dashboard',compact('user', 'institution'));
     }
 }
