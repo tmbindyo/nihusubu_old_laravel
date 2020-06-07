@@ -151,7 +151,7 @@
                                                                     </td>
                                                                     @if($income->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
                                                                         <td class="text-right">
-                                                                            @if($transaction->is_billed == False)
+                                                                            @if($transaction->is_billed == false)
                                                                                 <div class="btn-group">
                                                                                     <a href="{{ route('personal.transaction.billed', $transaction->id) }}" class="btn-warning btn btn-xs">Mark Billed</a>
                                                                                 </div>

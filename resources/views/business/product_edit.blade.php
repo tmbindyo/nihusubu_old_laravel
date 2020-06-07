@@ -64,7 +64,7 @@
 
                                             <p>Product Type</p>
                                             <div class="radio radio-inline">
-                                                <input type="radio" id="goods" value="goods" name="product_type" @if($product->is_service == False)  checked="" @endif onclick = "productTypeSelected(this)">
+                                                <input type="radio" id="goods" value="goods" name="product_type" @if($product->is_service == false)  checked="" @endif onclick = "productTypeSelected(this)">
                                                 <label for="goods"> Goods </label>
                                             </div>
                                             <div class="radio radio-inline">

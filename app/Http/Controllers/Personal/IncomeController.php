@@ -39,9 +39,9 @@ class IncomeController extends Controller
         // Income types
         $incomeTypes = IncomeType::all();
         // Frequency
-        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id',$user->id)->where('is_user',True)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id',$user->id)->where('is_user',true)->get();
         // Account
-        $accounts = Account::where('user_id',$user->id)->where('is_user',True)->get();
+        $accounts = Account::where('user_id',$user->id)->where('is_user',true)->get();
         return view('personal.income_create',compact('user','incomeTypes','frequencies','accounts'));
     }
 
@@ -59,21 +59,21 @@ class IncomeController extends Controller
         $income->amount = $request->amount;
         $income->date = date('Y-m-d', strtotime($request->date));
         $income->income_type_id = $request->income_type;
-        $income->is_debit = False;
+        $income->is_debit = false;
         $income->user_id = $user->id;
         $income->account_id = $request->account;
         $income->frequency_id = $request->frequency;
         $income->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
 
         if($request->is_variable == "variable"){
-            $income->is_variable = True;
+            $income->is_variable = true;
         }elseif($request->is_variable == "fixed"){
-            $income->is_variable = False;
+            $income->is_variable = false;
         }
         if($request->is_recurring == "on"){
-            $income->is_recurring = True;
+            $income->is_recurring = true;
         }else{
-            $income->is_recurring = False;
+            $income->is_recurring = false;
         }
 
         $income->save();
@@ -82,7 +82,7 @@ class IncomeController extends Controller
         $income = Income::findOrFail($income->id);
         // update account
         if($request->is_debit == "on"){
-            $income->is_debit = False;
+            $income->is_debit = false;
             // Generate reference
             $size = 5;
             $reference = $this->getRandomString($size);
@@ -94,7 +94,7 @@ class IncomeController extends Controller
             $incomeDebit->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2';
             $incomeDebit->income_id = $income->id;
             $incomeDebit->user_id = $user->id;
-            $incomeDebit->is_debited = True;
+            $incomeDebit->is_debited = true;
             $incomeDebit->save();
 
             // account debit
@@ -103,7 +103,7 @@ class IncomeController extends Controller
             $account->save();
 
         }else{
-            $income->is_debit = False;
+            $income->is_debit = false;
         }
         $income->save();
 

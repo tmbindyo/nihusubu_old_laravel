@@ -50,16 +50,16 @@ class InstitutionRecurringExpense extends Command
         // Date today
         $today = date('Y-m-d');
         // Get institutions
-        $institutions = Institution::where('is_active', True)->get();
+        $institutions = Institution::where('is_active', true)->get();
         foreach ($institutions as $institution){
             // get institution frequencies
-            $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_institution',True)->where('institution_id',$institution->id)->get();
+            $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_institution',true)->where('institution_id',$institution->id)->get();
             foreach ($frequencies as $frequency){
 
                 $datesum = date('d-m-Y', strtotime($today.' + '.$frequency->frequency.' '.$frequency->type));
 
                 // Expenses
-                $expenses = Expense::where('frequency_id',$frequency->id)->where('is_recurring',True)->where('is_institution',True)->whereDate('end_repeat', '<', $datesum)->get();
+                $expenses = Expense::where('frequency_id',$frequency->id)->where('is_recurring',true)->where('is_institution',true)->whereDate('end_repeat', '<', $datesum)->get();
                 foreach ($expenses as $expense){
                     $size = 5;
                     $reference = $this->getRandomString($size);
@@ -77,8 +77,8 @@ class InstitutionRecurringExpense extends Command
                     $transaction->notes = $expense->notes;
                     $transaction->user_id = 1;
                     $transaction->status_id = 'a40b5983-3c6b-4563-ab7c-20deefc1992b';
-                    $transaction->is_user = False;
-                    $transaction->is_institution = True;
+                    $transaction->is_user = false;
+                    $transaction->is_institution = true;
                     $transaction->save();
                 }
             }

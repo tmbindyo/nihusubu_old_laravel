@@ -32,9 +32,9 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // contact types
-        $contactTypes = ContactType::with('user','status')->where('user_id',$user->id)->where('is_user',True)->get();
+        $contactTypes = ContactType::with('user','status')->where('user_id',$user->id)->where('is_user',true)->get();
         // deleted contact types
-        $deletedContactTypes = ContactType::with('user','status')->where('user_id',$user->id)->where('is_user',True)->onlyTrashed()->get();
+        $deletedContactTypes = ContactType::with('user','status')->where('user_id',$user->id)->where('is_user',true)->onlyTrashed()->get();
         return view('personal.contact_types',compact('contactTypes','user','deletedContactTypes'));
 
     }
@@ -57,8 +57,8 @@ class SettingController extends Controller
         $contactType->name = $request->name;
         $contactType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $contactType->user_id = $user->id;
-        $contactType->is_institution = False;
-        $contactType->is_user = True;
+        $contactType->is_institution = false;
+        $contactType->is_user = true;
         $contactType->save();
         return redirect()->route('personal.contact.type.show',$contactType->id)->withSuccess('Contact type created!');
 
@@ -145,8 +145,8 @@ class SettingController extends Controller
         $title->name = ($request->name);
         $title->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $title->user_id = $user->id;
-        $title->is_user = True;
-        $title->is_institution = False;
+        $title->is_user = true;
+        $title->is_institution = false;
         $title->save();
         return redirect()->route('personal.title.show',$title->id)->withSuccess(__('Title '.$title->name.' successfully created.'));
 
@@ -215,7 +215,7 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // Account types
-        $accountTypes = AccountType::where('is_user',True)->get();
+        $accountTypes = AccountType::where('is_user',true)->get();
         return view('personal.expense_account_create',compact('user','accountTypes'));
     }
 
@@ -231,8 +231,8 @@ class SettingController extends Controller
         $expenseAccount->account_type_id = ($request->account_type);
         $expenseAccount->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_user = True;
-        $expenseAccount->is_institution = False;
+        $expenseAccount->is_user = true;
+        $expenseAccount->is_institution = false;
         $expenseAccount->save();
         return redirect()->route('personal.expense.account.show',$expenseAccount->id)->withSuccess(__('Expense account '.$expenseAccount->name.' successfully created.'));
     }
@@ -242,7 +242,7 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // Account types
-        $accountTypes = AccountType::where('is_user',True)->get();
+        $accountTypes = AccountType::where('is_user',true)->get();
         // Check if expenseAccount exists
         $expenseAccountExists = ExpenseAccount::findOrFail($expenseAccount_id);
         $expenseAccount = ExpenseAccount::with('user','status','budget','expenses')->where('is_user',true)->withCount('expenses')->where('id',$expenseAccount_id)->first();
@@ -319,8 +319,8 @@ class SettingController extends Controller
         $frequency->type = $request->type;
         $frequency->frequency = $request->frequency;
         $frequency->user_id = $user->id;
-        $frequency->is_institution = False;
-        $frequency->is_user = True;
+        $frequency->is_institution = false;
+        $frequency->is_user = true;
         $frequency->save();
 
         return redirect()->route('personal.frequency.show',$frequency->id)->withSuccess('Frequency created!');

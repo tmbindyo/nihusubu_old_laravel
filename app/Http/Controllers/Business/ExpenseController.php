@@ -96,78 +96,78 @@ class ExpenseController extends Controller
 
         if ($request->is_inventory_adjustment == "on")
         {
-            $expense->is_inventory_adjustment = True;
+            $expense->is_inventory_adjustment = true;
             $expense->inventory_adjustment_id = $request->inventory_adjustment;
         }else{
-            $expense->is_inventory_adjustment = False;
+            $expense->is_inventory_adjustment = false;
         }
         if ($request->is_transfer_order == "on")
         {
-            $expense->is_transfer_order = True;
+            $expense->is_transfer_order = true;
             $expense->transfer_order_id = $request->transfer_order;
         }else{
-            $expense->is_transfer_order = False;
+            $expense->is_transfer_order = false;
         }
         if ($request->is_warehouse == "on")
         {
-            $expense->is_warehouse = True;
+            $expense->is_warehouse = true;
             $expense->warehouse_id = $request->warehouse;
         }else{
-            $expense->is_warehouse = False;
+            $expense->is_warehouse = false;
         }
         if ($request->is_campaign == "on")
         {
-            $expense->is_campaign = True;
+            $expense->is_campaign = true;
             $expense->campaign_id = $request->campaign;
         }else{
-            $expense->is_campaign = False;
+            $expense->is_campaign = false;
         }
         if ($request->is_sale == "on")
         {
-            $expense->is_sale = True;
+            $expense->is_sale = true;
             $expense->sale_id = $request->sale;
         }else{
-            $expense->is_sale = False;
+            $expense->is_sale = false;
         }
         if ($request->is_liability == "on")
         {
-            $expense->is_liability = True;
+            $expense->is_liability = true;
             $expense->liability_id = $request->liability;
         }else{
-            $expense->is_liability = False;
+            $expense->is_liability = false;
         }
         if ($request->is_transfer == "on")
         {
-            $expense->is_transfer = True;
+            $expense->is_transfer = true;
             $expense->transfer_id = $request->transfer;
         }else{
-            $expense->is_transfer = False;
+            $expense->is_transfer = false;
         }
         if ($request->is_transaction == "on")
         {
-            $expense->is_transaction = True;
+            $expense->is_transaction = true;
             $expense->transaction_id = $request->transaction;
         }else{
-            $expense->is_transaction = False;
+            $expense->is_transaction = false;
         }
 
 
         if ($request->is_recurring == "on")
         {
-            $expense->is_recurring = True;
+            $expense->is_recurring = true;
             $expense->frequency_id = $request->frequency;
             $expense->start_repeat = date('Y-m-d', strtotime($request->start_date));
             $expense->end_repeat = date('Y-m-d', strtotime($request->end_date));
         }else
         {
-            $expense->is_recurring = False;
+            $expense->is_recurring = false;
         }
         if ($request->is_draft == "on")
         {
-            $expense->is_draft = True;
+            $expense->is_draft = true;
         }else
         {
-            $expense->is_draft = False;
+            $expense->is_draft = false;
         }
 
         $expense->paid = 0;
@@ -182,8 +182,8 @@ class ExpenseController extends Controller
         $expense->institution_id = $institution->id;
         $expense->status_id = $request->status;
         $expense->account_id = $request->account;
-        $expense->is_user = False;
-        $expense->is_institution = True;
+        $expense->is_user = false;
+        $expense->is_institution = true;
 
         $expense->save();
 
@@ -208,9 +208,9 @@ class ExpenseController extends Controller
             $transaction->user_id = $user->id;
             $transaction->institution_id = $institution->id;
             $transaction->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2';
-            $transaction->is_user = False;
-            $transaction->is_institution = True;
-            $transaction->is_chama = True;
+            $transaction->is_user = false;
+            $transaction->is_institution = true;
+            $transaction->is_chama = true;
             $transaction->save();
 
             // update expense paid
@@ -265,8 +265,8 @@ class ExpenseController extends Controller
             $expenseItem->user_id = $user->id;
             $expenseItem->expense_id = $expense->id;
             $expenseItem->status_id = $request->status;
-            $expenseItem->is_institution = True;
-            $expenseItem->is_user = False;
+            $expenseItem->is_institution = true;
+            $expenseItem->is_user = false;
             $expenseItem->save();
         }
 
@@ -341,83 +341,83 @@ class ExpenseController extends Controller
         $expense->date = date('Y-m-d', strtotime($request->date));
         if ($request->is_order == "on")
         {
-            $expense->is_order = True;
+            $expense->is_order = true;
             $expense->order_id = $request->order;
         }else{
-            $expense->is_order = False;
+            $expense->is_order = false;
         }
         if ($request->is_album == "on")
         {
-            $expense->is_album = True;
+            $expense->is_album = true;
             $expense->album_id = $request->album;
         }else{
-            $expense->is_album = False;
+            $expense->is_album = false;
         }
         if ($request->is_project == "on")
         {
-            $expense->is_project = True;
+            $expense->is_project = true;
             $expense->project_id = $request->project;
         }else{
-            $expense->is_project = False;
+            $expense->is_project = false;
         }
         if ($request->is_design == "on")
         {
-            $expense->is_design = True;
+            $expense->is_design = true;
             $expense->design_id = $request->design;
         }else{
-            $expense->is_design = False;
+            $expense->is_design = false;
         }
         if ($request->is_transfer == "on")
         {
-            $expense->is_transfer = True;
+            $expense->is_transfer = true;
             $expense->transfer_id = $request->transfer;
         }else{
-            $expense->is_transfer = False;
+            $expense->is_transfer = false;
         }
         if ($request->is_transaction == "on")
         {
-            $expense->is_transaction = True;
+            $expense->is_transaction = true;
             $expense->transaction_id = $request->transaction;
         }else{
-            $expense->is_transaction = False;
+            $expense->is_transaction = false;
         }
         if ($request->is_campaign == "on")
         {
-            $expense->is_campaign = True;
+            $expense->is_campaign = true;
             $expense->campaign_id = $request->campaign;
         }else{
-            $expense->is_campaign = False;
+            $expense->is_campaign = false;
         }
         if ($request->is_asset == "on")
         {
-            $expense->is_asset = True;
+            $expense->is_asset = true;
             $expense->asset_id = $request->asset;
         }else{
-            $expense->is_asset = False;
+            $expense->is_asset = false;
         }
         if ($request->is_liability == "on")
         {
-            $expense->is_liability = True;
+            $expense->is_liability = true;
             $expense->liability_id = $request->liability;
         }else{
-            $expense->is_liability = False;
+            $expense->is_liability = false;
         }
         if ($request->is_recurring == "on")
         {
-            $expense->is_recurring = True;
+            $expense->is_recurring = true;
             $expense->frequency_id = $request->frequency;
             $expense->start_repeat = date('Y-m-d', strtotime($request->start_date));
             $expense->end_repeat = date('Y-m-d', strtotime($request->end_date));
         }else
         {
-            $expense->is_recurring = False;
+            $expense->is_recurring = false;
         }
         if ($request->is_draft == "on")
         {
-            $expense->is_draft = True;
+            $expense->is_draft = true;
         }else
         {
-            $expense->is_draft = False;
+            $expense->is_draft = false;
         }
 
         $expense->sub_total = $request->subtotal;
@@ -564,9 +564,9 @@ class ExpenseController extends Controller
         $transaction->user_id = $user->id;
         $transaction->institution_id = $institution->id;
         $transaction->status_id = $request->status;
-        $transaction->is_user = False;
-        $transaction->is_institution = True;
-        $transaction->is_chama = True;
+        $transaction->is_user = false;
+        $transaction->is_institution = true;
+        $transaction->is_chama = true;
         $transaction->save();
 
         // account subtraction
@@ -700,7 +700,7 @@ class ExpenseController extends Controller
         $transaction->billed = date('Y-m-d');
         $transaction->user_id = $user->id;
         $transaction->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2';
-        $transaction->is_billed = True;
+        $transaction->is_billed = true;
         $transaction->save();
 
         // update account, credit previously paid amount
@@ -776,7 +776,7 @@ class ExpenseController extends Controller
         $payment->current_balance = $accountBalance;
 
         if($request->is_loan == "on"){
-            $payment->is_loan = True;
+            $payment->is_loan = true;
             $payment->loan_id = $request->loan;
             // update loan as paid
             $loan = Loan::findOrFail($request->loan);
@@ -786,11 +786,11 @@ class ExpenseController extends Controller
             $loan->paid = $paid;
             $loan->save();
         }else{
-            $payment->is_loan = False;
+            $payment->is_loan = false;
         }
 
         if($request->is_liability == "on"){
-            $payment->is_liability = True;
+            $payment->is_liability = true;
             $payment->liability_id = $request->liability;
             // update liability as paid
             $liability = Liability::findOrFail($request->liability);
@@ -798,11 +798,11 @@ class ExpenseController extends Controller
             $liability->paid = $paid;
             $liability->save();
         }else{
-            $payment->is_loan = False;
+            $payment->is_loan = false;
         }
 
         if($request->is_sale == "on"){
-            $payment->is_sale = True;
+            $payment->is_sale = true;
             $payment->sale_id = $request->sale;
             // update sale as paid
             $sale = Sale::findOrFail($request->sale);
@@ -823,15 +823,15 @@ class ExpenseController extends Controller
             }
 
         }else{
-            $payment->is_sale = False;
+            $payment->is_sale = false;
         }
 
         $payment->account_id = $request->account;
         $payment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $payment->user_id = $user->id;
-        $payment->is_user = False;
-        $payment->is_chama = False;
-        $payment->is_institution = True;
+        $payment->is_user = false;
+        $payment->is_chama = false;
+        $payment->is_institution = true;
         $payment->institution_id = $institution->id;
         $payment->save();
 
@@ -940,8 +940,8 @@ class ExpenseController extends Controller
 
         $refund->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $refund->user_id = $user->id;
-        $refund->is_user = False;
-        $refund->is_institution = True;
+        $refund->is_user = false;
+        $refund->is_institution = true;
         $refund->save();
 
         // update accounts balance

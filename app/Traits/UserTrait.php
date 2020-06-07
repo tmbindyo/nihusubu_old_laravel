@@ -22,7 +22,7 @@ trait UserTrait
         // Get user
         $userCheck = Auth::user();
         // check if user has active account
-        $userActiveAccount = UserAccount::where('user_id',$userCheck->id)->where('is_active',True)->first();
+        $userActiveAccount = UserAccount::where('user_id',$userCheck->id)->where('is_active',true)->first();
         if(!$userActiveAccount){
             return redirect()->route('view.user.accounts');
         }else{

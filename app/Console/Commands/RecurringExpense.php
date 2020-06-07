@@ -50,11 +50,11 @@ class RecurringExpense extends Command
         $users = User::all();
         foreach ($users as $user){
 
-            $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_user',True)->where('user_id',$user->id)->get();
+            $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_user',true)->where('user_id',$user->id)->get();
 
             foreach ($frequencies as $frequency){
                 $datesum = date('d-m-Y', strtotime($today.' + '.$frequency->frequency.' '.$frequency->type));
-                $incomes = Income::where('frequency_id',$frequency->id)->where('is_recurring',True)->whereDate('end_repeat', '<', $datesum)->get();
+                $incomes = Income::where('frequency_id',$frequency->id)->where('is_recurring',true)->whereDate('end_repeat', '<', $datesum)->get();
 
                 foreach($incomes as $income){
                     $size = 5;
@@ -67,7 +67,7 @@ class RecurringExpense extends Command
                     $incomeDebit->status_id = 'a40b5983-3c6b-4563-ab7c-20deefc1992b';
                     $incomeDebit->income_id = $income->id;
                     $incomeDebit->user_id = $user->id;
-                    $incomeDebit->is_debited = True;
+                    $incomeDebit->is_debited = true;
                     $incomeDebit->save();
 
                 }

@@ -27,7 +27,7 @@ class CalendarController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // to does
-        $toDos = ToDo::with('user','status','assignee','institution','product','productGroup','warehouse','sale')->where('institution_id',$institution->id)->where('user_id',$user->id)->where('is_institution',True)->get();
+        $toDos = ToDo::with('user','status','assignee','institution','product','productGroup','warehouse','sale')->where('institution_id',$institution->id)->where('user_id',$user->id)->where('is_institution',true)->get();
         return view('business.calendar',compact('user','institution','toDos'));
 
     }

@@ -81,9 +81,9 @@ class AccountController extends Controller
         $account->name = $request->name;
         $account->balance = $request->balance;
         $account->notes = $request->notes;
-        $account->is_user = False;
-        $account->is_institution = True;
-        $account->is_chama = False;
+        $account->is_user = false;
+        $account->is_institution = true;
+        $account->is_chama = false;
         $account->user_id = $user->id;
         $account->institution_id = $institution->id;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -273,7 +273,7 @@ class AccountController extends Controller
         $accountAdjustment = new AccountAdjustment();
 
         if($request->is_deposit == "on"){
-            $accountAdjustment->is_deposit = True;
+            $accountAdjustment->is_deposit = true;
             $accountAdjustment->deposit_id = $request->deposit;
 
             // TODO update deposit
@@ -284,11 +284,11 @@ class AccountController extends Controller
             $deposit->save();
 
         }else{
-            $accountAdjustment->is_deposit = False;
+            $accountAdjustment->is_deposit = false;
         }
 
         if($request->is_withdrawal == "on"){
-            $accountAdjustment->is_withdrawal = True;
+            $accountAdjustment->is_withdrawal = true;
             $accountAdjustment->withdrawal_id = $request->withdrawal;
 
             // TODO update withdrawal
@@ -299,7 +299,7 @@ class AccountController extends Controller
             $withdrawal->save();
 
         }else{
-            $accountAdjustment->is_withdrawal = False;
+            $accountAdjustment->is_withdrawal = false;
         }
 
         $accountAdjustment->reference = $reference;
@@ -313,8 +313,8 @@ class AccountController extends Controller
         $accountAdjustment->institution_id = $institution->id;
         $accountAdjustment->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $accountAdjustment->account_id = $request->account;
-        $accountAdjustment->is_user = False;
-        $accountAdjustment->is_institution = True;
+        $accountAdjustment->is_user = false;
+        $accountAdjustment->is_institution = true;
         $accountAdjustment->save();
 
 
@@ -357,8 +357,8 @@ class AccountController extends Controller
         $transaction = new Transaction();
         if ($request->is_expense == "on")
         {
-            $transaction->is_expense = True;
-            $transaction->is_transfer = False;
+            $transaction->is_expense = true;
+            $transaction->is_transfer = false;
             $transaction->expense_id = $request->expense;
         }
         $transaction->account_id = $request->account;
@@ -368,8 +368,8 @@ class AccountController extends Controller
         $transaction->notes = $request->notes;
         if ($request->is_transfer == "on")
         {
-            $transaction->is_transfer = True;
-            $transaction->is_expense = False;
+            $transaction->is_transfer = true;
+            $transaction->is_expense = false;
             $transaction->source_account_id = $request->source_account;
             $transaction->destination_account_id = $request->destination_account;
         }
@@ -486,10 +486,10 @@ class AccountController extends Controller
         $deposit->institution_id = $institution->id;
         $deposit->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $deposit->user_id = $user->id;
-        $deposit->is_user = False;
-        $deposit->is_institution = True;
-        $deposit->is_income = True;
-        $deposit->is_chama = True;
+        $deposit->is_user = false;
+        $deposit->is_institution = true;
+        $deposit->is_income = true;
+        $deposit->is_chama = true;
         $deposit->save();
 
         return redirect()->route('business.deposit.show',['portal'=>$institution->portal,'id'=>$deposit->id])->withSuccess('Deposit updated!');
@@ -570,7 +570,7 @@ class AccountController extends Controller
         $accountAdjustment->date = date('Y-m-d', strtotime($request->date));
 
         $accountAdjustment->account_id = $deposit->account_id;
-        $accountAdjustment->is_deposit = True;
+        $accountAdjustment->is_deposit = true;
         $accountAdjustment->deposit_id = $deposit->id;
 
         $accountAdjustment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -631,9 +631,9 @@ class AccountController extends Controller
         $withdrawal->institution_id = $institution->id;
         $withdrawal->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $withdrawal->user_id = $user->id;
-        $withdrawal->is_user = False;
-        $withdrawal->is_chama = False;
-        $withdrawal->is_institution = True;
+        $withdrawal->is_user = false;
+        $withdrawal->is_chama = false;
+        $withdrawal->is_institution = true;
         $withdrawal->save();
 
         return redirect()->route('business.withdrawal.show',['portal'=>$institution->portal,'id'=>$withdrawal->id])->withSuccess('Withdrawal updated!');
@@ -711,7 +711,7 @@ class AccountController extends Controller
         $accountAdjustment->date = date('Y-m-d', strtotime($request->date));
 
         $accountAdjustment->account_id = $withdrawal->account_id;
-        $accountAdjustment->is_withdrawal = True;
+        $accountAdjustment->is_withdrawal = true;
         $accountAdjustment->withdrawal_id = $withdrawal->id;
 
         $accountAdjustment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -798,10 +798,10 @@ class AccountController extends Controller
 
         $liability->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $liability->user_id = $user->id;
-        $liability->is_user = False;
-        $liability->is_institution = True;
+        $liability->is_user = false;
+        $liability->is_institution = true;
         $liability->institution_id = $institution->id;
-        $liability->is_chama = False;
+        $liability->is_chama = false;
         $liability->save();
 
         // update accounts balance
@@ -961,9 +961,9 @@ class AccountController extends Controller
         $loan->contact_id = $request->contact;
         $loan->account_id = $request->account;
 
-        $loan->is_user = False;
-        $loan->is_institution = True;
-        $loan->is_chama = False;
+        $loan->is_user = false;
+        $loan->is_institution = true;
+        $loan->is_chama = false;
         $loan->institution_id = $institution->id;
 
         $loan->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -1100,16 +1100,16 @@ class AccountController extends Controller
 
         $transfer->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $transfer->user_id = $user->id;
-        $transfer->is_user = False;
-        $transfer->is_institution = True;
+        $transfer->is_user = false;
+        $transfer->is_institution = true;
         $transfer->institution_id = $institution->id;
         $transfer->save();
 
         // update accounts balance
         $sourceAccount->balance = $sourceAccountSubsequentAmount;
         $sourceAccount->user_id = $user->id;
-        $sourceAccount->is_user = False;
-        $sourceAccount->is_institution = True;
+        $sourceAccount->is_user = false;
+        $sourceAccount->is_institution = true;
         $sourceAccount->save();
         $destinationAccount->balance = $destinationAccountSubsequentAmount;
         $destinationAccount->user_id = $user->id;

@@ -27,7 +27,7 @@ class BudgetController extends Controller
         // User
         $user = $this->getUser();
         // get budgets
-        $budgets = Budget::where('is_user',True)->where('user_id',$user->id)->with('expenseAccount.budget')->get();
+        $budgets = Budget::where('is_user',true)->where('user_id',$user->id)->with('expenseAccount.budget')->get();
         return view('personal.budgets',compact('user','budgets'));
     }
 
@@ -64,13 +64,13 @@ class BudgetController extends Controller
         $budget->amount = $request->amount;
         $budget->expense_account_id = $request->expense_account;
         $budget->user_id = $user->id;
-        $budget->is_user = True;
-        $budget->is_institution = False;
+        $budget->is_user = true;
+        $budget->is_institution = false;
         $budget->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $budget->save();
 
         $expenseAccount = ExpenseAccount::findOrFail($request->expense_account);
-        $expenseAccount->is_set = True;
+        $expenseAccount->is_set = true;
         $expenseAccount->save();
 
         return redirect()->route('personal.budget.show',$budget->id)->withSuccess(__('Budget successfully created.'));
@@ -104,13 +104,13 @@ class BudgetController extends Controller
         $expenseAccountExpenses = Expense::where('expense_account_id',$budget->expense_account_id)->get();
 
         // Pending to dos
-        $pendingToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','budget')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('budget_id',$budget->id)->get();
+        $pendingToDos = ToDo::where('user_id',$user->id)->where('is_user',true)->with('user','status','budget')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('budget_id',$budget->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','budget')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('budget_id',$budget->id)->get();
+        $inProgressToDos = ToDo::where('user_id',$user->id)->where('is_user',true)->with('user','status','budget')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('budget_id',$budget->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','budget')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('budget_id',$budget->id)->get();
+        $completedToDos = ToDo::where('user_id',$user->id)->where('is_user',true)->with('user','status','budget')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('budget_id',$budget->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user',True)->with('user','status','budget')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('budget_id',$budget->id)->get();
+        $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user',true)->with('user','status','budget')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('budget_id',$budget->id)->get();
 
         return view('personal.budget_show',compact('wealthCreationExpenseAccounts','transportExpenseAccounts','shoppingExpenseAccounts','noExpenseAccounts','loansExpenseAccounts','leisureExpenseAccounts','kidsExpenseAccounts','incomeExpenseAccounts','homeLivingExpenseAccounts','healthExpenseAccounts','foodExpenseAccounts','feesExpenseAccounts','cashExpenseAccounts','billExpenseAccounts','budget','user','expenseAccountExpenses','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
     }

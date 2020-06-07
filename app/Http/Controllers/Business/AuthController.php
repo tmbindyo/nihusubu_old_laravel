@@ -132,7 +132,7 @@ class AuthController extends Controller
         $institution->phone_number = $request->business_phone_number;
         $institution->user_id = $user->id;
         $institution->plan_id = $request->plan;
-        $institution->is_active = True;
+        $institution->is_active = true;
         $institution->address_id = $address->id;
         $institution->currency_id = "0839e6c9-20b3-4442-b3b6-5137a4d309ec";
         $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -213,7 +213,7 @@ class AuthController extends Controller
         $tax->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $tax->institution_id = $institution->id;
         $tax->user_id = $user->id;
-        $tax->is_percentage = True;
+        $tax->is_percentage = true;
         $tax->save();
 
         $tax = new Tax();
@@ -222,7 +222,7 @@ class AuthController extends Controller
         $tax->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $tax->institution_id = $institution->id;
         $tax->user_id = $user->id;
-        $tax->is_percentage = True;
+        $tax->is_percentage = true;
         $tax->save();
 
     }
@@ -250,7 +250,7 @@ class AuthController extends Controller
         $warehouse->institution_id = $institution->id;
         $warehouse->address_id = $address->id;
         $warehouse->user_id = $user->id;
-        $warehouse->is_primary = True;
+        $warehouse->is_primary = true;
         $warehouse->save();
 
     }
@@ -335,8 +335,8 @@ class AuthController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
-        $titles->is_institution = True;
-        $titles->is_user = False;
+        $titles->is_institution = true;
+        $titles->is_user = false;
         $titles->save();
 
         $titles = new Title();
@@ -344,8 +344,8 @@ class AuthController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
-        $titles->is_institution = True;
-        $titles->is_user = False;
+        $titles->is_institution = true;
+        $titles->is_user = false;
         $titles->save();
 
         $titles = new Title();
@@ -353,8 +353,8 @@ class AuthController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
-        $titles->is_institution = True;
-        $titles->is_user = False;
+        $titles->is_institution = true;
+        $titles->is_user = false;
         $titles->save();
 
         $titles = new Title();
@@ -362,8 +362,8 @@ class AuthController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
-        $titles->is_institution = True;
-        $titles->is_user = False;
+        $titles->is_institution = true;
+        $titles->is_user = false;
         $titles->save();
 
         $titles = new Title();
@@ -371,8 +371,8 @@ class AuthController extends Controller
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $titles->institution_id = $institution->id;
         $titles->user_id = $user->id;
-        $titles->is_institution = True;
-        $titles->is_user = False;
+        $titles->is_institution = true;
+        $titles->is_user = false;
         $titles->save();
 
     }
@@ -383,27 +383,27 @@ class AuthController extends Controller
         $contactType->name = 'Client';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $contactType->institution_id = $institution->id;
-        $contactType->is_institution = True;
+        $contactType->is_institution = true;
         $contactType->user_id = $user->id;
-        $contactType->is_user = False;
+        $contactType->is_user = false;
         $contactType->save();
 
         $contactType = new ContactType();
         $contactType->name = 'Partner';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $contactType->institution_id = $institution->id;
-        $contactType->is_institution = True;
+        $contactType->is_institution = true;
         $contactType->user_id = $user->id;
-        $contactType->is_user = False;
+        $contactType->is_user = false;
         $contactType->save();
 
         $contactType = new ContactType();
         $contactType->name = 'Supplier';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $contactType->institution_id = $institution->id;
-        $contactType->is_institution = True;
+        $contactType->is_institution = true;
         $contactType->user_id = $user->id;
-        $contactType->is_user = False;
+        $contactType->is_user = false;
         $contactType->save();
 
     }
@@ -508,9 +508,9 @@ class AuthController extends Controller
         $account->notes = "Petty cash";
         $account->balance = 0;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
-        $account->is_institution = True;
-        $account->is_user = False;
-        $account->is_chama = False;
+        $account->is_institution = true;
+        $account->is_user = false;
+        $account->is_chama = false;
         $account->institution_id = $institution->id;
         $account->user_id = $user->id;
         $account->save();
@@ -525,8 +525,8 @@ class AuthController extends Controller
         $frequencies->frequency = '1';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
-        $frequencies->is_institution = True;
-        $frequencies->is_user = False;
+        $frequencies->is_institution = true;
+        $frequencies->is_user = false;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -535,8 +535,8 @@ class AuthController extends Controller
         $frequencies->frequency = '1';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
-        $frequencies->is_institution = True;
-        $frequencies->is_user = False;
+        $frequencies->is_institution = true;
+        $frequencies->is_user = false;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -545,8 +545,8 @@ class AuthController extends Controller
         $frequencies->frequency = '2';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
-        $frequencies->is_institution = True;
-        $frequencies->is_user = False;
+        $frequencies->is_institution = true;
+        $frequencies->is_user = false;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -555,8 +555,8 @@ class AuthController extends Controller
         $frequencies->frequency = '1';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
-        $frequencies->is_institution = True;
-        $frequencies->is_user = False;
+        $frequencies->is_institution = true;
+        $frequencies->is_user = false;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -565,8 +565,8 @@ class AuthController extends Controller
         $frequencies->frequency = '3';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
-        $frequencies->is_institution = True;
-        $frequencies->is_user = False;
+        $frequencies->is_institution = true;
+        $frequencies->is_user = false;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -575,8 +575,8 @@ class AuthController extends Controller
         $frequencies->frequency = '6';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
-        $frequencies->is_institution = True;
-        $frequencies->is_user = False;
+        $frequencies->is_institution = true;
+        $frequencies->is_user = false;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -585,8 +585,8 @@ class AuthController extends Controller
         $frequencies->frequency = '1';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
-        $frequencies->is_institution = True;
-        $frequencies->is_user = False;
+        $frequencies->is_institution = true;
+        $frequencies->is_user = false;
         $frequencies->save();
 
         $frequencies = new Frequency();
@@ -595,8 +595,8 @@ class AuthController extends Controller
         $frequencies->frequency = '2';
         $frequencies->institution_id = $institution->id;
         $frequencies->user_id = $user->id;
-        $frequencies->is_institution = True;
-        $frequencies->is_user = False;
+        $frequencies->is_institution = true;
+        $frequencies->is_user = false;
         $frequencies->save();
 
     }
@@ -664,8 +664,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -676,8 +676,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -688,8 +688,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -700,8 +700,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -712,8 +712,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -724,8 +724,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -736,8 +736,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -748,8 +748,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -760,8 +760,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -772,8 +772,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -784,8 +784,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -796,8 +796,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -808,8 +808,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -820,8 +820,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -832,8 +832,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -844,8 +844,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -856,8 +856,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -868,8 +868,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -880,8 +880,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -892,8 +892,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -904,8 +904,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -916,8 +916,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -928,8 +928,8 @@ class AuthController extends Controller
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -940,8 +940,8 @@ class AuthController extends Controller
         $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -952,8 +952,8 @@ class AuthController extends Controller
         $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -964,8 +964,8 @@ class AuthController extends Controller
         $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -976,8 +976,8 @@ class AuthController extends Controller
         $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -988,8 +988,8 @@ class AuthController extends Controller
         $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -1000,8 +1000,8 @@ class AuthController extends Controller
         $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -1012,8 +1012,8 @@ class AuthController extends Controller
         $expenseAccount->account_type_id = '798077ba-ae21-4df0-8079-5a7c82afd90e';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -1024,8 +1024,8 @@ class AuthController extends Controller
         $expenseAccount->account_type_id = '4be20a9a-aee3-414c-b8ba-dcacf859cc9c';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -1036,8 +1036,8 @@ class AuthController extends Controller
         $expenseAccount->account_type_id = '4be20a9a-aee3-414c-b8ba-dcacf859cc9c';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
         $expenseAccount = new ExpenseAccount();
@@ -1048,8 +1048,8 @@ class AuthController extends Controller
         $expenseAccount->account_type_id = '4be20a9a-aee3-414c-b8ba-dcacf859cc9c';
         $expenseAccount->institution_id = $institution->id;
         $expenseAccount->user_id = $user->id;
-        $expenseAccount->is_institution = True;
-        $expenseAccount->is_user = False;
+        $expenseAccount->is_institution = true;
+        $expenseAccount->is_user = false;
         $expenseAccount->save();
 
     }

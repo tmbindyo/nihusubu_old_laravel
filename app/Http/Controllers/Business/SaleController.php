@@ -45,7 +45,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Estimates
-        $estimates = Sale::where('institution_id',$institution->id)->where('is_estimate',True)->with('status','contact')->get();
+        $estimates = Sale::where('institution_id',$institution->id)->where('is_estimate',true)->with('status','contact')->get();
 
 //        return $estimates;
 
@@ -59,7 +59,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Getting Products
@@ -94,23 +94,23 @@ class SaleController extends Controller
         $estimate->refund = 0;
         $estimate->paid = 0;
         $estimate->balance = $request->grand_total;
-        $estimate->is_returned = False;
-        $estimate->is_refunded = False;
-        $estimate->is_product = True;
-        $estimate->is_project = False;
-        $estimate->is_estimate = True;
-        $estimate->is_invoice = False;
-        $estimate->is_sale = False;
-        $estimate->is_order = False;
-        $estimate->is_sample = False;
+        $estimate->is_returned = false;
+        $estimate->is_refunded = false;
+        $estimate->is_product = true;
+        $estimate->is_project = false;
+        $estimate->is_estimate = true;
+        $estimate->is_invoice = false;
+        $estimate->is_sale = false;
+        $estimate->is_order = false;
+        $estimate->is_sample = false;
         // Todo impliment uploads for attachments
-        $estimate->has_uploads = False;
+        $estimate->has_uploads = false;
         // Check if draft
         if ($request->is_draft == "on"){
-            $estimate->is_draft = True;
+            $estimate->is_draft = true;
             $estimate->status_id = "14efab17-4306-449b-bfc8-3e156b872a6d";
         }else{
-            $estimate->is_draft = False;
+            $estimate->is_draft = false;
             $estimate->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
         }
         $estimate->contact_id = $request->contact;
@@ -150,9 +150,9 @@ class SaleController extends Controller
             $estimateProduct->sale_id = $estimate->id;
             $estimateProduct->refund_amount = 0;
             $estimateProduct->warehouse_id = $warehouse_id;
-            $estimateProduct->is_product = True;
-            $estimateProduct->is_refunded = False;
-            $estimateProduct->is_returned = False;
+            $estimateProduct->is_product = true;
+            $estimateProduct->is_refunded = false;
+            $estimateProduct->is_returned = false;
             $estimateProduct->product_id = $product_id;
             $estimateProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
             $estimateProduct->user_id = $user->id;
@@ -183,9 +183,9 @@ class SaleController extends Controller
                 $estimateProduct->sale_id = $estimate->id;
                 $estimateProduct->refund_amount = 0;
                 $estimateProduct->warehouse_id = $warehouse_id;
-                $estimateProduct->is_product = True;
-                $estimateProduct->is_refunded = False;
-                $estimateProduct->is_returned = False;
+                $estimateProduct->is_product = true;
+                $estimateProduct->is_refunded = false;
+                $estimateProduct->is_returned = false;
                 $estimateProduct->product_id = $product_id;
                 $estimateProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
                 $estimateProduct->user_id = $user->id;
@@ -213,7 +213,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -236,7 +236,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -270,13 +270,13 @@ class SaleController extends Controller
 
 
         // Todo impliment uploads for attachments
-        $estimate->has_uploads = False;
+        $estimate->has_uploads = false;
         // Check if draft
         if ($request->is_draft == "on"){
-            $estimate->is_draft = True;
+            $estimate->is_draft = true;
             $estimate->status_id = "14efab17-4306-449b-bfc8-3e156b872a6d";
         }else{
-            $estimate->is_draft = False;
+            $estimate->is_draft = false;
             $estimate->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
         }
         $estimate->contact_id = $request->contact;
@@ -348,7 +348,7 @@ class SaleController extends Controller
 
         // Create estimate
         $estimate = Sale::where('id',$estimate_id)->first();
-        $estimate->is_invoice = True;
+        $estimate->is_invoice = true;
         $estimate->user_id = $user->id;
         $estimate->save();
 
@@ -396,7 +396,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Invoices
-        $invoices = Sale::where('institution_id',$institution->id)->where('is_invoice',True)->with('status','contact')->get();
+        $invoices = Sale::where('institution_id',$institution->id)->where('is_invoice',true)->with('status','contact')->get();
 
         return view('business.invoices',compact('user','institution','invoices'));
     }
@@ -408,7 +408,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -445,24 +445,24 @@ class SaleController extends Controller
         $invoice->refund = 0;
         $invoice->paid = 0;
         $invoice->balance = $request->grand_total;
-        $invoice->is_returned = False;
-        $invoice->is_refunded = False;
-        $invoice->is_product = True;
-        $invoice->is_project = False;
+        $invoice->is_returned = false;
+        $invoice->is_refunded = false;
+        $invoice->is_product = true;
+        $invoice->is_project = false;
 
-        $invoice->is_estimate = False;
-        $invoice->is_invoice = True;
-        $invoice->is_sale = False;
-        $invoice->is_order = False;
-        $invoice->is_sample = False;
+        $invoice->is_estimate = false;
+        $invoice->is_invoice = true;
+        $invoice->is_sale = false;
+        $invoice->is_order = false;
+        $invoice->is_sample = false;
         // Todo impliment uploads for attachments
-        $invoice->has_uploads = False;
+        $invoice->has_uploads = false;
         // Check if draft
         if ($request->is_draft == "on"){
-            $invoice->is_draft = True;
+            $invoice->is_draft = true;
             $invoice->status_id = "14efab17-4306-449b-bfc8-3e156b872a6d";
         }else{
-            $invoice->is_draft = False;
+            $invoice->is_draft = false;
             $invoice->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
         }
         $invoice->contact_id = $request->contact;
@@ -503,9 +503,9 @@ class SaleController extends Controller
             $invoiceProduct->sale_id = $invoice->id;
             $invoiceProduct->refund_amount = 0;
             $invoiceProduct->warehouse_id = $warehouse_id;
-            $invoiceProduct->is_product = True;
-            $invoiceProduct->is_refunded = False;
-            $invoiceProduct->is_returned = False;
+            $invoiceProduct->is_product = true;
+            $invoiceProduct->is_refunded = false;
+            $invoiceProduct->is_returned = false;
             $invoiceProduct->product_id = $product_id;
             $invoiceProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
             $invoiceProduct->user_id = $user->id;
@@ -528,7 +528,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -550,7 +550,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -584,13 +584,13 @@ class SaleController extends Controller
 
 
         // Todo impliment uploads for attachments
-        $invoice->has_uploads = False;
+        $invoice->has_uploads = false;
         // Check if draft
         if ($request->is_draft == "on"){
-            $invoice->is_draft = True;
+            $invoice->is_draft = true;
             $invoice->status_id = "14efab17-4306-449b-bfc8-3e156b872a6d";
         }else{
-            $invoice->is_draft = False;
+            $invoice->is_draft = false;
             $invoice->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
         }
         $invoice->contact_id = $request->contact;
@@ -663,7 +663,7 @@ class SaleController extends Controller
 
         // Create invoice
         $invoice = Sale::where('id',$invoice_id)->first();
-        $invoice->is_sale = True;
+        $invoice->is_sale = true;
         $invoice->user_id = $user->id;
         $invoice->save();
 
@@ -712,7 +712,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Sales
-        $sales = Sale::where('institution_id',$institution->id)->where('is_sale',True)->with('status','contact')->get();
+        $sales = Sale::where('institution_id',$institution->id)->where('is_sale',true)->with('status','contact')->get();
 
         return view('business.sales',compact('user','institution','sales'));
     }
@@ -725,7 +725,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -761,17 +761,17 @@ class SaleController extends Controller
         $sale->discount = $request->discount;
         $sale->total = $request->grand_total;
         $sale->refund = 0;
-        $sale->is_returned = False;
-        $sale->is_refunded = False;
-        $sale->is_product = True;
-        $sale->is_project = False;
+        $sale->is_returned = false;
+        $sale->is_refunded = false;
+        $sale->is_product = true;
+        $sale->is_project = false;
 
-        $sale->is_estimate = False;
-        $sale->is_invoice = False;
-        $sale->is_sale = True;
-        $sale->is_order = False;
+        $sale->is_estimate = false;
+        $sale->is_invoice = false;
+        $sale->is_sale = true;
+        $sale->is_order = false;
         // Todo impliment uploads for attachments
-        $sale->has_uploads = False;
+        $sale->has_uploads = false;
         // if paid
         if ($request->paid == "on"){
             $sale->paid = $request->grand_total;
@@ -782,17 +782,17 @@ class SaleController extends Controller
         }
         // Check if draft
         if ($request->is_draft == "on"){
-            $sale->is_draft = True;
+            $sale->is_draft = true;
             $sale->status_id = "14efab17-4306-449b-bfc8-3e156b872a6d";
         }else{
-            $sale->is_draft = False;
+            $sale->is_draft = false;
             $sale->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
         }
         // Check if draft
         if ($request->sample == "on"){
-            $sale->is_sample = True;
+            $sale->is_sample = true;
         }else{
-            $sale->is_sample = False;
+            $sale->is_sample = false;
         }
         $sale->contact_id = $request->contact;
         $sale->institution_id = $institution->id;
@@ -812,7 +812,7 @@ class SaleController extends Controller
             $paymentReceived->user_id = $user->id;
             $paymentReceived->status_id = '383aaf7-a45b-4931-918f-fab3daa8a97a';
             $paymentReceived->sale_id = $sale->id;
-            $paymentReceived->is_refunded = False;
+            $paymentReceived->is_refunded = false;
             $paymentReceived->save();
         }
 
@@ -844,9 +844,9 @@ class SaleController extends Controller
             $saleProduct->sale_id = $sale->id;
             $saleProduct->refund_amount = 0;
             $saleProduct->warehouse_id = $warehouse_id;
-            $saleProduct->is_product = True;
-            $saleProduct->is_refunded = False;
-            $saleProduct->is_returned = False;
+            $saleProduct->is_product = true;
+            $saleProduct->is_refunded = false;
+            $saleProduct->is_returned = false;
             $saleProduct->product_id = $product_id;
             $saleProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
             $saleProduct->user_id = $user->id;
@@ -870,7 +870,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -986,7 +986,7 @@ class SaleController extends Controller
         $paymentReceived->user_id = $user->id;
         $paymentReceived->status_id = '383aaf7-a45b-4931-918f-fab3daa8a97a';
         $paymentReceived->sale_id = $sale->id;
-        $paymentReceived->is_refunded = False;
+        $paymentReceived->is_refunded = false;
         $paymentReceived->save();
 
         return back()->withSuccess(__('Sale payment successfully registered.'));
@@ -1003,7 +1003,7 @@ class SaleController extends Controller
         $paymentReceived->date_refunded = date('Y-m-d', strtotime(now()));
         $paymentReceived->user_id = $user->id;
         $paymentReceived->status_id = '276b2772-7230-4f83-bbd7-ec45e3da2ae4';
-        $paymentReceived->is_refunded = True;
+        $paymentReceived->is_refunded = true;
         $paymentReceived->save();
 
         return back()->withSuccess(__('Sale product successfully refunded.'));
@@ -1053,16 +1053,16 @@ class SaleController extends Controller
         // If wasn't paid
         if ($sale->is_paid == 0)
         {
-            $sale->is_paid = True;
+            $sale->is_paid = true;
         }
         // If completely paid off
         elseif ($sale->is_paid == 0 && doubleval($sale->total) == doubleval($request->amount)){
-            $sale->is_paid = True;
-            $sale->is_cleared = True;
+            $sale->is_paid = true;
+            $sale->is_cleared = true;
         }
         elseif ($sale->is_paid == 1 && doubleval($balance) == doubleval($request->amount)){
-            $sale->is_paid = True;
-            $sale->is_cleared = True;
+            $sale->is_paid = true;
+            $sale->is_cleared = true;
         }
         $sale->save();
 

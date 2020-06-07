@@ -57,7 +57,7 @@ class ToDoController extends Controller
         $todo = new ToDo();
         $todo->name = $request->name;
         $todo->notes = $request->notes;
-        $todo->is_completed = False;
+        $todo->is_completed = false;
 
         $todo->start_date = date('Y-m-d', strtotime($request->start_date));
         $todo->start_year = date('Y', strtotime($request->start_date));
@@ -68,196 +68,196 @@ class ToDoController extends Controller
         $todo->start_minute = date('i', strtotime($request->start_time));
         // if has end date
         if($request->is_end_date == "on"){
-            $todo->is_end_date = True;
+            $todo->is_end_date = true;
             $todo->end_date = date('Y-m-d', strtotime($request->end_date));
             $todo->end_year = date('Y', strtotime($request->end_date));
             $todo->end_month = date('m', strtotime($request->end_date));
             $todo->end_day = date('d', strtotime($request->end_date));
         }else{
-            $todo->is_end_date = False;
+            $todo->is_end_date = false;
         }
         // if has end time
         if($request->is_end_time == "on"){
-            $todo->is_end_time = True;
+            $todo->is_end_time = true;
             $todo->end_time = date('H:i:s', strtotime($request->end_time));
             $todo->end_hour = date('H', strtotime($request->end_time));
             $todo->end_minute = date('i', strtotime($request->end_time));
         }else{
-            $todo->is_end_time = False;
+            $todo->is_end_time = false;
         }
 
         // assignee
         if($request->is_assignee){
-            $todo->is_assignee = True;
+            $todo->is_assignee = true;
             $todo->assignee_id = $request->assignee;
         }else{
-            $todo->is_assignee = False;
+            $todo->is_assignee = false;
         }
         // product
         if($request->is_product){
-            $todo->is_product = True;
+            $todo->is_product = true;
             $todo->product_id = $request->product;
         }else{
-            $todo->is_product = False;
+            $todo->is_product = false;
         }
         // product group
         if($request->is_product_group){
-            $todo->is_product_group = True;
+            $todo->is_product_group = true;
             $todo->product_group_id = $request->product_group;
         }else{
-            $todo->is_product_group = False;
+            $todo->is_product_group = false;
         }
         // warehouse
         if($request->is_warehouse){
-            $todo->is_warehouse = True;
+            $todo->is_warehouse = true;
             $todo->warehouse_id = $request->warehouse;
         }else{
-            $todo->is_warehouse = False;
+            $todo->is_warehouse = false;
         }
         // sale
         if($request->is_sale){
-            $todo->is_sale = True;
+            $todo->is_sale = true;
             $todo->sale_id = $request->sale;
         }else{
-            $todo->is_sale = False;
+            $todo->is_sale = false;
         }
         // contact
         if($request->is_contact){
-            $todo->is_contact = True;
+            $todo->is_contact = true;
             $todo->contact_id = $request->contact;
         }else{
-            $todo->is_contact = False;
+            $todo->is_contact = false;
         }
         // organization
         if($request->is_organization){
-            $todo->is_organization = True;
+            $todo->is_organization = true;
             $todo->organization_id = $request->organization;
         }else{
-            $todo->is_organization = False;
+            $todo->is_organization = false;
         }
         // campaign
         if($request->is_campaign){
-            $todo->is_campaign = True;
+            $todo->is_campaign = true;
             $todo->campaign_id = $request->campaign;
         }else{
-            $todo->is_campaign = False;
+            $todo->is_campaign = false;
         }
 
         // account
         if($request->is_account){
-            $todo->is_account = True;
+            $todo->is_account = true;
             $todo->account_id = $request->account;
         }else{
-            $todo->is_account = False;
+            $todo->is_account = false;
         }
         // account_adjustment
         if($request->is_account_adjustment){
-            $todo->is_account_adjustment = True;
+            $todo->is_account_adjustment = true;
             $todo->account_adjustment_id = $request->account_adjustment;
         }else{
-            $todo->is_account_adjustment = False;
+            $todo->is_account_adjustment = false;
         }
         // deposit
         if($request->is_deposit){
-            $todo->is_deposit = True;
+            $todo->is_deposit = true;
             $todo->deposit_id = $request->deposit;
         }else{
-            $todo->is_deposit = False;
+            $todo->is_deposit = false;
         }
         // liability
         if($request->is_liability){
-            $todo->is_liability = True;
+            $todo->is_liability = true;
             $todo->liability_id = $request->liability;
         }else{
-            $todo->is_liability = False;
+            $todo->is_liability = false;
         }
         // loan
         if($request->is_loan){
-            $todo->is_loan = True;
+            $todo->is_loan = true;
             $todo->loan_id = $request->loan;
         }else{
-            $todo->is_loan = False;
+            $todo->is_loan = false;
         }
         // withdrawal
         if($request->is_withdrawal){
-            $todo->is_withdrawal = True;
+            $todo->is_withdrawal = true;
             $todo->withdrawal_id = $request->withdrawal;
         }else{
-            $todo->is_withdrawal = False;
+            $todo->is_withdrawal = false;
         }
         // expense
         if($request->is_expense){
-            $todo->is_expense = True;
+            $todo->is_expense = true;
             $todo->expense_id = $request->expense;
         }else{
-            $todo->is_expense = False;
+            $todo->is_expense = false;
         }
         // payment
         if($request->is_payment){
-            $todo->is_payment = True;
+            $todo->is_payment = true;
             $todo->payment_id = $request->payment;
         }else{
-            $todo->is_payment = False;
+            $todo->is_payment = false;
         }
         // refund
         if($request->is_refund){
-            $todo->is_refund = True;
+            $todo->is_refund = true;
             $todo->refund_id = $request->refund;
         }else{
-            $todo->is_refund = False;
+            $todo->is_refund = false;
         }
         // transaction
         if($request->is_transaction){
-            $todo->is_transaction = True;
+            $todo->is_transaction = true;
             $todo->transaction_id = $request->transaction;
         }else{
-            $todo->is_transaction = False;
+            $todo->is_transaction = false;
         }
         // transfer
         if($request->is_transfer){
-            $todo->is_transfer = True;
+            $todo->is_transfer = true;
             $todo->transfer_id = $request->transfer;
         }else{
-            $todo->is_transfer = False;
+            $todo->is_transfer = false;
         }
 
 
         // chama
         if($request->is_chama){
-            $todo->is_chama = True;
+            $todo->is_chama = true;
             $todo->chama_id = $request->chama;
         }else{
-            $todo->is_chama = False;
+            $todo->is_chama = false;
         }
         // chama_member
         if($request->is_chama_member){
-            $todo->is_chama_member = True;
+            $todo->is_chama_member = true;
             $todo->chama_member_id = $request->chama_member;
         }else{
-            $todo->is_chama_member = False;
+            $todo->is_chama_member = false;
         }
         // chama_meeting
         if($request->is_chama_meeting){
-            $todo->is_chama_meeting = True;
+            $todo->is_chama_meeting = true;
             $todo->chama_meeting_id = $request->chama_meeting;
         }else{
-            $todo->is_chama_meeting = False;
+            $todo->is_chama_meeting = false;
         }
         // chama_meeting_minutes
         if($request->is_chama_meeting_minutes){
-            $todo->is_chama_meeting_minutes = True;
+            $todo->is_chama_meeting_minutes = true;
             $todo->chama_meeting_minutes_id = $request->chama_meeting_minutes;
         }else{
-            $todo->is_chama_meeting_minutes = False;
+            $todo->is_chama_meeting_minutes = false;
         }
 
 
         // budget
         if($request->is_budget){
-            $todo->is_budget = True;
+            $todo->is_budget = true;
             $todo->budget_id = $request->budget;
         }else{
-            $todo->is_budget = False;
+            $todo->is_budget = false;
         }
 
         // Check if date is overdue to make the status overdue
@@ -270,9 +270,9 @@ class ToDoController extends Controller
         }
 
         $todo->user_id = $user->id;
-        $todo->is_institution = True;
+        $todo->is_institution = true;
         $todo->institution_id = $institution->id;
-        $todo->is_user = False;
+        $todo->is_user = false;
         $todo->save();
         return back()->withSuccess(__('To do successfully stored.'));
     }

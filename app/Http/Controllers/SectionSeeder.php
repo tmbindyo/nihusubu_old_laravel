@@ -23,7 +23,7 @@ class SectionSeeder extends Controller
                 'name' => 'Dashboard',
                 'description' => 'Dashboard',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => True,
+                'is_business' => true,
                 'user_id' => 1,
             ],
 
@@ -31,7 +31,7 @@ class SectionSeeder extends Controller
                 'name' => 'Calendar',
                 'description' => 'Calendar',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => True,
+                'is_business' => true,
                 'user_id' => 1,
             ],
 
@@ -39,7 +39,7 @@ class SectionSeeder extends Controller
                 'name' => 'To Do',
                 'description' => 'To Do',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => True,
+                'is_business' => true,
                 'user_id' => 1,
             ],
 
@@ -47,7 +47,7 @@ class SectionSeeder extends Controller
                 'name' => 'Product',
                 'description' => 'Product',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => True,
+                'is_business' => true,
                 'user_id' => 1,
             ],
 
@@ -55,7 +55,7 @@ class SectionSeeder extends Controller
                 'name' => 'Inventory',
                 'description' => 'Inventory',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => True,
+                'is_business' => true,
                 'user_id' => 1,
             ],
 
@@ -63,7 +63,7 @@ class SectionSeeder extends Controller
                 'name' => 'CRM',
                 'description' => 'CRM',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => True,
+                'is_business' => true,
                 'user_id' => 1,
             ],
 
@@ -71,7 +71,7 @@ class SectionSeeder extends Controller
                 'name' => 'Sales',
                 'description' => 'Sales',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => True,
+                'is_business' => true,
                 'user_id' => 1,
             ],
 
@@ -79,7 +79,7 @@ class SectionSeeder extends Controller
                 'name' => 'Accounting',
                 'description' => 'Accounting',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => True,
+                'is_business' => true,
                 'user_id' => 1,
             ],
 
@@ -87,7 +87,7 @@ class SectionSeeder extends Controller
                 'name' => 'Settings',
                 'description' => 'Settings',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => True,
+                'is_business' => true,
                 'user_id' => 1,
             ],
 
@@ -95,7 +95,7 @@ class SectionSeeder extends Controller
                 'name' => 'Feedback',
                 'description' => 'Feedback',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => True,
+                'is_business' => true,
                 'user_id' => 1,
             ],
 
@@ -181,7 +181,7 @@ class SectionSeeder extends Controller
     public function MenuSeeder(){
 
         // dashboard
-        $dashboardSection = Section::where('name','Dashboard')->where('is_business',True)->first();
+        $dashboardSection = Section::where('name','Dashboard')->where('is_business',true)->first();
         $sectionData = [
             [
                 'name' => 'Dashboard',
@@ -200,7 +200,7 @@ class SectionSeeder extends Controller
 
 
         // calendar
-        $calendarSection = Section::where('name','Calendar')->where('is_business',True)->first();
+        $calendarSection = Section::where('name','Calendar')->where('is_business',true)->first();
         $sectionData = [
             [
                 'name' => 'calendar',
@@ -218,7 +218,7 @@ class SectionSeeder extends Controller
         }
 
         // to do
-        $toDoSection = Section::where('name','To Do')->where('is_business',True)->first();
+        $toDoSection = Section::where('name','To Do')->where('is_business',true)->first();
         $sectionData = [
             [
                 'name' => 'toDos',
@@ -276,7 +276,7 @@ class SectionSeeder extends Controller
         }
 
         // product
-        $productSection = Section::where('name','Product')->where('is_business',True)->first();
+        $productSection = Section::where('name','Product')->where('is_business',true)->first();
         $sectionData = [
             // product group
             [
@@ -525,7 +525,7 @@ class SectionSeeder extends Controller
         }
 
         // inventory adjustments
-        $inventorySection = Section::where('name','Inventory')->where('is_business',True)->first();
+        $inventorySection = Section::where('name','Inventory')->where('is_business',true)->first();
         $sectionData = [
             // inventory adjustments
             [
@@ -723,7 +723,7 @@ class SectionSeeder extends Controller
 
 
         // crm
-        $crmSection = Section::where('name','CRM')->where('is_business',True)->first();
+        $crmSection = Section::where('name','CRM')->where('is_business',true)->first();
         $sectionData = [
             // campaigns
             [
@@ -1037,7 +1037,7 @@ class SectionSeeder extends Controller
 
 
         // sales
-        $salesSection = Section::where('name','Sales')->where('is_business',True)->first();
+        $salesSection = Section::where('name','Sales')->where('is_business',true)->first();
         $sectionData = [
             // sales
             [
@@ -1347,7 +1347,7 @@ class SectionSeeder extends Controller
         }
 
         // accounting
-        $accountingSection = Section::where('name','Accounting')->where('is_business',True)->first();
+        $accountingSection = Section::where('name','Accounting')->where('is_business',true)->first();
         $sectionData = [
             // accounts
             [
@@ -2061,7 +2061,7 @@ class SectionSeeder extends Controller
 
 
         // settings
-        $dashboardSection = Section::where('name','Settings')->where('is_business',True)->first();
+        $dashboardSection = Section::where('name','Settings')->where('is_business',true)->first();
         $sectionData = [
             // campaign types
             [

@@ -201,9 +201,9 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // contact types
-        $contactTypes = ContactType::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->get();
+        $contactTypes = ContactType::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user','status')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // deleted contact types
-        $deletedContactTypes = ContactType::where('status_id','d35b4cee-5594-4cfd-ad85-e489c9dcdeff')->with('user','status')->where('institution_id',$institution->id)->where('is_institution',True)->get();
+        $deletedContactTypes = ContactType::where('status_id','d35b4cee-5594-4cfd-ad85-e489c9dcdeff')->with('user','status')->where('institution_id',$institution->id)->where('is_institution',true)->get();
         return view('business.contact_types',compact('contactTypes','user','institution','deletedContactTypes'));
     }
 
@@ -228,8 +228,8 @@ class SettingController extends Controller
         $contactType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $contactType->user_id = $user->id;
         $contactType->institution_id = $institution->id;
-        $contactType->is_institution = True;
-        $contactType->is_user = False;
+        $contactType->is_institution = true;
+        $contactType->is_user = false;
         $contactType->save();
 
         return redirect()->route('business.contact.type.show',['portal'=>$institution->portal,'id'=>$contactType->id])->withSuccess('Contact type created!');
@@ -347,8 +347,8 @@ class SettingController extends Controller
         $frequency->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $frequency->user_id = $user->id;
         $frequency->institution_id = $institution->id;
-        $frequency->is_institution = True;
-        $frequency->is_user = False;
+        $frequency->is_institution = true;
+        $frequency->is_user = false;
         $frequency->save();
 
         return redirect()->route('business.frequency.show',['portal'=>$institution->portal,'id'=>$frequency->id])->withSuccess('Frequency created!');
@@ -549,8 +549,8 @@ class SettingController extends Controller
         $title->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $title->user_id = $user->id;
         $title->institution_id = $institution->id;
-        $title->is_user = False;
-        $title->is_institution = True;
+        $title->is_user = false;
+        $title->is_institution = true;
         $title->save();
         return redirect()->route('business.title.show',['portal'=>$institution->portal,'id'=>$title->id])->withSuccess(__('Title '.$title->name.' successfully created.'));
     }
@@ -639,9 +639,9 @@ class SettingController extends Controller
         $tax->amount = $request->amount;
 
         if ($request->is_percentage == "on"){
-            $tax->is_percentage = True;
+            $tax->is_percentage = true;
         }else{
-            $tax->is_percentage = False;
+            $tax->is_percentage = false;
         }
 
         $tax->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -675,9 +675,9 @@ class SettingController extends Controller
         $tax->name = $request->name;
         $tax->amount = $request->amount;
         if ($request->is_percentage == "on"){
-            $tax->is_percentage = True;
+            $tax->is_percentage = true;
         }else{
-            $tax->is_percentage = False;
+            $tax->is_percentage = false;
         }
         $tax->user_id = $user->id;
         $tax->save();

@@ -91,9 +91,9 @@ class ProductController extends Controller
         // Register product group
         $productGroup = new ProductGroup();
         if($request->product_type == "services") {
-            $productGroup->is_service = True;
+            $productGroup->is_service = true;
         }else{
-            $productGroup->is_service = False;
+            $productGroup->is_service = false;
 
             $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
             if(!$warehouse){
@@ -112,9 +112,9 @@ class ProductController extends Controller
 
         // Check if the product is has been value added
         if ($request->is_created == "on"){
-            $productGroup->is_created = True;
+            $productGroup->is_created = true;
         }else{
-            $productGroup->is_created = False;
+            $productGroup->is_created = false;
         }
         $productGroup->creation_time = $request->creation_time;
         $productGroup->creation_cost = $request->creation_cost;
@@ -125,9 +125,9 @@ class ProductController extends Controller
         $productGroup->institution_id = $institution->id;
 
         if ($request->is_returnable == "on"){
-            $productGroup->is_returnable = True;
+            $productGroup->is_returnable = true;
         }else{
-            $productGroup->is_returnable = False;
+            $productGroup->is_returnable = false;
         }
         $productGroup->save();
 
@@ -149,9 +149,9 @@ class ProductController extends Controller
             $product = new Product;
             // check if product is a service or a good
             if($request->product_type == "services") {
-                $product->is_service = True;
+                $product->is_service = true;
             }else{
-                $product->is_service = False;
+                $product->is_service = false;
             }
             $product->name = $productGroupProduct['name'];
             $product->attribute = $attributes;
@@ -159,9 +159,9 @@ class ProductController extends Controller
             $product->unit_id = $request->unit;
             // Check if the product is eligible for sales return
             if ($request->is_returnable == "on"){
-                $product->is_returnable = True;
+                $product->is_returnable = true;
             }else{
-                $product->is_returnable = False;
+                $product->is_returnable = false;
             }
 
             $product->selling_account_id = $request->selling_account;
@@ -172,9 +172,9 @@ class ProductController extends Controller
             $product->reorder_level = $productGroupProduct['reorder_level'];
             // Check if the product is has been value added
             if ($request->is_created == "on"){
-                $product->is_created = True;
+                $product->is_created = true;
             }else{
-                $product->is_created = False;
+                $product->is_created = false;
             }
             $product->creation_time = $request->creation_time;
             $product->creation_cost = $request->creation_cost;
@@ -183,8 +183,8 @@ class ProductController extends Controller
             $product->opening_stock_value = $productGroupProduct['opening_stock_value'];
             $product->reorder_level = $productGroupProduct['reorder_level'];
 
-            $product->is_product_group = True;
-            $product->is_composite_product = False;
+            $product->is_product_group = true;
+            $product->is_composite_product = false;
 
             $product->product_group_id = $productGroup->id;
             $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
@@ -198,7 +198,7 @@ class ProductController extends Controller
 
                 // todo create stock tables for product
                 // Get primary warehouse
-                $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',True)->first();
+                $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',true)->first();
 
                 // create inventory record
                 $inventory = new Inventory();
@@ -212,7 +212,7 @@ class ProductController extends Controller
 
                 // Create inventory records for subsequent warehouses
 
-                $warehouseIds = Warehouse::select('id')->where('is_primary',False)->get();
+                $warehouseIds = Warehouse::select('id')->where('is_primary',false)->get();
 
                 // Records for the rest of the warehouses
                 foreach ($warehouseIds as $warehouseId){
@@ -243,7 +243,7 @@ class ProductController extends Controller
                 $restock->quantity = $productGroupProduct['opening_stock'];
                 $restock->warehouse_id = $warehouse->id;
                 $restock->product_id = $product->id;
-                $restock->is_opening_stock = True;
+                $restock->is_opening_stock = true;
                 $restock->user_id = $user->id;
                 $restock->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
                 $restock->save();
@@ -335,9 +335,9 @@ class ProductController extends Controller
         $productGroup = ProductGroup::where('id',$product_group_id)->first();
 
         if($request->product_type == "services") {
-            $productGroup->is_service = True;
+            $productGroup->is_service = true;
         }else{
-            $productGroup->is_service = False;
+            $productGroup->is_service = false;
         }
         $productGroup->name = $request->product_name;
         $productGroup->description = $request->description;
@@ -350,9 +350,9 @@ class ProductController extends Controller
 
         // Check if the product is has been value added
         if ($request->is_created == "on"){
-            $productGroup->is_created = True;
+            $productGroup->is_created = true;
         }else{
-            $productGroup->is_created = False;
+            $productGroup->is_created = false;
         }
         $productGroup->creation_time = $request->creation_time;
         $productGroup->creation_cost = $request->creation_cost;
@@ -363,9 +363,9 @@ class ProductController extends Controller
         $productGroup->institution_id = $institution->id;
 
         if ($request->is_returnable == "on"){
-            $productGroup->is_returnable = True;
+            $productGroup->is_returnable = true;
         }else{
-            $productGroup->is_returnable = False;
+            $productGroup->is_returnable = false;
         }
         $productGroup->save();
 
@@ -408,9 +408,9 @@ class ProductController extends Controller
                 $productGroupRequestProduct[]['id'] = $product->id;
                 // check if product is a service or a good
                 if($request->product_type == "services") {
-                    $product->is_service = True;
+                    $product->is_service = true;
                 }else{
-                    $product->is_service = False;
+                    $product->is_service = false;
                 }
                 $product->name = $productGroupProduct['name'];
                 $product->attribute = $attributes;
@@ -418,9 +418,9 @@ class ProductController extends Controller
                 $product->unit_id = $request->unit;
                 // Check if the product is eligible for sales return
                 if ($request->is_returnable == "on"){
-                    $product->is_returnable = True;
+                    $product->is_returnable = true;
                 }else{
-                    $product->is_returnable = False;
+                    $product->is_returnable = false;
                 }
 
                 $product->selling_account_id = $request->selling_account;
@@ -431,9 +431,9 @@ class ProductController extends Controller
                 $product->reorder_level = $productGroupProduct['reorder_level'];
                 // Check if the product is has been value added
                 if ($request->is_created == "on"){
-                    $product->is_created = True;
+                    $product->is_created = true;
                 }else{
-                    $product->is_created = False;
+                    $product->is_created = false;
                 }
                 $product->creation_time = $request->creation_time;
                 $product->creation_cost = $request->creation_cost;
@@ -442,8 +442,8 @@ class ProductController extends Controller
                 $product->opening_stock_value = $productGroupProduct['opening_stock_value'];
                 $product->reorder_level = $productGroupProduct['reorder_level'];
 
-                $product->is_product_group = True;
-                $product->is_composite_product = False;
+                $product->is_product_group = true;
+                $product->is_composite_product = false;
 
                 $product->product_group_id = $productGroup->id;
                 $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
@@ -457,7 +457,7 @@ class ProductController extends Controller
 
                     // todo create stock tables for product
                     // Get primary warehouse
-                    $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',True)->first();
+                    $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',true)->first();
 
                     // create inventory record
                     $inventory = new Inventory();
@@ -471,7 +471,7 @@ class ProductController extends Controller
 
                     // Create inventory records for subsequent warehouses
 
-                    $warehouseIds = Warehouse::select('id')->where('is_primary',False)->get();
+                    $warehouseIds = Warehouse::select('id')->where('is_primary',false)->get();
 
                     // Records for the rest of the warehouses
                     foreach ($warehouseIds as $warehouseId){
@@ -502,7 +502,7 @@ class ProductController extends Controller
                     $restock->quantity = $productGroupProduct['opening_stock'];
                     $restock->warehouse_id = $warehouse->id;
                     $restock->product_id = $product->id;
-                    $restock->is_opening_stock = True;
+                    $restock->is_opening_stock = true;
                     $restock->user_id = $user->id;
                     $restock->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
                     $restock->save();
@@ -538,9 +538,9 @@ class ProductController extends Controller
                 $product = new Product;
                 // check if product is a service or a good
                 if($request->product_type == "services") {
-                    $product->is_service = True;
+                    $product->is_service = true;
                 }else{
-                    $product->is_service = False;
+                    $product->is_service = false;
                 }
                 $product->name = $productGroupProduct['name'];
                 $product->attribute = $attributes;
@@ -548,9 +548,9 @@ class ProductController extends Controller
                 $product->unit_id = $request->unit;
                 // Check if the product is eligible for sales return
                 if ($request->is_returnable == "on"){
-                    $product->is_returnable = True;
+                    $product->is_returnable = true;
                 }else{
-                    $product->is_returnable = False;
+                    $product->is_returnable = false;
                 }
 
                 $product->selling_account_id = $request->selling_account;
@@ -561,9 +561,9 @@ class ProductController extends Controller
                 $product->reorder_level = $productGroupProduct['reorder_level'];
                 // Check if the product is has been value added
                 if ($request->is_created == "on"){
-                    $product->is_created = True;
+                    $product->is_created = true;
                 }else{
-                    $product->is_created = False;
+                    $product->is_created = false;
                 }
                 $product->creation_time = $request->creation_time;
                 $product->creation_cost = $request->creation_cost;
@@ -572,8 +572,8 @@ class ProductController extends Controller
                 $product->opening_stock_value = $productGroupProduct['opening_stock_value'];
                 $product->reorder_level = $productGroupProduct['reorder_level'];
 
-                $product->is_product_group = True;
-                $product->is_composite_product = False;
+                $product->is_product_group = true;
+                $product->is_composite_product = false;
 
                 $product->product_group_id = $productGroup->id;
                 $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
@@ -589,7 +589,7 @@ class ProductController extends Controller
 
                     // todo create stock tables for product
                     // Get primary warehouse
-                    $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',True)->first();
+                    $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',true)->first();
 
                     // create inventory record
                     $inventory = new Inventory();
@@ -603,7 +603,7 @@ class ProductController extends Controller
 
                     // Create inventory records for subsequent warehouses
 
-                    $warehouseIds = Warehouse::select('id')->where('is_primary',False)->get();
+                    $warehouseIds = Warehouse::select('id')->where('is_primary',false)->get();
 
                     // Records for the rest of the warehouses
                     foreach ($warehouseIds as $warehouseId){
@@ -634,7 +634,7 @@ class ProductController extends Controller
                     $restock->quantity = $productGroupProduct['opening_stock'];
                     $restock->warehouse_id = $warehouse->id;
                     $restock->product_id = $product->id;
-                    $restock->is_opening_stock = True;
+                    $restock->is_opening_stock = true;
                     $restock->user_id = $user->id;
                     $restock->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
                     $restock->save();
@@ -685,7 +685,7 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution products
-        $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory','stock_on_hand')->where('is_product_group',False)->where('is_composite_product',False)->where('status_id','f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
+        $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory','stock_on_hand')->where('is_product_group',false)->where('is_composite_product',false)->where('status_id','f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
 
 //        return $products;
 
@@ -721,9 +721,9 @@ class ProductController extends Controller
         $product = new Product;
         // check if product is a service or a good
         if($request->product_type == "services") {
-            $product->is_service = True;
+            $product->is_service = true;
         }else{
-            $product->is_service = False;
+            $product->is_service = false;
             $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
             if(!$warehouse){
                 return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
@@ -735,9 +735,9 @@ class ProductController extends Controller
         $product->unit_id = $request->unit;
         // Check if the product is eligible for sales return
         if ($request->is_returnable == "on"){
-            $product->is_returnable = True;
+            $product->is_returnable = true;
         }else{
-            $product->is_returnable = False;
+            $product->is_returnable = false;
         }
         $product->selling_account_id = $request->selling_account;
         $product->purchase_account_id = $request->purchase_account;
@@ -745,9 +745,9 @@ class ProductController extends Controller
         $product->purchase_price = $request->purchase_price;
         // Check if the product is has been value added
         if ($request->is_created == "on"){
-            $product->is_created = True;
+            $product->is_created = true;
         }else{
-            $product->is_created = False;
+            $product->is_created = false;
         }
         $product->creation_time = $request->creation_time;
         $product->creation_cost = $request->creation_cost;
@@ -756,8 +756,8 @@ class ProductController extends Controller
         $product->opening_stock_value = $request->opening_stock_value;
         $product->reorder_level = $request->reorder_level;
 
-        $product->is_product_group = False;
-        $product->is_composite_product = False;
+        $product->is_product_group = false;
+        $product->is_composite_product = false;
 
         $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
         $product->user_id = $user->id;
@@ -768,7 +768,7 @@ class ProductController extends Controller
 
             // todo create stock tables for product
             // Get primary warehouse
-            $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',True)->first();
+            $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',true)->first();
 
             // create inventory record
             $inventory = new Inventory();
@@ -782,7 +782,7 @@ class ProductController extends Controller
 
             // Create inventory records for subsequent warehouses
 
-            $warehouseIds = Warehouse::select('id')->where('is_primary',False)->get();
+            $warehouseIds = Warehouse::select('id')->where('is_primary',false)->get();
 
             // Records for the rest of the warehouses
             foreach ($warehouseIds as $warehouseId){
@@ -814,7 +814,7 @@ class ProductController extends Controller
             $restock->quantity = $request->opening_stock;
             $restock->warehouse_id = $warehouse->id;
             $restock->product_id = $product->id;
-            $restock->is_opening_stock = True;
+            $restock->is_opening_stock = true;
             $restock->user_id = $user->id;
             $restock->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
             $restock->save();
@@ -887,9 +887,9 @@ class ProductController extends Controller
 
         // check if product is a service or a good
         if($request->product_type == "services") {
-            $product->is_service = True;
+            $product->is_service = true;
         }else{
-            $product->is_service = False;
+            $product->is_service = false;
         }
 
         $product->name = $request->name;
@@ -897,9 +897,9 @@ class ProductController extends Controller
         $product->unit_id = $request->unit;
         // Check if the product is eligible for sales return
         if ($request->is_returnable == "on"){
-            $product->is_returnable = True;
+            $product->is_returnable = true;
         }else{
-            $product->is_returnable = False;
+            $product->is_returnable = false;
         }
         $product->selling_account_id = $request->selling_account;
         $product->purchase_account_id = $request->purchase_account;
@@ -907,9 +907,9 @@ class ProductController extends Controller
         $product->purchase_price = $request->purchase_price;
         // Check if the product is has been value added
         if ($request->is_created == "on"){
-            $product->is_created = True;
+            $product->is_created = true;
         }else{
-            $product->is_created = False;
+            $product->is_created = false;
         }
         $product->creation_time = $request->creation_time;
         $product->creation_cost = $request->creation_cost;
@@ -918,7 +918,7 @@ class ProductController extends Controller
         $product->opening_stock_value = $request->opening_stock_value;
         $product->reorder_level = $request->reorder_level;
 
-        $product->is_product_group = False;
+        $product->is_product_group = false;
 
         $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
         $product->user_id = $user->id;
@@ -927,7 +927,7 @@ class ProductController extends Controller
 
         // todo create stock tables for product
         // Get primary warehouse
-        $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',True)->first();
+        $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary',true)->first();
 
         // todo, it refactors it to the value put here which will erare the current stock value
         // create inventory
@@ -936,7 +936,7 @@ class ProductController extends Controller
         $inventory->save();
 
         // Create record for inventory, tracking the stock input
-        $restock = Restock::where('warehouse_id',$warehouse->id)->where('product_id',$product->id)->where('is_opening_stock',True)->first();
+        $restock = Restock::where('warehouse_id',$warehouse->id)->where('product_id',$product->id)->where('is_opening_stock',true)->first();
         $restock->initial_warehouse_amount = 0;
         $restock->subsequent_warehouse_amount = $request->opening_stock;
         // getting unit value
@@ -1022,7 +1022,7 @@ class ProductController extends Controller
         $institution = $this->getInstitution($portal);
         // Get products
 //        $compositeProducts = CompositeProduct::where('institution_id',$institution->id)->withCount('compositeProductProducts')->get();
-        $compositeProducts = Product::where('institution_id',$institution->id)->where('is_composite_product',True)->withCount('compositeProductProducts')->get();
+        $compositeProducts = Product::where('institution_id',$institution->id)->where('is_composite_product',true)->withCount('compositeProductProducts')->get();
 
         return view('business.composite_products',compact('user','institution','compositeProducts'));
     }
@@ -1059,18 +1059,18 @@ class ProductController extends Controller
         // Create composite product
         $product = new Product();
         if($request->product_type == "services") {
-            $product->is_service = True;
+            $product->is_service = true;
         }else{
-            $product->is_service = False;
+            $product->is_service = false;
             $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
             if(!$warehouse){
                 return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
             }
         }
         if ($request->is_returnable == "on"){
-            $product->is_returnable = True;
+            $product->is_returnable = true;
         }else{
-            $product->is_returnable = False;
+            $product->is_returnable = false;
         }
         $product->unit_id = $request->unit;
         $product->name = $request->product_name;
@@ -1078,9 +1078,9 @@ class ProductController extends Controller
         $product->selling_price = $request->selling_price;
         $product->selling_account_id = $request->selling_account;
 
-        $product->is_created = False;
-        $product->is_composite_product = True;
-        $product->is_product_group = False;
+        $product->is_created = false;
+        $product->is_composite_product = true;
+        $product->is_product_group = false;
 
         $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
         $product->user_id = $user->id;
@@ -1164,14 +1164,14 @@ class ProductController extends Controller
         $product = Product::findOrFail($product_id);
         $product = Product::where('id',$product_id)->first();
         if($request->product_type == "services") {
-            $product->is_service = True;
+            $product->is_service = true;
         }else{
-            $product->is_service = False;
+            $product->is_service = false;
         }
         if ($request->is_returnable == "on"){
-            $product->is_returnable = True;
+            $product->is_returnable = true;
         }else{
-            $product->is_returnable = False;
+            $product->is_returnable = false;
         }
         $product->unit_id = $request->unit;
         $product->name = $request->product_name;
@@ -1179,9 +1179,9 @@ class ProductController extends Controller
         $product->selling_price = $request->selling_price;
         $product->selling_account_id = $request->selling_account;
 
-        $product->is_created = False;
-        $product->is_composite_product = True;
-        $product->is_product_group = False;
+        $product->is_created = false;
+        $product->is_composite_product = true;
+        $product->is_product_group = false;
 
         $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
         $product->user_id = $user->id;
@@ -1262,9 +1262,9 @@ class ProductController extends Controller
         $productDiscount = new ProductDiscount;
 
         if ($request->is_percentage == "on"){
-            $productDiscount->is_percentage = True;
+            $productDiscount->is_percentage = true;
         }else{
-            $productDiscount->is_percentage = False;
+            $productDiscount->is_percentage = false;
         }
         $productDiscount->product_id = $product_id;
         $productDiscount->quantity = $request->quantity;

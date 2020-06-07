@@ -56,9 +56,9 @@ class CRMController extends Controller
         // Get contact types
         $contactTypes = ContactType::where('institution_id',$institution->id)->get();
         // Get contacts
-        $leads = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->where('is_lead',True)->with('status','contactType','title')->get();
+        $leads = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->where('is_lead',true)->with('status','contactType','title')->get();
         // Get contacts
-        $deletedLeads = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->where('is_lead',True)->with('status','contactType','title')->get();
+        $deletedLeads = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->where('is_lead',true)->with('status','contactType','title')->get();
 
         return view('business.leads',compact('leads','user','contactTypes','institution','deletedLeads'));
     }
@@ -403,9 +403,9 @@ class CRMController extends Controller
         // Get contact types
         $contactTypes = ContactType::where('institution_id',$institution->id)->get();
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->where('is_lead',False)->with('status','contactType','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->where('is_lead',false)->with('status','contactType','title')->get();
         // Get deleted contacts
-        $deletedContacts = Contact::where('status_id','d35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id',$institution->id)->where('is_institution',true)->where('is_lead',False)->with('status','contactType','title')->get();
+        $deletedContacts = Contact::where('status_id','d35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id',$institution->id)->where('is_institution',true)->where('is_lead',false)->with('status','contactType','title')->get();
 
         return view('business.contacts',compact('contacts','user','contactTypes','institution','deletedContacts'));
     }
@@ -452,21 +452,21 @@ class CRMController extends Controller
         $contact->campaign_id = $request->campaign;
 
         if($request->organization){
-            $contact->is_organization = True;
+            $contact->is_organization = true;
         }else{
-            $contact->is_organization = False;
+            $contact->is_organization = false;
         }
         if($request->is_lead == "on"){
-            $contact->is_lead = True;
+            $contact->is_lead = true;
         }else{
-            $contact->is_lead = False;
+            $contact->is_lead = false;
         }
 
         $contact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $contact->user_id = $user->id;
-        $contact->is_institution = True;
-        $contact->is_user = False;
-        $contact->is_chama = False;
+        $contact->is_institution = true;
+        $contact->is_user = false;
+        $contact->is_chama = false;
         $contact->institution_id = $institution->id;
         $contact->save();
 
@@ -604,7 +604,7 @@ class CRMController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',False)->with('organization','title')->get();
+        $contacts = Contact::where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // contacts
@@ -638,9 +638,9 @@ class CRMController extends Controller
         $contact->organization_id = $request->organization;
         $contact->campaign_id = $request->campaign;
         if($request->is_lead == "on"){
-            $contact->is_lead = True;
+            $contact->is_lead = true;
         }else{
-            $contact->is_lead = False;
+            $contact->is_lead = false;
         }
         $contact->save();
 
@@ -679,7 +679,7 @@ class CRMController extends Controller
         $institution = $this->getInstitution($portal);
 
         $contact = Contact::findOrFail($contact_id);
-        $contact->is_lead = False;
+        $contact->is_lead = false;
         $contact->save();
         return redirect()->route('business.contact.show',['portal'=>$institution->portal,'id'=>$contact->id])->withSuccess('Contact updated!');
     }
@@ -778,8 +778,8 @@ class CRMController extends Controller
         $organization->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $organization->user_id = $user->id;
         $organization->institution_id = $institution->id;
-        $organization->is_institution = True;
-        $organization->is_chama = False;
+        $organization->is_institution = true;
+        $organization->is_chama = false;
         $organization->save();
         return redirect()->route('business.organization.show',['portal'=>$institution->portal,'id'=>$organization->id])->withSuccess('Organization created!');
 

@@ -78,9 +78,9 @@ class InventoryController extends Controller
         // Inventory adjustment
         $inventoryAdjustment = new InventoryAdjustment();
         if ($request->mode_of_adjustment == "value"){
-            $inventoryAdjustment->is_value_adjustment = True;
+            $inventoryAdjustment->is_value_adjustment = true;
         }else{
-            $inventoryAdjustment->is_value_adjustment = False;
+            $inventoryAdjustment->is_value_adjustment = false;
         }
         // Generate inventory adjustment number
         $inventoryAdjustment->inventory_adjustment_number = $reference;
@@ -327,7 +327,7 @@ class InventoryController extends Controller
         // Warehouse registration
         $warehouse = new Warehouse();
         $warehouse->name = $request->name;
-        $warehouse->is_primary = False;
+        $warehouse->is_primary = false;
         $warehouse->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $warehouse->user_id = $user->id;
         $warehouse->institution_id = $institution->id;

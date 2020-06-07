@@ -63,8 +63,8 @@ class FeedbackController extends Controller
         $feedback->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $feedback->user_id = $user->id;
         $feedback->institution_id = $institution->id;
-        $feedback->is_institution = True;
-        $feedback->is_user = False;
+        $feedback->is_institution = true;
+        $feedback->is_user = false;
         $feedback->save();
 
         return redirect()->route('business.feedback.show',['portal'=>$institution->portal,'id'=>$feedback->id])->withSuccess('Feedback updated!');
@@ -79,7 +79,7 @@ class FeedbackController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // Get feedback
-        $feedback = Feedback::with('user','status')->where('is_institution',True)->where('id',$feedback_id)->first();
+        $feedback = Feedback::with('user','status')->where('is_institution',true)->where('id',$feedback_id)->first();
         return view('business.feedback_show',compact('feedback','user','institution'));
     }
 

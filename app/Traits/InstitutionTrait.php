@@ -20,11 +20,11 @@ trait InstitutionTrait
             // Get user
             $userCheck = Auth::user();
             // check if user has active account
-            $userActiveAccount = UserAccount::where('user_id',$userCheck->id)->where('is_active',True)->first();
+            $userActiveAccount = UserAccount::where('user_id',$userCheck->id)->where('is_active',true)->first();
 
-            if($userActiveAccount->is_institution != True){
+            if($userActiveAccount->is_institution != true){
                 // deactivate user accounts
-                $userAccounts = UserAccount::where('user_id',$userCheck->id)->update(['is_active' => False]);
+                $userAccounts = UserAccount::where('user_id',$userCheck->id)->update(['is_active' => false]);
                 Auth::logout();
             }
 
