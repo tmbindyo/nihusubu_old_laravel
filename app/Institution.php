@@ -30,7 +30,7 @@ class Institution extends Model
     }
     public function logo()
     {
-        return $this->belongsTo('App\Upload','logo_id');
+        return $this->belongsTo('App\Upload', 'logo_id');
     }
     public function plan()
     {
@@ -38,7 +38,7 @@ class Institution extends Model
     }
     public function primaryContact()
     {
-        return $this->belongsTo('App\PrimaryContact','primary_contact_id','id');
+        return $this->belongsTo('App\PrimaryContact', 'primary_contact_id', 'id');
     }
     public function user()
     {

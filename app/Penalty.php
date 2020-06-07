@@ -22,7 +22,7 @@ class Penalty extends Model
     }
     public function chamaMember()
     {
-        return $this->belongsTo('App\ChamaMember','member_id');
+        return $this->belongsTo('App\ChamaMember', 'member_id');
     }
     public function status()
     {

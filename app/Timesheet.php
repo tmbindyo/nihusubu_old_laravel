@@ -30,7 +30,7 @@ class Timesheet extends Model
     }
     public function timesheetApprover()
     {
-        return $this->belongsTo('App\User','approved_by','id');
+        return $this->belongsTo('App\User', 'approved_by', 'id');
     }
 
 

@@ -28,7 +28,7 @@ class Organization extends Model
     }
     public function parentPrganization()
     {
-        return $this->belongsTo('App\Organization','id', 'parent_account_id');
+        return $this->belongsTo('App\Organization', 'id', 'parent_account_id');
     }
     public function status()
     {

@@ -28,7 +28,7 @@ class AddDateToChamaMeetings extends Migration
     public function down()
     {
         Schema::table('chama_meetings', function (Blueprint $table) {
-            $table->dropColumn(['date','agenda','is_scheduled']);
+            $table->dropColumn(['date', 'agenda', 'is_scheduled']);
         });
     }
 }

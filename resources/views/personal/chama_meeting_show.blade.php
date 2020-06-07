@@ -63,7 +63,7 @@
         <div class="col-md-5">
             <div class="title-action">
                 @if($chamaMeeting->is_scheduled == True)
-                    <a href="{{route('personal.chama.meeting.schedule.show',['chama_id'=>$chama->id,'chama_meeting_id'=>$chamaMeeting->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-check"></i> Update Minutes </a>
+                    <a href="{{route('personal.chama.meeting.schedule.show',['chama_id'=>$chama->id, 'chama_meeting_id'=>$chamaMeeting->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-check"></i> Update Minutes </a>
                 @endif
             </div>
         </div>
@@ -82,7 +82,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('personal.chama.meeting.update',['chama_id'=>$chama->id,'meeting_id'=>$chamaMeeting->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.chama.meeting.update',['chama_id'=>$chama->id, 'meeting_id'=>$chamaMeeting->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -629,7 +629,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

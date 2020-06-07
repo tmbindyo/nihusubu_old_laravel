@@ -45,7 +45,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Estimates
-        $estimates = Sale::where('institution_id',$institution->id)->where('is_estimate',true)->with('status','contact')->get();
+        $estimates = Sale::where('institution_id',$institution->id)->where('is_estimate', true)->with('status','contact')->get();
 
 //        return $estimates;
 
@@ -59,7 +59,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Getting Products
@@ -213,7 +213,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -236,7 +236,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -396,7 +396,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Invoices
-        $invoices = Sale::where('institution_id',$institution->id)->where('is_invoice',true)->with('status','contact')->get();
+        $invoices = Sale::where('institution_id',$institution->id)->where('is_invoice', true)->with('status','contact')->get();
 
         return view('business.invoices',compact('user','institution','invoices'));
     }
@@ -408,7 +408,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -528,7 +528,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -550,7 +550,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -712,7 +712,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Sales
-        $sales = Sale::where('institution_id',$institution->id)->where('is_sale',true)->with('status','contact')->get();
+        $sales = Sale::where('institution_id',$institution->id)->where('is_sale', true)->with('status','contact')->get();
 
         return view('business.sales',compact('user','institution','sales'));
     }
@@ -725,7 +725,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory
@@ -870,7 +870,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead',false)->with('organization','title')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_lead', false)->with('organization','title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         // Get Inventory

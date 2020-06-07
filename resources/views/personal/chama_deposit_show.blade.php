@@ -74,7 +74,7 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('personal.chama.deposit.account.adjustment.create',['chama_id'=>$chama->id,'deposit_id'=>$deposit->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
+                <a href="{{route('personal.chama.deposit.account.adjustment.create',['chama_id'=>$chama->id, 'deposit_id'=>$deposit->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
             </div>
         </div>
     </div>
@@ -732,7 +732,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

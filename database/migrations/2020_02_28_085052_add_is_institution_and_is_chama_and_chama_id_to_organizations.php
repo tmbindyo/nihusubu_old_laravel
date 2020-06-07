@@ -29,7 +29,7 @@ class AddIsInstitutionAndIsChamaAndChamaIdToOrganizations extends Migration
     public function down()
     {
         Schema::table('organizations', function (Blueprint $table) {
-            $table->dropColumn(['is_institution','is_chama','chama_id']);
+            $table->dropColumn(['is_institution', 'is_chama', 'chama_id']);
         });
     }
 }

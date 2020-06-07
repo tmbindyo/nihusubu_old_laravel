@@ -53,7 +53,7 @@
                         <a href="{{route('personal.calendar')}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('personal.chama.account.adjustment.show',['chama_id'=>$chama->id,'account_adjustment_id'=>$account_adjustment->id])}}">Account Adjustments</a>
+                        <a href="{{route('personal.chama.account.adjustment.show',['chama_id'=>$chama->id, 'account_adjustment_id'=>$account_adjustment->id])}}">Account Adjustments</a>
                     </li>
                     <li class="active">
                         <strong>Account Adjustment Create</strong>
@@ -477,7 +477,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

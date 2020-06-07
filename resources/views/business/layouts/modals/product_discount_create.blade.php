@@ -8,7 +8,7 @@
 {{--                <small class="font-bold">Sample Input dummy text of the printing and typesetting industry.</small>--}}
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('business.product.discount.store',['portal'=>$institution->portal,'id'=>$product->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('business.product.discount.store',['portal'=>$institution->portal, 'id'=>$product->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())

@@ -28,7 +28,7 @@ class AddNameNamePhoneNumberEmailToChamaMembers extends Migration
     public function down()
     {
         Schema::table('chama_members', function (Blueprint $table) {
-            $table->dropColumn(['name','phone_number','email']);
+            $table->dropColumn(['name', 'phone_number', 'email']);
         });
     }
 }

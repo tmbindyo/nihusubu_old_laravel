@@ -22,7 +22,7 @@ class Order extends Model
     }
     public function customer()
     {
-        return $this->belongsTo('App\Contact','contact_id','id');
+        return $this->belongsTo('App\Contact', 'contact_id', 'id');
     }
     public function project()
     {

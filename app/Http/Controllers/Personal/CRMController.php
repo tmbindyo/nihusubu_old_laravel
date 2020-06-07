@@ -41,9 +41,9 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // Get contacts
-        $contacts = Contact::where('user_id',$user->id)->where('is_user',true)->where('is_lead',false)->with('status','contactType','title')->get();
+        $contacts = Contact::where('user_id',$user->id)->where('is_user',true)->where('is_lead', false)->with('status','contactType','title')->get();
         // Get deleted contacts
-        $deletedContacts = Contact::where('user_id',$user->id)->where('is_user',true)->where('is_lead',false)->with('status','contactType','title')->onlyTrashed()->get();
+        $deletedContacts = Contact::where('user_id',$user->id)->where('is_user',true)->where('is_lead', false)->with('status','contactType','title')->onlyTrashed()->get();
 
         return view('personal.contacts',compact('contacts','user','deletedContacts'));
     }

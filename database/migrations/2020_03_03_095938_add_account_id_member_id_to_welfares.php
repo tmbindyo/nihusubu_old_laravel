@@ -29,7 +29,7 @@ class AddAccountIdMemberIdToWelfares extends Migration
     public function down()
     {
         Schema::table('welfares', function (Blueprint $table) {
-            $table->dropColumn(['member_id','account_id','reason','date']);
+            $table->dropColumn(['member_id', 'account_id', 'reason', 'date']);
         });
     }
 }

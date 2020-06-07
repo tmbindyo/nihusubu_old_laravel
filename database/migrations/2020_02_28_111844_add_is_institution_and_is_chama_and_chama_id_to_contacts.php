@@ -28,7 +28,7 @@ class AddIsInstitutionAndIsChamaAndChamaIdToContacts extends Migration
     public function down()
     {
         Schema::table('contacts', function (Blueprint $table) {
-            $table->dropColumn(['is_chama','chama_id']);
+            $table->dropColumn(['is_chama', 'chama_id']);
         });
     }
 }

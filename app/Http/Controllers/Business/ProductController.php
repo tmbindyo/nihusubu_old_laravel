@@ -212,7 +212,7 @@ class ProductController extends Controller
 
                 // Create inventory records for subsequent warehouses
 
-                $warehouseIds = Warehouse::select('id')->where('is_primary',false)->get();
+                $warehouseIds = Warehouse::select('id')->where('is_primary', false)->get();
 
                 // Records for the rest of the warehouses
                 foreach ($warehouseIds as $warehouseId){
@@ -471,7 +471,7 @@ class ProductController extends Controller
 
                     // Create inventory records for subsequent warehouses
 
-                    $warehouseIds = Warehouse::select('id')->where('is_primary',false)->get();
+                    $warehouseIds = Warehouse::select('id')->where('is_primary', false)->get();
 
                     // Records for the rest of the warehouses
                     foreach ($warehouseIds as $warehouseId){
@@ -603,7 +603,7 @@ class ProductController extends Controller
 
                     // Create inventory records for subsequent warehouses
 
-                    $warehouseIds = Warehouse::select('id')->where('is_primary',false)->get();
+                    $warehouseIds = Warehouse::select('id')->where('is_primary', false)->get();
 
                     // Records for the rest of the warehouses
                     foreach ($warehouseIds as $warehouseId){
@@ -685,7 +685,7 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution products
-        $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory','stock_on_hand')->where('is_product_group',false)->where('is_composite_product',false)->where('status_id','f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
+        $products = Product::where('institution_id',$institution->id)->with('status','unit','inventory','stock_on_hand')->where('is_product_group', false)->where('is_composite_product', false)->where('status_id','f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
 
 //        return $products;
 
@@ -782,7 +782,7 @@ class ProductController extends Controller
 
             // Create inventory records for subsequent warehouses
 
-            $warehouseIds = Warehouse::select('id')->where('is_primary',false)->get();
+            $warehouseIds = Warehouse::select('id')->where('is_primary', false)->get();
 
             // Records for the rest of the warehouses
             foreach ($warehouseIds as $warehouseId){

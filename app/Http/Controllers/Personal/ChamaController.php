@@ -1985,7 +1985,7 @@ class ChamaController extends Controller
         // get sheduled meetings
         $scheduledChamaMeetings = ChamaMeeting::where('chama_id',$chama->id)->where('is_scheduled',true)->with('user','status','chama')->get();
         // get meetings
-        $chamaMeetings = ChamaMeeting::where('chama_id',$chama->id)->where('is_scheduled',false)->with('user','status','chama')->get();
+        $chamaMeetings = ChamaMeeting::where('chama_id',$chama->id)->where('is_scheduled', false)->with('user','status','chama')->get();
         // get deleted meetings
         $deletedChamaMeetings = ChamaMeeting::where('chama_id',$chama->id)->with('user','status','chama')->onlyTrashed()->get();
         return view('personal.chama_meetings',compact('chama','user','chamaMeetings','deletedChamaMeetings','scheduledChamaMeetings'));

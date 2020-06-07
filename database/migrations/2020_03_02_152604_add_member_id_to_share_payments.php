@@ -27,7 +27,7 @@ class AddMemberIdToSharePayments extends Migration
     public function down()
     {
         Schema::table('shares_payments', function (Blueprint $table) {
-            $table->dropColumn(['member_id','account_id']);
+            $table->dropColumn(['member_id', 'account_id']);
         });
     }
 }

@@ -26,6 +26,6 @@ class UserRole extends Model
     }
     public function assigner()
     {
-        return $this->belongsTo('App\Role','assigner_id','id');
+        return $this->belongsTo('App\Role', 'assigner_id', 'id');
     }
 }

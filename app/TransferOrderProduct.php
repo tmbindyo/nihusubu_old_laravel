@@ -22,7 +22,7 @@ class TransferOrderProduct extends Model
     }
     public function transferOrder()
     {
-        return $this->belongsTo('App\TransferOrder')->with('sourceWarehouse','destinationWarehouse');
+        return $this->belongsTo('App\TransferOrder')->with('sourceWarehouse', 'destinationWarehouse');
     }
     public function product()
     {

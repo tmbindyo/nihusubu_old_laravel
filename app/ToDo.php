@@ -22,7 +22,7 @@ class ToDo extends Model
     }
     public function assignee()
     {
-        return $this->belongsTo('App\User','assignee_id', 'id');
+        return $this->belongsTo('App\User', 'assignee_id', 'id');
     }
     public function budget()
     {

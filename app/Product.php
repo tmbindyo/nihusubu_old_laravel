@@ -20,11 +20,11 @@ class Product extends Model
     }
     public function inventoryAccount()
     {
-        return $this->belongsTo('App\Account','inventory_account_id','id');
+        return $this->belongsTo('App\Account', 'inventory_account_id', 'id');
     }
     public function sellingAccount()
     {
-        return $this->belongsTo('App\Account','selling_account_id','id');
+        return $this->belongsTo('App\Account', 'selling_account_id', 'id');
     }
     public function status()
     {
@@ -40,11 +40,11 @@ class Product extends Model
     }
     public function purchaseAccount()
     {
-        return $this->belongsTo('App\Account','purchase_account_id','id');
+        return $this->belongsTo('App\Account', 'purchase_account_id', 'id');
     }
     public function preferred_vendor()
     {
-        return $this->belongsTo('App\Contact','preferred_vendor_id','id');
+        return $this->belongsTo('App\Contact', 'preferred_vendor_id', 'id');
     }
     public function unit()
     {
@@ -86,7 +86,7 @@ class Product extends Model
     }
     public function compositeProductProducts()
     {
-        return $this->hasMany('App\CompositeProductProduct','composite_product_id');
+        return $this->hasMany('App\CompositeProductProduct', 'composite_product_id');
     }
     public function productReturns()
     {
