@@ -127,7 +127,6 @@
                                             <div class="panel-options">
                                                 <ul class="nav nav-tabs">
                                                     <li class="active"><a href="#products" data-toggle="tab">Products</a></li>
-                                                    <li class=""><a href="#composite-products" data-toggle="tab">Composite Products</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -146,36 +145,57 @@
                                                                     <th>Stock on Hand</th>
                                                                     <th>Reorder Level</th>
                                                                     <th>Status</th>
-                                                                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                                                    <th class="text-right" width="10em" data-sort-ignore="true">Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach($tax->product_taxes as $product_tax->product)
+                                                                @foreach($tax->product_taxes as $product_tax)
                                                                     <tr class="gradeA">
                                                                         <td>{{$product_tax->product->name}}</td>
-                                                                        <td>{{$product->unit->name}}</td>
-
-                                                                        @if($product_tax->product->is_service == "1")
-                                                                            <td>N/A</td>
-                                                                        @else
-                                                                            <td>{{$product_tax->product->stock_on_hand->first()->stock_on_hand}}</td>
-                                                                        @endif
-
-                                                                        <td class="center">{{$product_tax->product->reorder_level}}</td>
+                                                                        <td>
+                                                                            @isset($product_tax->product->unit->name)
+                                                                                {{$product_tax->product->unit->name}}
+                                                                            @endisset
+                                                                        </td>
+                                                                        <td>
+                                                                            @if($product_tax->product->is_service == "1")
+                                                                                N/A
+                                                                            @else
+                                                                                @isset($product_tax->product->stock_on_hand->first()->stock_on_hand)
+                                                                                    {{$product_tax->product->stock_on_hand->first()->stock_on_hand}}
+                                                                                @endisset
+                                                                            @endif
+                                                                        </td>
                                                                         <td class="center">
-                                                                            <p>@if ($product_tax->product->is_service==1) Service: @elseif($product_tax->product->is_service==0)Product: @endif <span class="label {{$product_tax->product->status->label}}">{{$product_tax->product->status->name}}</span></p>
+{{--                                                                            @if($product_tax->product->is_composite_product == "0")--}}
+{{--                                                                                {{$product_tax->product->reorder_level}}--}}
+{{--                                                                            @else--}}
+{{--                                                                                N/A--}}
+{{--                                                                            @endif--}}
+                                                                            @if ($product_tax->product->is_service==1)
+                                                                                N/A
+                                                                            @elseif ($product_tax->product->is_service==0)
+                                                                                    @if($product_tax->product->is_composite_product == "0")
+                                                                                        {{$product_tax->product->reorder_level}}
+                                                                                    @else
+                                                                                        N/A
+                                                                                    @endif
+
+                                                                            @endif
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <p>
+                                                                                @if ($product_tax->product->is_service==1)
+                                                                                    Service:
+                                                                                @elseif($product_tax->product->is_service==0)
+                                                                                    Product:
+                                                                                @endif
+                                                                                    <span class="label {{$product_tax->product->status->label}}">{{$product_tax->product->status->name}}</span>
+                                                                            </p>
                                                                         </td>
                                                                         <td class="text-right">
                                                                             <div class="btn-group">
                                                                                 <a href="{{ route('business.product.show', ['portal'=>$institution->portal,'id'=>$product_tax->product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                                <a href="{{ route('business.product.edit', ['portal'=>$institution->portal,'id'=>$product_tax->product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                                                                @if($product_tax->product->status->name=="Discontinued")
-                                                                                    <a href="{{ route('business.product.restore', ['portal'=>$institution->portal,'id'=>$product_tax->product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
-                                                                                @else
-                                                                                    <a href="{{ route('business.product.delete', ['portal'=>$institution->portal,'id'=>$product_tax->product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                                                                                @endif
-
-
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -189,54 +209,6 @@
                                                                     <th>Reorder Level</th>
                                                                     <th>Status</th>
                                                                     <th>Action</th>
-                                                                </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                                <div class="tab-pane" id="composite-products">
-
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Name</th>
-                                                                    <th>Products</th>
-                                                                    <th>Status</th>
-                                                                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach($tax->composite_product_taxes as $composite_product_tax->composite_product)
-                                                                    <tr class="gradeA">
-                                                                        <td>{{$composite_product_tax->composite_product->name}}</td>
-                                                                        <td>{{$composite_product_tax->composite_product->composite_product_products_count}}</td>
-                                                                        <td class="center">
-                                                                            <p>@if ($composite_product_tax->composite_product->is_service==1) Service: @elseif($composite_product_tax->composite_product->is_service==0)Product: @endif <span class="label {{$composite_product_tax->composite_product->status->label}}">{{$composite_product_tax->composite_product->status->name}}</span></p>
-                                                                        </td>
-                                                                        <td class="text-right">
-                                                                            <div class="btn-group">
-                                                                                <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal,'id'=>$composite_product_tax->composite_product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                                <a href="{{ route('business.composite.product.edit', ['portal'=>$institution->portal,'id'=>$composite_product_tax->composite_product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                                                                @if($composite_product_tax->composite_product->status->name=="Discontinued")
-                                                                                    <a href="{{ route('business.composite.product.restore', ['portal'=>$institution->portal,'id'=>$composite_product_tax->composite_product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
-                                                                                @else
-                                                                                    <a href="{{ route('business.composite.product.delete', ['portal'=>$institution->portal,'id'=>$composite_product_tax->composite_product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                                                                                @endif
-
-
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th>Name</th>
-                                                                    <th>Products</th>
-                                                                    <th>Status</th>
-                                                                    <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
                                                                 </tr>
                                                             </tfoot>
                                                         </table>
@@ -285,8 +257,20 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel',
+                        title: '{{$tax->name}} Products',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+
+                    },
+                    {extend: 'pdf',
+                        title: '{{$tax->name}} Products',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+
+                    },
 
                     {extend: 'print',
                      customize: function (win){

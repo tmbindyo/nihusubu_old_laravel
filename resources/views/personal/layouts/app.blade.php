@@ -10,6 +10,9 @@
     <link rel="shortcut icon" href="{{ asset('nihusubu.ico') }}" >
     <title>Nihusubu | @yield('title')</title>
 
+    {{--  google analytics  --}}
+    @include('layouts.google_analytics')
+
     @yield('css')
 
 </head>

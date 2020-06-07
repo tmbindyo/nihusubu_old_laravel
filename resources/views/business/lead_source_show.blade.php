@@ -168,8 +168,18 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel',
+                        title: '{{$leadSource->name}} Contacts',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$leadSource->name}} Contacts',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

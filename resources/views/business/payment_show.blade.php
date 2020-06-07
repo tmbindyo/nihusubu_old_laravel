@@ -482,8 +482,16 @@
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
+                {extend: 'excel', title: '{{$payment->reference}} Refunds',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                },
+                {extend: 'pdf', title: '{{$payment->reference}} Refunds',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

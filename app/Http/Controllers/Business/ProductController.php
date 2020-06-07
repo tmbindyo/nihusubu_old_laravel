@@ -1072,6 +1072,7 @@ class ProductController extends Controller
         }else{
             $product->is_returnable = False;
         }
+        $product->unit_id = $request->unit;
         $product->name = $request->product_name;
         $product->stock_keeping_unit = $request->unit;
         $product->selling_price = $request->selling_price;
@@ -1154,7 +1155,6 @@ class ProductController extends Controller
 
     public function compositeProductUpdate(Request $request, $portal, $product_id)
     {
-        return $request;
         // User
         $user = $this->getUser();
         // Institution
@@ -1173,6 +1173,7 @@ class ProductController extends Controller
         }else{
             $product->is_returnable = False;
         }
+        $product->unit_id = $request->unit;
         $product->name = $request->product_name;
         $product->stock_keeping_unit = $request->unit;
         $product->selling_price = $request->selling_price;

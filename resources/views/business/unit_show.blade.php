@@ -130,15 +130,15 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="products">
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-products" >
                                                     <thead>
                                                         <tr>
                                                             <th>Name</th>
                                                             <th>SKU</th>
-                                                            <th>Stock on Hand</th>
-                                                            <th>Reorder Level</th>
+                                                            <th width="40em">Stock on Hand</th>
+                                                            <th width="40em">Reorder Level</th>
                                                             <th>Status</th>
-                                                            <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                                            <th class="text-right" width="20em" data-sort-ignore="true">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -160,14 +160,6 @@
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
                                                                         <a href="{{ route('business.product.show', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                        <a href="{{ route('business.product.edit', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                                                        @if($product->status->name=="Discontinued")
-                                                                            <a href="{{ route('business.product.restore', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
-                                                                        @else
-                                                                            <a href="{{ route('business.product.delete', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                                                                        @endif
-
-
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -190,7 +182,7 @@
                                         <div class="tab-pane" id="product-groups">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-product-groups" >
                                                     <thead>
                                                         <tr>
                                                             <th>Name</th>
@@ -212,8 +204,6 @@
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
                                                                             <a href="{{ route('business.product.group.show', ['portal'=>$institution->portal,'id'=>$productGroup->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                            <a href="{{ route('business.product.group.edit', ['portal'=>$institution->portal,'id'=>$productGroup->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                                                            <a href="{{ route('business.product.group.delete', ['portal'=>$institution->portal,'id'=>$productGroup->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                                                         </div>
                                                                     </td>
                                                             </tr>
@@ -225,7 +215,7 @@
                                                             <th>SKU</th>
                                                             <th>Stock on Hand</th>
                                                             <th>Status</th>
-                                                            <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                                            <th class="text-right" width="20em" data-sort-ignore="true">Action</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
@@ -269,13 +259,81 @@
     {{--  Data tables  --}}
     <script>
         $(document).ready(function(){
-            $('.dataTables-example').DataTable({
+            $('.dataTables-products').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel',
+                        title: '{{$unit->name}} Products',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$unit->name}} Products',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-product-groups').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: '{{$unit->name}} Product Groups',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: '{{$unit->name}} Product Groups',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
 
                     {extend: 'print',
                      customize: function (win){

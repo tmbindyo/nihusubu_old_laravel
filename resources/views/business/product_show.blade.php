@@ -247,7 +247,6 @@
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a href="#stock" data-toggle="tab">Stock</a></li>
-                                            <li class=""><a href="#orders" data-toggle="tab">Orders</a></li>
                                             <li class=""><a href="#sales" data-toggle="tab">Sales</a></li>
                                             <li class=""><a href="#restock" data-toggle="tab">Restock</a></li>
                                             <li class=""><a href="#inventory-adjustments" data-toggle="tab">Inventory Adjustments</a></li>
@@ -263,7 +262,7 @@
                                         <div class="tab-pane active" id="stock">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-stock" >
                                                     <thead>
                                                     <tr>
                                                         <th>Date</th>
@@ -278,7 +277,7 @@
                                                             <td>{{$inventory->date}}</td>
                                                             <td>{{$inventory->quantity}}</td>
                                                             <td class="center">{{$inventory->warehouse->name}}</td>
-                                                            <td class="center">{{$inventory->status->name}}</td>
+                                                            <td class="center"><span class="label {{$inventory->status->label}}">{{$inventory->status->name}}</span></td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
@@ -288,47 +287,6 @@
                                                         <th>Quantity</th>
                                                         <th>Rate</th>
                                                         <th>Status</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane" id="orders">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Quantity</th>
-                                                        <th>Rate</th>
-                                                        <th>Status</th>
-                                                        <th>Order</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($product->order_products as $order)
-                                                        <tr class="gradeX">
-                                                            <td>{{$order->created_at}}</td>
-                                                            <td>{{$order->quantity}}</td>
-                                                            <td class="center">{{$order->rate}}</td>
-                                                            <td class="center">{{$order->status}}</td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$order->order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Quantity</th>
-                                                        <th>Rate</th>
-                                                        <th>Status</th>
-                                                        <th>Order</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>
@@ -338,7 +296,7 @@
                                         <div class="tab-pane" id="sales">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-sales" >
                                                     <thead>
                                                     <tr>
                                                         <th>Date</th>
@@ -354,7 +312,7 @@
                                                             <td>{{$sale->created_at}}</td>
                                                             <td>{{$sale->quantity}}</td>
                                                             <td class="center">{{$sale->rate}}</td>
-                                                            <td class="center">{{$sale->status}}</td>
+                                                            <td class="center"> <span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
@@ -379,7 +337,7 @@
                                         <div class="tab-pane" id="restock">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-restock" >
                                                     <thead>
                                                     <tr>
                                                         <th>Date</th>
@@ -427,7 +385,7 @@
                                         <div class="tab-pane" id="inventory-adjustments">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-inventory-adjustments" >
                                                     <thead>
                                                     <tr>
                                                         <th>Date</th>
@@ -480,7 +438,7 @@
                                         <div class="tab-pane" id="transfer-orders">
 
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <table class="table table-striped table-bordered table-hover dataTables-transfer-orders" >
                                                     <thead>
                                                     <tr>
                                                         <th>Date</th>
@@ -566,13 +524,289 @@
 <!-- Page-Level Scripts -->
 <script>
     $(document).ready(function(){
-        $('.dataTables-example').DataTable({
+        $('.dataTables-stock').DataTable({
             dom: '<"html5buttons"B>lTfgitp',
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
+                {extend: 'excel',
+                    title: '{{$product->name}}',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$product->name}}',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-sales').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: '{{$product->name}} Sales',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+                {extend: 'pdf', title: '{{$product->name}} Sales',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-restock').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$product->name}} Restocks',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$product->name}} Restocks',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-inventory-adjustments').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$product->name}} Inventory Adjustments',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$product->name}} Inventory Adjustments',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-transfer-orders').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$product->name}} Transfer Orders',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$product->name}} Transfer Orders',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

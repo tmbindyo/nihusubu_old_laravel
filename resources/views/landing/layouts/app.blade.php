@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Nihusubu | @yield('title')</title>
+    {{--  google analytics  --}}
+    @include('layouts.google_analytics')
+
     <meta name="keywords" content="Nihusubu" />
     <meta name="description" content="Nihusubu">
     <meta name="author" content="fluidtechglobal.com">

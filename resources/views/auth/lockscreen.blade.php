@@ -8,6 +8,9 @@
 
     <title>Nihusubu | Lockscreen</title>
 
+    {{--  google analytics  --}}
+    @include('layouts.google_analytics')
+
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 

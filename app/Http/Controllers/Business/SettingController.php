@@ -659,7 +659,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get tax
-        $tax = Tax::where('id',$tax_id)->with('status','user','product_taxes.products','composite_product_taxes.composite_products')->first();
+        $tax = Tax::where('id',$tax_id)->with('status','user','product_taxes.product.unit','composite_product_taxes.composite_product.unit')->first();
 
         return view('business.tax_show',compact('user','institution','tax'));
     }
