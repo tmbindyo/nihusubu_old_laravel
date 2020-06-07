@@ -2055,7 +2055,7 @@ class SectionSeeder extends Controller
 
 
         // settings
-        $dashboardSection = Section::where('name', 'Settings')->where('is_business' ,true)->first();
+        $dashboardSection = Section::where('name', 'Settings')->where('is_business', true)->first();
         $sectionData = [
             // campaign types
             [
