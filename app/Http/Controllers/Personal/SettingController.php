@@ -230,13 +230,13 @@ class SettingController extends Controller
         // Check if expenseAccount exists
         $expenseAccountExists = ExpenseAccount::findOrFail($expenseAccount_id);
         $expenseAccount = ExpenseAccount::with('user', 'status', 'budget', 'expenses')
-            ->where('is_user', true)->withCount('expenses')->where('id', $expenseAccount_id)->first();
+            ->where('is_user', true)->withCount('expenses')
+            ->where('id', $expenseAccount_id)->first();
         // expense account expenses
         $expenseAccountExpenses = Expense::where('expense_account_id', $expenseAccount->id)->get();
         // expense account budget
         $expenseAccountBudget = Budget::where('expense_account_id', $expenseAccount->id)->get();
-        return view('personal.expense_account_show',
-            compact('expenseAccount', 'user', 'accountTypes', 'expenseAccountExpenses', 'expenseAccountBudget'));
+        return view('personal.expense_account_show', compact('expenseAccount', 'user', 'accountTypes', 'expenseAccountExpenses', 'expenseAccountBudget'));
     }
 
     public function expenseAccountUpdate(Request $request, $expenseAccount_id)
