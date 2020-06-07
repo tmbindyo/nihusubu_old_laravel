@@ -120,27 +120,27 @@ class RegisterController extends Controller
         // create instiution
         $institution = $this->institutionSeeder($request, $user);
         // create units
-        $institutionUnits = $this->unitSeeder($request, $user,$institution);
+        $institutionUnits = $this->unitSeeder($request, $user, $institution);
         // create taxes
-        $institutionTaxes = $this->taxesSeeder($request, $user,$institution);
+        $institutionTaxes = $this->taxesSeeder($request, $user, $institution);
         // create warehouses
-        $institutionWarehouses = $this->warehousesSeeder($request, $user,$institution);
+        $institutionWarehouses = $this->warehousesSeeder($request, $user, $institution);
         // create lead sources
-        $institutionLeadSources = $this->leadSourcesSeeder($request, $user,$institution);
+        $institutionLeadSources = $this->leadSourcesSeeder($request, $user, $institution);
         // create titles
-        $institutionTitles = $this->titlesSeeder($request, $user,$institution);
+        $institutionTitles = $this->titlesSeeder($request, $user, $institution);
         // create contact types
-        $institutionContactTypes = $this->contactTypesSeeder($request, $user,$institution);
+        $institutionContactTypes = $this->contactTypesSeeder($request, $user, $institution);
         // create campaign types
-        $institutionCampaignTypes = $this->campaignTypesSeeder($request, $user,$institution);
+        $institutionCampaignTypes = $this->campaignTypesSeeder($request, $user, $institution);
         // create accounts
-        $institutionAccounts = $this->accountsSeeder($request, $user,$institution);
+        $institutionAccounts = $this->accountsSeeder($request, $user, $institution);
         // create frequencies
-        $institutionFrequencies = $this->frequenciesSeeder($request, $user,$institution);
+        $institutionFrequencies = $this->frequenciesSeeder($request, $user, $institution);
         // create reasons
-        $institutionReasons = $this->reasonsSeeder($request, $user,$institution);
+        $institutionReasons = $this->reasonsSeeder($request, $user, $institution);
         // create expense account
-        $institutionExpenseAccounts = $this->expenseAccountsSeeder($request, $user,$institution);
+        $institutionExpenseAccounts = $this->expenseAccountsSeeder($request, $user, $institution);
         // create user account
         $userAccount = $this->userAccountSeeder($request, $user, $institution);
 
