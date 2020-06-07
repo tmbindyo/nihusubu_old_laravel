@@ -34,14 +34,14 @@ class SettingController extends Controller
         // deleted contact types
         $deletedContactTypes = ContactType::with('user', 'status')->where('user_id', $user->id)
             ->where('is_user', true)->onlyTrashed()->get();
-        return view('personal.contact_types',compact('contactTypes', 'user', 'deletedContactTypes'));
+        return view('personal.contact_types', compact('contactTypes', 'user', 'deletedContactTypes'));
     }
 
     public function contactTypeCreate()
     {
         // User
         $user = $this->getUser();
-        return view('personal.contact_type_create',compact('user'));
+        return view('personal.contact_type_create', compact('user'));
     }
 
     public function contactTypeStore(Request $request)
@@ -71,7 +71,7 @@ class SettingController extends Controller
         // contact type contacts
         $contactContactTypes = ContactContactType::with('user', 'status', 'contact')
             ->where('contact_type_id', $contact_type_id)->get();
-        return view('personal.contact_type_show',compact('contactType', 'user', 'contactContactTypes'));
+        return view('personal.contact_type_show', compact('contactType', 'user', 'contactContactTypes'));
     }
 
     public function contactTypeUpdate(Request $request, $contact_type_id)
@@ -113,14 +113,14 @@ class SettingController extends Controller
         // get deleted titles
         $deletedTitles = Title::where('is_user', true)->where('user_id', $user->id)->with('user', 'status')
             ->onlyTrashed()->get();
-        return view('personal.titles',compact('titles', 'user', 'titles', 'deletedTitles'));
+        return view('personal.titles', compact('titles', 'user', 'titles', 'deletedTitles'));
     }
 
     public function titleCreate()
     {
         // User
         $user = $this->getUser();
-        return view('personal.title_create',compact('user'));
+        return view('personal.title_create', compact('user'));
     }
 
     public function titleStore(Request $request)
@@ -146,7 +146,7 @@ class SettingController extends Controller
         $titleExists = Title::findOrFail($title_id);
         $title = Title::with('user', 'status', 'contacts')->where('is_user', true)
             ->withCount('contacts')->where('id', $title_id)->first();
-        return view('personal.title_show',compact('title', 'user'));
+        return view('personal.title_show', compact('title', 'user'));
     }
 
     public function titleUpdate(Request $request, $title_id)
@@ -193,7 +193,7 @@ class SettingController extends Controller
         $deletedExpenseAccounts = ExpenseAccount::where('is_user', true)->where('user_id', $user->id)
             ->with('user', 'status', 'accountType')->onlyTrashed()->get();
 
-        return view('personal.expense_accounts',compact('expenseAccounts', 'user', 'expenseAccounts', 'deletedExpenseAccounts'));
+        return view('personal.expense_accounts', compact('expenseAccounts', 'user', 'expenseAccounts', 'deletedExpenseAccounts'));
     }
 
     public function expenseAccountCreate()
@@ -202,7 +202,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         // Account types
         $accountTypes = AccountType::where('is_user', true)->get();
-        return view('personal.expense_account_create',compact('user', 'accountTypes'));
+        return view('personal.expense_account_create', compact('user', 'accountTypes'));
     }
 
     public function expenseAccountStore(Request $request)
@@ -238,8 +238,7 @@ class SettingController extends Controller
         $expenseAccountExpenses = Expense::where('expense_account_id', $expenseAccount->id)->get();
         // expense account budget
         $expenseAccountBudget = Budget::where('expense_account_id', $expenseAccount->id)->get();
-        return view('personal.expense_account_show',compact('expenseAccount', 'user', 'accountTypes',
-            'expenseAccountExpenses', 'expenseAccountBudget'));
+        return view('personal.expense_account_show', compact('expenseAccount', 'user', 'accountTypes', 'expenseAccountExpenses', 'expenseAccountBudget'));
     }
 
     public function expenseAccountUpdate(Request $request, $expenseAccount_id)
@@ -289,14 +288,14 @@ class SettingController extends Controller
         // get deleted frequencies
         $deletedFrequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
             ->with('user')->where('user_id', $user->id)->where('is_user', true)->onlyTrashed()->get();
-        return view('personal.frequencies',compact('frequencies', 'user', 'deletedFrequencies'));
+        return view('personal.frequencies', compact('frequencies', 'user', 'deletedFrequencies'));
     }
 
     public function frequencyCreate()
     {
         // User
         $user = $this->getUser();
-        return view('personal.frequency_create',compact('user'));
+        return view('personal.frequency_create', compact('user'));
     }
 
     public function frequencyStore(Request $request)
@@ -327,7 +326,7 @@ class SettingController extends Controller
             ->where('is_user', true)->where('id', $frequency_id)->withCount('expenses')
             ->first();
 
-        return view('personal.frequency_show',compact('frequency', 'user'));
+        return view('personal.frequency_show', compact('frequency', 'user'));
     }
 
     public function frequencyUpdate(Request $request, $frequency_id)
