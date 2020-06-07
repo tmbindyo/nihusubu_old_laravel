@@ -20,9 +20,9 @@ class TransferOrderProduct extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function transfer_order()
+    public function transferOrder()
     {
-        return $this->belongsTo('App\TransferOrder')->with('source_warehouse','destination_warehouse');
+        return $this->belongsTo('App\TransferOrder')->with('sourceWarehouse','destinationWarehouse');
     }
     public function product()
     {

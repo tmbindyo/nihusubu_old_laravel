@@ -30,7 +30,7 @@ class ForumPost extends Model
     }
 
     // Children
-    public function forum_post_uploads()
+    public function forumPostUploads()
     {
         return $this->hasMany('App\ForumPostUpload');
     }

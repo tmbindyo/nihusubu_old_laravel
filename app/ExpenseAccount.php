@@ -18,7 +18,7 @@ class ExpenseAccount extends Model
     }
 
     // Parents
-    public function account_type()
+    public function accountType()
     {
         return $this->belongsTo('App\AccountType');
     }

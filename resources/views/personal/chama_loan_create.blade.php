@@ -148,7 +148,7 @@
                                         <select name="member" class="select2_demo_member form-control input-lg">
                                             <option></option>
                                             @foreach ($chamaMembers as $chamaMember)
-                                                <option value="{{$chamaMember->id}}">{{$chamaMember->name}} [{{$chamaMember->chama_member_role->name}}]</option>
+                                                <option value="{{$chamaMember->id}}">{{$chamaMember->name}} [{{$chamaMember->chamaMemberRole->name}}]</option>
                                             @endforeach
                                         </select>
                                         <i>member</i>

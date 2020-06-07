@@ -20,7 +20,7 @@ class ProductGroupImage extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function product_group()
+    public function productGroup()
     {
         return $this->belongsTo('App\ProductGroup');
     }

@@ -35,11 +35,11 @@ class Currency extends Model
     {
         return $this->hasMany('App\Expense');
     }
-    public function manual_journals()
+    public function manualJournals()
     {
         return $this->hasMany('App\ManualJournal');
     }
-    public function purchase_orders()
+    public function purchaseOrders()
     {
         return $this->hasMany('App\PurchaseOrder');
     }

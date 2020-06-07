@@ -48,7 +48,7 @@
                 <div class="row">
                     <div class="col-lg-12">
 
-                        @foreach ($campaign->campaign_uploads as $upload)
+                        @foreach ($campaign->campaignUploads as $upload)
 
                         <div class="file-box">
                             <a href="#">

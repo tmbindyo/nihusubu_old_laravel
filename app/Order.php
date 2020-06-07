@@ -30,7 +30,7 @@ class Order extends Model
     }
 
     // Children
-    public function order_products()
+    public function orderProducts()
     {
         return $this->hasMany('App\OrderProduct');
     }

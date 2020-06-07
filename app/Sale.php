@@ -32,7 +32,7 @@ class Sale extends Model
     {
         return $this->belongsTo('App\Status');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }
@@ -42,15 +42,15 @@ class Sale extends Model
     }
 
     // Children
-    public function sale_products()
+    public function saleProducts()
     {
         return $this->hasMany('App\SaleProduct');
     }
-    public function payments_received()
+    public function paymentsReceived()
     {
         return $this->hasMany('App\PaymentReceived');
     }
-    public function product_returns()
+    public function productReturns()
     {
         return $this->hasMany('App\ProductReturn');
     }

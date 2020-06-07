@@ -16,7 +16,7 @@ class Contact extends Model
     {
         return $this->belongsTo('App\Campaign');
     }
-    public function contact_type()
+    public function contactType()
     {
         return $this->belongsTo('App\ContactType');
     }
@@ -62,7 +62,7 @@ class Contact extends Model
     {
         return $this->hasMany('App\Sale');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }

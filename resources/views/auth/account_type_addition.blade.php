@@ -32,7 +32,7 @@
             <h3>{{$user->name}}</h3>
             <p>Your are in lock screen. Main app was shut down and you need to select an account to access.</p>
             {{--  @foreach($userAccounts as $userAccount)
-                @if($userAccount->user_type->name != "Personal")
+                @if($userAccount->userType->name != "Personal")
 
                 @endif
             @endforeach  --}}

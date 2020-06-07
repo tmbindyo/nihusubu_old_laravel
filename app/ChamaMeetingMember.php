@@ -13,11 +13,11 @@ class ChamaMeetingMember extends Model
     public $incrementing = false;
 
     // parents
-    public function chama_meeting()
+    public function chamaMeeting()
     {
         return $this->belongsTo('App\ChamaMeeting','meeting_id');
     }
-    public function chama_member()
+    public function chamaMember()
     {
         return $this->belongsTo('App\ChamaMember');
     }

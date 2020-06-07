@@ -16,7 +16,7 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Account');
     }
-    public function account_adjustment()
+    public function accountAdjustment()
     {
         return $this->belongsTo('App\AccountAdjustment');
     }
@@ -32,7 +32,7 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Campaign');
     }
-    public function chama_meeting()
+    public function chamaMeeting()
     {
         return $this->belongsTo('App\ChamaMeeting');
     }
@@ -72,7 +72,7 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Product');
     }
-    public function product_group()
+    public function productGroup()
     {
         return $this->belongsTo('App\ProductGroup');
     }

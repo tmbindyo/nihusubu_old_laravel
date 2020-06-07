@@ -347,7 +347,7 @@
                                                                         {{$sourceTransferOrder->reason}}
                                                                     </td>
                                                                     <td>
-                                                                        {{$sourceTransferOrder->destination_warehouse->name}}
+                                                                        {{$sourceTransferOrder->destinationWarehouse->name}}
                                                                     </td>
                                                                     <td>
                                                                         <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$sourceTransferOrder->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
@@ -392,7 +392,7 @@
                                                                         {{$destinationTransferOrder->reason}}
                                                                     </td>
                                                                     <td>
-                                                                        {{$destinationTransferOrder->source_warehouse->name}}
+                                                                        {{$destinationTransferOrder->sourceWarehouse->name}}
                                                                     </td>
                                                                     <td>
                                                                         <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$destinationTransferOrder->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>

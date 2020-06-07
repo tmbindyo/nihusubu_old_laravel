@@ -48,7 +48,7 @@
                 <div class="row">
                     <div class="col-lg-12">
 
-                        @foreach ($feedback->feedback_uploads as $upload)
+                        @foreach ($feedback->feedbackUploads as $upload)
                         <div class="file-box">
                             <a href="#">
                                 <div class="file">

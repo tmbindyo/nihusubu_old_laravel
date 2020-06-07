@@ -28,7 +28,7 @@ class IncomeController extends Controller
         // User
         $user = $this->getUser();
         // get income
-        $incomes = Income::where('user_id',$user->id)->with('income_type')->get();
+        $incomes = Income::where('user_id',$user->id)->with('incomeType')->get();
         return view('personal.incomes',compact('user','incomes'));
     }
 
@@ -117,7 +117,7 @@ class IncomeController extends Controller
         $user = $this->getUser();
         // Income
         $incomeExists = Income::findOrFail($income_id);
-        $income = Income::where('id',$income_id)->with('frequency','income_type','account','status','user','income_debits')->first();
+        $income = Income::where('id',$income_id)->with('frequency','incomeType','account','status','user','incomeDebits')->first();
         // Income debits
         $incomeDebits = IncomeDebit::where('user_id',$user->id)->where('income_id',$income->id)->where('status_id','2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('income','account','status')->get();
         // get pending payments

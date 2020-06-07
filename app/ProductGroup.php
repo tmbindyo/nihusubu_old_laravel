@@ -26,7 +26,7 @@ class ProductGroup extends Model
     }
 
     // Children
-    public function composite_products()
+    public function compositeProducts()
     {
         return $this->hasMany('App\CompositeProduct');
     }
@@ -34,15 +34,15 @@ class ProductGroup extends Model
     {
         return $this->hasMany('App\Product');
     }
-    public function product_group_images()
+    public function productGroupImages()
     {
         return $this->hasMany('App\ProductGroupImage');
     }
-    public function product_group_taxes()
+    public function productGroupTaxes()
     {
         return $this->hasMany('App\ProductGroupTax');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }

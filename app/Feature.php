@@ -26,11 +26,11 @@ class Feature extends Model
     }
 
     // Children
-    public function user_type_features()
+    public function userTypeFeatures()
     {
         return $this->hasMany('App\UserTypeFeature');
     }
-    public function role_user_type_features()
+    public function roleUserTypeFeatures()
     {
         return $this->hasMany('App\RoleUserTypeFeature');
     }

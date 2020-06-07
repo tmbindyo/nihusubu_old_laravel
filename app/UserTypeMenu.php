@@ -20,7 +20,7 @@ class UserTypeMenu extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function user_type()
+    public function userType()
     {
         return $this->belongsTo('App\UserType');
     }
@@ -30,7 +30,7 @@ class UserTypeMenu extends Model
     }
 
     // Children
-    public function role_user_type_menu()
+    public function roleUserTypeMenu()
     {
         return $this->hasMany('App\RoleUserTypeMenu');
     }

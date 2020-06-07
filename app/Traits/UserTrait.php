@@ -26,7 +26,7 @@ trait UserTrait
         if(!$userActiveAccount){
             return redirect()->route('view.user.accounts');
         }else{
-            $user = User::where('id',$userCheck->id)->with('user_accounts.status','user_accounts.user_type','user_accounts.institution','active_user_account.user_type','active_user_account.institution','inactive_user_account.user_type','inactive_user_account.institution')->withCount('user_accounts')->first();
+            $user = User::where('id',$userCheck->id)->with('userAccounts.status','userAccounts.userType','userAccounts.institution','activeUserAccount.userType','activeUserAccount.institution','inactiveUserAccount.userType','inactiveUserAccount.institution')->withCount('userAccounts')->first();
             return $user;
         }
 

@@ -12,7 +12,7 @@ class ContactType extends Model
     public $incrementing = false;
 
     // Children
-    public function contact_type_contacts()
+    public function contactTypeContacts()
     {
         return $this->hasMany('App\ContactContactType');
     }

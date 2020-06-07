@@ -57,7 +57,7 @@
                                     <tr class="gradeA">
                                         <td>
                                             @if($transaction->is_transfer == 1)
-                                                <p><span class="badge badge-success">Transfer</span> {{$transaction->source_account->name}} -> {{$transaction->destination_account->name}}</p>
+                                                <p><span class="badge badge-success">Transfer</span> {{$transaction->sourceAccount->name}} -> {{$transaction->destinationAccount->name}}</p>
                                             @else
                                                 <p><span class="badge badge-success">Payment</span></p>
                                             @endif

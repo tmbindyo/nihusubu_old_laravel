@@ -16,7 +16,7 @@ class Loan extends Model
     {
         return $this->hasMany('App\Payment');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }
@@ -34,7 +34,7 @@ class Loan extends Model
     {
         return $this->belongsTo('App\Contact');
     }
-    public function chama_member()
+    public function chamaMember()
     {
         return $this->belongsTo('App\ChamaMember','member_id');
     }

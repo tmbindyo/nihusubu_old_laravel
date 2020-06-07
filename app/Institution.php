@@ -20,7 +20,7 @@ class Institution extends Model
     {
         return $this->belongsTo('App\Currency');
     }
-    public function fiscal_year()
+    public function fiscalYear()
     {
         return $this->belongsTo('App\FiscalYear');
     }
@@ -36,7 +36,7 @@ class Institution extends Model
     {
         return $this->belongsTo('App\Plan');
     }
-    public function primary_contact()
+    public function primaryContact()
     {
         return $this->belongsTo('App\PrimaryContact','primary_contact_id','id');
     }
@@ -71,7 +71,7 @@ class Institution extends Model
     {
         return $this->hasMany('App\Budget');
     }
-    public function composite_products()
+    public function compositeProducts()
     {
         return $this->hasMany('App\CompositeProduct');
     }
@@ -87,11 +87,11 @@ class Institution extends Model
     {
         return $this->hasMany('App\Expense');
     }
-    public function institution_sub_industries()
+    public function institutionSubIndustries()
     {
         return $this->hasMany('App\InstitutionSubIndustry');
     }
-    public function institution_services()
+    public function institutionServices()
     {
         return $this->hasMany('App\InstitutionService');
     }
@@ -115,7 +115,7 @@ class Institution extends Model
     {
         return $this->hasMany('App\Unit');
     }
-    public function user_accounts()
+    public function userAccounts()
     {
         return $this->hasMany('App\UserAccount');
     }
@@ -127,15 +127,15 @@ class Institution extends Model
     {
         return $this->hasMany('App\Tax');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }
-    public function product_groups()
+    public function productGroups()
     {
         return $this->hasMany('App\ProductGroup');
     }
-    public function manual_journals()
+    public function manualJournals()
     {
         return $this->hasMany('App\ManualJournal');
     }
@@ -143,7 +143,7 @@ class Institution extends Model
     {
         return $this->hasMany('App\Order');
     }
-    public function payment_terms()
+    public function paymentTerms()
     {
         return $this->hasMany('App\PaymentTerm');
     }
@@ -151,7 +151,7 @@ class Institution extends Model
     {
         return $this->hasMany('App\PaymentReceived');
     }
-    public function purchase_orders()
+    public function purchaseOrders()
     {
         return $this->hasMany('App\PurchaseOrder');
     }
@@ -159,11 +159,11 @@ class Institution extends Model
     {
         return $this->hasMany('App\Project');
     }
-    public function project_roles()
+    public function projectRoles()
     {
         return $this->hasMany('App\ProjectRole');
     }
-    public function purchase_order_settings()
+    public function purchaseOrderSettings()
     {
         return $this->hasMany('App\PurchaseOrderSetting');
     }
@@ -177,7 +177,7 @@ class Institution extends Model
         return $this->hasMany('App\Reason');
     }
 
-    public function transfer_orders()
+    public function transferOrders()
     {
         return $this->hasMany('App\TransferOrder');
     }

@@ -16,7 +16,7 @@ class Income extends Model
     {
         return $this->belongsTo('App\Account');
     }
-    public function income_type()
+    public function incomeType()
     {
         return $this->belongsTo('App\IncomeType');
     }
@@ -34,7 +34,7 @@ class Income extends Model
     }
 
     // Children
-    public function income_debits()
+    public function incomeDebits()
     {
         return $this->hasMany('App\IncomeDebit');
     }

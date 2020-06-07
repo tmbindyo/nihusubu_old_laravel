@@ -22,7 +22,7 @@ class Chama extends Model
     }
 
     // Children
-    public function chama_members()
+    public function chamaMembers()
     {
         return $this->hasMany('App\ChamaMember');
     }

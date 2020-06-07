@@ -26,7 +26,7 @@ class ChamaMeeting extends Model
     }
 
     // children
-    public function chama_meeting_members()
+    public function chamaMeetingMembers()
     {
         return $this->hasMany('App\ChamaMeetingMember','meeting_id');
     }

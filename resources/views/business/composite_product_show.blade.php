@@ -162,7 +162,7 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            @foreach($compositeProduct->sale_products as $sale)
+                                                            @foreach($compositeProduct->saleProducts as $sale)
                                                                 <tr class="gradeX">
                                                                     <td>{{$sale->created_at}}</td>
                                                                     <td>{{$sale->quantity}}</td>

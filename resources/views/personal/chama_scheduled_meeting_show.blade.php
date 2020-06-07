@@ -163,7 +163,7 @@
                                         <select name="chama_members[]" class="select2_demo_chama_member form-control input-lg" multiple>
                                             <option disabled></option>
                                             @foreach($chamaMembers as $chamaMember)
-                                                <option @foreach ($chamaMeeting->chama_meeting_members as $chamaMeetingMember) @if($chamaMeetingMember->chama_member_id == $chamaMember->id) selected @endif @endforeach value="{{$chamaMember->id}}">{{$chamaMember->name}}</option>
+                                                <option @foreach ($chamaMeeting->chamaMeetingMembers as $chamaMeetingMember) @if($chamaMeetingMember->chama_member_id == $chamaMember->id) selected @endif @endforeach value="{{$chamaMember->id}}">{{$chamaMember->name}}</option>
                                             @endforeach
                                         </select>
                                         <i>chama member</i>
@@ -179,7 +179,7 @@
                                             <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
                                         </div>
                                     </div>
-
+                                </div>
                                 </form>
                             </div>
                         </div>

@@ -20,13 +20,13 @@ class Industry extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function industry_group()
+    public function industryGroup()
     {
         return $this->belongsTo('App\IndustryGroup');
     }
 
     // Children
-    public function sub_industries()
+    public function subIndustries()
     {
         return $this->hasMany('App\SubIndustry');
     }

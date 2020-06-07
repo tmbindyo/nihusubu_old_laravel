@@ -26,7 +26,7 @@ class Reason extends Model
     }
 
     // Children
-    public function inventory_adjustments()
+    public function inventoryAdjustments()
     {
         return $this->hasMany('App\InventoryAdjustment');
     }

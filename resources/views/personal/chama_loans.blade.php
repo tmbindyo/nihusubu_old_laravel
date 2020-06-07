@@ -96,7 +96,7 @@
                                         <td>{{$loan->date}}</td>
                                         <td>{{$loan->due_date}}</td>
                                         <td>{{$loan->account->name}}</td>
-                                        <td>{{$loan->chama_member->name}}</td>
+                                        <td>{{$loan->chamaMember->name}}</td>
                                         <td>{{$loan->user->name}}</td>
                                         <td>
                                             <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>

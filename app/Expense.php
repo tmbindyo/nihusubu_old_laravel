@@ -24,7 +24,7 @@ class Expense extends Model
     {
         return $this->belongsTo('App\Contact');
     }
-    public function expense_account()
+    public function expenseAccount()
     {
         return $this->belongsTo('App\ExpenseAccount','expense_account_id','id');
     }
@@ -36,17 +36,13 @@ class Expense extends Model
     {
         return $this->belongsTo('App\Institution');
     }
-    public function inventory_adjustment()
+    public function inventoryAdjustment()
     {
         return $this->belongsTo('App\InventoryAdjustment');
     }
     public function liability()
     {
         return $this->belongsTo('App\Liability');
-    }
-    public function purchase_order()
-    {
-        return $this->belongsTo('App\PurchaseOrder');
     }
     public function sale()
     {
@@ -68,7 +64,7 @@ class Expense extends Model
     {
         return $this->belongsTo('App\Transfer');
     }
-    public function transfer_order()
+    public function transferOrder()
     {
         return $this->belongsTo('App\TransferOrder');
     }
@@ -87,11 +83,11 @@ class Expense extends Model
 
 
     // Children
-    public function expense_items()
+    public function expenseItems()
     {
         return $this->hasMany('App\ExpenseItem');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }

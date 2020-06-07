@@ -166,7 +166,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($withdrawal->account_adjustments as $adjustments)
+                                                        @foreach($withdrawal->accountAdjustments as $adjustments)
                                                             <tr class="gradeX">
                                                                 <td>
                                                                     {{$adjustments->reference}}

@@ -32,11 +32,11 @@ class Menu extends Model
     {
         return $this->hasMany('App\Feature');
     }
-    public function user_type_menu()
+    public function userTypeMenu()
     {
         return $this->hasMany('App\UserTypeMenu');
     }
-    public function role_user_type_menu()
+    public function roleUserTypeMenu()
     {
         return $this->hasMany('App\RoleUserTypeMenu');
     }

@@ -207,7 +207,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($account->account_adjustments as $adjustments)
+                                                    @foreach($account->accountAdjustments as $adjustments)
                                                         <tr class="gradeX">
                                                             <td>
                                                                 {{$adjustments->reference}}
@@ -321,7 +321,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($account->income_debits as $income)
+                                                @foreach($account->incomeDebits as $income)
                                                     <tr class="gradeX">
                                                         <td>
                                                             {{$income->reference}}
@@ -446,7 +446,7 @@
                                                         <td>{{$loan->paid}}</td>
                                                         <td>{{$loan->date}}</td>
                                                         <td>{{$loan->due_date}}</td>
-                                                        <td>{{$loan->chama_member->member->name}}</td>
+                                                        <td>{{$loan->chamaMember->member->name}}</td>
                                                         <td>{{$loan->user->name}}</td>
                                                         <td>
                                                             <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>

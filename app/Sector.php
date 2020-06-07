@@ -22,7 +22,7 @@ class Sector extends Model
     }
 
     // Children
-    public function industry_groups()
+    public function industryGroups()
     {
         return $this->hasMany('App\IndustryGroup');
     }

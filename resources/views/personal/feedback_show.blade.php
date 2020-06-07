@@ -217,7 +217,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($feedback->product_groups as $productGroup)
+                                                        @foreach($feedback->productGroups as $productGroup)
                                                             <tr class="gradeA">
                                                                     <td>{{$productGroup->name}} <label class="badge badge-circle badge-info">{{$productGroup->products_count}} products</label></td>
                                                                     <td>{{$productGroup->attributes}}</td>

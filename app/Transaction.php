@@ -30,7 +30,7 @@ class Transaction extends Model
     }
 
     // children
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }

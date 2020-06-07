@@ -30,7 +30,7 @@ class Brand extends Model
     {
         return $this->belongsTo('App\Product');
     }
-    public function composite_products()
+    public function compositeProducts()
     {
         return $this->belongsTo('App\CompositeProduct');
     }

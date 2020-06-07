@@ -79,7 +79,7 @@
                                     <p><span class="badge badge-primary">Account:{{$pendingToDo->account->name}}</span></p>
                                 @endif
                                 @if($pendingToDo->is_account_adjustment === 1)
-                                    <p><span class="badge badge-primary">Account Adjustment:{{$pendingToDo->account_adjustment->reference}}</span></p>
+                                    <p><span class="badge badge-primary">Account Adjustment:{{$pendingToDo->accountAdjustment->reference}}</span></p>
                                 @endif
                                 @if($pendingToDo->is_campaign === 1)
                                     <p><span class="badge badge-primary">Campaign:{{$pendingToDo->campaign->name}}</span></p>
@@ -109,7 +109,7 @@
                                     <p><span class="badge badge-primary">Product:{{$pendingToDo->product->name}}</span></p>
                                 @endif
                                 @if($pendingToDo->is_product_group === 1)
-                                    <p><span class="badge badge-primary">Product group:{{$pendingToDo->product_group->name}}</span></p>
+                                    <p><span class="badge badge-primary">Product group:{{$pendingToDo->productGroup->name}}</span></p>
                                 @endif
                                 @if($pendingToDo->is_sale === 1)
                                     <p><span class="badge badge-primary">Sale:{{$pendingToDo->sale->reference}}</span></p>
@@ -143,7 +143,7 @@
                                     <p><span class="badge badge-primary">Account:{{$inProgressToDo->account->name}}</span></p>
                                 @endif
                                 @if($inProgressToDo->is_account_adjustment === 1)
-                                    <p><span class="badge badge-primary">Account Adjustment:{{$inProgressToDo->account_adjustment->reference}}</span></p>
+                                    <p><span class="badge badge-primary">Account Adjustment:{{$inProgressToDo->accountAdjustment->reference}}</span></p>
                                 @endif
                                 @if($inProgressToDo->is_campaign === 1)
                                     <p><span class="badge badge-primary">Campaign:{{$inProgressToDo->campaign->name}}</span></p>
@@ -173,7 +173,7 @@
                                     <p><span class="badge badge-primary">Product:{{$inProgressToDo->product->name}}</span></p>
                                 @endif
                                 @if($inProgressToDo->is_product_group === 1)
-                                    <p><span class="badge badge-primary">Product group:{{$inProgressToDo->product_group->name}}</span></p>
+                                    <p><span class="badge badge-primary">Product group:{{$inProgressToDo->productGroup->name}}</span></p>
                                 @endif
                                 @if($inProgressToDo->is_sale === 1)
                                     <p><span class="badge badge-primary">Sale:{{$inProgressToDo->sale->reference}}</span></p>
@@ -208,7 +208,7 @@
                                     <p><span class="badge badge-primary">Account:{{$overdueToDo->account->name}}</span></p>
                                 @endif
                                 @if($overdueToDo->is_account_adjustment === 1)
-                                    <p><span class="badge badge-primary">Account Adjustment:{{$overdueToDo->account_adjustment->reference}}</span></p>
+                                    <p><span class="badge badge-primary">Account Adjustment:{{$overdueToDo->accountAdjustment->reference}}</span></p>
                                 @endif
                                 @if($overdueToDo->is_campaign === 1)
                                     <p><span class="badge badge-primary">Campaign:{{$overdueToDo->campaign->name}}</span></p>
@@ -238,7 +238,7 @@
                                     <p><span class="badge badge-primary">Product:{{$overdueToDo->product->name}}</span></p>
                                 @endif
                                 @if($overdueToDo->is_product_group === 1)
-                                    <p><span class="badge badge-primary">Product group:{{$overdueToDo->product_group->name}}</span></p>
+                                    <p><span class="badge badge-primary">Product group:{{$overdueToDo->productGroup->name}}</span></p>
                                 @endif
                                 @if($overdueToDo->is_sale === 1)
                                     <p><span class="badge badge-primary">Sale:{{$overdueToDo->sale->reference}}</span></p>
@@ -280,7 +280,7 @@
                                     <p><span class="badge badge-primary">Account:{{$completedToDo->account->name}}</span></p>
                                 @endif
                                 @if($completedToDo->is_account_adjustment === 1)
-                                    <p><span class="badge badge-primary">Account Adjustment:{{$completedToDo->account_adjustment->reference}}</span></p>
+                                    <p><span class="badge badge-primary">Account Adjustment:{{$completedToDo->accountAdjustment->reference}}</span></p>
                                 @endif
                                 @if($completedToDo->is_campaign === 1)
                                     <p><span class="badge badge-primary">Campaign:{{$completedToDo->campaign->name}}</span></p>
@@ -310,7 +310,7 @@
                                     <p><span class="badge badge-primary">Product:{{$completedToDo->product->name}}</span></p>
                                 @endif
                                 @if($completedToDo->is_product_group === 1)
-                                    <p><span class="badge badge-primary">Product group:{{$completedToDo->product_group->name}}</span></p>
+                                    <p><span class="badge badge-primary">Product group:{{$completedToDo->productGroup->name}}</span></p>
                                 @endif
                                 @if($completedToDo->is_sale === 1)
                                     <p><span class="badge badge-primary">Sale:{{$completedToDo->sale->reference}}</span></p>

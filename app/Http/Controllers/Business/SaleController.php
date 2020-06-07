@@ -223,7 +223,7 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get estimate
-        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact.organization','sale_products.product.product_taxes')->withCount('sale_products')->first();
+        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact.organization','saleProducts.product.productTaxes')->withCount('saleProducts')->first();
         // return $estimate;
 
         return view('business.estimate_show',compact('user','institution','estimate'));
@@ -246,7 +246,7 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get estimate
-        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact','sale_products.product.product_taxes')->withCount('sale_products')->first();
+        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact','saleProducts.product.productTaxes')->withCount('saleProducts')->first();
 
         return view('business.estimate_edit',compact('user','institution','contacts','products','inventories','estimate'));
     }
@@ -382,7 +382,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get estimate
-        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
+        $estimate = Sale::where('id',$estimate_id)->with('status','user','contact','saleProducts.product')->withCount('saleProducts')->first();
 //        return $estimate;
         return view('business.estimate_print',compact('user','institution','estimate'));
     }
@@ -538,7 +538,7 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get invoice
-        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product.product_taxes')->withCount('sale_products')->first();
+        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','saleProducts.product.productTaxes')->withCount('saleProducts')->first();
 
         return view('business.invoice_show',compact('user','institution','invoice'));
     }
@@ -560,7 +560,7 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get invoice
-        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product.product_taxes')->withCount('sale_products')->first();
+        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','saleProducts.product.productTaxes')->withCount('saleProducts')->first();
 
         return view('business.invoice_edit',compact('user','institution','contacts','products','inventories','invoice'));
     }
@@ -643,7 +643,7 @@ class SaleController extends Controller
         $invoiceProductsIds = SaleProduct::where('sale_id',$invoice->id)->whereNotIn('product_id',$invoiceProducts)->select('id')->get()->toArray();
 
         // Delete removed album tags
-        DB::table('sale_products')->whereIn('id', $invoiceProductsIds)->delete();
+        DB::table('saleProducts')->whereIn('id', $invoiceProductsIds)->delete();
 
         // Set invoice tax
         $invoiceTaxSet = Sale::findOrFail($invoice->id);
@@ -697,7 +697,7 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get invoice
-        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
+        $invoice = Sale::where('id',$invoice_id)->with('status','user','contact','saleProducts.product')->withCount('saleProducts')->first();
 //        return $invoice;
         return view('business.invoice_print',compact('user','institution','invoice'));
     }
@@ -880,7 +880,7 @@ class SaleController extends Controller
         $productIds = Product::where('institution_id',$institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product','warehouse')->get();
         // Get sale
-        $sale = Sale::where('institution_id',$institution->id)->where('id',$sale_id)->with('status','user','contact','sale_products.product.product_taxes','payments_received.status')->withCount('sale_products')->first();
+        $sale = Sale::where('institution_id',$institution->id)->where('id',$sale_id)->with('status','user','contact','saleProducts.product.productTaxes','paymentsReceived.status')->withCount('saleProducts')->first();
         // payments
         $payments = Payment::where('sale_id',$sale->id)->with('user','status','account')->get();
         return view('business.sale_show',compact('user','institution','sale','payments'));
@@ -894,7 +894,7 @@ class SaleController extends Controller
         $institution = $this->getInstitution($portal);
         // return $institution;
         // Get sale
-        $sale = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
+        $sale = Sale::where('id',$invoice_id)->with('status','user','contact','saleProducts.product')->withCount('saleProducts')->first();
 //        return $sale;
         return view('business.sale_print',compact('user','institution','sale'));
 
@@ -908,7 +908,7 @@ class SaleController extends Controller
         $institution = $this->getInstitution($portal);
         // return $institution;
         // Get sale
-        $sale = Sale::where('id',$invoice_id)->with('status','user','contact','sale_products.product')->withCount('sale_products')->first();
+        $sale = Sale::where('id',$invoice_id)->with('status','user','contact','saleProducts.product')->withCount('saleProducts')->first();
 //        return $sale;
         return view('business.sale_print',compact('user','institution','sale'));
 

@@ -18,11 +18,11 @@ class Product extends Model
     {
         return $this->belongsTo('App\Institution');
     }
-    public function inventory_account()
+    public function inventoryAccount()
     {
         return $this->belongsTo('App\Account','inventory_account_id','id');
     }
-    public function selling_account()
+    public function sellingAccount()
     {
         return $this->belongsTo('App\Account','selling_account_id','id');
     }
@@ -30,7 +30,7 @@ class Product extends Model
     {
         return $this->belongsTo('App\Status');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }
@@ -38,7 +38,7 @@ class Product extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function purchase_account()
+    public function purchaseAccount()
     {
         return $this->belongsTo('App\Account','purchase_account_id','id');
     }
@@ -58,17 +58,17 @@ class Product extends Model
     {
         return $this->belongsTo('App\Brand');
     }
-    public function product_group()
+    public function productGroup()
     {
         return $this->belongsTo('App\ProductGroup');
     }
 
     // Children
-    public function transfer_order_products()
+    public function transferOrderProducts()
     {
         return $this->hasMany('App\TransferOrderProduct');
     }
-    public function inventory_adjustment_products()
+    public function inventoryAdjustmentProducts()
     {
         return $this->hasMany('App\InventoryAdjustmentProduct');
     }
@@ -76,19 +76,19 @@ class Product extends Model
     {
         return $this->hasMany('App\Inventory');
     }
-    public function product_images()
+    public function productImages()
     {
         return $this->hasMany('App\ProductImage');
     }
-    public function sale_products()
+    public function saleProducts()
     {
         return $this->hasMany('App\SaleProduct');
     }
-    public function composite_product_products()
+    public function compositeProductProducts()
     {
         return $this->hasMany('App\CompositeProductProduct','composite_product_id');
     }
-    public function product_returns()
+    public function productReturns()
     {
         return $this->hasMany('App\ProductReturn');
     }
@@ -96,19 +96,19 @@ class Product extends Model
     {
         return $this->hasMany('App\Restock');
     }
-    public function estimate_products()
+    public function estimateProducts()
     {
         return $this->hasMany('App\EstimateProduct');
     }
-    public function invoice_products()
+    public function invoiceProducts()
     {
         return $this->hasMany('App\InvoiceProduct');
     }
-    public function order_products()
+    public function orderProducts()
     {
         return $this->hasMany('App\OrderProduct');
     }
-    public function product_taxes()
+    public function productTaxes()
     {
         return $this->hasMany('App\ProductTax');
     }

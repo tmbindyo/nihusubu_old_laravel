@@ -32,15 +32,15 @@
             <h3>{{$user->name}}</h3>
             <p>Your are in lock screen. Main app was shut down and you need to select an account to access.</p>
             @foreach($userAccounts as $userAccount)
-                @if($userAccount->user_type->name == "Business")
+                @if($userAccount->userType->name == "Business")
                     <a href="{{route('activate.user.account',$userAccount->id)}}" class="btn btn-primary block full-width">Access {{$userAccount->institution->name}}</a>
                     <br>
                 @endif
-                @if($userAccount->user_type->name == "Admin")
+                @if($userAccount->userType->name == "Admin")
                     <a href="{{route('activate.user.account',$userAccount->id)}}" class="btn btn-primary block full-width">Access Admin Account</a>
                     <br>
                 @endif
-                @if($userAccount->user_type->name == "Personal")
+                @if($userAccount->userType->name == "Personal")
                     <a href="{{route('activate.user.account',$userAccount->id)}}" class="btn btn-primary block full-width">Access Personal Account</a>
                 @endif
             @endforeach

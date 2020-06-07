@@ -26,7 +26,7 @@ class SubIndustry extends Model
     }
 
     // Children
-    public function institution_sub_industries()
+    public function institutionSubIndustries()
     {
         return $this->hasMany('App\InstitutionSubIndustry');
     }

@@ -84,7 +84,7 @@
                                         <td>{{$share->amount}}</td>
                                         <td>{{$share->value}}</td>
                                         <td>{{$share->date}}</td>
-                                        <td>{{$share->chama_member->name}}</td>
+                                        <td>{{$share->chamaMember->name}}</td>
                                         <td>{{$share->user->name}}</td>
                                         <td>
                                             <span class="label {{$share->status->label}}">{{$share->status->name}}</span>

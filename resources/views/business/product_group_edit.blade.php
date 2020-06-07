@@ -183,7 +183,7 @@
                                 <select name="taxes[]" class="taxes-select form-control input-lg" multiple="multiple">
                                     <option value="" disabled>Select Taxes</option>
                                     @foreach($taxes as $tax)
-                                        @foreach($productGroup->product_group_taxes as $productTax)
+                                        @foreach($productGroup->productGroupTaxes as $productTax)
                                             <option @if($productTax->tax_id == $tax->id) selected @endif value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
                                         @endforeach()
                                     @endforeach()

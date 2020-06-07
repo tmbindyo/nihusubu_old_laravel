@@ -94,7 +94,7 @@
                                         <td>{{$member->email}}</td>
                                         <td>{{$member->user->name}}</td>
                                         <td>{{$member->shares}}</td>
-                                        <td>{{$member->chama_member_role->name}}</td>
+                                        <td>{{$member->chamaMemberRole->name}}</td>
                                         <td>
                                             <span class="label {{$member->status->label}}">{{$member->status->name}}</span>
                                         </td>

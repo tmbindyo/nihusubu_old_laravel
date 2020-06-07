@@ -209,7 +209,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($account->account_adjustments as $adjustments)
+                                                    @foreach($account->accountAdjustments as $adjustments)
                                                         <tr class="gradeX">
                                                             <td>
                                                                 {{$adjustments->reference}}
@@ -323,7 +323,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($account->income_debits as $income)
+                                                @foreach($account->incomeDebits as $income)
                                                     <tr class="gradeX">
                                                         <td>
                                                             {{$income->reference}}

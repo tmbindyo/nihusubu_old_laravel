@@ -201,7 +201,7 @@
                                                         <tbody>
                                                             @foreach($expenseAccountBudget as $budget)
                                                                 <tr class="gradeX">
-                                                                    <td>{{$budget->expense_account->name}}</td>
+                                                                    <td>{{$budget->expenseAccount->name}}</td>
                                                                     <td>{{$budget->amount}}</td>
                                                                     <td>{{$budget->amount}}</td>
                                                                     <td>{{$budget->user->name}}</td>
@@ -285,7 +285,7 @@
                                                                         <td>{{$expense->reference}}</td>
                                                                         <td>{{$expense->date}}</td>
                                                                         <td>{{$expense->created_at}}</td>
-                                                                        <td>@if ($expense->expense_account){{$expense->expense_account->name}} @endif</td>
+                                                                        <td>@if ($expense->expenseAccount){{$expense->expenseAccount->name}} @endif</td>
                                                                         <td>{{$expense->total}}</td>
                                                                         <td>{{$expense->paid}}</td>
                                                                         <td>

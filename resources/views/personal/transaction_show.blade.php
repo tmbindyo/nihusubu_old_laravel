@@ -45,7 +45,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Transaction <small>edit</small></h5>
-                        
+
                     </div>
                     <div class="ibox-content">
                         <div class="row">
@@ -117,7 +117,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($account->account_adjustments as $adjustments)
+                @foreach($account->accountAdjustments as $adjustments)
                     <tr class="gradeX">
                         <td>
                             {{$adjustments->reference}}
@@ -190,14 +190,14 @@
                                 </tr>
                             </thead>
                         <tbody>
-                        @foreach($account->source_account as $transaction)
+                        @foreach($account->sourceAccount as $transaction)
                             <tr class="gradeX">
                                 <td>
                                     {{$transaction->reference}}
                                     <span><i data-toggle="tooltip" data-placement="right" title="{{$transaction->notes}}." class="fa fa-facebook-messenger"></i></span>
                                 </td>
                                 <td>{{$transaction->amount}}</td>
-                                <td>{{$transaction->destination_account->name}}</td>
+                                <td>{{$transaction->destinationAccount->name}}</td>
                                 <td>{{$transaction->date}}</td>
                                 <td>{{$transaction->user->name}}</td>
                                 <td>
@@ -261,14 +261,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($account->destination_account as $transaction)
+                                @foreach($account->destinationAccount as $transaction)
                                     <tr class="gradeX">
                                         <td>
                                             {{$transaction->reference}}
                                             <span><i data-toggle="tooltip" data-placement="right" title="{{$transaction->notes}}." class="fa fa-facebook-messenger"></i></span>
                                         </td>
                                         <td>{{$transaction->amount}}</td>
-                                        <td>{{$transaction->source_account->name}}</td>
+                                        <td>{{$transaction->sourceAccount->name}}</td>
                                         <td>{{$transaction->date}}</td>
                                         <td>{{$transaction->user->name}}</td>
                                         <td>

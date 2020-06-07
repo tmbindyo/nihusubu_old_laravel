@@ -103,7 +103,7 @@
                                             @php
                                                 $product_index = 0
                                             @endphp
-                                            @foreach($invoice->sale_products as $saleProduct)
+                                            @foreach($invoice->saleProducts as $saleProduct)
                                                 <tr>
                                                     <td>
                                                         <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[{{$product_index}}][item]" class="select2 form-control input-lg item-select" style = "width: 100%">

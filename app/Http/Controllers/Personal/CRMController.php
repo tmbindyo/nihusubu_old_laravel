@@ -41,9 +41,9 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // Get contacts
-        $contacts = Contact::where('user_id',$user->id)->where('is_user',True)->where('is_lead',False)->with('status','contact_type','title')->get();
+        $contacts = Contact::where('user_id',$user->id)->where('is_user',True)->where('is_lead',False)->with('status','contactType','title')->get();
         // Get deleted contacts
-        $deletedContacts = Contact::where('user_id',$user->id)->where('is_user',True)->where('is_lead',False)->with('status','contact_type','title')->onlyTrashed()->get();
+        $deletedContacts = Contact::where('user_id',$user->id)->where('is_user',True)->where('is_lead',False)->with('status','contactType','title')->onlyTrashed()->get();
 
         return view('personal.contacts',compact('contacts','user','deletedContacts'));
     }
@@ -53,7 +53,7 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // get contacts
-        $contacts = Contact::where('user_id',$user->id)->where('is_user',True)->with('user','status','contact_type')->get();
+        $contacts = Contact::where('user_id',$user->id)->where('is_user',True)->with('user','status','contactType')->get();
         // get titles
         $titles = Title::where('user_id',$user->id)->where('is_user',True)->get();
         // get contact types
@@ -162,7 +162,7 @@ class CRMController extends Controller
         $contactTypes = ContactType::where('user_id',$user->id)->where('is_user',True)->get();
 
         // contact contact types
-        $contactContactTypes = ContactContactType::with('user','status','contact_type')->where('contact_id',$contact_id)->get();
+        $contactContactTypes = ContactContactType::with('user','status','contactType')->where('contact_id',$contact_id)->get();
 
         // ontact owed liability
         $liabilities = Liability::where('user_id',$user->id)->where('is_user',True)->with('user','status')->where('contact_id',$contact_id)->get();

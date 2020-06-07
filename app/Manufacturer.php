@@ -30,7 +30,7 @@ class Manufacturer extends Model
     {
         return $this->hasMany('App\Product');
     }
-    public function composite_products()
+    public function compositeProducts()
     {
         return $this->hasMany('App\CompositeProduct');
     }

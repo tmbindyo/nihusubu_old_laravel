@@ -166,7 +166,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <select name="member" class="select2_demo_member form-control input-lg" disabled>
-                                            <option selected value="{{$loan->chama_member->id}}">{{$loan->chama_member->name}} [{{$loan->chama_member->chama_member_role->name}}] </option>
+                                            <option selected value="{{$loan->chamaMember->id}}">{{$loan->chamaMember->name}} [{{$loan->chamaMember->chamaMemberRole->name}}] </option>
                                         </select>
                                         <i>member</i>
                                     </div>

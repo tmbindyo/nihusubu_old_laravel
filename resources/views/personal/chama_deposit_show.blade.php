@@ -210,7 +210,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($deposit->account_adjustments as $accountAdjustment)
+                                                        @foreach($deposit->accountAdjustments as $accountAdjustment)
                                                             <tr class="gradeX">
                                                                 <td>{{$accountAdjustment->first_name}} {{$accountAdjustment->last_name}}</td>
                                                                 <td>{{$accountAdjustment->email}}</td>

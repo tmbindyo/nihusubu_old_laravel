@@ -40,11 +40,11 @@ class Issue extends Model
     {
         return $this->belongsTo('App\User','assignee_id','id');
     }
-    public function assigned_issue()
+    public function assignedIssue()
     {
         return $this->belongsTo('App\User','assignee_id','id');
     }
-    public function reported_issue()
+    public function reportedIssue()
     {
         return $this->belongsTo('App\User','assignee_id','id');
     }
@@ -54,7 +54,7 @@ class Issue extends Model
     {
         return $this->hasMany('App\Timesheet');
     }
-    public function issue_uploads()
+    public function issueUploads()
     {
         return $this->hasMany('App\IssueUpload');
     }

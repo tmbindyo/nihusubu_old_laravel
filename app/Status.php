@@ -12,7 +12,7 @@ class Status extends Model
     public $incrementing = false;
 
     // Parents
-    public function status_type()
+    public function statusType()
     {
         return $this->belongsTo('App\StatusType');
     }
@@ -26,7 +26,7 @@ class Status extends Model
     {
         return $this->hasMany('App\Account');
     }
-    public function account_types()
+    public function accountTypes()
     {
         return $this->hasMany('App\AccountType');
     }
@@ -38,11 +38,11 @@ class Status extends Model
     {
         return $this->hasMany('App\Branch');
     }
-    public function composite_products()
+    public function compositeProducts()
     {
         return $this->hasMany('App\CompositeProduct');
     }
-    public function composite_product_products()
+    public function compositeProductProducts()
     {
         return $this->hasMany('App\CompositeProductProduct');
     }
@@ -50,7 +50,7 @@ class Status extends Model
     {
         return $this->hasMany('App\Contact');
     }
-    public function contact_types()
+    public function contactTypes()
     {
         return $this->hasMany('App\ContactType');
     }
@@ -66,7 +66,7 @@ class Status extends Model
     {
         return $this->hasMany('App\Estimate');
     }
-    public function estimate_products()
+    public function estimateProducts()
     {
         return $this->hasMany('App\EstimateProduct');
     }
@@ -74,7 +74,7 @@ class Status extends Model
     {
         return $this->hasMany('App\Expense');
     }
-    public function expense_items()
+    public function expenseItems()
     {
         return $this->hasMany('App\ExpenseItem');
     }
@@ -82,7 +82,7 @@ class Status extends Model
     {
         return $this->hasMany('App\Feature');
     }
-    public function fiscal_years()
+    public function fiscalYears()
     {
         return $this->hasMany('App\FiscalYear');
     }
@@ -90,15 +90,15 @@ class Status extends Model
     {
         return $this->hasMany('App\Forum');
     }
-    public function forum_posts()
+    public function forumPosts()
     {
         return $this->hasMany('App\ForumPost');
     }
-    public function forum_post_uploads()
+    public function forumPostUploads()
     {
         return $this->hasMany('App\ForumPostUpload');
     }
-    public function forum_uploads()
+    public function forumUploads()
     {
         return $this->hasMany('App\ForumUpload');
     }
@@ -106,7 +106,7 @@ class Status extends Model
     {
         return $this->hasMany('App\Industry');
     }
-    public function industry_groups()
+    public function industryGroups()
     {
         return $this->hasMany('App\IndustryGroup');
     }
@@ -114,15 +114,15 @@ class Status extends Model
     {
         return $this->hasMany('App\Institution');
     }
-    public function institution_relationships()
+    public function institutionRelationships()
     {
         return $this->hasMany('App\InstitutionRelationship');
     }
-    public function institution_services()
+    public function institutionServices()
     {
         return $this->hasMany('App\InstitutionService');
     }
-    public function institution_sub_industries()
+    public function institutionSubIndustries()
     {
         return $this->hasMany('App\InstitutionSubIndustry');
     }
@@ -130,11 +130,11 @@ class Status extends Model
     {
         return $this->hasMany('App\Inventory');
     }
-    public function inventory_adjustments()
+    public function inventoryAdjustments()
     {
         return $this->hasMany('App\InventoryAdjustment');
     }
-    public function inventory_adjustment_products()
+    public function inventoryAdjustmentProducts()
     {
         return $this->hasMany('App\InventoryAdjustmentProduct');
     }
@@ -142,7 +142,7 @@ class Status extends Model
     {
         return $this->hasMany('App\Invoice');
     }
-    public function invoice_products()
+    public function invoiceProducts()
     {
         return $this->hasMany('App\InvoiceProduct');
     }
@@ -150,7 +150,7 @@ class Status extends Model
     {
         return $this->hasMany('App\Issue');
     }
-    public function issue_uploads()
+    public function issueUploads()
     {
         return $this->hasMany('App\IssueUpload');
     }
@@ -158,11 +158,11 @@ class Status extends Model
     {
         return $this->hasMany('App\Language');
     }
-    public function manual_journals()
+    public function manualJournals()
     {
         return $this->hasMany('App\ManualJournal');
     }
-    public function manual_journal_accounts()
+    public function manualJournalAccounts()
     {
         return $this->hasMany('App\ManualJournalAccount');
     }
@@ -182,19 +182,19 @@ class Status extends Model
     {
         return $this->hasMany('App\Order');
     }
-    public function order_products()
+    public function orderProducts()
     {
         return $this->hasMany('App\OrderProduct');
     }
-    public function payments_made()
+    public function paymentsMade()
     {
         return $this->hasMany('App\PaymentMade');
     }
-    public function payments_received()
+    public function paymentsReceived()
     {
         return $this->hasMany('App\PaymentReceived');
     }
-    public function payment_terms()
+    public function paymentTerms()
     {
         return $this->hasMany('App\PaymentTerm');
     }
@@ -202,19 +202,19 @@ class Status extends Model
     {
         return $this->hasMany('App\Product');
     }
-    public function product_groups()
+    public function productGroups()
     {
         return $this->hasMany('App\ProductGroup');
     }
-    public function product_group_images()
+    public function productGroupImages()
     {
         return $this->hasMany('App\ProductGroupImage');
     }
-    public function product_images()
+    public function productImages()
     {
         return $this->hasMany('App\ProductImage');
     }
-    public function product_returns()
+    public function productReturns()
     {
         return $this->hasMany('App\ProductReturn');
     }
@@ -222,27 +222,27 @@ class Status extends Model
     {
         return $this->hasMany('App\Project');
     }
-    public function project_members()
+    public function projectMembers()
     {
         return $this->hasMany('App\ProjectMember');
     }
-    public function project_roles()
+    public function projectRoles()
     {
         return $this->hasMany('App\ProjectRole');
     }
-    public function purchase_orders()
+    public function purchaseOrders()
     {
         return $this->hasMany('App\PurchaseOrder');
     }
-    public function purchase_order_approvals()
+    public function purchaseOrderApprovals()
     {
         return $this->hasMany('App\PurchaseOrderApproval');
     }
-    public function purchase_order_items()
+    public function purchaseOrderItems()
     {
         return $this->hasMany('App\PurchaseOrderItem');
     }
-    public function purchase_order_settings()
+    public function purchaseOrderSettings()
     {
         return $this->hasMany('App\PurchaseOrderSetting');
     }
@@ -258,15 +258,15 @@ class Status extends Model
     {
         return $this->hasMany('App\Role');
     }
-    public function role_user_type_features()
+    public function roleUserTypeFeatures()
     {
         return $this->hasMany('App\RoleUserTypeFeature');
     }
-    public function role_user_type_menus()
+    public function roleUserTypeMenus()
     {
         return $this->hasMany('App\RoleUserTypeMenu');
     }
-    public function role_user_type_sections()
+    public function roleUserTypeSections()
     {
         return $this->hasMany('App\RoleUserTypeSection');
     }
@@ -274,7 +274,7 @@ class Status extends Model
     {
         return $this->hasMany('App\Sale');
     }
-    public function sale_products()
+    public function saleProducts()
     {
         return $this->hasMany('App\SaleProduct');
     }
@@ -290,19 +290,19 @@ class Status extends Model
     {
         return $this->hasMany('App\Service');
     }
-    public function service_pricings()
+    public function servicePricings()
     {
         return $this->hasMany('App\ServicePricing');
     }
-    public function service_types()
+    public function serviceTypes()
     {
         return $this->hasMany('App\ServiceType');
     }
-    public function service_type_pricings()
+    public function serviceTypePricings()
     {
         return $this->hasMany('App\ServiceTypePricing');
     }
-    public function sub_industries()
+    public function subIndustries()
     {
         return $this->hasMany('App\SubIndustry');
     }
@@ -310,11 +310,11 @@ class Status extends Model
     {
         return $this->hasMany('App\Task');
     }
-    public function task_lists()
+    public function taskLists()
     {
         return $this->hasMany('App\TaskList');
     }
-    public function task_uploads()
+    public function taskUploads()
     {
         return $this->hasMany('App\TaskUpload');
     }
@@ -330,7 +330,7 @@ class Status extends Model
     {
         return $this->hasMany('App\Timezone');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }
@@ -338,11 +338,11 @@ class Status extends Model
     {
         return $this->hasMany('App\Transaction');
     }
-    public function transfer_orders()
+    public function transferOrders()
     {
         return $this->hasMany('App\TransferOrder');
     }
-    public function transfer_order_products()
+    public function transferOrderProducts()
     {
         return $this->hasMany('App\TransferOrderProduct');
     }
@@ -354,31 +354,31 @@ class Status extends Model
     {
         return $this->hasMany('App\Upload');
     }
-    public function upload_types()
+    public function uploadTypes()
     {
         return $this->hasMany('App\UploadType');
     }
-    public function user_detail()
+    public function userDetail()
     {
         return $this->hasOne('App\UserDetail');
     }
-    public function user_roles()
+    public function userRoles()
     {
         return $this->hasMany('App\UserRole');
     }
-    public function user_types()
+    public function userTypes()
     {
         return $this->hasMany('App\UserType');
     }
-    public function user_type_features()
+    public function userTypeFeatures()
     {
         return $this->hasMany('App\UserTypeFeature');
     }
-    public function user_type_menus()
+    public function userTypeMenus()
     {
         return $this->hasMany('App\UserTypeMenu');
     }
-    public function user_type_sections()
+    public function userTypeSections()
     {
         return $this->hasMany('App\UserTypeSection');
     }

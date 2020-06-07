@@ -42,7 +42,7 @@ class Invoice extends Model
     {
         return $this->hasMany('App\Sale');
     }
-    public function invoice_products()
+    public function invoiceProducts()
     {
         return $this->hasMany('App\InvoiceProduct');
     }

@@ -109,7 +109,7 @@
                     @foreach($campaigns as $campaign)
                         <tr class="gradeX">
                             <td>{{$campaign->name}}</td>
-                            <td>{{$campaign->campaign_type->name}}</td>
+                            <td>{{$campaign->campaignType->name}}</td>
                             <td>{{$campaign->start_date}}</td>
                             <td>{{$campaign->end_date}}</td>
                             <td>{{$campaign->user->name}}</td>

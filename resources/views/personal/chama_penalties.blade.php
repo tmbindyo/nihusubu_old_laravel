@@ -80,7 +80,7 @@
                                     <tr class="gradeX">
                                         <td>{{$penalty->amount}}</td>
                                         <td>{{$penalty->date}}</td>
-                                        <td>{{$penalty->chama_member->name}}</td>
+                                        <td>{{$penalty->chamaMember->name}}</td>
                                         <td>{{$penalty->user->name}}</td>
                                         <td>
                                             <span class="label {{$penalty->status->label}}">{{$penalty->status->name}}</span>

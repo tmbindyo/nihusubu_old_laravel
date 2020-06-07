@@ -28,7 +28,7 @@ class Restock extends Model
     {
         return $this->belongsTo('App\Product');
     }
-    public function expense_item()
+    public function expenseItem()
     {
         return $this->belongsTo('App\ExpenseItem')->with('expense');
     }

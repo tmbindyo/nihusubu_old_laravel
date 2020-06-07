@@ -32,11 +32,11 @@ class Task extends Model
     {
         return $this->belongsTo('App\User','assignee_id','id');
     }
-    public function task_list()
+    public function taskList()
     {
         return $this->belongsTo('App\TaskList');
     }
-    public function assigned_task()
+    public function assignedTask()
     {
         return $this->belongsTo('App\User','assignee_id','id');
     }
@@ -50,7 +50,7 @@ class Task extends Model
     {
         return $this->hasMany('App\Timesheet');
     }
-    public function task_uploads()
+    public function taskUploads()
     {
         return $this->hasMany('App\TaskUpload');
     }

@@ -24,17 +24,17 @@ class TransferOrder extends Model
     {
         return $this->belongsTo('App\Institution');
     }
-    public function source_warehouse()
+    public function sourceWarehouse()
     {
         return $this->belongsTo('App\Warehouse','source_warehouse_id','id');
     }
-    public function destination_warehouse()
+    public function destinationWarehouse()
     {
         return $this->belongsTo('App\Warehouse','destination_warehouse_id','id');
     }
 
     // Children
-    public function transfer_order_products()
+    public function transferOrderProducts()
     {
         return $this->hasMany('App\TransferOrderProduct');
     }

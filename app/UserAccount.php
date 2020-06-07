@@ -16,7 +16,7 @@ class UserAccount extends Model
     {
         return $this->belongsTo('App\Institution');
     }
-    public function user_type()
+    public function userType()
     {
         return $this->belongsTo('App\UserType');
     }

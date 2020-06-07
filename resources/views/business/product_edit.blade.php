@@ -207,7 +207,7 @@
                                             {{--  Product Tax  --}}
                                             <select name="taxes[]" class="select2_taxes form-control input-lg" required multiple>
                                                 @foreach($taxes as $tax)
-                                                    <option @foreach ($product->product_taxes as $product_tax) {{$product_tax->tax_id}}  @if($product_tax->tax_id == $tax->id) selected @endif @endforeach value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
+                                                    <option @foreach ($product->productTaxes as $product_tax) {{$product_tax->tax_id}}  @if($product_tax->tax_id == $tax->id) selected @endif @endforeach value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
                                                 @endforeach()
                                             </select>
                                             <i>taxes</i>

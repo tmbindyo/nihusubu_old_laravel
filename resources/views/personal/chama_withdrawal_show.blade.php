@@ -53,7 +53,7 @@
             <h2>Withdrawal's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('personal.dashboard',)}}">Home</a>
+                    <a href="{{route('personal.dashboard')}}">Home</a>
                 </li>
                 <li>
                     Accounting
@@ -210,7 +210,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($withdrawal->account_adjustments as $accountAdjustment)
+                                                        @foreach($withdrawal->accountAdjustments as $accountAdjustment)
                                                             <tr class="gradeX">
                                                                 <td>{{$accountAdjustment->first_name}} {{$accountAdjustment->last_name}}</td>
                                                                 <td>{{$accountAdjustment->email}}</td>

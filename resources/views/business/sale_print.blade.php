@@ -60,7 +60,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($sale->sale_products as $product)
+                @foreach($sale->saleProducts as $product)
                     <tr>
                         <td>
                             <div>
@@ -93,7 +93,7 @@
                 <td>{{$sale->tax}}</td>
             </tr>
             <tr>
-                <td><strong>Discount :</strong></td>
+                <td><strong>Adjustment :</strong></td>
                 <td>{{$sale->discount}}</td>
             </tr>
             <tr>

@@ -234,7 +234,7 @@
                                                             <td>{{$expense->reference}}</td>
                                                             <td>{{$expense->date}}</td>
                                                             <td>{{$expense->created_at}}</td>
-                                                            <td>{{$expense->expense_account->name}}</td>
+                                                            <td>{{$expense->expenseAccount->name}}</td>
                                                             <td>{{$expense->total}}</td>
                                                             <td>{{$expense->paid}}</td>
                                                             <td>
@@ -287,7 +287,7 @@
                                                             <tr class="gradeA">
                                                                 <td>
                                                                     @if($transaction->is_transfer == 1)
-                                                                        <p><span class="badge badge-success">Transfer</span> {{$transaction->source_account->name}} -> {{$transaction->destination_account->name}}</p>
+                                                                        <p><span class="badge badge-success">Transfer</span> {{$transaction->sourceAccount->name}} -> {{$transaction->destinationAccount->name}}</p>
                                                                     @else
                                                                         <p><span class="badge badge-success">Payment</span></p>
                                                                     @endif

@@ -30,7 +30,7 @@ class Unit extends Model
     {
         return $this->hasMany('App\Product');
     }
-    public function product_groups()
+    public function productGroups()
     {
         return $this->hasMany('App\ProductGroup');
     }

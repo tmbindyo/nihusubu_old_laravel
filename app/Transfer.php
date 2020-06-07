@@ -16,17 +16,17 @@ class Transfer extends Model
     {
         return $this->hasMany('App\Expense');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }
 
     // Parents
-    public function destination_account()
+    public function destinationAccount()
     {
         return $this->belongsTo('App\Account','destination_account_id','id');
     }
-    public function source_account()
+    public function sourceAccount()
     {
         return $this->belongsTo('App\Account','source_account_id','id');
     }

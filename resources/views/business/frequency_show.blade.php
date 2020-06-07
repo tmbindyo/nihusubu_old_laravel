@@ -153,7 +153,7 @@
                                     <td>{{$expense->reference}}</td>
                                     <td>{{$expense->date}}</td>
                                     <td>{{$expense->created_at}}</td>
-                                    <td>{{$expense->expense_account->name}}</td>
+                                    <td>{{$expense->expenseAccount->name}}</td>
                                     <td>{{$expense->total}}</td>
                                     <td>{{$expense->paid}}</td>
                                     <td>

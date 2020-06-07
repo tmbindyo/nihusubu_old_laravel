@@ -88,7 +88,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($estimate->sale_products as $product)
+                                        @foreach($estimate->saleProducts as $product)
                                             <tr>
                                                 <td>
                                                     <div><strong>{{$product->product->name}}</strong></div>

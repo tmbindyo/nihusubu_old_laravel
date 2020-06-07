@@ -72,7 +72,7 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // Get contact type
-        $contactType = ContactType::with('user','status')->where('id',$contact_type_id)->withCount('contact_type_contacts')->first();
+        $contactType = ContactType::with('user','status')->where('id',$contact_type_id)->withCount('contactTypeContacts')->first();
         // contact type contacts
         $contactContactTypes = ContactContactType::with('user','status','contact')->where('contact_type_id',$contact_type_id)->get();
         return view('personal.contact_type_show',compact('contactType','user','contactContactTypes'));
@@ -203,9 +203,9 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // get expenseAccounts
-        $expenseAccounts = ExpenseAccount::where('is_user',true)->where('user_id',$user->id)->with('user','status','account_type')->get();
+        $expenseAccounts = ExpenseAccount::where('is_user',true)->where('user_id',$user->id)->with('user','status','accountType')->get();
         // get deleted expenseAccounts
-        $deletedExpenseAccounts = ExpenseAccount::where('is_user',true)->where('user_id',$user->id)->with('user','status','account_type')->onlyTrashed()->get();
+        $deletedExpenseAccounts = ExpenseAccount::where('is_user',true)->where('user_id',$user->id)->with('user','status','accountType')->onlyTrashed()->get();
 
         return view('personal.expense_accounts',compact('expenseAccounts','user','expenseAccounts','deletedExpenseAccounts'));
     }

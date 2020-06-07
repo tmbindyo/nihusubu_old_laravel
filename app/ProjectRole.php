@@ -26,7 +26,7 @@ class ProjectRole extends Model
     }
 
     // Children
-    public function project_members()
+    public function projectMembers()
     {
         return $this->hasMany('App\ProjectMember');
     }

@@ -125,7 +125,7 @@
                                         <select name="member" class="select2_demo_chama_member form-control input-lg" readonly>
                                             <option></option>
                                             @foreach ($chamaMembers as $chamaMember)
-                                                <option @if($chamaMember->id == $penalty->member_id) selected @endif value="{{$chamaMember->id}}">{{$chamaMember->name}} [{{$chamaMember->chama_member_role->name}}]</option>
+                                                <option @if($chamaMember->id == $penalty->member_id) selected @endif value="{{$chamaMember->id}}">{{$chamaMember->name}} [{{$chamaMember->chamaMemberRole->name}}]</option>
                                             @endforeach
                                         </select>
                                         <i>member</i>
@@ -180,7 +180,7 @@
                                     </dl>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>

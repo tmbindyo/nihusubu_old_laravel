@@ -159,7 +159,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($account->account_adjustments as $adjustments)
+                                                    @foreach($account->accountAdjustments as $adjustments)
                                                         <tr class="gradeX">
                                                             <td>
                                                                 {{$adjustments->reference}}
@@ -565,7 +565,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($account->source_account as $transfer)
+                                                    @foreach($account->sourceAccount as $transfer)
                                                         <tr class="gradeX">
                                                             <td>
                                                                 {{$transfer->reference}}
@@ -575,12 +575,12 @@
                                                             <td>{{$transfer->date}}</td>
                                                             <td>
 
-                                                                <span class="label label-success"> {{$transfer->source_account->name}}</span>
+                                                                <span class="label label-success"> {{$transfer->sourceAccount->name}}</span>
                                                                 <span class="badge badge-success"> {{$transfer->source_initial_amount}} -> {{$transfer->source_subsequent_amount}}</span>
                                                             </td>
                                                             <td>
 
-                                                                <span class="label label-success"> {{$transfer->destination_account->name}}</span>
+                                                                <span class="label label-success"> {{$transfer->destinationAccount->name}}</span>
                                                                 <span class="badge badge-success"> {{$transfer->destination_initial_amount}} -> {{$transfer->destination_subsequent_amount}}</span>
                                                             </td>
                                                             <td>{{$transfer->user->name}}</td>
@@ -627,7 +627,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($account->destination_account as $transfer)
+                                                @foreach($account->destinationAccount as $transfer)
                                                     <tr class="gradeX">
                                                         <td>
                                                             {{$transfer->reference}}
@@ -637,12 +637,12 @@
                                                         <td>{{$transfer->date}}</td>
                                                         <td>
 
-                                                            <span class="label label-success"> {{$transfer->source_account->name}}</span>
+                                                            <span class="label label-success"> {{$transfer->sourceAccount->name}}</span>
                                                             <span class="badge badge-success"> {{$transfer->source_initial_amount}} -> {{$transfer->source_subsequent_amount}}</span>
                                                         </td>
                                                         <td>
 
-                                                            <span class="label label-success"> {{$transfer->destination_account->name}}</span>
+                                                            <span class="label label-success"> {{$transfer->destinationAccount->name}}</span>
                                                             <span class="badge badge-success"> {{$transfer->destination_initial_amount}} -> {{$transfer->destination_subsequent_amount}}</span>
                                                         </td>
                                                         <td>{{$transfer->user->name}}</td>

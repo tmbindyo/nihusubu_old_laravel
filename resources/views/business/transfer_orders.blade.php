@@ -60,10 +60,10 @@
                                             <td>{{$transferOrder->created_at}}</td>
                                             <td>{{$transferOrder->reason}}</td>
                                             <td>
-                                                {{$transferOrder->source_warehouse->name}}
+                                                {{$transferOrder->sourceWarehouse->name}}
                                             </td>
                                             <td>
-                                                {{$transferOrder->destination_warehouse->name}}
+                                                {{$transferOrder->destinationWarehouse->name}}
                                             </td>
                                             <td>{{$transferOrder->user->name}}</td>
                                             <td class="text-right">

@@ -16,7 +16,7 @@ class ChamaMember extends Model
     {
         return $this->belongsTo('App\Chama');
     }
-    public function chama_member_role()
+    public function chamaMemberRole()
     {
         return $this->belongsTo('App\ChamaMemberRole','member_role_id');
     }
@@ -34,7 +34,7 @@ class ChamaMember extends Model
     }
 
     // children
-    public function chama_member_meetings()
+    public function chamaMemberMeetings()
     {
         return $this->hasMany('App\ChamaMeetingMember');
     }
@@ -46,7 +46,7 @@ class ChamaMember extends Model
     {
         return $this->hasMany('App\Penalty','member_id');
     }
-    public function shares_payments()
+    public function sharesPayments()
     {
         return $this->hasMany('App\SharesPayment','member_id');
     }

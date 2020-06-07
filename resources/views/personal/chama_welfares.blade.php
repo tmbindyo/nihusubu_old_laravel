@@ -82,9 +82,9 @@
                                     <tr class="gradeX">
                                         <td>{{$welfare->amount}}</td>
                                         <td>{{$welfare->date}}</td>
-                                        <td>{{$welfare->chama_member->name}}</td>
+                                        <td>{{$welfare->chamaMember->name}}</td>
                                         <td>{{$welfare->account->name}}</td>
-                                        <td>{{$welfare->welfare_type->name}}</td>
+                                        <td>{{$welfare->welfareType->name}}</td>
                                         <td>{{$welfare->user->name}}</td>
                                         <td>
                                             <span class="label {{$welfare->status->label}}">{{$welfare->status->name}}</span>

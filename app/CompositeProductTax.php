@@ -20,7 +20,7 @@ class CompositeProductTax extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function composite_product()
+    public function compositeProduct()
     {
         return $this->belongsTo('App\CompositeProduct');
     }

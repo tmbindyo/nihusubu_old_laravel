@@ -193,7 +193,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($unit->product_groups as $productGroup)
+                                                        @foreach($unit->productGroups as $productGroup)
                                                             <tr class="gradeA">
                                                                     <td>{{$productGroup->name}} <label class="badge badge-circle badge-info">{{$productGroup->products_count}} products</label></td>
                                                                     <td>{{$productGroup->attributes}}</td>

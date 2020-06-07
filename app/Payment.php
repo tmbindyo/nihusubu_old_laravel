@@ -16,7 +16,7 @@ class Payment extends Model
     {
         return $this->hasMany('App\Refund');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }

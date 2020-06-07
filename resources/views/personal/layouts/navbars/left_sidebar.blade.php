@@ -11,13 +11,13 @@
                                     <strong class="font-bold">{{$user->name}}</strong>
                                 </span>
                                 <span class="text-muted text-xs block">
-                                    @if($user->active_user_account->user_type->name == "Business")
-                                        {{$user->active_user_account->institution->name}}
+                                    @if($user->activeUserAccount->userType->name == "Business")
+                                        {{$user->activeUserAccount->institution->name}}
                                         <b class="caret"></b>
-                                    @elseif($user->active_user_account->user_type->name == "Personal")
+                                    @elseif($user->activeUserAccount->userType->name == "Personal")
                                         Personal Account
                                         <b class="caret"></b>
-                                    @elseif($user->active_user_account->user_type->name == "Admin")
+                                    @elseif($user->activeUserAccount->userType->name == "Admin")
                                         Nihusubu Admin
                                         <b class="caret"></b>
                                     @endif
@@ -25,14 +25,14 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        @foreach($user->inactive_user_account as $userAccount)
-                            @if($userAccount->user_type->name == "Business")
+                        @foreach($user->inactiveUserAccount as $userAccount)
+                            @if($userAccount->userType->name == "Business")
                                 <li><a href="{{route('activate.user.account',$userAccount->id)}}"> Access {{$userAccount->institution->name}} </a></li>
                             @endif
-                            @if($userAccount->user_type->name == "Personal")
+                            @if($userAccount->userType->name == "Personal")
                                 <li><a href="{{route('activate.user.account',$userAccount->id)}}">Access Personal Account</a></li>
                             @endif
-                            @if($userAccount->user_type->name == "Admin")
+                            @if($userAccount->userType->name == "Admin")
                                 <li><a href="{{route('activate.user.account',$userAccount->id)}}">Access Admin Account</a></li>
                             @endif
                         @endforeach

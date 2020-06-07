@@ -20,7 +20,7 @@ class ContactContactType extends Model
     {
         return $this->belongsTo('App\Contact');
     }
-    public function contact_type()
+    public function contactType()
     {
         return $this->belongsTo('App\ContactType');
     }

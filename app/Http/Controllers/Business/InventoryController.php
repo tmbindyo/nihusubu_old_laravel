@@ -137,7 +137,7 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         $inventoryAdjustment = InventoryAdjustment::findOrFail($inventory_adjustment_id);
-        $inventoryAdjustment = InventoryAdjustment::where('id',$inventory_adjustment_id)->with('inventory_adjustment_products.product','status','reason','account','warehouse','user')->withCount('inventory_adjustment_products')->first();
+        $inventoryAdjustment = InventoryAdjustment::where('id',$inventory_adjustment_id)->with('inventoryAdjustmentProducts.product','status','reason','account','warehouse','user')->withCount('inventoryAdjustmentProducts')->first();
 
 //        return $inventoryAdjustment;
         return view('business.inventory_adjustment_show',compact('user','institution','inventoryAdjustment'));
@@ -172,7 +172,7 @@ class InventoryController extends Controller
         $institution = $this->getInstitution($portal);
         // Get inventory adjustments
         $institutionWarehouses = Warehouse::where('institution_id',$institution->id)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->select('id')->get()->toArray();
-        $transferOrders = TransferOrder::where('institution_id', $institution->id)->with('source_warehouse','destination_warehouse','user','status')->get();
+        $transferOrders = TransferOrder::where('institution_id', $institution->id)->with('sourceWarehouse','destinationWarehouse','user','status')->get();
 
 //        return $transferOrders;
         return view('business.transfer_orders',compact('user','institution','transferOrders'));
@@ -261,7 +261,7 @@ class InventoryController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         $transferOrder = TransferOrder::findOrFail($transfer_order_id);
-        $transferOrder = TransferOrder::where('id',$transfer_order_id)->with('source_warehouse.user','destination_warehouse.user','transfer_order_products.product')->withCount('transfer_order_products')->first();
+        $transferOrder = TransferOrder::where('id',$transfer_order_id)->with('sourceWarehouse.user','destinationWarehouse.user','transferOrderProducts.product')->withCount('transferOrderProducts')->first();
         return view('business.transfer_order_show',compact('user','institution','transferOrder'));
     }
 
@@ -367,9 +367,9 @@ class InventoryController extends Controller
         // Inventory adjustments
         $inventoryAdjustments = InventoryAdjustment::where('warehouse_id',$warehouse_id)->with('account')->get();
         // Transfer orders from
-        $sourceTransferOrders = TransferOrder::where('source_warehouse_id',$warehouse_id)->with('destination_warehouse')->get();
+        $sourceTransferOrders = TransferOrder::where('source_warehouse_id',$warehouse_id)->with('destinationWarehouse')->get();
         // Transfer orders to
-        $destinationTransferOrders = TransferOrder::where('destination_warehouse_id',$warehouse_id)->with('source_warehouse')->get();
+        $destinationTransferOrders = TransferOrder::where('destination_warehouse_id',$warehouse_id)->with('sourceWarehouse')->get();
 
         return view('business.warehouse_show',compact('user','institution','warehouse','inventories','inventoryAdjustments','sourceTransferOrders','destinationTransferOrders'));
     }

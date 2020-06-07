@@ -34,7 +34,7 @@ class Milestone extends Model
     {
         return $this->hasMany('App\Task');
     }
-    public function task_list()
+    public function taskList()
     {
         return $this->hasMany('App\TaskList');
     }

@@ -26,7 +26,7 @@ class Feedback extends Model
     }
 
     // children
-    public function feedback_uploads()
+    public function feedbackUploads()
     {
         return $this->hasMany('App\Upload');
     }

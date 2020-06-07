@@ -35,17 +35,17 @@
                 <div class="payment-card">
                     <i class="fa fa-database payment-icon-big text-success"></i>
                     <h2>
-                        Source : {{$transferOrder->source_warehouse->name}} @if($transferOrder->source_warehouse->is_primary == 1) <span class="label label-primary">Primary Warehouse</span> @endif
+                        Source : {{$transferOrder->sourceWarehouse->name}} @if($transferOrder->sourceWarehouse->is_primary == 1) <span class="label label-primary">Primary Warehouse</span> @endif
                     </h2>
                     <div class="row">
                         <div class="col-sm-6">
                             <small>
-                                <strong>Created date:</strong> {{$transferOrder->source_warehouse->created_at}}
+                                <strong>Created date:</strong> {{$transferOrder->sourceWarehouse->created_at}}
                             </small>
                         </div>
                         <div class="col-sm-6 text-right">
                             <small>
-                                <strong>By:</strong> {{$transferOrder->source_warehouse->user->name}}
+                                <strong>By:</strong> {{$transferOrder->sourceWarehouse->user->name}}
                             </small>
                         </div>
                     </div>
@@ -55,17 +55,17 @@
                 <div class="payment-card">
                     <i class="fa fa-database payment-icon-big text-warning"></i>
                     <h2>
-                        {{$transferOrder->destination_warehouse->name}} @if($transferOrder->destination_warehouse->is_primary == 1) <span class="label label-primary">Primary Warehouse</span> @endif
+                        {{$transferOrder->destinationWarehouse->name}} @if($transferOrder->destinationWarehouse->is_primary == 1) <span class="label label-primary">Primary Warehouse</span> @endif
                     </h2>
                     <div class="row">
                         <div class="col-sm-6">
                             <small>
-                                <strong>Expiry date:</strong> {{$transferOrder->destination_warehouse->created_at}}
+                                <strong>Expiry date:</strong> {{$transferOrder->destinationWarehouse->created_at}}
                             </small>
                         </div>
                         <div class="col-sm-6 text-right">
                             <small>
-                                <strong>By:</strong> {{$transferOrder->destination_warehouse->user->name}}
+                                <strong>By:</strong> {{$transferOrder->destinationWarehouse->user->name}}
                             </small>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                         <span class="pull-right">(<strong>{{$transferOrder->transfer_order_products_count}}</strong>) items</span>
                         <h5>Items in your cart</h5>
                     </div>
-                    @foreach($transferOrder->transfer_order_products as $product)
+                    @foreach($transferOrder->transferOrderProducts as $product)
                         <div class="ibox-content">
 
 

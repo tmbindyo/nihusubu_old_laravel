@@ -20,7 +20,7 @@ class UserTypeSection extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function user_type()
+    public function userType()
     {
         return $this->belongsTo('App\UserType');
     }
@@ -30,7 +30,7 @@ class UserTypeSection extends Model
     }
 
     // Children
-    public function role_user_type_section()
+    public function roleUserTypeSection()
     {
         return $this->hasMany('App\RoleUserTypeSection');
     }

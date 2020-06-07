@@ -320,7 +320,7 @@
                                                                 <td>{{$loan->date}}</td>
                                                                 <td>{{$loan->due_date}}</td>
                                                                 <td>{{$loan->account->name}}</td>
-                                                                <td>{{$loan->chama_member->name}}</td>
+                                                                <td>{{$loan->chamaMember->name}}</td>
                                                                 <td>{{$loan->user->name}}</td>
                                                                 <td>
                                                                     <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
@@ -440,7 +440,7 @@
                                                                 <td>{{$member->email}}</td>
                                                                 <td>{{$member->user->name}}</td>
                                                                 <td>{{$member->shares}}</td>
-                                                                <td>{{$member->chama_member_role->name}}</td>
+                                                                <td>{{$member->chamaMemberRole->name}}</td>
                                                                 <td>
                                                                     <span class="label {{$member->status->label}}">{{$member->status->name}}</span>
                                                                 </td>
@@ -489,7 +489,7 @@
                                                             <tr class="gradeX">
                                                                 <td>{{$penalty->amount}}</td>
                                                                 <td>{{$penalty->date}}</td>
-                                                                <td>{{$penalty->chama_member->name}}</td>
+                                                                <td>{{$penalty->chamaMember->name}}</td>
                                                                 <td>{{$penalty->user->name}}</td>
                                                                 <td>
                                                                     <span class="label {{$penalty->status->label}}">{{$penalty->status->name}}</span>
@@ -545,7 +545,7 @@
                                                                 <td>{{$share->amount}}</td>
                                                                 <td>{{$share->value}}</td>
                                                                 <td>{{$share->date}}</td>
-                                                                <td>{{$share->chama_member->name}}</td>
+                                                                <td>{{$share->chamaMember->name}}</td>
                                                                 <td>{{$share->user->name}}</td>
                                                                 <td>
                                                                     <span class="label {{$share->status->label}}">{{$share->status->name}}</span>
@@ -601,9 +601,9 @@
                                                             <tr class="gradeX">
                                                                 <td>{{$welfare->amount}}</td>
                                                                 <td>{{$welfare->date}}</td>
-                                                                <td>{{$welfare->chama_member->name}}</td>
+                                                                <td>{{$welfare->chamaMember->name}}</td>
                                                                 <td>{{$welfare->account->name}}</td>
-                                                                <td>{{$welfare->welfare_type->name}}</td>
+                                                                <td>{{$welfare->welfareType->name}}</td>
                                                                 <td>{{$welfare->user->name}}</td>
                                                                 <td>
                                                                     <span class="label {{$welfare->status->label}}">{{$welfare->status->name}}</span>

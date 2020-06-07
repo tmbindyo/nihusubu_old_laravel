@@ -22,11 +22,11 @@ class Service extends Model
     }
 
     // Children
-    public function institution_services()
+    public function institutionServices()
     {
         return $this->hasMany('App\InstitutionService');
     }
-    public function service_pricings()
+    public function servicePricings()
     {
         return $this->hasMany('App\ServicePricing');
     }

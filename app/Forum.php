@@ -26,11 +26,11 @@ class Forum extends Model
     }
 
     // Children
-    public function forum_uploads()
+    public function forumUploads()
     {
         return $this->hasMany('App\ForumUpload');
     }
-    public function forum_posts()
+    public function forumPosts()
     {
         return $this->hasMany('App\ForumPost');
     }

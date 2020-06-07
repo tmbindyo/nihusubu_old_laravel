@@ -28,11 +28,11 @@ class Section extends Model
     {
         return $this->hasMany('App\Menu');
     }
-    public function user_type_sections()
+    public function userTypeSections()
     {
         return $this->hasMany('App\UserTypeSection');
     }
-    public function role_user_type_sections()
+    public function roleUserTypeSections()
     {
         return $this->hasMany('App\RoleUserTypeSection');
     }

@@ -79,7 +79,7 @@
                             <tbody>
                                 @foreach($budgets as $budget)
                                     <tr class="gradeX">
-                                        <td>{{$budget->expense_account->name}}</td>
+                                        <td>{{$budget->expenseAccount->name}}</td>
                                         <td>{{$budget->amount}}</td>
                                         <td>{{$budget->amount}}</td>
                                         <td>{{$budget->user->name}}</td>

@@ -81,7 +81,7 @@
                                     @foreach($expenseAccounts as $expenseAccount)
                                         <tr class="gradeX">
                                             <td>{{$expenseAccount->name}}</td>
-                                            <td>{{$expenseAccount->account_type->name}}</td>
+                                            <td>{{$expenseAccount->accountType->name}}</td>
                                             <td>{{$expenseAccount->user->name}}</td>
                                             <td>
                                                 <span class="label {{$expenseAccount->status->label}}">{{$expenseAccount->status->name}}</span>

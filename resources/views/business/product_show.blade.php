@@ -307,7 +307,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($product->sale_products as $sale)
+                                                    @foreach($product->saleProducts as $sale)
                                                         <tr class="gradeX">
                                                             <td>{{$sale->created_at}}</td>
                                                             <td>{{$sale->quantity}}</td>
@@ -359,7 +359,7 @@
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     @if($restock->is_opening_stock == 0)
-                                                                        <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$restock->expense_item->expense_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$restock->expenseItem->expense_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                     @else
                                                                         <p><span class="label label-info">Opening Stock</span></p>
                                                                     @endif
@@ -397,11 +397,11 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($product->inventory_adjustment_products as $inventory_adjustment_product)
+                                                    @foreach($product->inventoryAdjustmentProducts as $inventory_adjustment_product)
                                                         <tr class="gradeX">
                                                             <td>{{$inventory_adjustment_product->created_at}}</td>
                                                             {{--  Quantity based  --}}
-                                                            @if($inventory_adjustment_product->inventory_adjustment->is_value_adjustment == 0)
+                                                            @if($inventory_adjustment_product->inventoryAdjustment->is_value_adjustment == 0)
                                                                 <td>{{$inventory_adjustment_product->initial_quantity}}</td>
                                                                 <td>{{$inventory_adjustment_product->subsequent_quantity}}</td>
                                                                 <td>{{$inventory_adjustment_product->quantity}}</td>
@@ -453,14 +453,14 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($product->transfer_order_products as $transfer_order_product)
+                                                    @foreach($product->transferOrderProducts as $transfer_order_product)
                                                         <tr class="gradeX">
                                                             <td>{{$transfer_order_product->created_at}}</td>
                                                             {{--  Quantity based  --}}
-                                                            <td>{{$transfer_order_product->transfer_order->source_warehouse->name}}</td>
+                                                            <td>{{$transfer_order_product->transferOrder->sourceWarehouse->name}}</td>
                                                             <td>{{$transfer_order_product->source_warehouse_initial_amount}}</td>
                                                             <td>{{$transfer_order_product->source_warehouse_subsequent_amount}}</td>
-                                                            <td>{{$transfer_order_product->transfer_order->destination_warehouse->name}}</td>
+                                                            <td>{{$transfer_order_product->transferOrder->destinationWarehouse->name}}</td>
                                                             <td>{{$transfer_order_product->destination_warehouse_initial_amount}}</td>
                                                             <td>{{$transfer_order_product->destination_warehouse_subsequent_amount}}</td>
                                                             <td>{{$transfer_order_product->quantity}}</td>

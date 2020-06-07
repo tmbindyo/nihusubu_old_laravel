@@ -53,13 +53,13 @@
             <h2>Withdrawal's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('personal.dashboard',)}}">Home</a>
+                    <a href="{{route('personal.dashboard')}}">Home</a>
                 </li>
                 <li>
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('personal.accounts',)}}">Accounts</a>
+                    <a href="{{route('personal.accounts')}}">Accounts</a>
                 </li>
                 <li class="active">
                     <a href="{{route('personal.account.show',$withdrawal->account->id)}}">Account</a>
@@ -82,7 +82,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Withdrawal Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">
@@ -207,7 +207,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($withdrawal->account_adjustments as $accountAdjustment)
+                                                        @foreach($withdrawal->accountAdjustments as $accountAdjustment)
                                                             <tr class="gradeX">
                                                                 <td>{{$accountAdjustment->first_name}} {{$accountAdjustment->last_name}}</td>
                                                                 <td>{{$accountAdjustment->email}}</td>

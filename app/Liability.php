@@ -16,7 +16,7 @@ class Liability extends Model
     {
         return $this->hasMany('App\Expense');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }

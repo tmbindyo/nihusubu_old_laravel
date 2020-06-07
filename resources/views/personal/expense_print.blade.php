@@ -69,7 +69,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($expense->sale_products as $product)
+                @foreach($expense->saleProducts as $product)
                     <tr>
                         <td><div><strong>{{$product->product->name}}</strong></div>
                             <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>

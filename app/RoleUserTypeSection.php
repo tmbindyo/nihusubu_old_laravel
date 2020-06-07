@@ -20,7 +20,7 @@ class RoleUserTypeSection extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function user_type_section()
+    public function userTypeSection()
     {
         return $this->belongsTo('App\UserTypeSection');
     }

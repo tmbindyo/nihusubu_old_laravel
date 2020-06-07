@@ -68,7 +68,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Frequency <small>edit</small></h5>
-                        
+
                     </div>
                     <div class="ibox-content">
                         <div class="row">
@@ -198,7 +198,7 @@
                                     <td>{{$expense->reference}}</td>
                                     <td>{{$expense->date}}</td>
                                     <td>{{$expense->created_at}}</td>
-                                    <td>{{$expense->expense_account->name}}</td>
+                                    <td>{{$expense->expenseAccount->name}}</td>
                                     <td>{{$expense->total}}</td>
                                     <td>{{$expense->paid}}</td>
                                     <td>

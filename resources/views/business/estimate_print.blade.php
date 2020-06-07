@@ -60,7 +60,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($estimate->sale_products as $product)
+                @foreach($estimate->saleProducts as $product)
                     <tr>
                         <td>
                             <div>
@@ -93,7 +93,7 @@
                 <td>{{$estimate->tax}}</td>
             </tr>
             <tr>
-                <td><strong>Discount :</strong></td>
+                <td><strong>Adjustment :</strong></td>
                 <td>{{$estimate->discount}}</td>
             </tr>
             <tr>

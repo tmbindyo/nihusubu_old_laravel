@@ -87,7 +87,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($invoice->sale_products as $product)
+                                    @foreach($invoice->saleProducts as $product)
                                         <tr>
                                             <td>
                                                 <div><strong>{{$product->product->name}}</strong></div>

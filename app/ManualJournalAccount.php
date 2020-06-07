@@ -24,7 +24,7 @@ class ManualJournalAccount extends Model
     {
         return $this->belongsTo('App\Account');
     }
-    public function manual_journal()
+    public function manualJournal()
     {
         return $this->belongsTo('App\ManualJournal');
     }

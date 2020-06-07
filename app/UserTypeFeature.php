@@ -20,7 +20,7 @@ class UserTypeFeature extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function user_type()
+    public function userType()
     {
         return $this->belongsTo('App\UserType');
     }
@@ -30,7 +30,7 @@ class UserTypeFeature extends Model
     }
 
     // Children
-    public function role_user_type_feature()
+    public function roleUserTypeFeature()
     {
         return $this->hasMany('App\RoleUserTypeFeature');
     }

@@ -20,7 +20,7 @@ class RoleUserTypeMenu extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function user_type_menu()
+    public function userTypeMenu()
     {
         return $this->belongsTo('App\UserTypeMenu');
     }

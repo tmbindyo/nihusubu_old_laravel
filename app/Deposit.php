@@ -12,11 +12,11 @@ class Deposit extends Model
     public $incrementing = false;
 
     // children
-    public function account_adjustments()
+    public function accountAdjustments()
     {
         return $this->hasMany('App\AccountAdjustment');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }

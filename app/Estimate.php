@@ -38,7 +38,7 @@ class Estimate extends Model
     {
         return $this->hasMany('App\Invoice');
     }
-    public function estimate_products()
+    public function estimateProducts()
     {
         return $this->hasMany('App\EstimateProduct');
     }

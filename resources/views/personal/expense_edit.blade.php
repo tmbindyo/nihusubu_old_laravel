@@ -140,7 +140,7 @@
                                         @php
                                             $product_index = 0
                                         @endphp
-                                        @foreach($expense->expense_items as $product)
+                                        @foreach($expense->expenseItems as $product)
                                             <tr>
                                                 <td>
                                                     <input name="item_details[0][item]" type="text" class="form-control input-lg item-detail" value="{{$product->name}}">
@@ -455,7 +455,7 @@
     <script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
 
     <!-- Select2 -->
-    
+
     <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
     <!-- TouchSpin -->

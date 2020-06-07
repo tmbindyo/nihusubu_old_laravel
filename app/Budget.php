@@ -12,7 +12,7 @@ class Budget extends Model
     public $incrementing = false;
 
     // parents
-    public function expense_account()
+    public function expenseAccount()
     {
         return $this->belongsTo('App\ExpenseAccount');
     }
@@ -24,7 +24,7 @@ class Budget extends Model
     {
         return $this->belongsTo('App\Status');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }

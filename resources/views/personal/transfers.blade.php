@@ -89,12 +89,12 @@
                         <td>{{$transfer->date}}</td>
                         <td>
 
-                            <span class="label label-success"> {{$transfer->source_account->name}}</span>
+                            <span class="label label-success"> {{$transfer->sourceAccount->name}}</span>
                             <span class="badge badge-success"> {{$transfer->source_initial_amount}} -> {{$transfer->source_subsequent_amount}}</span>
                         </td>
                         <td>
 
-                            <span class="label label-success"> {{$transfer->destination_account->name}}</span>
+                            <span class="label label-success"> {{$transfer->destinationAccount->name}}</span>
                             <span class="badge badge-success"> {{$transfer->destination_initial_amount}} -> {{$transfer->destination_subsequent_amount}}</span>
                         </td>
                         <td>{{$transfer->user->name}}</td>

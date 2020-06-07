@@ -24,7 +24,7 @@ class ProjectMember extends Model
     {
         return $this->belongsTo('App\Project');
     }
-    public function project_role()
+    public function projectRole()
     {
         return $this->belongsTo('App\ProjectRole');
     }

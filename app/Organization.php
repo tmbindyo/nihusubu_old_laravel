@@ -16,7 +16,7 @@ class Organization extends Model
     {
         return $this->hasMany('App\Contact');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }
@@ -26,7 +26,7 @@ class Organization extends Model
     {
         return $this->belongsTo('App\Campaign');
     }
-    public function parent_organization()
+    public function parentPrganization()
     {
         return $this->belongsTo('App\Organization','id', 'parent_account_id');
     }

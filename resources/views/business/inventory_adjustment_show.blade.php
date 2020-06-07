@@ -77,7 +77,7 @@
                         <span class="pull-right">(<strong>{{$inventoryAdjustment->inventory_adjustment_products_count}}</strong>) items</span>
                         <h5>Adjusted Products</h5>
                     </div>
-                    @foreach($inventoryAdjustment->inventory_adjustment_products as $product)
+                    @foreach($inventoryAdjustment->inventoryAdjustmentProducts as $product)
                         <div class="ibox-content">
 
 

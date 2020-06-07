@@ -140,7 +140,7 @@ class SettingController extends Controller
         $institution = $this->getInstitution($portal);
         // Get campaign type
         $campaignType = CampaignType::with('user','status','campaigns.user')->where('id',$campaign_type_id)->withCount('campaigns')->first();
-        $campaigns = Campaign::with('user','status','campaign_type')->where('institution_id',$institution->id)->where('campaign_type_id',$campaignType->id)->get();
+        $campaigns = Campaign::with('user','status','campaignType')->where('institution_id',$institution->id)->where('campaign_type_id',$campaignType->id)->get();
         return view('business.campaign_type_show',compact('campaignType','user','institution','campaigns'));
     }
 
@@ -244,7 +244,7 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // Get contact type
-        $contactType = ContactType::with('user','status')->where('id',$contact_type_id)->withCount('contact_type_contacts')->first();
+        $contactType = ContactType::with('user','status')->where('id',$contact_type_id)->withCount('contactTypeContacts')->first();
         // contact type contacts
         $contactContactTypes = ContactContactType::with('user','status','contact')->where('contact_type_id',$contact_type_id)->get();
         return view('business.contact_type_show',compact('contactType','user','contactContactTypes','institution'));
@@ -261,7 +261,7 @@ class SettingController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user','status','contact_type')->where('is_institution',true)->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user','status','contactType')->where('is_institution',true)->get();
         // get contact types
         $contactTypes = ContactType::where('institution_id',$institution->id)->get();
         // get organizations
@@ -469,7 +469,7 @@ class SettingController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // get contacts
-        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','contact_type')->get();
+        $contacts = Contact::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','contactType')->get();
         // get contact types
         $contactTypes = ContactType::where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get organizations
@@ -659,7 +659,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get tax
-        $tax = Tax::where('id',$tax_id)->with('status','user','product_taxes.product.unit','composite_product_taxes.composite_product.unit')->first();
+        $tax = Tax::where('id',$tax_id)->with('status','user','productTaxes.product.unit','compositeProductTaxes.compositeProduct.unit')->first();
 
         return view('business.tax_show',compact('user','institution','tax'));
     }
@@ -754,7 +754,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get unit
-        $unit = Unit::where('id',$unit_id)->with('status','user','products','product_groups')->first();
+        $unit = Unit::where('id',$unit_id)->with('status','user','products','productGroups')->first();
 
         return view('business.unit_show',compact('user','institution','unit'));
     }

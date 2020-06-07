@@ -44,15 +44,15 @@ class HomeController extends Controller
     {
         // check if numerous accounts
         $user = $this->getUser();
-        foreach ($user->user_accounts as $userAccount){
+        foreach ($user->userAccounts as $userAccount){
             if($userAccount->is_active == 1){
-                if ($userAccount->user_type->name == "Admin"){
+                if ($userAccount->userType->name == "Admin"){
                     return redirect()->route('');
                 }
-                elseif ($userAccount->user_type->name == "Personal"){
+                elseif ($userAccount->userType->name == "Personal"){
                     return redirect()->route('personal.calendar');
                 }
-                elseif ($userAccount->user_type->name == "Business"){
+                elseif ($userAccount->userType->name == "Business"){
                     return redirect()->route('business.calendar',$userAccount->institution->portal);
                 }
             }
@@ -76,9 +76,9 @@ class HomeController extends Controller
         $user = Auth::user();
 
         // Get personal user account
-        $personalUserAccount = UserAccount::where('user_id',$user->id)->where('user_type_id','5f29e668-9029-4278-a5e7-9ba9f96a20df')->with('institution','user_type')->first();
+        $personalUserAccount = UserAccount::where('user_id',$user->id)->where('user_type_id','5f29e668-9029-4278-a5e7-9ba9f96a20df')->with('institution','userType')->first();
         // get user accountsupdate user_accounts set
-        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution','user_type')->get();
+        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution','userType')->get();
         return view('auth.account_type_addition',compact('userAccounts','user','personalUserAccount'));
     }
 
@@ -88,7 +88,7 @@ class HomeController extends Controller
         // User
         $user = Auth::user();
         // get user accountsupdate user_accounts set
-        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution','user_type')->get();
+        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution','userType')->get();
         return view('auth.lockscreen',compact('userAccounts','user'));
     }
 

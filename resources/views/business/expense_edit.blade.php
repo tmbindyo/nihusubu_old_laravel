@@ -112,7 +112,7 @@
                                         @php
                                             $product_index = 0
                                         @endphp
-                                        @foreach($expense->expense_items as $product)
+                                        @foreach($expense->expenseItems as $product)
                                             <tr>
                                                 <td>
                                                     <input name="item_details[0][item]" type="text" class="form-control input-lg item-detail" value="{{$product->name}}">

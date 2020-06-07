@@ -88,7 +88,7 @@
                             <h2 class="no-margins">
                                 {{$chamaMember->name}}
                             </h2>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -213,12 +213,12 @@
                                                                         <td>{{$loan->date}}</td>
                                                                         <td>{{$loan->due_date}}</td>
                                                                         <td>{{$loan->account->name}}</td>
-                                                                        <td>{{$loan->chama_member->name}}</td>
+                                                                        <td>{{$loan->chamaMember->name}}</td>
                                                                         <td>{{$loan->user->name}}</td>
                                                                         <td>
                                                                             <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
                                                                         </td>
-                                
+
                                                                         <td class="text-right">
                                                                             <div class="btn-group">
                                                                                 <a href="{{ route('personal.chama.loan.show', ['chama_id'=>$chama->id,'loan_id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
@@ -252,7 +252,7 @@
                                                     </div>
 
                                                 </div>
-                                                
+
                                                 <div class="tab-pane" id="meetings">
 
                                                     <div class="table-responsive">
@@ -267,15 +267,15 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach($chamaMember->chama_member_meetings as $meeting)
+                                                                @foreach($chamaMember->chamaMemberMeetings as $meeting)
                                                                     <tr class="gradeX">
-                                                                        <td>{{$meeting->chama_meeting->date}}</td>
-                                                                        <td>{{$meeting->chama_meeting->location}}</td>
+                                                                        <td>{{$meeting->chamaMeeting->date}}</td>
+                                                                        <td>{{$meeting->chamaMeeting->location}}</td>
                                                                         <td>{{$meeting->user->name}}</td>
                                                                         <td>
                                                                             <span class="label {{$meeting->status->label}}">{{$meeting->status->name}}</span>
                                                                         </td>
-                            
+
                                                                         <td class="text-right">
                                                                             <div class="btn-group">
                                                                                 <a href="{{ route('personal.chama.meeting.show', ['chama_id'=>$chama->id,'meeting_id'=>$meeting->id]) }}" class="btn-white btn btn-xs">View</a>
@@ -302,7 +302,7 @@
                                                     </div>
 
                                                 </div>
-                                                
+
                                                 <div class="tab-pane" id="penalties">
 
                                                     <div class="table-responsive">
@@ -322,12 +322,12 @@
                                                                     <tr class="gradeX">
                                                                         <td>{{$penalty->amount}}</td>
                                                                         <td>{{$penalty->date}}</td>
-                                                                        <td>{{$penalty->chama_member->name}}</td>
+                                                                        <td>{{$penalty->chamaMember->name}}</td>
                                                                         <td>{{$penalty->user->name}}</td>
                                                                         <td>
                                                                             <span class="label {{$penalty->status->label}}">{{$penalty->status->name}}</span>
                                                                         </td>
-                                
+
                                                                         <td class="text-right">
                                                                             <div class="btn-group">
                                                                                 <a href="{{ route('personal.chama.penalty.show', ['chama_id'=>$chama->id,'penalty_id'=>$penalty->id]) }}" class="btn-white btn btn-xs">View</a>
@@ -355,7 +355,7 @@
                                                     </div>
 
                                                 </div>
-                                                
+
                                                 <div class="tab-pane" id="shares">
 
                                                     <div class="table-responsive">
@@ -373,18 +373,18 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach($chamaMember->shares_payments as $share)
+                                                                @foreach($chamaMember->sharesPayments as $share)
                                                                     <tr class="gradeX">
                                                                         <td>{{$share->shares}}</td>
                                                                         <td>{{$share->amount}}</td>
                                                                         <td>{{$share->value}}</td>
                                                                         <td>{{$share->date}}</td>
-                                                                        <td>{{$share->chama_member->name}}</td>
+                                                                        <td>{{$share->chamaMember->name}}</td>
                                                                         <td>{{$share->user->name}}</td>
                                                                         <td>
                                                                             <span class="label {{$share->status->label}}">{{$share->status->name}}</span>
                                                                         </td>
-                                
+
                                                                         <td class="text-right">
                                                                             <div class="btn-group">
                                                                                 <a href="{{ route('personal.chama.share.payment.show', ['chama_id'=>$chama->id,'share_id'=>$share->id]) }}" class="btn-white btn btn-xs">View</a>
@@ -414,7 +414,7 @@
                                                     </div>
 
                                                 </div>
-                                                
+
                                                 <div class="tab-pane" id="welfare">
 
                                                     <div class="table-responsive">
@@ -436,14 +436,14 @@
                                                                     <tr class="gradeX">
                                                                         <td>{{$welfare->amount}}</td>
                                                                         <td>{{$welfare->date}}</td>
-                                                                        <td>{{$welfare->chama_member->name}}</td>
+                                                                        <td>{{$welfare->chamaMember->name}}</td>
                                                                         <td>{{$welfare->account->name}}</td>
-                                                                        <td>{{$welfare->welfare_type->name}}</td>
+                                                                        <td>{{$welfare->welfareType->name}}</td>
                                                                         <td>{{$welfare->user->name}}</td>
                                                                         <td>
                                                                             <span class="label {{$welfare->status->label}}">{{$welfare->status->name}}</span>
                                                                         </td>
-                                
+
                                                                         <td class="text-right">
                                                                             <div class="btn-group">
                                                                                 <a href="{{ route('personal.chama.welfare.show', ['chama_id'=>$chama->id,'welfare_id'=>$welfare->id]) }}" class="btn-white btn btn-xs">View</a>

@@ -76,14 +76,14 @@
                                     <br>
                                     <div class="has-warning">
                                         <select name="source_account" class="select2_demo_tag form-control input-lg">
-                                            <option value="{{$transfer->source_account->id}}">{{$transfer->source_account->name}} [{{$transfer->source_account->balance}}]</option>
+                                            <option value="{{$transfer->sourceAccount->id}}">{{$transfer->sourceAccount->name}} [{{$transfer->sourceAccount->balance}}]</option>
                                         </select>
                                         <i>source account</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
                                         <select name="destination_account" class="select2_demo_tag form-control input-lg">
-                                            <option value="{{$transfer->destination_account->id}}">{{$transfer->destination_account->name}} [{{$transfer->destination_account->balance}}]</option>
+                                            <option value="{{$transfer->destinationAccount->id}}">{{$transfer->destinationAccount->name}} [{{$transfer->destinationAccount->balance}}]</option>
                                         </select>
                                         <i>destination account</i>
                                     </div>

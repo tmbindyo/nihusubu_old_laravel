@@ -22,7 +22,7 @@ class Account extends Model
     }
 
     // Children
-    public function account_adjustments()
+    public function accountAdjustments()
     {
         return $this->hasMany('App\AccountAdjustment');
     }
@@ -30,7 +30,7 @@ class Account extends Model
     {
         return $this->hasMany('App\Deposit');
     }
-    public function destination_account()
+    public function destinationAccount()
     {
         return $this->hasMany('App\Transfer','destination_account_id','id');
     }
@@ -38,7 +38,7 @@ class Account extends Model
     {
         return $this->hasMany('App\Income');
     }
-    public function income_debits()
+    public function incomeDebits()
     {
         return $this->hasMany('App\IncomeDebit');
     }
@@ -58,11 +58,11 @@ class Account extends Model
     {
         return $this->hasMany('App\Refund');
     }
-    public function source_account()
+    public function sourceAccount()
     {
         return $this->hasMany('App\Transfer','source_account_id','id');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }

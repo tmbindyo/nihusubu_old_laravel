@@ -24,7 +24,7 @@ class Warehouse extends Model
     {
         return $this->belongsTo('App\Status');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }
@@ -34,23 +34,23 @@ class Warehouse extends Model
     }
 
     // Children
-    public function transfer_order_source_warehouses()
+    public function transferOrderSourceWarehouses()
     {
         return $this->hasMany('App\Warehouse','source_warehouse_id','id');
     }
-    public function transfer_order_destination_warehouses()
+    public function transferOrderDestinationWarehouses()
     {
         return $this->hasMany('App\Warehouse','destination_warehouse_id','id');
     }
-    public function estimate_products()
+    public function estimateProducts()
     {
         return $this->hasMany('App\EstimateProduct');
     }
-    public function inventory_adjustments()
+    public function inventoryAdjustments()
     {
         return $this->hasMany('App\InventoryAdjustment');
     }
-    public function product_returns()
+    public function productReturns()
     {
         return $this->hasMany('App\ProductReturn');
     }
@@ -62,15 +62,15 @@ class Warehouse extends Model
     {
         return $this->hasMany('App\Restock');
     }
-    public function sale_products()
+    public function saleProducts()
     {
         return $this->hasMany('App\SaleProduct');
     }
-    public function invoice_products()
+    public function invoiceProducts()
     {
         return $this->hasMany('App\InvoiceProduct');
     }
-    public function order_products()
+    public function orderProducts()
     {
         return $this->hasMany('App\OrderProduct');
     }

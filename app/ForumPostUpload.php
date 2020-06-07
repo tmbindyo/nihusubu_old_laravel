@@ -20,7 +20,7 @@ class ForumPostUpload extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function forum_post()
+    public function forumPost()
     {
         return $this->belongsTo('App\ForumPost');
     }

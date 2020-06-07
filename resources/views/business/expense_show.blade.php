@@ -83,7 +83,7 @@
 {{--                                </address>--}}
                                 <address>
                                     <strong>Status:</strong> <a><span >{{$expense->status->name}}</span></a><br>
-                                    <strong>Expense Account:</strong> <a href="#" class="text-navy"> {{$expense->expense_account->name}} </a><br>
+                                    <strong>Expense Account:</strong> <a href="#" class="text-navy"> {{$expense->expenseAccount->name}} </a><br>
                                     <strong>Account:</strong> <a href="#" class="text-navy"> {{$expense->account->name}} </a><br>
                                     @isset($expense->sale_id)
                                         <strong>Sale:</strong> <a class="text-navy" href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$expense->sale_id]) }}">{{$expense->sale->reference}}</a><br>
@@ -121,7 +121,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($expense->expense_items as $product)
+                                @foreach($expense->expenseItems as $product)
                                     <tr>
                                         <td>
                                             <div><strong>{{$product->name}}</strong></div>

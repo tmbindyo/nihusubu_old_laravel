@@ -20,7 +20,7 @@ class Upload extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function upload_type()
+    public function uploadType()
     {
         return $this->belongsTo('App\UploadType');
     }
@@ -30,27 +30,27 @@ class Upload extends Model
     }
 
     // Children
-    public function product_group_images()
+    public function productGroupImages()
     {
         return $this->hasOne('App\ProductGroupImage');
     }
-    public function product_images()
+    public function productImages()
     {
         return $this->hasOne('App\ProductImage');
     }
-    public function forum_uploads()
+    public function forumUploads()
     {
         return $this->hasOne('App\ForumUpload');
     }
-    public function issue_uploads()
+    public function issueUploads()
     {
         return $this->hasOne('App\IssueUpload');
     }
-    public function task_uploads()
+    public function taskUploads()
     {
         return $this->hasOne('App\TaskUpload');
     }
-    public function forum_post_uploads()
+    public function forumPostUploads()
     {
         return $this->hasOne('App\ForumPostUpload');
     }

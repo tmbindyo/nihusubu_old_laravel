@@ -149,7 +149,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach($tax->product_taxes as $product_tax)
+                                                                @foreach($tax->productTaxes as $product_tax)
                                                                     <tr class="gradeA">
                                                                         <td>{{$product_tax->product->name}}</td>
                                                                         <td>

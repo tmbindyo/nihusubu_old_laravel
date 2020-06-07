@@ -81,7 +81,7 @@
                         <span class="pull-right">(<strong>{{$expense->expense_items_count}}</strong>) items</span>
                         <h5>Items</h5>
                     </div>
-                    @foreach($expense->expense_items as $product)
+                    @foreach($expense->expenseItems as $product)
                         <div class="ibox-content">
 
 

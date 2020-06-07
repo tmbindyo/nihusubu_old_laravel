@@ -27,7 +27,7 @@ class BudgetController extends Controller
         // User
         $user = $this->getUser();
         // get budgets
-        $budgets = Budget::where('is_user',True)->where('user_id',$user->id)->with('expense_account.budget')->get();
+        $budgets = Budget::where('is_user',True)->where('user_id',$user->id)->with('expenseAccount.budget')->get();
         return view('personal.budgets',compact('user','budgets'));
     }
 
@@ -37,20 +37,20 @@ class BudgetController extends Controller
         $user = $this->getUser();
         // expense accounts
         // account types
-        $billExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','163fa506-9762-422a-a981-cce20b21f1ad')->where('is_user',true)->with('account_type','budget')->get();
-        $cashExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','8c0c1829-b6cf-4d38-b640-755db25460ae')->where('is_user',true)->with('account_type','budget')->get();
-        $feesExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','17401c1e-1423-40bc-846a-008b0e72373c')->where('is_user',true)->with('account_type','budget')->get();
-        $foodExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','008315c2-ee90-4e55-80cc-de2a8bc0472a')->where('is_user',true)->with('account_type','budget')->get();
-        $healthExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','af7b5592-8c36-4746-b369-a3985c90fd0b')->where('is_user',true)->with('account_type','budget')->get();
-        $homeLivingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','1c523f60-ab8f-4dd7-88ca-a70863507a3b')->where('is_user',true)->with('account_type','budget')->get();
-        $incomeExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','6943fd67-ba09-4fc3-986a-3550ae959b33')->where('is_user',true)->with('account_type','budget')->get();
-        $kidsExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','84ccf3c6-74fb-4af9-b4b2-7bef9d0469b8')->where('is_user',true)->with('account_type','budget')->get();
-        $leisureExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','55faadc5-6275-4d19-809e-dc56e555929f')->where('is_user',true)->with('account_type','budget')->get();
-        $loansExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','6269dc50-cfc9-4b3f-8c91-a1adc6bb998e')->where('is_user',true)->with('account_type','budget')->get();
-        $noExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','c7c1a0a0-8775-45a7-a84b-92a8dac302d3')->where('is_user',true)->with('account_type','budget')->get();
-        $shoppingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','83569f71-59dc-46f0-a92f-fdac4ad922aa')->where('is_user',true)->with('account_type','budget')->get();
-        $transportExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','7b05bf74-08e0-4692-becd-799b11d24dba')->where('is_user',true)->with('account_type','budget')->get();
-        $wealthCreationExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','46089cb5-ef46-4d9f-af5c-9676d7a55ed4')->where('is_user',true)->with('account_type','budget')->get();
+        $billExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','163fa506-9762-422a-a981-cce20b21f1ad')->where('is_user',true)->with('accountType','budget')->get();
+        $cashExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','8c0c1829-b6cf-4d38-b640-755db25460ae')->where('is_user',true)->with('accountType','budget')->get();
+        $feesExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','17401c1e-1423-40bc-846a-008b0e72373c')->where('is_user',true)->with('accountType','budget')->get();
+        $foodExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','008315c2-ee90-4e55-80cc-de2a8bc0472a')->where('is_user',true)->with('accountType','budget')->get();
+        $healthExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','af7b5592-8c36-4746-b369-a3985c90fd0b')->where('is_user',true)->with('accountType','budget')->get();
+        $homeLivingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','1c523f60-ab8f-4dd7-88ca-a70863507a3b')->where('is_user',true)->with('accountType','budget')->get();
+        $incomeExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','6943fd67-ba09-4fc3-986a-3550ae959b33')->where('is_user',true)->with('accountType','budget')->get();
+        $kidsExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','84ccf3c6-74fb-4af9-b4b2-7bef9d0469b8')->where('is_user',true)->with('accountType','budget')->get();
+        $leisureExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','55faadc5-6275-4d19-809e-dc56e555929f')->where('is_user',true)->with('accountType','budget')->get();
+        $loansExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','6269dc50-cfc9-4b3f-8c91-a1adc6bb998e')->where('is_user',true)->with('accountType','budget')->get();
+        $noExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','c7c1a0a0-8775-45a7-a84b-92a8dac302d3')->where('is_user',true)->with('accountType','budget')->get();
+        $shoppingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','83569f71-59dc-46f0-a92f-fdac4ad922aa')->where('is_user',true)->with('accountType','budget')->get();
+        $transportExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','7b05bf74-08e0-4692-becd-799b11d24dba')->where('is_user',true)->with('accountType','budget')->get();
+        $wealthCreationExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','46089cb5-ef46-4d9f-af5c-9676d7a55ed4')->where('is_user',true)->with('accountType','budget')->get();
 
         return view('personal.budget_create',compact('wealthCreationExpenseAccounts','transportExpenseAccounts','shoppingExpenseAccounts','noExpenseAccounts','loansExpenseAccounts','leisureExpenseAccounts','kidsExpenseAccounts','incomeExpenseAccounts','homeLivingExpenseAccounts','healthExpenseAccounts','foodExpenseAccounts','feesExpenseAccounts','cashExpenseAccounts','billExpenseAccounts','user'));
     }
@@ -82,24 +82,24 @@ class BudgetController extends Controller
         $user = $this->getUser();
         // budget
         $budget = Budget::findOrFail($budget_id);
-        $budget = Budget::where('id',$budget_id)->with('expense_account','status','user')->first();
+        $budget = Budget::where('id',$budget_id)->with('expenseAccount','status','user')->first();
 
         // expense accounts
         // account types
-        $billExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','163fa506-9762-422a-a981-cce20b21f1ad')->where('is_user',true)->with('account_type')->get();
-        $cashExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','8c0c1829-b6cf-4d38-b640-755db25460ae')->where('is_user',true)->with('account_type')->get();
-        $feesExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','17401c1e-1423-40bc-846a-008b0e72373c')->where('is_user',true)->with('account_type')->get();
-        $foodExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','008315c2-ee90-4e55-80cc-de2a8bc0472a')->where('is_user',true)->with('account_type')->get();
-        $healthExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','af7b5592-8c36-4746-b369-a3985c90fd0b')->where('is_user',true)->with('account_type')->get();
-        $homeLivingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','1c523f60-ab8f-4dd7-88ca-a70863507a3b')->where('is_user',true)->with('account_type')->get();
-        $incomeExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','6943fd67-ba09-4fc3-986a-3550ae959b33')->where('is_user',true)->with('account_type')->get();
-        $kidsExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','84ccf3c6-74fb-4af9-b4b2-7bef9d0469b8')->where('is_user',true)->with('account_type')->get();
-        $leisureExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','55faadc5-6275-4d19-809e-dc56e555929f')->where('is_user',true)->with('account_type')->get();
-        $loansExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','6269dc50-cfc9-4b3f-8c91-a1adc6bb998e')->where('is_user',true)->with('account_type')->get();
-        $noExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','c7c1a0a0-8775-45a7-a84b-92a8dac302d3')->where('is_user',true)->with('account_type')->get();
-        $shoppingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','83569f71-59dc-46f0-a92f-fdac4ad922aa')->where('is_user',true)->with('account_type')->get();
-        $transportExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','7b05bf74-08e0-4692-becd-799b11d24dba')->where('is_user',true)->with('account_type')->get();
-        $wealthCreationExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','46089cb5-ef46-4d9f-af5c-9676d7a55ed4')->where('is_user',true)->with('account_type')->get();
+        $billExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','163fa506-9762-422a-a981-cce20b21f1ad')->where('is_user',true)->with('accountType')->get();
+        $cashExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','8c0c1829-b6cf-4d38-b640-755db25460ae')->where('is_user',true)->with('accountType')->get();
+        $feesExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','17401c1e-1423-40bc-846a-008b0e72373c')->where('is_user',true)->with('accountType')->get();
+        $foodExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','008315c2-ee90-4e55-80cc-de2a8bc0472a')->where('is_user',true)->with('accountType')->get();
+        $healthExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','af7b5592-8c36-4746-b369-a3985c90fd0b')->where('is_user',true)->with('accountType')->get();
+        $homeLivingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','1c523f60-ab8f-4dd7-88ca-a70863507a3b')->where('is_user',true)->with('accountType')->get();
+        $incomeExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','6943fd67-ba09-4fc3-986a-3550ae959b33')->where('is_user',true)->with('accountType')->get();
+        $kidsExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','84ccf3c6-74fb-4af9-b4b2-7bef9d0469b8')->where('is_user',true)->with('accountType')->get();
+        $leisureExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','55faadc5-6275-4d19-809e-dc56e555929f')->where('is_user',true)->with('accountType')->get();
+        $loansExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','6269dc50-cfc9-4b3f-8c91-a1adc6bb998e')->where('is_user',true)->with('accountType')->get();
+        $noExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','c7c1a0a0-8775-45a7-a84b-92a8dac302d3')->where('is_user',true)->with('accountType')->get();
+        $shoppingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','83569f71-59dc-46f0-a92f-fdac4ad922aa')->where('is_user',true)->with('accountType')->get();
+        $transportExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','7b05bf74-08e0-4692-becd-799b11d24dba')->where('is_user',true)->with('accountType')->get();
+        $wealthCreationExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id','46089cb5-ef46-4d9f-af5c-9676d7a55ed4')->where('is_user',true)->with('accountType')->get();
 
         $expenseAccountExpenses = Expense::where('expense_account_id',$budget->expense_account_id)->get();
 

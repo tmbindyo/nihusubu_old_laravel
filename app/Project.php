@@ -32,7 +32,7 @@ class Project extends Model
     {
         return $this->belongsTo('App\Institution');
     }
-    public function project_owner()
+    public function projectOwner()
     {
         return $this->belongsTo('App\User','project_owner','id');
     }
@@ -66,11 +66,11 @@ class Project extends Model
     {
         return $this->hasMany('App\Order');
     }
-    public function task_lists()
+    public function taskLists()
     {
         return $this->hasMany('App\TaskList');
     }
-    public function project_members()
+    public function projectMembers()
     {
         return $this->hasMany('App\ProjectMember');
     }

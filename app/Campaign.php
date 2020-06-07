@@ -12,7 +12,7 @@ class Campaign extends Model
     public $incrementing = false;
 
     // Parents
-    public function campaign_type()
+    public function campaignType()
     {
         return $this->belongsTo('App\CampaignType');
     }
@@ -30,7 +30,7 @@ class Campaign extends Model
     }
 
     // children
-    public function campaign_uploads()
+    public function campaignUploads()
     {
         return $this->hasMany('App\Upload');
     }
@@ -46,7 +46,7 @@ class Campaign extends Model
     {
         return $this->hasMany('App\Organization');
     }
-    public function to_dos()
+    public function toDos()
     {
         return $this->hasMany('App\ToDo');
     }

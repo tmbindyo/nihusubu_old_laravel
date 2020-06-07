@@ -77,7 +77,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($sale->sale_products as $product)
+                                @foreach($sale->saleProducts as $product)
                                     <tr>
                                         <td>
                                             <div>

@@ -134,7 +134,7 @@
                                         <select name="taxes[]" class="select2_taxes form-control input-lg" multiple required>
                                             <option disabled>Select tax</option>
                                             @foreach($taxes as $tax)
-                                                @foreach($compositeProduct->product_taxes as $productTax)
+                                                @foreach($compositeProduct->productTaxes as $productTax)
                                                     <option @if($productTax->tax_id == $tax->id) selected @endif value="{{$tax->id}}">{{$tax->name}}</option>
                                                 @endforeach
                                             @endforeach

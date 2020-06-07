@@ -30,7 +30,7 @@ class ManualJournal extends Model
     }
 
     // Children
-    public function manual_journal_accounts()
+    public function manualJournalAccounts()
     {
         return $this->hasMany('App\ManualJournalAccount');
     }

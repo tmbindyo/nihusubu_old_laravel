@@ -104,7 +104,7 @@ class FeedbackController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // Get feedbacks
-        $feedback = Feedback::where('institution_id',$institution->id)->with('user','status','feedback_uploads')->withCount('feedback_uploads')->where('id',$feedback_id)->first();
+        $feedback = Feedback::where('institution_id',$institution->id)->with('user','status','feedbackUploads')->withCount('feedbackUploads')->where('id',$feedback_id)->first();
         // Feedback uploads
         $feedbackUploads = Upload::with('user','status')->where('id',$feedback_id)->get();
 
@@ -120,7 +120,7 @@ class FeedbackController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // Get feedbacks
-        $feedback = Feedback::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','feedback_type','feedback_upload','contacts','expenses','organizations','to_dos')->withCount('feedback_upload','contacts','expenses','organizations','to_dos')->where('id',$feedback_id)->first();
+        $feedback = Feedback::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','feedback_type','feedback_upload','contacts','expenses','organizations','toDos')->withCount('feedback_upload','contacts','expenses','organizations','toDos')->where('id',$feedback_id)->first();
         // Feedback uploads
         $feedbackUploads = Upload::with('user','status')->where('id',$feedback_id)->first();
         // upload types

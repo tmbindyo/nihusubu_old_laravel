@@ -79,7 +79,7 @@
                             <tbody>
                                 @foreach($incomes as $income)
                                     <tr class="gradeX">
-                                        <td>{{$income->income_type->name}}</td>
+                                        <td>{{$income->incomeType->name}}</td>
                                         <td>{{$income->amount}}</td>
                                         <td>{{$income->amount}}</td>
                                         <td>{{$income->user->name}}</td>

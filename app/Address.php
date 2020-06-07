@@ -20,13 +20,13 @@ class Address extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function address_type()
+    public function addressType()
     {
         return $this->belongsTo('App\AddressType');
     }
 
     // Children
-    public function user_details()
+    public function userDetails()
     {
         return $this->hasOne('App\UserDetail');
     }
@@ -46,11 +46,11 @@ class Address extends Model
     {
         return $this->hasOne('App\Warehouse');
     }
-    public function contact_shipping_address()
+    public function contactShippingAddress()
     {
         return $this->hasOne('App\Contact','shipping_address_id','id');
     }
-    public function contact_billing_address()
+    public function contactBillingAddress()
     {
         return $this->hasOne('App\Contact','billing_address_id','id');
     }

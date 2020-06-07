@@ -79,7 +79,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Transfer Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">
@@ -120,14 +120,14 @@
                                     <br>
                                     <div class="has-warning">
                                         <select name="source_account" class="select2_demo_tag form-control input-lg">
-                                            <option value="{{$transfer->source_account->id}}">{{$transfer->source_account->name}} [{{$transfer->source_account->balance}}]</option>
+                                            <option value="{{$transfer->sourceAccount->id}}">{{$transfer->sourceAccount->name}} [{{$transfer->sourceAccount->balance}}]</option>
                                         </select>
                                         <i>source account</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
                                         <select name="destination_account" class="select2_demo_tag form-control input-lg">
-                                            <option value="{{$transfer->destination_account->id}}">{{$transfer->destination_account->name}} [{{$transfer->destination_account->balance}}]</option>
+                                            <option value="{{$transfer->destinationAccount->id}}">{{$transfer->destinationAccount->name}} [{{$transfer->destinationAccount->balance}}]</option>
                                         </select>
                                         <i>destination account</i>
                                     </div>
@@ -234,9 +234,9 @@
                                                                         </a>
                                                                     </p>
                                                                 @elseif($expense->is_project == 1)
-                                                                    <p><a href="{{route('personal.project.show',project->id)}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
-                                                                @elseif($expense->is_project == 1)
-                                                                    <p><a href="{{route('personal.project.show',$expense->project_id)}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
+                                                                    <p><a href="{{route('personal.project.show',$expense->project_id)}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
+                                                                @elseif($expense->is_design == 1)
+                                                                    <p><a href="{{route('personal.project.show',$expense->design_id)}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
                                                                 @elseif($expense->is_liability == 1)
                                                                     <p><a href="{{route('personal.liability.show',$expense->liability_id)}}" class="badge badge-primary">Liability</a></p>
                                                                 @elseif($expense->is_transfer == 1)
@@ -252,7 +252,7 @@
                                                             <td>{{$expense->reference}}</td>
                                                             <td>{{$expense->date}}</td>
                                                             <td>{{$expense->created_at}}</td>
-                                                            <td>{{$expense->expense_account->name}}</td>
+                                                            <td>{{$expense->expenseAccount->name}}</td>
                                                             <td>{{$expense->total}}</td>
                                                             <td>{{$expense->paid}}</td>
                                                             <td>

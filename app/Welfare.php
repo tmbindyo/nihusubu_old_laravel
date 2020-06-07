@@ -20,7 +20,7 @@ class Welfare extends Model
     {
         return $this->belongsTo('App\Chama');
     }
-    public function chama_member()
+    public function chamaMember()
     {
         return $this->belongsTo('App\ChamaMember','member_id');
     }
@@ -32,7 +32,7 @@ class Welfare extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function welfare_type()
+    public function welfareType()
     {
         return $this->belongsTo('App\WelfareType');
     }

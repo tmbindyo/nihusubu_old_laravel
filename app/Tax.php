@@ -26,11 +26,11 @@ class Tax extends Model
     }
 
     // Children
-    public function product_taxes()
+    public function productTaxes()
     {
         return $this->hasMany('App\ProductTax');
     }
-    public function composite_product_taxes()
+    public function compositeProductTaxes()
     {
         return $this->hasMany('App\CompositeProductTax');
     }

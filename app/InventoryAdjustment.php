@@ -34,7 +34,7 @@ class InventoryAdjustment extends Model
     }
 
     // Children
-    public function inventory_adjustment_products()
+    public function inventoryAdjustmentProducts()
     {
         return $this->hasMany('App\InventoryAdjustmentProduct');
     }

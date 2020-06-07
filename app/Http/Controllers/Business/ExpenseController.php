@@ -44,7 +44,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get expenses
-        $expenses = Expense::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','expense_account')->get();
+        $expenses = Expense::where('institution_id',$institution->id)->where('is_institution',true)->with('user','status','expenseAccount')->get();
         // return $expenses;
 
         return view('business.expenses',compact('expenses','user','institution'));
@@ -280,7 +280,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // get expense
-        $expense = Expense::where('institution_id',$institution->id)->where('is_institution',true)->where('id',$expense_id)->with('transfer','status','expense_items','transaction','expense_account','frequency','user','account','campaign','contact','expense_account','inventory_adjustment','liability','sale','sale','warehouse')->withCount('expense_items')->first();
+        $expense = Expense::where('institution_id',$institution->id)->where('is_institution',true)->where('id',$expense_id)->with('transfer','status','expenseItems','transaction','expenseAccount','frequency','user','account','campaign','contact','expenseAccount','inventoryAdjustment','liability','sale','sale','warehouse')->withCount('expenseItems')->first();
         // get payments
         $payments = Transaction::where('institution_id',$institution->id)->where('is_institution',true)->where('expense_id',$expense->id)->where('status_id','2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense','account','status')->get();
         // get pending payments
@@ -318,7 +318,7 @@ class ExpenseController extends Controller
         // get frequencies
         $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id',$institution->id)->where('is_institution',true)->get();
         // get expense
-        $expense = Expense::where('institution_id',$institution->id)->where('is_institution',true)->where('id',$expense_id)->with('transfer','status','expense_items','transaction','expense_account','frequency','user','account','campaign','contact','expense_account','inventory_adjustment','liability','sale','sale','warehouse')->withCount('expense_items')->first();
+        $expense = Expense::where('institution_id',$institution->id)->where('is_institution',true)->where('id',$expense_id)->with('transfer','status','expenseItems','transaction','expenseAccount','frequency','user','account','campaign','contact','expenseAccount','inventoryAdjustment','liability','sale','sale','warehouse')->withCount('expenseItems')->first();
         // accounts
         $accounts = Account::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution',true)->get();
 
