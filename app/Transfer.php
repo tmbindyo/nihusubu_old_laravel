@@ -24,11 +24,11 @@ class Transfer extends Model
     // Parents
     public function destinationAccount()
     {
-        return $this->belongsTo('App\Account','destination_account_id','id');
+        return $this->belongsTo('App\Account', 'destination_account_id', 'id');
     }
     public function sourceAccount()
     {
-        return $this->belongsTo('App\Account','source_account_id','id');
+        return $this->belongsTo('App\Account', 'source_account_id', 'id');
     }
     public function status()
     {
