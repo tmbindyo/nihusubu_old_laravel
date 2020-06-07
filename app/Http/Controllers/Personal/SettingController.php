@@ -29,9 +29,11 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // contact types
-        $contactTypes = ContactType::with('user', 'status')->where('user_id', $user->id)->where('is_user',true)->get();
+        $contactTypes = ContactType::with('user', 'status')->where('user_id', $user->id)
+            ->where('is_user',true)->get();
         // deleted contact types
-        $deletedContactTypes = ContactType::with('user', 'status')->where('user_id', $user->id)->where('is_user',true)->onlyTrashed()->get();
+        $deletedContactTypes = ContactType::with('user', 'status')->where('user_id', $user->id)
+            ->where('is_user',true)->onlyTrashed()->get();
         return view('personal.contact_types',compact('contactTypes', 'user', 'deletedContactTypes'));
     }
 
@@ -53,7 +55,8 @@ class SettingController extends Controller
         $contactType->is_institution = false;
         $contactType->is_user = true;
         $contactType->save();
-        return redirect()->route('personal.contact.type.show', $contactType->id)->withSuccess('Contact type created!');
+        return redirect()->route('personal.contact.type.show', $contactType->id)
+            ->withSuccess('Contact type created!');
     }
 
     public function contactTypeShow($contact_type_id)
@@ -63,9 +66,11 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // Get contact type
-        $contactType = ContactType::with('user', 'status')->where('id', $contact_type_id)->withCount('contactTypeContacts')->first();
+        $contactType = ContactType::with('user', 'status')->where('id', $contact_type_id)
+            ->withCount('contactTypeContacts')->first();
         // contact type contacts
-        $contactContactTypes = ContactContactType::with('user', 'status', 'contact')->where('contact_type_id', $contact_type_id)->get();
+        $contactContactTypes = ContactContactType::with('user', 'status', 'contact')
+            ->where('contact_type_id', $contact_type_id)->get();
         return view('personal.contact_type_show',compact('contactType', 'user', 'contactContactTypes'));
     }
 
@@ -78,7 +83,8 @@ class SettingController extends Controller
         $contactType->name = $request->name;
         $contactType->user_id = $user->id;
         $contactType->save();
-        return redirect()->route('personal.contact.type.show', $contactType->id)->withSuccess('Contact type updated!');
+        return redirect()->route('personal.contact.type.show', $contactType->id)
+            ->withSuccess('Contact type updated!');
     }
 
     public function contactTypeDelete($contact_type_id)
@@ -105,7 +111,8 @@ class SettingController extends Controller
         // get titles
         $titles = Title::where('is_user',true)->where('user_id', $user->id)->with('user', 'status')->get();
         // get deleted titles
-        $deletedTitles = Title::where('is_user',true)->where('user_id', $user->id)->with('user', 'status')->onlyTrashed()->get();
+        $deletedTitles = Title::where('is_user',true)->where('user_id', $user->id)->with('user', 'status')
+            ->onlyTrashed()->get();
         return view('personal.titles',compact('titles', 'user', 'titles', 'deletedTitles'));
     }
 
@@ -127,7 +134,8 @@ class SettingController extends Controller
         $title->is_user = true;
         $title->is_institution = false;
         $title->save();
-        return redirect()->route('personal.title.show', $title->id)->withSuccess(__('Title '.$title->name.' successfully created.'));
+        return redirect()->route('personal.title.show', $title->id)
+            ->withSuccess(__('Title '.$title->name.' successfully created.'));
     }
 
     public function titleShow($title_id)
@@ -136,7 +144,8 @@ class SettingController extends Controller
         $user = $this->getUser();
         // Check if title exists
         $titleExists = Title::findOrFail($title_id);
-        $title = Title::with('user', 'status', 'contacts')->where('is_user',true)->withCount('contacts')->where('id', $title_id)->first();
+        $title = Title::with('user', 'status', 'contacts')->where('is_user',true)
+            ->withCount('contacts')->where('id', $title_id)->first();
         return view('personal.title_show',compact('title', 'user'));
     }
 
@@ -149,7 +158,8 @@ class SettingController extends Controller
         $title->name = ($request->name);
         $title->user_id = $user->id;
         $title->save();
-        return redirect()->route('personal.title.show', $title->id)->withSuccess('Title '.$title->name.' updated!');
+        return redirect()->route('personal.title.show', $title->id)
+            ->withSuccess('Title '.$title->name.' updated!');
     }
 
     public function titleDelete($title_id)
@@ -177,9 +187,11 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // get expenseAccounts
-        $expenseAccounts = ExpenseAccount::where('is_user',true)->where('user_id', $user->id)->with('user', 'status', 'accountType')->get();
+        $expenseAccounts = ExpenseAccount::where('is_user',true)->where('user_id', $user->id)
+            ->with('user', 'status', 'accountType')->get();
         // get deleted expenseAccounts
-        $deletedExpenseAccounts = ExpenseAccount::where('is_user',true)->where('user_id', $user->id)->with('user', 'status', 'accountType')->onlyTrashed()->get();
+        $deletedExpenseAccounts = ExpenseAccount::where('is_user',true)->where('user_id', $user->id)
+            ->with('user', 'status', 'accountType')->onlyTrashed()->get();
 
         return view('personal.expense_accounts',compact('expenseAccounts', 'user', 'expenseAccounts', 'deletedExpenseAccounts'));
     }
@@ -208,7 +220,8 @@ class SettingController extends Controller
         $expenseAccount->is_user = true;
         $expenseAccount->is_institution = false;
         $expenseAccount->save();
-        return redirect()->route('personal.expense.account.show', $expenseAccount->id)->withSuccess(__('Expense account '.$expenseAccount->name.' successfully created.'));
+        return redirect()->route('personal.expense.account.show', $expenseAccount->id)
+            ->withSuccess(__('Expense account '.$expenseAccount->name.' successfully created.'));
     }
 
     public function expenseAccountShow($expenseAccount_id)
@@ -219,7 +232,8 @@ class SettingController extends Controller
         $accountTypes = AccountType::where('is_user',true)->get();
         // Check if expenseAccount exists
         $expenseAccountExists = ExpenseAccount::findOrFail($expenseAccount_id);
-        $expenseAccount = ExpenseAccount::with('user', 'status', 'budget', 'expenses')->where('is_user',true)->withCount('expenses')->where('id', $expenseAccount_id)->first();
+        $expenseAccount = ExpenseAccount::with('user', 'status', 'budget', 'expenses')
+            ->where('is_user',true)->withCount('expenses')->where('id', $expenseAccount_id)->first();
         // expense account expenses
         $expenseAccountExpenses = Expense::where('expense_account_id', $expenseAccount->id)->get();
         // expense account budget
@@ -240,7 +254,8 @@ class SettingController extends Controller
         $expenseAccount->user_id = $user->id;
         $expenseAccount->save();
 
-        return redirect()->route('personal.expense.account.show', $expenseAccount->id)->withSuccess('Expense account '.$expenseAccount->name.' updated!');
+        return redirect()->route('personal.expense.account.show', $expenseAccount->id)
+            ->withSuccess('Expense account '.$expenseAccount->name.' updated!');
     }
 
     public function expenseAccountDelete($expenseAccount_id)
@@ -268,9 +283,11 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // get frequencies
-        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->with('user')->where('user_id', $user->id)->where('is_user',true)->get();
+        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->with('user')
+            ->where('user_id', $user->id)->where('is_user',true)->get();
         // get deleted frequencies
-        $deletedFrequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->with('user')->where('user_id', $user->id)->where('is_user',true)->onlyTrashed()->get();
+        $deletedFrequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
+            ->with('user')->where('user_id', $user->id)->where('is_user',true)->onlyTrashed()->get();
         return view('personal.frequencies',compact('frequencies', 'user', 'deletedFrequencies'));
     }
 
@@ -305,7 +322,9 @@ class SettingController extends Controller
         // User
         $user = $this->getUser();
         // Get frequency
-        $frequency = Frequency::with('user', 'expenses')->where('user_id', $user->id)->where('is_user',true)->where('id', $frequency_id)->withCount('expenses')->first();
+        $frequency = Frequency::with('user', 'expenses')->where('user_id', $user->id)
+            ->where('is_user',true)->where('id', $frequency_id)->withCount('expenses')
+            ->first();
 
         return view('personal.frequency_show',compact('frequency', 'user'));
     }
