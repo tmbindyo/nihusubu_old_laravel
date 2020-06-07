@@ -106,7 +106,8 @@ class LandingController extends Controller
                 print "good";
             }else{
                 // get primary warehouse
-                $primaryWarehouse = Warehouse::where('institution_id', $institution->id)->where('is_primary', true)->first();
+                $primaryWarehouse = Warehouse::where('institution_id', $institution->id)
+                    ->where('is_primary', true)->first();
                 // get warehouse address
                 $warehouseAddress = Address::where('id', $primaryWarehouse->address_id)->first();
 
@@ -127,7 +128,8 @@ class LandingController extends Controller
                 $primaryAddress->save();
 
                 // update institution address id
-            $institutionUpdate = Institution::where('id', $institution->id) ->update(['address_id' => $primaryAddress->id]);
+            $institutionUpdate = Institution::where('id', $institution->id)
+                ->update(['address_id' => $primaryAddress->id]);
             }
         }
         return "Done";
