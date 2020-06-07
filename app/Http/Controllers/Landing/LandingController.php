@@ -76,11 +76,11 @@ class LandingController extends Controller
     public function emailUnubscribe(Request $request)
     {
         $emailSubscription = EmailSubscribe::where('email', $request->email)->first();
-        if ($emailSubscription){
+        if ($emailSubscription) {
             $emailSubscription->status_id = 'e0050238-1d7b-4420-b297-ce4c41c700a3';
             $emailSubscription->save();
             return back()->withSuccess(__('You have sucessfully been subscribed.'));
-        }else{
+        } else {
             return back()->withError(__("We don't seem to have a record of this email subscribed."));
         }
     }
@@ -99,12 +99,11 @@ class LandingController extends Controller
     public function addressPopulation ()
     {
         $institutions = Institution::all();
-        foreach ($institutions as $institution)
-        {
+        foreach ($institutions as $institution) {
             // check if address
-            if ($institution->address_id){
+            if ($institution->address_id) {
                 print "good";
-            }else{
+            } else {
                 // get primary warehouse
                 $primaryWarehouse = Warehouse::where('institution_id', $institution->id)
                     ->where('is_primary', true)->first();
@@ -120,16 +119,14 @@ class LandingController extends Controller
                 $primaryAddress->postal_code = $warehouseAddress->postal_code;
                 $primaryAddress->phone_number = $warehouseAddress->business_phone_number;
                 $primaryAddress->po_box = $warehouseAddress->po_box;
-                print $warehouseAddress;
                 $primaryAddress->town = $warehouseAddress->town;
                 $primaryAddress->street = $warehouseAddress->street;
                 $primaryAddress->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
                 $primaryAddress->user_id = $warehouseAddress->user_id;
                 $primaryAddress->save();
 
-                // update institution address id
-            $institutionUpdate = Institution::where('id', $institution->id)
-                ->update(['address_id' => $primaryAddress->id]);
+                $institutionUpdate = Institution::where('id', $institution->id)
+                    ->update(['address_id' => $primaryAddress->id]);
             }
         }
         return "Done";
