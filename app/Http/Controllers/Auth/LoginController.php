@@ -80,7 +80,6 @@ class LoginController extends Controller
         } else {
             return $user;
         }
-
     }
 
     private function facebook($getInfo)
