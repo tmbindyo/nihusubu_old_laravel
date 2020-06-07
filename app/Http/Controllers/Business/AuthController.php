@@ -32,20 +32,20 @@ class AuthController extends Controller
     {
 
         $plans = Plan::where('plan_type_id', '7dd05c3c-7526-498b-9fbb-d0c766a678ac')->get();
-        return view('auth.register',compact('plans'));
+        return view('auth.register', compact('plans'));
     }
 
     public function standardSignup()
     {
 
         $plan = Plan::where('id', '410f31ed-47be-4658-930a-a47f2839ebf5')->first();
-        return view('auth.business_register',compact('plan'));
+        return view('auth.business_register', compact('plan'));
     }
 
     public function professionalSignup()
     {
         $plan = Plan::where('id', '34ae6893-5329-46b4-99a9-3cde1367fb55')->first();
-        return view('auth.business_register',compact('plan'));
+        return view('auth.business_register', compact('plan'));
     }
 
     public function personalSignup()
@@ -56,7 +56,7 @@ class AuthController extends Controller
     public function businessAdd()
     {
         $plans = Plan::where('plan_type_id', '7dd05c3c-7526-498b-9fbb-d0c766a678ac')->get();
-        return view('auth.create_new_account',compact('plans'));
+        return view('auth.create_new_account', compact('plans'));
     }
 
 
@@ -90,27 +90,27 @@ class AuthController extends Controller
         // create instiution
         $institution = $this->institutionSeeder($request, $user, $address);
         // create units
-        $institutionUnits = $this->unitSeeder($request, $user,$institution);
+        $institutionUnits = $this->unitSeeder($request, $user, $institution);
         // create taxes
-        $institutionTaxes = $this->taxesSeeder($request, $user,$institution);
+        $institutionTaxes = $this->taxesSeeder($request, $user, $institution);
         // create warehouses
-        $institutionWarehouses = $this->warehousesSeeder($request, $user,$institution);
+        $institutionWarehouses = $this->warehousesSeeder($request, $user, $institution);
         // create lead sources
-        $institutionLeadSources = $this->leadSourcesSeeder($request, $user,$institution);
+        $institutionLeadSources = $this->leadSourcesSeeder($request, $user, $institution);
         // create titles
-        $institutionTitles = $this->titlesSeeder($request, $user,$institution);
+        $institutionTitles = $this->titlesSeeder($request, $user, $institution);
         // create contact types
-        $institutionContactTypes = $this->contactTypesSeeder($request, $user,$institution);
+        $institutionContactTypes = $this->contactTypesSeeder($request, $user, $institution);
         // create campaign types
-        $institutionCampaignTypes = $this->campaignTypesSeeder($request, $user,$institution);
+        $institutionCampaignTypes = $this->campaignTypesSeeder($request, $user, $institution);
         // create accounts
-        $institutionAccounts = $this->accountsSeeder($request, $user,$institution);
+        $institutionAccounts = $this->accountsSeeder($request, $user, $institution);
         // create frequencies
-        $institutionFrequencies = $this->frequenciesSeeder($request, $user,$institution);
+        $institutionFrequencies = $this->frequenciesSeeder($request, $user, $institution);
         // create reasons
-        $institutionReasons = $this->reasonsSeeder($request, $user,$institution);
+        $institutionReasons = $this->reasonsSeeder($request, $user, $institution);
         // create expense account
-        $institutionExpenseAccounts = $this->expenseAccountsSeeder($request, $user,$institution);
+        $institutionExpenseAccounts = $this->expenseAccountsSeeder($request, $user, $institution);
         // create user account
         $userAccount = $this->userAccountSeeder($request, $user, $institution);
 

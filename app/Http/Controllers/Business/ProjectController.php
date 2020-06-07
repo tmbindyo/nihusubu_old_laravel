@@ -26,7 +26,7 @@ class ProjectController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.projects_feed',compact('user', 'institution'));
+        return view('business.projects_feed', compact('user', 'institution'));
     }
     public function projects($portal)
     {
@@ -35,7 +35,7 @@ class ProjectController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.projects',compact('user', 'institution'));
+        return view('business.projects', compact('user', 'institution'));
     }
     public function projectCreate($portal)
     {
@@ -44,7 +44,7 @@ class ProjectController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.project_create',compact('user', 'institution'));
+        return view('business.project_create', compact('user', 'institution'));
     }
     public function projectStore(Request $request, $portal)
     {
@@ -57,7 +57,7 @@ class ProjectController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.project_show',compact('user', 'institution'));
+        return view('business.project_show', compact('user', 'institution'));
     }
     public function projectEdit($portal, $project_id)
     {
@@ -66,7 +66,7 @@ class ProjectController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.project_edit',compact('user', 'institution'));
+        return view('business.project_edit', compact('user', 'institution'));
     }
     public function projectUpdate(Request $request, $portal)
     {

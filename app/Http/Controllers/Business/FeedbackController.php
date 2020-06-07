@@ -35,10 +35,10 @@ class FeedbackController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // get feedbacks
-        $feedbacks = Feedback::where('institution_id',$institution->id)->with('user', 'status')->get();
+        $feedbacks = Feedback::where('institution_id', $institution->id)->with('user', 'status')->get();
         // get feedbacks
-        $deletedFeedbacks = Feedback::where('institution_id',$institution->id)->with('user', 'status')->onlyTrashed()->get();
-        return view('business.feedbacks',compact('feedbacks', 'user', 'institution', 'deletedFeedbacks'));
+        $deletedFeedbacks = Feedback::where('institution_id', $institution->id)->with('user', 'status')->onlyTrashed()->get();
+        return view('business.feedbacks', compact('feedbacks', 'user', 'institution', 'deletedFeedbacks'));
     }
 
     public function feedbackCreate($portal)
@@ -47,7 +47,7 @@ class FeedbackController extends Controller
         $user = $this->getUser();
         // Get institutions
         $institution = $this->getInstitution($portal);
-        return view('business.feedback_create',compact('user', 'institution'));
+        return view('business.feedback_create', compact('user', 'institution'));
     }
 
     public function feedbackStore(Request $request, $portal)
@@ -79,8 +79,8 @@ class FeedbackController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // Get feedback
-        $feedback = Feedback::with('user', 'status')->where('is_institution', true)->where('id',$feedback_id)->first();
-        return view('business.feedback_show',compact('feedback', 'user', 'institution'));
+        $feedback = Feedback::with('user', 'status')->where('is_institution', true)->where('id', $feedback_id)->first();
+        return view('business.feedback_show', compact('feedback', 'user', 'institution'));
     }
 
     public function feedbackUpdate(Request $request, $portal, $feedback_id)
@@ -104,11 +104,11 @@ class FeedbackController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // Get feedbacks
-        $feedback = Feedback::where('institution_id',$institution->id)->with('user', 'status', 'feedbackUploads')->withCount('feedbackUploads')->where('id',$feedback_id)->first();
+        $feedback = Feedback::where('institution_id', $institution->id)->with('user', 'status', 'feedbackUploads')->withCount('feedbackUploads')->where('id', $feedback_id)->first();
         // Feedback uploads
-        $feedbackUploads = Upload::with('user', 'status')->where('id',$feedback_id)->get();
+        $feedbackUploads = Upload::with('user', 'status')->where('id', $feedback_id)->get();
 
-        return view('business.feedback_uploads',compact('feedback', 'user', 'institution', 'feedbackUploads'));
+        return view('business.feedback_uploads', compact('feedback', 'user', 'institution', 'feedbackUploads'));
     }
 
     public function feedbackUpload($portal, $feedback_id)
@@ -120,16 +120,16 @@ class FeedbackController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // Get feedbacks
-        $feedback = Feedback::where('institution_id',$institution->id)->where('is_institution', true)->with('user', 'status', 'feedback_type', 'feedback_upload', 'contacts', 'expenses', 'organizations', 'toDos')->withCount('feedback_upload', 'contacts', 'expenses', 'organizations', 'toDos')->where('id',$feedback_id)->first();
+        $feedback = Feedback::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'feedback_type', 'feedback_upload', 'contacts', 'expenses', 'organizations', 'toDos')->withCount('feedback_upload', 'contacts', 'expenses', 'organizations', 'toDos')->where('id', $feedback_id)->first();
         // Feedback uploads
-        $feedbackUploads = Upload::with('user', 'status')->where('id',$feedback_id)->first();
+        $feedbackUploads = Upload::with('user', 'status')->where('id', $feedback_id)->first();
         // upload types
         $uploadTypes = UploadType::get();
 
-        return view('business.feedback_uploads',compact('feedback', 'user', 'institution', 'feedbackTypes', 'uploadTypes'));
+        return view('business.feedback_uploads', compact('feedback', 'user', 'institution', 'feedbackTypes', 'uploadTypes'));
     }
 
-    public function feedbackUploadStore(Request $request,$portal,$feedback_id)
+    public function feedbackUploadStore(Request $request, $portal, $feedback_id)
     {
 
         // User
@@ -137,7 +137,7 @@ class FeedbackController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
 
-        $feedback = Feedback::where('institution_id',$institution->id)->where('id',$feedback_id)->first();
+        $feedback = Feedback::where('institution_id', $institution->id)->where('id', $feedback_id)->first();
         $originalFolderName = str_replace(' ', '', $portal.'/feedback/'.$feedback->name."/");
 
 //        return $originalFolderName;
@@ -184,7 +184,7 @@ class FeedbackController extends Controller
     public function feedbackUploadDownload($portal, $upload_id)
     {
         $uploadExists = Upload::findOrFail($upload_id);
-        $upload = Upload::where('id',$upload_id)->first();
+        $upload = Upload::where('id', $upload_id)->first();
 
         // return $upload->original;
         $file_path = public_path($upload->original);

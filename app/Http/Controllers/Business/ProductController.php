@@ -46,9 +46,9 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get product groups
-        $productGroups = ProductGroup::where('institution_id',$institution->id)->with('status')->withCount('products')->get();
+        $productGroups = ProductGroup::where('institution_id', $institution->id)->with('status')->withCount('products')->get();
 
-        return view('business.product_groups',compact('user', 'institution', 'productGroups'));
+        return view('business.product_groups', compact('user', 'institution', 'productGroups'));
     }
     public function productGroupCreate($portal)
     {
@@ -57,16 +57,16 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get institution units
-        $units = Unit::where('institution_id',$institution->id)->get();
+        $units = Unit::where('institution_id', $institution->id)->get();
         // Get institution accounts
-        $salesAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
-        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
-        $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('accountType')->get();
-        $stockAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
+        $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
+        $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
+        $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('accountType')->get();
+        $stockAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
 
-        return view('business.product_group_create',compact('user', 'institution', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts'));
+        return view('business.product_group_create', compact('user', 'institution', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts'));
     }
     public function productGroupStore(Request $request, $portal)
     {
@@ -95,7 +95,7 @@ class ProductController extends Controller
         }else{
             $productGroup->is_service = false;
 
-            $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
+            $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
             if(!$warehouse){
                 return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
             }
@@ -198,7 +198,7 @@ class ProductController extends Controller
 
                 // todo create stock tables for product
                 // Get primary warehouse
-                $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
+                $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
 
                 // create inventory record
                 $inventory = new Inventory();
@@ -273,16 +273,16 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get institution units
-        $units = Unit::where('institution_id',$institution->id)->get();
+        $units = Unit::where('institution_id', $institution->id)->get();
         // Get institution accounts
-        $accounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->get();
+        $accounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->get();
         // Get product groups
         $productGroup = ProductGroup::findOrFail($product_group_id);
-        $productGroup = ProductGroup::where('id',$product_group_id)->with('products')->first();
+        $productGroup = ProductGroup::where('id', $product_group_id)->with('products')->first();
 
-        return view('business.product_group_show',compact('user', 'institution', 'productGroup', 'taxes', 'units', 'accounts'));
+        return view('business.product_group_show', compact('user', 'institution', 'productGroup', 'taxes', 'units', 'accounts'));
     }
     public function productGroupEdit($portal, $product_group_id)
     {
@@ -291,26 +291,26 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get institution units
-        $units = Unit::where('institution_id',$institution->id)->get();
+        $units = Unit::where('institution_id', $institution->id)->get();
         // Get institution accounts
-        $salesAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
-        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
-        $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('accountType')->get();
-        $stockAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
+        $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
+        $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
+        $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('accountType')->get();
+        $stockAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
         // Get product groups
         $productGroup = ProductGroup::findOrFail($product_group_id);
-        $productGroup = ProductGroup::where('id',$product_group_id)->with('products', 'productGroupTaxes')->first();
+        $productGroup = ProductGroup::where('id', $product_group_id)->with('products', 'productGroupTaxes')->first();
         // return $productGroup;
 
         $productAttributes = array();
         foreach ($productGroup->products as $product) {
             array_push($productAttributes, explode("-", $product->name)[1]);
         }
-        $productAttributes = implode(",", $productAttributes);
+        $productAttributes = implode(", ", $productAttributes);
 
-        return view('business.product_group_edit',compact('user', 'institution', 'taxes', 'units', 'productGroup', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'productAttributes'));
+        return view('business.product_group_edit', compact('user', 'institution', 'taxes', 'units', 'productGroup', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'productAttributes'));
     }
 
     public function productGroupUpdate(Request $request, $portal, $product_group_id)
@@ -332,7 +332,7 @@ class ProductController extends Controller
 
         // check if the product group exists
         $productGroupExists = ProductGroup::findOrFail($product_group_id);
-        $productGroup = ProductGroup::where('id',$product_group_id)->first();
+        $productGroup = ProductGroup::where('id', $product_group_id)->first();
 
         if($request->product_type == "services") {
             $productGroup->is_service = true;
@@ -376,7 +376,7 @@ class ProductController extends Controller
             $productGroupRequestTaxes[]['id'] = $productGroupProductTax;
 
             // Check if product tax exists
-            $productGroupTax = ProductGroupTax::where('product_group_id',$productGroup->id)->where('tax_id',$productGroupProductTax)->first();
+            $productGroupTax = ProductGroupTax::where('product_group_id', $productGroup->id)->where('tax_id', $productGroupProductTax)->first();
 
             if($productGroupTax === null) {
                 $productGroupTax = new ProductGroupTax();
@@ -388,7 +388,7 @@ class ProductController extends Controller
             }
         }
 
-        $productGroupTaxesIds = ProductGroupTax::where('product_group_id',$product_group_id)->whereNotIn('tax_id',$productGroupRequestTaxes)->select('id')->get()->toArray();
+        $productGroupTaxesIds = ProductGroupTax::where('product_group_id', $product_group_id)->whereNotIn('tax_id', $productGroupRequestTaxes)->select('id')->get()->toArray();
         DB::table('product_group_taxes')->whereIn('id', $productGroupTaxesIds)->delete();
 
 
@@ -399,11 +399,11 @@ class ProductController extends Controller
 
 
             // check if product exists
-            $productName = Product::where('name',$productGroupProduct['name'])->where('product_group_id',$productGroup->id)->first();
+            $productName = Product::where('name', $productGroupProduct['name'])->where('product_group_id', $productGroup->id)->first();
             $existingProductNames[]['product'] = $productName;
             if($productName){
                 // product exists
-                $product = Product::where('name',$productGroupProduct['name'])->where('product_group_id',$productGroup->id)->first();
+                $product = Product::where('name', $productGroupProduct['name'])->where('product_group_id', $productGroup->id)->first();
 
                 $productGroupRequestProduct[]['id'] = $product->id;
                 // check if product is a service or a good
@@ -457,7 +457,7 @@ class ProductController extends Controller
 
                     // todo create stock tables for product
                     // Get primary warehouse
-                    $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
+                    $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
 
                     // create inventory record
                     $inventory = new Inventory();
@@ -516,7 +516,7 @@ class ProductController extends Controller
                     $productRequestTaxes[]['id'] = $productProductTax;
 
                     // Check if product tax exists
-                    $productTax = ProductTax::where('product_id',$product->id)->where('tax_id',$productProductTax)->first();
+                    $productTax = ProductTax::where('product_id', $product->id)->where('tax_id', $productProductTax)->first();
 
                     if($productTax === null) {
                         $productTax = new ProductTax();
@@ -528,7 +528,7 @@ class ProductController extends Controller
                     }
                 }
 
-                $productTaxesIds = ProductTax::where('product_id',$product->id)->whereNotIn('tax_id',$productRequestTaxes)->select('id')->get()->toArray();
+                $productTaxesIds = ProductTax::where('product_id', $product->id)->whereNotIn('tax_id', $productRequestTaxes)->select('id')->get()->toArray();
                 DB::table('product_taxes')->whereIn('id', $productTaxesIds)->delete();
 
             }
@@ -589,7 +589,7 @@ class ProductController extends Controller
 
                     // todo create stock tables for product
                     // Get primary warehouse
-                    $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
+                    $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
 
                     // create inventory record
                     $inventory = new Inventory();
@@ -659,12 +659,12 @@ class ProductController extends Controller
         }
         // return $existingProductNames;
 
-        $productGroupProductIds = Product::where('product_group_id',$product_group_id)->whereNotIn('id',$productGroupRequestProduct)->select('id')->get()->toArray();
+        $productGroupProductIds = Product::where('product_group_id', $product_group_id)->whereNotIn('id', $productGroupRequestProduct)->select('id')->get()->toArray();
         // return $productGroupProductIds;
         Product::destroy($productGroupProductIds);
         // DB::table('products')->whereIn('id', $productGroupProductIds)->delete();
 
-        return redirect(route('business.product.group.show',$productGroup->id));
+        return redirect(route('business.product.group.show', $productGroup->id));
     }
     public function productGroupDelete($portal, $product_group_id)
     {
@@ -685,11 +685,11 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution products
-        $products = Product::where('institution_id',$institution->id)->with('status', 'unit', 'inventory', 'stock_on_hand')->where('is_product_group', false)->where('is_composite_product', false)->where('status_id', 'f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
+        $products = Product::where('institution_id', $institution->id)->with('status', 'unit', 'inventory', 'stock_on_hand')->where('is_product_group', false)->where('is_composite_product', false)->where('status_id', 'f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
 
 //        return $products;
 
-        return view('business.products',compact('user', 'products', 'institution'));
+        return view('business.products', compact('user', 'products', 'institution'));
     }
     public function productCreate($portal)
     {
@@ -698,17 +698,17 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution units
-        $units = Unit::where('institution_id',$institution->id)->get();
+        $units = Unit::where('institution_id', $institution->id)->get();
         // Get institution accounts
-        $salesAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
-        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
-        $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('accountType')->get();
-        $stockAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
-        // $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
+        $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
+        $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('accountType')->get();
+        $stockAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
+        // $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get institution taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
 
-        return view('business.product_create',compact('user', 'units', 'taxes', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'institution'));
+        return view('business.product_create', compact('user', 'units', 'taxes', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'institution'));
     }
 
     public function productStore(Request $request, $portal)
@@ -724,7 +724,7 @@ class ProductController extends Controller
             $product->is_service = true;
         }else{
             $product->is_service = false;
-            $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
+            $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
             if(!$warehouse){
                 return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
             }
@@ -768,7 +768,7 @@ class ProductController extends Controller
 
             // todo create stock tables for product
             // Get primary warehouse
-            $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
+            $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
 
             // create inventory record
             $inventory = new Inventory();
@@ -845,10 +845,10 @@ class ProductController extends Controller
         $institution = $this->getInstitution($portal);
 
         $productExists = Product::findOrFail($product_id);
-        $product = Product::where('institution_id',$institution->id)->where('id',$product_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'orderProducts', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts')->withCount('orderProducts', 'saleProducts', 'restock')->first();
+        $product = Product::where('institution_id', $institution->id)->where('id', $product_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'orderProducts', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts')->withCount('orderProducts', 'saleProducts', 'restock')->first();
         // return $product;
 
-        return view('business.product_show',compact('product', 'user', 'institution'));
+        return view('business.product_show', compact('product', 'user', 'institution'));
     }
 
     public function productEdit($portal, $product_id)
@@ -860,20 +860,20 @@ class ProductController extends Controller
         // Check if exists
         $product = Product::findOrFail($product_id);
         // Get institution taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get institution units
-        $units = Unit::where('institution_id',$institution->id)->get();
+        $units = Unit::where('institution_id', $institution->id)->get();
         // Get institution accounts
-        $salesAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
-        $expenseAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
-        $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('accountType')->get();
-        $stockAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
+        $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
+        $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
+        $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('accountType')->get();
+        $stockAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
 
         $productExists = Product::findOrFail($product_id);
-        $product = Product::where('id',$product_id)->with('status', 'product_discounts', 'productTaxes', 'productImages.upload')->first();
+        $product = Product::where('id', $product_id)->with('status', 'product_discounts', 'productTaxes', 'productImages.upload')->first();
 
 //        return $product;
-        return view('business.product_edit',compact('user', 'institution', 'product', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts'));
+        return view('business.product_edit', compact('user', 'institution', 'product', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts'));
     }
 
     public function productUpdate(Request $request, $portal, $product_id)
@@ -927,16 +927,16 @@ class ProductController extends Controller
 
         // todo create stock tables for product
         // Get primary warehouse
-        $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
+        $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
 
         // todo, it refactors it to the value put here which will erare the current stock value
         // create inventory
-        $inventory = Inventory::where('warehouse_id',$warehouse->id)->where('product_id',$product->id)->first();
+        $inventory = Inventory::where('warehouse_id', $warehouse->id)->where('product_id', $product->id)->first();
         $inventory->quantity = $request->opening_stock;
         $inventory->save();
 
         // Create record for inventory, tracking the stock input
-        $restock = Restock::where('warehouse_id',$warehouse->id)->where('product_id',$product->id)->where('is_opening_stock', true)->first();
+        $restock = Restock::where('warehouse_id', $warehouse->id)->where('product_id', $product->id)->where('is_opening_stock', true)->first();
         $restock->initial_warehouse_amount = 0;
         $restock->subsequent_warehouse_amount = $request->opening_stock;
         // getting unit value
@@ -960,7 +960,7 @@ class ProductController extends Controller
             $productRequestTaxes[]['id'] = $productProductTax;
 
             // Check if product tax exists
-            $productTax = ProductTax::where('product_id',$product->id)->where('tax_id',$productProductTax)->first();
+            $productTax = ProductTax::where('product_id', $product->id)->where('tax_id', $productProductTax)->first();
 
             if($productTax === null) {
                 $productTax = new ProductTax();
@@ -972,7 +972,7 @@ class ProductController extends Controller
             }
         }
 
-        $productTaxesIds = ProductTax::where('product_id',$product_id)->whereNotIn('tax_id',$productRequestTaxes)->select('id')->get()->toArray();
+        $productTaxesIds = ProductTax::where('product_id', $product_id)->whereNotIn('tax_id', $productRequestTaxes)->select('id')->get()->toArray();
         DB::table('product_taxes')->whereIn('id', $productTaxesIds)->delete();
 
 
@@ -1021,10 +1021,10 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get products
-//        $compositeProducts = CompositeProduct::where('institution_id',$institution->id)->withCount('compositeProductProducts')->get();
-        $compositeProducts = Product::where('institution_id',$institution->id)->where('is_composite_product', true)->withCount('compositeProductProducts')->get();
+//        $compositeProducts = CompositeProduct::where('institution_id', $institution->id)->withCount('compositeProductProducts')->get();
+        $compositeProducts = Product::where('institution_id', $institution->id)->where('is_composite_product', true)->withCount('compositeProductProducts')->get();
 
-        return view('business.composite_products',compact('user', 'institution', 'compositeProducts'));
+        return view('business.composite_products', compact('user', 'institution', 'compositeProducts'));
     }
 
     public function compositeProductCreate($portal)
@@ -1035,15 +1035,15 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution units
-        $units = Unit::where('institution_id',$institution->id)->get();
+        $units = Unit::where('institution_id', $institution->id)->get();
         // Get institution accounts
-        $salesAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
+        $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
         // Get institution taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Products
-        $products = Product::where('institution_id',$institution->id)->get();
+        $products = Product::where('institution_id', $institution->id)->get();
 
-        return view('business.composite_product_create',compact('user', 'institution', 'taxes', 'salesAccounts', 'units', 'products'));
+        return view('business.composite_product_create', compact('user', 'institution', 'taxes', 'salesAccounts', 'units', 'products'));
     }
 
     public function compositeProductStore(Request $request, $portal)
@@ -1062,7 +1062,7 @@ class ProductController extends Controller
             $product->is_service = true;
         }else{
             $product->is_service = false;
-            $warehouse = Warehouse::where('institution_id',$institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
+            $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
             if(!$warehouse){
                 return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
             }
@@ -1123,10 +1123,10 @@ class ProductController extends Controller
         $institution = $this->getInstitution($portal);
 
         $compositeProduct = Product::findOrFail($composite_product_id);
-        $compositeProduct = Product::where('institution_id',$institution->id)->where('id',$composite_product_id)->withCount('orderProducts', 'saleProducts', 'compositeProductProducts')->with('compositeProductProducts', 'productTaxes', 'user', 'status')->first();
-        $compositeProductProducts = CompositeProductProduct::where('composite_product_id',$compositeProduct->id)->with('product')->get();
+        $compositeProduct = Product::where('institution_id', $institution->id)->where('id', $composite_product_id)->withCount('orderProducts', 'saleProducts', 'compositeProductProducts')->with('compositeProductProducts', 'productTaxes', 'user', 'status')->first();
+        $compositeProductProducts = CompositeProductProduct::where('composite_product_id', $compositeProduct->id)->with('product')->get();
         // return $compositeProductProducts;
-        return view('business.composite_product_show',compact('user', 'institution', 'compositeProduct', 'compositeProductProducts'));
+        return view('business.composite_product_show', compact('user', 'institution', 'compositeProduct', 'compositeProductProducts'));
     }
 
     public function compositeProductEdit(Request $request, $portal, $composite_product_id)
@@ -1136,21 +1136,21 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution units
-        $units = Unit::where('institution_id',$institution->id)->get();
+        $units = Unit::where('institution_id', $institution->id)->get();
         // Get institution accounts
-        $salesAccounts = ExpenseAccount::where('institution_id',$institution->id)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
+        $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
         // Get institution taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Products
-        $products = Product::where('institution_id',$institution->id)->get();
+        $products = Product::where('institution_id', $institution->id)->get();
         // check if exists
         $compositeProduct = Product::findOrFail($composite_product_id);
         // get composite product
-        $compositeProduct = Product::where('id',$composite_product_id)->withCount('orderProducts', 'saleProducts', 'compositeProductProducts')->with('compositeProductProducts', 'productTaxes', 'user', 'status')->first();
-        $compositeProductProducts = CompositeProductProduct::where('composite_product_id',$compositeProduct->id)->with('product')->get();
+        $compositeProduct = Product::where('id', $composite_product_id)->withCount('orderProducts', 'saleProducts', 'compositeProductProducts')->with('compositeProductProducts', 'productTaxes', 'user', 'status')->first();
+        $compositeProductProducts = CompositeProductProduct::where('composite_product_id', $compositeProduct->id)->with('product')->get();
         // return $compositeProductProducts;
 
-        return view('business.composite_product_edit',compact('user', 'institution', 'compositeProduct', 'compositeProductProducts', 'units', 'salesAccounts', 'taxes', 'products'));
+        return view('business.composite_product_edit', compact('user', 'institution', 'compositeProduct', 'compositeProductProducts', 'units', 'salesAccounts', 'taxes', 'products'));
     }
 
     public function compositeProductUpdate(Request $request, $portal, $product_id)
@@ -1162,7 +1162,7 @@ class ProductController extends Controller
 
         // check if composite product exists
         $product = Product::findOrFail($product_id);
-        $product = Product::where('id',$product_id)->first();
+        $product = Product::where('id', $product_id)->first();
         if($request->product_type == "services") {
             $product->is_service = true;
         }else{
@@ -1194,7 +1194,7 @@ class ProductController extends Controller
             $compositeProductRequestProducts[]['id'] = $compositeProductItem['details'];
 
             // check if composite product exists
-            $compositeProductExists = CompositeProductProduct::where('product_id',$product->id)->where('product_id',$product->id)->first();
+            $compositeProductExists = CompositeProductProduct::where('product_id', $product->id)->where('product_id', $product->id)->first();
 
             if ($compositeProductExists == null)
             {
@@ -1211,7 +1211,7 @@ class ProductController extends Controller
             }
 
         }
-        $compositeProductProductIds = CompositeProductProduct::where('composite_product_id',$product->id)->whereNotIn('product_id',$compositeProductRequestProducts)->select('id')->get()->toArray();
+        $compositeProductProductIds = CompositeProductProduct::where('composite_product_id', $product->id)->whereNotIn('product_id', $compositeProductRequestProducts)->select('id')->get()->toArray();
         DB::table('composite_product_products')->whereIn('id', $compositeProductProductIds)->delete();
 
         // Product taxes update
@@ -1221,7 +1221,7 @@ class ProductController extends Controller
             $productRequestTaxes[]['id'] = $productProductTax;
 
             // Check if product tax exists
-            $productTax = ProductTax::where('product_id',$product->id)->where('tax_id',$productProductTax)->first();
+            $productTax = ProductTax::where('product_id', $product->id)->where('tax_id', $productProductTax)->first();
 
             if($productTax === null) {
                 $productTax = new ProductTax();
@@ -1233,7 +1233,7 @@ class ProductController extends Controller
             }
         }
 
-        $productTaxesIds = ProductTax::where('product_id',$product->id)->whereNotIn('tax_id',$productRequestTaxes)->select('id')->get()->toArray();
+        $productTaxesIds = ProductTax::where('product_id', $product->id)->whereNotIn('tax_id', $productRequestTaxes)->select('id')->get()->toArray();
         DB::table('product_taxes')->whereIn('id', $productTaxesIds)->delete();
 
         return redirect()->route('business.composite.product.show',['portal'=>$institution->portal, 'id'=>$product->id])->withSuccess(__('Composite product successfully updated.'));
@@ -1286,7 +1286,7 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         $productDiscountExists = ProductDiscount::findOrFail($product_discount_id);
-        $productDiscount = ProductDiscount::where('id',$product_discount_id)->first();
+        $productDiscount = ProductDiscount::where('id', $product_discount_id)->first();
 
         $productDiscount->quantity = $request->quantity;
         $productDiscount->minimum_items = $request->minimum_items;
@@ -1325,7 +1325,7 @@ class ProductController extends Controller
         // Check if product exists
         $product = Product::findOrFail($product_id);
         // Get product
-        $product = Product::where('id',$product_id)->first();
+        $product = Product::where('id', $product_id)->first();
 
         $institutionName = str_replace(' ', '', $institution->name."/");
         $folderName = str_replace(' ', '', $product->name."/");

@@ -37,7 +37,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.organization.profile',compact('user', 'institution'));
+        return view('business.organization.profile', compact('user', 'institution'));
     }
 
     public function openingBalances($portal)
@@ -47,7 +47,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.opening_balances',compact('user', 'institution'));
+        return view('business.opening_balances', compact('user', 'institution'));
     }
     public function usersAndRoles($portal)
     {
@@ -56,7 +56,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.users_and_roles',compact('user', 'institution'));
+        return view('business.users_and_roles', compact('user', 'institution'));
     }
     public function currencies($portal)
     {
@@ -65,7 +65,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.currencies',compact('user', 'institution'));
+        return view('business.currencies', compact('user', 'institution'));
     }
     public function emails($portal)
     {
@@ -74,7 +74,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.emails',compact('user', 'institution'));
+        return view('business.emails', compact('user', 'institution'));
     }
     public function reminders($portal)
     {
@@ -83,7 +83,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        return view('business.reminders',compact('user', 'institution'));
+        return view('business.reminders', compact('user', 'institution'));
     }
 
 
@@ -98,10 +98,10 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // get campaign types
-        $campaignTypes = CampaignType::where('status_id',"c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id',$institution->id)->with('user', 'status')->get();
+        $campaignTypes = CampaignType::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('user', 'status')->get();
         // get campaign types
-        $deletedCampaignTypes = CampaignType::where('status_id',"d35b4cee-5594-4cfd-ad85-e489c9dcdeff")->where('institution_id',$institution->id)->with('user', 'status')->get();
-        return view('business.campaign_types',compact('campaignTypes', 'user', 'institution', 'deletedCampaignTypes'));
+        $deletedCampaignTypes = CampaignType::where('status_id', "d35b4cee-5594-4cfd-ad85-e489c9dcdeff")->where('institution_id', $institution->id)->with('user', 'status')->get();
+        return view('business.campaign_types', compact('campaignTypes', 'user', 'institution', 'deletedCampaignTypes'));
     }
 
     public function campaignTypeCreate($portal)
@@ -110,7 +110,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         // Get institutions
         $institution = $this->getInstitution($portal);
-        return view('business.campaign_type_create',compact('user', 'institution'));
+        return view('business.campaign_type_create', compact('user', 'institution'));
     }
 
     public function campaignTypeStore(Request $request, $portal)
@@ -139,12 +139,12 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // Get campaign type
-        $campaignType = CampaignType::with('user', 'status', 'campaigns.user')->where('id',$campaign_type_id)->withCount('campaigns')->first();
-        $campaigns = Campaign::with('user', 'status', 'campaignType')->where('institution_id',$institution->id)->where('campaign_type_id',$campaignType->id)->get();
-        return view('business.campaign_type_show',compact('campaignType', 'user', 'institution', 'campaigns'));
+        $campaignType = CampaignType::with('user', 'status', 'campaigns.user')->where('id', $campaign_type_id)->withCount('campaigns')->first();
+        $campaigns = Campaign::with('user', 'status', 'campaignType')->where('institution_id', $institution->id)->where('campaign_type_id', $campaignType->id)->get();
+        return view('business.campaign_type_show', compact('campaignType', 'user', 'institution', 'campaigns'));
     }
 
-    public function campaignTypeCampaignCreate($portal,$campaign_type_id)
+    public function campaignTypeCampaignCreate($portal, $campaign_type_id)
     {
         // Check if campaign type exists
         $campaignTypeExists = CampaignType::findOrFail($campaign_type_id);
@@ -156,9 +156,9 @@ class SettingController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // campaign types
-        $campaignType = CampaignType::with('user', 'status', 'campaigns.user')->where('id',$campaign_type_id)->withCount('campaigns')->first();
-        $campaignTypes = CampaignType::where('institution_id',$institution->id)->get();
-        return view('business.campaign_create',compact('campaignTypeExists', 'user', 'institution', 'campaignTypes', 'campaignType'));
+        $campaignType = CampaignType::with('user', 'status', 'campaigns.user')->where('id', $campaign_type_id)->withCount('campaigns')->first();
+        $campaignTypes = CampaignType::where('institution_id', $institution->id)->get();
+        return view('business.campaign_create', compact('campaignTypeExists', 'user', 'institution', 'campaignTypes', 'campaignType'));
 
     }
 
@@ -201,10 +201,10 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // contact types
-        $contactTypes = ContactType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user', 'status')->where('institution_id',$institution->id)->where('is_institution', true)->get();
+        $contactTypes = ContactType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user', 'status')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // deleted contact types
-        $deletedContactTypes = ContactType::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->with('user', 'status')->where('institution_id',$institution->id)->where('is_institution', true)->get();
-        return view('business.contact_types',compact('contactTypes', 'user', 'institution', 'deletedContactTypes'));
+        $deletedContactTypes = ContactType::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->with('user', 'status')->where('institution_id', $institution->id)->where('is_institution', true)->get();
+        return view('business.contact_types', compact('contactTypes', 'user', 'institution', 'deletedContactTypes'));
     }
 
     public function contactTypeCreate($portal)
@@ -213,7 +213,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         // Get institutions
         $institution = $this->getInstitution($portal);
-        return view('business.contact_type_create',compact('user', 'institution'));
+        return view('business.contact_type_create', compact('user', 'institution'));
     }
 
     public function contactTypeStore(Request $request, $portal)
@@ -244,10 +244,10 @@ class SettingController extends Controller
         // Get institutions
         $institution = $this->getInstitution($portal);
         // Get contact type
-        $contactType = ContactType::with('user', 'status')->where('id',$contact_type_id)->withCount('contactTypeContacts')->first();
+        $contactType = ContactType::with('user', 'status')->where('id', $contact_type_id)->withCount('contactTypeContacts')->first();
         // contact type contacts
-        $contactContactTypes = ContactContactType::with('user', 'status', 'contact')->where('contact_type_id',$contact_type_id)->get();
-        return view('business.contact_type_show',compact('contactType', 'user', 'contactContactTypes', 'institution'));
+        $contactContactTypes = ContactContactType::with('user', 'status', 'contact')->where('contact_type_id', $contact_type_id)->get();
+        return view('business.contact_type_show', compact('contactType', 'user', 'contactContactTypes', 'institution'));
     }
 
     public function contactTypeContactCreate($portal, $contact_type_id)
@@ -263,16 +263,16 @@ class SettingController extends Controller
         // get contacts
         $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user', 'status', 'contactType')->where('is_institution', true)->get();
         // get contact types
-        $contactTypes = ContactType::where('institution_id',$institution->id)->get();
+        $contactTypes = ContactType::where('institution_id', $institution->id)->get();
         // get organizations
-        $organizations = Organization::where('institution_id',$institution->id)->get();
+        $organizations = Organization::where('institution_id', $institution->id)->get();
         // get titles
-        $titles = Title::where('institution_id',$institution->id)->where('is_institution', true)->get();
+        $titles = Title::where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get lead sources
-        $leadSources = LeadSource::where('institution_id',$institution->id)->get();
+        $leadSources = LeadSource::where('institution_id', $institution->id)->get();
         // get campaigns
-        $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
-        return view('business.contact_create',compact('contactTypeExists', 'contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns'));
+        $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
+        return view('business.contact_create', compact('contactTypeExists', 'contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns'));
     }
 
     public function contactTypeUpdate(Request $request, $portal, $contact_type_id)
@@ -318,10 +318,10 @@ class SettingController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // get frequencies
-        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->with('user')->where('institution_id',$institution->id)->where('is_institution', true)->get();
+        $frequencies = Frequency::where("status_id", "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->with('user')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get deleted frequencies
-        $deletedFrequencies = Frequency::where("status_id","d35b4cee-5594-4cfd-ad85-e489c9dcdeff")->with('user')->where('institution_id',$institution->id)->where('is_institution', true)->get();
-        return view('business.frequencies',compact('frequencies', 'user', 'institution', 'deletedFrequencies'));
+        $deletedFrequencies = Frequency::where("status_id", "d35b4cee-5594-4cfd-ad85-e489c9dcdeff")->with('user')->where('institution_id', $institution->id)->where('is_institution', true)->get();
+        return view('business.frequencies', compact('frequencies', 'user', 'institution', 'deletedFrequencies'));
     }
 
     public function frequencyCreate($portal)
@@ -330,7 +330,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         // Get institution
         $institution = $this->getInstitution($portal);
-        return view('business.frequency_create',compact('user', 'institution'));
+        return view('business.frequency_create', compact('user', 'institution'));
     }
 
     public function frequencyStore(Request $request, $portal)
@@ -363,8 +363,8 @@ class SettingController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // Get frequency
-        $frequency = Frequency::with('user', 'expenses')->where('institution_id',$institution->id)->where('is_institution', true)->where('id',$frequency_id)->withCount('expenses')->first();
-        return view('business.frequency_show',compact('frequency', 'user', 'institution'));
+        $frequency = Frequency::with('user', 'expenses')->where('institution_id', $institution->id)->where('is_institution', true)->where('id', $frequency_id)->withCount('expenses')->first();
+        return view('business.frequency_show', compact('frequency', 'user', 'institution'));
     }
 
     public function frequencyUpdate(Request $request, $portal, $frequency_id)
@@ -412,10 +412,10 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // lead sources
-        $leadSources = LeadSource::where('status_id',"c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->with('user', 'status')->where('institution_id',$institution->id)->get();
+        $leadSources = LeadSource::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->with('user', 'status')->where('institution_id', $institution->id)->get();
         // deleted lead sources
-        $deletedLeadSources = LeadSource::where("status_id","d35b4cee-5594-4cfd-ad85-e489c9dcdeff")->with('user', 'status')->where('institution_id',$institution->id)->get();
-        return view('business.lead_sources',compact('leadSources', 'deletedLeadSources', 'user', 'institution'));
+        $deletedLeadSources = LeadSource::where("status_id", "d35b4cee-5594-4cfd-ad85-e489c9dcdeff")->with('user', 'status')->where('institution_id', $institution->id)->get();
+        return view('business.lead_sources', compact('leadSources', 'deletedLeadSources', 'user', 'institution'));
     }
 
     public function leadSourceCreate($portal)
@@ -424,7 +424,7 @@ class SettingController extends Controller
         $user = $this->getUser();;
         // Institution
         $institution = $this->getInstitution($portal);
-        return view('business.lead_source_create',compact('user', 'institution'));
+        return view('business.lead_source_create', compact('user', 'institution'));
     }
 
     public function leadSourceStore(Request $request, $portal)
@@ -453,8 +453,8 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get lead source
-        $leadSource = LeadSource::with('user', 'status', 'contacts')->where('id',$lead_source_id)->withCount('contacts')->first();
-        return view('business.lead_source_show',compact('leadSource', 'user', 'institution'));
+        $leadSource = LeadSource::with('user', 'status', 'contacts')->where('id', $lead_source_id)->withCount('contacts')->first();
+        return view('business.lead_source_show', compact('leadSource', 'user', 'institution'));
     }
 
     public function leadSourceContactCreate($portal, $lead_source_id)
@@ -469,18 +469,18 @@ class SettingController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // get contacts
-        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->where('is_institution', true)->with('user', 'status', 'contactType')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'contactType')->get();
         // get contact types
-        $contactTypes = ContactType::where('institution_id',$institution->id)->where('is_institution', true)->get();
+        $contactTypes = ContactType::where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get organizations
-        $organizations = Organization::where('institution_id',$institution->id)->get();
+        $organizations = Organization::where('institution_id', $institution->id)->get();
         // get titles
-        $titles = Title::where('institution_id',$institution->id)->where('is_institution', true)->get();
+        $titles = Title::where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get lead sources
-        $leadSources = LeadSource::where('institution_id',$institution->id)->get();
+        $leadSources = LeadSource::where('institution_id', $institution->id)->get();
         // get campaigns
-        $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
-        return view('business.contact_create',compact('contactCampaign', 'contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns'));
+        $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
+        return view('business.contact_create', compact('contactCampaign', 'contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns'));
     }
 
     public function leadSourceUpdate(Request $request, $portal, $lead_source_id)
@@ -521,11 +521,11 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // get titles
-        $titles = Title::where('status_id',"c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id',$institution->id)->where('is_institution', true)->with('user', 'status')->get();
+        $titles = Title::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status')->get();
         // get deleted titles
-        $deletedTitles = Title::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id',$institution->id)->where('is_institution', true)->with('user', 'status')->get();
+        $deletedTitles = Title::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status')->get();
 
-        return view('business.titles',compact('titles', 'user', 'institution', 'titles', 'deletedTitles'));
+        return view('business.titles', compact('titles', 'user', 'institution', 'titles', 'deletedTitles'));
     }
 
     public function titleCreate($portal)
@@ -534,7 +534,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        return view('business.title_create',compact('user', 'institution'));
+        return view('business.title_create', compact('user', 'institution'));
     }
 
     public function titleStore(Request $request, $portal)
@@ -563,8 +563,8 @@ class SettingController extends Controller
         $institution = $this->getInstitution($portal);
         // Check if title exists
         $titleExists = Title::findOrFail($title_id);
-        $title = Title::with('user', 'status', 'contacts')->where('institution_id',$institution->id)->where('is_institution', true)->withCount('contacts')->where('id',$title_id)->first();
-        return view('business.title_show',compact('title', 'user', 'institution'));
+        $title = Title::with('user', 'status', 'contacts')->where('institution_id', $institution->id)->where('is_institution', true)->withCount('contacts')->where('id', $title_id)->first();
+        return view('business.title_show', compact('title', 'user', 'institution'));
     }
 
     public function titleUpdate(Request $request, $portal, $title_id)
@@ -610,10 +610,10 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('status_id',"c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id',$institution->id)->with('status', 'user')->get();
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
         // deleted taxes
-        $deletedTaxes = Tax::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id',$institution->id)->with('status', 'user')->get();
-        return view('business.taxes',compact('user', 'institution', 'taxes', 'deletedTaxes'));
+        $deletedTaxes = Tax::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user')->get();
+        return view('business.taxes', compact('user', 'institution', 'taxes', 'deletedTaxes'));
     }
 
     public function taxCreate($portal)
@@ -623,7 +623,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        return view('business.tax_create',compact('user', 'institution'));
+        return view('business.tax_create', compact('user', 'institution'));
     }
 
     public function taxStore(Request $request, $portal)
@@ -659,12 +659,12 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get tax
-        $tax = Tax::where('id',$tax_id)->with('status', 'user', 'productTaxes.product.unit', 'compositeProductTaxes.compositeProduct.unit')->first();
+        $tax = Tax::where('id', $tax_id)->with('status', 'user', 'productTaxes.product.unit', 'compositeProductTaxes.compositeProduct.unit')->first();
 
-        return view('business.tax_show',compact('user', 'institution', 'tax'));
+        return view('business.tax_show', compact('user', 'institution', 'tax'));
     }
 
-    public function taxUpdate(Request $request,$portal,  $tax_id)
+    public function taxUpdate(Request $request, $portal,  $tax_id)
     {
         // User
         $user = $this->getUser();
@@ -712,10 +712,10 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Units
-        $units = Unit::where('status_id',"c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id',$institution->id)->with('status', 'user')->get();
+        $units = Unit::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
         // deleted units
-        $deletedUnits = Unit::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id',$institution->id)->with('status', 'user')->get();
-        return view('business.units',compact('user', 'institution', 'units', 'deletedUnits'));
+        $deletedUnits = Unit::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user')->get();
+        return view('business.units', compact('user', 'institution', 'units', 'deletedUnits'));
     }
 
     public function unitCreate($portal)
@@ -725,7 +725,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        return view('business.unit_create',compact('user', 'institution'));
+        return view('business.unit_create', compact('user', 'institution'));
     }
 
     public function unitStore(Request $request, $portal)
@@ -754,12 +754,12 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get unit
-        $unit = Unit::where('id',$unit_id)->with('status', 'user', 'products', 'productGroups')->first();
+        $unit = Unit::where('id', $unit_id)->with('status', 'user', 'products', 'productGroups')->first();
 
-        return view('business.unit_show',compact('user', 'institution', 'unit'));
+        return view('business.unit_show', compact('user', 'institution', 'unit'));
     }
 
-    public function unitUpdate(Request $request,$portal,  $unit_id)
+    public function unitUpdate(Request $request, $portal,  $unit_id)
     {
         // User
         $user = $this->getUser();

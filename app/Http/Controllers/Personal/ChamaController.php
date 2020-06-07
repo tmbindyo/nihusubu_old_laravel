@@ -51,17 +51,17 @@ class ChamaController extends Controller
         // User
         $user = $this->getUser();
         // chama members
-        $userChamas = ChamaMember::where('user_id',$user->id)->select('chama_id')->get()->toArray();
+        $userChamas = ChamaMember::where('user_id', $user->id)->select('chama_id')->get()->toArray();
 
         // return $userChamas;
         // get chamas
-        $chamas = Chama::whereIn('id',$userChamas)->with('user', 'status')->get();
+        $chamas = Chama::whereIn('id', $userChamas)->with('user', 'status')->get();
 
         // return $chamas;
         // get deleted chamas
-        $deletedChamas = Chama::whereIn('id',$userChamas)->with('user', 'status')->onlyTrashed()->get();
+        $deletedChamas = Chama::whereIn('id', $userChamas)->with('user', 'status')->onlyTrashed()->get();
 
-        return view('personal.chamas',compact('chamas', 'user', 'chamas', 'deletedChamas'));
+        return view('personal.chamas', compact('chamas', 'user', 'chamas', 'deletedChamas'));
     }
 
     public function chamaCreate()
@@ -69,7 +69,7 @@ class ChamaController extends Controller
         // User
         $user = $this->getUser();
 
-        return view('personal.chama_create',compact('user'));
+        return view('personal.chama_create', compact('user'));
     }
 
     public function chamaStore(Request $request)
@@ -176,7 +176,7 @@ class ChamaController extends Controller
         $sharePayment->user_id = $user->id;
         $sharePayment->save();
 
-        return redirect()->route('personal.chama.show',$chama->id)->withSuccess(__('Chama '.$chama->name.' successfully created.'));
+        return redirect()->route('personal.chama.show', $chama->id)->withSuccess(__('Chama '.$chama->name.' successfully created.'));
     }
 
     public function chamaShow($chama_id)
@@ -185,24 +185,24 @@ class ChamaController extends Controller
         $user = $this->getUser();
         // Check if chama exists
         $chamaExists = Chama::findOrFail($chama_id);
-        $chama = Chama::with('user', 'status', 'chamaMembers')->where('id',$chama_id)->withCount('chamaMembers')->first();
+        $chama = Chama::with('user', 'status', 'chamaMembers')->where('id', $chama_id)->withCount('chamaMembers')->first();
 
         //chama accounts
-        $chamaAccounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id',$chama->id)->get();
+        $chamaAccounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id', $chama->id)->get();
         //chama loans
         $chamaLoans = Loan::with('user', 'status', 'account', 'chamaMember')->where('is_chama', true)->get();
         //chama meetings
-        $chamaMeetings = ChamaMeeting::where('chama_id',$chama->id)->with('user', 'status', 'chama')->get();
+        $chamaMeetings = ChamaMeeting::where('chama_id', $chama->id)->with('user', 'status', 'chama')->get();
         //chama members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('status', 'user', 'chamaMemberRole')->get();
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('status', 'user', 'chamaMemberRole')->get();
         //chama penalties
-        $chamaPenalties = Penalty::where('chama_id',$chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama', 'account')->get();
+        $chamaPenalties = Penalty::where('chama_id', $chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama', 'account')->get();
         //chama shares
-        $chamaSharePayments = SharesPayment::where('chama_id',$chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama')->get();
+        $chamaSharePayments = SharesPayment::where('chama_id', $chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama')->get();
         //chama welfare
-        $chamaWelfares = Welfare::where('chama_id',$chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama', 'account', 'welfareType')->get();
+        $chamaWelfares = Welfare::where('chama_id', $chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama', 'account', 'welfareType')->get();
 
-        return view('personal.chama_show',compact('chama', 'user', 'chamaAccounts', 'chamaLoans', 'chamaMeetings', 'chamaMembers', 'chamaPenalties', 'chamaSharePayments', 'chamaWelfares'));
+        return view('personal.chama_show', compact('chama', 'user', 'chamaAccounts', 'chamaLoans', 'chamaMeetings', 'chamaMembers', 'chamaPenalties', 'chamaSharePayments', 'chamaWelfares'));
     }
 
     public function chamaUpdate(Request $request, $chama_id)
@@ -215,7 +215,7 @@ class ChamaController extends Controller
         $chama->user_id = $user->id;
         $chama->save();
 
-        return redirect()->route('personal.chama.show',$chama->id)->withSuccess('Chama '.$chama->name.' updated!');
+        return redirect()->route('personal.chama.show', $chama->id)->withSuccess('Chama '.$chama->name.' updated!');
     }
 
     public function chamaDelete($portal, $chama_id)
@@ -246,10 +246,10 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // Members
-        $members = ChamaMember::where('chama_id',$chama->id)->with('status', 'user', 'chamaMemberRole')->get();
+        $members = ChamaMember::where('chama_id', $chama->id)->with('status', 'user', 'chamaMemberRole')->get();
         // deleted members
         $deletedMembers = ChamaMember::onlyTrashed()->get();
-        return view('personal.chamaMembers',compact('user', 'chama', 'members', 'deletedMembers'));
+        return view('personal.chamaMembers', compact('user', 'chama', 'members', 'deletedMembers'));
 
     }
 
@@ -261,10 +261,10 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // chama member roles
-        $chamaMemberRoles = ChamaMemberRole::where('chama_id',$chama->id)->get();
+        $chamaMemberRoles = ChamaMemberRole::where('chama_id', $chama->id)->get();
         // Get accounts
-        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id',$chama->id)->get();
-        return view('personal.chama_member_create',compact('user', 'chama', 'chamaMemberRoles', 'accounts'));
+        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id', $chama->id)->get();
+        return view('personal.chama_member_create', compact('user', 'chama', 'chamaMemberRoles', 'accounts'));
 
     }
 
@@ -313,7 +313,7 @@ class ChamaController extends Controller
         }
 
         // check if email registered
-        $user = User::where('email',$request->email)->first();
+        $user = User::where('email', $request->email)->first();
         // send invite link
         if ($user){
             // user invitation link
@@ -333,19 +333,19 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // Get chama member
-        $chamaMember = ChamaMember::where('id',$member_id)->with('status', 'user', 'chamaMemberRole', 'penalties.account', 'sharesPayments.account', 'welfare.account', 'welfare.welfareType', 'loans.account', 'chamaMemberMeetings.chamaMeeting')->first();
+        $chamaMember = ChamaMember::where('id', $member_id)->with('status', 'user', 'chamaMemberRole', 'penalties.account', 'sharesPayments.account', 'welfare.account', 'welfare.welfareType', 'loans.account', 'chamaMemberMeetings.chamaMeeting')->first();
         // return $chamaMember;
 
         // Pending to dos
-        $pendingToDos = ToDo::where('chama_member_id',$chamaMember->id)->where('is_chama_member', true)->with('user', 'status', 'account')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
+        $pendingToDos = ToDo::where('chama_member_id', $chamaMember->id)->where('is_chama_member', true)->with('user', 'status', 'account')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('chama_member_id',$chamaMember->id)->where('is_chama_member', true)->with('user', 'status', 'account')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->get();
+        $inProgressToDos = ToDo::where('chama_member_id', $chamaMember->id)->where('is_chama_member', true)->with('user', 'status', 'account')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->get();
         // Completed to dos
-        $completedToDos = ToDo::where('chama_member_id',$chamaMember->id)->where('is_chama_member', true)->with('user', 'status', 'account')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
+        $completedToDos = ToDo::where('chama_member_id', $chamaMember->id)->where('is_chama_member', true)->with('user', 'status', 'account')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('chama_member_id',$chamaMember->id)->where('is_chama_member', true)->with('user', 'status', 'account')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
+        $overdueToDos = ToDo::where('chama_member_id', $chamaMember->id)->where('is_chama_member', true)->with('user', 'status', 'account')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
 
-        return view('personal.chama_member_show',compact('user', 'chama', 'chamaMember', 'pendingToDos', 'inProgressToDos', 'completedToDos', 'overdueToDos'));
+        return view('personal.chama_member_show', compact('user', 'chama', 'chamaMember', 'pendingToDos', 'inProgressToDos', 'completedToDos', 'overdueToDos'));
 
     }
 
@@ -394,8 +394,8 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // Get accounts
-        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id',$chama->id)->get();
-        return view('personal.chama_accounts',compact('accounts', 'user', 'chama'));
+        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id', $chama->id)->get();
+        return view('personal.chama_accounts', compact('accounts', 'user', 'chama'));
 
     }
 
@@ -405,7 +405,7 @@ class ChamaController extends Controller
         $user = $this->getUser();
         // Chama
         $chama = $this->getChama($chama_id);
-        return view('personal.chama_account_create',compact('user', 'chama'));
+        return view('personal.chama_account_create', compact('user', 'chama'));
 
     }
 
@@ -443,19 +443,19 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get account
-        $account = Account::where('id',$account_id)->where('is_chama', true)->where('chama_id',$chama->id)->with('status', 'user', 'loans.chamaMember.member', 'accountAdjustments', 'destinationAccount.sourceAccount', 'transactions.account', 'transactions.expense', 'payments', 'sourceAccount.destinationAccount', 'deposits', 'withdrawals', 'liabilities.contact', 'refunds', 'transactions')->first();
+        $account = Account::where('id', $account_id)->where('is_chama', true)->where('chama_id', $chama->id)->with('status', 'user', 'loans.chamaMember.member', 'accountAdjustments', 'destinationAccount.sourceAccount', 'transactions.account', 'transactions.expense', 'payments', 'sourceAccount.destinationAccount', 'deposits', 'withdrawals', 'liabilities.contact', 'refunds', 'transactions')->first();
 
 
         // Pending to dos
-        $pendingToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'account')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('account_id',$account->id)->get();
+        $pendingToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'account')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('account_id', $account->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'account')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('account_id',$account->id)->get();
+        $inProgressToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'account')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('account_id', $account->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'account')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('account_id',$account->id)->get();
+        $completedToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'account')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('account_id', $account->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'account')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('account_id',$account->id)->get();
+        $overdueToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'account')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('account_id', $account->id)->get();
 
-        return view('personal.chama_account_show',compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'account', 'user', 'chama'));
+        return view('personal.chama_account_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'account', 'user', 'chama'));
     }
 
     public function chamaAccountDepositCreate($chama_id, $account_id)
@@ -466,9 +466,9 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // get account
         $account = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('is_chama', true)->where('chama_id',$chama->id)->first();
+        $account = Account::where('id', $account_id)->where('is_chama', true)->where('chama_id', $chama->id)->first();
 
-        return view('personal.chama_deposit_create',compact('account', 'user', 'chama'));
+        return view('personal.chama_deposit_create', compact('account', 'user', 'chama'));
     }
 
     public function chamaAccountLiabilityCreate($chama_id, $account_id)
@@ -479,10 +479,10 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // get accounts
         $account = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('is_chama', true)->where('chama_id',$chama->id)->first();
+        $account = Account::where('id', $account_id)->where('is_chama', true)->where('chama_id', $chama->id)->first();
         // get contacts
-        $contacts = Contact::with('organization')->where('is_user', true)->where('user_id',$user->id)->get();
-        return view('personal.chama_account_liability_create',compact('user', 'account', 'contacts', 'chama'));
+        $contacts = Contact::with('organization')->where('is_user', true)->where('user_id', $user->id)->get();
+        return view('personal.chama_account_liability_create', compact('user', 'account', 'contacts', 'chama'));
     }
 
     public function chamaAccountLoanCreate($chama_id, $account_id)
@@ -493,10 +493,10 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // get accounts
         $account = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('is_chama', true)->where('chama_id',$chama->id)->first();
+        $account = Account::where('id', $account_id)->where('is_chama', true)->where('chama_id', $chama->id)->first();
         // get contacts
-        $contacts = Contact::with('organization')->where('is_user', true)->where('user_id',$user->id)->get();
-        return view('personal.chama_account_loan_create',compact('user', 'account', 'contacts', 'chama'));
+        $contacts = Contact::with('organization')->where('is_user', true)->where('user_id', $user->id)->get();
+        return view('personal.chama_account_loan_create', compact('user', 'account', 'contacts', 'chama'));
     }
 
     public function chamaAccountWithdrawalCreate($chama_id, $account_id)
@@ -507,8 +507,8 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // get account
         $account = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('is_chama', true)->where('chama_id',$chama->id)->first();
-        return view('personal.chama_withdrawal_create',compact('account', 'user', 'chama'));
+        $account = Account::where('id', $account_id)->where('is_chama', true)->where('chama_id', $chama->id)->first();
+        return view('personal.chama_withdrawal_create', compact('account', 'user', 'chama'));
     }
 
     public function chamaAccountUpdate(Request $request, $chama_id, $account_id)
@@ -519,7 +519,7 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // select account type
         $accountExists = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('is_chama', true)->where('chama_id',$chama->id)->first();
+        $account = Account::where('id', $account_id)->where('is_chama', true)->where('chama_id', $chama->id)->first();
         $account->name = $request->name;
         $account->goal = $request->goal;
         $account->notes = $request->notes;
@@ -564,12 +564,12 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get accounts
-        $accounts = Account::where('is_chama', true)->where('chama_id',$chama->id)->get();
+        $accounts = Account::where('is_chama', true)->where('chama_id', $chama->id)->get();
         // get account
         $accountExists = Account::findOrFail($account_id);
-        $account = Account::where('id',$account_id)->where('is_chama', true)->where('chama_id',$chama->id)->first();
+        $account = Account::where('id', $account_id)->where('is_chama', true)->where('chama_id', $chama->id)->first();
 
-        return view('personal.chama_account_adjustment_create',compact('account', 'user', 'accounts', 'chama'));
+        return view('personal.chama_account_adjustment_create', compact('account', 'user', 'accounts', 'chama'));
 
     }
 
@@ -585,7 +585,7 @@ class ChamaController extends Controller
         $reference = $this->getRandomString($size);
 
         // get account
-        $account = Account::where('id',$request->account)->where('is_chama', true)->where('chama_id',$chama->id)->first();
+        $account = Account::where('id', $request->account)->where('is_chama', true)->where('chama_id', $chama->id)->first();
         $accountAdjustment = new AccountAdjustment();
 
         if($request->is_deposit == "on"){
@@ -617,7 +617,7 @@ class ChamaController extends Controller
         $accountAdjustment->save();
 
         // update account
-        $account = Account::where('id',$request->account)->where('is_chama', true)->where('chama_id',$chama->id)->first();
+        $account = Account::where('id', $request->account)->where('is_chama', true)->where('chama_id', $chama->id)->first();
         $account->balance = doubleval($account->balance)+doubleval($request->amount);
         $account->user_id = $user->id;
         $account->save();
@@ -636,10 +636,10 @@ class ChamaController extends Controller
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // get accounts
-        $accounts = Account::where('is_user', true)->where('user_id',$user->id)->get();
+        $accounts = Account::where('is_user', true)->where('user_id', $user->id)->get();
         // Get transactions
-        $transactions = Transaction::with('user', 'status', 'sourceAccount', 'destinationAccount', 'account', 'expense')->where('user_id',$user->id)->where('is_user', true)->get();
-        return view('personal.chama_account_adjustment_create',compact('transactions', 'user', 'journalsStatusCount', 'transactions', 'accounts', 'chama'));
+        $transactions = Transaction::with('user', 'status', 'sourceAccount', 'destinationAccount', 'account', 'expense')->where('user_id', $user->id)->where('is_user', true)->get();
+        return view('personal.chama_account_adjustment_create', compact('transactions', 'user', 'journalsStatusCount', 'transactions', 'accounts', 'chama'));
 
     }
 
@@ -680,7 +680,7 @@ class ChamaController extends Controller
         {
             if ($request->is_expense == "on")
             {
-                $account = Account::where('id',$request->account)->where('is_user', true)->where('user_id',$user->id)->first();
+                $account = Account::where('id', $request->account)->where('is_user', true)->where('user_id', $user->id)->first();
                 $account->balance = doubleval($account->balance)-doubleval($request->amount);
                 $account->user_id = $user->id;
                 $account->save();
@@ -688,14 +688,14 @@ class ChamaController extends Controller
             {
 
                 // credit source
-                $account = Account::where('id',$request->source_account)->where('is_user', true)->where('user_id',$user->id)->first();
+                $account = Account::where('id', $request->source_account)->where('is_user', true)->where('user_id', $user->id)->first();
                 $account->balance = doubleval($account->balance)-doubleval($request->amount);
                 $account->user_id = $user->id;
                 $account->save();
 
 
                 // debit destination
-                $account = Account::where('id',$request->destination_account)->where('is_user', true)->where('user_id',$user->id)->first();
+                $account = Account::where('id', $request->destination_account)->where('is_user', true)->where('user_id', $user->id)->first();
                 $account->balance = doubleval($account->balance)+doubleval($request->amount);
                 $account->user_id = $user->id;
                 $account->save();
@@ -717,13 +717,13 @@ class ChamaController extends Controller
         // Check if exists
         $accountAdjustmentExists = AccountAdjustment::findOrFail($account_adjustment_id);
         // get adjustment account
-        $accountAdjustment = AccountAdjustment::where('id',$account_adjustment_id)->first();
+        $accountAdjustment = AccountAdjustment::where('id', $account_adjustment_id)->first();
         $accountAdjustment->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
         $accountAdjustment->user_id = $user->id;
         $accountAdjustment->save();
 
         // reinburse
-        $account = Account::where('id',$accountAdjustment->account_id)->first();
+        $account = Account::where('id', $accountAdjustment->account_id)->first();
         $account->balance = doubleval($account->balance)-doubleval($accountAdjustment->amount);
         $account->user_id = $user->id;
         $account->save();
@@ -739,13 +739,13 @@ class ChamaController extends Controller
         // Check if exists
         $accountAdjustmentExists = AccountAdjustment::findOrFail($account_adjustment_id);
         // get adjustment account
-        $accountAdjustment = AccountAdjustment::where('id',$account_adjustment_id)->first();
+        $accountAdjustment = AccountAdjustment::where('id', $account_adjustment_id)->first();
         $accountAdjustment->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
         $accountAdjustment->user_id = $user->id;
         $accountAdjustment->save();
 
         // reinburse account
-        $account = Account::where('id',$accountAdjustment->account_id)->first();
+        $account = Account::where('id', $accountAdjustment->account_id)->first();
         $account->balance = doubleval($account->balance)+doubleval($accountAdjustment->amount);
         $account->user_id = $user->id;
         $account->save();
@@ -802,17 +802,17 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get deposit
-        $deposit = Deposit::with('user', 'status', 'account', 'accountAdjustments')->where('is_chama', true)->where('id',$deposit_id)->first();
+        $deposit = Deposit::with('user', 'status', 'account', 'accountAdjustments')->where('is_chama', true)->where('id', $deposit_id)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'deposit')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('deposit_id',$deposit->id)->get();
+        $pendingToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'deposit')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('deposit_id', $deposit->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'deposit')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('deposit_id',$deposit->id)->get();
+        $inProgressToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'deposit')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('deposit_id', $deposit->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'deposit')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('deposit_id',$deposit->id)->get();
+        $completedToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'deposit')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('deposit_id', $deposit->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'deposit')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('deposit_id',$deposit->id)->get();
+        $overdueToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'deposit')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('deposit_id', $deposit->id)->get();
 
-        return view('personal.chama_deposit_show',compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'deposit', 'user', 'chama'));
+        return view('personal.chama_deposit_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'deposit', 'user', 'chama'));
     }
 
     public function chamaDepositAccountAdjustmentCreate($chama_id, $deposit_id)
@@ -823,15 +823,15 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get accounts
-        $accounts = Account::where('is_user', true)->where('user_id',$user->id)->get();
+        $accounts = Account::where('is_user', true)->where('user_id', $user->id)->get();
         // get deposit
         $depositExists = Deposit::findOrFail($deposit_id);
-        $deposit = Deposit::with('user', 'status', 'account', 'accountAdjustments')->where('is_user', true)->where('user_id',$user->id)->where('id',$deposit_id)->first();
+        $deposit = Deposit::with('user', 'status', 'account', 'accountAdjustments')->where('is_user', true)->where('user_id', $user->id)->where('id', $deposit_id)->first();
         // get account
         $accountExists = Account::findOrFail($deposit->account_id);
-        $account = Account::where('id',$deposit->account_id)->where('is_user', true)->where('user_id',$user->id)->first();
+        $account = Account::where('id', $deposit->account_id)->where('is_user', true)->where('user_id', $user->id)->first();
 
-        return view('personal.chama_deposit_account_adjustment_create',compact('deposit', 'account', 'user', 'accounts', 'chama'));
+        return view('personal.chama_deposit_account_adjustment_create', compact('deposit', 'account', 'user', 'accounts', 'chama'));
 
     }
 
@@ -946,17 +946,17 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get withdrawal
-        $withdrawal = Withdrawal::with('user', 'status', 'account', 'accountAdjustments')->where('is_chama', true)->where('id',$withdrawal_id)->first();
+        $withdrawal = Withdrawal::with('user', 'status', 'account', 'accountAdjustments')->where('is_chama', true)->where('id', $withdrawal_id)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'withdrawal')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('withdrawal_id',$withdrawal->id)->get();
+        $pendingToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'withdrawal')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('withdrawal_id', $withdrawal->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'withdrawal')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('withdrawal_id',$withdrawal->id)->get();
+        $inProgressToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'withdrawal')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('withdrawal_id', $withdrawal->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'withdrawal')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('withdrawal_id',$withdrawal->id)->get();
+        $completedToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'withdrawal')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('withdrawal_id', $withdrawal->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'withdrawal')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('withdrawal_id',$withdrawal->id)->get();
+        $overdueToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'withdrawal')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('withdrawal_id', $withdrawal->id)->get();
 
-        return view('personal.chama_withdrawal_show',compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'withdrawal', 'user', 'chama'));
+        return view('personal.chama_withdrawal_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'withdrawal', 'user', 'chama'));
     }
 
     public function chamaWithdrawalAccountAdjustmentCreate($chama_id, $withdrawal_id)
@@ -967,15 +967,15 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get accounts
-        $accounts = Account::where('is_chama', true)->where('chama_id',$chama->id)->get();
+        $accounts = Account::where('is_chama', true)->where('chama_id', $chama->id)->get();
         // get withdrawal
         $withdrawalExists = Withdrawal::findOrFail($withdrawal_id);
-        $withdrawal = Withdrawal::with('user', 'status', 'account', 'accountAdjustments')->where('is_chama', true)->where('id',$withdrawal_id)->first();
+        $withdrawal = Withdrawal::with('user', 'status', 'account', 'accountAdjustments')->where('is_chama', true)->where('id', $withdrawal_id)->first();
         // get account
         $accountExists = Account::findOrFail($withdrawal->account_id);
-        $account = Account::where('id',$withdrawal->account_id)->where('is_chama', true)->where('chama_id',$chama->id)->first();
+        $account = Account::where('id', $withdrawal->account_id)->where('is_chama', true)->where('chama_id', $chama->id)->first();
 
-        return view('personal.chama_withdrawal_account_adjustment_create',compact('withdrawal', 'account', 'user', 'accounts', 'chama'));
+        return view('personal.chama_withdrawal_account_adjustment_create', compact('withdrawal', 'account', 'user', 'accounts', 'chama'));
 
     }
 
@@ -1050,9 +1050,9 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get liabilities
-        $liabilities = Liability::with('user', 'status', 'account', 'account')->where('is_user', true)->where('user_id',$user->id)->get();
+        $liabilities = Liability::with('user', 'status', 'account', 'account')->where('is_user', true)->where('user_id', $user->id)->get();
 
-        return view('personal.chama_liabilities',compact('liabilities', 'user', 'chama'));
+        return view('personal.chama_liabilities', compact('liabilities', 'user', 'chama'));
     }
 
     public function chamaLiabilityCreate($chama_id)
@@ -1062,10 +1062,10 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get accounts
-        $accounts = Account::where('is_user', true)->where('user_id',$user->id)->get();
+        $accounts = Account::where('is_user', true)->where('user_id', $user->id)->get();
         // get contacts
-        $contacts = Contact::with('organization')->where('is_user', true)->where('user_id',$user->id)->get();
-        return view('personal.chama_liability_create',compact('user', 'accounts', 'contacts', 'chama'));
+        $contacts = Contact::with('organization')->where('is_user', true)->where('user_id', $user->id)->get();
+        return view('personal.chama_liability_create', compact('user', 'accounts', 'contacts', 'chama'));
     }
 
     public function chamaLiabilityStore(Request $request, $chama_id)
@@ -1127,21 +1127,21 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get accounts
-        $accounts = Account::where('is_chama', true)->where('chama_id',$chama->id)->get();
+        $accounts = Account::where('is_chama', true)->where('chama_id', $chama->id)->get();
         // get contacts
-        $contacts = Contact::with('organization')->where('is_user', true)->where('user_id',$user->id)->get();
+        $contacts = Contact::with('organization')->where('is_user', true)->where('user_id', $user->id)->get();
         // Get contact type
-        $liability = Liability::with('user', 'status', 'account', 'contact.organization', 'expenses.transactions')->where('is_chama', true)->where('chama_id',$chama->id)->where('id',$liability_id)->first();
+        $liability = Liability::with('user', 'status', 'account', 'contact.organization', 'expenses.transactions')->where('is_chama', true)->where('chama_id', $chama->id)->where('id', $liability_id)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'liability')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('liability_id',$liability->id)->get();
+        $pendingToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'liability')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('liability_id', $liability->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'liability')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('liability_id',$liability->id)->get();
+        $inProgressToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'liability')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('liability_id', $liability->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'liability')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('liability_id',$liability->id)->get();
+        $completedToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'liability')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('liability_id', $liability->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('is_chama', true)->where('chama_id',$chama->id)->with('user', 'status', 'liability')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('liability_id',$liability->id)->get();
+        $overdueToDos = ToDo::where('is_chama', true)->where('chama_id', $chama->id)->with('user', 'status', 'liability')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('liability_id', $liability->id)->get();
 
-        return view('personal.chama_liability_show',compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'accounts', 'contacts', 'liability', 'user', 'chama'));
+        return view('personal.chama_liability_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'accounts', 'contacts', 'liability', 'user', 'chama'));
     }
 
     // TODO expense for liability
@@ -1152,17 +1152,17 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // expense accounts
-        $expenseAccounts = ExpenseAccount::where('is_user', true)->where('user_id',$user->id)->get();
+        $expenseAccounts = ExpenseAccount::where('is_user', true)->where('user_id', $user->id)->get();
         // expense statuses
         $expenseStatuses = Status::where('status_type_id', '7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // get transfers
-        $transfers = Transfer::where('is_user', true)->where('user_id',$user->id)->get();
+        $transfers = Transfer::where('is_user', true)->where('user_id', $user->id)->get();
         // get liabilities
-        $liability = Liability::where('id',$liability_id)->where('is_user', true)->where('user_id',$user->id)->first();
+        $liability = Liability::where('id', $liability_id)->where('is_user', true)->where('user_id', $user->id)->first();
         // get frequencies
-        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_user', true)->where('user_id',$user->id)->get();
+        $frequencies = Frequency::where("status_id", "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_user', true)->where('user_id', $user->id)->get();
 
-        return view('personal.chama_liability_expense_create',compact('liability', 'campaigns', 'sales', 'user', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses', 'chama'));
+        return view('personal.chama_liability_expense_create', compact('liability', 'campaigns', 'sales', 'user', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses', 'chama'));
     }
 
     public function chamaLiabilityUpdate(Request $request, $chama_id, $liability_id)
@@ -1207,7 +1207,7 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // get loans
         $loans = Loan::with('user', 'status', 'account', 'chamaMember')->where('is_chama', true)->get();
-        return view('personal.chama_loans',compact('loans', 'user', 'chama'));
+        return view('personal.chama_loans', compact('loans', 'user', 'chama'));
 
     }
 
@@ -1219,10 +1219,10 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get accounts
-        $accounts = Account::where('chama_id',$chama->id)->where('is_chama', true)->get();
+        $accounts = Account::where('chama_id', $chama->id)->where('is_chama', true)->get();
         // members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('member', 'chamaMemberRole')->get();
-        return view('personal.chama_loan_create',compact('user', 'accounts', 'chamaMembers', 'chama'));
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('member', 'chamaMemberRole')->get();
+        return view('personal.chama_loan_create', compact('user', 'accounts', 'chamaMembers', 'chama'));
 
     }
 
@@ -1290,22 +1290,22 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get accounts
-        $accounts = Account::where('user_id',$user->id)->where('is_user', true)->get();
+        $accounts = Account::where('user_id', $user->id)->where('is_user', true)->get();
         // members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('member', 'chamaMemberRole')->get();
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('member', 'chamaMemberRole')->get();
         // Get contact type
-        $loan = Loan::with('user', 'status', 'account', 'contact.organization', 'payments', 'chamaMember.chamaMemberRole')->where('id',$loan_id)->where('chama_id',$chama->id)->where('is_chama', true)->first();
+        $loan = Loan::with('user', 'status', 'account', 'contact.organization', 'payments', 'chamaMember.chamaMemberRole')->where('id', $loan_id)->where('chama_id', $chama->id)->where('is_chama', true)->first();
 
         // Pending to dos
-        $pendingToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'loan')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('loan_id',$loan->id)->get();
+        $pendingToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'loan')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('loan_id', $loan->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'loan')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('loan_id',$loan->id)->get();
+        $inProgressToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'loan')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('loan_id', $loan->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'loan')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('loan_id',$loan->id)->get();
+        $completedToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'loan')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('loan_id', $loan->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'loan')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('loan_id',$loan->id)->get();
+        $overdueToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'loan')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('loan_id', $loan->id)->get();
 
-        return view('personal.chama_loan_show',compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'accounts', 'chamaMembers', 'loan', 'user', 'chama'));
+        return view('personal.chama_loan_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'accounts', 'chamaMembers', 'loan', 'user', 'chama'));
 
     }
 
@@ -1317,14 +1317,14 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get accounts
-        $accounts = Account::where('chama_id',$chama->id)->where('is_chama', true)->get();
+        $accounts = Account::where('chama_id', $chama->id)->where('is_chama', true)->get();
         // loans
         $loan = Loan::findOrFail($loan_id);
-        return view('personal.chama_loan_payment_create',compact('user', 'accounts', 'loan', 'chama'));
+        return view('personal.chama_loan_payment_create', compact('user', 'accounts', 'loan', 'chama'));
 
     }
 
-    public function chamaLoanPaymentStore(Request $request,$chama_id,$loan_id)
+    public function chamaLoanPaymentStore(Request $request, $chama_id, $loan_id)
     {
 
 
@@ -1384,18 +1384,18 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // Get contact type
-        $payment = Payment::with('user', 'status', 'refunds.account', 'loan', 'sale')->where('id',$payment_id)->where('chama_id',$chama->id)->where('is_chama', true)->first();
+        $payment = Payment::with('user', 'status', 'refunds.account', 'loan', 'sale')->where('id', $payment_id)->where('chama_id', $chama->id)->where('is_chama', true)->first();
 
         // Pending to dos
-        $pendingToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'payment')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('payment_id',$payment->id)->get();
+        $pendingToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'payment')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('payment_id', $payment->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'payment')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('payment_id',$payment->id)->get();
+        $inProgressToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'payment')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('payment_id', $payment->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'payment')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('payment_id',$payment->id)->get();
+        $completedToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'payment')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('payment_id', $payment->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'payment')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('payment_id',$payment->id)->get();
+        $overdueToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'payment')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('payment_id', $payment->id)->get();
 
-        return view('personal.payment_show',compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'payment', 'user'));
+        return view('personal.payment_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'payment', 'user'));
     }
 
     public function chamaLoanUpdate(Request $request, $chama_id, $loan_id)
@@ -1439,8 +1439,8 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // transfers
-        $transfers = Transfer::with('user', 'status', 'sourceAccount', 'destinationAccount')->where('user_id',$user->id)->where('is_user', true)->get();
-        return view('personal.chama_transfers',compact('transfers', 'user', 'chama'));
+        $transfers = Transfer::with('user', 'status', 'sourceAccount', 'destinationAccount')->where('user_id', $user->id)->where('is_user', true)->get();
+        return view('personal.chama_transfers', compact('transfers', 'user', 'chama'));
     }
 
     public function chamaTransferCreate($chama_id)
@@ -1450,8 +1450,8 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get accounts
-        $accounts = Account::where('user_id',$user->id)->where('is_user', true)->get();
-        return view('personal.chama_transfer_create',compact('user', 'accounts', 'chama'));
+        $accounts = Account::where('user_id', $user->id)->where('is_user', true)->get();
+        return view('personal.chama_transfer_create', compact('user', 'accounts', 'chama'));
     }
 
     public function chamaTransferStore(Request $request, $chama_id)
@@ -1514,17 +1514,17 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // Get contact type
-        $transfer = Transfer::with('user', 'status', 'sourceAccount', 'destinationAccount', 'expenses')->where('user_id',$user->id)->where('is_user', true)->where('id',$transfer_id)->first();
+        $transfer = Transfer::with('user', 'status', 'sourceAccount', 'destinationAccount', 'expenses')->where('user_id', $user->id)->where('is_user', true)->where('id', $transfer_id)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'transfer')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('transfer_id',$transfer->id)->get();
+        $pendingToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'transfer')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('transfer_id', $transfer->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'transfer')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('transfer_id',$transfer->id)->get();
+        $inProgressToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'transfer')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('transfer_id', $transfer->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'transfer')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('transfer_id',$transfer->id)->get();
+        $completedToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'transfer')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('transfer_id', $transfer->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'transfer')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('transfer_id',$transfer->id)->get();
+        $overdueToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'transfer')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('transfer_id', $transfer->id)->get();
 
-        return view('personal.chama_transfer_show',compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'transfer', 'user', 'chama'));
+        return view('personal.chama_transfer_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'transfer', 'user', 'chama'));
     }
 
     public function chamaTransferExpenseCreate($chama_id, $transfer_id)
@@ -1540,8 +1540,8 @@ class ChamaController extends Controller
         // expense statuses
         $expenseStatuses = Status::where('status_type_id', '7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // expense accounts
-        $expenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('is_user', true)->get();
-        return view('personal.chama_transfer_expense_create',compact('transfer', 'user', 'journalsStatusCount', 'expenseStatuses', 'expenseAccounts', 'chama'));
+        $expenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('is_user', true)->get();
+        return view('personal.chama_transfer_expense_create', compact('transfer', 'user', 'journalsStatusCount', 'expenseStatuses', 'expenseAccounts', 'chama'));
     }
 
     public function chamaTransferUpdate(Request $request, $chama_id, $transfer_id)
@@ -1587,11 +1587,11 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get sharePayments
-        $sharePayments = SharesPayment::where('chama_id',$chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama')->get();
+        $sharePayments = SharesPayment::where('chama_id', $chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama')->get();
         // get deleted share payments
-        $deletedSharePayments = SharesPayment::where('chama_id',$chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama')->onlyTrashed()->get();
+        $deletedSharePayments = SharesPayment::where('chama_id', $chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama')->onlyTrashed()->get();
 
-        return view('personal.chama_share_payments',compact('chama', 'user', 'sharePayments', 'deletedSharePayments'));
+        return view('personal.chama_share_payments', compact('chama', 'user', 'sharePayments', 'deletedSharePayments'));
 
     }
 
@@ -1603,10 +1603,10 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('member', 'chamaMemberRole')->get();
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('member', 'chamaMemberRole')->get();
         // Get accounts
-        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id',$chama->id)->get();
-        return view('personal.chama_share_payment_create',compact('user', 'chama', 'chamaMembers', 'accounts'));
+        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id', $chama->id)->get();
+        return view('personal.chama_share_payment_create', compact('user', 'chama', 'chamaMembers', 'accounts'));
 
     }
 
@@ -1644,7 +1644,7 @@ class ChamaController extends Controller
         // update member
         $chamaMember->shares = $shares;
         $chamaMember->save();
-        return redirect()->route('personal.share.payment.show',$sharePayment->id)->withSuccess(__('Share payment '.$sharePayment->name.' successfully created.'));
+        return redirect()->route('personal.share.payment.show', $sharePayment->id)->withSuccess(__('Share payment '.$sharePayment->name.' successfully created.'));
 
     }
 
@@ -1656,13 +1656,13 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // Check if share payment exists
         $sharePaymentExists = SharesPayment::findOrFail($share_payment_id);
-        $sharePayment = SharesPayment::with('user', 'status', 'account', 'chamaMember')->where('id',$share_payment_id)->first();
+        $sharePayment = SharesPayment::with('user', 'status', 'account', 'chamaMember')->where('id', $share_payment_id)->first();
 
         // members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('member', 'chamaMemberRole')->get();
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('member', 'chamaMemberRole')->get();
         // Get accounts
-        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id',$chama->id)->get();
-        return view('personal.chama_share_payment_show',compact('sharePayment', 'user', 'chama', 'accounts', 'chamaMembers'));
+        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id', $chama->id)->get();
+        return view('personal.chama_share_payment_show', compact('sharePayment', 'user', 'chama', 'accounts', 'chamaMembers'));
     }
 
     public function chamaSharePaymentUpdate(Request $request, $chama_id, $share_payment_id)
@@ -1677,7 +1677,7 @@ class ChamaController extends Controller
         $sharePayment->user_id = $user->id;
         $sharePayment->save();
 
-        return redirect()->route('personal.share.payment.show',$sharePayment->id)->withSuccess('Share payment '.$sharePayment->name.' updated!');
+        return redirect()->route('personal.share.payment.show', $sharePayment->id)->withSuccess('Share payment '.$sharePayment->name.' updated!');
     }
 
     public function chamaSharePaymentDelete($chama_id, $share_payment_id)
@@ -1717,11 +1717,11 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get penalties
-        $penalties = Penalty::where('chama_id',$chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama', 'account')->get();
+        $penalties = Penalty::where('chama_id', $chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama', 'account')->get();
         // get deleted penalties
-        $deletedPenalties = Penalty::where('chama_id',$chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama', 'account')->onlyTrashed()->get();
+        $deletedPenalties = Penalty::where('chama_id', $chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama', 'account')->onlyTrashed()->get();
 
-        return view('personal.chama_penalties',compact('chama', 'user', 'penalties', 'deletedPenalties'));
+        return view('personal.chama_penalties', compact('chama', 'user', 'penalties', 'deletedPenalties'));
 
     }
 
@@ -1733,10 +1733,10 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('member', 'chamaMemberRole')->get();
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('member', 'chamaMemberRole')->get();
         // Get accounts
-        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id',$chama->id)->get();
-        return view('personal.chama_penalty_create',compact('user', 'chama', 'chamaMembers', 'accounts'));
+        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id', $chama->id)->get();
+        return view('personal.chama_penalty_create', compact('user', 'chama', 'chamaMembers', 'accounts'));
 
     }
 
@@ -1769,7 +1769,7 @@ class ChamaController extends Controller
         $penalty->save();
 
 
-        return redirect()->route('personal.share.payment.show',$penalty->id)->withSuccess(__('Penalty '.$penalty->name.' successfully created.'));
+        return redirect()->route('personal.share.payment.show', $penalty->id)->withSuccess(__('Penalty '.$penalty->name.' successfully created.'));
 
     }
 
@@ -1782,12 +1782,12 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // Check if penalty exists
         $penaltyExists = Penalty::findOrFail($penalty_id);
-        $penalty = Penalty::with('user', 'status', 'account')->where('id',$penalty_id)->first();
+        $penalty = Penalty::with('user', 'status', 'account')->where('id', $penalty_id)->first();
         // members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('member', 'chamaMemberRole')->get();
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('member', 'chamaMemberRole')->get();
         // Get accounts
-        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id',$chama->id)->get();
-        return view('personal.chama_penalty_show',compact('penalty', 'user', 'chama', 'chamaMembers', 'accounts'));
+        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id', $chama->id)->get();
+        return view('personal.chama_penalty_show', compact('penalty', 'user', 'chama', 'chamaMembers', 'accounts'));
 
     }
 
@@ -1803,7 +1803,7 @@ class ChamaController extends Controller
         $sharePayment->name = ($request->name);
         $sharePayment->user_id = $user->id;
         $sharePayment->save();
-        return redirect()->route('personal.share.payment.show',$sharePayment->id)->withSuccess('Share payment '.$sharePayment->name.' updated!');
+        return redirect()->route('personal.share.payment.show', $sharePayment->id)->withSuccess('Share payment '.$sharePayment->name.' updated!');
 
     }
 
@@ -1847,11 +1847,11 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get welfares
-        $welfares = Welfare::where('chama_id',$chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama', 'account', 'welfareType')->get();
+        $welfares = Welfare::where('chama_id', $chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama', 'account', 'welfareType')->get();
         // get deleted welfares
-        $deletedWelfares = Welfare::where('chama_id',$chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama')->onlyTrashed()->get();
+        $deletedWelfares = Welfare::where('chama_id', $chama->id)->with('user', 'status', 'chamaMember.chamaMemberRole', 'chama')->onlyTrashed()->get();
 
-        return view('personal.chama_welfares',compact('chama', 'user', 'welfares', 'deletedWelfares'));
+        return view('personal.chama_welfares', compact('chama', 'user', 'welfares', 'deletedWelfares'));
 
     }
 
@@ -1863,12 +1863,12 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('member', 'chamaMemberRole')->get();
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('member', 'chamaMemberRole')->get();
         // welfare types
-        $welfareTypes = WelfareType::where('chama_id',$chama->id)->get();
+        $welfareTypes = WelfareType::where('chama_id', $chama->id)->get();
         // accounts
-        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id',$chama->id)->get();
-        return view('personal.chama_welfare_create',compact('user', 'chama', 'chamaMembers', 'welfareTypes', 'accounts'));
+        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id', $chama->id)->get();
+        return view('personal.chama_welfare_create', compact('user', 'chama', 'chamaMembers', 'welfareTypes', 'accounts'));
 
     }
 
@@ -1916,14 +1916,14 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // Check if welfare exists
         $welfareExists = Welfare::findOrFail($welfare_id);
-        $welfare = Welfare::with('user', 'status', 'account', 'chamaMember', 'welfareType')->where('id',$welfare_id)->first();
+        $welfare = Welfare::with('user', 'status', 'account', 'chamaMember', 'welfareType')->where('id', $welfare_id)->first();
         // members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('member', 'chamaMemberRole')->get();
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('member', 'chamaMemberRole')->get();
         // welfare types
-        $welfareTypes = WelfareType::where('chama_id',$chama->id)->get();
+        $welfareTypes = WelfareType::where('chama_id', $chama->id)->get();
         // accounts
-        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id',$chama->id)->get();
-        return view('personal.chama_welfare_show',compact('welfare', 'user', 'chama', 'chamaMembers', 'welfareTypes', 'accounts'));
+        $accounts = Account::with('user', 'status')->where('is_chama', true)->where('chama_id', $chama->id)->get();
+        return view('personal.chama_welfare_show', compact('welfare', 'user', 'chama', 'chamaMembers', 'welfareTypes', 'accounts'));
 
     }
 
@@ -1983,12 +1983,12 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // get sheduled meetings
-        $scheduledChamaMeetings = ChamaMeeting::where('chama_id',$chama->id)->where('is_scheduled', true)->with('user', 'status', 'chama')->get();
+        $scheduledChamaMeetings = ChamaMeeting::where('chama_id', $chama->id)->where('is_scheduled', true)->with('user', 'status', 'chama')->get();
         // get meetings
-        $chamaMeetings = ChamaMeeting::where('chama_id',$chama->id)->where('is_scheduled', false)->with('user', 'status', 'chama')->get();
+        $chamaMeetings = ChamaMeeting::where('chama_id', $chama->id)->where('is_scheduled', false)->with('user', 'status', 'chama')->get();
         // get deleted meetings
-        $deletedChamaMeetings = ChamaMeeting::where('chama_id',$chama->id)->with('user', 'status', 'chama')->onlyTrashed()->get();
-        return view('personal.chama_meetings',compact('chama', 'user', 'chamaMeetings', 'deletedChamaMeetings', 'scheduledChamaMeetings'));
+        $deletedChamaMeetings = ChamaMeeting::where('chama_id', $chama->id)->with('user', 'status', 'chama')->onlyTrashed()->get();
+        return view('personal.chama_meetings', compact('chama', 'user', 'chamaMeetings', 'deletedChamaMeetings', 'scheduledChamaMeetings'));
 
 
     }
@@ -2001,8 +2001,8 @@ class ChamaController extends Controller
         // Chama
         $chama = $this->getChama($chama_id);
         // Members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('status', 'user', 'chamaMemberRole')->get();
-        return view('personal.chama_meeting_create',compact('user', 'chama', 'chamaMembers'));
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('status', 'user', 'chamaMemberRole')->get();
+        return view('personal.chama_meeting_create', compact('user', 'chama', 'chamaMembers'));
 
     }
 
@@ -2013,7 +2013,7 @@ class ChamaController extends Controller
         $user = $this->getUser();
         // Chama
         $chama = $this->getChama($chama_id);
-        return view('personal.chama_meeting_schedule',compact('user', 'chama'));
+        return view('personal.chama_meeting_schedule', compact('user', 'chama'));
 
     }
 
@@ -2037,7 +2037,7 @@ class ChamaController extends Controller
         $chamaMeeting->chama_id = $chama->id;
         $chamaMeeting->user_id = $user->id;
         $chamaMeeting->save();
-        return redirect()->route('personal.chama.meeting.show',$chamaMeeting->id)->withSuccess(__('Meeting '.$chamaMeeting->name.' successfully created.'));
+        return redirect()->route('personal.chama.meeting.show', $chamaMeeting->id)->withSuccess(__('Meeting '.$chamaMeeting->name.' successfully created.'));
     }
 
     public function chamaScheduledMeetingShow($chama_id, $chama_meeting_id)
@@ -2049,20 +2049,20 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // Check if meeting exists
         $chamaMeetingExists = ChamaMeeting::findOrFail($chama_meeting_id);
-        $chamaMeeting = ChamaMeeting::with('user', 'status', 'chamaMeetingMembers.chamaMember')->where('id',$chama_meeting_id)->first();
+        $chamaMeeting = ChamaMeeting::with('user', 'status', 'chamaMeetingMembers.chamaMember')->where('id', $chama_meeting_id)->first();
         // Members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('status', 'user', 'chamaMemberRole')->get();
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('status', 'user', 'chamaMemberRole')->get();
 
         // Pending to dos
-        $pendingToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('chama_meeting_id',$chamaMeeting->id)->get();
+        $pendingToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('chama_meeting_id', $chamaMeeting->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('chama_meeting_id',$chamaMeeting->id)->get();
+        $inProgressToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('chama_meeting_id', $chamaMeeting->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('chama_meeting_id',$chamaMeeting->id)->get();
+        $completedToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('chama_meeting_id', $chamaMeeting->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('chama_meeting_id',$chamaMeeting->id)->get();
+        $overdueToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('chama_meeting_id', $chamaMeeting->id)->get();
 
-        return view('personal.chama_scheduled_meeting_show',compact('chamaMeeting', 'user', 'chama', 'pendingToDos', 'inProgressToDos', 'completedToDos', 'overdueToDos', 'chamaMembers'));
+        return view('personal.chama_scheduled_meeting_show', compact('chamaMeeting', 'user', 'chama', 'pendingToDos', 'inProgressToDos', 'completedToDos', 'overdueToDos', 'chamaMembers'));
 
     }
 
@@ -2091,7 +2091,7 @@ class ChamaController extends Controller
             $chamaMeetingRequestMembers[]['id'] = $chamaMeetingProductMember;
 
             // Check if product tax exists
-            $chamaMeetingMember = ChamaMeetingMember::where('meeting_id',$chamaMeeting->id)->where('chama_member_id',$chamaMeetingProductMember)->first();
+            $chamaMeetingMember = ChamaMeetingMember::where('meeting_id', $chamaMeeting->id)->where('chama_member_id', $chamaMeetingProductMember)->first();
 
             if($chamaMeetingMember === null) {
                 $chamaMeetingMember = new ChamaMeetingMember();
@@ -2103,7 +2103,7 @@ class ChamaController extends Controller
             }
         }
 
-        $chamaMeetingMembersIds = ChamaMeetingMember::where('meeting_id',$chamaMeeting->id)->whereNotIn('chama_member_id',$chamaMeetingRequestMembers)->select('id')->get()->toArray();
+        $chamaMeetingMembersIds = ChamaMeetingMember::where('meeting_id', $chamaMeeting->id)->whereNotIn('chama_member_id', $chamaMeetingRequestMembers)->select('id')->get()->toArray();
         DB::table('chama_meeting_members')->whereIn('id', $chamaMeetingMembersIds)->delete();
 
 
@@ -2157,20 +2157,20 @@ class ChamaController extends Controller
         $chama = $this->getChama($chama_id);
         // Check if meeting exists
         $chamaMeetingExists = ChamaMeeting::findOrFail($chama_meeting_id);
-        $chamaMeeting = ChamaMeeting::with('user', 'status', 'chamaMeetingMembers.chamaMember')->where('id',$chama_meeting_id)->first();
+        $chamaMeeting = ChamaMeeting::with('user', 'status', 'chamaMeetingMembers.chamaMember')->where('id', $chama_meeting_id)->first();
         // Members
-        $chamaMembers = ChamaMember::where('chama_id',$chama->id)->with('status', 'user', 'chamaMemberRole')->get();
+        $chamaMembers = ChamaMember::where('chama_id', $chama->id)->with('status', 'user', 'chamaMemberRole')->get();
 
         // Pending to dos
-        $pendingToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('chama_meeting_id',$chamaMeeting->id)->get();
+        $pendingToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('chama_meeting_id', $chamaMeeting->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('chama_meeting_id',$chamaMeeting->id)->get();
+        $inProgressToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('chama_meeting_id', $chamaMeeting->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('chama_meeting_id',$chamaMeeting->id)->get();
+        $completedToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('chama_meeting_id', $chamaMeeting->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('chama_id',$chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('chama_meeting_id',$chamaMeeting->id)->get();
+        $overdueToDos = ToDo::where('chama_id', $chama->id)->where('is_chama', true)->with('user', 'status', 'chamaMeeting')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('chama_meeting_id', $chamaMeeting->id)->get();
 
-        return view('personal.chama_meeting_show',compact('chamaMeeting', 'user', 'chama', 'pendingToDos', 'inProgressToDos', 'completedToDos', 'overdueToDos', 'chamaMembers'));
+        return view('personal.chama_meeting_show', compact('chamaMeeting', 'user', 'chama', 'pendingToDos', 'inProgressToDos', 'completedToDos', 'overdueToDos', 'chamaMembers'));
 
     }
 
@@ -2199,7 +2199,7 @@ class ChamaController extends Controller
             $chamaMeetingRequestMembers[]['id'] = $chamaMeetingProductMember;
 
             // Check if product tax exists
-            $chamaMeetingMember = ChamaMeetingMember::where('meeting_id',$chamaMeeting->id)->where('chama_member_id',$chamaMeetingProductMember)->first();
+            $chamaMeetingMember = ChamaMeetingMember::where('meeting_id', $chamaMeeting->id)->where('chama_member_id', $chamaMeetingProductMember)->first();
 
             if($chamaMeetingMember === null) {
                 $chamaMeetingMember = new ChamaMeetingMember();
@@ -2211,7 +2211,7 @@ class ChamaController extends Controller
             }
         }
 
-        $chamaMeetingMembersIds = ChamaMeetingMember::where('meeting_id',$chamaMeeting->id)->whereNotIn('chama_member_id',$chamaMeetingRequestMembers)->select('id')->get()->toArray();
+        $chamaMeetingMembersIds = ChamaMeetingMember::where('meeting_id', $chamaMeeting->id)->whereNotIn('chama_member_id', $chamaMeetingRequestMembers)->select('id')->get()->toArray();
         DB::table('chama_meeting_members')->whereIn('id', $chamaMeetingMembersIds)->delete();
 
 

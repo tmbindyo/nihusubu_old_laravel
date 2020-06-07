@@ -41,10 +41,10 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // Get expenses
-        $expenses = Expense::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'expenseAccount')->get();
+        $expenses = Expense::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'expenseAccount')->get();
         // return $expenses;
 
-        return view('personal.expenses',compact('expenses', 'user'));
+        return view('personal.expenses', compact('expenses', 'user'));
     }
 
     public function expenseCreate()
@@ -52,36 +52,36 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // expense accounts
-        $expenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('is_user', true)->with('accountType')->get();
+        $expenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('is_user', true)->with('accountType')->get();
 
         // account types
-        $billExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '163fa506-9762-422a-a981-cce20b21f1ad')->where('is_user', true)->with('accountType')->get();
-        $cashExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '8c0c1829-b6cf-4d38-b640-755db25460ae')->where('is_user', true)->with('accountType')->get();
-        $feesExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '17401c1e-1423-40bc-846a-008b0e72373c')->where('is_user', true)->with('accountType')->get();
-        $foodExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '008315c2-ee90-4e55-80cc-de2a8bc0472a')->where('is_user', true)->with('accountType')->get();
-        $healthExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', 'af7b5592-8c36-4746-b369-a3985c90fd0b')->where('is_user', true)->with('accountType')->get();
-        $homeLivingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '1c523f60-ab8f-4dd7-88ca-a70863507a3b')->where('is_user', true)->with('accountType')->get();
-        $incomeExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '6943fd67-ba09-4fc3-986a-3550ae959b33')->where('is_user', true)->with('accountType')->get();
-        $kidsExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '84ccf3c6-74fb-4af9-b4b2-7bef9d0469b8')->where('is_user', true)->with('accountType')->get();
-        $leisureExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '55faadc5-6275-4d19-809e-dc56e555929f')->where('is_user', true)->with('accountType')->get();
-        $loansExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '6269dc50-cfc9-4b3f-8c91-a1adc6bb998e')->where('is_user', true)->with('accountType')->get();
-        $noExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', 'c7c1a0a0-8775-45a7-a84b-92a8dac302d3')->where('is_user', true)->with('accountType')->get();
-        $shoppingExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '83569f71-59dc-46f0-a92f-fdac4ad922aa')->where('is_user', true)->with('accountType')->get();
-        $transportExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '7b05bf74-08e0-4692-becd-799b11d24dba')->where('is_user', true)->with('accountType')->get();
-        $wealthCreationExpenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('account_type_id', '46089cb5-ef46-4d9f-af5c-9676d7a55ed4')->where('is_user', true)->with('accountType')->get();
+        $billExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '163fa506-9762-422a-a981-cce20b21f1ad')->where('is_user', true)->with('accountType')->get();
+        $cashExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '8c0c1829-b6cf-4d38-b640-755db25460ae')->where('is_user', true)->with('accountType')->get();
+        $feesExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '17401c1e-1423-40bc-846a-008b0e72373c')->where('is_user', true)->with('accountType')->get();
+        $foodExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '008315c2-ee90-4e55-80cc-de2a8bc0472a')->where('is_user', true)->with('accountType')->get();
+        $healthExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', 'af7b5592-8c36-4746-b369-a3985c90fd0b')->where('is_user', true)->with('accountType')->get();
+        $homeLivingExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '1c523f60-ab8f-4dd7-88ca-a70863507a3b')->where('is_user', true)->with('accountType')->get();
+        $incomeExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '6943fd67-ba09-4fc3-986a-3550ae959b33')->where('is_user', true)->with('accountType')->get();
+        $kidsExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '84ccf3c6-74fb-4af9-b4b2-7bef9d0469b8')->where('is_user', true)->with('accountType')->get();
+        $leisureExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '55faadc5-6275-4d19-809e-dc56e555929f')->where('is_user', true)->with('accountType')->get();
+        $loansExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '6269dc50-cfc9-4b3f-8c91-a1adc6bb998e')->where('is_user', true)->with('accountType')->get();
+        $noExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', 'c7c1a0a0-8775-45a7-a84b-92a8dac302d3')->where('is_user', true)->with('accountType')->get();
+        $shoppingExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '83569f71-59dc-46f0-a92f-fdac4ad922aa')->where('is_user', true)->with('accountType')->get();
+        $transportExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '7b05bf74-08e0-4692-becd-799b11d24dba')->where('is_user', true)->with('accountType')->get();
+        $wealthCreationExpenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('account_type_id', '46089cb5-ef46-4d9f-af5c-9676d7a55ed4')->where('is_user', true)->with('accountType')->get();
 
         // expense statuses
         $expenseStatuses = Status::where('status_type_id', '7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // get transfers
-        $transfers = Transfer::where('user_id',$user->id)->where('is_user', true)->get();
+        $transfers = Transfer::where('user_id', $user->id)->where('is_user', true)->get();
         // get liabilities
-        $liabilities = Liability::where('user_id',$user->id)->where('is_user', true)->get();
+        $liabilities = Liability::where('user_id', $user->id)->where('is_user', true)->get();
         // get frequencies
-        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id',$user->id)->where('is_user', true)->get();
+        $frequencies = Frequency::where("status_id", "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id', $user->id)->where('is_user', true)->get();
         // accounts
-        $accounts = Account::where('user_id',$user->id)->where('is_user', true)->get();
+        $accounts = Account::where('user_id', $user->id)->where('is_user', true)->get();
 
-        return view('personal.expense_create',compact('wealthCreationExpenseAccounts', 'transportExpenseAccounts', 'shoppingExpenseAccounts', 'noExpenseAccounts', 'loansExpenseAccounts', 'leisureExpenseAccounts', 'kidsExpenseAccounts', 'incomeExpenseAccounts', 'homeLivingExpenseAccounts', 'healthExpenseAccounts', 'foodExpenseAccounts', 'feesExpenseAccounts', 'cashExpenseAccounts', 'billExpenseAccounts', 'liabilities', 'user', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses'));
+        return view('personal.expense_create', compact('wealthCreationExpenseAccounts', 'transportExpenseAccounts', 'shoppingExpenseAccounts', 'noExpenseAccounts', 'loansExpenseAccounts', 'leisureExpenseAccounts', 'kidsExpenseAccounts', 'incomeExpenseAccounts', 'homeLivingExpenseAccounts', 'healthExpenseAccounts', 'foodExpenseAccounts', 'feesExpenseAccounts', 'cashExpenseAccounts', 'billExpenseAccounts', 'liabilities', 'user', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses'));
     }
 
     public function expenseStore(Request $request)
@@ -205,7 +205,7 @@ class ExpenseController extends Controller
             $expenseItem->save();
         }
 
-        return redirect()->route('personal.expense.show',$expense->id)->withSuccess('Expense '.$expense->reference.' successfully created!');
+        return redirect()->route('personal.expense.show', $expense->id)->withSuccess('Expense '.$expense->reference.' successfully created!');
     }
 
     public function expenseShow($expense_id)
@@ -213,21 +213,21 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // get expense
-        $expense = Expense::where('user_id',$user->id)->where('is_user', true)->where('id',$expense_id)->with('transfer', 'status', 'expenseItems', 'transaction', 'expenseAccount', 'frequency', 'user', 'account', 'campaign', 'contact', 'expenseAccount', 'inventoryAdjustment', 'liability', 'sale', 'sale', 'warehouse')->withCount('expenseItems')->first();
+        $expense = Expense::where('user_id', $user->id)->where('is_user', true)->where('id', $expense_id)->with('transfer', 'status', 'expenseItems', 'transaction', 'expenseAccount', 'frequency', 'user', 'account', 'campaign', 'contact', 'expenseAccount', 'inventoryAdjustment', 'liability', 'sale', 'sale', 'warehouse')->withCount('expenseItems')->first();
         // get payments
-        $payments = Transaction::where('user_id',$user->id)->where('is_user', true)->where('expense_id',$expense->id)->where('status_id', '2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense', 'account', 'status')->get();
+        $payments = Transaction::where('user_id', $user->id)->where('is_user', true)->where('expense_id', $expense->id)->where('status_id', '2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense', 'account', 'status')->get();
         // get pending payments
-        $pendingPayments = Transaction::where('user_id',$user->id)->where('is_user', true)->where('expense_id',$expense->id)->where('status_id', 'a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('expense', 'account', 'status')->get();
+        $pendingPayments = Transaction::where('user_id', $user->id)->where('is_user', true)->where('expense_id', $expense->id)->where('status_id', 'a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('expense', 'account', 'status')->get();
         // Pending to dos
-        $pendingToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'expense')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('expense_id',$expense->id)->get();
+        $pendingToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'expense')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('expense_id', $expense->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'expense')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('expense_id',$expense->id)->get();
+        $inProgressToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'expense')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('expense_id', $expense->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'expense')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('expense_id',$expense->id)->get();
+        $completedToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'expense')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('expense_id', $expense->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'expense')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('expense_id',$expense->id)->get();
+        $overdueToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'expense')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('expense_id', $expense->id)->get();
 
-        return view('personal.expense_show',compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'expense', 'user', 'payments', 'pendingPayments'));
+        return view('personal.expense_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'expense', 'user', 'payments', 'pendingPayments'));
     }
 
     public function expenseEdit($expense_id)
@@ -235,19 +235,19 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // Get expense account
-        $expenseAccounts = ExpenseAccount::where('user_id',$user->id)->where('is_user', true)->get();
+        $expenseAccounts = ExpenseAccount::where('user_id', $user->id)->where('is_user', true)->get();
         // expense statuses
         $expenseStatuses = Status::where('status_type_id', '7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // get transfers
-        $transfers = Transfer::where('user_id',$user->id)->where('is_user', true)->get();
+        $transfers = Transfer::where('user_id', $user->id)->where('is_user', true)->get();
         // get liabilities
-        $liabilities = Liability::where('user_id',$user->id)->where('is_user', true)->get();
+        $liabilities = Liability::where('user_id', $user->id)->where('is_user', true)->get();
         // get frequencies
-        $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id',$user->id)->where('is_user', true)->get();
+        $frequencies = Frequency::where("status_id", "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('user_id', $user->id)->where('is_user', true)->get();
         // get expense
-        $expense = Expense::where('user_id',$user->id)->where('is_user', true)->where('id',$expense_id)->with('transfer', 'status', 'expenseItems', 'transaction', 'expenseAccount', 'frequency', 'user', 'account', 'campaign', 'contact', 'expenseAccount', 'inventoryAdjustment', 'liability', 'sale', 'sale', 'warehouse')->withCount('expenseItems')->first();
+        $expense = Expense::where('user_id', $user->id)->where('is_user', true)->where('id', $expense_id)->with('transfer', 'status', 'expenseItems', 'transaction', 'expenseAccount', 'frequency', 'user', 'account', 'campaign', 'contact', 'expenseAccount', 'inventoryAdjustment', 'liability', 'sale', 'sale', 'warehouse')->withCount('expenseItems')->first();
 
-        return view('personal.expense_edit',compact('liabilities', 'campaigns', 'expense', 'user', 'expenseAccounts', 'expenseStatuses', 'transfers', 'frequencies'));
+        return view('personal.expense_edit', compact('liabilities', 'campaigns', 'expense', 'user', 'expenseAccounts', 'expenseStatuses', 'transfers', 'frequencies'));
     }
 
     public function expenseUpdate(Request $request, $expense_id)
@@ -258,7 +258,7 @@ class ExpenseController extends Controller
         $size = 5;
         $reference = $this->getRandomString($size);
         $expenseExists = Expense::findOrFail($expense_id);
-        $expense = Expense::where('id',$expense_id)->first();
+        $expense = Expense::where('id', $expense_id)->first();
         $expense->reference = $reference;
         $expense->expense_account_id = $request->expense_account;
         $expense->date = date('Y-m-d', strtotime($request->date));
@@ -359,7 +359,7 @@ class ExpenseController extends Controller
         foreach ($request->item_details as $item)
         {
             // check if exists
-            $expenseItem = ExpenseItem::where('expense_id',$expense->id)->where('name',$item['item'])->first();
+            $expenseItem = ExpenseItem::where('expense_id', $expense->id)->where('name', $item['item'])->first();
             if($expenseItem)
             {
                 $expenseProducts[]['id'] = $expenseItem->id;
@@ -389,12 +389,12 @@ class ExpenseController extends Controller
 
         }
         // Get the deleted expense items
-        $expenseItemIds = ExpenseItem::where('expense_id',$expense->id)->whereNotIn('id',$expenseProducts)->select('id')->get()->toArray();
+        $expenseItemIds = ExpenseItem::where('expense_id', $expense->id)->whereNotIn('id', $expenseProducts)->select('id')->get()->toArray();
 
         // Delete removed expense items
         DB::table('expense_items')->whereIn('id', $expenseItemIds)->delete();
 
-        return redirect()->route('personal.expense.show',$expense->id)->withSuccess('Expense '.$expense->reference.' successfully updated!');
+        return redirect()->route('personal.expense.show', $expense->id)->withSuccess('Expense '.$expense->reference.' successfully updated!');
     }
 
     public function expenseDelete()
@@ -405,7 +405,7 @@ class ExpenseController extends Controller
         // Get expenses
         $expenses = Expense::with('user', 'status')->get();
 
-        return view('personal.expenses',compact('expenses', 'user'));
+        return view('personal.expenses', compact('expenses', 'user'));
     }
 
     public function expenseRestore()
@@ -416,7 +416,7 @@ class ExpenseController extends Controller
         // Get expenses
         $expenses = Expense::with('user', 'status')->get();
 
-        return view('personal.expenses',compact('expenses', 'user'));
+        return view('personal.expenses', compact('expenses', 'user'));
     }
 
 
@@ -426,8 +426,8 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // Get transactions
-        $transactions = Transaction::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'account', 'expense')->get();
-        return view('personal.transactions',compact('transactions', 'user', 'transactions'));
+        $transactions = Transaction::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'account', 'expense')->get();
+        return view('personal.transactions', compact('transactions', 'user', 'transactions'));
 
     }
 
@@ -439,11 +439,11 @@ class ExpenseController extends Controller
         // get expenses
         $expense = Expense::findOrFail($expense_id);
         // accounts
-        $accounts = Account::where('user_id',$user->id)->where('is_user', true)->get();
+        $accounts = Account::where('user_id', $user->id)->where('is_user', true)->get();
 
         // transaction statuses
         $transactionStatuses = Status::where('status_type_id', '8f56fc70-6cd8-496f-9aec-89e5748968db')->get();
-        return view('personal.transaction_create',compact('accounts', 'expense', 'user', 'transactionStatuses'));
+        return view('personal.transaction_create', compact('accounts', 'expense', 'user', 'transactionStatuses'));
     }
 
     public function transactionStore(Request $request)
@@ -476,7 +476,7 @@ class ExpenseController extends Controller
         if ($request->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2'){
 
             // update expense paid
-            $expensePaid = Expense::where('id',$request->expense)->first();
+            $expensePaid = Expense::where('id', $request->expense)->first();
             $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
             $expensePaid->save();
             // if liability
@@ -498,7 +498,7 @@ class ExpenseController extends Controller
                 $campaign->save();
             }
 
-            $account = Account::where('id',$request->account)->first();
+            $account = Account::where('id', $request->account)->first();
 
             // update transaction
             $transaction = Transaction::findOrFail($transaction->id);
@@ -511,7 +511,7 @@ class ExpenseController extends Controller
             $account->save();
         }
 
-        return redirect()->route('personal.expense.show',$transaction->expense_id)->withSuccess('Expense '.$transaction->reference.' successfully updated!');
+        return redirect()->route('personal.expense.show', $transaction->expense_id)->withSuccess('Expense '.$transaction->reference.' successfully updated!');
 
     }
 
@@ -523,7 +523,7 @@ class ExpenseController extends Controller
         // Check if transaction exists
         $transaction = Transaction::findOrFail($transaction_id);
         // get transaction
-        $transaction = Transaction::where('id',$transaction_id)->first();
+        $transaction = Transaction::where('id', $transaction_id)->first();
         $transaction->user_id = $user->id;
         $transaction->status_id = $request->status;
         $transaction->save();
@@ -531,11 +531,11 @@ class ExpenseController extends Controller
         if ($request->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2')
         {
             // update expense paid
-            $expensePaid = Expense::where('id',$request->expense)->first();
+            $expensePaid = Expense::where('id', $request->expense)->first();
             $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
             $expensePaid->save();
 
-            $account = Account::where('id',$request->account)->first();
+            $account = Account::where('id', $request->account)->first();
 
             // update transaction
             $transaction = Transaction::findOrFail($transaction->id);
@@ -563,18 +563,18 @@ class ExpenseController extends Controller
         $transactionExists = Transaction::findOrFail($transaction_id);
 
         // get and update transaction
-        $transaction = Transaction::where('id',$transaction_id)->first();
+        $transaction = Transaction::where('id', $transaction_id)->first();
         $transaction->date = date('Y-m-d');
         $transaction->user_id = $user->id;
         $transaction->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2';
         $transaction->save();
 
         // update expense paid
-        $expensePaid = Expense::where('id',$request->expense)->first();
+        $expensePaid = Expense::where('id', $request->expense)->first();
         $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
         $expensePaid->save();
 
-        $account = Account::where('id',$request->account)->first();
+        $account = Account::where('id', $request->account)->first();
 
         // update transaction
         $transaction = Transaction::findOrFail($transaction->id);
@@ -599,7 +599,7 @@ class ExpenseController extends Controller
         $transactionExists = Transaction::findOrFail($transaction_id);
 
         // get and update transaction
-        $transaction = Transaction::where('id',$transaction_id)->first();
+        $transaction = Transaction::where('id', $transaction_id)->first();
         $transaction->billed = date('Y-m-d');
         $transaction->user_id = $user->id;
         $transaction->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2';
@@ -607,7 +607,7 @@ class ExpenseController extends Controller
         $transaction->save();
 
         // update account, credit previously paid amount
-        $account = Account::where('id',$transaction->account_id)->first();
+        $account = Account::where('id', $transaction->account_id)->first();
         $account->balance = doubleval($account->balance) + doubleval($transaction->amount);
         $account->user_id = $user->id;
         $account->save();
@@ -634,8 +634,8 @@ class ExpenseController extends Controller
     {
         // User
         $user = $this->getUser();
-        $payments = Payment::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'account')->get();
-        return view('personal.payments',compact('payments', 'user'));
+        $payments = Payment::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'account')->get();
+        return view('personal.payments', compact('payments', 'user'));
     }
 
     public function paymentCreate()
@@ -643,12 +643,12 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // get accounts
-        $accounts = Account::where('user_id',$user->id)->where('is_user', true)->get();
+        $accounts = Account::where('user_id', $user->id)->where('is_user', true)->get();
         // loans
-        $loans = Loan::where('user_id',$user->id)->where('is_user', true)->get();
+        $loans = Loan::where('user_id', $user->id)->where('is_user', true)->get();
         // sales
-        $sales = Sale::where('user_id',$user->id)->where('is_user', true)->get();
-        return view('personal.payment_create',compact('user', 'accounts', 'loans', 'sales'));
+        $sales = Sale::where('user_id', $user->id)->where('is_user', true)->get();
+        return view('personal.payment_create', compact('user', 'accounts', 'loans', 'sales'));
     }
 
     public function paymentStore(Request $request)
@@ -710,10 +710,10 @@ class ExpenseController extends Controller
             $sale->save();
 
             // reduce stock
-            $saleProducts = SaleProduct::where('sale_id',$sale->id)->get();
+            $saleProducts = SaleProduct::where('sale_id', $sale->id)->get();
             foreach($saleProducts as $saleProduct){
                 // return $saleProduct;
-                $inventory = Inventory::where('product_id',$saleProduct->product_id)->where('warehouse_id',$saleProduct->warehouse_id)->first();
+                $inventory = Inventory::where('product_id', $saleProduct->product_id)->where('warehouse_id', $saleProduct->warehouse_id)->first();
                 $quantity = doubleval($inventory->quantity) - doubleval($saleProduct->quantity);
                 $inventory->quantity = $quantity;
                 $inventory->save();
@@ -734,7 +734,7 @@ class ExpenseController extends Controller
         $account->balance = $accountBalance;
         $account->save();
 
-        return redirect()->route('personal.payment.show',$payment->id)->withSuccess('Payment created!');
+        return redirect()->route('personal.payment.show', $payment->id)->withSuccess('Payment created!');
     }
 
     public function paymentShow($payment_id)
@@ -744,17 +744,17 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // Get contact type
-        $payment = Payment::with('user', 'status', 'refunds.account', 'loan', 'sale')->where('id',$payment_id)->where('user_id',$user->id)->where('is_user', true)->first();
+        $payment = Payment::with('user', 'status', 'refunds.account', 'loan', 'sale')->where('id', $payment_id)->where('user_id', $user->id)->where('is_user', true)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'payment')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('payment_id',$payment->id)->get();
+        $pendingToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'payment')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('payment_id', $payment->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'payment')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('payment_id',$payment->id)->get();
+        $inProgressToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'payment')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('payment_id', $payment->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'payment')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('payment_id',$payment->id)->get();
+        $completedToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'payment')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('payment_id', $payment->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'payment')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('payment_id',$payment->id)->get();
+        $overdueToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'payment')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('payment_id', $payment->id)->get();
 
-        return view('personal.payment_show',compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'payment', 'user'));
+        return view('personal.payment_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'payment', 'user'));
     }
 
     public function paymentDelete($payment_id)
@@ -782,8 +782,8 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // refunds
-        $refunds = Refund::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'account')->get();
-        return view('personal.refunds',compact('refunds', 'user'));
+        $refunds = Refund::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'account')->get();
+        return view('personal.refunds', compact('refunds', 'user'));
     }
 
     public function refundCreate($payment_id)
@@ -791,10 +791,10 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // get accounts
-        $accounts = Account::where('user_id',$user->id)->where('is_user', true)->get();
+        $accounts = Account::where('user_id', $user->id)->where('is_user', true)->get();
         // payment
         $payment = Payment::findOrFail($payment_id);
-        return view('personal.refund_create',compact('user', 'accounts', 'payment'));
+        return view('personal.refund_create', compact('user', 'accounts', 'payment'));
     }
 
     public function refundStore(Request $request)
@@ -834,7 +834,7 @@ class ExpenseController extends Controller
         $account->balance = $accountBalance;
         $account->save();
 
-        return redirect()->route('personal.refund.show',$refund->id)->withSuccess('Refund created!');
+        return redirect()->route('personal.refund.show', $refund->id)->withSuccess('Refund created!');
     }
 
     public function refundShow($refund_id)
@@ -844,17 +844,17 @@ class ExpenseController extends Controller
         // User
         $user = $this->getUser();
         // Get contact type
-        $refund = Refund::with('user', 'status', 'account', 'payment')->where('id',$refund_id)->where('user_id',$user->id)->where('is_user', true)->first();
+        $refund = Refund::with('user', 'status', 'account', 'payment')->where('id', $refund_id)->where('user_id', $user->id)->where('is_user', true)->first();
         // Pending to dos
-        $pendingToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'refund')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('refund_id',$refund->id)->get();
+        $pendingToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'refund')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('refund_id', $refund->id)->get();
         // In progress to dos
-        $inProgressToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'refund')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('refund_id',$refund->id)->get();
+        $inProgressToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'refund')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('refund_id', $refund->id)->get();
         // Completed to dos
-        $completedToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'refund')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('refund_id',$refund->id)->get();
+        $completedToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'refund')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('refund_id', $refund->id)->get();
         // Overdue to dos
-        $overdueToDos = ToDo::where('user_id',$user->id)->where('is_user', true)->with('user', 'status', 'refund')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('refund_id',$refund->id)->get();
+        $overdueToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'refund')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('refund_id', $refund->id)->get();
 
-        return view('personal.refund_show',compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'refund', 'user'));
+        return view('personal.refund_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'refund', 'user'));
     }
 
     public function refundUpdate(Request $request, $refund_id)

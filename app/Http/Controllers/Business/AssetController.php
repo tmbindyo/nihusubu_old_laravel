@@ -24,7 +24,7 @@ class AssetController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        return view('business.assets',compact('user', 'institution'));
+        return view('business.assets', compact('user', 'institution'));
     }
     public function assetCreate($portal)
     {
@@ -32,7 +32,7 @@ class AssetController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        return view('business.asset_create',compact('user', 'institution'));
+        return view('business.asset_create', compact('user', 'institution'));
     }
     public function assetStore($portal)
     {
@@ -48,7 +48,7 @@ class AssetController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        return view('business.asset_show',compact('user', 'institution'));
+        return view('business.asset_show', compact('user', 'institution'));
     }
     public function assetUpdate($portal, $asset_id)
     {

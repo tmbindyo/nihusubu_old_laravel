@@ -53,7 +53,7 @@ class HomeController extends Controller
                     return redirect()->route('personal.calendar');
                 }
                 elseif ($userAccount->userType->name == "Business"){
-                    return redirect()->route('business.calendar',$userAccount->institution->portal);
+                    return redirect()->route('business.calendar', $userAccount->institution->portal);
                 }
             }
         }
@@ -76,10 +76,10 @@ class HomeController extends Controller
         $user = Auth::user();
 
         // Get personal user account
-        $personalUserAccount = UserAccount::where('user_id',$user->id)->where('user_type_id', '5f29e668-9029-4278-a5e7-9ba9f96a20df')->with('institution', 'userType')->first();
+        $personalUserAccount = UserAccount::where('user_id', $user->id)->where('user_type_id', '5f29e668-9029-4278-a5e7-9ba9f96a20df')->with('institution', 'userType')->first();
         // get user accountsupdate user_accounts set
-        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution', 'userType')->get();
-        return view('auth.account_type_addition',compact('userAccounts', 'user', 'personalUserAccount'));
+        $userAccounts = UserAccount::where('user_id', $user->id)->with('institution', 'userType')->get();
+        return view('auth.account_type_addition', compact('userAccounts', 'user', 'personalUserAccount'));
     }
 
     public function viewUserAccounts()
@@ -88,8 +88,8 @@ class HomeController extends Controller
         // User
         $user = Auth::user();
         // get user accountsupdate user_accounts set
-        $userAccounts = UserAccount::where('user_id',$user->id)->with('institution', 'userType')->get();
-        return view('auth.lockscreen',compact('userAccounts', 'user'));
+        $userAccounts = UserAccount::where('user_id', $user->id)->with('institution', 'userType')->get();
+        return view('auth.lockscreen', compact('userAccounts', 'user'));
     }
 
     public function activateUserAccount($user_account_id)
@@ -97,9 +97,9 @@ class HomeController extends Controller
         // User
         $user = Auth::user();
         // update all user accounts as false
-        $userAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => false]);
+        $userAccounts = UserAccount::where('user_id', $user->id)->update(['is_active' => false]);
         // activate user account
-        $userAccounts = UserAccount::where('id',$user_account_id)->update(['is_active' => true]);
+        $userAccounts = UserAccount::where('id', $user_account_id)->update(['is_active' => true]);
         return redirect()->route('home');
     }
 
@@ -108,7 +108,7 @@ class HomeController extends Controller
         // User
         $user = Auth::user();
         // deactivate user accounts
-        $userAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => false]);
+        $userAccounts = UserAccount::where('user_id', $user->id)->update(['is_active' => false]);
         // redirect to account selection
         return redirect()->route('view.user.accounts');
     }
@@ -141,11 +141,11 @@ class HomeController extends Controller
 
 
         // create units
-        $institutionUnits = $this->unitSeeder($request, $user,$institution);
+        $institutionUnits = $this->unitSeeder($request, $user, $institution);
         // create taxes
-        $institutionTaxes = $this->taxesSeeder($request, $user,$institution);
+        $institutionTaxes = $this->taxesSeeder($request, $user, $institution);
         // create warehouses
-        $institutionWarehouses = $this->warehousesSeeder($request, $user,$institution);
+        $institutionWarehouses = $this->warehousesSeeder($request, $user, $institution);
         // create lead sources
         $institutionLeadSources = $this->leadSourcesSeeder($request, $user, $institution);
         // create titles
@@ -167,7 +167,7 @@ class HomeController extends Controller
         // return $userAccount;
 
         // account creation
-        return redirect()->route('activate.user.account',$userAccount->id);
+        return redirect()->route('activate.user.account', $userAccount->id);
     }
 
     private function addressSeeder ($request, $user){
@@ -1968,7 +1968,7 @@ class HomeController extends Controller
         // Leisure, Entertainment
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Bars, Clubs';
-        $expenseAccount->code = 'B,C';
+        $expenseAccount->code = 'B, c';
         $expenseAccount->description = 'Bars, Clubs';
         $expenseAccount->account_type_id = '55faadc5-6275-4d19-809e-dc56e555929f';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -2224,7 +2224,7 @@ class HomeController extends Controller
 
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Gifts, Charity';
-        $expenseAccount->code = 'G,C';
+        $expenseAccount->code = 'G, c';
         $expenseAccount->description = 'Gifts, Charity';
         $expenseAccount->account_type_id = '83569f71-59dc-46f0-a92f-fdac4ad922aa';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -2346,7 +2346,7 @@ class HomeController extends Controller
 
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Taxi, Car hire';
-        $expenseAccount->code = 'T,CH';
+        $expenseAccount->code = 'T, cH';
         $expenseAccount->description = 'Taxi, Car hire';
         $expenseAccount->account_type_id = '7b05bf74-08e0-4692-becd-799b11d24dba';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';

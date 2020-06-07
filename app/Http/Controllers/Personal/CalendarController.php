@@ -21,8 +21,8 @@ class CalendarController extends Controller
         // User
         $user = $this->getUser();
         // to does
-        $toDos = ToDo::with('user', 'status', 'assignee', 'product', 'productGroup', 'warehouse', 'sale')->where('is_user', true)->where('user_id',$user->id)->get();
-        return view('personal.calendar',compact('user', 'toDos'));
+        $toDos = ToDo::with('user', 'status', 'assignee', 'product', 'productGroup', 'warehouse', 'sale')->where('is_user', true)->where('user_id', $user->id)->get();
+        return view('personal.calendar', compact('user', 'toDos'));
 
     }
 }
