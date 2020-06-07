@@ -235,7 +235,8 @@ class SettingController extends Controller
         $expenseAccountExpenses = Expense::where('expense_account_id', $expenseAccount->id)->get();
         // expense account budget
         $expenseAccountBudget = Budget::where('expense_account_id', $expenseAccount->id)->get();
-        return view('personal.expense_account_show', compact('expenseAccount', 'user', 'accountTypes', 'expenseAccountExpenses', 'expenseAccountBudget'));
+        return view('personal.expense_account_show',
+            compact('expenseAccount', 'user', 'accountTypes', 'expenseAccountExpenses', 'expenseAccountBudget'));
     }
 
     public function expenseAccountUpdate(Request $request, $expenseAccount_id)
@@ -270,9 +271,6 @@ class SettingController extends Controller
 
         return back()->withSuccess(__('Expense account '.$expenseAccount->name.' successfully restored.'));
     }
-
-
-
 
     // frequency
     public function frequencies()
