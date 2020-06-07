@@ -64,10 +64,8 @@ class LandingController extends Controller
         return view('landing.terms_and_conditions');
     }
 
-
     public function emailSubscribe(Request $request)
     {
-
         $emailSubscription = new EmailSubscribe();
         $emailSubscription->email = $request->email;
         $emailSubscription->status_id = '276b2772-7230-4f83-bbd7-ec45e3da2ae4';
@@ -77,8 +75,7 @@ class LandingController extends Controller
 
     public function emailUnubscribe(Request $request)
     {
-
-        $emailSubscription = EmailSubscribe::where('email',$request->email)->first();
+        $emailSubscription = EmailSubscribe::where('email', $request->email)->first();
         if($emailSubscription){
             $emailSubscription->status_id = 'e0050238-1d7b-4420-b297-ce4c41c700a3';
             $emailSubscription->save();
@@ -90,18 +87,17 @@ class LandingController extends Controller
 
     public function contactUs(Request $request)
     {
-
         $emailSubscription = new EmailSubscribe();
         $emailSubscription->name = $request->name;
         $emailSubscription->email = $request->email;
         $emailSubscription->message = $request->message;
         $emailSubscription->status_id = '8932f8c3-226a-47c9-9796-5ba50662fdea';
         $emailSubscription->save();
-
         return back()->withSuccess(__('You have sucessfully been subscribed.'));
     }
 
-    public function addressPopulation (){
+    public function addressPopulation ()
+    {
         $institutions = Institution::all();
         foreach ($institutions as $institution)
         {
@@ -110,9 +106,9 @@ class LandingController extends Controller
                 print "good";
             }else{
                 // get primary warehouse
-                $primaryWarehouse = Warehouse::where('institution_id',$institution->id)->where('is_primary',true)->first();
+                $primaryWarehouse = Warehouse::where('institution_id', $institution->id)->where('is_primary', true)->first();
                 // get warehouse address
-                $warehouseAddress = Address::where('id',$primaryWarehouse->address_id)->first();
+                $warehouseAddress = Address::where('id', $primaryWarehouse->address_id)->first();
 
                 // institution address
                 // warehouse address
@@ -131,12 +127,9 @@ class LandingController extends Controller
                 $primaryAddress->save();
 
                 // update institution address id
-            $institutionUpdate = Institution::where('id',$institution->id) ->update(['address_id' => $primaryAddress->id]);
+            $institutionUpdate = Institution::where('id', $institution->id) ->update(['address_id' => $primaryAddress->id]);
             }
-
-
         }
         return "Done";
     }
-
 }
