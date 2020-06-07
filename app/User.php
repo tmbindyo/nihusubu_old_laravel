@@ -33,7 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function assigneeToDos()
     {
-        return $this->hasMany('App\ToDo','id', 'assignee_id');
+        return $this->hasMany('App\ToDo', 'id',  'assignee_id');
     }
     public function branches()
     {
@@ -361,11 +361,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function activeUserAccount()
     {
-        return $this->hasOne('App\UserAccount')->where('is_active',true);
+        return $this->hasOne('App\UserAccount')->where('is_active', true);
     }
     public function inactiveUserAccount()
     {
-        return $this->hasMany('App\UserAccount')->where('is_active',false);
+        return $this->hasMany('App\UserAccount')->where('is_active', false);
     }
     public function uploads()
     {
@@ -406,27 +406,27 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function approvedTimesheets()
     {
-        return $this->hasMany('App\Timesheet','approved_by','id');
+        return $this->hasMany('App\Timesheet', 'approved_by', 'id');
     }
     public function projectsOwned()
     {
-        return $this->hasMany('App\Project','project_owner','id');
+        return $this->hasMany('App\Project', 'project_owner', 'id');
     }
     public function tasksAssigned()
     {
-        return $this->hasMany('App\Task','assignee_id','id');
+        return $this->hasMany('App\Task', 'assignee_id', 'id');
     }
     public function issuesAssigned()
     {
-        return $this->hasMany('App\Issue','assignee_id','id');
+        return $this->hasMany('App\Issue', 'assignee_id', 'id');
     }
     public function issuesReported()
     {
-        return $this->hasMany('App\Issue','reporter_id','id');
+        return $this->hasMany('App\Issue', 'reporter_id', 'id');
     }
     public function milestonesAssigned()
     {
-        return $this->hasMany('App\Milestone','assignee_id','id');
+        return $this->hasMany('App\Milestone', 'assignee_id', 'id');
     }
 
 
