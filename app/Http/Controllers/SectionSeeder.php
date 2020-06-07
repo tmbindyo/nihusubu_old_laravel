@@ -174,7 +174,6 @@ class SectionSeeder extends Controller
 
     public function menuSeeder()
     {
-
         // dashboard
         $dashboardSection = Section::where('name', 'Dashboard')->where('is_business', true)->first();
         $sectionData = [
