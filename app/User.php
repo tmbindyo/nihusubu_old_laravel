@@ -33,7 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function assigneeToDos()
     {
-        return $this->hasMany('App\ToDo', 'id',  'assignee_id');
+        return $this->hasMany('App\ToDo', 'id', 'assignee_id');
     }
     public function branches()
     {
