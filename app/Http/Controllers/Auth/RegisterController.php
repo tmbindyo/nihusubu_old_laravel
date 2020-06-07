@@ -91,7 +91,8 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function createInstitution(Request $request){
+    public function createInstitution(Request $request)
+    {
         // return $request;
         // user account validation
         $validatedUserData = $request->validate([
@@ -103,7 +104,7 @@ class RegisterController extends Controller
         // return $validatedData;
 
         // user account creation
-        $user = new User ();
+        $user = new User();
         $user->phone_number = $request->phone_number;
         // $user->timezone = $request->timezone;
         $user->name = $request->name;
@@ -151,8 +152,8 @@ class RegisterController extends Controller
         return redirect()->route('home');
     }
 
-    private function institutionSeeder ($request, $user){
-
+    private function institutionSeeder ($request, $user)
+    {
         $institution = new Institution();
         $institution->name = $request->business_name;
         $institution->portal = $request->portal;
@@ -164,11 +165,10 @@ class RegisterController extends Controller
         $institution->currency_id = "0839e6c9-20b3-4442-b3b6-5137a4d309ec";
         $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $institution->save();
-
     }
 
-    private function unitSeeder ($request, $user, $institution){
-
+    private function unitSeeder($request, $user, $institution)
+    {
         $unit = new Unit();
         $unit->name = 'ML';
         $unit->description = 'Millilitres';
@@ -208,10 +208,10 @@ class RegisterController extends Controller
         $unit->institution_id = $institution->id;
         $unit->user_id = $user->id;
         $unit->save();
-
     }
 
-    private function taxesSeeder ($request, $user, $institution){
+    private function taxesSeeder($request, $user, $institution)
+    {
         // Taxes
         $tax = new Tax();
         $tax->name = 'VAT';
@@ -230,11 +230,10 @@ class RegisterController extends Controller
         $tax->user_id = $user->id;
         $tax->is_percentage = true;
         $tax->save();
-
     }
 
-    private function warehousesSeeder($request, $user, $institution){
-
+    private function warehousesSeeder($request, $user, $institution)
+    {
         // warehouse address
         $address = new Address();
         $address->address_type_id = 'f7e388be-1eaa-4acc-9929-daf50bb0b5d1';
@@ -257,10 +256,10 @@ class RegisterController extends Controller
         $warehouse->user_id = $user->id;
         $warehouse->is_primary = true;
         $warehouse->save();
-
     }
 
-    private function leadSourcesSeeder($request, $user, $institution){
+    private function leadSourcesSeeder($request, $user, $institution)
+    {
         $leadSource = new LeadSource();
         $leadSource->name = 'Advertisment';
         $leadSource->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -326,11 +325,10 @@ class RegisterController extends Controller
         $leadSource->institution_id = $institution->id;
         $leadSource->user_id = $user->id;
         $leadSource->save();
-
     }
 
-    private function titlesSeeder($request, $user, $institution){
-
+    private function titlesSeeder($request, $user, $institution)
+    {
         $titles = new Title();
         $titles->name = 'Mr';
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -375,11 +373,10 @@ class RegisterController extends Controller
         $titles->is_institution = true;
         $titles->is_user = false;
         $titles->save();
-
     }
 
-    private function contactTypesSeeder($request, $user, $institution){
-
+    private function contactTypesSeeder($request, $user, $institution)
+    {
         $contactType = new ContactType();
         $contactType->name = 'Client';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -406,11 +403,10 @@ class RegisterController extends Controller
         $contactType->user_id = $user->id;
         $contactType->is_user = false;
         $contactType->save();
-
     }
 
-    private function campaignTypesSeeder($request, $user, $institution){
-
+    private function campaignTypesSeeder($request, $user, $institution)
+    {
         $campaignType = new CampaignType();
         $campaignType->name = 'Sell';
         $campaignType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -494,11 +490,10 @@ class RegisterController extends Controller
         $campaignType->institution_id = $institution->id;
         $campaignType->user_id = $user->id;
         $campaignType->save();
-
     }
 
-    private function accountsSeeder($request, $user, $institution){
-
+    private function accountsSeeder($request, $user, $institution)
+    {
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -515,11 +510,10 @@ class RegisterController extends Controller
         $account->institution_id = $institution->id;
         $account->user_id = $user->id;
         $account->save();
-
     }
 
-    private function frequenciesSeeder($request, $user, $institution){
-
+    private function frequenciesSeeder($request, $user, $institution)
+    {
         $frequencies = new Frequency();
         $frequencies->name = 'Daily';
         $frequencies->type = 'day';
@@ -599,11 +593,10 @@ class RegisterController extends Controller
         $frequencies->is_institution = true;
         $frequencies->is_user = false;
         $frequencies->save();
-
     }
 
-    private function reasonsSeeder($request, $user, $institution){
-
+    private function reasonsSeeder($request, $user, $institution)
+    {
         $reason = new Reason();
         $reason->name = 'Stock on fire';
         $reason->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -652,15 +645,16 @@ class RegisterController extends Controller
         $reason->institution_id = $institution->id;
         $reason->user_id = $user->id;
         $reason->save();
-
     }
 
-    private function expenseAccountsSeeder($request, $user, $institution){
-
+    private function expenseAccountsSeeder($request, $user, $institution)
+    {
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Cost Of Goods Sold';
         $expenseAccount->code = 'COGS';
-        $expenseAccount->description = 'Cost of goods sold (COGS) refers to the direct costs of producing the goods sold by a company. This amount includes the cost of the materials and labor directly used to create the good. It excludes indirect expenses, such as distribution costs and sales force costs.';
+        $expenseAccount->description = 'Cost of goods sold (COGS) refers to the direct costs of producing the goods sold
+         by a company. This amount includes the cost of the materials and labor directly used to create the good. It
+         excludes indirect expenses, such as distribution costs and sales force costs.';
         $expenseAccount->account_type_id = 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
@@ -684,7 +678,8 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Automobile Expense';
         $expenseAccount->code = 'AE';
-        $expenseAccount->description = "A deduction on actual cost of gas, oil, repairs, tires, washing, etc. plus a deduction for depreciation.";
+        $expenseAccount->description = "A deduction on actual cost of gas, oil, repairs, tires, washing, etc. plus a
+        deduction for depreciation.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
@@ -696,7 +691,10 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Bad Debt';
         $expenseAccount->code = 'BD';
-        $expenseAccount->description = "Bad debt occasionally called accounts expense is a monetary amount owed to a creditor that is unlikely to be paid and, or which the creditor is not willing to take action to collect for various reasons, often due to the debtor not having the money to pay, for example due to a company going into liquidation or insolvency.";
+        $expenseAccount->description = "Bad debt occasionally called accounts expense is a monetary amount owed to a
+        creditor that is unlikely to be paid and, or which the creditor is not willing to take action to collect for
+        various reasons, often due to the debtor not having the money to pay, for example due to a company going into
+        liquidation or insolvency.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
@@ -732,7 +730,8 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Depreciation Expense';
         $expenseAccount->code = 'DE';
-        $expenseAccount->description = "A depreciation expense is the amount deducted from gross profit to allow for a reduction in the value of something because of its age or how much it has been used.";
+        $expenseAccount->description = "A depreciation expense is the amount deducted from gross profit to allow for a
+        reduction in the value of something because of its age or how much it has been used.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
@@ -768,7 +767,8 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Lodging';
         $expenseAccount->code = 'L';
-        $expenseAccount->description = " Lodging expenses are usually a business expense that is incurred when someone must travel away from their home to do business.";
+        $expenseAccount->description = " Lodging expenses are usually a business expense that is incurred when someone
+        must travel away from their home to do business.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
@@ -840,7 +840,8 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Printing and Stationery';
         $expenseAccount->code = 'P&S';
-        $expenseAccount->description = "Printing & stationery expenses include the cost of stationery items which are used daily in offices and the printed material for correspondence purposes.";
+        $expenseAccount->description = "Printing & stationery expenses include the cost of stationery items which are
+        used daily in offices and the printed material for correspondence purposes.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
@@ -864,7 +865,8 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Repairs and Maintenance';
         $expenseAccount->code = 'R&M';
-        $expenseAccount->description = "The costs incurred to bring an asset back to an earlier condition or to keep the asset operating at its present condition (as opposed to improving the asset).";
+        $expenseAccount->description = "The costs incurred to bring an asset back to an earlier condition or to keep the
+         asset operating at its present condition (as opposed to improving the asset).";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->institution_id = $institution->id;
@@ -1052,10 +1054,10 @@ class RegisterController extends Controller
         $expenseAccount->is_institution = true;
         $expenseAccount->is_user = false;
         $expenseAccount->save();
-
     }
 
-    private function userAccountSeeder ($request, $user, $institution){
+    private function userAccountSeeder($request, $user, $institution)
+    {
         // account
         $userAccount = new UserAccount();
         $userAccount->institution_id = $institution->id;
@@ -1068,11 +1070,10 @@ class RegisterController extends Controller
         $userAccount->institution_id = $institution->id;
         $userAccount->user_type_id = '07c99d10-8e09-4861-83df-fdd3700d7e48';
         $userAccount->save();
-
     }
 
-
-    public function createPersonal(Request $request){
+    public function createPersonal(Request $request)
+    {
         // return $request;
         // user account validation
         $validatedUserData = $request->validate([
@@ -1084,7 +1085,7 @@ class RegisterController extends Controller
         // return $validatedData;
 
         // user account creation
-        $user = new User ();
+        $user = new User();
         $user->phone_number = $request->phone_number;
         // $user->timezone = $request->timezone;
         $user->name = $request->name;
@@ -1102,14 +1103,13 @@ class RegisterController extends Controller
         $userAccount = $this->userUserAccountSeeder($request, $user);
         // create user contact types
         $userContactType = $this->useContactTypeSeeder($request, $user);
-
         // account creation
         auth()->login($user);
         // return redirect()->route('home');
     }
 
-    private function userAccountsSeeder($request, $user){
-
+    private function userAccountsSeeder($request, $user)
+    {
         // Generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
@@ -1125,11 +1125,10 @@ class RegisterController extends Controller
         $account->is_chama = false;
         $account->user_id = $user->id;
         $account->save();
-
     }
 
-    private function userFrequenciesSeeder($request, $user){
-
+    private function userFrequenciesSeeder($request, $user)
+    {
         $frequencies = new Frequency();
         $frequencies->name = 'Daily';
         $frequencies->type = 'day';
@@ -1201,11 +1200,10 @@ class RegisterController extends Controller
         $frequencies->is_institution = false;
         $frequencies->is_user = true;
         $frequencies->save();
-
     }
 
-    private function userTitlesSeeder($request, $user){
-
+    private function userTitlesSeeder($request, $user)
+    {
         $titles = new Title();
         $titles->name = 'Mr';
         $titles->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -1245,15 +1243,16 @@ class RegisterController extends Controller
         $titles->is_institution = false;
         $titles->is_user = true;
         $titles->save();
-
     }
 
-    private function userExpenseAccountsSeeder($request, $user){
-
+    private function userExpenseAccountsSeeder($request, $user)
+    {
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Cost Of Goods Sold';
         $expenseAccount->code = 'COGS';
-        $expenseAccount->description = 'Cost of goods sold (COGS) refers to the direct costs of producing the goods sold by a company. This amount includes the cost of the materials and labor directly used to create the good. It excludes indirect expenses, such as distribution costs and sales force costs.';
+        $expenseAccount->description = 'Cost of goods sold (COGS) refers to the direct costs of producing the goods sold
+         by a company. This amount includes the cost of the materials and labor directly used to create the good. It
+         excludes indirect expenses, such as distribution costs and sales force costs.';
         $expenseAccount->account_type_id = 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->user_id = $user->id;
@@ -1275,7 +1274,8 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Automobile Expense';
         $expenseAccount->code = 'AE';
-        $expenseAccount->description = "A deduction on actual cost of gas, oil, repairs, tires, washing, etc. plus a deduction for depreciation.";
+        $expenseAccount->description = "A deduction on actual cost of gas, oil, repairs, tires, washing, etc. plus a
+        deduction for depreciation.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->user_id = $user->id;
@@ -1286,7 +1286,10 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Bad Debt';
         $expenseAccount->code = 'BD';
-        $expenseAccount->description = "Bad debt occasionally called accounts expense is a monetary amount owed to a creditor that is unlikely to be paid and, or which the creditor is not willing to take action to collect for various reasons, often due to the debtor not having the money to pay, for example due to a company going into liquidation or insolvency.";
+        $expenseAccount->description = "Bad debt occasionally called accounts expense is a monetary amount owed to a
+        creditor that is unlikely to be paid and, or which the creditor is not willing to take action to collect for
+        various reasons, often due to the debtor not having the money to pay, for example due to a company going into
+        liquidation or insolvency.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->user_id = $user->id;
@@ -1319,7 +1322,8 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Depreciation Expense';
         $expenseAccount->code = 'DE';
-        $expenseAccount->description = "A depreciation expense is the amount deducted from gross profit to allow for a reduction in the value of something because of its age or how much it has been used.";
+        $expenseAccount->description = "A depreciation expense is the amount deducted from gross profit to allow for a
+        reduction in the value of something because of its age or how much it has been used.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->user_id = $user->id;
@@ -1352,7 +1356,8 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Lodging';
         $expenseAccount->code = 'L';
-        $expenseAccount->description = " Lodging expenses are usually a business expense that is incurred when someone must travel away from their home to do business.";
+        $expenseAccount->description = " Lodging expenses are usually a business expense that is incurred when someone
+        must travel away from their home to do business.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->user_id = $user->id;
@@ -1418,7 +1423,8 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Printing and Stationery';
         $expenseAccount->code = 'P&S';
-        $expenseAccount->description = "Printing & stationery expenses include the cost of stationery items which are used daily in offices and the printed material for correspondence purposes.";
+        $expenseAccount->description = "Printing & stationery expenses include the cost of stationery items which are
+        used daily in offices and the printed material for correspondence purposes.";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->user_id = $user->id;
@@ -1440,7 +1446,8 @@ class RegisterController extends Controller
         $expenseAccount = new ExpenseAccount();
         $expenseAccount->name = 'Repairs and Maintenance';
         $expenseAccount->code = 'R&M';
-        $expenseAccount->description = "The costs incurred to bring an asset back to an earlier condition or to keep the asset operating at its present condition (as opposed to improving the asset).";
+        $expenseAccount->description = "The costs incurred to bring an asset back to an earlier condition or to keep the
+         asset operating at its present condition (as opposed to improving the asset).";
         $expenseAccount->account_type_id = 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd';
         $expenseAccount->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $expenseAccount->user_id = $user->id;
@@ -1502,10 +1509,10 @@ class RegisterController extends Controller
         $expenseAccount->is_institution = false;
         $expenseAccount->is_user = true;
         $expenseAccount->save();
-
     }
 
-    private function userUserAccountSeeder ($request, $user){
+    private function userUserAccountSeeder($request, $user)
+    {
         // account
         $userAccount = new UserAccount();
         $userAccount->user_id = $user->id;
@@ -1515,13 +1522,11 @@ class RegisterController extends Controller
         $userAccount->is_user = true;
         $userAccount->is_admin = false;
         $userAccount->user_type_id = '5f29e668-9029-4278-a5e7-9ba9f96a20df';
-
         $userAccount->save();
-
     }
 
-    private function useContactTypeSeeder($request, $user){
-
+    private function useContactTypeSeeder($request, $user)
+    {
         $contactType = new ContactType();
         $contactType->name = 'Spouse';
         $contactType->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -1529,7 +1534,5 @@ class RegisterController extends Controller
         $contactType->user_id = $user->id;
         $contactType->is_user = true;
         $contactType->save();
-
     }
-
 }
