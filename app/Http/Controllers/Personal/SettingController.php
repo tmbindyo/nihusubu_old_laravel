@@ -178,9 +178,6 @@ class SettingController extends Controller
         return back()->withSuccess(__('Title '.$title->name.' successfully restored.'));
     }
 
-
-
-
     // expenseAccounts
     public function expenseAccounts()
     {
