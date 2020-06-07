@@ -19,7 +19,7 @@
                 </li>
                 @isset($campaignExists)
                     <li class="active">
-                        <a href="{{route('business.campaign.create',['portal'=>$institution->portal,'id'=>$campaignExists->id])}}">Campaign</a>
+                        <a href="{{route('business.campaign.create',['portal'=>$institution->portal, 'id'=>$campaignExists->id])}}">Campaign</a>
                     </li>
                 @endisset
                 <li class="active">
@@ -357,7 +357,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

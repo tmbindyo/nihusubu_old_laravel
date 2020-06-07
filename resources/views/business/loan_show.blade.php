@@ -20,9 +20,9 @@
         </div>
         <div class="col-md-5">
             <div class="title-action">
-                <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$loan->account_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
-                <a href="{{route('business.contact.show',['portal'=>$institution->portal,'id'=>$loan->contact_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
-                <a href="{{route('business.loan.payment.create',['portal'=>$institution->portal,'id'=>$loan->id])}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
+                <a href="{{route('business.account.show',['portal'=>$institution->portal, 'id'=>$loan->account_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
+                <a href="{{route('business.contact.show',['portal'=>$institution->portal, 'id'=>$loan->contact_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                <a href="{{route('business.loan.payment.create',['portal'=>$institution->portal, 'id'=>$loan->id])}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.loan.update',['portal'=>$institution->portal,'id'=>$loan->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.loan.update',['portal'=>$institution->portal, 'id'=>$loan->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -285,7 +285,7 @@
                                         @if($pendingToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -301,7 +301,7 @@
                                         @if($inProgressToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -317,9 +317,9 @@
                                             <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
                                         @endif
                                         @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @endif
                                     </div>
                                 </li>
@@ -335,7 +335,7 @@
                                         @if($completedToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -660,7 +660,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

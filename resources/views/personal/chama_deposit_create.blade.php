@@ -52,7 +52,7 @@
                     <a href="{{route('personal.chama.accounts',$chama->id)}}">Accounts</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id,'account_id'=>$account->id])}}">Account</a>
+                    <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id, 'account_id'=>$account->id])}}">Account</a>
                 </li>
                 <li class="active">
                     <strong>Deposit Create</strong>
@@ -374,7 +374,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

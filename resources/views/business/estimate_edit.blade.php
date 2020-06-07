@@ -18,7 +18,7 @@
                         <a href="{{route('business.estimates',$institution->portal)}}">Estimates</a>
                     </li>
                     <li>
-                        <a href="{{route('business.estimate.show',['portal'=>$institution->portal,'id'=>$estimate->id])}}">Estimate</a>
+                        <a href="{{route('business.estimate.show',['portal'=>$institution->portal, 'id'=>$estimate->id])}}">Estimate</a>
                     </li>
                     <li class="active">
                         <strong>Estimate Edit</strong>
@@ -35,7 +35,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('business.estimate.update',['portal'=>$institution->portal,'id'=>$estimate->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.estimate.update',['portal'=>$institution->portal, 'id'=>$estimate->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())

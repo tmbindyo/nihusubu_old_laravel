@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('business.product.image.upload',['portal'=>$institution->portal,'id'=>$product->id]) }}" id="my-awesome-dropzone" class="dropzone" enctype="multipart/form-data">
+                <form method="post" action="{{ route('business.product.image.upload',['portal'=>$institution->portal, 'id'=>$product->id]) }}" id="my-awesome-dropzone" class="dropzone" enctype="multipart/form-data">
                     @csrf
                     <div class="dropzone-previews"></div>
                 </form>

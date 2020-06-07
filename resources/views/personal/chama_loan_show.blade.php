@@ -59,9 +59,9 @@
         </div>
         <div class="col-md-5">
             <div class="title-action">
-                <a href="{{route('personal.account.show',['chama_id'=>$chama->id,'account_id'=>$loan->account_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
-                <a href="{{route('personal.chama.member.show',['chama_id'=>$chama->id,'member_id'=>$loan->member_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
-                <a href="{{route('personal.chama.loan.payment.create',['chama_id'=>$chama->id,'loan_id'=>$loan->id])}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
+                <a href="{{route('personal.account.show',['chama_id'=>$chama->id, 'account_id'=>$loan->account_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
+                <a href="{{route('personal.chama.member.show',['chama_id'=>$chama->id, 'member_id'=>$loan->member_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                <a href="{{route('personal.chama.loan.payment.create',['chama_id'=>$chama->id, 'loan_id'=>$loan->id])}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-10 col-md-offset-1">
-                                <form method="post" action="{{ route('personal.chama.loan.update',['chama_id'=>$chama->id,'loan_id'=>$loan->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.chama.loan.update',['chama_id'=>$chama->id, 'loan_id'=>$loan->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -715,7 +715,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

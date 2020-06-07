@@ -16,12 +16,12 @@
                 </li>
                 @isset($loanAccount)
                     <li class="active">
-                        <a href="{{ route('business.account.show',['portal'=>$institution->portal,'id'=>$loanAccount->id]) }}">Account</a>
+                        <a href="{{ route('business.account.show',['portal'=>$institution->portal, 'id'=>$loanAccount->id]) }}">Account</a>
                     </li>
                 @endisset
                 @isset($loanContact)
                     <li class="active">
-                        <a href="{{ route('business.account.show',['portal'=>$institution->portal,'id'=>$loanContact->id]) }}">Account</a>
+                        <a href="{{ route('business.account.show',['portal'=>$institution->portal, 'id'=>$loanContact->id]) }}">Account</a>
                     </li>
                 @endisset
                 <li class="active">
@@ -423,7 +423,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

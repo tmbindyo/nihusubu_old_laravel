@@ -69,8 +69,8 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.contact.show', ['portal'=>$institution->portal,'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.contact.delete', ['portal'=>$institution->portal,'id'=>$contact->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.contact.delete', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -139,8 +139,8 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal,'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.contact.restore', ['portal'=>$institution->portal,'id'=>$contact->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.contact.restore', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -68,8 +68,8 @@
                                             <td>{{$transferOrder->user->name}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal,'id'=>$transferOrder->id])}}" class="btn-primary btn-outline btn btn-xs">View</a>
-{{--                                                    <a href="{{route('business.transfer.order.edit',['portal'=>$institution->portal,'id'=>$transferOrder->id])}}" class="btn-warning btn-outline btn btn-xs">Edit</a>--}}
+                                                    <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal, 'id'=>$transferOrder->id])}}" class="btn-primary btn-outline btn btn-xs">View</a>
+{{--                                                    <a href="{{route('business.transfer.order.edit',['portal'=>$institution->portal, 'id'=>$transferOrder->id])}}" class="btn-warning btn-outline btn btn-xs">Edit</a>--}}
                                                 </div>
                                             </td>
                                         </tr>

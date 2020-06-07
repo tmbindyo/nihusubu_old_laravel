@@ -58,8 +58,8 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.title.show', ['portal'=>$institution->portal,'id'=>$title->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.title.delete', ['portal'=>$institution->portal,'id'=>$title->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    <a href="{{ route('business.title.show', ['portal'=>$institution->portal, 'id'=>$title->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.title.delete', ['portal'=>$institution->portal, 'id'=>$title->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -125,8 +125,8 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.title.show', ['portal'=>$institution->portal,'id'=>$title->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.title.restore', ['portal'=>$institution->portal,'id'=>$title->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.title.show', ['portal'=>$institution->portal, 'id'=>$title->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.title.restore', ['portal'=>$institution->portal, 'id'=>$title->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     </div>
                                                 </td>
                                             </tr>

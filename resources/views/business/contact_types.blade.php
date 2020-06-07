@@ -72,8 +72,8 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.contact.type.show', ['portal'=>$institution->portal,'id'=>$contactType->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.contact.type.delete', ['portal'=>$institution->portal,'id'=>$contactType->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    <a href="{{ route('business.contact.type.show', ['portal'=>$institution->portal, 'id'=>$contactType->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.contact.type.delete', ['portal'=>$institution->portal, 'id'=>$contactType->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -139,8 +139,8 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.contact.type.show', ['portal'=>$institution->portal,'id'=>$contactType->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.contact.type.restore', ['portal'=>$institution->portal,'id'=>$contactType->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    <a href="{{ route('business.contact.type.show', ['portal'=>$institution->portal, 'id'=>$contactType->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.contact.type.restore', ['portal'=>$institution->portal, 'id'=>$contactType->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                 </div>
                                             </td>
                                         </tr>

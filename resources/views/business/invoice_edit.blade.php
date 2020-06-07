@@ -32,7 +32,7 @@
                         <div class="ibox-content">
 
                             <div class="">
-                                <form method="post" action="{{ route('business.invoice.update',['portal'=>$institution->portal,'id'=>$invoice->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.invoice.update',['portal'=>$institution->portal, 'id'=>$invoice->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())

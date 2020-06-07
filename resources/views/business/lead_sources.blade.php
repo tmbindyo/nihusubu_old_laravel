@@ -71,8 +71,8 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.lead.source.show', ['portal'=>$institution->portal,'id'=>$leadSource->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.lead.source.delete', ['portal'=>$institution->portal,'id'=>$leadSource->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    <a href="{{ route('business.lead.source.show', ['portal'=>$institution->portal, 'id'=>$leadSource->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.lead.source.delete', ['portal'=>$institution->portal, 'id'=>$leadSource->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -138,8 +138,8 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.lead.source.show', ['portal'=>$institution->portal,'id'=>$leadSource->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.lead.source.restore', ['portal'=>$institution->portal,'id'=>$leadSource->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.lead.source.show', ['portal'=>$institution->portal, 'id'=>$leadSource->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.lead.source.restore', ['portal'=>$institution->portal, 'id'=>$leadSource->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     </div>
                                                 </td>
                                             </tr>

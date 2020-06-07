@@ -24,7 +24,7 @@
     <div class="col-lg-4">
         <div class="title-action">
             {{-- <a href="#" data-toggle="modal" data-target="#productRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Add </a> --}}
-            <a href="{{route('business.product.group.edit',['portal'=>$institution->portal,'id'=>$productGroup->id])}}"class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+            <a href="{{route('business.product.group.edit',['portal'=>$institution->portal, 'id'=>$productGroup->id])}}"class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
         </div>
     </div>
 </div>
@@ -36,7 +36,7 @@
                 <div class="col-lg-3">
                     <div class="contact-box center-version">
 
-                        <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->id])}}">
+                        <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])}}">
 
                             <img alt="image" class="rounded-circle" src="img/a2.jpg">
 
@@ -51,7 +51,7 @@
                         </a>
                         <div class="contact-box-footer">
                             <div class="m-t-xs btn-group">
-                                <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->id])}}"  class="btn btn-xs btn-white"> View <i class="fa fa-long-arrow-right"></i> </a>
+                                <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])}}"  class="btn btn-xs btn-white"> View <i class="fa fa-long-arrow-right"></i> </a>
                             </div>
                         </div>
 
@@ -74,7 +74,7 @@
 {{--                                {{$product->selling_price}}--}}
 {{--                            </span>--}}
 {{--                            <small class="text-muted">Category</small>--}}
-{{--                            <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->id])}}" class="product-name"> {{$product->name}}</a>--}}
+{{--                            <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])}}" class="product-name"> {{$product->name}}</a>--}}
 
 
 
@@ -84,7 +84,7 @@
 
 {{--                            <div class="m-t text-righ">--}}
 
-{{--                                <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->id])}}" class="btn btn-xs btn-outline btn-primary">View <i class="fa fa-long-arrow-right"></i> </a>--}}
+{{--                                <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])}}" class="btn btn-xs btn-outline btn-primary">View <i class="fa fa-long-arrow-right"></i> </a>--}}
 {{--                            </div>--}}
 {{--                        </div>--}}
 {{--                    </div>--}}

@@ -443,7 +443,7 @@
         var productName = document.getElementById("product_name")
         var tagField = document.getElementById("tag-input");
         var tagsChoices = new Choices(tagField, {
-            delimiter: ',',
+            delimiter: ', ',
             editItems: true,
             removeItems: true,
             removeItemButton: true,
@@ -683,7 +683,7 @@
                     fromLabel: 'From',
                     toLabel: 'To',
                     customRangeLabel: 'Custom',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                     monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                     firstDay: 1
                 }

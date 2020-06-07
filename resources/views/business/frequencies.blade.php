@@ -71,11 +71,11 @@
                                             <td>{{$frequency->user->name}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.frequency.show', ['portal'=>$institution->portal,'id'=>$frequency->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.frequency.show', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-white btn btn-xs">View</a>
                                                     @if($frequency->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                        <a href="{{ route('business.frequency.restore', ['portal'=>$institution->portal,'id'=>$frequency->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.frequency.restore', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     @else
-                                                        <a href="{{ route('business.frequency.delete', ['portal'=>$institution->portal,'id'=>$frequency->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                        <a href="{{ route('business.frequency.delete', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                     @endif
                                                 </div>
                                             </td>
@@ -143,8 +143,8 @@
                                             <td>{{$frequency->user->name}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.frequency.show', ['portal'=>$institution->portal,'id'=>$frequency->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.frequency.restore', ['portal'=>$institution->portal,'id'=>$frequency->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    <a href="{{ route('business.frequency.show', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.frequency.restore', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                 </div>
                                             </td>
                                         </tr>

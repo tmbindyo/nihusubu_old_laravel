@@ -25,12 +25,12 @@
         <div class="col-md-7">
             <div class="title-action">
                 @if($payment->loan_id)
-                    <a href="{{route('business.loan.show',['portal'=>$institution->portal,'id'=>$payment->loan_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Loan </a>
+                    <a href="{{route('business.loan.show',['portal'=>$institution->portal, 'id'=>$payment->loan_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Loan </a>
                 @endif
                 @if($payment->sale_id)
-                    <a href="{{route('business.sale.show',['portal'=>$institution->portal,'id'=>$payment->sale_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
+                    <a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$payment->sale_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
                 @endif
-                <a href="{{route('business.payment.refund.create',['portal'=>$institution->portal,'id'=>$payment->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Refund </a>
+                <a href="{{route('business.payment.refund.create',['portal'=>$institution->portal, 'id'=>$payment->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Refund </a>
             </div>
         </div>
     </div>
@@ -182,7 +182,7 @@
                                                                 </td>
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
-                                                                        <a href="{{ route('business.refund.show', ['portal'=>$institution->portal,'id'=>$refund->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.refund.show', ['portal'=>$institution->portal, 'id'=>$refund->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -239,7 +239,7 @@
                                         @if($pendingToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -255,7 +255,7 @@
                                         @if($inProgressToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -271,9 +271,9 @@
                                             <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
                                         @endif
                                         @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @endif
                                     </div>
                                 </li>
@@ -289,7 +289,7 @@
                                         @if($completedToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -745,7 +745,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

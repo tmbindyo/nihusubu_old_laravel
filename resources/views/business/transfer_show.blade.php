@@ -24,7 +24,7 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('business.transfer.expense.create',['portal'=>$institution->portal,'id'=>$transfer->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
+                <a href="{{route('business.transfer.expense.create',['portal'=>$institution->portal, 'id'=>$transfer->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
             </div>
         </div>
     </div>
@@ -42,7 +42,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.transfer.update',['portal'=>$institution->portal,'id'=>$transfer->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.transfer.update',['portal'=>$institution->portal, 'id'=>$transfer->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -178,19 +178,19 @@
                                                             </td>
                                                             <td>
                                                                 @if($expense->is_order == 1)
-                                                                    <p><a href="{{route('business.order.show',['portal'=>$institution->portal,'id'=>$expense->order_id])}}" class="badge badge-success">Order</a></p>
+                                                                    <p><a href="{{route('business.order.show',['portal'=>$institution->portal, 'id'=>$expense->order_id])}}" class="badge badge-success">Order</a></p>
                                                                 @elseif($expense->is_project == 1)
-                                                                    <p><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project->id])}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
+                                                                    <p><a href="{{route('business.project.show',['portal'=>$institution->portal, 'id'=>$expense->project->id])}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
                                                                 @elseif($expense->is_project == 1)
-                                                                    <p><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project_id])}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
+                                                                    <p><a href="{{route('business.project.show',['portal'=>$institution->portal, 'id'=>$expense->project_id])}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
                                                                 @elseif($expense->is_liability == 1)
-                                                                    <p><a href="{{route('business.liability.show',['portal'=>$institution->portal,'id'=>$expense->liability_id])}}" class="badge badge-primary">Liability</a></p>
+                                                                    <p><a href="{{route('business.liability.show',['portal'=>$institution->portal, 'id'=>$expense->liability_id])}}" class="badge badge-primary">Liability</a></p>
                                                                 @elseif($expense->is_transfer == 1)
-                                                                    <p><a href="{{route('business.transfer.show',['portal'=>$institution->portal,'id'=>$expense->transfer_id])}}" class="badge badge-primary">Transfer</a></p>
+                                                                    <p><a href="{{route('business.transfer.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_id])}}" class="badge badge-primary">Transfer</a></p>
                                                                 @elseif($expense->is_campaign == 1)
-                                                                    <p><a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$expense->campaign_id])}}" class="badge badge-primary">Campaign</a></p>
+                                                                    <p><a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$expense->campaign_id])}}" class="badge badge-primary">Campaign</a></p>
                                                                 @elseif($expense->is_asset == 1)
-                                                                    <p><a href="{{route('business.asset.show',['portal'=>$institution->portal,'id'=>$expense->asset_id])}}" class="badge badge-primary">Asset</a></p>
+                                                                    <p><a href="{{route('business.asset.show',['portal'=>$institution->portal, 'id'=>$expense->asset_id])}}" class="badge badge-primary">Asset</a></p>
                                                                 @else
                                                                     <p><span class="badge badge-info">None</span></p>
                                                                 @endif
@@ -206,7 +206,7 @@
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -264,7 +264,7 @@
                                         @if($pendingToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -280,7 +280,7 @@
                                         @if($inProgressToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -296,9 +296,9 @@
                                             <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
                                         @endif
                                         @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @endif
                                     </div>
                                 </li>
@@ -314,7 +314,7 @@
                                         @if($completedToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -731,7 +731,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

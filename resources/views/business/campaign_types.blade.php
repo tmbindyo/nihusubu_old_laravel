@@ -58,8 +58,8 @@
 
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.campaign.type.show', ['portal'=>$institution->portal,'id'=>$campaignType->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.campaign.type.delete', ['portal'=>$institution->portal,'id'=>$campaignType->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    <a href="{{ route('business.campaign.type.show', ['portal'=>$institution->portal, 'id'=>$campaignType->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.campaign.type.delete', ['portal'=>$institution->portal, 'id'=>$campaignType->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -128,8 +128,8 @@
 
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.campaign.type.show', ['portal'=>$institution->portal,'id'=>$campaignType->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.campaign.type.restore', ['portal'=>$institution->portal,'id'=>$campaignType->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.campaign.type.show', ['portal'=>$institution->portal, 'id'=>$campaignType->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.campaign.type.restore', ['portal'=>$institution->portal, 'id'=>$campaignType->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     </div>
                                                 </td>
                                             </tr>

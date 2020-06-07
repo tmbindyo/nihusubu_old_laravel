@@ -73,7 +73,7 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.feedback.show', ['portal'=>$institution->portal,'id'=>$feedback->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.feedback.show', ['portal'=>$institution->portal, 'id'=>$feedback->id]) }}" class="btn-white btn btn-xs">View</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -143,7 +143,7 @@
 
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.feedback.show', ['portal'=>$institution->portal,'id'=>$feedback->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.feedback.show', ['portal'=>$institution->portal, 'id'=>$feedback->id]) }}" class="btn-white btn btn-xs">View</a>
                                                     </div>
                                                 </td>
                                             </tr>

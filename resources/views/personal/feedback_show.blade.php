@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('business.feedback.uploads',['portal'=>$institution->portal,'id'=>$feedback->id])}}" class="btn btn-success btn-outline">Uploads</a>
+                <a href="{{route('business.feedback.uploads',['portal'=>$institution->portal, 'id'=>$feedback->id])}}" class="btn btn-success btn-outline">Uploads</a>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.feedback.update',['portal'=>$institution->portal,'id'=>$feedback->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.feedback.update',['portal'=>$institution->portal, 'id'=>$feedback->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -175,12 +175,12 @@
                                                                 </td>
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
-                                                                        <a href="{{ route('business.product.show', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                        <a href="{{ route('business.product.edit', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                                        <a href="{{ route('business.product.show', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.product.edit', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
                                                                         @if($product->status->name=="Discontinued")
-                                                                            <a href="{{ route('business.product.restore', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
+                                                                            <a href="{{ route('business.product.restore', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
                                                                         @else
-                                                                            <a href="{{ route('business.product.delete', ['portal'=>$institution->portal,'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                                                            <a href="{{ route('business.product.delete', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                                                         @endif
 
 
@@ -227,9 +227,9 @@
                                                                     </td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('business.product.group.show', ['portal'=>$institution->portal,'id'=>$productGroup->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                            <a href="{{ route('business.product.group.edit', ['portal'=>$institution->portal,'id'=>$productGroup->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                                                            <a href="{{ route('business.product.group.delete', ['portal'=>$institution->portal,'id'=>$productGroup->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
+                                                                            <a href="{{ route('business.product.group.show', ['portal'=>$institution->portal, 'id'=>$productGroup->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            <a href="{{ route('business.product.group.edit', ['portal'=>$institution->portal, 'id'=>$productGroup->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
+                                                                            <a href="{{ route('business.product.group.delete', ['portal'=>$institution->portal, 'id'=>$productGroup->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                                                         </div>
                                                                     </td>
                                                             </tr>

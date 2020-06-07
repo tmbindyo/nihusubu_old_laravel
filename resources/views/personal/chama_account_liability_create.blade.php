@@ -52,7 +52,7 @@
                     <a href="{{route('personal.chama.accounts',$chama->id)}}">Accounts</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id,'account_id'=>$account->id])}}">Account</a>
+                    <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id, 'account_id'=>$account->id])}}">Account</a>
                 </li>
                 <li class="active">
                     <strong>Liability Create</strong>
@@ -67,7 +67,7 @@
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Liability Registration <small>Form</small></h5>
-                        
+
                     </div>
 
                     <div class="ibox-content">
@@ -95,19 +95,19 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-3"> 
+                                        <div class="col-md-3">
                                             <div class="has-warning">
                                                 <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="0" max="100"  step="0.00001" class="form-control input-lg">
                                                 <i>key in interest in percentage</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-3"> 
+                                        <div class="col-md-3">
                                             <div class="has-warning">
                                                 <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="0" class="form-control input-lg">
                                                 <i>key in interest amount</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-6"> 
+                                        <div class="col-md-6">
                                             <div class="has-warning">
                                                 <input type="number" id="total" name="total" required="required" readonly value="0" class="form-control input-lg">
                                                 <i>total</i>
@@ -275,7 +275,7 @@
         document.getElementById("total").value = payback;
 
     }
-    
+
     function getPercentFromAmount() {
         var principal = document.getElementById('principal').value;
         var interest_amount = document.getElementById('interest_amount').value;
@@ -448,7 +448,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

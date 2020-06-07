@@ -17,7 +17,7 @@
                     <a href="{{route('business.composite.products',$institution->portal)}}">Composite Products</a>
                 </li>
                 <li class="active">
-                    <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal,'id'=>$compositeProduct->id]) }}">Composite Product</a>
+                    <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal, 'id'=>$compositeProduct->id]) }}">Composite Product</a>
                 </li>
                 <li class="active">
                     <strong>Create Composite Products</strong>
@@ -33,7 +33,7 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="">
-                            <form method="post" action="{{ route('business.composite.product.update',['portal'=>$institution->portal,'id'=>$compositeProduct->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" action="{{ route('business.composite.product.update',['portal'=>$institution->portal, 'id'=>$compositeProduct->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -581,7 +581,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

@@ -102,7 +102,7 @@
                                         </td>
                                         <td class="desc">
                                             <h3>
-                                                <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->product->id])}}" class="text-navy">
+                                                <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->product->id])}}" class="text-navy">
                                                     {{$product->product->name}}
                                                 </a>
                                             </h3>

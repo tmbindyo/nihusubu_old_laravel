@@ -33,7 +33,7 @@
                     <a href="{{route('business.feedbacks',$institution->portal)}}">Feedbacks</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.feedback.show',['portal'=>$institution->portal,'id'=>$feedback->id])}}">Feedback</a>
+                    <a href="{{route('business.feedback.show',['portal'=>$institution->portal, 'id'=>$feedback->id])}}">Feedback</a>
                 </li>
                 <li class="active">
                     <strong>Feedback Create</strong>
@@ -49,7 +49,7 @@
             <div class="ibox float-e-margins">
                 <div class="tab-content">
                     <div class="panel-body">
-                        <form id="my-awesome-dropzone" class="dropzone" action="{{route('business.feedback.upload.store',['portal'=>$institution->portal,'id'=>$feedback->id])}}">
+                        <form id="my-awesome-dropzone" class="dropzone" action="{{route('business.feedback.upload.store',['portal'=>$institution->portal, 'id'=>$feedback->id])}}">
                             @csrf
                             <div class="dropzone-previews"></div>
                         </form>

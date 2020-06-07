@@ -39,7 +39,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <p>Edit.</p>
-                                <form method="post" action="{{ route('business.frequency.update',['portal'=>$institution->portal,'id'=>$frequency->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.frequency.update',['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -133,19 +133,19 @@
                                     </td>
                                     <td>
                                         @if($expense->is_order == 1)
-                                            <p><a href="{{route('business.order.show',['portal'=>$institution->portal,'id'=>$expense->order_id])}}" class="badge badge-success">Order</a></p>
+                                            <p><a href="{{route('business.order.show',['portal'=>$institution->portal, 'id'=>$expense->order_id])}}" class="badge badge-success">Order</a></p>
                                         @elseif($expense->is_project == 1)
-                                            <p><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project->id])}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
+                                            <p><a href="{{route('business.project.show',['portal'=>$institution->portal, 'id'=>$expense->project->id])}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
                                         @elseif($expense->is_project == 1)
-                                            <p><a href="{{route('business.project.show',['portal'=>$institution->portal,'id'=>$expense->project_id])}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
+                                            <p><a href="{{route('business.project.show',['portal'=>$institution->portal, 'id'=>$expense->project_id])}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
                                         @elseif($expense->is_liability == 1)
-                                            <p><a href="{{route('business.liability.show',['portal'=>$institution->portal,'id'=>$expense->liability_id])}}" class="badge badge-primary">Liability</a></p>
+                                            <p><a href="{{route('business.liability.show',['portal'=>$institution->portal, 'id'=>$expense->liability_id])}}" class="badge badge-primary">Liability</a></p>
                                         @elseif($expense->is_transfer == 1)
-                                            <p><a href="{{route('business.transfer.show',['portal'=>$institution->portal,'id'=>$expense->transfer_id])}}" class="badge badge-primary">Transfer</a></p>
+                                            <p><a href="{{route('business.transfer.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_id])}}" class="badge badge-primary">Transfer</a></p>
                                         @elseif($expense->is_campaign == 1)
-                                            <p><a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$expense->campaign_id])}}" class="badge badge-primary">Campaign</a></p>
+                                            <p><a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$expense->campaign_id])}}" class="badge badge-primary">Campaign</a></p>
                                         @elseif($expense->is_asset == 1)
-                                            <p><a href="{{route('business.asset.show',['portal'=>$institution->portal,'id'=>$expense->asset_id])}}" class="badge badge-primary">Asset</a></p>
+                                            <p><a href="{{route('business.asset.show',['portal'=>$institution->portal, 'id'=>$expense->asset_id])}}" class="badge badge-primary">Asset</a></p>
                                         @else
                                             <p><span class="badge badge-info">None</span></p>
                                         @endif
@@ -161,7 +161,7 @@
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group">
-                                            <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                            <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -462,7 +462,7 @@
                     fromLabel: 'From',
                     toLabel: 'To',
                     customRangeLabel: 'Custom',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                     monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                     firstDay: 1
                 }

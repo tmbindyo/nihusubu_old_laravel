@@ -67,11 +67,11 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('personal.chama.account.adjustment.create',['chama_id'=>$chama->id,'account_id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
-                <a href="{{route('personal.chama.account.deposit.create',['chama_id'=>$chama->id,'account_id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
-                <a href="{{route('personal.chama.account.liability.create',['chama_id'=>$chama->id,'account_id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Liability </a>
-                <a href="{{route('personal.chama.account.loan.create',['chama_id'=>$chama->id,'account_id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
-                <a href="{{route('personal.chama.account.withdrawal.create',['chama_id'=>$chama->id,'account_id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
+                <a href="{{route('personal.chama.account.adjustment.create',['chama_id'=>$chama->id, 'account_id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
+                <a href="{{route('personal.chama.account.deposit.create',['chama_id'=>$chama->id, 'account_id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
+                <a href="{{route('personal.chama.account.liability.create',['chama_id'=>$chama->id, 'account_id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Liability </a>
+                <a href="{{route('personal.chama.account.loan.create',['chama_id'=>$chama->id, 'account_id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
+                <a href="{{route('personal.chama.account.withdrawal.create',['chama_id'=>$chama->id, 'account_id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
             </div>
         </div>
     </div>
@@ -1013,7 +1013,7 @@
                     fromLabel: 'From',
                     toLabel: 'To',
                     customRangeLabel: 'Custom',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                     monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                     firstDay: 1
                 }

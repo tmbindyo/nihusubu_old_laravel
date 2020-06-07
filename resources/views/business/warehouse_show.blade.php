@@ -23,7 +23,7 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.product.edit',['portal'=>$institution->portal,'id'=>'1'])}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
+                <a href="{{route('business.product.edit',['portal'=>$institution->portal, 'id'=>'1'])}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.warehouse.update',['portal'=>$institution->portal,'id'=>$warehouse->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.warehouse.update',['portal'=>$institution->portal, 'id'=>$warehouse->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -306,7 +306,7 @@
                                                                     @endif
                                                                     </td>
                                                                     <td>
-                                                                        <a href="{{ route('business.inventory.adjustment.show', ['portal'=>$institution->portal,'id'=>$inventoryAdjustment->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.inventory.adjustment.show', ['portal'=>$institution->portal, 'id'=>$inventoryAdjustment->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -350,7 +350,7 @@
                                                                         {{$sourceTransferOrder->destinationWarehouse->name}}
                                                                     </td>
                                                                     <td>
-                                                                        <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$sourceTransferOrder->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal, 'id'=>$sourceTransferOrder->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -395,7 +395,7 @@
                                                                         {{$destinationTransferOrder->sourceWarehouse->name}}
                                                                     </td>
                                                                     <td>
-                                                                        <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal,'id'=>$destinationTransferOrder->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal, 'id'=>$destinationTransferOrder->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

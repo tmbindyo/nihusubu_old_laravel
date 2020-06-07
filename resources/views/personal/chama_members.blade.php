@@ -100,8 +100,8 @@
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('personal.chama.member.show', ['chama_id'=>$chama->id,'member_id'=>$member->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                <a href="{{ route('personal.chama.member.delete', ['chama_id'=>$chama->id,'member_id'=>$member->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                <a href="{{ route('personal.chama.member.show', ['chama_id'=>$chama->id, 'member_id'=>$member->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                <a href="{{ route('personal.chama.member.delete', ['chama_id'=>$chama->id, 'member_id'=>$member->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                             </div>
                                         </td>
                                     </tr>

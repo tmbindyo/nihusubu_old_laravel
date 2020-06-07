@@ -63,7 +63,7 @@
         <div class="col-md-4">
             <div class="title-action">
                 <a href="{{route('personal.liability.expense.create',$liability->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
-                <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id,'account_id'=>$liability->account_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
+                <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id, 'account_id'=>$liability->account_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
                 <a href="{{route('personal.contact.show',$liability->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
             </div>
         </div>
@@ -775,7 +775,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

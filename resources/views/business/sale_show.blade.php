@@ -21,9 +21,9 @@
         <div class="col-lg-6">
             <div class="title-action">
                 {{--  todo return --}}
-                <a href="{{route('business.sale.payment.create',['portal'=>$institution->portal,'id'=>$sale->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Payment </a>
-                <a href="{{route('business.sale.print',['portal'=>$institution->portal,'id'=>$sale->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Invoice </a>
-                <a href="{{route('business.contact.show',['portal'=>$institution->portal,'id'=>$sale->contact_id])}}" class="btn btn-success btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                <a href="{{route('business.sale.payment.create',['portal'=>$institution->portal, 'id'=>$sale->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Payment </a>
+                <a href="{{route('business.sale.print',['portal'=>$institution->portal, 'id'=>$sale->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Invoice </a>
+                <a href="{{route('business.contact.show',['portal'=>$institution->portal, 'id'=>$sale->contact_id])}}" class="btn btn-success btn-outline"><i class="fa fa-eye"></i> Contact </a>
             </div>
         </div>
     </div>
@@ -190,11 +190,11 @@
 
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.payment.show', ['portal'=>$institution->portal,'id'=>$payment->id]) }}" class="btn-default btn btn-xs">Show</a>
+                                                    <a href="{{ route('business.payment.show', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-default btn btn-xs">Show</a>
                                                     @if($payment->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                        <a href="{{ route('business.payment.restore', ['portal'=>$institution->portal,'id'=>$payment->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.payment.restore', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     @else
-                                                        <a href="{{ route('business.payment.delete', ['portal'=>$institution->portal,'id'=>$payment->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                        <a href="{{ route('business.payment.delete', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                     @endif
                                                 </div>
                                             </td>

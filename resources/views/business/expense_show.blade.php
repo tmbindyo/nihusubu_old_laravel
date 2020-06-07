@@ -25,31 +25,31 @@
         <div class="col-lg-4">
             <div class="title-action">
 
-                <a href="{{route('business.expense.edit',['portal'=>$institution->portal,'id'=>$expense->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit</a>
-                <a href="{{route('business.transaction.create',['portal'=>$institution->portal,'id'=>$expense->id])}}" class="btn btn-warning btn-outline"> <i class="fa fa-dollar"></i> Make Payment</a>
+                <a href="{{route('business.expense.edit',['portal'=>$institution->portal, 'id'=>$expense->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit</a>
+                <a href="{{route('business.transaction.create',['portal'=>$institution->portal, 'id'=>$expense->id])}}" class="btn btn-warning btn-outline"> <i class="fa fa-dollar"></i> Make Payment</a>
                 @if($expense->is_inventory_adjustment == 1)
-                    <a href="{{route('business.inventory.adjustment.show',['portal'=>$institution->portal,'id'=>$expense->inventory_adjustment_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Inventory Adjustment </a>
+                    <a href="{{route('business.inventory.adjustment.show',['portal'=>$institution->portal, 'id'=>$expense->inventory_adjustment_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Inventory Adjustment </a>
                 @endif
                 @if($expense->is_transfer_order == 1)
-                    <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal,'id'=>$expense->transfer_order_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transfer Order </a>
+                    <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_order_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transfer Order </a>
                 @endif
                 @if($expense->is_warehouse == 1)
-                    <a href="{{route('business.warehouse.show',['portal'=>$institution->portal,'id'=>$expense->warehouse_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Warehouse </a>
+                    <a href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$expense->warehouse_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Warehouse </a>
                 @endif
                 @if($expense->is_campaign == 1)
-                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$expense->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$expense->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
                 @endif
                 @if($expense->is_sale == 1)
-                    <a href="{{route('business.sale.show',['portal'=>$institution->portal,'id'=>$expense->sale_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Sale </a>
+                    <a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$expense->sale_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Sale </a>
                 @endif
                 @if($expense->is_liability == 1)
-                    <a href="{{route('business.liability.show',['portal'=>$institution->portal,'id'=>$expense->liability_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Liability </a>
+                    <a href="{{route('business.liability.show',['portal'=>$institution->portal, 'id'=>$expense->liability_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Liability </a>
                 @endif
                 @if($expense->is_transfer == 1)
-                    <a href="{{route('business.transfer.show',['portal'=>$institution->portal,'id'=>$expense->transfer_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transfer </a>
+                    <a href="{{route('business.transfer.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transfer </a>
                 @endif
                 @if($expense->is_transaction == 1)
-                    <a href="{{route('business.transaction.show',['portal'=>$institution->portal,'id'=>$expense->transaction_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transaction </a>
+                    <a href="{{route('business.transaction.show',['portal'=>$institution->portal, 'id'=>$expense->transaction_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transaction </a>
                 @endif
             </div>
         </div>
@@ -86,16 +86,16 @@
                                     <strong>Expense Account:</strong> <a href="#" class="text-navy"> {{$expense->expenseAccount->name}} </a><br>
                                     <strong>Account:</strong> <a href="#" class="text-navy"> {{$expense->account->name}} </a><br>
                                     @isset($expense->sale_id)
-                                        <strong>Sale:</strong> <a class="text-navy" href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$expense->sale_id]) }}">{{$expense->sale->reference}}</a><br>
+                                        <strong>Sale:</strong> <a class="text-navy" href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$expense->sale_id]) }}">{{$expense->sale->reference}}</a><br>
                                     @endisset()
                                     @isset($expense->liability_id)
-                                        <strong>Liability:</strong> <a class="text-navy" href="{{ route('business.liability.show', ['portal'=>$institution->portal,'id'=>$expense->liability_id]) }}">{{$expense->liability->reference}}</a><br>
+                                        <strong>Liability:</strong> <a class="text-navy" href="{{ route('business.liability.show', ['portal'=>$institution->portal, 'id'=>$expense->liability_id]) }}">{{$expense->liability->reference}}</a><br>
                                     @endisset()
                                     @isset($expense->transfer_id)
-                                        <strong>Transfer:</strong> <a class="text-navy" href="{{ route('business.transfer.show', ['portal'=>$institution->portal,'id'=>$expense->transfer_id]) }}">{{$expense->transfer->reference}}</a><br>
+                                        <strong>Transfer:</strong> <a class="text-navy" href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$expense->transfer_id]) }}">{{$expense->transfer->reference}}</a><br>
                                     @endisset()
                                     @isset($expense->campaign_id)
-                                        <strong>Campaign:</strong> <a class="text-navy" href="{{ route('business.campaign.show', ['portal'=>$institution->portal,'id'=>$expense->campaign_id]) }}">{{$expense->campaign->name}}</a><br>
+                                        <strong>Campaign:</strong> <a class="text-navy" href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$expense->campaign_id]) }}">{{$expense->campaign->name}}</a><br>
                                     @endisset()
                                     <br>
                                     @if($expense->is_recurring == 1)
@@ -221,7 +221,7 @@
                                                                         <td class="text-right">
                                                                             @if($transaction->is_billed == false)
                                                                                 <div class="btn-group">
-                                                                                    <a href="{{ route('business.transaction.billed', ['portal'=>$institution->portal,'id'=>$transaction->id]) }}" class="btn-warning btn btn-xs">Mark Billed</a>
+                                                                                    <a href="{{ route('business.transaction.billed', ['portal'=>$institution->portal, 'id'=>$transaction->id]) }}" class="btn-warning btn btn-xs">Mark Billed</a>
                                                                                 </div>
                                                                             @else
                                                                                 <label class="label label-primary">Marked Billed</label>
@@ -324,7 +324,7 @@
                                         @if($pendingToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -340,7 +340,7 @@
                                         @if($inProgressToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -356,9 +356,9 @@
                                             <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
                                         @endif
                                         @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @endif
                                     </div>
                                 </li>
@@ -374,7 +374,7 @@
                                         @if($completedToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -865,7 +865,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

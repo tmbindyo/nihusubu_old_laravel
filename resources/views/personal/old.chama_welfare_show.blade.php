@@ -59,7 +59,7 @@
         </div>
         <div class="col-md-5">
             <div class="title-action">
-                <a href="{{route('personal.chama.member.show',['chama_id'=>$chama->id,'member_id'=>$welfare->member_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Member </a>
+                <a href="{{route('personal.chama.member.show',['chama_id'=>$chama->id, 'member_id'=>$welfare->member_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Member </a>
             </div>
         </div>
     </div>
@@ -77,7 +77,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-10 col-md-offset-1">
-                                <form method="post" action="{{ route('personal.chama.welfare.update',['chama_id'=>$chama->id,'welfare_id'=>$welfare->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('personal.chama.welfare.update',['chama_id'=>$chama->id, 'welfare_id'=>$welfare->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -520,7 +520,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

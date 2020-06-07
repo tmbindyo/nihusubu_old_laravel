@@ -21,7 +21,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.transfer.create',['portal'=>$institution->portal,'id'=>$institution->portal])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Transfer </a>
+                <a href="{{route('business.transfer.create',['portal'=>$institution->portal, 'id'=>$institution->portal])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Transfer </a>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
 
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal,'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
                                             </div>
                                         </td>
                                     </tr>

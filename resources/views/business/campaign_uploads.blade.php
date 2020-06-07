@@ -18,7 +18,7 @@
                     <a href="{{route('business.campaigns',$institution->portal)}}">Campaigns</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal,'id'=>$campaign->id])}}">Campaign</a>
+                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$campaign->id])}}">Campaign</a>
                 </li>
                 <li class="active">
                     <strong>Campaign Create</strong>
@@ -34,7 +34,7 @@
             <div class="ibox float-e-margins">
                 <div class="tab-content">
                     <div class="panel-body">
-                        <form id="my-awesome-dropzone" class="dropzone" action="{{route('business.campaign.upload.store',['portal'=>$institution->portal,'id'=>$campaign->id])}}">
+                        <form id="my-awesome-dropzone" class="dropzone" action="{{route('business.campaign.upload.store',['portal'=>$institution->portal, 'id'=>$campaign->id])}}">
                             @csrf
                             <div class="dropzone-previews"></div>
                         </form>

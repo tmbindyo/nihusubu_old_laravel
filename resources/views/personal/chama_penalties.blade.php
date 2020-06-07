@@ -88,11 +88,11 @@
 
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('personal.chama.penalty.show', ['chama_id'=>$chama->id,'penalty_id'=>$penalty->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                <a href="{{ route('personal.chama.penalty.show', ['chama_id'=>$chama->id, 'penalty_id'=>$penalty->id]) }}" class="btn-white btn btn-xs">View</a>
                                                 @if($penalty->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                    <a href="{{ route('personal.chama.penalty.restore', ['chama_id'=>$chama->id,'penalty_id'=>$penalty->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    <a href="{{ route('personal.chama.penalty.restore', ['chama_id'=>$chama->id, 'penalty_id'=>$penalty->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                 @else
-                                                    <a href="{{ route('personal.chama.penalty.delete', ['chama_id'=>$chama->id,'penalty_id'=>$penalty->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    <a href="{{ route('personal.chama.penalty.delete', ['chama_id'=>$chama->id, 'penalty_id'=>$penalty->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 @endif
                                             </div>
                                         </td>

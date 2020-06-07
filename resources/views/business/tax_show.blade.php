@@ -41,7 +41,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('business.tax.update',['portal'=>$institution->portal,'id'=>$tax->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.tax.update',['portal'=>$institution->portal, 'id'=>$tax->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -195,7 +195,7 @@
                                                                         </td>
                                                                         <td class="text-right">
                                                                             <div class="btn-group">
-                                                                                <a href="{{ route('business.product.show', ['portal'=>$institution->portal,'id'=>$product_tax->product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                                <a href="{{ route('business.product.show', ['portal'=>$institution->portal, 'id'=>$product_tax->product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                             </div>
                                                                         </td>
                                                                     </tr>

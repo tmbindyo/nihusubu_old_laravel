@@ -78,7 +78,7 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.invoice.show', ['portal'=>$institution->portal,'id'=>$invoice->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    <a href="{{ route('business.invoice.show', ['portal'=>$institution->portal, 'id'=>$invoice->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                 </div>
                                             </td>
                                         </tr>

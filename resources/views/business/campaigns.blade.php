@@ -78,8 +78,8 @@
 
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal,'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.campaign.delete', ['portal'=>$institution->portal,'id'=>$campaign->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.campaign.delete', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -155,8 +155,8 @@
 
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal,'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.campaign.restore', ['portal'=>$institution->portal,'id'=>$campaign->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        <a href="{{ route('business.campaign.restore', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     </div>
                                                 </td>
                                             </tr>

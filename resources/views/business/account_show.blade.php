@@ -24,11 +24,11 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('business.account.adjustment.create',['portal'=>$institution->portal,'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
-                <a href="{{route('business.account.deposit.create',['portal'=>$institution->portal,'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
-                <a href="{{route('business.account.liability.create',['portal'=>$institution->portal,'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Liability </a>
-                <a href="{{route('business.account.loan.create',['portal'=>$institution->portal,'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
-                <a href="{{route('business.account.withdrawal.create',['portal'=>$institution->portal,'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
+                <a href="{{route('business.account.adjustment.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
+                <a href="{{route('business.account.deposit.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
+                <a href="{{route('business.account.liability.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Liability </a>
+                <a href="{{route('business.account.loan.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
+                <a href="{{route('business.account.withdrawal.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-12">
-                                <form method="post" action="{{ route('business.account.update',['portal'=>$institution->portal,'id'=>$account->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('business.account.update',['portal'=>$institution->portal, 'id'=>$account->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -183,9 +183,9 @@
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     @if($adjustments->status_id == "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
-                                                                        <a href="{{ route('business.account.adjustment.delete', ['portal'=>$institution->portal,'id'=>$adjustments->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                        <a href="{{ route('business.account.adjustment.delete', ['portal'=>$institution->portal, 'id'=>$adjustments->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                                     @elseif($adjustments->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('business.account.adjustment.restore', ['portal'=>$institution->portal,'id'=>$adjustments->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                        <a href="{{ route('business.account.adjustment.restore', ['portal'=>$institution->portal, 'id'=>$adjustments->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                                     @endif
                                                                 </div>
                                                             </td>
@@ -234,11 +234,11 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.deposit.show', ['portal'=>$institution->portal,'id'=>$deposit->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.deposit.show', ['portal'=>$institution->portal, 'id'=>$deposit->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @if($deposit->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                    <a href="{{ route('business.deposit.restore', ['portal'=>$institution->portal,'id'=>$deposit->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                    <a href="{{ route('business.deposit.restore', ['portal'=>$institution->portal, 'id'=>$deposit->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                                 @else
-                                                                    <a href="{{ route('business.deposit.delete', ['portal'=>$institution->portal,'id'=>$deposit->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                    <a href="{{ route('business.deposit.delete', ['portal'=>$institution->portal, 'id'=>$deposit->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                                 @endif
                                                             </div>
                                                         </td>
@@ -291,7 +291,7 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.liability.show', ['portal'=>$institution->portal,'id'=>$liability->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.liability.show', ['portal'=>$institution->portal, 'id'=>$liability->id]) }}" class="btn-white btn btn-xs">View</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -347,7 +347,7 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.loan.show', ['portal'=>$institution->portal,'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.loan.show', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -401,15 +401,15 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.payment.show', ['portal'=>$institution->portal,'id'=>$payment->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.payment.show', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @if($payment->is_order == 1)
-                                                                    <a href="{{ route('business.order.show', ['portal'=>$institution->portal,'id'=>$payment->order_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.order.show', ['portal'=>$institution->portal, 'id'=>$payment->order_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @elseif($payment->is_design == 1)
-                                                                    <a href="{{ route('business.design.show', ['portal'=>$institution->portal,'id'=>$payment->design_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.design.show', ['portal'=>$institution->portal, 'id'=>$payment->design_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @elseif($payment->is_project == 1)
-                                                                    <a href="{{ route('business.project.show', ['portal'=>$institution->portal,'id'=>$payment->project_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.project.show', ['portal'=>$institution->portal, 'id'=>$payment->project_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @elseif($payment->is_asset_action == 1)
-                                                                    <a href="{{ route('business.asset.action.show', ['portal'=>$institution->portal,'id'=>$payment->asset_action_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.asset.action.show', ['portal'=>$institution->portal, 'id'=>$payment->asset_action_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @endif
                                                             </div>
                                                         </td>
@@ -459,7 +459,7 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.refund.show', ['portal'=>$institution->portal,'id'=>$refund->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.refund.show', ['portal'=>$institution->portal, 'id'=>$refund->id]) }}" class="btn-white btn btn-xs">View</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -526,7 +526,7 @@
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal,'id'=>$transaction->expense_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$transaction->expense_id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -590,7 +590,7 @@
 
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal,'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -652,7 +652,7 @@
 
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal,'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -699,11 +699,11 @@
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{ route('business.withdrawal.show', ['portal'=>$institution->portal,'id'=>$withdrawal->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                <a href="{{ route('business.withdrawal.show', ['portal'=>$institution->portal, 'id'=>$withdrawal->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @if($withdrawal->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                    <a href="{{ route('business.withdrawal.restore', ['portal'=>$institution->portal,'id'=>$withdrawal->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                    <a href="{{ route('business.withdrawal.restore', ['portal'=>$institution->portal, 'id'=>$withdrawal->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                                 @else
-                                                                    <a href="{{ route('business.withdrawal.delete', ['portal'=>$institution->portal,'id'=>$withdrawal->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                    <a href="{{ route('business.withdrawal.delete', ['portal'=>$institution->portal, 'id'=>$withdrawal->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                                 @endif
                                                             </div>
                                                         </td>
@@ -757,7 +757,7 @@
                                         @if($pendingToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -773,7 +773,7 @@
                                         @if($inProgressToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -789,9 +789,9 @@
                                             <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
                                         @endif
                                         @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                         @endif
                                     </div>
                                 </li>
@@ -807,7 +807,7 @@
                                         @if($completedToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -1663,7 +1663,7 @@
                     fromLabel: 'From',
                     toLabel: 'To',
                     customRangeLabel: 'Custom',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                     monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                     firstDay: 1
                 }

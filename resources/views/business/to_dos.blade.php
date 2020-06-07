@@ -87,7 +87,7 @@
                                 @if($pendingToDo->is_withdrawal === 1)
                                     <p><span class="badge badge-primary">Withdrawal:{{$pendingToDo->withdrawal->reference}}</span></p>
                                 @endif
-                                <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal,'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                             </div>
                         </li>
                     @endforeach
@@ -152,7 +152,7 @@
                                     <p><span class="badge badge-primary">Withdrawal:{{$inProgressToDo->withdrawal->reference}}</span></p>
                                 @endif
 
-                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                             </div>
                         </li>
                     @endforeach
@@ -219,12 +219,12 @@
 
 
                                 @if($overdueToDo->status->name === "Pending")
-                                    <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                    <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                 @elseif($overdueToDo->status->name === "In progress")
-                                    <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                    <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                 @endif
 
-                                <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$overdueToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                             </div>
                         </li>
                     @endforeach
@@ -289,7 +289,7 @@
                                     <p><span class="badge badge-primary">Withdrawal:{{$completedToDo->withdrawal->reference}}</span></p>
                                 @endif
 
-                                <a href="{{route('business.to.do.delete',['portal'=>$institution->portal,'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                             </div>
                         </li>
                     @endforeach
@@ -597,7 +597,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

@@ -65,7 +65,7 @@
                     <a href="{{route('personal.chama.accounts',$chama->id)}}">Accounts</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id,'account_id'=>$withdrawal->account_id])}}">Account</a>
+                    <a href="{{route('personal.chama.account.show',['chama_id'=>$chama->id, 'account_id'=>$withdrawal->account_id])}}">Account</a>
                 </li>
                 <li class="active">
                     <strong>Withdrawal Create</strong>
@@ -74,7 +74,7 @@
         </div>
         <div class="col-md-5">
             <div class="title-action">
-                <a href="{{route('personal.chama.withdrawal.account.adjustment.create',['chama_id'=>$chama->id,'withdrawal_id'=>$withdrawal->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
+                <a href="{{route('personal.chama.withdrawal.account.adjustment.create',['chama_id'=>$chama->id, 'withdrawal_id'=>$withdrawal->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
             </div>
         </div>
     </div>
@@ -772,7 +772,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }

@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-2">
             <div class="title-action">
-                <a href="{{route('business.composite.product.edit',['portal'=>$institution->portal,'id'=>$compositeProduct->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                <a href="{{route('business.composite.product.edit',['portal'=>$institution->portal, 'id'=>$compositeProduct->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-pencil"></i> Edit </a>
                 {{--  todo add item to composite products modal  --}}
                 {{--  <a href="#" data-toggle="modal" data-target="#compositeProductRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>  --}}
             </div>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="m-t text-righ">
 
-                                    <a href="{{route('business.product.show',['portal'=>$institution->portal,'id'=>$product->product->id])}}" class="btn btn-xs btn-outline btn-primary">View <i class="fa fa-long-arrow-right"></i> </a>
+                                    <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->product->id])}}" class="btn btn-xs btn-outline btn-primary">View <i class="fa fa-long-arrow-right"></i> </a>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                                                                     <td class="center">{{$sale->status}}</td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('business.sale.show', ['portal'=>$institution->portal,'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>

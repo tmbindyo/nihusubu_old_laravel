@@ -38,7 +38,7 @@
             </div>
             <div class="ibox-content">
                 <div class="">
-                    <form method="post" action="{{ route('business.product.group.update',['portal'=>$institution->portal,'id'=>$productGroup->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                    <form method="post" action="{{ route('business.product.group.update',['portal'=>$institution->portal, 'id'=>$productGroup->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                         @csrf
 
                         @if ($errors->any())
@@ -452,7 +452,7 @@
         var productName = document.getElementById("product_name")
         var tagField = document.getElementById("tag-input");
         var tagsChoices = new Choices(tagField, {
-            delimiter: ',',
+            delimiter: ', ',
             editItems: true,
             removeItems: true,
             removeItemButton: true,
@@ -687,7 +687,7 @@
                     fromLabel: 'From',
                     toLabel: 'To',
                     customRangeLabel: 'Custom',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                     monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                     firstDay: 1
                 }

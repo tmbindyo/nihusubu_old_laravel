@@ -70,11 +70,11 @@
                         </td>
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('business.unit.show', ['portal'=>$institution->portal,'id'=>$unit->id]) }}" class="btn-white btn btn-xs">View</a>
+                                <a href="{{ route('business.unit.show', ['portal'=>$institution->portal, 'id'=>$unit->id]) }}" class="btn-white btn btn-xs">View</a>
                                 @if($unit->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                    <a href="{{ route('business.unit.restore', ['portal'=>$institution->portal,'id'=>$unit->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                    <a href="{{ route('business.unit.restore', ['portal'=>$institution->portal, 'id'=>$unit->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                 @else
-                                    <a href="{{ route('business.unit.delete', ['portal'=>$institution->portal,'id'=>$unit->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                    <a href="{{ route('business.unit.delete', ['portal'=>$institution->portal, 'id'=>$unit->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                 @endif
                             </div>
                         </td>
@@ -142,8 +142,8 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.unit.show', ['portal'=>$institution->portal,'id'=>$unit->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.unit.restore', ['portal'=>$institution->portal,'id'=>$unit->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    <a href="{{ route('business.unit.show', ['portal'=>$institution->portal, 'id'=>$unit->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('business.unit.restore', ['portal'=>$institution->portal, 'id'=>$unit->id]) }}" class="btn-warning btn btn-xs">Restore</a>
                                                 </div>
                                             </td>
                                         </tr>

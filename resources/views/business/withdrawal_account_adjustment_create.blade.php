@@ -15,10 +15,10 @@
                         <a href="{{route('business.accounts',$institution->portal)}}">Accounts</a>
                     </li>
                     <li>
-                        <a href="{{route('business.account.show',['portal'=>$institution->portal,'id'=>$account->id])}}">Account</a>
+                        <a href="{{route('business.account.show',['portal'=>$institution->portal, 'id'=>$account->id])}}">Account</a>
                     </li>
                     <li>
-                        <a href="{{route('business.withdrawal.show',['portal'=>$institution->portal,'id'=>$withdrawal->id])}}">Withdrawal</a>
+                        <a href="{{route('business.withdrawal.show',['portal'=>$institution->portal, 'id'=>$withdrawal->id])}}">Withdrawal</a>
                     </li>
                     <li class="active">
                         <strong>Account Adjustment Create</strong>
@@ -439,7 +439,7 @@
                 fromLabel: 'From',
                 toLabel: 'To',
                 customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
                 monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 firstDay: 1
             }
