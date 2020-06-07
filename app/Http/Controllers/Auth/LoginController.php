@@ -127,5 +127,4 @@ class LoginController extends Controller
     {
         //linkedIn
     }
-
 }
