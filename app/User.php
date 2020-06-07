@@ -361,11 +361,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function activeUserAccount()
     {
-        return $this->hasOne('App\UserAccount')->where('is_active',True);
+        return $this->hasOne('App\UserAccount')->where('is_active',true);
     }
     public function inactiveUserAccount()
     {
-        return $this->hasMany('App\UserAccount')->where('is_active',False);
+        return $this->hasMany('App\UserAccount')->where('is_active',false);
     }
     public function uploads()
     {

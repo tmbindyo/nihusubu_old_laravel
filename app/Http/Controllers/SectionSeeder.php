@@ -106,7 +106,7 @@ class SectionSeeder extends Controller
                 'name' => 'Dashboard',
                 'description' => 'Dashboard',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => False,
+                'is_business' => false,
                 'user_id' => 1,
             ],
 
@@ -114,7 +114,7 @@ class SectionSeeder extends Controller
                 'name' => 'Calendar',
                 'description' => 'Calendar',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => False,
+                'is_business' => false,
                 'user_id' => 1,
             ],
 
@@ -122,7 +122,7 @@ class SectionSeeder extends Controller
                 'name' => 'To Do',
                 'description' => 'To Do',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => False,
+                'is_business' => false,
                 'user_id' => 1,
             ],
 
@@ -130,7 +130,7 @@ class SectionSeeder extends Controller
                 'name' => 'Contacts',
                 'description' => 'Contacts',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => False,
+                'is_business' => false,
                 'user_id' => 1,
             ],
 
@@ -138,7 +138,7 @@ class SectionSeeder extends Controller
                 'name' => 'Buddgeting',
                 'description' => 'Buddgeting',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => False,
+                'is_business' => false,
                 'user_id' => 1,
             ],
 
@@ -146,7 +146,7 @@ class SectionSeeder extends Controller
                 'name' => 'Chamas',
                 'description' => 'Chamas',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => False,
+                'is_business' => false,
                 'user_id' => 1,
             ],
 
@@ -154,7 +154,7 @@ class SectionSeeder extends Controller
                 'name' => 'Accounting',
                 'description' => 'Accounting',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => False,
+                'is_business' => false,
                 'user_id' => 1,
             ],
 
@@ -162,7 +162,7 @@ class SectionSeeder extends Controller
                 'name' => 'Settings',
                 'description' => 'Settings',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'is_business' => False,
+                'is_business' => false,
                 'user_id' => 1,
             ]
 
@@ -2425,7 +2425,7 @@ class SectionSeeder extends Controller
 
         // personal routes
         // dashboard
-        $dashboardSection = Section::where('name','Dashboard')->where('is_business',False)->first();
+        $dashboardSection = Section::where('name','Dashboard')->where('is_business',false)->first();
         $sectionData = [
             [
                 'name' => 'Dashboard',
@@ -2443,7 +2443,7 @@ class SectionSeeder extends Controller
         }
 
         // calendar
-        $calendarSection = Section::where('name','Calendar')->where('is_business',False)->first();
+        $calendarSection = Section::where('name','Calendar')->where('is_business',false)->first();
         $sectionData = [
             [
                 'name' => 'calendar',
@@ -2461,7 +2461,7 @@ class SectionSeeder extends Controller
         }
 
         // to do
-        $toDoSection = Section::where('name','To Do')->where('is_business',False)->first();
+        $toDoSection = Section::where('name','To Do')->where('is_business',false)->first();
         $sectionData = [
             [
                 'name' => 'toDos',
@@ -2519,7 +2519,7 @@ class SectionSeeder extends Controller
         }
 
         // budgeting
-        $budgetingSection = Section::where('name','Buddgeting')->where('is_business',False)->first();
+        $budgetingSection = Section::where('name','Buddgeting')->where('is_business',false)->first();
         $sectionData = [
             [
                 'name' => 'budget',
@@ -2642,7 +2642,7 @@ class SectionSeeder extends Controller
 
 
         // chama
-        $chamaSection = Section::where('name','Chamas')->where('is_business',False)->first();
+        $chamaSection = Section::where('name','Chamas')->where('is_business',false)->first();
         $sectionData = [
             [
                 'name' => 'chamas',
