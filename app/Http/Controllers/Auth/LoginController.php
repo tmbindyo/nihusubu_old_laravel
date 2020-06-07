@@ -41,14 +41,11 @@ class LoginController extends Controller
 
     public function redirectToProvider($provider)
     {
-
         return Socialite::driver($provider)->redirect();
-
     }
 
     public function handleProviderCallback($provider)
     {
-
         // return $provider;
         $getInfo = Socialite::driver($provider)->user();
         $user = $this->authenticate($getInfo, $provider);
@@ -56,7 +53,6 @@ class LoginController extends Controller
             auth()->login($user, true);
         }
         return redirect()->to('/success');
-
     }
 
     public function authenticate($getInfo, $provider)
@@ -90,7 +86,7 @@ class LoginController extends Controller
 
     private function facebook($getInfo)
     {
-
+        // facebook
     }
 
     private function google($getInfo)
@@ -124,12 +120,12 @@ class LoginController extends Controller
 
     private function twitter($getInfo)
     {
-
+        // twitter
     }
 
     private function linkedIn($getInfo)
     {
-
+        //linkedIn
     }
 
 }
