@@ -167,7 +167,7 @@ class CRMController extends Controller
         // ontact owed liability
         $liabilities = Liability::where('user_id', $user->id)->where('is_user', true)->with('user', 'status')->where('contact_id', $contact_id)->get();
         // contact loans
-        $loans = Loan::where('user_id', $user->id)->where('is_user', true)->with('user', 'status')->where('contact_id', $contact_id)->get();
+        $loans = Loan::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'loanType')->where('contact_id', $contact_id)->get();
         // Pending to dos
         $pendingToDos = ToDo::where('user_id', $user->id)->where('is_user', true)->with('user', 'status', 'contact')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('contact_id', $contact->id)->get();
         // In progress to dos

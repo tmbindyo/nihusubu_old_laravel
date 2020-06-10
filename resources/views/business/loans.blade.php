@@ -63,6 +63,7 @@
                                     <th>Due Date</th>
                                     <th>Account</th>
                                     <th>Contact</th>
+                                    <th>Type</th>
                                     <th>User</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -83,6 +84,9 @@
                                         <td>{{$loan->due_date}}</td>
                                         <td>{{$loan->account->name}}</td>
                                         <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
+                                        <td>
+                                            <span class="label {{$loan->loanType->label}}">{{$loan->loanType->name}}</span>
+                                        </td>
                                         <td>{{$loan->user->name}}</td>
                                         <td>
                                             <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
@@ -91,11 +95,6 @@
                                         <td class="text-right">
                                             <div class="btn-group">
                                                 <a href="{{ route('business.loan.show', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                @if($loan->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                    <a href="{{ route('business.loan.restore', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                @else
-                                                    <a href="{{ route('business.loan.delete', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -112,6 +111,7 @@
                                     <th>Due Date</th>
                                     <th>Account</th>
                                     <th>Contact</th>
+                                    <th>Type</th>
                                     <th>User</th>
                                     <th>Status</th>
                                     <th>Action</th>

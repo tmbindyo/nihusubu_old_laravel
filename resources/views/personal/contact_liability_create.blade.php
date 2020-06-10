@@ -141,7 +141,7 @@
                                                 <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
                                             @endforeach
                                         </select>
-                                        <i>source account</i>
+                                        <i>account</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
@@ -151,7 +151,7 @@
                                                 <option @if($contactLiability->id == $contact->id) selected @endif value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                                             @endforeach
                                         </select>
-                                        <i>destination account</i>
+                                        <i>contact</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">

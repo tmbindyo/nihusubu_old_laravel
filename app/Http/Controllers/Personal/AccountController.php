@@ -781,7 +781,7 @@ class AccountController extends Controller
     {
         // User
         $user = $this->getUser();
-        $loans = Loan::with('user', 'status', 'account')->where('user_id', $user->id)->where('is_user', true)->get();
+        $loans = Loan::with('user', 'status', 'account', 'loanType')->where('user_id', $user->id)->where('is_user', true)->get();
         return view('personal.loans', compact('loans', 'user'));
     }
 

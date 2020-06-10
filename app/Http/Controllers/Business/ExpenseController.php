@@ -10,6 +10,7 @@ use App\ExpenseItem;
 use App\Frequency;
 use App\Liability;
 use App\Loan;
+use App\LoanType;
 use App\Sale;
 use App\Status;
 use App\Refund;
@@ -766,22 +767,30 @@ class ExpenseController extends Controller
 
         // get account
         $account = Account::findOrFail($request->account);
-        $accountBalance = doubleval($account->balance) + doubleval($request->amount);
         $payment = new Payment();
         $payment->reference = $reference;
         $payment->notes = $request->notes;
         $payment->date = date('Y-m-d', strtotime($request->date));
         $payment->initial_balance = $account->balance;
         $payment->amount = $request->amount;
-        $payment->current_balance = $accountBalance;
 
         if($request->is_loan == "on"){
             $payment->is_loan = true;
             $payment->loan_id = $request->loan;
             // update loan as paid
             $loan = Loan::findOrFail($request->loan);
-            $paid = doubleval($request->amount) + doubleval($loan->paid);
-            $balance = doubleval($loan->principal) - $paid;
+            // loan type
+            $loanType = LoanType::findOrFail($loan->loan_type_id);
+            if  ($loanType->name == 'Loaner'){
+                $accountBalance = doubleval($account->balance) + doubleval($request->amount);
+                $paid = doubleval($request->amount) + doubleval($loan->paid);
+                $balance = doubleval($loan->principal) - $paid;
+            } else {
+                $accountBalance = doubleval($account->balance) - doubleval($request->amount);
+                $paid = doubleval($request->amount) + doubleval($loan->paid);
+                $balance = doubleval($loan->principal) - $paid;
+            }
+
             $loan->balance = $balance;
             $loan->paid = $paid;
             $loan->save();
@@ -794,6 +803,7 @@ class ExpenseController extends Controller
             $payment->liability_id = $request->liability;
             // update liability as paid
             $liability = Liability::findOrFail($request->liability);
+
             $paid = doubleval($request->amount) + doubleval($liability->paid);
             $liability->paid = $paid;
             $liability->save();
@@ -826,6 +836,7 @@ class ExpenseController extends Controller
             $payment->is_sale = false;
         }
 
+        $payment->current_balance = $accountBalance;
         $payment->account_id = $request->account;
         $payment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $payment->user_id = $user->id;

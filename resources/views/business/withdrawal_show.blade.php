@@ -187,15 +187,6 @@
                                                                 <td>
                                                                     <span class="label {{$adjustments->status->label}}">{{$adjustments->status->name}}</span>
                                                                 </td>
-                                                                <td class="text-right">
-                                                                    <div class="btn-group">
-                                                                        @if($adjustments->status_id == "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
-                                                                            <a href="{{ route('business.account.adjustment.delete', ['portal'=>$institution->portal, 'id'=>$adjustments->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                        @elseif($adjustments->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                            <a href="{{ route('business.account.adjustment.restore', ['portal'=>$institution->portal, 'id'=>$adjustments->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                        @endif
-                                                                    </div>
-                                                                </td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>

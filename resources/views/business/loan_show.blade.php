@@ -123,14 +123,21 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_demo_tag form-control input-lg" disabled>
+                                        <select name="account" class="select2_account form-control input-lg" disabled>
                                             <option selected value="{{$loan->account->id}}">{{$loan->account->name}} [{{$loan->account->balance}}]</option>
                                         </select>
                                         <i>account</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="contact" class="select2_demo_tag form-control input-lg" disabled>
+                                        <select name="account" class="select2_loan_type form-control input-lg" disabled>
+                                            <option selected value="{{$loan->loanType->id}}">{{$loan->loanType->name}}</option>
+                                        </select>
+                                        <i>account</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <select name="contact" class="select2_contact form-control input-lg" disabled>
                                             <option selected value="{{$loan->contact->id}}">{{$loan->contact->first_name}} {{$loan->contact->last_name}} @if($loan->contact->organization)[{{$loan->contact->organization->name}}]@endif</option>
                                         </select>
                                         <i>contact</i>
@@ -671,12 +678,16 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Contact types",
+        $(".select2_account").select2({
+            placeholder: "Select Account",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_contact").select2({
+            placeholder: "Select Contact",
+            allowClear: true
+        });
+        $(".select2_loan_type").select2({
+            placeholder: "Select Loan Type",
             allowClear: true
         });
 

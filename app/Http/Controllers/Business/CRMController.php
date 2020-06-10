@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\LoanType;
 use DB;
 use App\Tax;
 use App\Loan;
@@ -545,7 +546,7 @@ class CRMController extends Controller
         // ontact owed liability
         $liabilities = Liability::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'account')->where('contact_id', $contact_id)->get();
         // contact loans
-        $loans = Loan::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status')->where('contact_id', $contact_id)->get();
+        $loans = Loan::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'loanType')->where('contact_id', $contact_id)->get();
         // contact contact types
         $contactContactTypes = ContactContactType::with('user', 'status', 'contactType')->where('contact_id', $contact_id)->get();
         // Pending to dos
@@ -586,11 +587,13 @@ class CRMController extends Controller
         $user = $this->getUser();
         // Get institution
         $institution = $this->getInstitution($portal);
+        // loan types
+        $loanTypes = LoanType::all();
         // get accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get contacts
         $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('organization')->where('is_institution', true)->where('institution_id', $institution->id)->get();
-        return view('business.loan_create', compact('contactExists', 'user', 'institution', 'accounts', 'contacts'));
+        return view('business.loan_create', compact('contactExists', 'user', 'institution', 'accounts', 'contacts', 'loanTypes'));
     }
 
     public function contactSaleCreate($portal, $contact_id)

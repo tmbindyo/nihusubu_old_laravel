@@ -211,12 +211,6 @@
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'personal.liabilities' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'personal.liabilities')}}">
-                            Liabilities
-                        </a>
-                    </li>
-
                     <li class="nav-item {{ Route::currentRouteNamed( 'personal.loans' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'personal.loans')}}">
                             Loans

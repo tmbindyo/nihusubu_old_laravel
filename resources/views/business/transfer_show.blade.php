@@ -163,7 +163,7 @@
                                                         <th>Total</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -198,7 +198,7 @@
                                                             <td>{{$expense->reference}}</td>
                                                             <td>{{$expense->date}}</td>
                                                             <td>{{$expense->created_at}}</td>
-                                                            <td>{{$expense->expense_account->name}}</td>
+                                                            <td>{{$expense->expenseAccount->name}}</td>
                                                             <td>{{$expense->total}}</td>
                                                             <td>{{$expense->paid}}</td>
                                                             <td>
@@ -223,7 +223,7 @@
                                                         <th>Total</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>

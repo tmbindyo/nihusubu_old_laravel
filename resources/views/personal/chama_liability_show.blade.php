@@ -242,7 +242,7 @@
                                                         <th>Total</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -312,7 +312,7 @@
                                                         <th>Total</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>

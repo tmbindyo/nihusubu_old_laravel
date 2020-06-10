@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-{{--        // Product details--}}
+        {{-- Product details  --}}
         <div class="row">
             <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInUp">
@@ -167,7 +167,7 @@
                                                                     <td>{{$sale->created_at}}</td>
                                                                     <td>{{$sale->quantity}}</td>
                                                                     <td class="center">{{$sale->rate}}</td>
-                                                                    <td class="center">{{$sale->status}}</td>
+                                                                    <td class="center">{{$sale->status->name}}</td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
                                                                             <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>

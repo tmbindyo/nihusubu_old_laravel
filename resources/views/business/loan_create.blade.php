@@ -121,6 +121,16 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        <select name="loan_type" class="select2_loan_type form-control input-lg" required>
+                                            <option></option>
+                                            @foreach ($loanTypes as $loanType)
+                                                <option value="{{$loanType->id}}">{{$loanType->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <i>loan type</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
                                         <select name="contact" class="select2_contact form-control input-lg" required>
                                             <option></option>
                                             @foreach ($contacts as $contact)
@@ -440,6 +450,10 @@
         });
         $(".select2_contact").select2({
             placeholder: "Select Contact",
+            allowClear: true
+        });
+        $(".select2_loan_type").select2({
+            placeholder: "Select Loan Type",
             allowClear: true
         });
 

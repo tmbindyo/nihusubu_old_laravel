@@ -69,7 +69,6 @@
             <div class="title-action">
                 <a href="{{route('personal.account.adjustment.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
                 <a href="{{route('personal.account.deposit.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
-                <a href="{{route('personal.account.liability.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Liability </a>
                 <a href="{{route('personal.account.loan.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
                 <a href="{{route('personal.account.withdrawal.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
             </div>
@@ -179,7 +178,6 @@
                                             <li class="active"><a href="#account-adjustments" data-toggle="tab">Account Adjustments</a></li>
                                             <li class=""><a href="#deposits" data-toggle="tab">Deposits</a></li>
                                             <li class=""><a href="#incomes" data-toggle="tab">Income</a></li>
-                                            <li class=""><a href="#liabilities" data-toggle="tab">Liabilities</a></li>
                                             <li class=""><a href="#loans" data-toggle="tab">Loans</a></li>
                                             <li class=""><a href="#payments" data-toggle="tab">Payments</a></li>
                                             <li class=""><a href="#refunds" data-toggle="tab">Refunds</a></li>
@@ -432,6 +430,7 @@
                                                     <th>Date</th>
                                                     <th>Due Date</th>
                                                     <th>Contact</th>
+                                                    <th>Type</th>
                                                     <th>User</th>
                                                     <th>Status</th>
                                                     <th width="13em">Action</th>
@@ -449,6 +448,7 @@
                                                         <td>{{$loan->date}}</td>
                                                         <td>{{$loan->due_date}}</td>
                                                         <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
+                                                        <td>{{$loan->loanType->name}}</td>
                                                         <td>{{$loan->user->name}}</td>
                                                         <td>
                                                             <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
@@ -469,6 +469,7 @@
                                                     <th>Date</th>
                                                     <th>Due Date</th>
                                                     <th>Contact</th>
+                                                    <th>Type</th>
                                                     <th>User</th>
                                                     <th>Status</th>
                                                     <th width="13em">Action</th>

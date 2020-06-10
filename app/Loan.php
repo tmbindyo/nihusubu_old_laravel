@@ -38,6 +38,10 @@ class Loan extends Model
     {
         return $this->belongsTo('App\ChamaMember', 'member_id');
     }
+    public function loanType()
+    {
+        return $this->belongsTo('App\LoanType');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');

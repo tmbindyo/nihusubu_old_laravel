@@ -78,12 +78,7 @@
 
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('business.payment.show', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-default btn btn-xs">Show</a>
-                                                @if($payment->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                    <a href="{{ route('business.payment.restore', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                @else
-                                                    <a href="{{ route('business.payment.delete', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                @endif
+                                                <a href="{{ route('business.payment.show', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                             </div>
                                         </td>
                                     </tr>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\LoanType;
 use Auth;
 use App\Loan;
 use App\Status;
@@ -98,7 +99,7 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get account
-        $account = Account::where('id', $account_id)->where('is_institution', true)->where('institution_id', $institution->id)->with('status', 'user', 'loans', 'accountAdjustments', 'destinationAccount.sourceAccount', 'transactions.account', 'transactions.expense', 'payments', 'sourceAccount.destinationAccount', 'deposits', 'withdrawals', 'liabilities.contact', 'refunds', 'transactions')->first();
+        $account = Account::where('id', $account_id)->where('is_institution', true)->where('institution_id', $institution->id)->with('status', 'user', 'loans.loanType', 'accountAdjustments', 'destinationAccount.sourceAccount', 'transactions.account', 'transactions.expense', 'payments', 'sourceAccount.destinationAccount', 'deposits', 'withdrawals', 'liabilities.contact', 'refunds', 'transactions')->first();
         $goal = $account->goal;
         $balance = $account->balance;
         if ($balance == 0){
@@ -167,11 +168,13 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
+        // loan types
+        $loanTypes = LoanType::all();
         // get accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get contacts
         $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('organization')->where('is_institution', true)->where('institution_id', $institution->id)->get();
-        return view('business.loan_create', compact('user', 'institution', 'accountExists', 'contacts', 'accounts'));
+        return view('business.loan_create', compact('user', 'institution', 'accountExists', 'contacts', 'accounts', 'loanTypes'));
     }
 
     public function accountWithdrawalCreate($portal, $account_id)
@@ -862,10 +865,14 @@ class AccountController extends Controller
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get liabilities
         $liability = Liability::where('id', $liability_id)->where('is_institution', true)->where('institution_id', $institution->id)->first();
+        // get liabilities
+        $liabilities = Liability::where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get frequencies
         $frequencies = Frequency::where("status_id", "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->where('is_institution', true)->get();
+        // accounts
+        $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
 
-        return view('business.expense_create', compact('liabilityExists', 'campaigns', 'sales', 'user', 'institution', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses'));
+        return view('business.expense_create', compact('liabilities', 'accounts', 'liabilityExists', 'campaigns', 'sales', 'user', 'institution', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses'));
     }
 
     public function liabilityUpdate(Request $request, $portal, $liability_id)
@@ -907,7 +914,7 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        $loans = Loan::with('user', 'status', 'account')->where('is_institution', true)->where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $loans = Loan::with('user', 'status', 'account', 'loanType')->where('is_institution', true)->where('institution_id', $institution->id)->where('is_institution', true)->get();
         return view('business.loans', compact('loans', 'user', 'institution'));
     }
 
@@ -917,11 +924,13 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
+        // loan types
+        $loanTypes = LoanType::all();
         // get accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get contacts
         $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('organization')->where('is_institution', true)->where('institution_id', $institution->id)->get();
-        return view('business.loan_create', compact('user', 'institution', 'accounts', 'contacts'));
+        return view('business.loan_create', compact('user', 'institution', 'accounts', 'contacts', 'loanTypes'));
     }
 
     public function loanStore(Request $request, $portal)
@@ -937,11 +946,18 @@ class AccountController extends Controller
 
         // calculations
         $account = Account::findOrFail($request->account);
-        // check if this is an overdraft
-        if($request->total > $account->balance){
-            return back()->withWarning(__('This loan will overdraft the account.'));
+        // if i am the loaner
+        $loanType = LoanType::findOrFail($request->loan_type);
+        if ($loanType->name == 'Loaner')
+        {
+            // check if this is an overdraft
+            if($request->total > $account->balance){
+                return back()->withWarning(__('This loan will overdraft the account.'));
+            }
+            $accountBalance = doubleval($account->balance) - doubleval($request->total);
+        } elseif ($loanType->name == 'Lonee'){
+            $accountBalance = doubleval($account->balance) + doubleval($request->total);
         }
-        $accountBalance = doubleval($account->balance) - doubleval($request->total);
 
         // store loan record
         $loan = new Loan();
@@ -960,6 +976,7 @@ class AccountController extends Controller
 
         $loan->contact_id = $request->contact;
         $loan->account_id = $request->account;
+        $loan->loan_type_id = $request->loan_type;
 
         $loan->is_user = false;
         $loan->is_institution = true;
@@ -986,12 +1003,14 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
+        // loan types
+        $loanTypes = LoanType::all();
         // get accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get contacts
         $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('organization')->where('is_institution', true)->where('institution_id', $institution->id)->get();
         // Get contact type
-        $loan = Loan::with('user', 'status', 'account', 'contact.organization', 'payments')->where('is_institution', true)->where('id', $loan_id)->where('institution_id', $institution->id)->first();
+        $loan = Loan::with('user', 'status', 'account', 'contact.organization', 'payments', 'loanType')->where('is_institution', true)->where('id', $loan_id)->where('institution_id', $institution->id)->first();
         // Pending to dos
         $pendingToDos = ToDo::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'loan')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('loan_id', $loan->id)->get();
         // In progress to dos
@@ -1000,7 +1019,7 @@ class AccountController extends Controller
         $completedToDos = ToDo::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'loan')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('loan_id', $loan->id)->get();
         // Overdue to dos
         $overdueToDos = ToDo::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'loan')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('loan_id', $loan->id)->get();
-        return view('business.loan_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'accounts', 'contacts', 'loan', 'user', 'institution'));
+        return view('business.loan_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'accounts', 'contacts', 'loan', 'user', 'institution', 'loanTypes'));
     }
 
     public function loanPaymentCreate($portal, $loan_id)

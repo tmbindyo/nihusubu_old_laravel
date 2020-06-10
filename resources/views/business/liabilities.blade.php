@@ -77,11 +77,6 @@
                                     <td class="text-right">
                                         <div class="btn-group">
                                             <a href="{{ route('business.liability.show', ['portal'=>$institution->portal, 'id'=>$liability->id]) }}" class="btn-white btn btn-xs">View</a>
-                                            @if($liability->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                <a href="{{ route('business.liability.restore', ['portal'=>$institution->portal, 'id'=>$liability->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                            @else
-                                                <a href="{{ route('business.liability.delete', ['portal'=>$institution->portal, 'id'=>$liability->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                            @endif
                                         </div>
                                     </td>
                                 </tr>

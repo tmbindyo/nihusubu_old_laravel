@@ -241,7 +241,7 @@
                                                         <th>Amount</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -281,7 +281,7 @@
                                                         <th>Amount</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>
@@ -331,11 +331,6 @@
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     <a href="{{ route('business.liability.show', ['portal'=>$institution->portal, 'id'=>$liability->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                    @if($liability->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('business.liability.restore', ['portal'=>$institution->portal, 'id'=>$liability->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                    @else
-                                                                        <a href="{{ route('business.liability.delete', ['portal'=>$institution->portal, 'id'=>$liability->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                    @endif
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -402,11 +397,6 @@
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
                                                                         <a href="{{ route('business.loan.show', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                        @if($loan->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                            <a href="{{ route('business.loan.restore', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                        @else
-                                                                            <a href="{{ route('business.loan.delete', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                        @endif
                                                                     </div>
                                                                 </td>
                                                             </tr>

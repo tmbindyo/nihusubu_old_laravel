@@ -271,7 +271,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <div class="btn-group">
-                                                                                <a href="{{ route('business.transaction.pending.payment', $transaction->id) }}" class="btn-warning btn btn-xs">Mark Paid</a>
+                                                                            <a href="{{ route('business.transaction.pending.payment', $transaction->id) }}" class="btn-warning btn btn-xs">Mark Paid</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>

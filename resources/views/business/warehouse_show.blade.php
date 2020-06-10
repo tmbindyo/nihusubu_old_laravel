@@ -234,7 +234,7 @@
                                                 <div class="tab-pane active" id="inventory">
 
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <table class="table table-striped table-bordered table-hover dataTables-inventory" >
                                                             <thead>
                                                             <tr>
                                                                 <th>Product</th>
@@ -268,7 +268,7 @@
                                                 <div class="tab-pane" id="adjustments">
 
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <table class="table table-striped table-bordered table-hover dataTables-adjustments" >
                                                             <thead>
                                                             <tr>
                                                                 <th>#</th>
@@ -296,7 +296,9 @@
                                                                         {{$inventoryAdjustment->description}}
                                                                     </td>
                                                                     <td>
-                                                                        {{$inventoryAdjustment->account->name}}
+                                                                        @isset($inventoryAdjustment->account->name)
+                                                                            {{$inventoryAdjustment->account->name}}
+                                                                        @endisset
                                                                     </td>
                                                                     <td>
                                                                     @if($inventoryAdjustment->is_value_adjustment == 1)
@@ -312,12 +314,13 @@
                                                             @endforeach
                                                             </tbody>
                                                             <tfoot>
+                                                                <th>#</th>
                                                                 <th>Date</th>
                                                                 <th>Reason</th>
                                                                 <th>Description</th>
                                                                 <th>Account</th>
                                                                 <th>Type</th>
-                                                                <th>Action</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tfoot>
                                                         </table>
                                                     </div>
@@ -326,7 +329,7 @@
                                                 <div class="tab-pane" id="source-transfer-orders">
 
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <table class="table table-striped table-bordered table-hover dataTables-source-transfer-orders" >
                                                             <thead>
                                                             <tr>
                                                                 <th>#</th>
@@ -371,7 +374,7 @@
                                                 <div class="tab-pane" id="destination-transfer-orders">
 
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <table class="table table-striped table-bordered table-hover dataTables-destination-transfer-orders" >
                                                             <thead>
                                                             <tr>
                                                                 <th>#</th>
@@ -466,13 +469,222 @@
 <!-- Page-Level Scripts -->
 <script>
     $(document).ready(function(){
-        $('.dataTables-example').DataTable({
+        $('.dataTables-inventory').DataTable({
             dom: '<"html5buttons"B>lTfgitp',
             buttons: [
                 { extend: 'copy'},
                 {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
+                {extend: 'excel',
+                    title: '{{$warehouse->name}} Inventory',
+                    exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$warehouse->name}} Inventory',
+                    exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-adjustments').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$warehouse->name}} Adjustments',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$warehouse->name}} Adjustments',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-source-transfer-orders').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: '{{$warehouse->name}} Source Transfer Orders',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+                {extend: 'pdf', title: '{{$warehouse->name}} Source Transfer Orders',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-destination-transfer-orders').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$warehouse->name}} Destination Transfer Orders',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$warehouse->name}} Destination Transfer Orders',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3 ]
+                        }
+                },
 
                 {extend: 'print',
                     customize: function (win){

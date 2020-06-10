@@ -183,12 +183,6 @@
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.liabilities',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.liabilities',$institution->portal)}}">
-                            Liabilities
-                        </a>
-                    </li>
-
                     <li class="nav-item {{ Route::currentRouteNamed( 'business.loans',$institution->portal ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'business.loans',$institution->portal)}}">
                             Loans

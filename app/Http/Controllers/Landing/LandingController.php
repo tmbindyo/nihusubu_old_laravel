@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Landing;
 
+use App\Loan;
+use DB;
 use App\Address;
 use App\EmailSubscribe;
 use Illuminate\Http\Request;
@@ -130,5 +132,126 @@ class LandingController extends Controller
             }
         }
         return "Done";
+    }
+
+    public function loanTypeSeeder()
+    {
+        DB::table('loan_types')->insert([
+            'id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
+            'name' => 'Loaner',
+            'label' => 'label-warning',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('loan_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'Lonee',
+            'label' => 'label-danger',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+
+        Loan::where('loan_type_id',null)
+        ->update(['loan_type_id' => '07c99d10-8e09-4861-83df-fdd3700d7e48']);
+
+
+
+    }
+    public function roles()
+    {
+        // section
+        // exists
+        DB::table('loan_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'To Do',
+            'icon' => 'To Do',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        // exists
+        DB::table('loan_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'Calender',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        // exists
+        DB::table('loan_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'Products',
+            'icon' => 'Products',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        // exists
+        DB::table('loan_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'Inventory',
+            'icon' => 'Inventory',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('loan_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'CRM',
+            'icon' => 'CRM',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('loan_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'Sales',
+            'icon' => 'Sales',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('loan_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'Accounting',
+            'icon' => 'Accounting',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('loan_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'Settings',
+            'icon' => 'Settings',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('loan_types')->insert([
+            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+            'name' => 'Feedback',
+            'icon' => 'Feedback',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        // menu
+        // feature
     }
 }

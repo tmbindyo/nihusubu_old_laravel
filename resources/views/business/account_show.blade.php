@@ -26,7 +26,6 @@
             <div class="title-action">
                 <a href="{{route('business.account.adjustment.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
                 <a href="{{route('business.account.deposit.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
-                <a href="{{route('business.account.liability.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Liability </a>
                 <a href="{{route('business.account.loan.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
                 <a href="{{route('business.account.withdrawal.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
             </div>
@@ -127,7 +126,6 @@
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a href="#account-adjustments" data-toggle="tab">Account Adjustments</a></li>
                                             <li class=""><a href="#deposits" data-toggle="tab">Deposits</a></li>
-                                            <li class=""><a href="#liabilities" data-toggle="tab">Liabilities</a></li>
                                             <li class=""><a href="#loans" data-toggle="tab">Loans</a></li>
                                             <li class=""><a href="#payments" data-toggle="tab">Payments</a></li>
                                             <li class=""><a href="#refunds" data-toggle="tab">Refunds</a></li>
@@ -324,6 +322,7 @@
                                                     <th>Date</th>
                                                     <th>Due Date</th>
                                                     <th>Contact</th>
+                                                    <th>Type</th>
                                                     <th>User</th>
                                                     <th>Status</th>
                                                     <th width="13em">Action</th>
@@ -341,6 +340,9 @@
                                                         <td>{{$loan->date}}</td>
                                                         <td>{{$loan->due_date}}</td>
                                                         <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
+                                                        <td>
+                                                            <span class="label {{$loan->loanType->label}}">{{$loan->loanType->name}}</span>
+                                                        </td>
                                                         <td>{{$loan->user->name}}</td>
                                                         <td>
                                                             <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
@@ -361,6 +363,7 @@
                                                     <th>Date</th>
                                                     <th>Due Date</th>
                                                     <th>Contact</th>
+                                                    <th>Type</th>
                                                     <th>User</th>
                                                     <th>Status</th>
                                                     <th width="13em">Action</th>
@@ -1035,62 +1038,6 @@
     </script>
     <script>
         $(document).ready(function(){
-            $('.dataTables-liabilities').DataTable({
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel',
-                        title: '{{$account->name}} Liabilities',
-                    exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-                        }},
-                    {extend: 'pdf',
-                        title: '{{$account->name}} Liabilities',
-                    exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-                        }},
-
-                    {extend: 'print',
-                        customize: function (win){
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                        }
-                    }
-                ]
-
-            });
-
-            /* Init DataTables */
-            var oTable = $('#editable').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
-
-
-        });
-
-    </script>
-    <script>
-        $(document).ready(function(){
             $('.dataTables-loans').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
@@ -1099,12 +1046,12 @@
                     {extend: 'excel',
                         title: '{{$account->name}} Loans',
                     exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
                         }},
                     {extend: 'pdf',
                         title: '{{$account->name}} Loans',
                     exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
                         }},
 
                     {extend: 'print',
