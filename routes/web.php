@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 //    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
 
-    Route::resource('user_detail', 'UserDetailController');
+//    Route::resource('user_detail', 'UserDetailController');
 
 
 //    Route::resource('service', 'ServiceController');
