@@ -138,7 +138,7 @@ class LandingController extends Controller
 
     public function loanTypeSeeder()
     {
-        $loanerTypeExists = LoanType::findOrFail('4be20a9a-aee3-414c-b8ba-dcacf859cc9c');
+        $loanerTypeExists = LoanType::where('id','4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->first();
         if ($loanerTypeExists === null){
             DB::table('loan_types')->insert([
                 'id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
@@ -151,7 +151,7 @@ class LandingController extends Controller
             ]);
         }
 
-        $loneeTypeExists = LoanType::findOrFail('07c99d10-8e09-4861-83df-fdd3700d7e48');
+        $loneeTypeExists = LoanType::where('id','07c99d10-8e09-4861-83df-fdd3700d7e48')->first();
         if ($loneeTypeExists === null) {
             DB::table('loan_types')->insert([
                 'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',

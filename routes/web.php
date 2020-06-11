@@ -15,12 +15,10 @@
 //Route::get('/section', 'SectionSeeder@SectionSeeder')->name('section');
 Route::get('/menu', 'SectionSeeder@menuSeeder')->name('menu');
 Route::get('/loan/type/seeder', 'Landing\LandingController@loanTypeSeeder');
-Route::get('/loan', 'Landing\LandingController@loanTypeSeeder');
-Route::get('/debug-sentry', 'Landing\LandingController@loanTypeSeeder');
 
-//Route::get('/debug-sentry', function () {
-//    throw new Exception('My first Sentry error!');
-//});
+Route::get('/debug-sentry', function () {
+    throw new Exception('My first Sentry error!');
+});
 
 Auth::routes(['verify' => true]);
 
