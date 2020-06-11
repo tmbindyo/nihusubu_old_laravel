@@ -47,12 +47,14 @@
                             <div class="col-sm-6 text-right">
                                 <h4>Sale No.</h4>
                                 <h4 class="text-navy">{{$sale->reference}}</h4>
-                                <span>To:</span>
-                                <address>
-                                    <strong>{{$sale->contact->last_name}} {{$sale->contact->first_name}}</strong><br>
-                                    <abbr title="Phone">P:</abbr> {{$sale->contact->phone_number}}<br>
-                                    <abbr title="Email">E:</abbr> {{$sale->contact->email}}
-                                </address>
+                                @if(isset($sale->contact))
+                                    <span>To:</span>
+                                    <address>
+                                        <strong>{{$sale->contact->last_name}} {{$sale->contact->first_name}}</strong><br>
+                                        <abbr title="Phone">P:</abbr> {{$sale->contact->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$sale->contact->email}}
+                                    </address>
+                                @endif
                                 {{-- <address>
                                     <strong>Corporate, Inc.</strong><br>
                                     112 Street Avenu, 1080<br>
