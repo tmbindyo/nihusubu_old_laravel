@@ -153,7 +153,6 @@
                                                     <th>Deposit</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -178,15 +177,6 @@
                                                             <td>
                                                                 <span class="label {{$adjustments->status->label}}">{{$adjustments->status->name}}</span>
                                                             </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    @if($adjustments->status_id == "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
-                                                                        <a href="{{ route('business.account.adjustment.delete', ['portal'=>$institution->portal, 'id'=>$adjustments->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                    @elseif($adjustments->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('business.account.adjustment.restore', ['portal'=>$institution->portal, 'id'=>$adjustments->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                    @endif
-                                                                </div>
-                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -200,7 +190,6 @@
                                                     <th>Deposit</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -215,7 +204,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -233,11 +222,6 @@
                                                         <td class="text-right">
                                                             <div class="btn-group">
                                                                 <a href="{{ route('business.deposit.show', ['portal'=>$institution->portal, 'id'=>$deposit->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                @if($deposit->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                    <a href="{{ route('business.deposit.restore', ['portal'=>$institution->portal, 'id'=>$deposit->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                @else
-                                                                    <a href="{{ route('business.deposit.delete', ['portal'=>$institution->portal, 'id'=>$deposit->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                @endif
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -249,63 +233,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="liabilities">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-liabilities" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Contact</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($account->liabilities as $liability)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$liability->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$liability->about}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$liability->total}}</td>
-                                                        <td>{{$liability->paid}}</td>
-                                                        <td>{{$liability->date}}</td>
-                                                        <td>{{$liability->due_date}}</td>
-                                                        <td>{{$liability->contact->first_name}} {{$liability->contact->last_name}}</td>
-                                                        <td>{{$liability->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$liability->status->label}}">{{$liability->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('business.liability.show', ['portal'=>$institution->portal, 'id'=>$liability->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Contact</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -325,7 +253,7 @@
                                                     <th>Type</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -366,7 +294,7 @@
                                                     <th>Type</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -384,7 +312,7 @@
                                                     <th>Balance</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -428,7 +356,7 @@
                                                     <th>Balance</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -444,7 +372,7 @@
                                                     <th>Date</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -475,7 +403,7 @@
                                                     <th>Date</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -495,7 +423,7 @@
                                                         <th>Billed</th>
                                                         <th>Confirmed</th>
                                                         <th>Status</th>
-                                                        <th width="13em">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -546,7 +474,7 @@
                                                         <th>Billed</th>
                                                         <th>Confirmed</th>
                                                         <th>Status</th>
-                                                        <th width="13em">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -564,7 +492,7 @@
                                                     <th>Destination Account</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -608,7 +536,7 @@
                                                     <th>Destination Account</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -626,7 +554,7 @@
                                                     <th>Destination Account</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -670,7 +598,7 @@
                                                     <th>Destination Account</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -685,7 +613,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -703,11 +631,6 @@
                                                         <td class="text-right">
                                                             <div class="btn-group">
                                                                 <a href="{{ route('business.withdrawal.show', ['portal'=>$institution->portal, 'id'=>$withdrawal->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                @if($withdrawal->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                    <a href="{{ route('business.withdrawal.restore', ['portal'=>$institution->portal, 'id'=>$withdrawal->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                @else
-                                                                    <a href="{{ route('business.withdrawal.delete', ['portal'=>$institution->portal, 'id'=>$withdrawal->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                @endif
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -719,7 +642,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>

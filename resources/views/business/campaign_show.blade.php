@@ -216,7 +216,7 @@
                                                             <th>Phone Number</th>
                                                             <th>User</th>
                                                             <th>Status</th>
-                                                            <th>Action</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -231,7 +231,7 @@
                                                                 </td>
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
-                                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -244,7 +244,7 @@
                                                             <th>Phone Number</th>
                                                             <th>User</th>
                                                             <th>Status</th>
-                                                            <th>Action</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
@@ -323,7 +323,7 @@
                                                             <th>Phone Number</th>
                                                             <th>User</th>
                                                             <th>Status</th>
-                                                            <th>Action</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -338,7 +338,7 @@
                                                                 </td>
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
-                                                                        <a href="{{ route('business.organization.show', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.organization.show', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -351,7 +351,7 @@
                                                             <th>Phone Number</th>
                                                             <th>User</th>
                                                             <th>Status</th>
-                                                            <th>Action</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>

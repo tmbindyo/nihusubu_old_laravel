@@ -133,7 +133,7 @@
                                                                 <th>Amount</th>
                                                                 <th>Status</th>
                                                                 @if($income->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
-                                                                    <th>Action</th>
+                                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                                 @endif
                                                             </tr>
                                                             </thead>
@@ -171,7 +171,7 @@
                                                                 <th>Amount</th>
                                                                 <th>Status</th>
                                                                 @if($income->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
-                                                                    <th>Action</th>
+                                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                                 @endif
                                                             </tr>
                                                             </tfoot>
@@ -188,7 +188,7 @@
                                                                 <th>Account</th>
                                                                 <th>Amount</th>
                                                                 <th>Status</th>
-                                                                <th>Action</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -216,7 +216,7 @@
                                                                 <th>Account</th>
                                                                 <th>Amount</th>
                                                                 <th>Status</th>
-                                                                <th>Action</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tr>
                                                             </tfoot>
                                                         </table>

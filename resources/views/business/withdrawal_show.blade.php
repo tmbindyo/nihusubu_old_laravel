@@ -162,7 +162,6 @@
                                                             <th>Deposit</th>
                                                             <th>User</th>
                                                             <th>Status</th>
-                                                            <th width="13em">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -200,7 +199,6 @@
                                                             <th>Deposit</th>
                                                             <th>User</th>
                                                             <th>Status</th>
-                                                            <th width="13em">Action</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>

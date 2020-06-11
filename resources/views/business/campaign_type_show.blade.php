@@ -75,20 +75,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Campaigns ({{$campaignType->campaigns_count}})</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                        </div>
+
                     </div>
                     <div class="ibox-content">
 
@@ -102,7 +89,7 @@
                         <th>End Date</th>
                         <th>User</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -120,11 +107,6 @@
                             <td class="text-right">
                                 <div class="btn-group">
                                     <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
-                                    @if($campaign->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                        <a href="{{ route('business.campaign.restore', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                    @else
-                                        <a href="{{ route('business.campaign.delete', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -138,7 +120,7 @@
                         <th>End Date</th>
                         <th>User</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                     </tr>
                     </tfoot>
                     </table>

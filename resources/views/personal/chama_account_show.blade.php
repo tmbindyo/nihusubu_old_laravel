@@ -203,7 +203,7 @@
                                                     <th>Deposit</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -250,7 +250,7 @@
                                                     <th>Deposit</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -265,7 +265,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -299,7 +299,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -317,7 +317,7 @@
                                                     <th>Date</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -357,7 +357,7 @@
                                                     <th>Date</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -376,7 +376,7 @@
                                                     <th>Contact</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -413,7 +413,7 @@
                                                     <th>Contact</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -432,7 +432,7 @@
                                                     <th>Contact</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -469,7 +469,7 @@
                                                     <th>Contact</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -489,7 +489,7 @@
                                                         <th>Billed</th>
                                                         <th>Confirmed</th>
                                                         <th>Status</th>
-                                                        <th width="13em">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -540,7 +540,7 @@
                                                         <th>Billed</th>
                                                         <th>Confirmed</th>
                                                         <th>Status</th>
-                                                        <th width="13em">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -555,7 +555,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -589,7 +589,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>

@@ -187,7 +187,7 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select2 form-control input-lg select-product" style = "width: 100%">
+                                                    <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select2_product form-control input-lg select-product" style = "width: 100%">
                                                         <option>Select Product</option>
                                                         @foreach($products as $product)
                                                             <option value="{{$product->id}}" data-product-unit-price="{{$product->selling_price}}">{{$product->name}}</option>
@@ -378,7 +378,7 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='select2 form-control input-lg select-product' style = 'width: 100%'>"+
+        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='select2_product form-control input-lg select-product' style = 'width: 100%'>"+
                                 "<option>Select Product</option>"+
                                 "@foreach($products as $product)"+
                                 "<option value='{{$product->id}}' data-product-unit-price='{{$product->selling_price}}'>{{$product->name}}</option>"+
@@ -391,7 +391,10 @@
         fifthCell.setAttribute("style", "width: 1em;");
         tableValueArrayIndex++;
 
-        $(".select2").select2();
+        $(".select2_product").select2({
+            placeholder: "Select Product",
+            allowClear: true
+        });
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;
@@ -617,6 +620,10 @@
         });
         $(".select2_unit").select2({
             placeholder: "Select Unit",
+            allowClear: true
+        });
+        $(".select2_product").select2({
+            placeholder: "Select Product",
             allowClear: true
         });
 

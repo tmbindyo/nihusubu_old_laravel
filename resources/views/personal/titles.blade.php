@@ -49,20 +49,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Titles</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                        </div>
+
                     </div>
                     <div class="ibox-content">
 
@@ -73,7 +60,7 @@
                                         <th>Name</th>
                                         <th>User</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,7 +85,7 @@
                                         <th>Name</th>
                                         <th>User</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -116,20 +103,7 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Deleted Titles</h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-wrench"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-                                    <li><a href="#">Config option 1</a>
-                                    </li>
-                                    <li><a href="#">Config option 2</a>
-                                    </li>
-                                </ul>
-                            </div>
+
                         </div>
                         <div class="ibox-content">
 
@@ -140,7 +114,7 @@
                                             <th>Name</th>
                                             <th>User</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -165,7 +139,7 @@
                                             <th>Name</th>
                                             <th>User</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                         </tr>
                                     </tfoot>
                                 </table>

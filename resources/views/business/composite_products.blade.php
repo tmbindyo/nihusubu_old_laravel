@@ -45,7 +45,7 @@
                                         <th>Name</th>
                                         <th>Products</th>
                                         <th>Status</th>
-                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,14 +59,6 @@
                                             <td class="text-right">
                                                 <div class="btn-group">
                                                     <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                    <a href="{{ route('business.composite.product.edit', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                                    @if($product->status->name=="Discontinued")
-                                                        <a href="{{ route('business.composite.product.restore', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
-                                                    @else
-                                                        <a href="{{ route('business.composite.product.delete', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                                                    @endif
-
-
                                                 </div>
                                             </td>
                                         </tr>
@@ -77,7 +69,7 @@
                                         <th>Name</th>
                                         <th>Products</th>
                                         <th>Status</th>
-                                        <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                     </tr>
                                 </tfoot>
                             </table>

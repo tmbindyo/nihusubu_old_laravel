@@ -1123,9 +1123,9 @@ class ProductController extends Controller
         $institution = $this->getInstitution($portal);
 
         $compositeProduct = Product::findOrFail($composite_product_id);
-        $compositeProduct = Product::where('institution_id', $institution->id)->where('id', $composite_product_id)->withCount('orderProducts', 'saleProducts', 'compositeProductProducts')->with('compositeProductProducts', 'productTaxes', 'user', 'status')->first();
+        $compositeProduct = Product::where('institution_id', $institution->id)->where('id', $composite_product_id)->withCount('orderProducts', 'saleProducts', 'compositeProductProducts')->with('compositeProductProducts.product', 'productTaxes', 'user', 'status')->first();
         $compositeProductProducts = CompositeProductProduct::where('composite_product_id', $compositeProduct->id)->with('product')->get();
-        // return $compositeProductProducts;
+//         return $compositeProduct->compositeProductProducts;
         return view('business.composite_product_show', compact('user', 'institution', 'compositeProduct', 'compositeProductProducts'));
     }
 

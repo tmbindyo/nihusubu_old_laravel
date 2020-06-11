@@ -172,7 +172,7 @@
                                                             <th>Stock on Hand</th>
                                                             <th>Reorder Level</th>
                                                             <th>Status</th>
-                                                            <th>Action</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
@@ -189,7 +189,7 @@
                                                             <th>Attributes</th>
                                                             <th>Attribute Options</th>
                                                             <th>Status</th>
-                                                            <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

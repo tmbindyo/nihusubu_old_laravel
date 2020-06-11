@@ -277,7 +277,7 @@
                                                                 <th>Description</th>
                                                                 <th>Account</th>
                                                                 <th>Type</th>
-                                                                <th>Action</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -336,7 +336,7 @@
                                                                 <th>Date</th>
                                                                 <th>Reason</th>
                                                                 <th>Destination</th>
-                                                                <th>Action</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -364,7 +364,7 @@
                                                                 <th>Date</th>
                                                                 <th>Reason</th>
                                                                 <th>Destination</th>
-                                                                <th>Action</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tr>
                                                             </tfoot>
                                                         </table>
@@ -381,7 +381,7 @@
                                                                 <th>Date</th>
                                                                 <th>Reason</th>
                                                                 <th>Destination</th>
-                                                                <th>Action</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -409,7 +409,7 @@
                                                                 <th>Date</th>
                                                                 <th>Reason</th>
                                                                 <th>Destination</th>
-                                                                <th>Action</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tr>
                                                             </tfoot>
                                                         </table>

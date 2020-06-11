@@ -203,7 +203,7 @@
                                                     <th>Deposit</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -250,7 +250,7 @@
                                                     <th>Deposit</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -265,7 +265,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -299,7 +299,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -317,7 +317,7 @@
                                                     <th>Date</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -357,63 +357,7 @@
                                                     <th>Date</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="liabilities">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Contact</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($account->liabilities as $liability)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$liability->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$liability->about}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$liability->total}}</td>
-                                                        <td>{{$liability->paid}}</td>
-                                                        <td>{{$liability->date}}</td>
-                                                        <td>{{$liability->due_date}}</td>
-                                                        <td>{{$liability->contact->first_name}} {{$liability->contact->last_name}}</td>
-                                                        <td>{{$liability->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$liability->status->label}}">{{$liability->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('personal.liability.show',$liability->id) }}" class="btn-white btn btn-xs">View</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Contact</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -433,7 +377,7 @@
                                                     <th>Type</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -472,7 +416,7 @@
                                                     <th>Type</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -490,7 +434,7 @@
                                                     <th>Balance</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -540,7 +484,7 @@
                                                     <th>Balance</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -556,7 +500,7 @@
                                                     <th>Date</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -587,7 +531,7 @@
                                                     <th>Date</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th width="13em">Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -607,7 +551,7 @@
                                                         <th>Billed</th>
                                                         <th>Confirmed</th>
                                                         <th>Status</th>
-                                                        <th width="13em">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -658,7 +602,7 @@
                                                         <th>Billed</th>
                                                         <th>Confirmed</th>
                                                         <th>Status</th>
-                                                        <th width="13em">Action</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -673,7 +617,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -707,7 +651,7 @@
                                                     <th>Amount</th>
                                                     <th>User</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>

@@ -124,6 +124,60 @@
                     @if($toDo->is_end_date == 1)
                         end: new Date({{$toDo->end_year}}, {{$toDo->end_month-1}}, {{$toDo->end_day}} @if($toDo->is_end_time == 1), {{$toDo->end_hour}}, {{$toDo->end_minute}} @endif,
                     @endif
+                    @if($toDo->is_product == 1)
+                        color: '#fe9000',
+                    @endif
+                    @if($toDo->is_product_group == 1)
+                        color: '#FFDD4A',
+                    @endif
+                    @if($toDo->is_warehouse == 1)
+                        color: '#463F3A',
+                    @endif
+                    @if($toDo->is_sale == 1)
+                        color: '#5adbff',
+                    @endif
+                    @if($toDo->is_contact == 1)
+                        color: '#E0AFA0',
+                    @endif
+                    @if($toDo->is_organization == 1)
+                        color: '#F4F3EE',
+                    @endif
+                    @if($toDo->is_campaign == 1)
+                        color: '#070707',
+                    @endif
+                    @if($toDo->is_account == 1)
+                        color: '#6f2dbd',
+                    @endif
+                    @if($toDo->is_account_adjustment == 1)
+                        color: '#DBD053',
+                    @endif
+                    @if($toDo->is_deposit == 1)
+                        color: '#30011E',
+                    @endif
+                    @if($toDo->is_liability == 1)
+                        color: '#E71D36',
+                    @endif
+                    @if($toDo->is_loan == 1)
+                        color: '#826aed',
+                    @endif
+                    @if($toDo->is_withdrawal == 1)
+                        color: '#F4F4F9',
+                    @endif
+                    @if($toDo->is_expense == 1)
+                        color: '#C7CB85',
+                    @endif
+                    @if($toDo->is_payment == 1)
+                        color: '#8F3985',
+                    @endif
+                    @if($toDo->is_refund == 1)
+                        color: '#7F96FF',
+                    @endif
+                    @if($toDo->is_transaction == 1)
+                        color: '#E9D2C0',
+                    @endif
+                    @if($toDo->is_transfer == 1)
+                        color: '#070707',
+                    @endif
                 },
                 @endforeach
             ]

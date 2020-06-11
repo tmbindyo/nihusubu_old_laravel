@@ -148,7 +148,7 @@ class SettingController extends Controller
     {
         // Check if campaign type exists
         $campaignTypeExists = CampaignType::findOrFail($campaign_type_id);
-        if($campaignTypeExists->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
+        if ( $campaignTypeExists->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
             return back()->withWarning(__('Campaign '.$campaignTypeExists->name.' is deleted.'));
         }
         // User
@@ -253,7 +253,7 @@ class SettingController extends Controller
     public function contactTypeContactCreate($portal, $contact_type_id)
     {
         $contactTypeExists = ContactType::findOrFail($contact_type_id);
-        if($contactTypeExists->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
+        if ( $contactTypeExists->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
             return back()->withWarning(__('Contact type '.$contactTypeExists->name.' is deleted.'));
         }
         // User
@@ -461,7 +461,7 @@ class SettingController extends Controller
     {
         // get Campaign
         $contactLeadSource = LeadSource::findOrFail($lead_source_id);
-        if($contactLeadSource->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
+        if ( $contactLeadSource->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
             return back()->withWarning(__('Campaign '.$contactLeadSource->name.' is deleted.'));
         }
         // User

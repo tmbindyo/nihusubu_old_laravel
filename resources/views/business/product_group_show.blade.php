@@ -32,32 +32,58 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         {{--  foreach  --}}
-            @foreach($productGroup->products as $product)
-                <div class="col-lg-3">
-                    <div class="contact-box center-version">
-
-                        <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])}}">
-
-                            <img alt="image" class="rounded-circle" src="img/a2.jpg">
-
-
-                            <h3 class="m-b-xs"><strong>{{$product->name}}</strong></h3>
-
-                            <div class="font-bold">{{$institution->currency->name}} {{$product->selling_price}}</div>
-                            <address class="m-t-md">
-                                {!! Str::limit($product->description, 100) !!}
-                            </address>
-
-                        </a>
-                        <div class="contact-box-footer">
-                            <div class="m-t-xs btn-group">
-                                <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])}}"  class="btn btn-xs btn-white"> View <i class="fa fa-long-arrow-right"></i> </a>
+        @foreach($productGroup->products as $product)
+            <div class="col-md-4">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5 class="text-center">{{$product->name}}</h5>
+                    </div>
+                    <div>
+                        <div class="ibox-content no-padding border-left-right">
+                            {{--                            <img alt="image" class="img-fluid" src="img/profile_big.jpg">--}}
+                        </div>
+                        <div class="ibox-content profile-content">
+                            <h4><strong>{{$institution->currency->name}} {{$product->selling_price}}</strong></h4>
+                            @isset($product->unit_id)
+                                <p><i class="fa fa-map-marker"></i> {{$product->unit->name}}</p>
+                            @endisset
+                            <h5>
+                                About
+                            </h5>
+                            <p>
+                                {!! \Illuminate\Support\Str::limit($product->name, 205, $end='...') !!}
+                            </p>
+{{--                            todo graph of product details--}}
+{{--                            <div class="row m-t-lg">--}}
+{{--                                <div class="col-md-4">--}}
+{{--                                    <span class="bar">5,3,9,6,5,9,7,3,5,2</span>--}}
+{{--                                    <h5><strong>169</strong> Sales</h5>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-4">--}}
+{{--                                    <span class="line">5,3,9,6,5,9,7,3,5,2</span>--}}
+{{--                                    <h5><strong>28</strong> Views</h5>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-4">--}}
+{{--                                    <span class="bar">5,3,2,-1,-3,-2,2,3,5,2</span>--}}
+{{--                                    <h5><strong>240</strong> Followers</h5>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <br>
+                            <div class="user-button">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{--  <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message</button>--}}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])}}" type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-arrow-right"></i> View</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-            @endforeach
+            </div>
+        @endforeach
         {{--  endforeach  --}}
 
         {{--  foreach  --}}
@@ -110,5 +136,11 @@
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
+
+<!-- Peity -->
+<script src="{{ asset('inspinia') }}/js/plugins/peity/jquery.peity.min.js"></script>
+
+<!-- Peity -->
+<script src="{{ asset('inspinia') }}/js/demo/peity-demo.js"></script>
 
 @endsection

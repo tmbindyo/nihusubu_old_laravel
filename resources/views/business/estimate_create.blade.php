@@ -102,14 +102,18 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2 form-control input-lg select-product item-select" style = "width: 100%">
-                                                        <option selected disabled>Select Item</option>
+                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_product form-control input-lg select-product item-select" style = "width: 100%">
+                                                        <option></option>
                                                         @foreach($products as $product)
                                                             @if($product->is_service == 0)
-                                                                @foreach($product->inventory as $inventory)
-                                                                    <option value="{{$product->id}}:{{$inventory->id}}" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
-                                                                @endforeach
-                                                            @else
+                                                                @if($product->is_composite_product == 1)
+                                                                    <option value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
+                                                                @else
+                                                                    @foreach($product->inventory as $inventory)
+                                                                        <option value="{{$product->id}}:{{$inventory->id}}" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
+                                                                    @endforeach
+                                                                @endif
+                                                                @else
                                                                 <option value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
                                                             @endif
                                                         @endforeach
@@ -213,6 +217,10 @@
             placeholder: "Select Contact",
             allowClear: true
         });
+        $(".select2_product").select2({
+            placeholder: "Select Product",
+            allowClear: true
+        });
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
@@ -253,7 +261,7 @@
             autoclose: true
         });
 
-        $(".select2").select2();
+        // $(".select2").select2();
 
     });
 
@@ -354,13 +362,17 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2 form-control input-lg select-product item-select' style = 'width: 100%'>"+
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_product form-control input-lg select-product item-select' style = 'width: 100%'>"+
                                 "<option selected disabled>Select Item</option>"+
                                 "@foreach($products as $product)"+
                                 "@if($product->is_service == 0)"+
+                                "@if($product->is_composite_product == 1)"+
+                                "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}}</option>"+
+                                "@else"+
                                 "@foreach($product->inventory as $inventory)"+
                                 "<option value='{{$product->id}}:{{$inventory->id}}' data-product-quantity = '{{$inventory->quantity}}' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}} [{{$inventory->warehouse->name}}]</option>"+
                                 "@endforeach"+
+                                "@endif"+
                                 "@else"+
                                 "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}}</option>"+
                                 "@endif"+
@@ -373,7 +385,10 @@
         fifthCell.setAttribute("style", "width: 1em;")
         tableValueArrayIndex++;
 
-        $(".select2").select2();
+        $(".select2_product").select2({
+            placeholder: "Select Product",
+            allowClear: true
+        });
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;

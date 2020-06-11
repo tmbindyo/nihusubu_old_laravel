@@ -48,7 +48,7 @@
                                 <th>Attributes</th>
                                 <th>Attribute Options</th>
                                 <th>Status</th>
-                                <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,8 +63,6 @@
                                         <td class="text-right">
                                             <div class="btn-group">
                                                 <a href="{{ route('business.product.group.show', ['portal'=>$institution->portal, 'id'=>$productGroup->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                <a href="{{ route('business.product.group.edit', ['portal'=>$institution->portal, 'id'=>$productGroup->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                                <a href="{{ route('business.product.group.delete', ['portal'=>$institution->portal, 'id'=>$productGroup->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
                                             </div>
                                         </td>
                                 </tr>
@@ -76,7 +74,7 @@
                                 <th>SKU</th>
                                 <th>Stock on Hand</th>
                                 <th>Status</th>
-                                <th class="text-right" width="135px" data-sort-ignore="true">Action</th>
+                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                             </tr>
                         </tfoot>
                     </table>

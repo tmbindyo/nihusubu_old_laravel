@@ -33,9 +33,9 @@
                         {{-- <li ondblclick = "editNoteOnDoubleClick(this, {{$pendingToDo}})"> --}}
                         <li>
                             <div>
-                                <small>{{$pendingToDo->due_date}}</small>
-                                <h4>{{$pendingToDo->name}}</h4>
-                                <p class = "sticky-note-content" style = "height: 100%">{{$pendingToDo->notes}}.</p>
+                                @if($pendingToDo->is_end_date === 1)
+                                    <small>end date: {{$pendingToDo->end_date}}</small>
+                                @endif
                                 @if($pendingToDo->is_account === 1)
                                     <p><span class="badge badge-primary">Account:{{$pendingToDo->account->name}}</span></p>
                                 @endif
@@ -87,6 +87,9 @@
                                 @if($pendingToDo->is_withdrawal === 1)
                                     <p><span class="badge badge-primary">Withdrawal:{{$pendingToDo->withdrawal->reference}}</span></p>
                                 @endif
+                                <h4>{{$pendingToDo->name}}</h4>
+                                <p> {{ \Illuminate\Support\Str::limit($pendingToDo->notes, 205, $end='...') }} </p>
+{{--                                <p class = "sticky-note-content" style = "height: 100%">{{$pendingToDo->notes}}.</p>--}}
                                 <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                             </div>
                         </li>
@@ -96,10 +99,10 @@
                     @foreach($inProgressToDos as $inProgressToDo)
                         <li>
                             <div>
+                                @if($inProgressToDo->is_end_date === 1)
+                                    <small>end date: {{$inProgressToDo->end_date}}</small>
+                                @endif
                                 <small>{{$inProgressToDo->due_date}}</small>
-                                <h4>{{$inProgressToDo->name}}</h4>
-                                <p>{{$inProgressToDo->notes}}.</p>
-
                                 @if($inProgressToDo->is_account === 1)
                                     <p><span class="badge badge-primary">Account:{{$inProgressToDo->account->name}}</span></p>
                                 @endif
@@ -151,7 +154,8 @@
                                 @if($inProgressToDo->is_withdrawal === 1)
                                     <p><span class="badge badge-primary">Withdrawal:{{$inProgressToDo->withdrawal->reference}}</span></p>
                                 @endif
-
+                                <h4>{{$inProgressToDo->name}}</h4>
+                                <p> {{ \Illuminate\Support\Str::limit($inProgressToDo->notes, 205, $end='...') }} </p>
                                 <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
                             </div>
                         </li>
@@ -161,10 +165,9 @@
                     @foreach($overdueToDos as $overdueToDo)
                         <li>
                             <div>
-                                <small>{{$overdueToDo->due_date}}</small>
-                                <h4>{{$overdueToDo->task}}</h4>
-                                <p>{{$overdueToDo->notes}}.</p>
-
+                                @if($overdueToDo->is_end_date === 1)
+                                    <small>end date: {{$overdueToDo->end_date}}</small>
+                                @endif
                                 @if($overdueToDo->is_account === 1)
                                     <p><span class="badge badge-primary">Account:{{$overdueToDo->account->name}}</span></p>
                                 @endif
@@ -216,8 +219,8 @@
                                 @if($overdueToDo->is_withdrawal === 1)
                                     <p><span class="badge badge-primary">Withdrawal:{{$overdueToDo->withdrawal->reference}}</span></p>
                                 @endif
-
-
+                                <h4>{{$overdueToDo->name}}</h4>
+                                <p> {{ \Illuminate\Support\Str::limit($overdueToDo->notes, 205, $end='...') }} </p>
                                 @if($overdueToDo->status->name === "Pending")
                                     <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
                                 @elseif($overdueToDo->status->name === "In progress")
@@ -233,10 +236,9 @@
                     @foreach($completedToDos as $completedToDo)
                         <li>
                             <div>
-                                <small>{{$completedToDo->due_date}}</small>
-                                <h4>{{$completedToDo->task}}</h4>
-                                <p>{{$completedToDo->notes}}.</p>
-
+                                @if($completedToDo->is_end_date === 1)
+                                    <small>end date: {{$completedToDo->end_date}}</small>
+                                @endif
                                 @if($completedToDo->is_account === 1)
                                     <p><span class="badge badge-primary">Account:{{$completedToDo->account->name}}</span></p>
                                 @endif
@@ -288,7 +290,8 @@
                                 @if($completedToDo->is_withdrawal === 1)
                                     <p><span class="badge badge-primary">Withdrawal:{{$completedToDo->withdrawal->reference}}</span></p>
                                 @endif
-
+                                <h4>{{$completedToDo->name}}</h4>
+                                <p> {{ \Illuminate\Support\Str::limit($completedToDo->notes, 205, $end='...') }} </p>
                                 <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
                             </div>
                         </li>
