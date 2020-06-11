@@ -206,144 +206,181 @@ class LandingController extends Controller
     {
         // section
         // exists
-        DB::table('sections')->insert([
-            'id' => '0c03b583-1d71-4d50-a626-10563cf4e454',
-            'name' => 'To Do',
-            'icon' => 'fa fa-list',
-            'is_business' => true,
-            'is_user' => true,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
+        $sectionExists = Section::where('id','0c03b583-1d71-4d50-a626-10563cf4e454')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => '0c03b583-1d71-4d50-a626-10563cf4e454',
+                'name' => 'To Do',
+                'icon' => 'fa fa-list',
+                'is_business' => true,
+                'is_user' => true,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
         // exists
-        DB::table('sections')->insert([
-            'id' => '17c0880e-b299-414d-908d-13154a10ac96',
-            'name' => 'Calender',
-            'icon' => 'fa fa-calendar',
-            'is_business' => true,
-            'is_user' => true,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
+        $sectionExists = Section::where('id','17c0880e-b299-414d-908d-13154a10ac96')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => '17c0880e-b299-414d-908d-13154a10ac96',
+                'name' => 'Calender',
+                'icon' => 'fa fa-calendar',
+                'is_business' => true,
+                'is_user' => true,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
         // exists
-        DB::table('sections')->insert([
-            'id' => 'd1644afa-b1a5-4a2d-b95d-e4d43acbce25',
-            'name' => 'Products',
-            'icon' => 'fa fa-tags',
-            'is_business' => true,
-            'is_user' => false,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
+        $sectionExists = Section::where('id','d1644afa-b1a5-4a2d-b95d-e4d43acbce25')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => 'd1644afa-b1a5-4a2d-b95d-e4d43acbce25',
+                'name' => 'Products',
+                'icon' => 'fa fa-tags',
+                'is_business' => true,
+                'is_user' => false,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
         // exists
-        DB::table('sections')->insert([
-            'id' => '0f7784cb-3b01-4aa7-a304-e0f1d330f9aa',
-            'name' => 'Inventory',
-            'icon' => 'fa fa-database',
-            'is_business' => true,
-            'is_user' => false,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
-        DB::table('sections')->insert([
-            'id' => 'fb5f0204-459b-4366-bf78-11f057db0db2',
-            'name' => 'CRM',
-            'icon' => 'fa fa-user',
-            'is_business' => true,
-            'is_user' => true,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
-        DB::table('sections')->insert([
-            'id' => '040d3a7c-c0d5-4f92-b92d-5c1f751fae13',
-            'name' => 'Sales',
-            'icon' => 'fa fa-shopping-cart',
-            'is_business' => true,
-            'is_user' => false,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
-        DB::table('sections')->insert([
-            'id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
-            'name' => 'Accounting',
-            'icon' => 'fa fa-dollar',
-            'is_business' => true,
-            'is_user' => true,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
-        DB::table('sections')->insert([
-            'id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
-            'name' => 'Settings',
-            'icon' => 'fa fa-sliders',
-            'is_business' => true,
-            'is_user' => true,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
-        DB::table('sections')->insert([
-            'id' => '773f6cbb-7641-40bc-9158-3132fc4bd122',
-            'name' => 'Feedback',
-            'icon' => 'fa fa-mail-reply-all',
-            'is_business' => true,
-            'is_user' => true,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
-        DB::table('sections')->insert([
-            'id' => '773f6cbb-7641-40bc-9158-3132fc4bd122',
-            'name' => 'Budgeting',
-            'icon' => 'fa fa-money',
-            'is_business' => false,
-            'is_user' => true,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
-        DB::table('sections')->insert([
-            'id' => '773f6cbb-7641-40bc-9158-3132fc4bd122',
-            'name' => 'Chamas',
-            'icon' => 'fa fa-users',
-            'is_business' => false,
-            'is_user' => true,
-            'is_admin' => false,
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
+        $sectionExists = Section::where('id','0f7784cb-3b01-4aa7-a304-e0f1d330f9aa')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => '0f7784cb-3b01-4aa7-a304-e0f1d330f9aa',
+                'name' => 'Inventory',
+                'icon' => 'fa fa-database',
+                'is_business' => true,
+                'is_user' => false,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
+        $sectionExists = Section::where('id','fb5f0204-459b-4366-bf78-11f057db0db2')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => 'fb5f0204-459b-4366-bf78-11f057db0db2',
+                'name' => 'CRM',
+                'icon' => 'fa fa-user',
+                'is_business' => true,
+                'is_user' => true,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
+        $sectionExists = Section::where('id','040d3a7c-c0d5-4f92-b92d-5c1f751fae13')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => '040d3a7c-c0d5-4f92-b92d-5c1f751fae13',
+                'name' => 'Sales',
+                'icon' => 'fa fa-shopping-cart',
+                'is_business' => true,
+                'is_user' => false,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
+        $sectionExists = Section::where('id','b97a8640-154e-4c09-95c7-0a9c6c690b82')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
+                'name' => 'Accounting',
+                'icon' => 'fa fa-dollar',
+                'is_business' => true,
+                'is_user' => true,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
+        $sectionExists = Section::where('id','cce99489-053b-45c7-b4df-1589ea2e3318')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
+                'name' => 'Settings',
+                'icon' => 'fa fa-sliders',
+                'is_business' => true,
+                'is_user' => true,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
+        $sectionExists = Section::where('id','1dd5ed21-4232-409d-928c-2b637aef5ff9')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => '1dd5ed21-4232-409d-928c-2b637aef5ff9',
+                'name' => 'Feedback',
+                'icon' => 'fa fa-mail-reply-all',
+                'is_business' => true,
+                'is_user' => true,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
+        $sectionExists = Section::where('id','49825984-bec8-4495-863f-ddd11ebb46f3')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => '49825984-bec8-4495-863f-ddd11ebb46f3',
+                'name' => 'Budgeting',
+                'icon' => 'fa fa-money',
+                'is_business' => false,
+                'is_user' => true,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
+        $sectionExists = Section::where('id','17cbc918-2b55-494b-a39b-a1297bac8317')->first();
+        if ($sectionExists === null) {
+            DB::table('sections')->insert([
+                'id' => '17cbc918-2b55-494b-a39b-a1297bac8317',
+                'name' => 'Chamas',
+                'icon' => 'fa fa-users',
+                'is_business' => false,
+                'is_user' => true,
+                'is_admin' => false,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
 
         // menu
-        DB::table('menus')->insert([
-            'id' => '773f6cbb-7641-40bc-9158-3132fc4bd122',
-            'name' => 'Chamas',
-            'url' => 'fa fa-users',
-            'is_business' => false,
-            'is_user' => true,
-            'is_admin' => false,
-            'section_id' => '0c03b583-1d71-4d50-a626-10563cf4e454',
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now()
-        ]);
+        // exists
+        $sectionExists = Section::where('id','61dfc6af-c8e2-4277-a93f-15fab90bf5b6')->first();
+        if ($sectionExists === null) {
+            DB::table('menus')->insert([
+                'id' => '61dfc6af-c8e2-4277-a93f-15fab90bf5b6',
+                'name' => 'Chamas',
+                'url' => 'fa fa-users',
+                'is_business' => false,
+                'is_user' => true,
+                'is_admin' => false,
+                'section_id' => '0c03b583-1d71-4d50-a626-10563cf4e454',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now()
+            ]);
+        }
 
         // feature
     }
