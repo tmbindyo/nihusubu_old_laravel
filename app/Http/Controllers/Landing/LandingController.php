@@ -171,30 +171,33 @@ class LandingController extends Controller
         // get all current liabilities
         $liabilities = Liability::all();
         foreach ($liabilities as $liability){
-        DB::table('loans')->insert([
-            'id' => $liability->id,
-            'reference' => $liability->reference,
-            'about' => $liability->about,
-            'total' => $liability->total,
-            'principal' => $liability->principal,
-            'interest' => $liability->interest,
-            'interest_amount' => $liability->interest_amount,
-            'paid' => $liability->paid,
-            'date' => $liability->date,
-            'due_date' => $liability->due_date,
-            'is_user' => $liability->is_user,
-            'user_id' => $liability->user_id,
-            'is_institution' => $liability->is_institution,
-            'institution_id' => $liability->institution_id,
-            'loan_type_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
-            'is_chama' => $liability->is_chama,
-            'chama_id' => $liability->chama_id,
-            'status_id' => $liability->status_id,
-            'contact_id' => $liability->contact_id,
-            'account_id' => $liability->account_id,
-            'member_id' => $liability->member_id,
-            'created_at' => $liability->created_at
-        ]);
+            $loanExists = Loan::where('id',$liability->id)->first();
+            if ($loanExists === null){
+                DB::table('loans')->insert([
+                    'id' => $liability->id,
+                    'reference' => $liability->reference,
+                    'about' => $liability->about,
+                    'total' => $liability->total,
+                    'principal' => $liability->principal,
+                    'interest' => $liability->interest,
+                    'interest_amount' => $liability->interest_amount,
+                    'paid' => $liability->paid,
+                    'date' => $liability->date,
+                    'due_date' => $liability->due_date,
+                    'is_user' => $liability->is_user,
+                    'user_id' => $liability->user_id,
+                    'is_institution' => $liability->is_institution,
+                    'institution_id' => $liability->institution_id,
+                    'loan_type_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
+                    'is_chama' => $liability->is_chama,
+                    'chama_id' => $liability->chama_id,
+                    'status_id' => $liability->status_id,
+                    'contact_id' => $liability->contact_id,
+                    'account_id' => $liability->account_id,
+                    'member_id' => $liability->member_id,
+                    'created_at' => $liability->created_at
+                ]);
+            }
         }
         return "done";
     }
