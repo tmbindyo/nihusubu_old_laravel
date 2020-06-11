@@ -60,7 +60,13 @@
                                             <td>{{$estimate->reference}}</td>
                                             <td>{{$estimate->date}}</td>
                                             <td>{{$estimate->due_date}}</td>
-                                            <td>{{$estimate->contact->first_name}} {{$estimate->contact->last_name}}</td>
+                                            <td>
+                                                @if(isset($estimate->contact))
+                                                    {{$estimate->contact->first_name}} {{$estimate->contact->last_name}}
+                                                @else
+                                                    <span class="label label-info"> NaN </span>
+                                                @endif
+                                            </td>
                                             <td>{{$estimate->total}}</td>
                                             <td>
                                                 <p><span class="label {{$estimate->status->label}}">{{$estimate->status->name}}</span></p>

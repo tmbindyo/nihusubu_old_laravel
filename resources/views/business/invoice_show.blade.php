@@ -57,12 +57,14 @@
                                 <div class="col-sm-6 text-right">
                                     <h4>Invoice No.</h4>
                                     <h4 class="text-navy">{{$invoice->reference}}</h4>
-                                    <span>To:</span>
-                                    <address>
-                                        <strong>{{$invoice->contact->last_name}} {{$invoice->contact->first_name}}</strong><br>
-                                        <abbr title="Phone">P:</abbr> {{$invoice->contact->phone_number}}<br>
-                                        <abbr title="Email">E:</abbr> {{$invoice->contact->email}}
-                                    </address>
+                                    @if(isset($invoice->contact))
+                                        <span>To:</span>
+                                        <address>
+                                            <strong>{{$invoice->contact->last_name}} {{$invoice->contact->first_name}}</strong><br>
+                                            <abbr title="Phone">P:</abbr> {{$invoice->contact->phone_number}}<br>
+                                            <abbr title="Email">E:</abbr> {{$invoice->contact->email}}
+                                        </address>
+                                    @endif
                                     {{-- <address>
                                         <strong>Corporate, Inc.</strong><br>
                                         112 Street Avenu, 1080<br>

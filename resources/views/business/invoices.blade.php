@@ -60,7 +60,13 @@
                                             <td>{{$invoice->reference}}</td>
                                             <td>{{$invoice->date}}</td>
                                             <td>{{$invoice->due_date}}</td>
-                                            <td>{{$invoice->contact->first_name}} {{$invoice->contact->last_name}}</td>
+                                            <td>
+                                                @if(isset($invoice->contact))
+                                                    {{$invoice->contact->first_name}} {{$invoice->contact->last_name}}
+                                                @else
+                                                    <span class="label label-info"> NaN </span>
+                                                @endif
+                                            </td>
                                             <td>{{$invoice->total}}</td>
                                             <td>
                                                 <p><span class="label {{$invoice->status->label}}">{{$invoice->status->name}}</span></p>

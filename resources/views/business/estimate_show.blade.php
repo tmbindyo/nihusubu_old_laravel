@@ -58,12 +58,14 @@
                                     <div class="col-sm-6 text-right">
                                         <h4>Estimate No.</h4>
                                         <h4 class="text-navy">{{$estimate->reference}}</h4>
-                                        <span>To:</span>
-                                        <address>
-                                            <strong>{{$estimate->contact->last_name}} {{$estimate->contact->first_name}}</strong><br>
-                                            <abbr title="Phone">P:</abbr> {{$estimate->contact->phone_number}}<br>
-                                            <abbr title="Email">E:</abbr> {{$estimate->contact->email}}
-                                        </address>
+                                        @if(isset($estimate->contact))
+                                            <span>To:</span>
+                                            <address>
+                                                <strong>{{$estimate->contact->last_name}} {{$estimate->contact->first_name}}</strong><br>
+                                                <abbr title="Phone">P:</abbr> {{$estimate->contact->phone_number}}<br>
+                                                <abbr title="Email">E:</abbr> {{$estimate->contact->email}}
+                                            </address>
+                                        @endif
                                         {{-- <address>
                                             <strong>Corporate, Inc.</strong><br>
                                             112 Street Avenu, 1080<br>
