@@ -12,10 +12,11 @@
 |
 */
 
-Route::get('/section', 'SectionSeeder@SectionSeeder')->name('section');
+//Route::get('/section', 'SectionSeeder@SectionSeeder')->name('section');
 Route::get('/menu', 'SectionSeeder@menuSeeder')->name('menu');
 Route::get('/loan/type/seeder', 'Landing\LandingController@loanTypeSeeder');
-Route::get('/loan/seeder', 'Landing\LandingController@loanTypeSeeder');
+Route::get('/loan', 'Landing\LandingController@loanTypeSeeder');
+Route::get('/section', 'Landing\LandingController@loanTypeSeeder');
 
 Route::get('/debug-sentry', function () {
     throw new Exception('My first Sentry error!');

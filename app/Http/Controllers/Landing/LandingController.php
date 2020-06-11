@@ -196,9 +196,9 @@ class LandingController extends Controller
             'created_at' => $liability->created_at
         ]);
         }
-
-
+        return "done";
     }
+
     public function roles()
     {
         // section
