@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Landing;
 
+use App\Liability;
 use App\Loan;
+use App\LoanType;
 use DB;
 use App\Address;
 use App\EmailSubscribe;
@@ -136,30 +138,64 @@ class LandingController extends Controller
 
     public function loanTypeSeeder()
     {
-        DB::table('loan_types')->insert([
-            'id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
-            'name' => 'Loaner',
-            'label' => 'label-warning',
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        $loanerTypeExists = LoanType::findOrFail('4be20a9a-aee3-414c-b8ba-dcacf859cc9c');
+        if ($loanerTypeExists === null){
+            DB::table('loan_types')->insert([
+                'id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
+                'name' => 'Loaner',
+                'label' => 'label-warning',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
 
-        DB::table('loan_types')->insert([
-            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
-            'name' => 'Lonee',
-            'label' => 'label-danger',
-            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        $loneeTypeExists = LoanType::findOrFail('07c99d10-8e09-4861-83df-fdd3700d7e48');
+        if ($loneeTypeExists === null) {
+            DB::table('loan_types')->insert([
+                'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+                'name' => 'Lonee',
+                'label' => 'label-danger',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
 
 
         Loan::where('loan_type_id',null)
         ->update(['loan_type_id' => '07c99d10-8e09-4861-83df-fdd3700d7e48']);
 
+        // get all current liabilities
+        $liabilities = Liability::all();
+        foreach ($liabilities as $liability){
+        DB::table('loans')->insert([
+            'id' => $liability->id,
+            'reference' => $liability->reference,
+            'about' => $liability->about,
+            'total' => $liability->total,
+            'principal' => $liability->principal,
+            'interest' => $liability->interest,
+            'interest_amount' => $liability->interest_amount,
+            'paid' => $liability->paid,
+            'date' => $liability->date,
+            'due_date' => $liability->due_date,
+            'is_user' => $liability->is_user,
+            'user_id' => $liability->user_id,
+            'is_institution' => $liability->is_institution,
+            'institution_id' => $liability->institution_id,
+            'loan_type_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
+            'is_chama' => $liability->is_chama,
+            'chama_id' => $liability->chama_id,
+            'status_id' => $liability->status_id,
+            'contact_id' => $liability->contact_id,
+            'account_id' => $liability->account_id,
+            'member_id' => $liability->member_id,
+            'created_at' => $liability->created_at
+        ]);
+        }
 
 
     }
@@ -167,91 +203,145 @@ class LandingController extends Controller
     {
         // section
         // exists
-        DB::table('loan_types')->insert([
-            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+        DB::table('sections')->insert([
+            'id' => '0c03b583-1d71-4d50-a626-10563cf4e454',
             'name' => 'To Do',
-            'icon' => 'To Do',
+            'icon' => 'fa fa-list',
+            'is_business' => true,
+            'is_user' => true,
+            'is_admin' => false,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
         // exists
-        DB::table('loan_types')->insert([
-            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+        DB::table('sections')->insert([
+            'id' => '17c0880e-b299-414d-908d-13154a10ac96',
             'name' => 'Calender',
+            'icon' => 'fa fa-calendar',
+            'is_business' => true,
+            'is_user' => true,
+            'is_admin' => false,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
         // exists
-        DB::table('loan_types')->insert([
-            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+        DB::table('sections')->insert([
+            'id' => 'd1644afa-b1a5-4a2d-b95d-e4d43acbce25',
             'name' => 'Products',
-            'icon' => 'Products',
+            'icon' => 'fa fa-tags',
+            'is_business' => true,
+            'is_user' => false,
+            'is_admin' => false,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
         // exists
-        DB::table('loan_types')->insert([
-            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+        DB::table('sections')->insert([
+            'id' => '0f7784cb-3b01-4aa7-a304-e0f1d330f9aa',
             'name' => 'Inventory',
-            'icon' => 'Inventory',
+            'icon' => 'fa fa-database',
+            'is_business' => true,
+            'is_user' => false,
+            'is_admin' => false,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
-        DB::table('loan_types')->insert([
-            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+        DB::table('sections')->insert([
+            'id' => 'fb5f0204-459b-4366-bf78-11f057db0db2',
             'name' => 'CRM',
-            'icon' => 'CRM',
+            'icon' => 'fa fa-user',
+            'is_business' => true,
+            'is_user' => true,
+            'is_admin' => false,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
-        DB::table('loan_types')->insert([
-            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+        DB::table('sections')->insert([
+            'id' => '040d3a7c-c0d5-4f92-b92d-5c1f751fae13',
             'name' => 'Sales',
-            'icon' => 'Sales',
+            'icon' => 'fa fa-shopping-cart',
+            'is_business' => true,
+            'is_user' => false,
+            'is_admin' => false,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
-        DB::table('loan_types')->insert([
-            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+        DB::table('sections')->insert([
+            'id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
             'name' => 'Accounting',
-            'icon' => 'Accounting',
+            'icon' => 'fa fa-dollar',
+            'is_business' => true,
+            'is_user' => true,
+            'is_admin' => false,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
-        DB::table('loan_types')->insert([
-            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+        DB::table('sections')->insert([
+            'id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
             'name' => 'Settings',
-            'icon' => 'Settings',
+            'icon' => 'fa fa-sliders',
+            'is_business' => true,
+            'is_user' => true,
+            'is_admin' => false,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
-        DB::table('loan_types')->insert([
-            'id' => '07c99d10-8e09-4861-83df-fdd3700d7e48',
+        DB::table('sections')->insert([
+            'id' => '773f6cbb-7641-40bc-9158-3132fc4bd122',
             'name' => 'Feedback',
-            'icon' => 'Feedback',
+            'icon' => 'fa fa-mail-reply-all',
+            'is_business' => true,
+            'is_user' => true,
+            'is_admin' => false,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
+        ]);
+        DB::table('sections')->insert([
+            'id' => '773f6cbb-7641-40bc-9158-3132fc4bd122',
+            'name' => 'Budgeting',
+            'icon' => 'fa fa-money',
+            'is_business' => false,
+            'is_user' => true,
+            'is_admin' => false,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now()
+        ]);
+        DB::table('sections')->insert([
+            'id' => '773f6cbb-7641-40bc-9158-3132fc4bd122',
+            'name' => 'Chamas',
+            'icon' => 'fa fa-users',
+            'is_business' => false,
+            'is_user' => true,
+            'is_admin' => false,
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now()
         ]);
 
         // menu
+        DB::table('menus')->insert([
+            'id' => '773f6cbb-7641-40bc-9158-3132fc4bd122',
+            'name' => 'Chamas',
+            'url' => 'fa fa-users',
+            'is_business' => false,
+            'is_user' => true,
+            'is_admin' => false,
+            'section_id' => '0c03b583-1d71-4d50-a626-10563cf4e454',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now()
+        ]);
+
         // feature
     }
 }

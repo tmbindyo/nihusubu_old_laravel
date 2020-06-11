@@ -14,9 +14,9 @@ class AddIsBusinessToSections extends Migration
     public function up()
     {
         Schema::table('sections', function (Blueprint $table) {
-            $table->boolean('is_business');
             $table->boolean('is_admin');
             $table->boolean('is_user');
+            $table->string('icon', 200);
         });
     }
 
@@ -28,9 +28,9 @@ class AddIsBusinessToSections extends Migration
     public function down()
     {
         Schema::table('sections', function (Blueprint $table) {
-            $table->dropColumn(['is_business']);
             $table->dropColumn(['is_admin']);
             $table->dropColumn(['is_user']);
+            $table->dropColumn(['name']);
         });
     }
 }

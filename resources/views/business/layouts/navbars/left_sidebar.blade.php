@@ -113,7 +113,7 @@
 
             <li>
                 <a href="#">
-                    <i class="fa fa-shopping-cart"></i>
+                    <i class="fa fa-group"></i>
                     <span class="nav-label">CRM </span>
                     <span class="fa arrow"></span>
                 </a>
