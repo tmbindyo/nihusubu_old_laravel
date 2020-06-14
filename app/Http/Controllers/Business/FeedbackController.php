@@ -38,7 +38,7 @@ class FeedbackController extends Controller
         $feedbacks = Feedback::where('institution_id', $institution->id)->with('user', 'status')->get();
         // get feedbacks
         $deletedFeedbacks = Feedback::where('institution_id', $institution->id)->with('user', 'status')->onlyTrashed()->get();
-        return view('business.feedbacks', compact('feedbacks', 'user', 'institution', 'deletedFeedbacks'));
+        return view('business.feedback', compact('feedbacks', 'user', 'institution', 'deletedFeedbacks'));
     }
 
     public function feedbackCreate($portal)

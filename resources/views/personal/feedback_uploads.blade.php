@@ -30,7 +30,7 @@
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('business.feedbacks',$institution->portal)}}">Feedbacks</a>
+                    <a href="{{route('business.feedback',$institution->portal)}}">Feedbacks</a>
                 </li>
                 <li class="active">
                     <a href="{{route('business.feedback.show',['portal'=>$institution->portal, 'id'=>$feedback->id])}}">Feedback</a>

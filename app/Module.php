@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentMade extends Model implements Auditable
+class Module extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
     use SoftDeletes, UuidTrait;
@@ -21,9 +21,5 @@ class PaymentMade extends Model implements Auditable
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-    public function expense()
-    {
-        return $this->belongsTo('App\Expense');
     }
 }

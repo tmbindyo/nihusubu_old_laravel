@@ -46,7 +46,7 @@
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.feedbacks',$institution->portal)}}">Feedback's</a>
+                    <a href="{{route('business.feedback',$institution->portal)}}">Feedback's</a>
                 </li>
                 <li class="active">
                     <strong>Feedback Create</strong>

@@ -69,14 +69,6 @@
                                             <td class="text-right">
                                                 <div class="btn-group">
                                                     <a href="{{ route('business.product.show', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                    <a href="{{ route('business.product.edit', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-warning btn-outline btn btn-xs">Edit</a>
-                                                    @if($product->status->name=="Discontinued")
-                                                        <a href="{{ route('business.product.restore', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Restore</a>
-                                                    @else
-                                                        <a href="{{ route('business.product.delete', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-danger btn-outline btn btn-xs">Delete</a>
-                                                    @endif
-
-
                                                 </div>
                                             </td>
                                         </tr>

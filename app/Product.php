@@ -2,13 +2,15 @@
 
 namespace App;
 
-use App\Traits\InstitutionTrait;
 use App\Traits\UuidTrait;
+use App\Traits\InstitutionTrait;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class Product extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use institutionTrait;
     use SoftDeletes, UuidTrait;
     public $incrementing = false;

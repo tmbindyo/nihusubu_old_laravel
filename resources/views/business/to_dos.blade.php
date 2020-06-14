@@ -364,11 +364,13 @@
 <!-- TouchSpin -->
 <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
+
+
 {{--  Get due date to populate   --}}
 <script>
     $(document).ready(function() {
         // Set date
-        console.log('var');
+
         var today = new Date();
         console.log(today);
         var dd = today.getDate();
@@ -383,8 +385,12 @@
         if (mm < 10){
             mm = '0'+mm;
         }
+        if (m < 10){
+            m = '0'+m;
+        }
         var date_today = mm + '/' + dd + '/' + yyyy;
         var time_curr = h + ':' + m;
+
         console.log(time_curr);
         document.getElementById("start_date").value = date_today;
         document.getElementById("end_date").value = date_today;
@@ -551,9 +557,20 @@
 
         var elem_18 = document.querySelector('.js-switch_18');
         var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
+        console.log(switchery_18)
 
         var elem_19 = document.querySelector('.js-switch_19');
         var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
+
+        function EnableDisableTextBox(is_end_date) {
+            console.log(is_end_date)
+            var end_date = document.getElementById("end_date");
+            end_date.disabled = is_end_date.checked ? false : true;
+            if (!end_date.disabled) {
+                end_date.focus();
+
+            }
+        }
 
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
@@ -755,6 +772,10 @@
 
     $(".dial").knob();
 
+
+</script>
+
+<script type="text/javascript">
 
 </script>
 

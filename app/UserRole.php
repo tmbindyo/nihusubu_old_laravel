@@ -4,10 +4,12 @@ namespace App;
 
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserRole extends Model
+class UserRole extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 

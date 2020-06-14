@@ -499,7 +499,7 @@ Route::get('/{portal}/unit/restore/{unit_id}', 'Business\SettingController@unitR
 
 
 //Dashboard
-Route::get('/{portal}/feedbacks', 'Business\FeedbackController@feedbacks')->name('business.feedbacks');
+Route::get('/{portal}/feedbacks', 'Business\FeedbackController@feedbacks')->name('business.feedback');
 Route::get('/{portal}/feedback/create', 'Business\FeedbackController@feedbackCreate')->name('business.feedback.create');
 Route::post('/{portal}/feedback/store', 'Business\FeedbackController@feedbackStore')->name('business.feedback.store');
 Route::get('/{portal}/feedback/show/{unit_id}', 'Business\FeedbackController@feedbackShow')->name('business.feedback.show');
