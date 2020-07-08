@@ -73,12 +73,13 @@
                                         <input type="number" id="amount" name="amount" required="required" value="{{$tax->amount}}" class="form-control input-lg">
                                         <i>amount</i>
                                     </div>
+                                    @can('edit tax')
+                                        <hr>
 
-                                    <hr>
-
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
-                                    </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
+                                        </div>
+                                    @endcan
                                 </div>
 
 
@@ -135,85 +136,85 @@
 
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="products">
-
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Name</th>
-                                                                    <th>SKU</th>
-                                                                    <th>Stock on Hand</th>
-                                                                    <th>Reorder Level</th>
-                                                                    <th>Status</th>
-                                                                    <th class="text-right" width="10em" data-sort-ignore="true">Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach($tax->productTaxes as $product_tax)
-                                                                    <tr class="gradeA">
-                                                                        <td>{{$product_tax->product->name}}</td>
-                                                                        <td>
-                                                                            @isset($product_tax->product->unit->name)
-                                                                                {{$product_tax->product->unit->name}}
-                                                                            @endisset
-                                                                        </td>
-                                                                        <td>
-                                                                            @if($product_tax->product->is_service == "1")
-                                                                                N/A
-                                                                            @else
-                                                                                @isset($product_tax->product->stock_on_hand->first()->stock_on_hand)
-                                                                                    {{$product_tax->product->stock_on_hand->first()->stock_on_hand}}
-                                                                                @endisset
-                                                                            @endif
-                                                                        </td>
-                                                                        <td class="center">
-{{--                                                                            @if($product_tax->product->is_composite_product == "0")--}}
-{{--                                                                                {{$product_tax->product->reorder_level}}--}}
-{{--                                                                            @else--}}
-{{--                                                                                N/A--}}
-{{--                                                                            @endif--}}
-                                                                            @if ($product_tax->product->is_service==1)
-                                                                                N/A
-                                                                            @elseif ($product_tax->product->is_service==0)
-                                                                                    @if($product_tax->product->is_composite_product == "0")
-                                                                                        {{$product_tax->product->reorder_level}}
-                                                                                    @else
-                                                                                        N/A
-                                                                                    @endif
-
-                                                                            @endif
-                                                                        </td>
-                                                                        <td class="center">
-                                                                            <p>
-                                                                                @if ($product_tax->product->is_service==1)
-                                                                                    Service:
-                                                                                @elseif($product_tax->product->is_service==0)
-                                                                                    Product:
-                                                                                @endif
-                                                                                    <span class="label {{$product_tax->product->status->label}}">{{$product_tax->product->status->name}}</span>
-                                                                            </p>
-                                                                        </td>
-                                                                        <td class="text-right">
-                                                                            <div class="btn-group">
-                                                                                <a href="{{ route('business.product.show', ['portal'=>$institution->portal, 'id'=>$product_tax->product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                            </div>
-                                                                        </td>
+                                                    @can('view products')
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Name</th>
+                                                                        <th>SKU</th>
+                                                                        <th>Stock on Hand</th>
+                                                                        <th>Reorder Level</th>
+                                                                        <th>Status</th>
+                                                                        <th class="text-right" width="10em" data-sort-ignore="true">Action</th>
                                                                     </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th>Name</th>
-                                                                    <th>SKU</th>
-                                                                    <th>Stock on Hand</th>
-                                                                    <th>Reorder Level</th>
-                                                                    <th>Status</th>
-                                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                                </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($tax->productTaxes as $product_tax)
+                                                                        <tr class="gradeA">
+                                                                            <td>{{$product_tax->product->name}}</td>
+                                                                            <td>
+                                                                                @isset($product_tax->product->unit->name)
+                                                                                    {{$product_tax->product->unit->name}}
+                                                                                @endisset
+                                                                            </td>
+                                                                            <td>
+                                                                                @if($product_tax->product->is_service == "1")
+                                                                                    N/A
+                                                                                @else
+                                                                                    @isset($product_tax->product->stock_on_hand->first()->stock_on_hand)
+                                                                                        {{$product_tax->product->stock_on_hand->first()->stock_on_hand}}
+                                                                                    @endisset
+                                                                                @endif
+                                                                            </td>
+                                                                            <td class="center">
+    {{--                                                                            @if($product_tax->product->is_composite_product == "0")--}}
+    {{--                                                                                {{$product_tax->product->reorder_level}}--}}
+    {{--                                                                            @else--}}
+    {{--                                                                                N/A--}}
+    {{--                                                                            @endif--}}
+                                                                                @if ($product_tax->product->is_service==1)
+                                                                                    N/A
+                                                                                @elseif ($product_tax->product->is_service==0)
+                                                                                        @if($product_tax->product->is_composite_product == "0")
+                                                                                            {{$product_tax->product->reorder_level}}
+                                                                                        @else
+                                                                                            N/A
+                                                                                        @endif
 
+                                                                                @endif
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <p>
+                                                                                    @if ($product_tax->product->is_service==1)
+                                                                                        Service:
+                                                                                    @elseif($product_tax->product->is_service==0)
+                                                                                        Product:
+                                                                                    @endif
+                                                                                        <span class="label {{$product_tax->product->status->label}}">{{$product_tax->product->status->name}}</span>
+                                                                                </p>
+                                                                            </td>
+                                                                            <td class="text-right">
+                                                                                <div class="btn-group">
+                                                                                    <a href="{{ route('business.product.show', ['portal'=>$institution->portal, 'id'=>$product_tax->product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <th>Name</th>
+                                                                        <th>SKU</th>
+                                                                        <th>Stock on Hand</th>
+                                                                        <th>Reorder Level</th>
+                                                                        <th>Status</th>
+                                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    @endcan
                                                 </div>
                                             </div>
 

@@ -21,7 +21,9 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.expense.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
+                @can('add expense')
+                    <a href="{{route('business.expense.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -72,10 +74,12 @@
                                         <input type="number" id="frequency" name="frequency" required="required" value="{{$frequency->frequency}}" class="form-control input-lg">
                                         <i>frequency</i>
                                     </div>
-                                    <br>
-                                    <div>
-                                        <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>Update</strong></button>
-                                    </div>
+                                    @can('edit frequency')
+                                        <br>
+                                        <div>
+                                            <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>Update</strong></button>
+                                        </div>
+                                    @endcan
                                 </form>
                             </div>
                         </div>
@@ -83,98 +87,105 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Frequency Expenses ({{$frequency->expenses_count}})</h5>
 
-                </div>
-                <div class="ibox-content">
+        @can('view expenses')
+            <div class="row">
+                <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Frequency Expenses ({{$frequency->expenses_count}})</h5>
 
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" >
-                            <thead>
-                            <tr>
-                                <th>Recurring</th>
-                                <th>Type</th>
-                                <th>Expense #</th>
-                                <th>Date</th>
-                                <th>Created</th>
-                                <th>Expense Account</th>
-                                <th>Total</th>
-                                <th>Paid</th>
-                                <th>Status</th>
-                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($frequency->expenses as $expense)
-                                <tr class="gradeA">
-                                    <td>
-                                        @if($expense->is_recurring == 1)
-                                            <p><span class="badge badge-success">True</span></p>
-                                        @else
-                                            <p><span class="badge badge-success">False</span></p>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($expense->is_order == 1)
-                                            <p><a href="{{route('business.order.show',['portal'=>$institution->portal, 'id'=>$expense->order_id])}}" class="badge badge-success">Order</a></p>
-                                        @elseif($expense->is_project == 1)
-                                            <p><a href="{{route('business.project.show',['portal'=>$institution->portal, 'id'=>$expense->project->id])}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
-                                        @elseif($expense->is_project == 1)
-                                            <p><a href="{{route('business.project.show',['portal'=>$institution->portal, 'id'=>$expense->project_id])}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
-                                        @elseif($expense->is_liability == 1)
-                                            <p><a href="{{route('business.liability.show',['portal'=>$institution->portal, 'id'=>$expense->liability_id])}}" class="badge badge-primary">Liability</a></p>
-                                        @elseif($expense->is_transfer == 1)
-                                            <p><a href="{{route('business.transfer.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_id])}}" class="badge badge-primary">Transfer</a></p>
-                                        @elseif($expense->is_campaign == 1)
-                                            <p><a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$expense->campaign_id])}}" class="badge badge-primary">Campaign</a></p>
-                                        @elseif($expense->is_asset == 1)
-                                            <p><a href="{{route('business.asset.show',['portal'=>$institution->portal, 'id'=>$expense->asset_id])}}" class="badge badge-primary">Asset</a></p>
-                                        @else
-                                            <p><span class="badge badge-info">None</span></p>
-                                        @endif
-                                    </td>
-                                    <td>{{$expense->reference}}</td>
-                                    <td>{{$expense->date}}</td>
-                                    <td>{{$expense->created_at}}</td>
-                                    <td>{{$expense->expenseAccount->name}}</td>
-                                    <td>{{$expense->total}}</td>
-                                    <td>{{$expense->paid}}</td>
-                                    <td>
-                                        <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="btn-group">
-                                            <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <th>Recurring</th>
-                                <th>Type</th>
-                                <th>Expense #</th>
-                                <th>Date</th>
-                                <th>Created</th>
-                                <th>Expense Account</th>
-                                <th>Total</th>
-                                <th>Paid</th>
-                                <th>Status</th>
-                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                            </tr>
-                            </tfoot>
-                        </table>
                     </div>
+                    <div class="ibox-content">
 
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                <tr>
+                                    <th>Recurring</th>
+                                    <th>Type</th>
+                                    <th>Expense #</th>
+                                    <th>Date</th>
+                                    <th>Created</th>
+                                    <th>Expense Account</th>
+                                    <th>Total</th>
+                                    <th>Paid</th>
+                                    <th>Status</th>
+                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($frequency->expenses as $expense)
+                                    <tr class="gradeA">
+                                        <td>
+                                            @if($expense->is_recurring == 1)
+                                                <p><span class="badge badge-success">True</span></p>
+                                            @else
+                                                <p><span class="badge badge-success">False</span></p>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($expense->is_inventory_adjustment == 1)
+                                                <p><a @can('view inventory adjustment') href="{{route('business.inventory.adjustment',['portal'=>$institution->portal, 'id'=>$expense->inventory_adjustment_id])}}" @endcan class="badge badge-success">Inventory Adjustment</a></p>
+                                            @elseif($expense->is_transfer_order == 1)
+                                                <p><a @can('view transfer order') href="{{route('business.transfer.order.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_order_id])}}" @endcan class="badge badge-primary">Transfer Order</a></p>
+                                            @elseif($expense->is_warehouse == 1)
+                                                <p><a @can('view warehouse') href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$expense->warehouse_id])}}" @endcan class="badge badge-primary">Warehouse</a></p>
+                                            @elseif($expense->is_campaign == 1)
+                                                <p><a @can('view campaign') href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$expense->campaign_id])}}" @endcan class="badge badge-primary">Campaign</a></p>
+                                            @elseif($expense->is_sale == 1)
+                                                <p><a @can('view sale') href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$expense->sale_id])}}" @endcan class="badge badge-primary">Sale</a></p>
+                                            @elseif($expense->is_liability == 1)
+                                                <p><a @can('view liability') href="{{route('business.liability.show',['portal'=>$institution->portal, 'id'=>$expense->liability_id])}}" @endcan class="badge badge-primary">Liability</a></p>
+                                            @elseif($expense->is_transfer == 1)
+                                                <p><a @can('view transfer') href="{{route('business.transfer.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_id])}}" @endcan class="badge badge-primary">Transfer</a></p>
+                                            @elseif($expense->is_transaction == 1)
+                                                <p><a @can('view transaction') href="{{route('business.transaction.show',['portal'=>$institution->portal, 'id'=>$expense->transaction_id])}}" @endcan class="badge badge-primary">Transaction</a></p>
+                                            @else
+                                                <p><span class="badge badge-info">None</span></p>
+                                            @endif
+                                        </td>
+                                        <td>{{$expense->reference}}</td>
+                                        <td>{{$expense->date}}</td>
+                                        <td>{{$expense->created_at}}</td>
+                                        <td>{{$expense->expenseAccount->name}}</td>
+                                        <td>{{$expense->total}}</td>
+                                        <td>{{$expense->paid}}</td>
+                                        <td>
+                                            <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                @can('view expense')
+                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                @endcan
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Recurring</th>
+                                    <th>Type</th>
+                                    <th>Expense #</th>
+                                    <th>Date</th>
+                                    <th>Created</th>
+                                    <th>Expense Account</th>
+                                    <th>Total</th>
+                                    <th>Paid</th>
+                                    <th>Status</th>
+                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
+            </div>
+        @endcan
     </div>
 
 

@@ -21,7 +21,9 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.tax.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Tax </a>
+                @can('add tax')
+                    <a href="{{route('business.tax.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Tax </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -65,10 +67,10 @@
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('business.tax.show', ['portal'=>$institution->portal, 'id'=>$tax->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                @if($tax->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                    <a href="{{ route('business.tax.restore', ['portal'=>$institution->portal, 'id'=>$tax->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                @else
+                                                @can('view tax')
+                                                    <a href="{{ route('business.tax.show', ['portal'=>$institution->portal, 'id'=>$tax->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                @endcan
+                                                @can('delete tax')
                                                     <a href="{{ route('business.tax.delete', ['portal'=>$institution->portal, 'id'=>$tax->id]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 @endif
                                             </div>
@@ -126,8 +128,12 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.tax.show', ['portal'=>$institution->portal, 'id'=>$tax->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.tax.restore', ['portal'=>$institution->portal, 'id'=>$tax->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    @can('view tax')
+                                                        <a href="{{ route('business.tax.show', ['portal'=>$institution->portal, 'id'=>$tax->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    @endcan
+                                                    @can('delete tax')
+                                                        <a href="{{ route('business.tax.restore', ['portal'=>$institution->portal, 'id'=>$tax->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

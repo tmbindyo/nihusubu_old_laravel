@@ -21,7 +21,9 @@
             </div>
             <div class="col-lg-2">
                 <div class="title-action">
-                    <a href="{{route('business.estimate.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Estimate </a>
+                    @can('add estimate')
+                        <a href="{{route('business.estimate.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Estimate </a>
+                    @endcan
                 </div>
             </div>
         </div>

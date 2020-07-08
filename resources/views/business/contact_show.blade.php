@@ -20,15 +20,28 @@
         </div>
         <div class="col-md-9">
             <div class="title-action">
-                <a href="{{route('business.contact.liability.create',['portal'=>$institution->portal, 'id'=>$contact->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Liability </a>
-                <a href="{{route('business.contact.loan.create',['portal'=>$institution->portal, 'id'=>$contact->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Loan </a>
-                <a href="{{route('business.contact.sale.create',['portal'=>$institution->portal, 'id'=>$contact->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
-                @if($contact->campaign_id)
-                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$contact->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
-                @endif
-                @if($contact->organization_id)
-                    <a href="{{route('business.organization.show',['portal'=>$institution->portal, 'id'=>$contact->organization_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Organization </a>
-                @endif
+                @can('add liability')
+                    <a href="{{route('business.contact.liability.create',['portal'=>$institution->portal, 'id'=>$contact->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Liability </a>
+                @endcan
+                @can('add loan')
+                    <a href="{{route('business.contact.loan.create',['portal'=>$institution->portal, 'id'=>$contact->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Loan </a>
+                @endcan
+                @can('add sale')
+                    <a href="{{route('business.contact.sale.create',['portal'=>$institution->portal, 'id'=>$contact->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
+                @endcan
+                @can('view campaign')
+                    @if($contact->campaign_id)
+                        <a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$contact->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                    @endif
+                @endcan
+                @can('view organization')
+                    @if($contact->organization_id)
+                        <a href="{{route('business.organization.show',['portal'=>$institution->portal, 'id'=>$contact->organization_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Organization </a>
+                    @endif
+                @endcan
+                @can('add to do')
+                    <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> To Do </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -163,16 +176,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="col-md-12">
+                                    @can('edit contact')
                                         <br>
-                                        <hr>
+                                        <div class="col-md-12">
+                                            <br>
+                                            <hr>
 
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
+                                            </div>
                                         </div>
-                                    </div>
-
+                                    @endcan
                                 </form>
                             </div>
                         </div>
@@ -218,8 +232,7 @@
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#liabilities" data-toggle="tab">Liability</a></li>
-                                            <li class=""><a href="#loans" data-toggle="tab">Loan</a></li>
+                                            <li class="active"><a href="#loans" data-toggle="tab">Loan</a></li>
                                             <li class=""><a href="#sales" data-toggle="tab">Sales</a></li>
                                         </ul>
                                     </div>
@@ -229,197 +242,142 @@
 
                                     <div class="tab-content">
                                         <div class="tab-pane" id="sales">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-sales" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Sale #</th>
-                                                        <th>Date</th>
-                                                        <th>Due Date</th>
-                                                        <th>Customer</th>
-                                                        <th>Amount</th>
-                                                        <th>Paid</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($sales as $sale)
-                                                        <tr class="gradeX">
-                                                            <td>{{$sale->reference}}</td>
-                                                            <td>{{$sale->date}}</td>
-                                                            <td>{{$sale->due_date}}</td>
-
-                                                            <td>
-                                                                @if($sale->contact)
-                                                                    {{$sale->contact->first_name}} {{$sale->contact->last_name}}
-                                                                @else
-                                                                    <span class="label label-info"> NaN </span>
-                                                                @endif
-                                                            </td>
-
-                                                            <td>{{$sale->total}}</td>
-                                                            <td>{{$sale->paid}}</td>
-                                                            <td>
-                                                                <p><span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></p>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Sale #</th>
-                                                        <th>Date</th>
-                                                        <th>Due Date</th>
-                                                        <th>Customer</th>
-                                                        <th>Amount</th>
-                                                        <th>Paid</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane active" id="liabilities">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-liabilities" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Principal</th>
-                                                        <th>Interest</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Date</th>
-                                                        <th>Due Date</th>
-                                                        <th>Account</th>
-                                                        <th>Contact</th>
-                                                        <th>User</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($liabilities as $liability)
-                                                        <tr class="gradeX">
-                                                            <td>
-                                                                {{$liability->reference}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$liability->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                            </td>
-                                                            <td>{{$liability->principal}}</td>
-                                                            <td>{{$liability->interest}}</td>
-                                                            <td>{{$liability->total}}</td>
-                                                            <td>{{$liability->paid}}</td>
-                                                            <td>{{$liability->date}}</td>
-                                                            <td>{{$liability->due_date}}</td>
-                                                            <td>{{$liability->account->name}}</td>
-                                                            <td>{{$liability->contact->first_name}} {{$liability->contact->last_name}}</td>
-                                                            <td>{{$liability->user->name}}</td>
-                                                            <td>
-                                                                <span class="label {{$liability->status->label}}">{{$liability->status->name}}</span>
-                                                            </td>
-
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('business.liability.show', ['portal'=>$institution->portal, 'id'=>$liability->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Principal</th>
-                                                        <th>Interest</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Date</th>
-                                                        <th>Due Date</th>
-                                                        <th>Account</th>
-                                                        <th>Contact</th>
-                                                        <th>User</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane" id="loans">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-loans" >
-                                                    <thead>
+                                            @can('view sales')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-sales" >
+                                                        <thead>
                                                         <tr>
-                                                            <th>Reference</th>
-                                                            <th>Amount</th>
-                                                            <th>Paid</th>
+                                                            <th>Sale #</th>
                                                             <th>Date</th>
                                                             <th>Due Date</th>
-                                                            <th>User</th>
-                                                            <th>Account</th>
-                                                            <th>Contact</th>
-                                                            <th>User</th>
+                                                            <th>Customer</th>
+                                                            <th>Amount</th>
+                                                            <th>Paid</th>
                                                             <th>Status</th>
                                                             <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($loans as $loan)
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($sales as $sale)
                                                             <tr class="gradeX">
+                                                                <td>{{$sale->reference}}</td>
+                                                                <td>{{$sale->date}}</td>
+                                                                <td>{{$sale->due_date}}</td>
+
                                                                 <td>
-                                                                    {{$loan->reference}}
-                                                                    <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                                </td>
-                                                                <td>{{$loan->total}}</td>
-                                                                <td>{{$loan->paid}}</td>
-                                                                <td>{{$loan->date}}</td>
-                                                                <td>{{$loan->due_date}}</td>
-                                                                <td>{{$loan->user->name}}</td>
-                                                                <td>{{$loan->account->name}}</td>
-                                                                <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
-                                                                <td>{{$loan->user->name}}</td>
-                                                                <td>
-                                                                    <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
+                                                                    @if($sale->contact)
+                                                                        {{$sale->contact->first_name}} {{$sale->contact->last_name}}
+                                                                    @else
+                                                                        <span class="label label-info"> NaN </span>
+                                                                    @endif
                                                                 </td>
 
+                                                                <td>{{$sale->total}}</td>
+                                                                <td>{{$sale->paid}}</td>
+                                                                <td>
+                                                                    <p><span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></p>
+                                                                </td>
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
-                                                                        <a href="{{ route('business.loan.show', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                        @can('view sale')
+                                                                            <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        @endcan
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
-                                                    </tbody>
-                                                    <tfoot>
+                                                        </tbody>
+                                                        <tfoot>
                                                         <tr>
-                                                            <th>Reference</th>
-                                                            <th>Amount</th>
-                                                            <th>Paid</th>
+                                                            <th>Sale #</th>
                                                             <th>Date</th>
                                                             <th>Due Date</th>
-                                                            <th>User</th>
-                                                            <th>Account</th>
-                                                            <th>Contact</th>
-                                                            <th>User</th>
+                                                            <th>Customer</th>
+                                                            <th>Amount</th>
+                                                            <th>Paid</th>
                                                             <th>Status</th>
                                                             <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
+                                        </div>
 
+                                        <div class="tab-pane active" id="loans">
+                                            @can('view loans')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-loans" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Reference</th>
+                                                                <th>Principal</th>
+                                                                <th>Interest</th>
+                                                                <th>Total</th>
+                                                                <th>Paid</th>
+                                                                <th>Date</th>
+                                                                <th>Due Date</th>
+                                                                <th>Account</th>
+                                                                <th>Contact</th>
+                                                                <th>Type</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($loans as $loan)
+                                                                <tr class="gradeX">
+                                                                    <td>
+                                                                        {{$loan->reference}}
+                                                                        <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                                    </td>
+                                                                    <td>{{$loan->principal}}</td>
+                                                                    <td>{{$loan->interest}}</td>
+                                                                    <td>{{$loan->total}}</td>
+                                                                    <td>{{$loan->paid}}</td>
+                                                                    <td>{{$loan->date}}</td>
+                                                                    <td>{{$loan->due_date}}</td>
+                                                                    <td>{{$loan->account->name}}</td>
+                                                                    <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
+                                                                    <td>
+                                                                        <span class="label {{$loan->loanType->label}}">{{$loan->loanType->name}}</span>
+                                                                    </td>
+                                                                    <td>{{$loan->user->name}}</td>
+                                                                    <td>
+                                                                        <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
+                                                                    </td>
+
+                                                                    <td class="text-right">
+                                                                        <div class="btn-group">
+                                                                            @can('view loan')
+                                                                                <a href="{{ route('business.loan.show', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                            @endcan
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Reference</th>
+                                                                <th>Principal</th>
+                                                                <th>Interest</th>
+                                                                <th>Total</th>
+                                                                <th>Paid</th>
+                                                                <th>Date</th>
+                                                                <th>Due Date</th>
+                                                                <th>Account</th>
+                                                                <th>Contact</th>
+                                                                <th>Type</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </div>
 
@@ -435,87 +393,85 @@
         </div>
 
         {{--    To Do's    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>To Do's</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+        @can('view to dos')
+            <div class="row m-t-lg">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>To Do's</h5>
                         </div>
-                    </div>
-                    <div class="">
-                        <ul class="pending-to-do">
-                            @foreach($pendingToDos as $pendingToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$pendingToDo->due_date}}</small>
-                                        <h4>{{$pendingToDo->name}}</h4>
-                                        <p>{{$pendingToDo->notes}}.</p>
-                                        @if($pendingToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <div class="">
+                            <ul class="pending-to-do">
+                                @foreach($pendingToDos as $pendingToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$pendingToDo->due_date}}</small>
+                                            <h4>{{$pendingToDo->name}}</h4>
+                                            <p>{{$pendingToDo->notes}}.</p>
+                                            @if($pendingToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
 
-                        <ul class="in-progress-to-do">
-                            @foreach($inProgressToDos as $inProgressToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$inProgressToDo->due_date}}</small>
-                                        <h4>{{$inProgressToDo->name}}</h4>
-                                        <p>{{$inProgressToDo->notes}}.</p>
-                                        @if($inProgressToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="overdue-to-do">
-                            @foreach($overdueToDos as $overdueToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$overdueToDo->due_date}}</small>
-                                        <h4>{{$overdueToDo->name}}</h4>
-                                        <p>{{$overdueToDo->notes}}.</p>
-                                        @if($overdueToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
-                                        @endif
-                                        @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
-                                        @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="completed-to-do">
-                            @foreach($completedToDos as $completedToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$completedToDo->due_date}}</small>
-                                        <h4>{{$completedToDo->name}}</h4>
-                                        <p>{{$completedToDo->notes}}.</p>
-                                        @if($completedToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                            <ul class="in-progress-to-do">
+                                @foreach($inProgressToDos as $inProgressToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$inProgressToDo->due_date}}</small>
+                                            <h4>{{$inProgressToDo->name}}</h4>
+                                            <p>{{$inProgressToDo->notes}}.</p>
+                                            @if($inProgressToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="overdue-to-do">
+                                @foreach($overdueToDos as $overdueToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$overdueToDo->due_date}}</small>
+                                            <h4>{{$overdueToDo->name}}</h4>
+                                            <p>{{$overdueToDo->notes}}.</p>
+                                            @if($overdueToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
+                                            @endif
+                                            @if($overdueToDo->status->name === "Pending")
+                                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            @elseif($overdueToDo->status->name === "In progress")
+                                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="completed-to-do">
+                                @foreach($completedToDos as $completedToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$completedToDo->due_date}}</small>
+                                            <h4>{{$completedToDo->name}}</h4>
+                                            <p>{{$completedToDo->notes}}.</p>
+                                            @if($completedToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-
+        @endcan
     </div>
 
 

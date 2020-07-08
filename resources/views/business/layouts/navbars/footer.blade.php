@@ -3,6 +3,6 @@
 {{--        10GB of <strong>250GB</strong> Free.--}}
 {{--    </div>--}}
     <div>
-        <strong>Copyright</strong> Nihusubu &copy; 2019-2021
+        <strong>Copyright</strong> Nihusubu &copy; <script>document.write(new Date().getFullYear());</script>
     </div>
 </div>

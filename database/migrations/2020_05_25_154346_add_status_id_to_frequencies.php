@@ -26,7 +26,7 @@ class AddStatusIdToFrequencies extends Migration
     public function down()
     {
         Schema::table('frequencies', function (Blueprint $table) {
-            //
+            $table->dropColumn(['status_id']);
         });
     }
 }

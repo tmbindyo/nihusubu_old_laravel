@@ -24,10 +24,21 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('business.account.adjustment.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
-                <a href="{{route('business.account.deposit.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
-                <a href="{{route('business.account.loan.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
-                <a href="{{route('business.account.withdrawal.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
+                @can('add account adjustment')
+                    <a href="{{route('business.account.adjustment.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Account Adjustment </a>
+                @endcan
+                @can('add deposit')
+                    <a href="{{route('business.account.deposit.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
+                @endcan
+                @can('add loan')
+                    <a href="{{route('business.account.loan.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
+                @endcan
+                @can('add withdrawal')
+                    <a href="{{route('business.account.withdrawal.create',['portal'=>$institution->portal, 'id'=>$account->id])}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
+                @endcan
+                @can('add to do')
+                    <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> To Do </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -79,10 +90,12 @@
                                         <i>notes</i>
                                     </div>
                                     <br>
-                                    <hr>
-                                    <div>
-                                        <button class="btn btn-primary btn-block btn-lg m-t-n-xs" type="submit"><strong>Update</strong></button>
-                                    </div>
+                                    @can('edit account')
+                                        <hr>
+                                        <div>
+                                            <button class="btn btn-primary btn-block btn-lg m-t-n-xs" type="submit"><strong>Update</strong></button>
+                                        </div>
+                                    @endcan
                                 </form>
                             </div>
                         </div>
@@ -129,7 +142,7 @@
                                             <li class=""><a href="#loans" data-toggle="tab">Loans</a></li>
                                             <li class=""><a href="#payments" data-toggle="tab">Payments</a></li>
                                             <li class=""><a href="#refunds" data-toggle="tab">Refunds</a></li>
-                                            <li class=""><a href="#transactions" data-toggle="tab">Transactions</a></li>
+                                            <li class=""><a href="#transactions" data-toggle="tab">Expense Payments</a></li>
                                             <li class=""><a href="#source-transfer" data-toggle="tab">Transfers(Source Account)</a></li>
                                             <li class=""><a href="#destination-transfer" data-toggle="tab">Transfers(Destination Account)</a></li>
                                             <li class=""><a href="#withdrawals" data-toggle="tab">Withdrawals</a></li>
@@ -141,362 +154,451 @@
 
                                     <div class="tab-content">
                                     <div class="tab-pane active" id="account-adjustments">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-account-adjustments" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Initial</th>
-                                                    <th>Subsequent</th>
-                                                    <th>Date</th>
-                                                    <th>Deposit</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($account->accountAdjustments as $adjustments)
-                                                        <tr class="gradeX">
-                                                            <td>
-                                                                {{$adjustments->reference}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$adjustments->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                            </td>
-                                                            <td>{{$adjustments->amount}}</td>
-                                                            <td>{{$adjustments->initial_account_amount}}</td>
-                                                            <td>{{$adjustments->subsequent_account_amount}}</td>
-                                                            <td>{{$adjustments->date}}</td>
-                                                            <td>
-                                                                @if($adjustments->is_deposit == 1)
-                                                                    <span class="label label-success">Deposit</span>
-                                                                @else
-                                                                    <span class="label label-success">Non Deposit</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>{{$adjustments->user->name}}</td>
-                                                            <td>
-                                                                <span class="label {{$adjustments->status->label}}">{{$adjustments->status->name}}</span>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Initial</th>
-                                                    <th>Subsequent</th>
-                                                    <th>Date</th>
-                                                    <th>Deposit</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="deposits">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-deposits" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($account->deposits as $deposit)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$deposit->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$deposit->about}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$deposit->amount}}</td>
-                                                        <td>{{$deposit->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$deposit->status->label}}">{{$deposit->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('business.deposit.show', ['portal'=>$institution->portal, 'id'=>$deposit->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="loans">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-loans" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Contact</th>
-                                                    <th>Type</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($account->loans as $loan)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$loan->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->about}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$loan->total}}</td>
-                                                        <td>{{$loan->paid}}</td>
-                                                        <td>{{$loan->date}}</td>
-                                                        <td>{{$loan->due_date}}</td>
-                                                        <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
-                                                        <td>
-                                                            <span class="label {{$loan->loanType->label}}">{{$loan->loanType->name}}</span>
-                                                        </td>
-                                                        <td>{{$loan->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('business.loan.show', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Paid</th>
-                                                    <th>Date</th>
-                                                    <th>Due Date</th>
-                                                    <th>Contact</th>
-                                                    <th>Type</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="payments">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-payments" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Date</th>
-                                                    <th>Initial</th>
-                                                    <th>Paid</th>
-                                                    <th>Balance</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($account->payments as $payment)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$payment->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$payment->date}}</td>
-                                                        <td>{{$payment->initial_balance}}</td>
-                                                        <td>{{$payment->amount}}</td>
-                                                        <td>{{$payment->current_balance}}</td>
-                                                        <td>{{$payment->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$payment->status->label}}">{{$payment->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('business.payment.show', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                @if($payment->is_order == 1)
-                                                                    <a href="{{ route('business.order.show', ['portal'=>$institution->portal, 'id'=>$payment->order_id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                @elseif($payment->is_design == 1)
-                                                                    <a href="{{ route('business.design.show', ['portal'=>$institution->portal, 'id'=>$payment->design_id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                @elseif($payment->is_project == 1)
-                                                                    <a href="{{ route('business.project.show', ['portal'=>$institution->portal, 'id'=>$payment->project_id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                @elseif($payment->is_asset_action == 1)
-                                                                    <a href="{{ route('business.asset.action.show', ['portal'=>$institution->portal, 'id'=>$payment->asset_action_id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                @endif
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Date</th>
-                                                    <th>Initial</th>
-                                                    <th>Paid</th>
-                                                    <th>Balance</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="refunds">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-refunds" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Date</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($account->refunds as $refund)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$refund->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$refund->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$refund->amount}}</td>
-                                                        <td>{{$refund->date}}</td>
-                                                        <td>{{$refund->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$refund->status->label}}">{{$refund->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('business.refund.show', ['portal'=>$institution->portal, 'id'=>$refund->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Date</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="transactions">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-transactions" >
-                                                <thead>
+                                        @can('view account adjustments')
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-account-adjustments" >
+                                                    <thead>
                                                     <tr>
                                                         <th>Reference</th>
                                                         <th>Amount</th>
                                                         <th>Initial</th>
                                                         <th>Subsequent</th>
                                                         <th>Date</th>
+                                                        <th>Deposit</th>
                                                         <th>User</th>
-                                                        <th>Billed</th>
-                                                        <th>Confirmed</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($account->accountAdjustments as $adjustments)
+                                                            <tr class="gradeX">
+                                                                <td>
+                                                                    {{$adjustments->reference}}
+                                                                    <span><i data-toggle="tooltip" data-placement="right" title="{{$adjustments->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                                </td>
+                                                                <td>{{$adjustments->amount}}</td>
+                                                                <td>{{$adjustments->initial_account_amount}}</td>
+                                                                <td>{{$adjustments->subsequent_account_amount}}</td>
+                                                                <td>{{$adjustments->date}}</td>
+                                                                <td>
+                                                                    @if($adjustments->is_deposit == 1)
+                                                                        <span class="label label-success">Deposit</span>
+                                                                    @else
+                                                                        <span class="label label-success">Non Deposit</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{$adjustments->user->name}}</td>
+                                                                <td>
+                                                                    <span class="label {{$adjustments->status->label}}">{{$adjustments->status->name}}</span>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>Initial</th>
+                                                        <th>Subsequent</th>
+                                                        <th>Date</th>
+                                                        <th>Deposit</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        @endcan
+                                    </div>
+                                    <div class="tab-pane" id="deposits">
+                                        @can('view deposits')
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-deposits" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>User</th>
                                                         <th>Status</th>
                                                         <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($account->transactions as $transaction)
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($account->deposits as $deposit)
                                                         <tr class="gradeX">
                                                             <td>
-                                                                {{$transaction->reference}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$transaction->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                                {{$deposit->reference}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$deposit->about}}." class="fa fa-facebook-messenger"></i></span>
                                                             </td>
-                                                            <td>{{$transaction->amount}}</td>
-                                                            <td>{{$transaction->initial_amount}}</td>
-                                                            <td>{{$transaction->subsequent_amount}}</td>
-                                                            <td>{{$transaction->date}}</td>
-                                                            <td>{{$transaction->user->name}}</td>
+                                                            <td>{{$deposit->amount}}</td>
+                                                            <td>{{$deposit->user->name}}</td>
                                                             <td>
-                                                                @if($transaction->is_billed == 1)
-                                                                    <span class="label label-success"> Billed </span>
-                                                                @else
-                                                                    <span class="label label-warning"> Not Billed </span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @if($transaction->is_confirmed == 1)
-                                                                    <span class="label label-success"> Confirmed </span>
-                                                                @else
-                                                                    <span class="label label-warning"> Not Confirmed </span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <span class="label {{$transaction->status->label}}">{{$transaction->status->name}}</span>
+                                                                <span class="label {{$deposit->status->label}}">{{$deposit->status->name}}</span>
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$transaction->expense_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @can('view deposit')
+                                                                        <a href="{{ route('business.deposit.show', ['portal'=>$institution->portal, 'id'=>$deposit->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @endcan
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach
-                                                </tbody>
-                                                <tfoot>
+                                                    </tbody>
+                                                    <tfoot>
                                                     <tr>
                                                         <th>Reference</th>
                                                         <th>Amount</th>
-                                                        <th>Initial</th>
-                                                        <th>Subsequent</th>
-                                                        <th>Date</th>
                                                         <th>User</th>
-                                                        <th>Billed</th>
-                                                        <th>Confirmed</th>
                                                         <th>Status</th>
                                                         <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        @endcan
+                                    </div>
+                                    <div class="tab-pane" id="loans">
+                                        @can('view loans')
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-loans" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>Paid</th>
+                                                        <th>Date</th>
+                                                        <th>Due Date</th>
+                                                        <th>Contact</th>
+                                                        <th>Type</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($account->loans as $loan)
+                                                        <tr class="gradeX">
+                                                            <td>
+                                                                {{$loan->reference}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->about}}." class="fa fa-facebook-messenger"></i></span>
+                                                            </td>
+                                                            <td>{{$loan->total}}</td>
+                                                            <td>{{$loan->paid}}</td>
+                                                            <td>{{$loan->date}}</td>
+                                                            <td>{{$loan->due_date}}</td>
+                                                            <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
+                                                            <td>
+                                                                <span class="label {{$loan->loanType->label}}">{{$loan->loanType->name}}</span>
+                                                            </td>
+                                                            <td>{{$loan->user->name}}</td>
+                                                            <td>
+                                                                <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <div class="btn-group">
+                                                                    @can('view loan')
+                                                                        <a href="{{ route('business.loan.show', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @endcan
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>Paid</th>
+                                                        <th>Date</th>
+                                                        <th>Due Date</th>
+                                                        <th>Contact</th>
+                                                        <th>Type</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        @endcan
+                                    </div>
+                                    <div class="tab-pane" id="payments">
+                                        @can('view payments')
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-payments" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Date</th>
+                                                        <th>Initial</th>
+                                                        <th>Paid</th>
+                                                        <th>Balance</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($account->payments as $payment)
+                                                        <tr class="gradeX">
+                                                            <td>
+                                                                {{$payment->reference}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                            </td>
+                                                            <td>{{$payment->date}}</td>
+                                                            <td>{{$payment->initial_balance}}</td>
+                                                            <td>{{$payment->amount}}</td>
+                                                            <td>{{$payment->current_balance}}</td>
+                                                            <td>{{$payment->user->name}}</td>
+                                                            <td>
+                                                                <span class="label {{$payment->status->label}}">{{$payment->status->name}}</span>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <div class="btn-group">
+                                                                    @can('view payment')
+                                                                        <a href="{{ route('business.payment.show', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @endcan
+                                                                    @if($payment->is_order == 1)
+                                                                        <a href="{{ route('business.order.show', ['portal'=>$institution->portal, 'id'=>$payment->order_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @elseif($payment->is_design == 1)
+                                                                        <a href="{{ route('business.design.show', ['portal'=>$institution->portal, 'id'=>$payment->design_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @elseif($payment->is_project == 1)
+                                                                        <a href="{{ route('business.project.show', ['portal'=>$institution->portal, 'id'=>$payment->project_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @elseif($payment->is_asset_action == 1)
+                                                                        <a href="{{ route('business.asset.action.show', ['portal'=>$institution->portal, 'id'=>$payment->asset_action_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @endif
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Date</th>
+                                                        <th>Initial</th>
+                                                        <th>Paid</th>
+                                                        <th>Balance</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        @endcan
+                                    </div>
+                                    <div class="tab-pane" id="refunds">
+                                        @can('view refunds')
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-refunds" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>Date</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($account->refunds as $refund)
+                                                        <tr class="gradeX">
+                                                            <td>
+                                                                {{$refund->reference}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$refund->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                            </td>
+                                                            <td>{{$refund->amount}}</td>
+                                                            <td>{{$refund->date}}</td>
+                                                            <td>{{$refund->user->name}}</td>
+                                                            <td>
+                                                                <span class="label {{$refund->status->label}}">{{$refund->status->name}}</span>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <div class="btn-group">
+                                                                    @can('view refund')
+                                                                        <a href="{{ route('business.refund.show', ['portal'=>$institution->portal, 'id'=>$refund->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @endcan
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>Date</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        @endcan
+                                    </div>
+                                    <div class="tab-pane" id="transactions">
+                                        @can('view expense payments')
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-transactions" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Reference</th>
+                                                            <th>Amount</th>
+                                                            <th>Initial</th>
+                                                            <th>Subsequent</th>
+                                                            <th>Date</th>
+                                                            <th>User</th>
+                                                            <th>Billed</th>
+                                                            <th>Confirmed</th>
+                                                            <th>Status</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($account->transactions as $transaction)
+                                                            <tr class="gradeX">
+                                                                <td>
+                                                                    {{$transaction->reference}}
+                                                                    <span><i data-toggle="tooltip" data-placement="right" title="{{$transaction->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                                </td>
+                                                                <td>{{$transaction->amount}}</td>
+                                                                <td>{{$transaction->initial_amount}}</td>
+                                                                <td>{{$transaction->subsequent_amount}}</td>
+                                                                <td>{{$transaction->date}}</td>
+                                                                <td>{{$transaction->user->name}}</td>
+                                                                <td>
+                                                                    @if($transaction->is_billed == 1)
+                                                                        <span class="label label-success"> Billed </span>
+                                                                    @else
+                                                                        <span class="label label-warning"> Not Billed </span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($transaction->is_confirmed == 1)
+                                                                        <span class="label label-success"> Confirmed </span>
+                                                                    @else
+                                                                        <span class="label label-warning"> Not Confirmed </span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    <span class="label {{$transaction->status->label}}">{{$transaction->status->name}}</span>
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        @can('view expense payment')
+                                                                            <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$transaction->expense_id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Reference</th>
+                                                            <th>Amount</th>
+                                                            <th>Initial</th>
+                                                            <th>Subsequent</th>
+                                                            <th>Date</th>
+                                                            <th>User</th>
+                                                            <th>Billed</th>
+                                                            <th>Confirmed</th>
+                                                            <th>Status</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        @endcan
                                     </div>
                                     <div class="tab-pane" id="source-transfer">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-source-transfers" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Date</th>
-                                                    <th>Source Account</th>
-                                                    <th>Destination Account</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($account->sourceAccount as $transfer)
+                                        @can('view transfers')
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-source-transfers" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>Date</th>
+                                                        <th>Source Account</th>
+                                                        <th>Destination Account</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($account->sourceAccount as $transfer)
+                                                            <tr class="gradeX">
+                                                                <td>
+                                                                    {{$transfer->reference}}
+                                                                    <span><i data-toggle="tooltip" data-placement="right" title="{{$transfer->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                                </td>
+                                                                <td>{{$transfer->amount}}</td>
+                                                                <td>{{$transfer->date}}</td>
+                                                                <td>
+
+                                                                    <span class="label label-success"> {{$transfer->sourceAccount->name}}</span>
+                                                                    <span class="badge badge-success"> {{$transfer->source_initial_amount}} -> {{$transfer->source_subsequent_amount}}</span>
+                                                                </td>
+                                                                <td>
+
+                                                                    <span class="label label-success"> {{$transfer->destinationAccount->name}}</span>
+                                                                    <span class="badge badge-success"> {{$transfer->destination_initial_amount}} -> {{$transfer->destination_subsequent_amount}}</span>
+                                                                </td>
+                                                                <td>{{$transfer->user->name}}</td>
+                                                                <td>
+                                                                    <span class="label {{$transfer->status->label}}">{{$transfer->status->name}}</span>
+                                                                </td>
+
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        @can('view transfer')
+                                                                            <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>Date</th>
+                                                        <th>Source Account</th>
+                                                        <th>Destination Account</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        @endcan
+                                    </div>
+                                    <div class="tab-pane" id="destination-transfer">
+                                        @can('view transfers')
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-destination-transfers" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>Date</th>
+                                                        <th>Source Account</th>
+                                                        <th>Destination Account</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($account->destinationAccount as $transfer)
                                                         <tr class="gradeX">
                                                             <td>
                                                                 {{$transfer->reference}}
@@ -521,132 +623,77 @@
 
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @can('view transfer')
+                                                                        <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @endcan
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Date</th>
-                                                    <th>Source Account</th>
-                                                    <th>Destination Account</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="destination-transfer">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-destination-transfers" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Date</th>
-                                                    <th>Source Account</th>
-                                                    <th>Destination Account</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($account->destinationAccount as $transfer)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$transfer->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$transfer->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$transfer->amount}}</td>
-                                                        <td>{{$transfer->date}}</td>
-                                                        <td>
-
-                                                            <span class="label label-success"> {{$transfer->sourceAccount->name}}</span>
-                                                            <span class="badge badge-success"> {{$transfer->source_initial_amount}} -> {{$transfer->source_subsequent_amount}}</span>
-                                                        </td>
-                                                        <td>
-
-                                                            <span class="label label-success"> {{$transfer->destinationAccount->name}}</span>
-                                                            <span class="badge badge-success"> {{$transfer->destination_initial_amount}} -> {{$transfer->destination_subsequent_amount}}</span>
-                                                        </td>
-                                                        <td>{{$transfer->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$transfer->status->label}}">{{$transfer->status->name}}</span>
-                                                        </td>
-
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                            </div>
-                                                        </td>
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>Date</th>
+                                                        <th>Source Account</th>
+                                                        <th>Destination Account</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>Date</th>
-                                                    <th>Source Account</th>
-                                                    <th>Destination Account</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        @endcan
                                     </div>
                                     <div class="tab-pane" id="withdrawals">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-withdrawals" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($account->withdrawals as $withdrawal)
-                                                    <tr class="gradeX">
-                                                        <td>
-                                                            {{$withdrawal->reference}}
-                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$withdrawal->about}}." class="fa fa-facebook-messenger"></i></span>
-                                                        </td>
-                                                        <td>{{$withdrawal->amount}}</td>
-                                                        <td>{{$withdrawal->user->name}}</td>
-                                                        <td>
-                                                            <span class="label {{$withdrawal->status->label}}">{{$withdrawal->status->name}}</span>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('business.withdrawal.show', ['portal'=>$institution->portal, 'id'=>$withdrawal->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                            </div>
-                                                        </td>
+                                        @can('view withdrawals')
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-withdrawals" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                     </tr>
-                                                @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                <tr>
-                                                    <th>Reference</th>
-                                                    <th>Amount</th>
-                                                    <th>User</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($account->withdrawals as $withdrawal)
+                                                        <tr class="gradeX">
+                                                            <td>
+                                                                {{$withdrawal->reference}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$withdrawal->about}}." class="fa fa-facebook-messenger"></i></span>
+                                                            </td>
+                                                            <td>{{$withdrawal->amount}}</td>
+                                                            <td>{{$withdrawal->user->name}}</td>
+                                                            <td>
+                                                                <span class="label {{$withdrawal->status->label}}">{{$withdrawal->status->name}}</span>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <div class="btn-group">
+                                                                    @can('view withdrawal')
+                                                                        <a href="{{ route('business.withdrawal.show', ['portal'=>$institution->portal, 'id'=>$withdrawal->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @endcan
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Amount</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        @endcan
                                     </div>
 
                                 </div>
@@ -663,86 +710,85 @@
         </div>
 
         {{--    To Do's    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>To Do's</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+        @can('view to dos')
+            <div class="row m-t-lg">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>To Do's</h5>
                         </div>
-                    </div>
-                    <div class="">
-                        <ul class="pending-to-do">
-                            @foreach($pendingToDos as $pendingToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$pendingToDo->due_date}}</small>
-                                        <h4>{{$pendingToDo->name}}</h4>
-                                        <p>{{$pendingToDo->notes}}.</p>
-                                        @if($pendingToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <div class="">
+                            <ul class="pending-to-do">
+                                @foreach($pendingToDos as $pendingToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$pendingToDo->due_date}}</small>
+                                            <h4>{{$pendingToDo->name}}</h4>
+                                            <p>{{$pendingToDo->notes}}.</p>
+                                            @if($pendingToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
 
-                        <ul class="in-progress-to-do">
-                            @foreach($inProgressToDos as $inProgressToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$inProgressToDo->due_date}}</small>
-                                        <h4>{{$inProgressToDo->name}}</h4>
-                                        <p>{{$inProgressToDo->notes}}.</p>
-                                        @if($inProgressToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="overdue-to-do">
-                            @foreach($overdueToDos as $overdueToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$overdueToDo->due_date}}</small>
-                                        <h4>{{$overdueToDo->name}}</h4>
-                                        <p>{{$overdueToDo->notes}}.</p>
-                                        @if($overdueToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
-                                        @endif
-                                        @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
-                                        @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="completed-to-do">
-                            @foreach($completedToDos as $completedToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$completedToDo->due_date}}</small>
-                                        <h4>{{$completedToDo->name}}</h4>
-                                        <p>{{$completedToDo->notes}}.</p>
-                                        @if($completedToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                            <ul class="in-progress-to-do">
+                                @foreach($inProgressToDos as $inProgressToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$inProgressToDo->due_date}}</small>
+                                            <h4>{{$inProgressToDo->name}}</h4>
+                                            <p>{{$inProgressToDo->notes}}.</p>
+                                            @if($inProgressToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="overdue-to-do">
+                                @foreach($overdueToDos as $overdueToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$overdueToDo->due_date}}</small>
+                                            <h4>{{$overdueToDo->name}}</h4>
+                                            <p>{{$overdueToDo->notes}}.</p>
+                                            @if($overdueToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
+                                            @endif
+                                            @if($overdueToDo->status->name === "Pending")
+                                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            @elseif($overdueToDo->status->name === "In progress")
+                                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="completed-to-do">
+                                @foreach($completedToDos as $completedToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$completedToDo->due_date}}</small>
+                                            <h4>{{$completedToDo->name}}</h4>
+                                            <p>{{$completedToDo->notes}}.</p>
+                                            @if($completedToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
+        @endcan
     </div>
 
 

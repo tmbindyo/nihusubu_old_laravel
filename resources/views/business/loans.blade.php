@@ -21,7 +21,9 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.loan.create',$institution->portal)}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Loan </a>
+                @can('add loan')
+                    <a href="{{route('business.loan.create',$institution->portal)}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Loan </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -81,7 +83,9 @@
 
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('business.loan.show', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                @can('view loan')
+                                                    <a href="{{ route('business.loan.show', ['portal'=>$institution->portal, 'id'=>$loan->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

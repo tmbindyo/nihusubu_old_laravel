@@ -21,7 +21,9 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.transfer.order.create',$institution->portal)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> New </a>
+                @can('add transfer order')
+                    <a href="{{route('business.transfer.order.create',$institution->portal)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> New </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -68,7 +70,9 @@
                                             <td>{{$transferOrder->user->name}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal, 'id'=>$transferOrder->id])}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                                    @can('view transfer order')
+                                                        <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal, 'id'=>$transferOrder->id])}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                                    @endcan
 {{--                                                    <a href="{{route('business.transfer.order.edit',['portal'=>$institution->portal, 'id'=>$transferOrder->id])}}" class="btn-warning btn-outline btn btn-xs">Edit</a>--}}
                                                 </div>
                                             </td>

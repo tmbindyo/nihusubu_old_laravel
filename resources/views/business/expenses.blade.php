@@ -6,7 +6,7 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
+        <div class="col-lg-3">
             <h2>Expense</h2>
             <ol class="breadcrumb">
                 <li>
@@ -20,9 +20,14 @@
                 </li>
             </ol>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-9">
             <div class="title-action">
-                <a href="{{route('business.expense.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                @can('view expense payments')
+                    <a href="{{route( 'business.transactions',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Expense Payments </a>
+                @endcan
+                @can('add expense')
+                    <a href="{{route('business.expense.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -69,21 +74,21 @@
                                         </td>
                                         <td>
                                             @if($expense->is_inventory_adjustment == 1)
-                                                <p><a href="{{route('business.inventory.adjustment',['portal'=>$institution->portal, 'id'=>$expense->inventory_adjustment_id])}}" class="badge badge-success">Inventory Adjustment</a></p>
+                                                <p><a @can('view inventory adjustment') href="{{route('business.inventory.adjustment',['portal'=>$institution->portal, 'id'=>$expense->inventory_adjustment_id])}}" @endcan class="badge badge-success">Inventory Adjustment</a></p>
                                             @elseif($expense->is_transfer_order == 1)
-                                                <p><a href="{{route('business.transfer.order.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_order_id])}}" class="badge badge-primary">Transfer Order</a></p>
+                                                <p><a @can('view transfer order') href="{{route('business.transfer.order.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_order_id])}}" @endcan class="badge badge-primary">Transfer Order</a></p>
                                             @elseif($expense->is_warehouse == 1)
-                                                <p><a href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$expense->warehouse_id])}}" class="badge badge-primary">Warehouse</a></p>
+                                                <p><a @can('view warehouse') href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$expense->warehouse_id])}}" @endcan class="badge badge-primary">Warehouse</a></p>
                                             @elseif($expense->is_campaign == 1)
-                                                <p><a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$expense->campaign_id])}}" class="badge badge-primary">Campaign</a></p>
+                                                <p><a @can('view campaign') href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$expense->campaign_id])}}" @endcan class="badge badge-primary">Campaign</a></p>
                                             @elseif($expense->is_sale == 1)
-                                                <p><a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$expense->sale_id])}}" class="badge badge-primary">Sale</a></p>
+                                                <p><a @can('view sale') href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$expense->sale_id])}}" @endcan class="badge badge-primary">Sale</a></p>
                                             @elseif($expense->is_liability == 1)
-                                                <p><a href="{{route('business.liability.show',['portal'=>$institution->portal, 'id'=>$expense->liability_id])}}" class="badge badge-primary">Liability</a></p>
+                                                <p><a @can('view liability') href="{{route('business.liability.show',['portal'=>$institution->portal, 'id'=>$expense->liability_id])}}" @endcan class="badge badge-primary">Liability</a></p>
                                             @elseif($expense->is_transfer == 1)
-                                                <p><a href="{{route('business.transfer.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_id])}}" class="badge badge-primary">Transfer</a></p>
+                                                <p><a @can('view transfer') href="{{route('business.transfer.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_id])}}" @endcan class="badge badge-primary">Transfer</a></p>
                                             @elseif($expense->is_transaction == 1)
-                                                <p><a href="{{route('business.transaction.show',['portal'=>$institution->portal, 'id'=>$expense->transaction_id])}}" class="badge badge-primary">Transaction</a></p>
+                                                <p><a @can('view transaction') href="{{route('business.transaction.show',['portal'=>$institution->portal, 'id'=>$expense->transaction_id])}}" @endcan class="badge badge-primary">Transaction</a></p>
                                             @else
                                                 <p><span class="badge badge-info">None</span></p>
                                             @endif
@@ -99,7 +104,9 @@
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                @can('view expense')
+                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

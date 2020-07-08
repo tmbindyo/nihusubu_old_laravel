@@ -21,7 +21,9 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.inventory.adjustment.create',$institution->portal)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> New </a>
+                @can('add inventory adjustment')
+                    <a href="{{route('business.inventory.adjustment.create',$institution->portal)}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> New </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -46,7 +48,6 @@
                                     <tr>
                                         <th width="50em">Date</th>
                                         <th>Reason</th>
-                                        <th>Description</th>
                                         <th>Reference</th>
                                         <th>Type</th>
                                         <th>By</th>
@@ -58,9 +59,6 @@
                                         <tr class="gradeA">
                                             <td>{{$inventoryAdjustment->created_at}}</td>
                                             <td>{{$inventoryAdjustment->reason->name}}</td>
-                                            <td>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$inventoryAdjustment->description}}" class="fa fa-comments-o fa-3x text-info"></i></span>
-                                            </td>
                                             <td>{{$inventoryAdjustment->inventory_adjustment_number}}</td>
                                             <td>
                                                 @if($inventoryAdjustment->is_value_adjustment==1)
@@ -72,7 +70,9 @@
                                             <td>{{$inventoryAdjustment->user->name}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{route('business.inventory.adjustment.show',['portal'=>$institution->portal, 'id'=>$inventoryAdjustment->id])}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                                    @can('view inventory adjustment')
+                                                        <a href="{{route('business.inventory.adjustment.show',['portal'=>$institution->portal, 'id'=>$inventoryAdjustment->id])}}" class="btn-primary btn-outline btn btn-xs">View</a>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>
@@ -82,7 +82,6 @@
                                     <tr>
                                         <th>Date</th>
                                         <th>Reason</th>
-                                        <th>Description</th>
                                         <th>Reference</th>
                                         <th>Type</th>
                                         <th>By</th>

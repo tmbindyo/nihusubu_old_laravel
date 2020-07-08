@@ -25,14 +25,23 @@
             <div class="col-lg-6">
                 <div class="title-action">
                     @if($estimate->is_invoice == 0)
-                        <a href="{{route('business.estimate.edit',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
-                        <a href="{{route('business.estimate.convert.to.invoice',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Invoice </a>
+                        @can('edit estimate')
+                            <a href="{{route('business.estimate.edit',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                        @endcan
+                        @can('convert to invoice')
+                            <a href="{{route('business.estimate.convert.to.invoice',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Invoice </a>
+                        @endcan
                     @else
-                        <a href="{{route('business.invoice.show',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Invoice </a>
-
+                        @can('view invoice')
+                            <a href="{{route('business.invoice.show',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Invoice </a>
+                        @endcan
                     @endif
-                    <a href="{{route('business.estimate.print',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
-                    <a href="{{route('business.contact.show',['portal'=>$institution->portal, 'id'=>$estimate->contact_id])}}" class="btn btn-success btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                    @can('print estimate')
+                        <a href="{{route('business.estimate.print',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
+                    @endcan
+                    @can('view contact')
+                        <a href="{{route('business.contact.show',['portal'=>$institution->portal, 'id'=>$estimate->contact_id])}}" class="btn btn-success btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                    @endcan
                 </div>
             </div>
         </div>

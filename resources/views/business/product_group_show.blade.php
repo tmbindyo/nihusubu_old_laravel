@@ -24,7 +24,9 @@
     <div class="col-lg-4">
         <div class="title-action">
             {{-- <a href="#" data-toggle="modal" data-target="#productRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Add </a> --}}
-            <a href="{{route('business.product.group.edit',['portal'=>$institution->portal, 'id'=>$productGroup->id])}}"class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+            @can('edit product group')
+                <a href="{{route('business.product.group.edit',['portal'=>$institution->portal, 'id'=>$productGroup->id])}}"class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+            @endcan
         </div>
     </div>
 </div>
@@ -75,7 +77,9 @@
                                         {{--  <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message</button>--}}
                                     </div>
                                     <div class="col-md-6">
-                                        <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])}}" type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-arrow-right"></i> View</a>
+                                        @can('view product')
+                                            <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])}}" type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-arrow-right"></i> View</a>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>

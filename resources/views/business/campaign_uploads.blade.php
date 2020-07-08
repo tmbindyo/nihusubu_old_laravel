@@ -21,7 +21,7 @@
                     <a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$campaign->id])}}">Campaign</a>
                 </li>
                 <li class="active">
-                    <strong>Campaign Create</strong>
+                    <strong>Campaign Show</strong>
                 </li>
             </ol>
         </div>

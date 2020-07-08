@@ -18,7 +18,9 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.contact.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                @can('add contact')
+                    <a href="{{route('business.contact.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -56,8 +58,12 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.contact.delete', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    @can('view contact')
+                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    @endcan
+                                                    @can('delete contact')
+                                                        <a href="{{ route('business.contact.delete', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>
@@ -113,8 +119,12 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.contact.restore', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @can('view contact')
+                                                            <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        @endcan
+                                                        @can('delete contact')
+                                                            <a href="{{ route('business.contact.restore', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @endcan
                                                     </div>
                                                 </td>
                                             </tr>

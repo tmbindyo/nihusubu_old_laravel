@@ -27,7 +27,12 @@
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('business.deposit.account.adjustment.create',['portal'=>$institution->portal, 'id'=>$deposit->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
+                @can('add account adjustment')
+                    <a href="{{route('business.deposit.account.adjustment.create',['portal'=>$institution->portal, 'id'=>$deposit->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
+                @endcan
+                @can('add to do')
+                    <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> To Do </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -87,13 +92,14 @@
                                         <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg" readonly>{{$deposit->about}}</textarea>
                                         <i>about deposit</i>
                                     </div>
+                                    @can('edit deposit')
+                                        <br>
+                                        <hr>
 
-                                    <br>
-                                    <hr>
-
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
-                                    </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('UPDATE') }}</button>
+                                        </div>
+                                    @endcan
                                 </div>
 
 
@@ -150,60 +156,61 @@
 
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="account_adjustments">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Reference</th>
-                                                            <th>Amount</th>
-                                                            <th>Initial</th>
-                                                            <th>Subsequent</th>
-                                                            <th>Date</th>
-                                                            <th>Deposit</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($deposit->accountAdjustments as $adjustments)
-                                                        <tr class="gradeX">
-                                                            <td>
-                                                                {{$adjustments->reference}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$adjustments->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                            </td>
-                                                            <td>{{$adjustments->amount}}</td>
-                                                            <td>{{$adjustments->initial_account_amount}}</td>
-                                                            <td>{{$adjustments->subsequent_account_amount}}</td>
-                                                            <td>{{$adjustments->date}}</td>
-                                                            <td>
-                                                                @if($adjustments->is_deposit == 1)
-                                                                    <span class="label label-success">Deposit</span>
-                                                                @else
-                                                                    <span class="label label-success">Non Deposit</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>{{$adjustments->user->name}}</td>
-                                                            <td>
-                                                                <span class="label {{$adjustments->status->label}}">{{$adjustments->status->name}}</span>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>Reference</th>
-                                                            <th>Amount</th>
-                                                            <th>Initial</th>
-                                                            <th>Subsequent</th>
-                                                            <th>Date</th>
-                                                            <th>Deposit</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
+                                            @can('view account adjustments')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Reference</th>
+                                                                <th>Amount</th>
+                                                                <th>Initial</th>
+                                                                <th>Subsequent</th>
+                                                                <th>Date</th>
+                                                                <th>Deposit</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($deposit->accountAdjustments as $adjustments)
+                                                            <tr class="gradeX">
+                                                                <td>
+                                                                    {{$adjustments->reference}}
+                                                                    <span><i data-toggle="tooltip" data-placement="right" title="{{$adjustments->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                                </td>
+                                                                <td>{{$adjustments->amount}}</td>
+                                                                <td>{{$adjustments->initial_account_amount}}</td>
+                                                                <td>{{$adjustments->subsequent_account_amount}}</td>
+                                                                <td>{{$adjustments->date}}</td>
+                                                                <td>
+                                                                    @if($adjustments->is_deposit == 1)
+                                                                        <span class="label label-success">Deposit</span>
+                                                                    @else
+                                                                        <span class="label label-success">Non Deposit</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{$adjustments->user->name}}</td>
+                                                                <td>
+                                                                    <span class="label {{$adjustments->status->label}}">{{$adjustments->status->name}}</span>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Reference</th>
+                                                                <th>Amount</th>
+                                                                <th>Initial</th>
+                                                                <th>Subsequent</th>
+                                                                <th>Date</th>
+                                                                <th>Deposit</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </div>
 
@@ -219,86 +226,85 @@
         </div>
 
         {{--    To Do's    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>To Do's</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+        @can('view to dos')
+            <div class="row m-t-lg">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>To Do's</h5>
                         </div>
-                    </div>
-                    <div class="">
-                        <ul class="pending-to-do">
-                            @foreach($pendingToDos as $pendingToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$pendingToDo->due_date}}</small>
-                                        <h4>{{$pendingToDo->name}}</h4>
-                                        <p>{{$pendingToDo->notes}}.</p>
-                                        @if($pendingToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <div class="">
+                            <ul class="pending-to-do">
+                                @foreach($pendingToDos as $pendingToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$pendingToDo->due_date}}</small>
+                                            <h4>{{$pendingToDo->name}}</h4>
+                                            <p>{{$pendingToDo->notes}}.</p>
+                                            @if($pendingToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
 
-                        <ul class="in-progress-to-do">
-                            @foreach($inProgressToDos as $inProgressToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$inProgressToDo->due_date}}</small>
-                                        <h4>{{$inProgressToDo->name}}</h4>
-                                        <p>{{$inProgressToDo->notes}}.</p>
-                                        @if($inProgressToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="overdue-to-do">
-                            @foreach($overdueToDos as $overdueToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$overdueToDo->due_date}}</small>
-                                        <h4>{{$overdueToDo->name}}</h4>
-                                        <p>{{$overdueToDo->notes}}.</p>
-                                        @if($overdueToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
-                                        @endif
-                                        @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
-                                        @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="completed-to-do">
-                            @foreach($completedToDos as $completedToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$completedToDo->due_date}}</small>
-                                        <h4>{{$completedToDo->name}}</h4>
-                                        <p>{{$completedToDo->notes}}.</p>
-                                        @if($completedToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                            <ul class="in-progress-to-do">
+                                @foreach($inProgressToDos as $inProgressToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$inProgressToDo->due_date}}</small>
+                                            <h4>{{$inProgressToDo->name}}</h4>
+                                            <p>{{$inProgressToDo->notes}}.</p>
+                                            @if($inProgressToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="overdue-to-do">
+                                @foreach($overdueToDos as $overdueToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$overdueToDo->due_date}}</small>
+                                            <h4>{{$overdueToDo->name}}</h4>
+                                            <p>{{$overdueToDo->notes}}.</p>
+                                            @if($overdueToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
+                                            @endif
+                                            @if($overdueToDo->status->name === "Pending")
+                                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            @elseif($overdueToDo->status->name === "In progress")
+                                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="completed-to-do">
+                                @foreach($completedToDos as $completedToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$completedToDo->due_date}}</small>
+                                            <h4>{{$completedToDo->name}}</h4>
+                                            <p>{{$completedToDo->notes}}.</p>
+                                            @if($completedToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
+        @endcan
 
     </div>
 

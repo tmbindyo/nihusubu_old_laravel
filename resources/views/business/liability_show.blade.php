@@ -23,6 +23,7 @@
                 <a href="{{route('business.liability.expense.create',['portal'=>$institution->portal, 'id'=>$liability->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
                 <a href="{{route('business.account.show',['portal'=>$institution->portal, 'id'=>$liability->account_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
                 <a href="{{route('business.contact.show',['portal'=>$institution->portal, 'id'=>$liability->contact_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> To Do </a>
             </div>
         </div>
     </div>
@@ -338,9 +339,6 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>To Do's</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
-                        </div>
                     </div>
                     <div class="">
                         <ul class="pending-to-do">

@@ -1,11 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Landing;
+use App\InstitutionModule;
+use App\UserAccount;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
+use Auth;
 use App\Action;
 use App\Liability;
 use App\Loan;
 use App\LoanType;
+use App\User;
 use DB;
 use App\Address;
 use App\EmailSubscribe;
@@ -222,6 +229,7 @@ class LandingController extends Controller
                 'created_at' => now()
             ]);
         }
+
         // exists
         $moduleExists = Module::where('id','99f59a14-1e3b-4b54-a33d-29cbb5431182')->first();
         if ($moduleExists === null) {
@@ -384,775 +392,426 @@ class LandingController extends Controller
         }
     }
 
-    public function sections()
+    public function businessUserInvitation(Request $request, $user_id ,$institution_id)
     {
-        // section
-        // exists
-        $sectionExists = Section::where('id','0c03b583-1d71-4d50-a626-10563cf4e454')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => '0c03b583-1d71-4d50-a626-10563cf4e454',
-                'name' => 'To Do',
-                'icon' => 'fa fa-list',
-                'is_business' => true,
-                'is_user' => true,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => '99f59a14-1e3b-4b54-a33d-29cbb5431182',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $sectionExists = Section::where('id','17c0880e-b299-414d-908d-13154a10ac96')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => '17c0880e-b299-414d-908d-13154a10ac96',
-                'name' => 'Calender',
-                'icon' => 'fa fa-calendar',
-                'is_business' => true,
-                'is_user' => true,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => '99f59a14-1e3b-4b54-a33d-29cbb5431182',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $sectionExists = Section::where('id','d1644afa-b1a5-4a2d-b95d-e4d43acbce25')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => 'd1644afa-b1a5-4a2d-b95d-e4d43acbce25',
-                'name' => 'Products',
-                'icon' => 'fa fa-tags',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $sectionExists = Section::where('id','0f7784cb-3b01-4aa7-a304-e0f1d330f9aa')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => '2d89966e-c6f2-4967-b278-f65df98448db',
-                'name' => 'Inventory',
-                'icon' => 'fa fa-database',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        $sectionExists = Section::where('id','fb5f0204-459b-4366-bf78-11f057db0db2')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca',
-                'name' => 'CRM',
-                'icon' => 'fa fa-user',
-                'is_business' => true,
-                'is_user' => true,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        $sectionExists = Section::where('id','040d3a7c-c0d5-4f92-b92d-5c1f751fae13')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => '9acedca8-5320-4b4e-b088-ec44467344a0',
-                'name' => 'Sales',
-                'icon' => 'fa fa-shopping-cart',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        $sectionExists = Section::where('id','b97a8640-154e-4c09-95c7-0a9c6c690b82')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
-                'name' => 'Accounting',
-                'icon' => 'fa fa-dollar',
-                'is_business' => true,
-                'is_user' => true,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        $sectionExists = Section::where('id','cce99489-053b-45c7-b4df-1589ea2e3318')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
-                'name' => 'Settings',
-                'icon' => 'fa fa-sliders',
-                'is_business' => true,
-                'is_user' => true,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        $sectionExists = Section::where('id','1dd5ed21-4232-409d-928c-2b637aef5ff9')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => '1dd5ed21-4232-409d-928c-2b637aef5ff9',
-                'name' => 'Feedback',
-                'icon' => 'fa fa-mail-reply-all',
-                'is_business' => true,
-                'is_user' => true,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        $sectionExists = Section::where('id','49825984-bec8-4495-863f-ddd11ebb46f3')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => '49825984-bec8-4495-863f-ddd11ebb46f3',
-                'name' => 'Budgeting',
-                'icon' => 'fa fa-money',
-                'is_business' => false,
-                'is_user' => true,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => '2e22600b-f8fb-493a-8de8-ba33d279e882',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        $sectionExists = Section::where('id','17cbc918-2b55-494b-a39b-a1297bac8317')->first();
-        if ($sectionExists === null) {
-            DB::table('sections')->insert([
-                'id' => '17cbc918-2b55-494b-a39b-a1297bac8317',
-                'name' => 'Chamas',
-                'icon' => 'fa fa-users',
-                'is_business' => false,
-                'is_user' => true,
-                'is_admin' => false,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'module_id' => '33c5f6c2-fe9a-4b32-843b-d243d8dae58a',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
+        $user = User::findOrFail(decrypt($user_id));
+        $institution = Institution::findOrFail($institution_id);
+
+        $userAccount = UserAccount::where('user_id',$user->id)->where('institution_id',$institution->id)->first();
+
+        // update user password and phone number and verified_at
+        return view('auth.business_add_user', compact('user','institution'));
+//        return $userAccount;
     }
 
-    public function menu()
+    public function businessStoreUserAccount(Request $request, $user_id ,$institution_id)
     {
-        // menu
-        // to dos section
-        // exists
-        $menuExists = Menu::where('id','46007dd0-9d9e-4a28-b1b8-f16b8cffb2a9')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '46007dd0-9d9e-4a28-b1b8-f16b8cffb2a9',
-                'name' => 'To Dos',
-                'url' => 'href="{{route(\'business.to.dos\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '0c03b583-1d71-4d50-a626-10563cf4e454',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // calendar section
-        // exists
-        $menuExists = Menu::where('id','5d17a52d-29d4-4960-b7da-52ff7c218b23')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '5d17a52d-29d4-4960-b7da-52ff7c218b23',
-                'name' => 'Calendar',
-                'url' => 'href="{{route(\'business.calendar\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '17c0880e-b299-414d-908d-13154a10ac96',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // product section
-        // exists
-        $menuExists = Menu::where('id','d92d1ca5-ba59-4194-af81-5d3ae1a188a3')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'd92d1ca5-ba59-4194-af81-5d3ae1a188a3',
-                'name' => 'Product Groups',
-                'url' => 'href="{{route(\'business.product.groups\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'd1644afa-b1a5-4a2d-b95d-e4d43acbce25',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','e6a5c5ae-3f13-4b47-93ff-7bee8d362b84')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'e6a5c5ae-3f13-4b47-93ff-7bee8d362b84',
-                'name' => 'Products',
-                'url' => 'href="{{route(\'business.products\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'd1644afa-b1a5-4a2d-b95d-e4d43acbce25',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','1f7915e0-7368-4b9e-bc34-59d903fb09c7')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '1f7915e0-7368-4b9e-bc34-59d903fb09c7',
-                'name' => 'Composite Products',
-                'url' => 'href="{{route(\'business.composite.products\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'd1644afa-b1a5-4a2d-b95d-e4d43acbce25',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // inventory
-        // exists
-        $menuExists = Menu::where('id','3b589c0f-42cb-460c-a24d-d3d3502dbd6d')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '3b589c0f-42cb-460c-a24d-d3d3502dbd6d',
-                'name' => 'Inventory Adjustments',
-                'url' => 'href="{{route(\'business.inventory.adjustments\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '2d89966e-c6f2-4967-b278-f65df98448db',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','db96c213-9d0f-4756-a33d-726ee45a293b')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'db96c213-9d0f-4756-a33d-726ee45a293b',
-                'name' => 'Transfer Orders',
-                'url' => 'href="{{route(\'business.transfer.orders\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '2d89966e-c6f2-4967-b278-f65df98448db',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','14ee29f5-6c2d-45b7-a5d4-bdcc990fb5ac')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '14ee29f5-6c2d-45b7-a5d4-bdcc990fb5ac',
-                'name' => 'Warehouses',
-                'url' => 'href="{{route(\'business.warehouses\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '2d89966e-c6f2-4967-b278-f65df98448db',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // CRM
-        // exists
-        $menuExists = Menu::where('id','8fc03481-e791-4183-860b-24433e392459')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '8fc03481-e791-4183-860b-24433e392459',
-                'name' => 'Campaign',
-                'url' => 'href="{{route(\'business.campaigns\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','499ba7cd-1868-4ade-8b7c-67e227f4f7ef')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '499ba7cd-1868-4ade-8b7c-67e227f4f7ef',
-                'name' => 'Contacts',
-                'url' => 'href="{{route(\'business.contacts\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','5084aa36-235d-4960-9f72-a5700c02d172')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '5084aa36-235d-4960-9f72-a5700c02d172',
-                'name' => 'Leads',
-                'url' => 'href="{{route(\'business.leads\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','5408aa80-032b-4a35-8748-f1e432684050')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '5408aa80-032b-4a35-8748-f1e432684050',
-                'name' => 'Organizations',
-                'url' => 'href="{{route(\'business.organizations\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // Sales
-        // exists
-        $menuExists = Menu::where('id','b7f9e260-0734-4787-b81a-2e74e980c81f')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'b7f9e260-0734-4787-b81a-2e74e980c81f',
-                'name' => 'Estimates',
-                'url' => 'href="{{route(\'business.estimates\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '9acedca8-5320-4b4e-b088-ec44467344a0',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','bd02b1ae-baec-4d33-9364-bdbae4d43fd7')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'bd02b1ae-baec-4d33-9364-bdbae4d43fd7',
-                'name' => 'Invoices',
-                'url' => 'href="{{route(\'business.invoices\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '9acedca8-5320-4b4e-b088-ec44467344a0',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','5658b249-e3d5-4408-92a4-2d44b43d3ec7')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '5658b249-e3d5-4408-92a4-2d44b43d3ec7',
-                'name' => 'Sales',
-                'url' => 'href="{{route(\'business.sales\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '9acedca8-5320-4b4e-b088-ec44467344a0',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // Accounts
-        // exists
-        $menuExists = Menu::where('id','91d92dca-936a-405e-a044-026008abd49b')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '91d92dca-936a-405e-a044-026008abd49b',
-                'name' => 'Accounts',
-                'url' => 'href="{{route(\'business.accounts\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','51243714-7def-4a6b-86e8-48ed8d2e76d1')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '51243714-7def-4a6b-86e8-48ed8d2e76d1',
-                'name' => 'Expenses',
-                'url' => 'href="{{route(\'business.expenses\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','b318e4ab-5b29-47e7-bc9a-f191d95d5228')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'b318e4ab-5b29-47e7-bc9a-f191d95d5228',
-                'name' => 'Loans',
-                'url' => 'href="{{route(\'business.loans\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','7010f5a3-2824-4562-b251-2d76d0472158')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '7010f5a3-2824-4562-b251-2d76d0472158',
-                'name' => 'Payments',
-                'url' => 'href="{{route(\'business.payments\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','ce1a2420-8bd9-4ece-b393-0d44a4841095')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'ce1a2420-8bd9-4ece-b393-0d44a4841095',
-                'name' => 'Refunds',
-                'url' => 'href="{{route(\'business.refunds\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','79815c4b-ca3b-48a3-bfab-3d66c900eb5b')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '79815c4b-ca3b-48a3-bfab-3d66c900eb5b',
-                'name' => 'Transactions',
-                'url' => 'href="{{route(\'business.transactions\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','d554e5b6-b773-4c18-a812-5da372611d4a')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'd554e5b6-b773-4c18-a812-5da372611d4a',
-                'name' => 'Transfers',
-                'url' => 'href="{{route(\'business.transfers\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'b97a8640-154e-4c09-95c7-0a9c6c690b82',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // Settings
-        // exists
-        $menuExists = Menu::where('id','3a2d80c5-20bd-4563-b81d-7ea061760484')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '3a2d80c5-20bd-4563-b81d-7ea061760484',
-                'name' => 'Campaign Types',
-                'url' => 'href="{{route(\'business.campaign.types\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','dc6effc8-a76c-4adb-8134-a65eb5edbc14')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'dc6effc8-a76c-4adb-8134-a65eb5edbc14',
-                'name' => 'Contact Types',
-                'url' => 'href="{{route(\'business.contact.types\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','63baac28-86ac-430a-a617-209e88dc2a0a')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '63baac28-86ac-430a-a617-209e88dc2a0a',
-                'name' => 'Frequency',
-                'url' => 'href="{{route(\'business.frequencies\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','c6fe7dbe-8a09-4b82-a98a-902e5137bd08')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'c6fe7dbe-8a09-4b82-a98a-902e5137bd08',
-                'name' => 'Lead Sources',
-                'url' => 'href="{{route(\'business.lead.sources\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','045ccdc1-9ced-4730-ab0c-bdb80c3e16ea')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '045ccdc1-9ced-4730-ab0c-bdb80c3e16ea',
-                'name' => 'Taxes',
-                'url' => 'href="{{route(\'business.taxes\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','ae813d64-0b83-421d-a352-5e39a8e50dbd')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => 'ae813d64-0b83-421d-a352-5e39a8e50dbd',
-                'name' => 'Titles',
-                'url' => 'href="{{route(\'business.titles\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $menuExists = Menu::where('id','4813c63d-ff0f-4286-8277-f25cc7d201e9')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '4813c63d-ff0f-4286-8277-f25cc7d201e9',
-                'name' => 'Units',
-                'url' => 'href="{{route(\'business.units\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => 'cce99489-053b-45c7-b4df-1589ea2e3318',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // feedback
-        // exists
-        $menuExists = Menu::where('id','56af542b-a478-41a6-b59b-f2b85efa135f')->first();
-        if ($menuExists === null) {
-            DB::table('menus')->insert([
-                'id' => '56af542b-a478-41a6-b59b-f2b85efa135f',
-                'name' => 'Feedback',
-                'url' => 'href="{{route(\'href="{{route(\'business.feedback\',$institution->portal)}}" ',
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'section_id' => '1dd5ed21-4232-409d-928c-2b637aef5ff9',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
+        $user = User::findOrFail(decrypt($user_id));
 
+        if ($user->phone_number != $request->phone_number){
+            $validatedUserData = $request->validate([
+                'phone_number' => ['required', 'string', 'max:255', 'unique:users'],
+            ]);
+            $user->phone_number = $request->phone_number;
+        }
+        $validatedUserData = $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
 
+        // update user verified_at, set user password
+        $user->email_verified_at = now();
+        $user->name = $request->name;
+        $user->password = Hash::make($request->password);
+        $user->save();
 
-        // get users
-        // user account
+        // set user account active
+        $user = User::findOrFail(decrypt($user_id));
+        $institution = Institution::findOrFail($institution_id);
+        $userUserAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => false]);
 
+        $userAccount = UserAccount::where('user_id',$user->id)->where('institution_id',$institution->id)->first();
+        $userAccount->is_active = true;
+        $userAccount->save();
 
-        // feature
+        // log in user
+        auth()->login($user);
+        // update user password and phone number and verified_at
+        return redirect('home');
+//        return $userAccount;
     }
 
-    public function actions()
-    {
+    public function testRoles(){
+        // create role
+        $institution = Institution::findOrFail('9e2c5296-0b01-4d06-ada7-6fd90e7bc843');
+        $institutionModules = InstitutionModule::where('institution_id',$institution->id)->select('module_id')->get()->toArray();
+        $permissions = Permission::whereIn('module_id',$institutionModules)->get();
+        return $permissions;
+    }
 
-        // actions
-        // To Do
-        // Calendar
-        // Products
-        // Inventory
-        // CRM
+    public function roleSeed(){
+
+//        $users = User::permission('add to dos')->get();
+        $user = Auth::user();
+//        $permissionNames = $user->getPermissionNames();
+//        $user->assignRole('admin');
+//        $permissions = $user->permissions;
+
+        $role = Role::findByName('admin');
+//        $role->revokePermissionTo('view to dos');
+//        return $role;
+        // get role
 
 
-        // actions
-        // To Do
-        // exists
-        $actionExists = Action::where('id','4717c092-9aa5-4353-a343-efaaf57109b3')->first();
-        if ($actionExists === null) {
-            DB::table('action')->insert([
-                'id' => '4717c092-9aa5-4353-a343-efaaf57109b3',
-                'name' => 'New',
-                'description' => 'Add a new To Do',
-                'value' => 'href="#" data-toggle="modal" data-target="#toDoRegistration" aria-expanded="false" ',
-                'icon' => 'fa fa-plus',
-                'is_url' => false,
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'parent_id' => null,
-                'menu_id' => '46007dd0-9d9e-4a28-b1b8-f16b8cffb2a9',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // Product
-        // exists
-        $actionExists = Action::where('id','4717c092-9aa5-4353-a343-efaaf57109b3')->first();
-        if ($actionExists === null) {
-            DB::table('action')->insert([
-                'id' => '4717c092-9aa5-4353-a343-efaaf57109b3',
-                'name' => 'New',
-                'description' => 'Add a new Product Group',
-                'value' => 'href="{{route(\'business.product.group.create\',$institution->portal)}}"',
-                'icon' => 'fa fa-plus',
-                'is_url' => false,
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'parent_id' => null,
-                'menu_id' => 'd92d1ca5-ba59-4194-af81-5d3ae1a188a3',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $actionExists = Action::where('id','4717c092-9aa5-4353-a343-efaaf57109b3')->first();
-        if ($actionExists === null) {
-            DB::table('action')->insert([
-                'id' => '4717c092-9aa5-4353-a343-efaaf57109b3',
-                'name' => 'New',
-                'description' => 'Add a new Product Group',
-                'value' => 'href="{{route(\'business.product.group.create\',$institution->portal)}}"',
-                'icon' => 'fa fa-plus',
-                'is_url' => false,
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'parent_id' => null,
-                'menu_id' => 'd92d1ca5-ba59-4194-af81-5d3ae1a188a3',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
-        // exists
-        $actionExists = Action::where('id','4717c092-9aa5-4353-a343-efaaf57109b3')->first();
-        if ($actionExists === null) {
-            DB::table('action')->insert([
-                'id' => '4717c092-9aa5-4353-a343-efaaf57109b3',
-                'name' => 'View',
-                'description' => 'View a Product Group',
-                'value' => 'href="{{ route(\'business.product.group.show\', [\'portal\'=>$institution->portal, \'id\'=>$productGroup->id]) }}"',
-                'icon' => 'fa fa-plus',
-                'is_url' => true,
-                'is_business' => true,
-                'is_user' => false,
-                'is_admin' => false,
-                'parent_id' => null,
-                'menu_id' => 'd92d1ca5-ba59-4194-af81-5d3ae1a188a3',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-                'created_at' => now()
-            ]);
-        }
+        // to dos
+        $permission = Permission::create(['name' => 'add to do','module_id' => '99f59a14-1e3b-4b54-a33d-29cbb5431182']);
+        $role->givePermissionTo($permission);
+
+        $permission = Permission::create(['name' => 'view to do','module_id' => '99f59a14-1e3b-4b54-a33d-29cbb5431182']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view to dos','module_id' => '99f59a14-1e3b-4b54-a33d-29cbb5431182']);
+        $role->givePermissionTo($permission);
+        // calendar
+        $permission = Permission::create(['name' => 'view calendar','module_id' => '99f59a14-1e3b-4b54-a33d-29cbb5431182']);
+        $role->givePermissionTo($permission);
+        // product groups
+        $permission = Permission::create(['name' => 'add product group','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view product group','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view product groups','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit product group','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete product group','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        // products
+        $permission = Permission::create(['name' => 'add product','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view product','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view products','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit product','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete product','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        // composite products
+        $permission = Permission::create(['name' => 'add composite product','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view composite product','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view composite products','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit composite product','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete composite product','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $role->givePermissionTo($permission);
+        // stock
+        $permission = Permission::create(['name' => 'view stock','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view restock','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        // inventory adjustments
+        $permission = Permission::create(['name' => 'add inventory adjustment','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view inventory adjustment','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view inventory adjustments','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit inventory adjustment','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete inventory adjustment','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        // transfer orders
+        $permission = Permission::create(['name' => 'add transfer order','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view transfer order','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view transfer orders','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit transfer order','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete transfer order','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        // warehouses
+        $permission = Permission::create(['name' => 'add warehouse','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view warehouse','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view warehouses','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit warehouse','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete warehouse','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
+        $role->givePermissionTo($permission);
+        // campaign
+        $permission = Permission::create(['name' => 'add campaign','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view campaign','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view campaigns','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit campaign','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete campaign','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'add campaign uploads','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view campaign uploads','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        // contacts
+        $permission = Permission::create(['name' => 'add contact','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view contact','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view contacts','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit contact','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete contact','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        // leads
+        $permission = Permission::create(['name' => 'add lead','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view lead','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view leads','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit lead','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete lead','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        // organizations
+        $permission = Permission::create(['name' => 'add organization','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view organization','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view organizations','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit organization','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete organization','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
+        $role->givePermissionTo($permission);
+        // estimates
+        $permission = Permission::create(['name' => 'add estimate','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view estimate','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view estimates','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'print estimate','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'convert to invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit estimate','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete estimate','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        // invoices
+        $permission = Permission::create(['name' => 'add invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view invoices','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'print invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'convert to sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        // sales
+        $permission = Permission::create(['name' => 'add sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view sales','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'print sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'add sale payment','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $role->givePermissionTo($permission);
+        // accounts
+        $permission = Permission::create(['name' => 'add account','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view account','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view accounts','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit account','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete account','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        // account adjustments
+        $permission = Permission::create(['name' => 'add account adjustment','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view account adjustments','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        // withdrawals
+        $permission = Permission::create(['name' => 'add withdrawal','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view withdrawal','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view withdrawals','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        // deposits
+        $permission = Permission::create(['name' => 'add deposit','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view deposit','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view deposits','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit deposit','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        // expenses
+        $permission = Permission::create(['name' => 'add expenses','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view expense','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view expenses','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit expense','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete expense','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        // expense payments
+        $permission = Permission::create(['name' => 'add expense payment','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view expense payment','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view expense payments','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        // loans
+        $permission = Permission::create(['name' => 'add loan','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view loan','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view loans','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'add loan payment','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit loan','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete loan','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        // payments
+        $permission = Permission::create(['name' => 'add payment','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view payment','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view payments','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view pending payments','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit payment','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete payment','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        // refunds
+        $permission = Permission::create(['name' => 'add refund','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view refund','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view refunds','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit refund','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete refund','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        // transfers
+        $permission = Permission::create(['name' => 'add transfer','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view transfer','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view transfers','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit transfer','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete transfer','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
+        $role->givePermissionTo($permission);
+        // campaign types
+        $permission = Permission::create(['name' => 'add campaign type', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view campaign type', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view campaign types', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit campaign type', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete campaign type', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        // contact types
+        $permission = Permission::create(['name' => 'add contact type', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view contact type', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view contact types', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit contact type', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete contact type', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        // frequency
+        $permission = Permission::create(['name' => 'add frequency', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view frequency', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view frequencies', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit frequency', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete frequency', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        // lead sources
+        $permission = Permission::create(['name' => 'add lead source', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view lead source', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view lead sources', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit lead source', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete lead source', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        // taxes
+        $permission = Permission::create(['name' => 'add tax', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view tax', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view taxes', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit tax', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete tax', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        // titles
+        $permission = Permission::create(['name' => 'add title', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view title', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view titles', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit title', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete title', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        // units
+        $permission = Permission::create(['name' => 'add unit','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view unit','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'view units','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'edit unit','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'delete unit','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $role->givePermissionTo($permission);
+
     }
 }

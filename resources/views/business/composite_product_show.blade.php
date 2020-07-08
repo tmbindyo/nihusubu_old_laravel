@@ -24,7 +24,9 @@
         </div>
         <div class="col-lg-2">
             <div class="title-action">
-                <a href="{{route('business.composite.product.edit',['portal'=>$institution->portal, 'id'=>$compositeProduct->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                @can('edit composite product')
+                    <a href="{{route('business.composite.product.edit',['portal'=>$institution->portal, 'id'=>$compositeProduct->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                @endcan
                 {{--  todo add item to composite products modal  --}}
                 {{--  <a href="#" data-toggle="modal" data-target="#compositeProductRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>  --}}
             </div>
@@ -76,7 +78,9 @@
 {{--                                            <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message</button>--}}
                                         </div>
                                         <div class="col-md-6">
-                                            <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->product->id])}}" type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-arrow-right"></i> View</a>
+                                            @can('view product')
+                                                <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->product->id])}}" type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-arrow-right"></i> View</a>
+                                            @endcan
                                         </div>
                                     </div>
                                 </div>
@@ -175,8 +179,8 @@
 
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="sales">
-
-                                                    <div class="table-responsive">
+                                                    @can('view sales')
+                                                        <div class="table-responsive">
                                                         <table class="table table-striped table-bordered table-hover dataTables-example" >
                                                             <thead>
                                                             <tr>
@@ -196,7 +200,9 @@
                                                                     <td class="center">{{$sale->status->name}}</td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            @can('view sale')
+                                                                                <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            @endcan
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -213,7 +219,7 @@
                                                             </tfoot>
                                                         </table>
                                                     </div>
-
+                                                    @endcan
                                                 </div>
                                             </div>
 

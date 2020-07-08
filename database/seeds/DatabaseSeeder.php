@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call([CurrencyTableSeeder::class]);
         $this->call([FiscalYearTableSeeder::class]);
         $this->call([InstitutionTableSeeder::class]);
+        $this->call([LoanTypeTableSeeder::class]);
+        $this->call([ModuleTableSeeder::class]);
+        $this->call([PermissionTableSeeder::class]);
         $this->call([PlanTableSeeder::class]);
         $this->call([PlanTypeTableSeeder::class]);
         $this->call([ReasonTableSeeder::class]);

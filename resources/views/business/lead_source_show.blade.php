@@ -21,7 +21,9 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.contact.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
+                @can('add contact')
+                    <a href="{{route('business.contact.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -56,10 +58,12 @@
                                         <input type="name" name="name" value="{{$leadSource->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
-                                    <br>
-                                    <div>
-                                        <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>Update</strong></button>
-                                    </div>
+                                    @can('edit lead source')
+                                        <br>
+                                        <div>
+                                            <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>Update</strong></button>
+                                        </div>
+                                    @endcan
                                 </form>
                             </div>
                         </div>
@@ -68,63 +72,64 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Lead Source Contacts ({{$leadSource->contacts_count}})</h5>
+        @can('view contacts')
+            <div class="row">
+                <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Lead Source Contacts ({{$leadSource->contacts_count}})</h5>
 
-                </div>
-                <div class="ibox-content">
-
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" >
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>User</th>
-                                <th>Status</th>
-                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($leadSource->contacts as $contact)
-                                <tr class="gradeX">
-                                    <td>{{$contact->first_name}} {{$contact->last_name}}</td>
-                                    <td>{{$contact->email}}</td>
-                                    <td>{{$contact->phone_number}}</td>
-                                    <td>{{$contact->user->name}}</td>
-                                    <td>
-                                        <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="btn-group">
-                                            <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>User</th>
-                                <th>Status</th>
-                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                            </tr>
-                            </tfoot>
-                            </table>
                     </div>
+                    <div class="ibox-content">
 
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($leadSource->contacts as $contact)
+                                    <tr class="gradeX">
+                                        <td>{{$contact->first_name}} {{$contact->last_name}}</td>
+                                        <td>{{$contact->email}}</td>
+                                        <td>{{$contact->phone_number}}</td>
+                                        <td>{{$contact->user->name}}</td>
+                                        <td>
+                                            <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                </tr>
+                                </tfoot>
+                                </table>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
-
+            </div>
+        @endcan
 
     </div>
 

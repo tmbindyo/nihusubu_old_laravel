@@ -13,6 +13,12 @@ class Module extends Model implements Auditable
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
+    // parent
+    public function permissions()
+    {
+        return $this->hasMany('Spatie\Permission\Models\Permission');
+    }
+
     // Parents
     public function status()
     {

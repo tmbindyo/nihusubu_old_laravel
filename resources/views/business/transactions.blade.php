@@ -21,7 +21,9 @@
         </div>
         <div class="col-lg-2">
             <div class="title-action">
-                <a href="{{route('business.expenses',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Expenses </a>
+                @can('add expense')
+                    <a href="{{route('business.expenses',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Expenses </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -50,6 +52,7 @@
                                     <th>Created</th>
                                     <th>Amount</th>
                                     <th>Status</th>
+                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -70,6 +73,11 @@
                                         <td>
                                             <p><span class="label {{$transaction->status->label}}">{{$transaction->status->name}}</span></p>
                                         </td>
+                                        <td>
+                                        @can('view expense')
+                                            <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$transaction->expense_id]) }}" class="btn-primary btn-outline btn btn-xs">Expense</a>
+                                        @endcan
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -80,7 +88,7 @@
                                     <th>Date</th>
                                     <th>Created</th>
                                     <th>Amount</th>
-                                    <th>Status</th>
+                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                 </tr>
                                 </tfoot>
                             </table>

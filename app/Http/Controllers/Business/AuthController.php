@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\InstitutionModule;
+use App\Module;
 use App\Tax;
 use App\Plan;
 use App\Unit;
@@ -22,6 +24,8 @@ use Illuminate\Http\Request;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -111,16 +115,50 @@ class AuthController extends Controller
         $institutionReasons = $this->reasonsSeeder($request, $user, $institution);
         // create expense account
         $institutionExpenseAccounts = $this->expenseAccountsSeeder($request, $user, $institution);
+        // institution modules
+        $institutionModules = $this->institutionModuleSeeder($request, $user, $institution);
+        // institution admin role
+        $institutionAdminRoleSeeder = $this->institutionAdminRoleSeeder($request, $user, $institution);
         // create user account
         $userAccount = $this->userAccountSeeder($request, $user, $institution);
 
-
-
         // account creation
         auth()->login($user);
-        $user->sendEmailVerificationNotification($user);
+        $user->sendEmailVerificationNotification();
 
         return redirect()->route('home');
+    }
+
+    private function institutionModuleSeeder ($request, $user, $institution){
+
+        // get modules
+        $modules = Module::all();
+        foreach ($modules as $module){
+            $institutionModule = new InstitutionModule();
+
+            $institutionModule->module_id = $module->id;
+            $institutionModule->institution_id = $institution->id;
+
+            $institutionModule->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+            $institutionModule->user_id = $user->id;
+            $institutionModule->save();
+        }
+        return $modules;
+    }
+
+    private function institutionAdminRoleSeeder ($request, $user, $institution){
+
+        // create role
+        $role = Role::create(['name' => $institution->name.' admin','institution_id' => $institution->id]);
+
+        // get institution modules
+        $institutionModules = InstitutionModule::where('institution_id',$institution->id)->select('module_id')->get()->toArray();
+        $permissions = Permission::whereIn('module_id',$institutionModules)->get();
+        $role->syncPermissions($permissions);
+
+        // role assign permissions based on modules
+        $user->assignRole($role);
+
     }
 
     private function institutionSeeder ($request, $user, $address){

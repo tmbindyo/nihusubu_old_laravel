@@ -6,7 +6,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Contact Type's</h2>
+            <h2>Contact Type</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
@@ -15,13 +15,15 @@
                     <a href="{{route('business.contact.types',$institution->portal)}}">Contact Types</a>
                 </li>
                 <li class="active">
-                    <strong>Contact Type Create</strong>
+                    <strong>Contact Type Show</strong>
                 </li>
             </ol>
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.contact.type.contact.create',['portal'=>$institution->portal, 'id'=>$contactType->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact</a>
+                @can('add contact')
+                    <a href="{{route('business.contact.type.contact.create',['portal'=>$institution->portal, 'id'=>$contactType->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact</a>
+                @endcan
             </div>
         </div>
     </div>
@@ -55,10 +57,12 @@
                                         <input type="name" name="name" value="{{$contactType->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
-                                    <hr>
-                                    <div>
-                                        <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>Update</strong></button>
-                                    </div>
+                                    @can('edit contact type')
+                                        <hr>
+                                        <div>
+                                            <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>Update</strong></button>
+                                        </div>
+                                    @endcan
                                 </form>
                             </div>
                         </div>
@@ -66,61 +70,65 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Contact Type Contacts ({{$contactType->contacts_count}})</h5>
-                </div>
-                <div class="ibox-content">
-
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" >
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone Number</th>
-                                    <th>User</th>
-                                    <th>Status</th>
-                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($contactContactTypes as $contactContactType)
-                                    <tr class="gradeX">
-                                        <td>{{$contactContactType->contact->first_name}} {{$contactContactType->contact->last_name}}</td>
-                                        <td>{{$contactContactType->contact->email}}</td>
-                                        <td>{{$contactContactType->contact->phone_number}}</td>
-                                        <td>{{$contactContactType->user->name}}</td>
-                                        <td>
-                                            <span class="label {{$contactContactType->status->label}}">{{$contactContactType->status->name}}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="btn-group">
-                                                <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contactContactType->id]) }}" class="btn-white btn btn-xs">View</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone Number</th>
-                                    <th>User</th>
-                                    <th>Status</th>
-                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+        @can('view contacts')
+            <div class="row">
+                <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Contact Type Contacts ({{$contactType->contacts_count}})</h5>
                     </div>
+                    <div class="ibox-content">
 
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($contactContactTypes as $contactContactType)
+                                        <tr class="gradeX">
+                                            <td>{{$contactContactType->contact->first_name}} {{$contactContactType->contact->last_name}}</td>
+                                            <td>{{$contactContactType->contact->email}}</td>
+                                            <td>{{$contactContactType->contact->phone_number}}</td>
+                                            <td>{{$contactContactType->user->name}}</td>
+                                            <td>
+                                                <span class="label {{$contactContactType->status->label}}">{{$contactContactType->status->name}}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    @can('view contact')
+                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contactContactType->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    @endcan
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
+            </div>
+        @endcan
     </div>
 
 

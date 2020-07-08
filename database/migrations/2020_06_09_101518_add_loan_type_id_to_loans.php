@@ -26,7 +26,7 @@ class AddLoanTypeIdToLoans extends Migration
     public function down()
     {
         Schema::table('loans', function (Blueprint $table) {
-            //
+            $table->dropColumn(['loan_type_id']);
         });
     }
 }

@@ -26,7 +26,7 @@ class AddLabelToLoanType extends Migration
     public function down()
     {
         Schema::table('loan_types', function (Blueprint $table) {
-            $table->longText('label')->nullable();
+            $table->dropColumn(['label']);
         });
     }
 }

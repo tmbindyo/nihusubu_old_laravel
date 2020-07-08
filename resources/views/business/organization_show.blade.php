@@ -25,9 +25,16 @@
         <div class="col-md-6">
             <div class="title-action">
                 @if($organization->campaign_id)
-                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$organization->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                    @can('view campaign')
+                        <a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$organization->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                    @endcan
                 @endif
-                <a href="{{route('business.organization.contact.create',['portal'=>$institution->portal, 'id'=>$organization->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
+                @can('add contact')
+                    <a href="{{route('business.organization.contact.create',['portal'=>$institution->portal, 'id'=>$organization->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
+                @endcan
+                @can('add to do')
+                    <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> To Do </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -125,11 +132,13 @@
                                         </div>
                                     </div>
 
-                                    <hr>
+                                    @can('edit organization')
+                                        <hr>
 
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
-                                    </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
+                                        </div>
+                                    @endcan
                                 </div>
 
 
@@ -186,49 +195,50 @@
 
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="contacts">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($organization->contacts as $contact)
-                                                            <tr class="gradeX">
-                                                                <td>{{$contact->first_name}} {{$contact->last_name}}</td>
-                                                                <td>{{$contact->email}}</td>
-                                                                <td>{{$contact->phone_number}}</td>
-                                                                <td>{{$contact->user->name}}</td>
-                                                                <td>
-                                                                    <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
-                                                                </td>
-                                                                <td class="text-right">
-                                                                    <div class="btn-group">
-                                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                                    </div>
-                                                                </td>
+                                            @can('view contacts')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Email</th>
+                                                                <th>Phone Number</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($organization->contacts as $contact)
+                                                                <tr class="gradeX">
+                                                                    <td>{{$contact->first_name}} {{$contact->last_name}}</td>
+                                                                    <td>{{$contact->email}}</td>
+                                                                    <td>{{$contact->phone_number}}</td>
+                                                                    <td>{{$contact->user->name}}</td>
+                                                                    <td>
+                                                                        <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <div class="btn-group">
+                                                                            <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Email</th>
+                                                                <th>Phone Number</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </div>
 
@@ -244,14 +254,12 @@
         </div>
 
         {{--    To Do's    --}}
-        <div class="row m-t-lg">
+        @can('view to dos')
+            <div class="row m-t-lg">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>To Do's</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
-                        </div>
                     </div>
                     <div class="">
                         <ul class="pending-to-do">
@@ -324,6 +332,7 @@
                 </div>
             </div>
         </div>
+        @endcan
     </div>
 
 

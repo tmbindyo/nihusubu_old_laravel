@@ -20,7 +20,9 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="#" data-toggle="modal" data-target="#warehouseRegistration" class="btn btn-outline btn-primary"><i class="fa fa-plus"></i> New </a>
+                @can('add warehouse')
+                    <a href="#" data-toggle="modal" data-target="#warehouseRegistration" class="btn btn-outline btn-primary"><i class="fa fa-plus"></i> New </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -32,7 +34,7 @@
                 <div class="col-lg-3">
                     <div class="contact-box center-version">
 
-                        <a href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$warehouse->id])}}">
+                        <a @can('view warehouse') href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$warehouse->id])}}" @endcan>
 
                             <span class="fa fa-4x fa-database"></span>
 
@@ -46,12 +48,13 @@
                             </address>
 
                         </a>
-                        <div class="contact-box-footer">
-                            <div class="">
-                                <a href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$warehouse->id])}}" class="btn btn-md btn-block btn-outline btn-primary"> View </a>
-{{--                                <a href="{{route('business.warehouse.delete',['portal'=>$institution->portal, 'id'=>$warehouse->id])}}" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-cross"></i> Delete</a>--}}
+                        @can('view warehouse')
+                            <div class="contact-box-footer">
+                                <div class="">
+                                    <a href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$warehouse->id])}}" class="btn btn-md btn-block btn-outline btn-primary"> View </a>
+                                </div>
                             </div>
-                        </div>
+                        @endcan
 
                     </div>
                 </div>

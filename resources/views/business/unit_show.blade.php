@@ -66,12 +66,14 @@
                                         <i>description</i>
                                     </div>
 
-                                    <br>
-                                    <hr>
+                                    @can('edit unit')
+                                        <br>
+                                        <hr>
 
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
-                                    </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
+                                        </div>
+                                    @endcan
                                 </div>
 
 
@@ -129,98 +131,99 @@
 
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="products">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-products" >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>SKU</th>
-                                                            <th width="40em">Stock on Hand</th>
-                                                            <th width="40em">Reorder Level</th>
-                                                            <th>Status</th>
-                                                            <th class="text-right" width="20em" data-sort-ignore="true">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($unit->products as $product)
-                                                            <tr class="gradeA">
-                                                                <td>{{$product->name}}</td>
-                                                                <td>{{$product->unit->name}}</td>
-
-                                                                @if($product->is_service == "1")
-                                                                    <td>N/A</td>
-                                                                @else
-                                                                    <td>{{$product->stock_on_hand->first()->stock_on_hand}}</td>
-                                                                @endif
-
-                                                                <td class="center">{{$product->reorder_level}}</td>
-                                                                <td class="center">
-                                                                    <p>@if ($product->is_service==1) Service: @elseif($product->is_service==0)Product: @endif <span class="label {{$product->status->label}}">{{$product->status->name}}</span></p>
-                                                                </td>
-                                                                <td class="text-right">
-                                                                    <div class="btn-group">
-                                                                        <a href="{{ route('business.product.show', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                    </div>
-                                                                </td>
+                                            @can('view product')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-products" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>SKU</th>
+                                                                <th width="40em">Stock on Hand</th>
+                                                                <th width="40em">Reorder Level</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="20em" data-sort-ignore="true">Action</th>
                                                             </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>SKU</th>
-                                                            <th>Stock on Hand</th>
-                                                            <th>Reorder Level</th>
-                                                            <th>Status</th>
-                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($unit->products as $product)
+                                                                <tr class="gradeA">
+                                                                    <td>{{$product->name}}</td>
+                                                                    <td>{{$product->unit->name}}</td>
 
-                                        </div>
-                                        <div class="tab-pane" id="product-groups">
+                                                                    @if($product->is_service == "1")
+                                                                        <td>N/A</td>
+                                                                    @else
+                                                                        <td>{{$product->stock_on_hand->first()->stock_on_hand}}</td>
+                                                                    @endif
 
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-product-groups" >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Attributes</th>
-                                                            <th>Attribute Options</th>
-                                                            <th>Status</th>
-                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($unit->productGroups as $productGroup)
-                                                            <tr class="gradeA">
-                                                                    <td>{{$productGroup->name}} <label class="badge badge-circle badge-info">{{$productGroup->products_count}} products</label></td>
-                                                                    <td>{{$productGroup->attributes}}</td>
-                                                                    <td>{{$productGroup->attribute_options}}</td>
-                                                                    <td>
-                                                                        <p>@if ($productGroup->is_service==1) Service: @elseif($productGroup->is_service==0)Product: @endif <span class="label {{$productGroup->status->label}}">{{$productGroup->status->name}}</span></p>
+                                                                    <td class="center">{{$product->reorder_level}}</td>
+                                                                    <td class="center">
+                                                                        <p>@if ($product->is_service==1) Service: @elseif($product->is_service==0)Product: @endif <span class="label {{$product->status->label}}">{{$product->status->name}}</span></p>
                                                                     </td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('business.product.group.show', ['portal'=>$institution->portal, 'id'=>$productGroup->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            <a href="{{ route('business.product.show', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
                                                                         </div>
                                                                     </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>SKU</th>
+                                                                <th>Stock on Hand</th>
+                                                                <th>Reorder Level</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>SKU</th>
-                                                            <th>Stock on Hand</th>
-                                                            <th>Status</th>
-                                                            <th class="text-right" width="20em" data-sort-ignore="true">Action</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
+                                        </div>
+                                        <div class="tab-pane" id="product-groups">
+                                            @can('view product group')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-product-groups" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Attributes</th>
+                                                                <th>Attribute Options</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($unit->productGroups as $productGroup)
+                                                                <tr class="gradeA">
+                                                                        <td>{{$productGroup->name}} <label class="badge badge-circle badge-info">{{$productGroup->products_count}} products</label></td>
+                                                                        <td>{{$productGroup->attributes}}</td>
+                                                                        <td>{{$productGroup->attribute_options}}</td>
+                                                                        <td>
+                                                                            <p>@if ($productGroup->is_service==1) Service: @elseif($productGroup->is_service==0)Product: @endif <span class="label {{$productGroup->status->label}}">{{$productGroup->status->name}}</span></p>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            <div class="btn-group">
+                                                                                <a href="{{ route('business.product.group.show', ['portal'=>$institution->portal, 'id'=>$productGroup->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            </div>
+                                                                        </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>SKU</th>
+                                                                <th>Stock on Hand</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="20em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </div>
 

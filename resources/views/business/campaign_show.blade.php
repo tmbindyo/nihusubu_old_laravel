@@ -18,16 +18,27 @@
                     <a href="{{route('business.campaigns',$institution->portal)}}">Campaign's</a>
                 </li>
                 <li class="active">
-                    <strong>Campaign Create</strong>
+                    <strong>Campaign Show</strong>
                 </li>
             </ol>
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('business.campaign.contact.create',['portal'=>$institution->portal, 'id'=>$campaign->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
-                <a href="{{route('business.campaign.expense.create',['portal'=>$institution->portal, 'id'=>$campaign->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
-                <a href="{{route('business.campaign.organization.create',['portal'=>$institution->portal, 'id'=>$campaign->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Organization </a>
-                <a href="{{route('business.campaign.uploads',['portal'=>$institution->portal, 'id'=>$campaign->id])}}" class="btn btn-success btn-outline">Uploads</a>
+                @can('add contact')
+                    <a href="{{route('business.campaign.contact.create',['portal'=>$institution->portal, 'id'=>$campaign->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
+                @endcan
+                @can('add expenses')
+                    <a href="{{route('business.campaign.expense.create',['portal'=>$institution->portal, 'id'=>$campaign->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
+                @endcan
+                @can('add organization')
+                    <a href="{{route('business.campaign.organization.create',['portal'=>$institution->portal, 'id'=>$campaign->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Organization </a>
+                @endcan
+                @can('view campaign uploads')
+                    <a href="{{route('business.campaign.uploads',['portal'=>$institution->portal, 'id'=>$campaign->id])}}" class="btn btn-success btn-outline"><span class="fa fa-eyes"></span> Uploads </a>
+                @endcan
+                @can('add to do')
+                    <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> To Do </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -143,12 +154,14 @@
                                         </div>
                                     </div>
 
-                                    <br>
-                                    <hr>
+                                    @can('edit campaign')
+                                        <br>
+                                        <hr>
 
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('UPDATE') }}</button>
-                                    </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('UPDATE') }}</button>
+                                        </div>
+                                    @endcan
                                 </div>
 
 
@@ -207,156 +220,163 @@
 
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="contacts">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-contacts" >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($campaign->contacts as $contact)
-                                                            <tr class="gradeX">
-                                                                <td>{{$contact->first_name}} {{$contact->last_name}}</td>
-                                                                <td>{{$contact->email}}</td>
-                                                                <td>{{$contact->phone_number}}</td>
-                                                                <td>{{$contact->user->name}}</td>
-                                                                <td>
-                                                                    <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
-                                                                </td>
-                                                                <td class="text-right">
-                                                                    <div class="btn-group">
-                                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                    </div>
-                                                                </td>
+                                            @can('view contacts')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-contacts" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Email</th>
+                                                                <th>Phone Number</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                             </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($campaign->contacts as $contact)
+                                                                <tr class="gradeX">
+                                                                    <td>{{$contact->first_name}} {{$contact->last_name}}</td>
+                                                                    <td>{{$contact->email}}</td>
+                                                                    <td>{{$contact->phone_number}}</td>
+                                                                    <td>{{$contact->user->name}}</td>
+                                                                    <td>
+                                                                        <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <div class="btn-group">
+                                                                            @can('view contact')
+                                                                                <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            @endcan
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Email</th>
+                                                                <th>Phone Number</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                         <div class="tab-pane" id="expenses">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-expenses" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Recurring</th>
-                                                        <th>Expense #</th>
-                                                        <th>Date</th>
-                                                        <th>Created</th>
-                                                        <th>Expense Account</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($campaign->expenses as $expense)
-                                                        <tr class="gradeA">
-                                                            <td>
-                                                                @if($expense->is_recurring == 1)
-                                                                    <p><span class="badge badge-success">True</span></p>
-                                                                @else
-                                                                    <p><span class="badge badge-success">False</span></p>
-                                                                @endif
-                                                            </td>
-                                                            <td>{{$expense->reference}}</td>
-                                                            <td>{{$expense->date}}</td>
-                                                            <td>{{$expense->created_at}}</td>
-                                                            <td>{{$expense->expenseAccount->name}}</td>
-                                                            <td>{{$expense->total}}</td>
-                                                            <td>{{$expense->paid}}</td>
-                                                            <td>
-                                                                <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Recurring</th>
-                                                        <th>Expense #</th>
-                                                        <th>Date</th>
-                                                        <th>Created</th>
-                                                        <th>Expense Account</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane" id="organizations">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-organizations" >
-                                                    <thead>
+                                            @can('view expenses')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-expenses" >
+                                                        <thead>
                                                         <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
-                                                            <th>User</th>
+                                                            <th>Recurring</th>
+                                                            <th>Expense #</th>
+                                                            <th>Date</th>
+                                                            <th>Created</th>
+                                                            <th>Expense Account</th>
+                                                            <th>Total</th>
+                                                            <th>Paid</th>
                                                             <th>Status</th>
                                                             <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($campaign->organizations as $organization)
-                                                            <tr class="gradeX">
-                                                                <td>{{$organization->name}}</td>
-                                                                <td>{{$organization->email}}</td>
-                                                                <td>{{$organization->phone_number}}</td>
-                                                                <td>{{$organization->user->name}}</td>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($campaign->expenses as $expense)
+                                                            <tr class="gradeA">
                                                                 <td>
-                                                                    <span class="label {{$organization->status->label}}">{{$organization->status->name}}</span>
+                                                                    @if($expense->is_recurring == 1)
+                                                                        <p><span class="badge badge-success">True</span></p>
+                                                                    @else
+                                                                        <p><span class="badge badge-success">False</span></p>
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{$expense->reference}}</td>
+                                                                <td>{{$expense->date}}</td>
+                                                                <td>{{$expense->created_at}}</td>
+                                                                <td>{{$expense->expenseAccount->name}}</td>
+                                                                <td>{{$expense->total}}</td>
+                                                                <td>{{$expense->paid}}</td>
+                                                                <td>
+                                                                    <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
                                                                 </td>
                                                                 <td class="text-right">
                                                                     <div class="btn-group">
-                                                                        <a href="{{ route('business.organization.show', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        @can('view expense')
+                                                                            <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$expense->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        @endcan
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
-                                                    </tbody>
-                                                    <tfoot>
+                                                        </tbody>
+                                                        <tfoot>
                                                         <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
-                                                            <th>User</th>
+                                                            <th>Recurring</th>
+                                                            <th>Expense #</th>
+                                                            <th>Date</th>
+                                                            <th>Created</th>
+                                                            <th>Expense Account</th>
+                                                            <th>Total</th>
+                                                            <th>Paid</th>
                                                             <th>Status</th>
                                                             <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
+                                        </div>
+                                        <div class="tab-pane" id="organizations">
+                                            @can('view organization')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-organizations" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Email</th>
+                                                                <th>Phone Number</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($campaign->organizations as $organization)
+                                                                <tr class="gradeX">
+                                                                    <td>{{$organization->name}}</td>
+                                                                    <td>{{$organization->email}}</td>
+                                                                    <td>{{$organization->phone_number}}</td>
+                                                                    <td>{{$organization->user->name}}</td>
+                                                                    <td>
+                                                                        <span class="label {{$organization->status->label}}">{{$organization->status->name}}</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <div class="btn-group">
+                                                                            @can('view organization')
+                                                                                <a href="{{ route('business.organization.show', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            @endcan
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Email</th>
+                                                                <th>Phone Number</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </div>
 
@@ -372,86 +392,85 @@
         </div>
 
         {{--    To Do's    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>To Do's</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+        @can('view to dos')
+            <div class="row m-t-lg">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>To Do's</h5>
                         </div>
-                    </div>
-                    <div class="">
-                        <ul class="pending-to-do">
-                            @foreach($pendingToDos as $pendingToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$pendingToDo->due_date}}</small>
-                                        <h4>{{$pendingToDo->name}}</h4>
-                                        <p>{{$pendingToDo->notes}}.</p>
-                                        @if($pendingToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <div class="">
+                            <ul class="pending-to-do">
+                                @foreach($pendingToDos as $pendingToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$pendingToDo->due_date}}</small>
+                                            <h4>{{$pendingToDo->name}}</h4>
+                                            <p>{{$pendingToDo->notes}}.</p>
+                                            @if($pendingToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
 
-                        <ul class="in-progress-to-do">
-                            @foreach($inProgressToDos as $inProgressToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$inProgressToDo->due_date}}</small>
-                                        <h4>{{$inProgressToDo->name}}</h4>
-                                        <p>{{$inProgressToDo->notes}}.</p>
-                                        @if($inProgressToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="overdue-to-do">
-                            @foreach($overdueToDos as $overdueToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$overdueToDo->due_date}}</small>
-                                        <h4>{{$overdueToDo->name}}</h4>
-                                        <p>{{$overdueToDo->notes}}.</p>
-                                        @if($overdueToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
-                                        @endif
-                                        @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
-                                        @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="completed-to-do">
-                            @foreach($completedToDos as $completedToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$completedToDo->due_date}}</small>
-                                        <h4>{{$completedToDo->name}}</h4>
-                                        <p>{{$completedToDo->notes}}.</p>
-                                        @if($completedToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                            <ul class="in-progress-to-do">
+                                @foreach($inProgressToDos as $inProgressToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$inProgressToDo->due_date}}</small>
+                                            <h4>{{$inProgressToDo->name}}</h4>
+                                            <p>{{$inProgressToDo->notes}}.</p>
+                                            @if($inProgressToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="overdue-to-do">
+                                @foreach($overdueToDos as $overdueToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$overdueToDo->due_date}}</small>
+                                            <h4>{{$overdueToDo->name}}</h4>
+                                            <p>{{$overdueToDo->notes}}.</p>
+                                            @if($overdueToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
+                                            @endif
+                                            @if($overdueToDo->status->name === "Pending")
+                                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            @elseif($overdueToDo->status->name === "In progress")
+                                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="completed-to-do">
+                                @foreach($completedToDos as $completedToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$completedToDo->due_date}}</small>
+                                            <h4>{{$completedToDo->name}}</h4>
+                                            <p>{{$completedToDo->notes}}.</p>
+                                            @if($completedToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
+        @endcan
     </div>
 
 

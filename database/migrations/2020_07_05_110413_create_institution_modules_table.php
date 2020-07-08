@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoleUserTypeFeaturesTable extends Migration
+class CreateInstitutionModulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateRoleUserTypeFeaturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_user_type_features', function (Blueprint $table) {
+        Schema::create('institution_modules', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
-            $table->uuid('user_type_feature_id');
-            $table->uuid('role_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-
+            $table->uuid('module_id');
+            $table->uuid('institution_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +31,6 @@ class CreateRoleUserTypeFeaturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_user_type_features');
+        Schema::dropIfExists('institution_modules');
     }
 }

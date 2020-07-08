@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-8">
+        <div class="col-lg-4">
             <h2>Expense</h2>
             <ol class="breadcrumb">
                 <li>
@@ -22,35 +22,57 @@
                 </li>
             </ol>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-8">
             <div class="title-action">
-
-                <a href="{{route('business.expense.edit',['portal'=>$institution->portal, 'id'=>$expense->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit</a>
-                <a href="{{route('business.transaction.create',['portal'=>$institution->portal, 'id'=>$expense->id])}}" class="btn btn-warning btn-outline"> <i class="fa fa-dollar"></i> Make Payment</a>
+                @can('edit expense')
+                    <a href="{{route('business.expense.edit',['portal'=>$institution->portal, 'id'=>$expense->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit</a>
+                @endcan
+                @can('add expense payment')
+                    <a href="{{route('business.transaction.create',['portal'=>$institution->portal, 'id'=>$expense->id])}}" class="btn btn-warning btn-outline"> <i class="fa fa-dollar"></i> Make Payment</a>
+                @endcan
                 @if($expense->is_inventory_adjustment == 1)
-                    <a href="{{route('business.inventory.adjustment.show',['portal'=>$institution->portal, 'id'=>$expense->inventory_adjustment_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Inventory Adjustment </a>
+                    @can('view inventory adjustment')
+                        <a href="{{route('business.inventory.adjustment.show',['portal'=>$institution->portal, 'id'=>$expense->inventory_adjustment_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Inventory Adjustment </a>
+                    @endcan
                 @endif
                 @if($expense->is_transfer_order == 1)
-                    <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_order_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transfer Order </a>
+                    @can('view transfer order')
+                        <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_order_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transfer Order </a>
+                    @endcan
                 @endif
                 @if($expense->is_warehouse == 1)
-                    <a href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$expense->warehouse_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Warehouse </a>
+                    @can('view warehouse')
+                        <a href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$expense->warehouse_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Warehouse </a>
+                        @endcan
                 @endif
                 @if($expense->is_campaign == 1)
-                    <a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$expense->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                    @can('view campaign')
+                        <a href="{{route('business.campaign.show',['portal'=>$institution->portal, 'id'=>$expense->campaign_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                    @endcan
                 @endif
                 @if($expense->is_sale == 1)
-                    <a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$expense->sale_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Sale </a>
+                    @can('view sale')
+                        <a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$expense->sale_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Sale </a>
+                    @endcan
                 @endif
                 @if($expense->is_liability == 1)
-                    <a href="{{route('business.liability.show',['portal'=>$institution->portal, 'id'=>$expense->liability_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Liability </a>
+                    @can('view liability')
+                        <a href="{{route('business.liability.show',['portal'=>$institution->portal, 'id'=>$expense->liability_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Liability </a>
+                    @endcan
                 @endif
                 @if($expense->is_transfer == 1)
-                    <a href="{{route('business.transfer.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transfer </a>
+                    @can('view transfer')
+                        <a href="{{route('business.transfer.show',['portal'=>$institution->portal, 'id'=>$expense->transfer_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transfer </a>
+                    @endcan
                 @endif
                 @if($expense->is_transaction == 1)
-                    <a href="{{route('business.transaction.show',['portal'=>$institution->portal, 'id'=>$expense->transaction_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transaction </a>
+                    @can('view transaction')
+                        <a href="{{route('business.transaction.show',['portal'=>$institution->portal, 'id'=>$expense->transaction_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Transaction </a>
+                    @endcan
                 @endif
+                @can('add to do')
+                    <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> To Do </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -86,16 +108,24 @@
                                     <strong>Expense Account:</strong> <a href="#" class="text-navy"> {{$expense->expenseAccount->name}} </a><br>
                                     <strong>Account:</strong> <a href="#" class="text-navy"> {{$expense->account->name}} </a><br>
                                     @isset($expense->sale_id)
-                                        <strong>Sale:</strong> <a class="text-navy" href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$expense->sale_id]) }}">{{$expense->sale->reference}}</a><br>
+                                        @can('view sale')
+                                            <strong>Sale:</strong> <a class="text-navy" href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$expense->sale_id]) }}">{{$expense->sale->reference}}</a><br>
+                                        @endcan
                                     @endisset()
                                     @isset($expense->liability_id)
-                                        <strong>Liability:</strong> <a class="text-navy" href="{{ route('business.liability.show', ['portal'=>$institution->portal, 'id'=>$expense->liability_id]) }}">{{$expense->liability->reference}}</a><br>
+                                        @can('view liability')
+                                            <strong>Liability:</strong> <a class="text-navy" href="{{ route('business.liability.show', ['portal'=>$institution->portal, 'id'=>$expense->liability_id]) }}">{{$expense->liability->reference}}</a><br>
+                                        @endcan
                                     @endisset()
                                     @isset($expense->transfer_id)
-                                        <strong>Transfer:</strong> <a class="text-navy" href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$expense->transfer_id]) }}">{{$expense->transfer->reference}}</a><br>
+                                        @can('view transfer')
+                                            <strong>Transfer:</strong> <a class="text-navy" href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$expense->transfer_id]) }}">{{$expense->transfer->reference}}</a><br>
+                                        @endcan
                                     @endisset()
                                     @isset($expense->campaign_id)
-                                        <strong>Campaign:</strong> <a class="text-navy" href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$expense->campaign_id]) }}">{{$expense->campaign->name}}</a><br>
+                                        @can('view campaign')
+                                            <strong>Campaign:</strong> <a class="text-navy" href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$expense->campaign_id]) }}">{{$expense->campaign->name}}</a><br>
+                                        @endcan
                                     @endisset()
                                     <br>
                                     @if($expense->is_recurring == 1)
@@ -191,104 +221,108 @@
 
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="tab-1">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-payments" >
-                                                            <thead>
-                                                            <tr>
-                                                                <th>Date</th>
-                                                                <th>Reference #</th>
-                                                                <th>Account</th>
-                                                                <th>Amount</th>
-                                                                <th>Status</th>
-                                                                @if($expense->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
-                                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                                @endif
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            @foreach($payments as $transaction)
-                                                                <tr class="gradeA">
-                                                                    <td>{{$transaction->date}}</td>
-                                                                    <td>{{$transaction->reference}}</td>
-                                                                    <td>
-                                                                        {{$transaction->account->name}}
-                                                                    </td>
-                                                                    <td>{{$transaction->amount}}</td>
-                                                                    <td>
-                                                                        <p><span class="label {{$transaction->status->label}}">{{$transaction->status->name}}</span></p>
-                                                                    </td>
+                                                    @can('view payments')
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped table-bordered table-hover dataTables-payments" >
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>Reference #</th>
+                                                                    <th>Account</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Status</th>
                                                                     @if($expense->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
-                                                                        <td class="text-right">
-                                                                            @if($transaction->is_billed == false)
-                                                                                <div class="btn-group">
-                                                                                    <a href="{{ route('business.transaction.billed', ['portal'=>$institution->portal, 'id'=>$transaction->id]) }}" class="btn-warning btn btn-xs">Mark Billed</a>
-                                                                                </div>
-                                                                            @else
-                                                                                <label class="label label-primary">Marked Billed</label>
-                                                                            @endif
-                                                                        </td>
+                                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                                     @endif
                                                                 </tr>
-                                                            @endforeach
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <th>Date</th>
-                                                                <th>Reference #</th>
-                                                                <th>Account</th>
-                                                                <th>Amount</th>
-                                                                <th>Status</th>
-                                                                @if($expense->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
-                                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                                @endif
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
+                                                                </thead>
+                                                                <tbody>
+                                                                @foreach($payments as $transaction)
+                                                                    <tr class="gradeA">
+                                                                        <td>{{$transaction->date}}</td>
+                                                                        <td>{{$transaction->reference}}</td>
+                                                                        <td>
+                                                                            {{$transaction->account->name}}
+                                                                        </td>
+                                                                        <td>{{$transaction->amount}}</td>
+                                                                        <td>
+                                                                            <p><span class="label {{$transaction->status->label}}">{{$transaction->status->name}}</span></p>
+                                                                        </td>
+                                                                        @if($expense->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
+                                                                            <td class="text-right">
+                                                                                @if($transaction->is_billed == false)
+                                                                                    <div class="btn-group">
+                                                                                        <a href="{{ route('business.transaction.billed', ['portal'=>$institution->portal, 'id'=>$transaction->id]) }}" class="btn-warning btn btn-xs">Mark Billed</a>
+                                                                                    </div>
+                                                                                @else
+                                                                                    <label class="label label-primary">Marked Billed</label>
+                                                                                @endif
+                                                                            </td>
+                                                                        @endif
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>Reference #</th>
+                                                                    <th>Account</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Status</th>
+                                                                    @if($expense->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
+                                                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                                    @endif
+                                                                </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    @endcan
                                                 </div>
                                                 <div class="tab-pane" id="tab-2">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped table-bordered table-hover dataTables-pending-payments" >
-                                                            <thead>
-                                                            <tr>
-                                                                <th>Date</th>
-                                                                <th>Reference #</th>
-                                                                <th>Account</th>
-                                                                <th>Amount</th>
-                                                                <th>Status</th>
-                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            @foreach($pendingPayments as $transaction)
-                                                                <tr class="gradeA">
-                                                                    <td>{{$transaction->date}}</td>
-                                                                    <td>{{$transaction->reference}}</td>
-                                                                    <td>{{$transaction->account->name}}</td>
-                                                                    <td>{{$transaction->amount}}</td>
-                                                                    <td>
-                                                                        <p><span class="label {{$transaction->status->label}}">{{$transaction->status->name}}</span></p>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="btn-group">
-                                                                            <a href="{{ route('business.transaction.pending.payment', $transaction->id) }}" class="btn-warning btn btn-xs">Mark Paid</a>
-                                                                        </div>
-                                                                    </td>
+                                                    @can('view pending payments')
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped table-bordered table-hover dataTables-pending-payments" >
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>Reference #</th>
+                                                                    <th>Account</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Status</th>
+                                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                                 </tr>
-                                                            @endforeach
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                                <th>Date</th>
-                                                                <th>Reference #</th>
-                                                                <th>Account</th>
-                                                                <th>Amount</th>
-                                                                <th>Status</th>
-                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                    </div>
+                                                                </thead>
+                                                                <tbody>
+                                                                @foreach($pendingPayments as $transaction)
+                                                                    <tr class="gradeA">
+                                                                        <td>{{$transaction->date}}</td>
+                                                                        <td>{{$transaction->reference}}</td>
+                                                                        <td>{{$transaction->account->name}}</td>
+                                                                        <td>{{$transaction->amount}}</td>
+                                                                        <td>
+                                                                            <p><span class="label {{$transaction->status->label}}">{{$transaction->status->name}}</span></p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="btn-group">
+                                                                                <a href="{{ route('business.transaction.pending.payment', $transaction->id) }}" class="btn-warning btn btn-xs">Mark Paid</a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>Reference #</th>
+                                                                    <th>Account</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Status</th>
+                                                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                                </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    @endcan
                                                 </div>
                                             </div>
 
@@ -309,9 +343,6 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>To Do's</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
-                        </div>
                     </div>
                     <div class="">
                         <ul class="pending-to-do">

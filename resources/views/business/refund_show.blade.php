@@ -25,6 +25,13 @@
                 </li>
             </ol>
         </div>
+        <div class="col-md-7">
+            <div class="title-action">
+                @can('add to do')
+                    <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> To Do </a>
+                @endcan
+            </div>
+        </div>
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -82,13 +89,14 @@
                                         <textarea rows="5" id="about" name="about" required="required" class="form-control input-lg" readonly>{{$refund->notes}}</textarea>
                                         <i>notes</i>
                                     </div>
+                                    @can('edit refund')
+                                        <br>
+                                        <hr>
 
-                                    <br>
-                                    <hr>
-
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
-                                    </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
+                                        </div>
+                                    @endcan
                                 </div>
 
 
@@ -137,87 +145,85 @@
         </div>
 
         {{--    To Do's    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>To Do's</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+        @can('view to dos')
+            <div class="row m-t-lg">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>To Do's</h5>
                         </div>
-                    </div>
-                    <div class="">
-                        <ul class="pending-to-do">
-                            @foreach($pendingToDos as $pendingToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$pendingToDo->due_date}}</small>
-                                        <h4>{{$pendingToDo->name}}</h4>
-                                        <p>{{$pendingToDo->notes}}.</p>
-                                        @if($pendingToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <div class="">
+                            <ul class="pending-to-do">
+                                @foreach($pendingToDos as $pendingToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$pendingToDo->due_date}}</small>
+                                            <h4>{{$pendingToDo->name}}</h4>
+                                            <p>{{$pendingToDo->notes}}.</p>
+                                            @if($pendingToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
 
-                        <ul class="in-progress-to-do">
-                            @foreach($inProgressToDos as $inProgressToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$inProgressToDo->due_date}}</small>
-                                        <h4>{{$inProgressToDo->name}}</h4>
-                                        <p>{{$inProgressToDo->notes}}.</p>
-                                        @if($inProgressToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="overdue-to-do">
-                            @foreach($overdueToDos as $overdueToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$overdueToDo->due_date}}</small>
-                                        <h4>{{$overdueToDo->name}}</h4>
-                                        <p>{{$overdueToDo->notes}}.</p>
-                                        @if($overdueToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
-                                        @endif
-                                        @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
-                                        @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="completed-to-do">
-                            @foreach($completedToDos as $completedToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$completedToDo->due_date}}</small>
-                                        <h4>{{$completedToDo->name}}</h4>
-                                        <p>{{$completedToDo->notes}}.</p>
-                                        @if($completedToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                            <ul class="in-progress-to-do">
+                                @foreach($inProgressToDos as $inProgressToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$inProgressToDo->due_date}}</small>
+                                            <h4>{{$inProgressToDo->name}}</h4>
+                                            <p>{{$inProgressToDo->notes}}.</p>
+                                            @if($inProgressToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$inProgressToDo->id])}}"><i class="fa fa-check "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="overdue-to-do">
+                                @foreach($overdueToDos as $overdueToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$overdueToDo->due_date}}</small>
+                                            <h4>{{$overdueToDo->name}}</h4>
+                                            <p>{{$overdueToDo->notes}}.</p>
+                                            @if($overdueToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
+                                            @endif
+                                            @if($overdueToDo->status->name === "Pending")
+                                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            @elseif($overdueToDo->status->name === "In progress")
+                                                <a href="{{route('business.to.do.set.completed',['portal'=>$institution->portal, 'id'=>$overdueToDo->id])}}"><i class="fa fa-check-double "></i></a>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="completed-to-do">
+                                @foreach($completedToDos as $completedToDo)
+                                    <li>
+                                        <div>
+                                            <small>{{$completedToDo->due_date}}</small>
+                                            <h4>{{$completedToDo->name}}</h4>
+                                            <p>{{$completedToDo->notes}}.</p>
+                                            @if($completedToDo->is_design === 1)
+                                                <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
+                                            @endif
+                                            <a href="{{route('business.to.do.delete',['portal'=>$institution->portal, 'id'=>$completedToDo->id])}}"><i class="fa fa-trash-o "></i></a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-
+        @endcan
     </div>
 
 

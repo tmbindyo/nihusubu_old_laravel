@@ -18,7 +18,9 @@
         </div>
         <div class="col-lg-4">
             <div class="title-action">
-                <a href="{{route('business.composite.product.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                @can('view composite products')
+                    <a href="{{route('business.composite.product.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -58,7 +60,9 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    @can('view composite product')
+                                                        <a href="{{ route('business.composite.product.show', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

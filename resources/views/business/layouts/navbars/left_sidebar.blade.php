@@ -51,13 +51,17 @@
                 <a href="{{ route('business.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li> --}}
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'business.to.dos',$institution->portal ) ?  'active' : '' }}">
-                <a href="{{ route('business.to.dos',$institution->portal) }}"><i class="fa fa-list"></i> <span class="nav-label">To Do </span></a>
-            </li>
+            @can('view to dos')
+                <li class="nav-item {{ Route::currentRouteNamed( 'business.to.dos',$institution->portal ) ?  'active' : '' }}">
+                    <a href="{{ route('business.to.dos',$institution->portal) }}"><i class="fa fa-list"></i> <span class="nav-label">To Do </span></a>
+                </li>
+            @endcan
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar',$institution->portal ) ?  'active' : '' }}">
-               <a href="{{ route('business.calendar',$institution->portal) }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>
-            </li>
+            @can('view calendar')
+                <li class="nav-item {{ Route::currentRouteNamed( 'business.calendar',$institution->portal ) ?  'active' : '' }}">
+                   <a href="{{ route('business.calendar',$institution->portal) }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar </span></a>
+                </li>
+            @endcan
 
             <li>
                 <a href="#">
@@ -66,21 +70,27 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.product.groups',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.product.groups',$institution->portal)}}">
-                            Product Groups
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.products',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.products',$institution->portal)}}">
-                            Products
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.composite.products',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.composite.products',$institution->portal)}}">
-                            Composite Products
-                        </a>
-                    </li>
+                    @can('view product groups')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.product.groups',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.product.groups',$institution->portal)}}">
+                                Product Groups
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view products')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.products',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.products',$institution->portal)}}">
+                                Products
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view composite products')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.composite.products',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.composite.products',$institution->portal)}}">
+                                Composite Products
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
 
@@ -92,21 +102,27 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.inventory.adjustments',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.inventory.adjustments',$institution->portal)}}">
-                            Inventory Adjustments
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.transfer.orders',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.transfer.orders',$institution->portal)}}">
-                            Transfer Orders
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.warehouses',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.warehouses',$institution->portal)}}">
-                            Warehouses
-                        </a>
-                    </li>
+                    @can('view inventory adjustments')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.inventory.adjustments',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.inventory.adjustments',$institution->portal)}}">
+                                Inventory Adjustments
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view transfer orders')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.transfer.orders',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.transfer.orders',$institution->portal)}}">
+                                Transfer Orders
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view warehouses')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.warehouses',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.warehouses',$institution->portal)}}">
+                                Warehouses
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
 
@@ -118,26 +134,34 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.campaigns',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.campaigns',$institution->portal)}}">
-                            Campaign
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.contacts',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.contacts',$institution->portal)}}">
-                            Contacts
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.leads',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.leads',$institution->portal)}}">
-                            Leads
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.organizations',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.organizations',$institution->portal)}}">
-                            Organizations
-                        </a>
-                    </li>
+                    @can('view campaigns')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.campaigns',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.campaigns',$institution->portal)}}">
+                                Campaign
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view contacts')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.contacts',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.contacts',$institution->portal)}}">
+                                Contacts
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view leads')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.leads',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.leads',$institution->portal)}}">
+                                Leads
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view organizations')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.organizations',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.organizations',$institution->portal)}}">
+                                Organizations
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
 
@@ -148,21 +172,27 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.estimates',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.estimates',$institution->portal)}}">
-                            Estimates
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.invoices',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.invoices',$institution->portal)}}">
-                            Invoices
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.sales',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.sales',$institution->portal)}}">
-                            Sales
-                        </a>
-                    </li>
+                    @can('view estimates')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.estimates',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.estimates',$institution->portal)}}">
+                                Estimates
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view invoices')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.invoices',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.invoices',$institution->portal)}}">
+                                Invoices
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view sales')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.sales',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.sales',$institution->portal)}}">
+                                Sales
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
 
@@ -170,49 +200,48 @@
             <li>
                 <a href="#"><i class="fa fa-dollar"></i> <span class="nav-label">Accounting</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.accounts',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.accounts',$institution->portal)}}">
-                            Accounts
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.expenses',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.expenses',$institution->portal)}}">
-                            Expenses
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.loans',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.loans',$institution->portal)}}">
-                            Loans
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.payments',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.payments',$institution->portal)}}">
-                            Payments
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.refunds',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.refunds',$institution->portal)}}">
-                            Refunds
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.transactions',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.transactions',$institution->portal)}}">
-                            Transactions (Expense Payments)
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.transfers',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.transfers',$institution->portal)}}">
-                            Transfers
-                        </a>
-                    </li>
-
+                    @can('view accounts')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.accounts',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.accounts',$institution->portal)}}">
+                                Accounts
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view expenses')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.expenses',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.expenses',$institution->portal)}}">
+                                Expenses
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view loans')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.loans',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.loans',$institution->portal)}}">
+                                Loans
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view payments')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.payments',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.payments',$institution->portal)}}">
+                                Payments
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view refunds')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.refunds',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.refunds',$institution->portal)}}">
+                                Refunds
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view transfers')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.transfers',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.transfers',$institution->portal)}}">
+                                Transfers
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
 
@@ -223,47 +252,69 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.campaign.types',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.campaign.types',$institution->portal)}}">
-                            Campaign Types
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.contact.types',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.contact.types',$institution->portal)}}">
-                            Contact Types
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.frequencies',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.frequencies',$institution->portal)}}">
-                            Frequency
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.lead.sources',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.lead.sources',$institution->portal)}}">
-                            Lead source
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.taxes',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.taxes',$institution->portal)}}">
-                            Taxes
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.titles',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.titles',$institution->portal)}}">
-                            Titles
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'business.units',$institution->portal ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'business.units',$institution->portal)}}">
-                            Units
-                        </a>
-                    </li>
+                    @can('view campaign types')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.campaign.types',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.campaign.types',$institution->portal)}}">
+                                Campaign Types
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view contact types')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.contact.types',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.contact.types',$institution->portal)}}">
+                                Contact Types
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view frequencies')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.frequencies',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.frequencies',$institution->portal)}}">
+                                Frequency
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view lead sources')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.lead.sources',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.lead.sources',$institution->portal)}}">
+                                Lead source
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view taxes')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.taxes',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.taxes',$institution->portal)}}">
+                                Taxes
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view titles')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.titles',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.titles',$institution->portal)}}">
+                                Titles
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view units')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.units',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.units',$institution->portal)}}">
+                                Units
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view roles')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.roles',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.roles',$institution->portal)}}">
+                                Roles
+                            </a>
+                        </li>
+                    @endcan
+                    @can('view users')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.users',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.users',$institution->portal)}}">
+                                Users
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
 

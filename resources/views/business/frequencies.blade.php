@@ -21,7 +21,9 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.frequency.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Frequency  </a>
+                @can('add frequency')
+                    <a href="{{route('business.frequency.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Frequency  </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -58,12 +60,12 @@
                                             <td>{{$frequency->user->name}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.frequency.show', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    @if($frequency->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                        <a href="{{ route('business.frequency.restore', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                    @else
+                                                    @can('view frequency')
+                                                        <a href="{{ route('business.frequency.show', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    @endcan
+                                                    @can('delete frequency')
                                                         <a href="{{ route('business.frequency.delete', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                    @endif
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>
@@ -117,8 +119,12 @@
                                             <td>{{$frequency->user->name}}</td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.frequency.show', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.frequency.restore', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    @can('view frequency')
+                                                        <a href="{{ route('business.frequency.show', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    @endcan
+                                                    @can('delete frequency')
+                                                        <a href="{{ route('business.frequency.restore', ['portal'=>$institution->portal, 'id'=>$frequency->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

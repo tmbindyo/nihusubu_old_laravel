@@ -26,7 +26,7 @@ class AddAccountIdToInventoryAdjustments extends Migration
     public function down()
     {
         Schema::table('inventory_adjustments', function (Blueprint $table) {
-            //
+            $table->dropColumn(['account_id']);
         });
     }
 }

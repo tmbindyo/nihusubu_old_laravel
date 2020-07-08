@@ -392,7 +392,7 @@
                     <div class="ibox-title">
                         <h5>To Do's</h5>
                         <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> To Do </a>
                         </div>
                     </div>
                     <div class="">

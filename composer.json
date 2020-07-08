@@ -23,6 +23,7 @@
         "nesbot/carbon": "1.26.3",
         "owen-it/laravel-auditing": "^10.0",
         "sentry/sentry-laravel": "1.8.0",
+        "spatie/laravel-permission": "^3.13",
         "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {

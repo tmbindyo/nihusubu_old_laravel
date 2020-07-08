@@ -12,9 +12,11 @@
 |
 */
 
-//Route::get('/section', 'SectionSeeder@SectionSeeder')->name('section');
-Route::get('/menu', 'SectionSeeder@menuSeeder')->name('menu');
+
 Route::get('/loan/type/seeder', 'Landing\LandingController@loanTypeSeeder');
+
+//Route::get('/test/roles', 'Landing\LandingController@roleSeed');
+Route::get('/test/roles', 'Landing\LandingController@testRoles');
 
 Route::get('/debug-sentry', function () {
     throw new Exception('My first Sentry error!');
@@ -30,22 +32,10 @@ Route::get('/activate/user/account/{account_id}', 'HomeController@activateUserAc
 Route::get('/deactivate/user/accounts', 'HomeController@deactivateUserAccounts')->name('deactivate.user.accounts');
 Route::get('/create/user/account', 'HomeController@createUserAccount')->name('create.user.account');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::get('/user/{user_id}/institution/{institution_id}/invitation', 'Landing\LandingController@businessUserInvitation')->name('user.invitation');
+Route::post('/business/add/user/account', 'Business\AuthController@businessAddUserAccount')->name('business.add.user.account');
+Route::post('/business/store/user/{user_id}/institution/{institution_id}/account', 'Landing\LandingController@businessStoreUserAccount')->name('business.store.user.account');
 
-    // Routes
-//    Route::resource('user', 'UserController', ['except' => ['show']]);
-//    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-//    Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
-//    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
-
-
-//    Route::resource('user_detail', 'UserDetailController');
-
-
-//    Route::resource('service', 'ServiceController');
-
-
-});
 
 Route::get('/address/population', 'Landing\LandingController@addressPopulation')->name('address.population');
 

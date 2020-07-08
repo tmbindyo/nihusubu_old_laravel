@@ -476,7 +476,7 @@ Route::get('/{portal}/title/delete/{title_id}', 'Business\SettingController@titl
 Route::get('/{portal}/title/restore/{title_id}', 'Business\SettingController@titleRestore')->name('business.title.restore');
 
 
-// units
+// taxes
 Route::get('/{portal}/taxes', 'Business\SettingController@taxes')->name('business.taxes');
 Route::get('/{portal}/tax/create', 'Business\SettingController@taxCreate')->name('business.tax.create');
 Route::post('/{portal}/tax/store', 'Business\SettingController@taxStore')->name('business.tax.store');
@@ -484,7 +484,6 @@ Route::get('/{portal}/tax/show/{tax_id}', 'Business\SettingController@taxShow')-
 Route::post('/{portal}/tax/update/{tax_id}', 'Business\SettingController@taxUpdate')->name('business.tax.update');
 Route::get('/{portal}/tax/delete/{tax_id}', 'Business\SettingController@taxDelete')->name('business.tax.delete');
 Route::get('/{portal}/tax/restore/{tax_id}', 'Business\SettingController@taxRestore')->name('business.tax.restore');
-
 
 
 // units
@@ -497,6 +496,30 @@ Route::get('/{portal}/unit/delete/{unit_id}', 'Business\SettingController@unitDe
 Route::get('/{portal}/unit/restore/{unit_id}', 'Business\SettingController@unitRestore')->name('business.unit.restore');
 
 
+// roles
+Route::get('/{portal}/roles', 'Business\RoleController@roles')->name('business.roles');
+Route::get('/{portal}/role/create', 'Business\RoleController@roleCreate')->name('business.role.create');
+Route::post('/{portal}/role/store', 'Business\RoleController@roleStore')->name('business.role.store');
+Route::get('/{portal}/role/show/{role_id}', 'Business\RoleController@roleShow')->name('business.role.show');
+
+Route::get('/{portal}/role/update/{role_id}/permission/{permission_id}', 'Business\RoleController@updateRolePermission')->name('business.role.update.permission');
+
+Route::get('/{portal}/revoke/user/{user_id}/role/{role_id}', 'Business\RoleController@userRevokeRole')->name('business.user.revoke.role');
+Route::post('/{portal}/assign/user/role/{role_id}', 'Business\RoleController@userAssignRole')->name('business.user.assign.role');
+
+Route::post('/{portal}/role/update/{role_id}', 'Business\RoleController@roleUpdate')->name('business.role.update');
+Route::get('/{portal}/role/delete/{role_id}', 'Business\RoleController@roleDelete')->name('business.role.delete');
+Route::get('/{portal}/role/restore/{role_id}', 'Business\RoleController@roleRestore')->name('business.role.restore');
+
+
+// users
+Route::get('/{portal}/users', 'Business\RoleController@users')->name('business.users');
+Route::get('/{portal}/user/create', 'Business\RoleController@userCreate')->name('business.user.create');
+Route::post('/{portal}/user/store', 'Business\RoleController@userStore')->name('business.user.store');
+Route::get('/{portal}/user/show/{user_id}', 'Business\RoleController@userShow')->name('business.user.show');
+Route::post('/{portal}/user/update/{user_id}', 'Business\RoleController@userUpdate')->name('business.user.update');
+Route::get('/{portal}/user/delete/{user_id}', 'Business\RoleController@userDelete')->name('business.user.delete');
+Route::get('/{portal}/user/restore/{user_id}', 'Business\RoleController@userRestore')->name('business.user.restore');
 
 //Dashboard
 Route::get('/{portal}/feedbacks', 'Business\FeedbackController@feedbacks')->name('business.feedback');

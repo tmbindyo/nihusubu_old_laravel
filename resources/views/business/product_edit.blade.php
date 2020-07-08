@@ -323,15 +323,16 @@
 
                                         </div>
                                     </div>
-                                    <hr>
-                                    <br />
+                                    @can('edit product')
+                                        <hr>
+                                        <br />
 
-                                    <div class="ln_solid"></div>
+                                        <div class="ln_solid"></div>
 
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-warning btn-block btn-lg btn-outline mt-4">{{ __('Update') }}</button>
-                                    </div>
-
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-warning btn-block btn-lg btn-outline mt-4">{{ __('Update') }}</button>
+                                        </div>
+                                    @endcan
                                 </form>
                             </div>
                         </div>

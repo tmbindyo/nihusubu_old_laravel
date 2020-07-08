@@ -53,16 +53,17 @@
                                         @endif
 
                                         <div class="has-warning">
-                                            <label>Name</label>
                                             <input type="name" name="name" value="{{$campaignType->name}}" class="form-control input-lg">
                                             <i>name</i>
                                         </div>
 
-                                        <hr>
+                                        @can('edit campaign type')
+                                            <hr>
 
-                                        <div>
-                                            <button class="btn btn-lg btn-primary btn-block" type="submit"><strong>Update</strong></button>
-                                        </div>
+                                            <div>
+                                                <button class="btn btn-lg btn-primary btn-block" type="submit"><strong>Update</strong></button>
+                                            </div>
+                                        @endcan
                                     </form>
                                 </div>
                             </div>
@@ -70,66 +71,69 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Campaigns ({{$campaignType->campaigns_count}})</h5>
+            @can('view campaigns')
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Campaigns ({{$campaignType->campaigns_count}})</h5>
 
-                    </div>
-                    <div class="ibox-content">
+                            </div>
+                            <div class="ibox-content">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>User</th>
+                                                <th>Status</th>
+                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($campaigns as $campaign)
+                                                <tr class="gradeX">
+                                                    <td>{{$campaign->name}}</td>
+                                                    <td>{{$campaign->campaignType->name}}</td>
+                                                    <td>{{$campaign->start_date}}</td>
+                                                    <td>{{$campaign->end_date}}</td>
+                                                    <td>{{$campaign->user->name}}</td>
+                                                    <td>
+                                                        <span class="label {{$campaign->status->label}}">{{$campaign->status->name}}</span>
+                                                    </td>
 
-                        <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example" >
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>User</th>
-                        <th>Status</th>
-                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($campaigns as $campaign)
-                        <tr class="gradeX">
-                            <td>{{$campaign->name}}</td>
-                            <td>{{$campaign->campaignType->name}}</td>
-                            <td>{{$campaign->start_date}}</td>
-                            <td>{{$campaign->end_date}}</td>
-                            <td>{{$campaign->user->name}}</td>
-                            <td>
-                                <span class="label {{$campaign->status->label}}">{{$campaign->status->name}}</span>
-                            </td>
-
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    <td class="text-right">
+                                                        <div class="btn-group">
+                                                            @can('view campaign')
+                                                                <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                            @endcan
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>User</th>
+                                                <th>Status</th>
+                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>User</th>
-                        <th>Status</th>
-                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                    </tr>
-                    </tfoot>
-                    </table>
+                            </div>
                         </div>
-
                     </div>
                 </div>
-            </div>
-            </div>
+            @endcan
+
         </div>
 
 

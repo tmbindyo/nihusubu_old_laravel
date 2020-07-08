@@ -42,7 +42,7 @@
                                         <th>Email</th>
                                         <th>Phone Number</th>
                                         <th>Status</th>
-                                        <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                        <th class="text-right" width="80em" data-sort-ignore="true">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,8 +56,12 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$lead->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.contact.delete', ['portal'=>$institution->portal, 'id'=>$lead->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    @can('view contact')
+                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$lead->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    @endcan
+                                                    @can('delete contact')
+                                                        <a href="{{ route('business.contact.delete', ['portal'=>$institution->portal, 'id'=>$lead->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>
@@ -69,7 +73,7 @@
                                         <th>Email</th>
                                         <th>Phone Number</th>
                                         <th>Status</th>
-                                        <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                        <th class="text-right" width="80em" data-sort-ignore="true">Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -99,7 +103,7 @@
                                             <th>Email</th>
                                             <th>Phone Number</th>
                                             <th>Status</th>
-                                            <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                            <th class="text-right" width="80em" data-sort-ignore="true">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -113,8 +117,12 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$lead->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.contact.restore', ['portal'=>$institution->portal, 'id'=>$lead->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @can('view contact')
+                                                            <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$lead->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        @endcan
+                                                        @can('delete contact')
+                                                            <a href="{{ route('business.contact.restore', ['portal'=>$institution->portal, 'id'=>$lead->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @endcan
                                                     </div>
                                                 </td>
                                             </tr>
@@ -126,7 +134,7 @@
                                             <th>Email</th>
                                             <th>Phone Number</th>
                                             <th>Status</th>
-                                            <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                            <th class="text-right" width="80em" data-sort-ignore="true">Action</th>
                                         </tr>
                                     </tfoot>
                                 </table>

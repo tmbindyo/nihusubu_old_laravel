@@ -20,7 +20,9 @@
     </div>
     <div class="col-lg-4">
         <div class="title-action">
-            <a href="{{route('business.product.edit',['portal'=>$institution->portal, 'id'=>$product->id])}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
+            @can('edit product')
+                <a href="{{route('business.product.edit',['portal'=>$institution->portal, 'id'=>$product->id])}}" class="btn btn-outline btn-primary"><i class="fa fa-pencil"></i> Edit </a>
+            @endcan
         </div>
     </div>
 </div>
@@ -181,11 +183,13 @@
                                 <div class="btn-group">
                                     {{-- <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button> --}}
                                     {{-- <a href="{{route('business.expense.create',$institution->portal)}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a> --}}
-                                    @if ($product->status_id == 'bc6170bf-299a-44f5-8362-8cdeed1f47b0')
-                                        <a href="{{ route('business.product.restore', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn btn-warning btn-sm"><i class="fa fa-check"></i> Restore </a>
-                                    @else
-                                        <a href="{{ route('business.product.delete', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
-                                    @endif
+                                    @can('delete product')
+                                        @if ($product->status_id == 'bc6170bf-299a-44f5-8362-8cdeed1f47b0')
+                                            <a href="{{ route('business.product.restore', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn btn-warning btn-sm"><i class="fa fa-check"></i> Restore </a>
+                                        @else
+                                            <a href="{{ route('business.product.delete', ['portal'=>$institution->portal, 'id'=>$product->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
+                                        @endif
+                                    @endcan
                                 </div>
                             </div>
 
@@ -260,234 +264,234 @@
                                     <div class="tab-content">
                                         {{--  to do show stock from different warehouses  --}}
                                         <div class="tab-pane active" id="stock">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-stock" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Quantity</th>
-                                                        <th>Warehouse</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($product->inventory as $inventory)
-                                                        <tr class="gradeX">
-                                                            <td>{{$inventory->date}}</td>
-                                                            <td>{{$inventory->quantity}}</td>
-                                                            <td class="center">{{$inventory->warehouse->name}}</td>
-                                                            <td class="center"><span class="label {{$inventory->status->label}}">{{$inventory->status->name}}</span></td>
+                                            @can('view stock')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-stock" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Quantity</th>
+                                                            <th>Warehouse</th>
+                                                            <th>Status</th>
                                                         </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Quantity</th>
-                                                        <th>Rate</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($product->inventory as $inventory)
+                                                            <tr class="gradeX">
+                                                                <td>{{$inventory->date}}</td>
+                                                                <td>{{$inventory->quantity}}</td>
+                                                                <td class="center">{{$inventory->warehouse->name}}</td>
+                                                                <td class="center"><span class="label {{$inventory->status->label}}">{{$inventory->status->name}}</span></td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Quantity</th>
+                                                            <th>Rate</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                         <div class="tab-pane" id="sales">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-sales" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Quantity</th>
-                                                        <th>Rate</th>
-                                                        <th>Status</th>
-                                                        <th>Sale</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($product->saleProducts as $sale)
-                                                        <tr class="gradeX">
-                                                            <td>{{$sale->created_at}}</td>
-                                                            <td>{{$sale->quantity}}</td>
-                                                            <td class="center">{{$sale->rate}}</td>
-                                                            <td class="center"> <span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
+                                            @can('view sales')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-sales" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Quantity</th>
+                                                            <th>Rate</th>
+                                                            <th>Status</th>
+                                                            <th>Sale</th>
                                                         </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Quantity</th>
-                                                        <th>Rate</th>
-                                                        <th>Status</th>
-                                                        <th>Sale</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($product->saleProducts as $sale)
+                                                            <tr class="gradeX">
+                                                                <td>{{$sale->created_at}}</td>
+                                                                <td>{{$sale->quantity}}</td>
+                                                                <td class="center">{{$sale->rate}}</td>
+                                                                <td class="center"> <span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></td>
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->sale_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Quantity</th>
+                                                            <th>Rate</th>
+                                                            <th>Status</th>
+                                                            <th>Sale</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                         <div class="tab-pane" id="restock">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-restock" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Initial Quantity</th>
-                                                        <th>Restock Quantity</th>
-                                                        <th>Total Value</th>
-                                                        <th>Subsequent Quantity</th>
-                                                        <th>Restock</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($product->restock as $restock)
-                                                        <tr class="gradeX">
-                                                            <td>{{$restock->created_at}}</td>
-                                                            <td>{{$restock->initial_warehouse_amount}}</td>
-                                                            <td>{{$restock->quantity}}</td>
-                                                            <td>{{$restock->total_value}}</td>
-                                                            <td class="center">{{$restock->subsequent_warehouse_amount}}</td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    @if($restock->is_opening_stock == 0)
-                                                                        <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$restock->expenseItem->expense_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                    @else
-                                                                        <p><span class="label label-info">Opening Stock</span></p>
-                                                                    @endif
-                                                                </div>
-                                                            </td>
+                                            @can('view restock')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-restock" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Initial Quantity</th>
+                                                            <th>Restock Quantity</th>
+                                                            <th>Total Value</th>
+                                                            <th>Subsequent Quantity</th>
+                                                            <th>Restock</th>
                                                         </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Initial Quantity</th>
-                                                        <th>Restock Quantity</th>
-                                                        <th>Total Value</th>
-                                                        <th>Subsequent Quantity</th>
-                                                        <th>Restock</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($product->restock as $restock)
+                                                            <tr class="gradeX">
+                                                                <td>{{$restock->created_at}}</td>
+                                                                <td>{{$restock->initial_warehouse_amount}}</td>
+                                                                <td>{{$restock->quantity}}</td>
+                                                                <td>{{$restock->total_value}}</td>
+                                                                <td class="center">{{$restock->subsequent_warehouse_amount}}</td>
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        @if($restock->is_opening_stock == 0)
+                                                                            <a href="{{ route('business.expense.show', ['portal'=>$institution->portal, 'id'=>$restock->expenseItem->expense_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        @else
+                                                                            <p><span class="label label-info">Opening Stock</span></p>
+                                                                        @endif
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Initial Quantity</th>
+                                                            <th>Restock Quantity</th>
+                                                            <th>Total Value</th>
+                                                            <th>Subsequent Quantity</th>
+                                                            <th>Restock</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                         <div class="tab-pane" id="inventory-adjustments">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-inventory-adjustments" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Initial</th>
-                                                        <th>Adjustment</th>
-                                                        <th>Subsequent</th>
-                                                        <th>Adjustment Type</th>
-                                                        <th>Adjustment</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($product->inventoryAdjustmentProducts as $inventory_adjustment_product)
-                                                        <tr class="gradeX">
-                                                            <td>{{$inventory_adjustment_product->created_at}}</td>
-                                                            {{--  Quantity based  --}}
-                                                            @if($inventory_adjustment_product->inventoryAdjustment->is_value_adjustment == 0)
-                                                                <td>{{$inventory_adjustment_product->initial_quantity}}</td>
-                                                                <td>{{$inventory_adjustment_product->subsequent_quantity}}</td>
-                                                                <td>{{$inventory_adjustment_product->quantity}}</td>
-                                                                <td><p><span class="label label-info">Quantity Based</span></p></td>
-                                                            {{--  Value based  --}}
-                                                            @else
-                                                                <td>{{$inventory_adjustment_product->initial_warehouse_value}}</td>
-                                                                <td>{{$inventory_adjustment_product->subsequent_warehouse_value}}</td>
-                                                                <td>{{$inventory_adjustment_product->value}}</td>
-                                                                <td><p><span class="label label-info">Value Based</span></p></td>
-                                                            @endif
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('business.inventory.adjustment.show', ['portal'=>$institution->portal, 'id'=>$inventory_adjustment_product->inventory_adjustment_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
+                                            @can('view inventory adjustments')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-inventory-adjustments" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Initial</th>
+                                                            <th>Adjustment</th>
+                                                            <th>Subsequent</th>
+                                                            <th>Adjustment Type</th>
+                                                            <th>Adjustment</th>
                                                         </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Initial</th>
-                                                        <th>Adjustment</th>
-                                                        <th>Subsequent</th>
-                                                        <th>Adjustment Type</th>
-                                                        <th>Adjustment</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($product->inventoryAdjustmentProducts as $inventory_adjustment_product)
+                                                            <tr class="gradeX">
+                                                                <td>{{$inventory_adjustment_product->created_at}}</td>
+                                                                {{--  Quantity based  --}}
+                                                                @if($inventory_adjustment_product->inventoryAdjustment->is_value_adjustment == 0)
+                                                                    <td>{{$inventory_adjustment_product->initial_quantity}}</td>
+                                                                    <td>{{$inventory_adjustment_product->subsequent_quantity}}</td>
+                                                                    <td>{{$inventory_adjustment_product->quantity}}</td>
+                                                                    <td><p><span class="label label-info">Quantity Based</span></p></td>
+                                                                {{--  Value based  --}}
+                                                                @else
+                                                                    <td>{{$inventory_adjustment_product->initial_warehouse_value}}</td>
+                                                                    <td>{{$inventory_adjustment_product->subsequent_warehouse_value}}</td>
+                                                                    <td>{{$inventory_adjustment_product->value}}</td>
+                                                                    <td><p><span class="label label-info">Value Based</span></p></td>
+                                                                @endif
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        <a href="{{ route('business.inventory.adjustment.show', ['portal'=>$institution->portal, 'id'=>$inventory_adjustment_product->inventory_adjustment_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Initial</th>
+                                                            <th>Adjustment</th>
+                                                            <th>Subsequent</th>
+                                                            <th>Adjustment Type</th>
+                                                            <th>Adjustment</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                         <div class="tab-pane" id="transfer-orders">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-transfer-orders" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Source Warehouse</th>
-                                                        <th>Source Initial</th>
-                                                        <th>Source Subsequent</th>
-                                                        <th>Destination Warehouse</th>
-                                                        <th>Destination Initial</th>
-                                                        <th>Destination Subsequent</th>
-                                                        <th>Quantity</th>
-                                                        <th>Transfer Order</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($product->transferOrderProducts as $transfer_order_product)
-                                                        <tr class="gradeX">
-                                                            <td>{{$transfer_order_product->created_at}}</td>
-                                                            {{--  Quantity based  --}}
-                                                            <td>{{$transfer_order_product->transferOrder->sourceWarehouse->name}}</td>
-                                                            <td>{{$transfer_order_product->source_warehouse_initial_amount}}</td>
-                                                            <td>{{$transfer_order_product->source_warehouse_subsequent_amount}}</td>
-                                                            <td>{{$transfer_order_product->transferOrder->destinationWarehouse->name}}</td>
-                                                            <td>{{$transfer_order_product->destination_warehouse_initial_amount}}</td>
-                                                            <td>{{$transfer_order_product->destination_warehouse_subsequent_amount}}</td>
-                                                            <td>{{$transfer_order_product->quantity}}</td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal, 'id'=>$transfer_order_product->transfer_order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
+                                            @can('view transfer orders')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-transfer-orders" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Source Warehouse</th>
+                                                            <th>Source Initial</th>
+                                                            <th>Source Subsequent</th>
+                                                            <th>Destination Warehouse</th>
+                                                            <th>Destination Initial</th>
+                                                            <th>Destination Subsequent</th>
+                                                            <th>Quantity</th>
+                                                            <th>Transfer Order</th>
                                                         </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Source Warehouse</th>
-                                                        <th>Source Initial</th>
-                                                        <th>Source Subsequent</th>
-                                                        <th>Destination Warehouse</th>
-                                                        <th>Destination Initial</th>
-                                                        <th>Destination Subsequent</th>
-                                                        <th>Quantity</th>
-                                                        <th>Transfer Order</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($product->transferOrderProducts as $transfer_order_product)
+                                                            <tr class="gradeX">
+                                                                <td>{{$transfer_order_product->created_at}}</td>
+                                                                {{--  Quantity based  --}}
+                                                                <td>{{$transfer_order_product->transferOrder->sourceWarehouse->name}}</td>
+                                                                <td>{{$transfer_order_product->source_warehouse_initial_amount}}</td>
+                                                                <td>{{$transfer_order_product->source_warehouse_subsequent_amount}}</td>
+                                                                <td>{{$transfer_order_product->transferOrder->destinationWarehouse->name}}</td>
+                                                                <td>{{$transfer_order_product->destination_warehouse_initial_amount}}</td>
+                                                                <td>{{$transfer_order_product->destination_warehouse_subsequent_amount}}</td>
+                                                                <td>{{$transfer_order_product->quantity}}</td>
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        <a href="{{ route('business.transfer.order.show', ['portal'=>$institution->portal, 'id'=>$transfer_order_product->transfer_order_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Source Warehouse</th>
+                                                            <th>Source Initial</th>
+                                                            <th>Source Subsequent</th>
+                                                            <th>Destination Warehouse</th>
+                                                            <th>Destination Initial</th>
+                                                            <th>Destination Subsequent</th>
+                                                            <th>Quantity</th>
+                                                            <th>Transfer Order</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </div>
 

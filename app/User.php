@@ -2,13 +2,15 @@
 
 namespace App;
 
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+    use HasRoles;
     use SoftDeletes;
     use Notifiable;
 
@@ -255,22 +257,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany('App\Restock');
     }
-    public function roles()
-    {
-        return $this->hasMany('App\Role');
-    }
-    public function roleUserTypeFeatures()
-    {
-        return $this->hasMany('App\RoleUserTypeFeature');
-    }
-    public function roleUserTypeMenus()
-    {
-        return $this->hasMany('App\RoleUserTypeMenu');
-    }
-    public function roleUserTypeSections()
-    {
-        return $this->hasMany('App\RoleUserTypeSection');
-    }
     public function sales()
     {
         return $this->hasMany('App\Sale');
@@ -378,10 +364,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function userDetail()
     {
         return $this->hasOne('App\UserDetail');
-    }
-    public function userRoles()
-    {
-        return $this->hasMany('App\UserRole');
     }
     public function userTypes()
     {

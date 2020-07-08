@@ -25,13 +25,20 @@
             <div class="col-lg-4">
                 <div class="title-action">
                     @if($invoice->is_sale == 0)
-                        <a href="{{route('business.invoice.edit',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
-                        <a href="{{route('business.invoice.convert.to.sale',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Sale </a>
+                        @can('edit invoice')
+                            <a href="{{route('business.invoice.edit',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                        @endcan
+                        @can('convert to sale')
+                            <a href="{{route('business.invoice.convert.to.sale',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-shopping-cart"></i> Convert to Sale </a>
+                        @endcan
                     @else
-                        <a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Sale </a>
-
+                        @can('view sale')
+                            <a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Sale </a>
+                        @endcan
                     @endif
-                    <a href="{{route('business.invoice.print',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
+                        @can('print invoice')
+                        <a href="{{route('business.invoice.print',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
+                        @endcan
                 </div>
             </div>
         </div>

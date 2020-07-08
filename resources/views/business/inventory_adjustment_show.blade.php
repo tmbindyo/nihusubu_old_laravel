@@ -29,116 +29,115 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
 
-
         <div class="row">
-            <div class="col-md-6">
-                <div class="payment-card">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <i class="fa fa-database payment-icon-big text-success"></i>
-                            <h2>
-                                {{$inventoryAdjustment->reason->name}}
-                            </h2>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                {{$inventoryAdjustment->description}}
-                            </div>
-                            <div class="row">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <small>
-                                <strong>Adjustment date:</strong> {{$inventoryAdjustment->created_at}}
-                            </small>
-                        </div>
-                        <div class="col-sm-6 text-right">
-                            <small>
-                                <strong>By:</strong> {{$inventoryAdjustment->user->name}}
-                            </small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-    <div class="wrapper wrapper-content animated fadeInRight">
-
-        <div class="row">
-            <div class="col-md-12">
-
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <span class="pull-right">(<strong>{{$inventoryAdjustment->inventory_adjustment_products_count}}</strong>) items</span>
-                        <h5>Adjusted Products</h5>
-                    </div>
-                    @foreach($inventoryAdjustment->inventoryAdjustmentProducts as $product)
+            <div class="col-lg-9">
+                <div class="wrapper wrapper-content animated fadeInUp">
+                    <div class="ibox">
                         <div class="ibox-content">
-
-
-                            <div class="table-responsive">
-                                <table class="table shoping-cart-table">
-
-                                    <tbody>
-                                    <tr>
-                                        <td width="90">
-                                            <div class="cart-product-imitation">
-                                            </div>
-                                        </td>
-                                        <td class="desc">
-                                            <h3>
-                                                <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->product->id])}}" class="text-navy">
-                                                    {{$product->product->name}}
-                                                </a>
-                                            </h3>
-                                            <p class="small">
-                                                {{$inventoryAdjustment->reason->name}}
-                                            </p>
-                                            <dl class="small m-b-none">
-                                                <dt>Description lists</dt>
-                                                {{$inventoryAdjustment->description}}
-                                            </dl>
-                                        </td>
-
-                                        <td>
-                                            {{$product->subsequent_quantity}}
-                                            <s class="small text-muted">{{$product->initial_quantity}}</s>
-                                        </td>
-                                        <td width="65">
-                                            <input type="text" class="form-control" value="{{$product->quantity}}" readonly>
-                                        </td>
-                                        <td>
-                                            <h4>
-                                                {{$product->subsequent_quantity}}
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="m-b-md">
+                                        <h2>{{$inventoryAdjustment->inventory_adjustment_number}}</h2>
+                                    </div>
+                                    <dl class="dl-horizontal">
+                                        <dt>Status:</dt> <dd><span class="label label-primary">{{$inventoryAdjustment->status->name}}</span></dd>
+                                    </dl>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <dl class="dl-horizontal">
 
+                                        <dt>Created by:</dt> <dd>{{$inventoryAdjustment->user->name}}</dd>
+                                        <dt>Reason:</dt> <dd>  {{$inventoryAdjustment->reason->name}}</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-lg-7" id="cluster_info">
+                                    <dl class="dl-horizontal" >
+
+                                        @if($inventoryAdjustment->updated_at != $inventoryAdjustment->created_at)
+                                            <dt>Last Updated:</dt> <dd>{{$inventoryAdjustment->updated_at}}</dd>
+                                        @endif
+                                        <dt>Created:</dt> <dd> {{$inventoryAdjustment->created_at}} </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <dl class="dl-horizontal">
+                                        <dt>Description:</dt>
+                                        <dd>
+{{--                                            <div class="progress progress-striped active m-b-sm">--}}
+{{--                                                <div style="width: 60%;" class="progress-bar"></div>--}}
+{{--                                            </div>--}}
+                                            <small>{{$inventoryAdjustment->description}}</small>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="row m-t-sm">
+                                <div class="col-lg-12">
+                                    <div class="panel blank-panel">
+                                        <div class="panel-heading">
+                                            <div class="panel-options">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a href="#tab-2" data-toggle="tab">Adjusted Products</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-body">
+
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="tab-2">
+
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Product</th>
+                                                            <th>Initial</th>
+                                                            <th>Adjusted</th>
+                                                            <th>Subsequent</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($inventoryAdjustment->inventoryAdjustmentProducts as $product)
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->product->id])}}" class="text-navy">
+                                                                        {{$product->product->name}}
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    {{$product->initial_quantity}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$product->quantity}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$product->subsequent_quantity}}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    @endforeach
-                    <div class="ibox-content">
-
-                        {{--  <button class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
-                        <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>  --}}
-
                     </div>
                 </div>
-
             </div>
         </div>
 
-
-
-
     </div>
+
 @endsection
 @section('js')
 

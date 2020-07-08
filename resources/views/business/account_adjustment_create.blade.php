@@ -66,8 +66,8 @@
                                         </select>
                                         <i>account</i>
                                     </div>
-                                    <br>
                                     @isset($depositExists)
+                                        <br>
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <div class="has-warning">

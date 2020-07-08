@@ -7,27 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class RoleUserTypeSection extends Model implements Auditable
+class InstitutionModule extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
-    // Parents
-    public function status()
+    // parent
+    public function module()
     {
-        return $this->belongsTo('App\Status');
+        return $this->belongsTo('App\Module');
     }
     public function user()
     {
         return $this->belongsTo('App\User');
     }
-    public function userTypeSection()
+    public function status()
     {
-        return $this->belongsTo('App\UserTypeSection');
+        return $this->belongsTo('App\Status');
     }
-    public function role()
-    {
-        return $this->belongsTo('App\Role');
-    }
+
 }

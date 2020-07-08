@@ -21,7 +21,9 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.organization.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                @can('add organization')
+                    <a href="{{route('business.organization.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -63,12 +65,12 @@
 
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.organization.show', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    @if($organization->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                        <a href="{{ route('business.organization.restore', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                    @else
+                                                    @can('view organization')
+                                                        <a href="{{ route('business.organization.show', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    @endcan
+                                                    @can('delete organization')
                                                         <a href="{{ route('business.organization.delete', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                    @endif
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>
@@ -127,8 +129,12 @@
 
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.organization.show', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.organization.restore', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @can('view organization')
+                                                            <a href="{{ route('business.organization.show', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        @endcan
+                                                        @can('delete organization')
+                                                            <a href="{{ route('business.organization.restore', ['portal'=>$institution->portal, 'id'=>$organization->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @endcan
                                                     </div>
                                                 </td>
                                             </tr>

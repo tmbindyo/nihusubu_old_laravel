@@ -21,7 +21,9 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('business.campaign.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Campaign </a>
+                @can('add campaign')
+                    <a href="{{route('business.campaign.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Campaign </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -65,8 +67,12 @@
 
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                    <a href="{{ route('business.campaign.delete', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    @can('view campaign')
+                                                        <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    @endcan
+                                                    @can('delete campaign')
+                                                        <a href="{{ route('business.campaign.delete', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>
@@ -129,8 +135,12 @@
 
                                                 <td class="text-right">
                                                     <div class="btn-group">
-                                                        <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
-                                                        <a href="{{ route('business.campaign.restore', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @can('view campaign')
+                                                            <a href="{{ route('business.campaign.show', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                        @endcan
+                                                        @can('delete campaign')
+                                                            <a href="{{ route('business.campaign.restore', ['portal'=>$institution->portal, 'id'=>$campaign->id]) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @endcan
                                                     </div>
                                                 </td>
                                             </tr>
