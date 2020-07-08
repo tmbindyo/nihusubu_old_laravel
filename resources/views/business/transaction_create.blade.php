@@ -53,6 +53,11 @@
                                     <br>
                                     <div class="col-md-12">
                                         {{--  statuses  --}}
+                                        @if ($errors->has('status'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('status') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="row">
                                             <div class="has-warning">
                                                 <select name="status" class="select2_status form-control input-lg" required>
@@ -68,6 +73,11 @@
                                         {{--  accounts  --}}
                                         <div class="row">
                                             <div class="has-warning">
+                                                @if ($errors->has('account'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('account') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <select name="account" class="select2_account form-control input-lg" required>
                                                     <option></option>
                                                     @foreach($accounts as $account)
@@ -81,6 +91,11 @@
                                         {{--  amount  --}}
                                         <div class="row">
                                             <div class="has-warning">
+                                                @if ($errors->has('amount'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('amount') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="number" name="amount" id="amount" class="form-control input-lg" @if($expense) value="{{$expense->total-$expense->paid}}" max="{{$expense->total}}" @endif required>
                                                 <i> amount.</i>
                                             </div>
@@ -88,6 +103,11 @@
                                         <br>
                                         <div class="row">
                                             <div class="has-warning" id="data_1">
+                                                @if ($errors->has('date'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('date') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -100,13 +120,23 @@
                                         <br>
                                         <div class="row">
                                             <div class="has-warning">
-                                                <textarea name="notes" required placeholder="Notes" class="form-control" rows="7"></textarea>
+                                                @if ($errors->has('notes'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('notes') }}</strong>
+                                                    </span>
+                                                @endif
+                                                <textarea name="notes" required placeholder="Notes" value="{{ old('notes') }}" class="form-control" rows="7"></textarea>
                                                 <i> notes.</i>
                                             </div>
                                         </div>
                                         <br>
                                         <div class="row">
                                             <div class="has-warning">
+                                                @if ($errors->has('expense'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('expense') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <select name="expense" class="select2_expense form-control input-lg">
                                                     <option selected value="{{$expense->id}}" >{{$expense->reference}}|Ksh. {{$expense->total}}</option>
                                                 </select>

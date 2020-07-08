@@ -53,6 +53,11 @@
                                         @endif
 
                                         <div class="has-warning">
+                                            @if ($errors->has('name'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('name') }}</strong>
+                                                    </span>
+                                            @endif
                                             <input type="name" name="name" value="{{$campaignType->name}}" class="form-control input-lg">
                                             <i>name</i>
                                         </div>

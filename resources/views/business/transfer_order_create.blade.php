@@ -60,17 +60,27 @@
                             <div class="col-md-6">
                                 {{--  Mode of adjustment  --}}
                                 <div class="has-warning" id="data_1">
+                                    @if ($errors->has('date'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('date') }}</strong>
+                                        </span>
+                                    @endif
                                     <div class="input-group date">
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i></span>
-                                        <input type="text" name="date" id="date" class="form-control input-lg">
+                                        <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg">
                                     </div>
                                     <i>date</i>
                                 </div>
                                 <label>  </label>
                                 {{--  Reason  --}}
                                 <div class="has-warning">
-                                    <textarea rows="5" name="reason" required class="select form-control input-lg" placeholder="Reason"></textarea>
+                                    @if ($errors->has('reason'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('reason') }}</strong>
+                                        </span>
+                                    @endif
+                                    <textarea rows="5" name="reason" required class="select form-control input-lg" placeholder="Reason">{{ old('name') }}</textarea>
                                     <i>description</i>
                                 </div>
                             </div>
@@ -82,6 +92,11 @@
                         <br>
                         <div class="row">
                             <div class="col-md-6">
+                                @if ($errors->has('source_warehouse'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('source_warehouse') }}</strong>
+                                    </span>
+                                @endif
                                 <div class="has-warning">
                                     <select onchange = "returnWarehouseDetails(this)" onfocus = "this.selectedIndex = 0" name="source_warehouse" class="select2 form-control input-lg">
                                         <option disabled>Select Source Warehouse</option>
@@ -93,6 +108,11 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                @if ($errors->has('destination_warehouse'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('destination_warehouse') }}</strong>
+                                    </span>
+                                @endif
                                 <div class="has-warning">
                                     <select onchange = "destinationwarehouseSelected(this)" onfocus = "this.selectedIndex = 0" name="destination_warehouse" class="select2 form-control input-lg">
                                         <option disabled>Select Destination Warehouse</option>

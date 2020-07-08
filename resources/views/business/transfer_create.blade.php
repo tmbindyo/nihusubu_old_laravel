@@ -53,22 +53,37 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" placeholder="Amount" class="form-control input-lg">
+                                        @if ($errors->has('amount'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('amount') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="number" id="amount" name="amount" value="{{ old('amount') }}" required="required" placeholder="Amount" class="form-control input-lg">
                                         <i>amount</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
+                                        @if ($errors->has('date'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('date') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="input-group date">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" id="date" class="form-control input-lg" aria-required="true">
+                                            <input type="text" required="required" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" aria-required="true">
                                         </div>
                                         <i>What is the start date of the transfer?</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('source_account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('source_account') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="source_account" class="select2_source_account form-control input-lg" required>
                                             <option></option>
                                             @foreach ($accounts as $sourceAccount)
@@ -79,6 +94,11 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('destination_account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('destination_account') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="destination_account" class="select2_destination_account form-control input-lg" required>
                                             <option></option>
                                             @foreach ($accounts as $destinationAccount)
@@ -90,7 +110,12 @@
                                     <br>
                                     <div class="has-warning">
                                         <div class="has-warning">
-                                            <textarea id="notes" rows="5" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="About..."></textarea>
+                                            @if ($errors->has('notes'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('notes') }}</strong>
+                                            </span>
+                                            @endif
+                                            <textarea id="notes" rows="5" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="About...">{{ old('notes') }}</textarea>
                                         </div>
                                     </div>
 

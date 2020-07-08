@@ -62,6 +62,11 @@
                                                 <div class="col-md-12">
                                                     <br>
                                                     <div class="has-warning">
+                                                        @if ($errors->has('name'))
+                                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                                <strong>{{ $errors->first('name') }}</strong>
+                                                            </span>
+                                                        @endif
                                                         <input type="text" id="name" name="name" required="required" value="{{$role->name}}" class="form-control input-lg">
                                                         <i>name</i>
                                                     </div>
@@ -100,6 +105,11 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="has-warning">
+                                                            @if ($errors->has('user'))
+                                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                                <strong>{{ $errors->first('user') }}</strong>
+                                                            </span>
+                                                            @endif
                                                             <select name="user" style="width: 100%" class="select2_user form-control input-lg">
                                                                 <option></option>
                                                                 @foreach ($pendingUsers as $user)
@@ -111,7 +121,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @can('edit role')
+                                                @can('user assign role')
                                                     <hr>
                                                     <div class="text-center">
                                                         <button type="submit" class="btn btn-block btn-outline btn-lg btn-success mt-4">{{ __('Save') }}</button>
@@ -155,7 +165,9 @@
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('business.user.revoke.role', ['portal'=>$institution->portal, 'id'=>encrypt($user->id), 'role_id'=>$role->id]) }}" class="btn-success btn-danger btn btn-xs">Revoke</a>
+                                                @can('user revoke role')
+                                                    <a href="{{ route('business.user.revoke.role', ['portal'=>$institution->portal, 'id'=>encrypt($user->id), 'role_id'=>$role->id]) }}" class="btn-success btn-danger btn btn-xs">Revoke</a>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

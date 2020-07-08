@@ -56,6 +56,11 @@
 
                                 <div class="col-md-12">
                                     <br>
+                                    @if ($errors->has('is_percentage'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('is_percentage') }}</strong>
+                                        </span>
+                                    @endif
                                     <div class="checkbox">
                                         <input id="is_percentage" name="is_percentage" @if($tax->is_percentage == 1) checked @endif type="checkbox">
                                         <label for="is_percentage">
@@ -65,11 +70,21 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                        @endif
                                         <input type="text" id="name" name="name" required="required" value="{{$tax->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('amount'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('amount') }}</strong>
+                                        </span>
+                                        @endif
                                         <input type="number" id="amount" name="amount" required="required" value="{{$tax->amount}}" class="form-control input-lg">
                                         <i>amount</i>
                                     </div>

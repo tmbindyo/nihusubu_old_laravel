@@ -79,6 +79,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning" id="data_1">
+                                                @if ($errors->has('start_date'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('start_date') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -91,6 +96,11 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning" id="data_1">
+                                                @if ($errors->has('end_date'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('end_date') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -106,6 +116,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('type'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('type') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <select name="type" class="select2_demo_campaign_type form-control input-lg">
                                                     <option></option>
                                                     @foreach ($campaignTypes as $campaignType)
@@ -118,6 +133,11 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('expected_revenue'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('expected_revenue') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="number" id="expected_revenue" name="expected_revenue" required="required" value="{{$campaign->expected_revenue}}" class="form-control input-lg">
                                                 <i>expected revenue</i>
                                             </div>
@@ -127,12 +147,22 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('actual_cost'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('actual_cost') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="number" id="actual_cost" name="actual_cost" required="required" value="{{$campaign->actual_cost}}" class="form-control input-lg" readonly>
                                                 <i>actual cost</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('budgeted_cost'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('budgeted_cost') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" value="{{$campaign->budgeted_cost}}" class="form-control input-lg">
                                                 <i>budgeted cost</i>
                                             </div>
@@ -142,12 +172,22 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('description'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('description') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$campaign->description}}</textarea>
                                                 <i>Give a brief description on what the project is about</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('expected_response'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('expected_response') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <textarea rows="5" id="expected_response" name="expected_response" required="required" class="form-control input-lg">{{$campaign->expected_response}}</textarea>
                                                 <i>Give a the expected response</i>
                                             </div>

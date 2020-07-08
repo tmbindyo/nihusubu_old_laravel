@@ -50,7 +50,12 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                        @endif
+                                        <input type="text" id="name" name="name" required="required" value="{{ old('name') }}" placeholder="Name" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
 

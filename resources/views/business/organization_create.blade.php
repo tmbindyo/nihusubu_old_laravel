@@ -59,14 +59,24 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('name'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
-                                                <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
+                                                <input type="text" id="name" name="name" required="required" placeholder="Name" value="{{ old('name') }}" class="form-control input-lg">
                                                 <i>name</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            @if ($errors->has('phone_number'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('phone_number') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
-                                                <input type="text" id="phone_number" name="phone_number" required="required" placeholder="Phone Number" class="form-control input-lg">
+                                                <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required="required" placeholder="Phone Number" class="form-control input-lg">
                                                 <i>phone number</i>
                                             </div>
                                         </div>
@@ -74,14 +84,24 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('email'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
-                                                <input type="email" id="email" name="email" required="required" placeholder="Email" class="form-control input-lg">
+                                                <input type="email" id="email" name="email" value="{{ old('email') }}" required="required" placeholder="Email" class="form-control input-lg">
                                                 <i>email</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            @if ($errors->has('website'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('website') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
-                                                <input type="url" id="website" name="website" required="required" placeholder="Website" class="form-control input-lg">
+                                                <input type="url" id="website" name="website" value="{{ old('website') }}" required="required" placeholder="Website" class="form-control input-lg">
                                                 <i>website</i>
                                             </div>
                                         </div>
@@ -89,14 +109,24 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('street'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('street') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
-                                                <input type="text" id="street" name="street" required="required" placeholder="Street" class="form-control input-lg">
+                                                <input type="text" id="street" name="street" value="{{ old('street') }}" required="required" placeholder="Street" class="form-control input-lg">
                                                 <i>street</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            @if ($errors->has('city'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('city') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
-                                                <input type="text" id="city" name="city" required="required" placeholder="City" class="form-control input-lg">
+                                                <input type="text" id="city" name="city" value="{{ old('city') }}" required="required" placeholder="City" class="form-control input-lg">
                                                 <i>city</i>
                                             </div>
                                         </div>
@@ -104,6 +134,11 @@
                                     <br>
                                     <div class="">
                                         <div class="has-warning">
+                                            @if ($errors->has('parent_organization'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('parent_organization') }}</strong>
+                                            </span>
+                                            @endif
                                             <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg">
                                                 <option></option>
                                                 @foreach ($organizations as $organization)
@@ -116,6 +151,11 @@
                                     <br>
                                     <div class="">
                                         <div class="has-warning">
+                                            @if ($errors->has('campaign'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('campaign') }}</strong>
+                                            </span>
+                                            @endif
                                             <select name="campaign" class="select2_campaign form-control input-lg">
                                                 <option></option>
                                                 @foreach ($campaigns as $campaign)
@@ -127,7 +167,12 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Description" class="form-control input-lg"></textarea>
+                                        @if ($errors->has('description'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('description') }}</strong>
+                                            </span>
+                                        @endif
+                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Description" class="form-control input-lg">{{ old('description') }}</textarea>
                                         <i>description</i>
                                     </div>
 

@@ -70,6 +70,11 @@
 
 
                                     <div class="">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                        @endif
                                         <div class="has-warning">
                                             <input type="name" name="name" value="{{$account->name}}" class="form-control input-lg">
                                         </div>
@@ -77,6 +82,11 @@
                                     </div>
                                     <br>
                                     <div class="">
+                                        @if ($errors->has('balance'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('balance') }}</strong>
+                                        </span>
+                                        @endif
                                         <div class="has-warning">
                                             <input type="number" name="balance" value="{{$account->balance}}" class="form-control input-lg" readonly>
                                         </div>
@@ -84,6 +94,11 @@
                                     </div>
                                     <br>
                                     <div class="">
+                                        @if ($errors->has('notes'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('notes') }}</strong>
+                                        </span>
+                                        @endif
                                         <div class="has-warning">
                                             <textarea rows="5" name="notes" class="form-control input-lg" >{{$account->notes}}</textarea>
                                         </div>

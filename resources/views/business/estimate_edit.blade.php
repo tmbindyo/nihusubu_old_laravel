@@ -55,6 +55,11 @@
                                         <div class="col-md-12">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
+                                                @if ($errors->has('contact'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('contact') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <select name="contact" class="select2_contact form-control input-lg" required>
                                                     <option selected disabled>Select Customer</option>
                                                     @foreach($contacts as $contact)
@@ -66,6 +71,11 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="has-warning" id="data_1">
+                                                        @if ($errors->has('date'))
+                                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                                <strong>{{ $errors->first('date') }}</strong>
+                                                            </span>
+                                                        @endif
                                                         <div class="input-group date">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
@@ -77,6 +87,11 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="has-warning" id="data_1">
+                                                        @if ($errors->has('due_date'))
+                                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                                <strong>{{ $errors->first('due_date') }}</strong>
+                                                            </span>
+                                                        @endif
                                                         <div class="input-group date">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>

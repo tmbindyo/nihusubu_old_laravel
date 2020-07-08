@@ -50,12 +50,22 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="text" id="name" name="name" required="required" placeholder="Name" value="{{ old('name') }}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea name="description" required rows="5" class="select form-control input-lg" placeholder="Description"></textarea>
+                                        @if ($errors->has('description'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('description') }}</strong>
+                                            </span>
+                                        @endif
+                                        <textarea name="description" required rows="5" class="select form-control input-lg" placeholder="Description">value="{{ old('description') }}"</textarea>
                                         <i>description</i>
                                     </div>
 

@@ -73,11 +73,21 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('paid'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('paid') }}</strong>
+                                            </span>
+                                        @endif
                                         <input type="number" id="paid" name="paid" required="required" value="{{$payment->amount}}" class="form-control input-lg" readonly>
                                         <i>paid</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
+                                        @if ($errors->has('date'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('date') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="input-group date">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
@@ -89,6 +99,11 @@
                                     </div>
                                     <br>
                                     <div class="has-warning" readonly>
+                                        @if ($errors->has('account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('account') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="account" class="select2_demo_tag form-control input-lg">
                                             <option value="{{$payment->account->id}}">{{$payment->account->name}} [{{$payment->account->balance}}]</option>
                                         </select>
@@ -96,6 +111,11 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('warning'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('warning') }}</strong>
+                                            </span>
+                                        @endif
                                         <textarea rows="5" id="about" name="about" required="required" class="form-control input-lg" readonly>{{$payment->notes}}</textarea>
                                         <i>notes</i>
                                     </div>

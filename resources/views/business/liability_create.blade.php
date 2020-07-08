@@ -58,6 +58,11 @@
                                 <div class="col-lg-12">
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('principal'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('principal') }}</strong>
+                                            </span>
+                                        @endif
                                         <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" value="0" class="form-control input-lg">
                                         <i>principal</i>
                                     </div>
@@ -65,47 +70,77 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="has-warning">
+                                                @if ($errors->has('interest'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('interest') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="0" max="100" step="0.00001" class="form-control input-lg">
                                                 <i>key in interest in percentage</i>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="has-warning">
+                                                @if ($errors->has('interest_amount'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('interest_amount') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="0" class="form-control input-lg">
                                                 <i>key in interest amount</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <input type="number" id="total" name="total" required="required" readonly value="0" class="form-control input-lg">
+                                                @if ($errors->has('total'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('total') }}</strong>
+                                                    </span>
+                                                @endif
+                                                <input type="number" id="total" name="total" required="required" readonly value="@if (empty(old(total))) 0 @else {{ old('name') }} @endif" class="form-control input-lg">
                                                 <i>total</i>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
+                                        @if ($errors->has('date'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('date') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="input-group date">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" id="date" class="form-control input-lg">
+                                            <input type="text" required="required" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg">
                                         </div>
                                         <i>date</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
+                                        @if ($errors->has('due_date'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('due_date') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="input-group date">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="due_date" id="due_date" class="form-control input-lg">
+                                            <input type="text" required="required" name="due_date" id="due_date" value="{{ old('due_date') }}" class="form-control input-lg">
                                         </div>
                                         <i>due date</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('account') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="account" class="select2_account form-control input-lg" required>
                                             <option></option>
                                             @foreach ($accounts as $account)
@@ -116,6 +151,11 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('contact'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('contact') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="contact" class="select2_contact form-control input-lg" required>
                                             <option></option>
                                             @foreach ($contacts as $contact)
@@ -126,7 +166,12 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        @if ($errors->has('about'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('about') }}</strong>
+                                            </span>
+                                        @endif
+                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg">{{ old('about') }}</textarea>
                                         <i>Give a brief description on what the project is about</i>
                                     </div>
 

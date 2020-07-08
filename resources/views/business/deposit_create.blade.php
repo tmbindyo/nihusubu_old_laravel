@@ -53,22 +53,37 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" placeholder="Amount" class="form-control input-lg">
+                                        @if ($errors->has('amount'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('amount') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="number" id="amount" name="amount" required="required" placeholder="Amount" value="{{ old('amount') }}" class="form-control input-lg">
                                         <i>amount</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
+                                        @if ($errors->has('date'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('date') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="input-group date">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" id="date" class="form-control input-lg">
+                                            <input type="text" required="required" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg">
                                         </div>
                                         <i>What is the start date of the event?</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('account') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="account" class="select2_account form-control input-lg">
                                             <option></option>
                                             @foreach ($accounts as $account)
@@ -79,7 +94,12 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        @if ($errors->has('about'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('about') }}</strong>
+                                            </span>
+                                        @endif
+                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg">{{ old('about') }}"</textarea>
                                         <i>about deposit</i>
                                     </div>
 
@@ -98,9 +118,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
 @endsection

@@ -57,6 +57,11 @@
                             <div class="col-md-12">
                                 {{--  Mode of adjustment  --}}
                                 {{--  todo only one should be selectable  --}}
+                                @if ($errors->has('mode_of_adjustment'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('mode_of_adjustment') }}</strong>
+                                    </span>
+                                @endif
                                 <p>Mode of adjustment</p>
                                 <div class="radio radio-inline">
                                     <input type="radio" id="value" value="value" name="mode_of_adjustment" onclick = "adjustmentTypeSelected(this)">
@@ -76,6 +81,11 @@
                                     <div class="col-lg-6">
                                         {{--  Account  --}}
                                         <div class="has-warning">
+                                            @if ($errors->has('account'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('account') }}</strong>
+                                                </span>
+                                            @endif
                                             <select name="account"  class="select2_account form-control input-lg">
                                                 <option></option>
                                                 @foreach($accounts as $account)
@@ -88,9 +98,14 @@
                                     <div class="col-lg-6">
                                         {{--  Date  --}}
                                         <div class="has-warning" id="data_1">
+                                            @if ($errors->has('date'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('date') }}</strong>
+                                                </span>
+                                            @endif
                                             <div class="input-group date">
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                <input name="date" id="date" type="text" class="form-control input-lg" required>
+                                                <input name="date" id="date" value="{{ old('date') }}" type="text" class="form-control input-lg" required>
                                             </div>
                                             <i>date</i>
                                         </div>
@@ -101,6 +116,11 @@
                                     <div class="col-lg-6">
                                         {{--  Reason  --}}
                                         <div class="has-warning">
+                                            @if ($errors->has('reason'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('reason') }}</strong>
+                                                </span>
+                                            @endif
                                             <select name="reason" class="select2_reason form-control input-lg">
                                                 <option></option>
                                                 @foreach($reasons as $reason)
@@ -113,6 +133,11 @@
                                     <div class="col-lg-6">
                                         {{--  Warehouse  --}}
                                         <div class="has-warning">
+                                            @if ($errors->has('warehouse'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('warehouse') }}</strong>
+                                                </span>
+                                            @endif
                                             <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="select2_warehouse form-control input-lg">
                                                 <option></option>
                                                 @foreach($warehouses as $warehouse)
@@ -128,10 +153,14 @@
 
                                 {{--  Description  --}}
                                 <div class="">
-                                    <textarea rows="5" id="description" name="description" required class="form-control input-lg" placeholder="Description"></textarea>
+                                    @if ($errors->has('description'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('description') }}</strong>
+                                        </span>
+                                    @endif
+                                    <textarea rows="5" id="description" name="description" required class="form-control input-lg" placeholder="Description">{{ old('name') }}</textarea>
                                     <i>describe the purpose of the inventory adjustment</i>
                                 </div>
-
 
 
                             </div>

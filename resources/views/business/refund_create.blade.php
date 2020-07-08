@@ -56,22 +56,37 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$payment->amount}}" class="form-control input-lg">
+                                        @if ($errors->has('amount'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('amount') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="number" id="amount" name="amount" value="{{ old('amount') }}" required="required" value="{{$payment->amount}}" class="form-control input-lg">
                                         <i>amount</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
+                                        @if ($errors->has('date_required'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('date_required') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="input-group date">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date_acquired" id="date_acquired" class="form-control input-lg">
+                                            <input type="text" required="required" name="date_acquired" id="date_acquired" value="{{ old('date_required') }}" class="form-control input-lg">
                                         </div>
                                         <i>Date paid</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('account') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="account" class="select2_account form-control input-lg" required>
                                             <option></option>
                                             @foreach ($accounts as $account)
@@ -82,11 +97,21 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        @if ($errors->has('notes'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('notes') }}</strong>
+                                            </span>
+                                        @endif
+                                        <textarea rows="5" id="notes" name="notes" value="{{ old('notes') }}" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
                                         <i>notes</i>
                                     </div>
                                     <br>
                                     <div class="row">
+                                        @if ($errors->has('payment'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('payment') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="col-md-2">
                                             <div class="has-warning">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">

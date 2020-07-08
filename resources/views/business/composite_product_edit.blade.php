@@ -49,7 +49,11 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         {{--  Product type  --}}
-                                        {{--  todo only one should be selectable  --}}
+                                        @if ($errors->has('product_type'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('product_type') }}</strong>
+                                            </span>
+                                        @endif
                                         <p>Product Type</p>
                                         <div class="radio radio-inline">
                                             <input type="radio" id="goods" value="goods" name="product_type" checked="" @if($compositeProduct->is_service == 1) checked @endif>
@@ -60,14 +64,25 @@
                                             <label for="services"> Service </label>
                                         </div>
                                         {{--  Product name  --}}
+                                        <br>
+                                        <br>
                                         <div class="has-warning">
-                                            <label>  </label>
+                                            @if ($errors->has('product_name'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('product_name') }}</strong>
+                                            </span>
+                                            @endif
                                             <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" value="{{$compositeProduct->name}}">
                                             <i>name</i>
                                         </div>
                                         {{--  Product Unit  --}}
+                                        <br>
                                         <div class="has-warning">
-                                            <label>  </label>
+                                            @if ($errors->has('unit'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('unit') }}</strong>
+                                            </span>
+                                            @endif
                                             <select name="unit" class="select2_unit form-control input-lg" required>
                                                 <option disabled>Select Unit</option>
                                                 @foreach($units as $unit)
@@ -76,9 +91,12 @@
                                             </select>
                                             <i>unit</i>
                                         </div>
-                                        <label>  </label>
                                         {{--  Product returnable  --}}
-                                        {{--todo description tooltip--}}
+                                        @if ($errors->has('returnable'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('returnable') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="checkbox">
                                             <input id="returnable" name="returnable" type="checkbox" @if($compositeProduct->is_returnable == 1) checked @endif>
                                             <label for="returnable">
@@ -96,11 +114,16 @@
 
                                 {{--  Sales and purchase information  --}}
                                 <h3 class="text-center">SALES AND PURCHASE INFORMATION</h3>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-6">
                                         {{--  Selling price  --}}
                                         <div class="has-warning">
-                                            <label class="text-danger"></label>
+                                            @if ($errors->has('selling_price'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('selling_price') }}</strong>
+                                            </span>
+                                            @endif
                                             <input type="text" id="selling_price" name="selling_price" required="required" value="{{$compositeProduct->selling_price}}" class="form-control input-lg">
                                             <i>selling price</i>
                                         </div>
@@ -108,13 +131,16 @@
                                     <div class="col-md-6">
                                         {{--  Selling Account  --}}
                                         <div class="row">
+                                            @if ($errors->has('selling_account'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('selling_account') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="col-md-1">
-                                                <label class="text-danger"></label>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you sell will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
                                             <div class="col-md-11">
                                                 <div class="has-warning">
-                                                    <label class="text-danger"></label>
                                                     <select name="selling_account" class="select2_selling_account form-control input-lg" required>
                                                         <option value="" selected disabled>Select Selling Account</option>
                                                         @foreach($salesAccounts as $account)
@@ -127,10 +153,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-6">
                                         {{--  Product Tax  --}}
-                                        <label></label>
+                                        @if ($errors->has('taxes'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('taxes') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="taxes[]" class="select2_taxes form-control input-lg" multiple required>
                                             <option disabled>Select tax</option>
                                             @foreach($taxes as $tax)

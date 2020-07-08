@@ -55,6 +55,11 @@
                                     @endif
 
                                     <div class="has-warning">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
                                         <input type="name" name="name" value="{{$leadSource->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>

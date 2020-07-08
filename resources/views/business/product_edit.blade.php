@@ -61,7 +61,11 @@
                                         <div class="col-md-6">
                                             {{--  Product type  --}}
                                             {{--  todo only one should be selectable  --}}
-
+                                            @if ($errors->has('product_type'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('product_type') }}</strong>
+                                                </span>
+                                            @endif
                                             <p>Product Type</p>
                                             <div class="radio radio-inline">
                                                 <input type="radio" id="goods" value="goods" name="product_type" @if($product->is_service == false)  checked="" @endif onclick = "productTypeSelected(this)">
@@ -77,6 +81,11 @@
 
                                             {{--  Name  --}}
                                             <div class="has-warning">
+                                                @if ($errors->has('name'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('name') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" id="name" name="name" required="required" class="form-control input-lg" value="{{$product->name}}">
                                                 <i>name</i>
                                             </div>
@@ -85,6 +94,11 @@
                                             <div class="row">
                                                 <div class="col-md-11">
                                                     <div class="has-warning">
+                                                        @if ($errors->has('unit'))
+                                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                                <strong>{{ $errors->first('unit') }}</strong>
+                                                            </span>
+                                                        @endif
                                                         <select name="unit" class="select2_unit form-control input-lg" required>
                                                             <option value="" disabled>Select Unit</option>
                                                             @foreach($units as $unit)
@@ -103,6 +117,11 @@
                                             <label>  </label>
                                             {{--  Product returnable  --}}
                                             {{--todo description tooltip--}}
+                                            @if ($errors->has('is_returnable'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('is_returnable') }}</strong>
+                                                </span>
+                                            @endif
                                             <div class="checkbox">
                                                 <input id="is_returnable" name="is_returnable" type="checkbox" @if($product->is_returnable == True) checked @endif>
                                                 <label for="is_returnable">
@@ -121,6 +140,11 @@
                                     <label>Description.</label>
                                     <div class="">
                                         {{--  Description  --}}
+                                        @if ($errors->has('description'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('description') }}</strong>
+                                            </span>
+                                        @endif
                                         <textarea id="summernote" class="summernote" name="description">
                                         {!! $product->description !!}
                                     </textarea>
@@ -135,7 +159,11 @@
                                             <h4 class="text-center">SALES INFORMATION</h4>
                                             {{--  Product purchase account  --}}
                                             <div class="row">
-
+                                                @if ($errors->has('selling_account'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('selling_account') }}</strong>
+                                                </span>
+                                                @endif
                                                 <div class="col-md-11">
                                                     <select name="selling_account" class="select2_selling_account form-control input-lg" required>
                                                         <option value="" disabled>Select Selling Account</option>
@@ -155,7 +183,11 @@
                                             <h4 class="text-center">PURCHASE INFORMATION</h4>
                                             {{--  Product selling account  --}}
                                             <div class="row">
-
+                                                @if ($errors->has('purchase_account'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('purchase_account') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="col-md-11">
                                                     <div class="has-warning">
                                                         <label class="text-danger"></label>
@@ -189,6 +221,11 @@
                                         <div class="col-md-6">
                                             {{--  Selling price  --}}
                                             <div class="has-warning">
+                                                @if ($errors->has('selling_price'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('selling_price') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" id="selling_price" name="selling_price" required="required" value="{{$product->selling_price}}" class="form-control input-lg">
                                                 <i>selling price</i>
                                             </div>
@@ -196,6 +233,11 @@
                                         <div class="col-md-6">
                                             {{--  Purchase price  --}}
                                             <div class="has-warning">
+                                                @if ($errors->has('purchase_price'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('purchase_price') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" id="purchase_price" name="purchase_price" required="required" value="{{$product->purchase_price}}" class="form-control input-lg">
                                                 <i>purchase price</i>
                                             </div>
@@ -205,6 +247,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             {{--  Product Tax  --}}
+                                            @if ($errors->has('taxes'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('taxes') }}</strong>
+                                                </span>
+                                            @endif
                                             <select name="taxes[]" class="select2_taxes form-control input-lg" required multiple>
                                                 @foreach($taxes as $tax)
                                                     <option @foreach ($product->productTaxes as $product_tax) {{$product_tax->tax_id}}  @if($product_tax->tax_id == $tax->id) selected @endif @endforeach value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
@@ -216,6 +263,11 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('is_created'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('is_created') }}</strong>
+                                                </span>
+                                            @endif
                                             <div class="checkbox checkbox-info">
                                                 <input id="is_created" name="is_created" type="checkbox" @if($product->is_created == True) checked @endif>
                                                 <label for="is_created">
@@ -232,10 +284,20 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('creation_time'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('creation_time') }}</strong>
+                                                </span>
+                                            @endif
                                             <input type="number" id="creation_time" name="creation_time" value="{{$product->creation_time}}" class="form-control input-lg">
                                             <i>Average time taken to manufacture/create or add value to it in minutes.</i>
                                         </div>
                                         <div class="col-md-6">
+                                            @if ($errors->has('creation_cost'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('creation_cost') }}</strong>
+                                                </span>
+                                            @endif
                                             <input type="number" id="creation_cost" name="creation_cost" value="{{$product->creation_cost}}" class="form-control input-lg">
                                             <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
                                         </div>
@@ -249,7 +311,11 @@
                                         <div class="col-md-6">
                                             {{--  Inventory account  --}}
                                             <div class="row">
-
+                                                @if ($errors->has('inventory_account'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('inventory_account') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="col-md-11">
                                                     <div class="has-warning">
                                                         <select name="inventory_account" name="inventory_account"  class="select2_inventory_account form-control input-lg" required>
@@ -276,7 +342,11 @@
                                         <div class="col-md-6">
                                             {{--  Opening stock  --}}
                                             <div class="row">
-
+                                                @if ($errors->has('opening_stock'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('opening_stock') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="col-md-11">
                                                     <input type="number" id="opening_stock" name="opening_stock" required="required" class="form-control input-lg" value="{{$product->opening_stock}}">
                                                     <i>opening stock</i>
@@ -291,7 +361,11 @@
                                             {{--  Opening stock value  --}}
                                             {{--  todo Make KES (currency) dynamic  --}}
                                             <div class="row">
-
+                                                @if ($errors->has('opening_stock_value'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('opening_stock_value') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="col-md-11">
                                                     <input type="number" id="opening_stock_value" name="opening_stock_value" required="required" class="form-control input-lg" value="{{$product->opening_stock}}">
                                                     <i>opening stock value</i>
@@ -308,7 +382,11 @@
                                         <div class="col-md-6">
                                             {{--  Reorder Level  --}}
                                             <div class="row">
-
+                                                @if ($errors->has('reorder_value'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('reorder_value') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="col-md-11">
                                                     <input type="number" id="reorder_level" name="reorder_level" required="required" class="form-control input-lg" value="{{$product->reorder_level}}">
                                                     <i>reorder level</i>

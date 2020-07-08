@@ -44,7 +44,7 @@
                                 @endif
                                 {{--  Product  --}}
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         {{--  Product type  --}}
                                         {{--  todo only one should be selectable  --}}
                                         <div class="has-warning">
@@ -71,7 +71,7 @@
                                                     <strong>{{ $errors->first('product_name') }}</strong>
                                                 </span>
                                             @endif
-                                            <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" placeholder="Product name">
+                                            <input type="text" id="product_name" name="product_name" value="{{ old('product_name') }}" required="required" class="form-control input-lg" placeholder="Product name">
                                             <i>name</i>
                                         </div>
                                         <br>
@@ -116,6 +116,7 @@
 
                                 {{--  Sales and purchase information  --}}
                                 <h3 class="text-center">SALES AND PURCHASE INFORMATION</h3>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-6">
                                         {{--  Selling price  --}}
@@ -125,21 +126,23 @@
                                                     <strong>{{ $errors->first('selling_price') }}</strong>
                                                 </span>
                                             @endif
-                                            <label class="text-danger"></label>
-                                            <input type="text" id="selling_price" name="selling_price" required="required" placeholder="Selling Price" class="form-control input-lg">
+                                            <input type="text" id="selling_price" name="selling_price" value="{{ old('selling_price') }}" required="required" placeholder="Selling Price" class="form-control input-lg">
                                             <i>selling price</i>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         {{--  Selling Account  --}}
                                         <div class="row">
+                                            @if ($errors->has('selling_account'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('selling_account') }}</strong>
+                                                </span>
+                                            @endif
                                             <div class="col-md-1">
-                                                <label class="text-danger"></label>
                                                 <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you sell will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
                                             <div class="col-md-11">
                                                 <div class="has-warning">
-                                                    <label class="text-danger"></label>
                                                     <select name="selling_account" class="select2_selling_account form-control input-lg" required>
                                                         <option></option>
                                                         @foreach($salesAccounts as $account)
@@ -152,10 +155,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <br>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        @if ($errors->has('taxes'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('taxes') }}</strong>
+                                            </span>
+                                        @endif
                                         {{--  Product Tax  --}}
-                                        <label></label>
                                         <select name="taxes[]" class="select2_taxes form-control input-lg" multiple required>
                                             <option></option>
                                             @foreach($taxes as $tax)

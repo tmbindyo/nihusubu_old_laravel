@@ -69,12 +69,22 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('name'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
                                                 <input type="text" id="name" name="name" required="required" value="{{$organization->name}}" class="form-control input-lg">
                                                 <i>name</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            @if ($errors->has('parent_organization'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('parent_organization') }}</strong>
+                                            </span>
+                                            @endif
                                             <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg">
                                                 <option></option>
                                                 @foreach ($organizations as $parent_organization)
@@ -88,12 +98,22 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('phone_number'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('phone_number') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
                                                 <input type="text" id="phone_number" name="phone_number" required="required" value="{{$organization->phone_number}}" class="form-control input-lg">
                                                 <i>phone number</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            @if ($errors->has('email'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
                                                 <input type="email" id="email" name="email" required="required" value="{{$organization->email}}" class="form-control input-lg">
                                                 <i>email</i>
@@ -103,12 +123,22 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('street'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('street') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
                                                 <input type="text" id="street" name="street" required="required" value="{{$organization->street}}" class="form-control input-lg">
                                                 <i>street</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            @if ($errors->has('city'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('city') }}</strong>
+                                            </span>
+                                            @endif
                                             <div class="has-warning">
                                                 <input type="text" id="city" name="city" required="required" value="{{$organization->city}}" class="form-control input-lg">
                                                 <i>city</i>
@@ -118,6 +148,11 @@
                                     <br>
                                     <div class="">
                                         <div class="has-warning">
+                                            @if ($errors->has('website'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('website') }}</strong>
+                                            </span>
+                                            @endif
                                             <input type="text" id="website" name="website" required="required" value="{{$organization->website}}" class="form-control input-lg">
                                             <i>website</i>
                                         </div>
@@ -126,6 +161,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="has-warning">
+                                                @if ($errors->has('description'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('description') }}</strong>
+                                                </span>
+                                                @endif
                                                 <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$organization->description}}</textarea>
                                                 <i>description</i>
                                             </div>

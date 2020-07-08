@@ -58,11 +58,21 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                        @endif
                                         <input type="text" id="name" name="name" required="required" value="{{$feedback->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('description'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('description') }}</strong>
+                                        </span>
+                                        @endif
                                         <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$feedback->description}}</textarea>
                                         <i>description</i>
                                     </div>

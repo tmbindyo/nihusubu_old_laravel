@@ -25,7 +25,7 @@
                 @can('view expense payments')
                     <a href="{{route( 'business.transactions',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Expense Payments </a>
                 @endcan
-                @can('add expense')
+                @can('add expenses')
                     <a href="{{route('business.expense.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
                 @endcan
             </div>

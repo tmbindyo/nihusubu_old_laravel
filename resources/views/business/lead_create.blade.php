@@ -60,6 +60,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="has-warning">
+                                            @if ($errors->has('title'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('title') }}</strong>
+                                                </span>
+                                            @endif
                                             <select required="required" name="title" class="select2_title form-control input-lg" aria-required="true">
                                                 <option></option>
                                                 @foreach($titles as $title)
@@ -74,15 +79,25 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="has-warning">
-                                            <input type="text" id="first_name" name="first_name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="First Name">
-                                            <i>test</i>
+                                            @if ($errors->has('first_name'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('first_name') }}</strong>
+                                                </span>
+                                            @endif
+                                            <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="First Name">
+                                            <i>first name</i>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="has-warning">
-                                            <input type="text" id="last_name" name="last_name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Last Name">
-                                            <i>test</i>
+                                            @if ($errors->has('last_name'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('last_name') }}</strong>
+                                                </span>
+                                            @endif
+                                            <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Last Name">
+                                            <i>last name</i>
                                         </div>
                                     </div>
                                 </div>
@@ -90,14 +105,24 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="has-warning">
-                                            <input type="text" id="phone_number" name="phone_number" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Phone number">
+                                            @if ($errors->has('phone_number'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('phone_number') }}</strong>
+                                                </span>
+                                            @endif
+                                            <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Phone number">
                                             <i>phone number</i>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="has-warning">
-                                            <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Email">
+                                            @if ($errors->has('email'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                            @endif
+                                            <input type="email" id="email" name="email" value="{{ old('email') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Email">
                                             <i>test</i>
                                         </div>
                                     </div>
@@ -105,6 +130,11 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        @if ($errors->has('organization'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('organization') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="organization" class="select2_organization form-control input-lg">
                                             <option></option>
                                             @foreach($organizations as $organization)
@@ -116,6 +146,11 @@
 
                                     <div class="col-md-6">
                                         <div class="has-warning">
+                                            @if ($errors->has('contact_types'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('contact_types') }}</strong>
+                                                </span>
+                                            @endif
                                             <select required="required" name="contact_types[]" class="select2_contact_type form-control input-lg" multiple>
                                                 <option></option>
                                                 @foreach($contactTypes as $contactType)
@@ -129,6 +164,11 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        @if ($errors->has('lead_source'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('lead_source') }}</strong>
+                                            </span>
+                                        @endif
                                         <select required="required" name="lead_source" class="select2_lead_source form-control input-lg">
                                             <option></option>
                                             @foreach($leadSources as $leadSource)
@@ -140,6 +180,11 @@
 
                                     <div class="col-md-6">
                                         <div class="has-warning">
+                                            @if ($errors->has('campaign'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('campaign') }}</strong>
+                                                </span>
+                                            @endif
                                             <select name="campaign" class="select2_campaign form-control input-lg">
                                                 <option></option>
                                                 @foreach($campaigns as $campaign)
@@ -154,7 +199,12 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <div class="has-warning">
-                                            <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required" placeholder="About..."></textarea>
+                                            @if ($errors->has('about'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('about') }}</strong>
+                                                </span>
+                                            @endif
+                                            <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required" placeholder="About...">{{ old('name') }}</textarea>
                                         </div>
                                     </div>
 

@@ -50,12 +50,22 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="text" id="name" name="name" required="required" placeholder="Name" value="{{ old('name') }}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea name="description" rows="5" class="select form-control input-lg" placeholder="Description"></textarea>
+                                        @if ($errors->has('description'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('description') }}</strong>
+                                        </span>
+                                        @endif
+                                        <textarea name="description" rows="5" class="select form-control input-lg" placeholder="Description">{{ old('name') }}</textarea>
                                     </div>
                                     <br>
                                     <hr>
@@ -64,8 +74,6 @@
                                         <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
                                     </div>
                                 </div>
-
-
                             </form>
                             </div>
                         </div>
@@ -73,9 +81,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
 @endsection

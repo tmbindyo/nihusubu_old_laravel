@@ -70,7 +70,12 @@
                                 <br>
                                 {{--  Product group name  --}}
                                 <div class="has-warning">
-                                    <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" placeholder="Product Group Name">
+                                    @if ($errors->has('product_name'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('product_name') }}</strong>
+                                        </span>
+                                    @endif
+                                    <input type="text" id="product_name" name="product_name" value="{{ old('product_name') }}" required="required" class="form-control input-lg" placeholder="Product Group Name">
                                     <i>name</i>
                                 </div>
                                 <br>
@@ -78,6 +83,11 @@
                                 <div class="row">
                                     <div class="col-md-11">
                                         <div class="has-warning">
+                                            @if ($errors->has('unit'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('unit') }}</strong>
+                                                </span>
+                                            @endif
                                             <select name="unit" class="select form-control input-lg" required>
                                                 <option value="" selected disabled>Select Unit</option>
                                                 @foreach($units as $unit)
@@ -93,6 +103,11 @@
                                 </div>
                                 <br>
                                 {{--  Product returnable  --}}
+                                @if ($errors->has('is_returnable'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('is_returnable') }}</strong>
+                                    </span>
+                                @endif
                                 <div class="checkbox">
                                     <input id="is_returnable" name="is_returnable" type="checkbox">
                                     <label for="is_returnable">
@@ -110,6 +125,11 @@
                         <br>
                         <label>Description.</label>
                         {{--  Description  --}}
+                        @if ($errors->has('description'))
+                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                <strong>{{ $errors->first('description') }}</strong>
+                            </span>
+                        @endif
                         <textarea id="summernote" class="summernote" name="description">
                             <h3>Sample description format</h3>
                                 dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry</strong> standard dummy text ever since the 1500s,
@@ -131,7 +151,11 @@
                                 <h4 class="text-center">SALES INFORMATION</h4>
                                 {{--  Product purchase account  --}}
                                 <div class="row">
-
+                                    @if ($errors->has('selling_account'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('selling_account') }}</strong>
+                                        </span>
+                                    @endif
                                     <div class="col-md-11">
                                         <label></label>
                                         <select name="selling_account" class="select form-control input-lg" required>
@@ -152,7 +176,11 @@
                                 <h4 class="text-center">PURCHASE INFORMATION</h4>
                                 {{--  Product selling account  --}}
                                 <div class="row">
-
+                                    @if ($errors->has('purchase_account'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('purchase_account') }}</strong>
+                                        </span>
+                                    @endif
                                     <div class="col-md-11">
                                         <div class="has-warning">
                                             <label class="text-danger"></label>
@@ -185,6 +213,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 {{--  Product Tax  --}}
+                                @if ($errors->has('taxes'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('taxes') }}</strong>
+                                    </span>
+                                @endif
                                 <label></label>
                                 <select name="taxes[]" class="taxes-select form-control input-lg" multiple="multiple">
                                     <option value="" disabled>Select Taxes</option>
@@ -198,6 +231,11 @@
                         <br>
                         <div class="row">
                             <div class="col-md-6">
+                                @if ($errors->has('is_created'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('is_created') }}</strong>
+                                    </span>
+                                @endif
                                 <div class="checkbox checkbox-info">
                                     <input id="is_created" name="is_created" type="checkbox">
                                     <label for="is_created">
@@ -214,11 +252,21 @@
                         <br>
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="number" id="creation_time" name="creation_time" placeholder="Creation/Value addition time" class="form-control input-lg">
+                                @if ($errors->has('creation_time'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('creation_time') }}</strong>
+                                    </span>
+                                @endif
+                                <input type="number" id="creation_time" name="creation_time" value="{{ old('creation_time') }}" placeholder="Creation/Value addition time" class="form-control input-lg">
                                 <i>average time taken to manufacture/create or add value to it in minutes.</i>
                             </div>
                             <div class="col-md-6">
-                                <input type="number" id="creation_cost" name="creation_cost" placeholder="Average Creation/Value Addition cost" class="form-control input-lg">
+                                @if ($errors->has('creation_cost'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('creation_cost') }}</strong>
+                                    </span>
+                                @endif
+                                <input type="number" id="creation_cost" name="creation_cost" value="{{ old('creation_cost') }}" placeholder="Average Creation/Value Addition cost" class="form-control input-lg">
                                 <i>average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
                             </div>
                         </div>
@@ -231,7 +279,11 @@
                             <div class="col-md-6">
                                 {{--  Inventory account  --}}
                                 <div class="row">
-
+                                    @if ($errors->has('inventory_account'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('inventory_account') }}</strong>
+                                        </span>
+                                    @endif
                                     <div class="col-md-11">
                                         <div class="has-warning">
                                             <label class="text-danger"></label>

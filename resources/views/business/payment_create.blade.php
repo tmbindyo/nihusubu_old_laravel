@@ -53,65 +53,100 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="has-warning">
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <input name="is_loan" type="checkbox" class="js-switch_2" />
-                                                    <br>
-                                                    <i>check if loan.</i>
+
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                @if ($errors->has('loan'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('loan') }}</strong>
+                                                    </span>
+                                                @endif
+                                                <div class="col-md-4">
+                                                    <div class="has-warning">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <input name="is_loan" type="checkbox" class="js-switch_2" />
+                                                            <br>
+                                                            <i>check if loan.</i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="has-warning">
+                                                        <select name="loan" class="select2_loan form-control input-lg">
+                                                            <option></option>
+                                                            @foreach ($loans as $loan)
+                                                                <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <i>loan</i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="has-warning">
-                                                <select name="loan" class="select2_loan form-control input-lg">
-                                                    <option></option>
-                                                    @foreach ($loans as $loan)
-                                                        <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
-                                                    @endforeach
-                                                </select>
-                                                <i>loan</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="has-warning">
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <input name="is_sale" type="checkbox" class="js-switch_3" />
-                                                    <br>
-                                                    <i>check if sale.</i>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                @if ($errors->has('sale'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('sale') }}</strong>
+                                                    </span>
+                                                @endif
+                                                <div class="col-md-4">
+                                                    <div class="has-warning">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <input name="is_sale" type="checkbox" class="js-switch_3" />
+                                                            <br>
+                                                            <i>check if sale.</i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="has-warning">
+                                                        <select name="sale" class="select2_sale form-control input-lg">
+                                                            <option></option>
+                                                            @foreach ($sales as $sale)
+                                                                <option value="{{$sale->id}}">{{$sale->reference}} [{{$sale->total}}]</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <i>sale</i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="has-warning">
-                                                <select name="sale" class="select2_sale form-control input-lg">
-                                                    <option></option>
-                                                    @foreach ($sales as $sale)
-                                                        <option value="{{$sale->id}}">{{$sale->reference}} [{{$sale->total}}]</option>
-                                                    @endforeach
-                                                </select>
-                                                <i>sale</i>
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" placeholder="Paid" class="form-control input-lg">
+                                        @if ($errors->has('amount'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('amount') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="number" id="amount" name="amount" value="{{ old('date') }}" required="required" placeholder="Paid" class="form-control input-lg">
                                         <i>amount</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
+                                        @if ($errors->has('date_acquired'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('date_acquired') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="input-group date">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date_acquired" id="date_acquired" class="form-control input-lg">
+                                            <input type="text" required="required" name="date_acquired" id="date_acquired" value="{{ old('date_acquired') }}" class="form-control input-lg">
                                         </div>
                                         <i>Date paid</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('account') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="account" class="select2_account form-control input-lg">
                                             <option></option>
                                             @foreach ($accounts as $account)
@@ -122,7 +157,12 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        @if ($errors->has('notes'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('notes') }}</strong>
+                                            </span>
+                                        @endif
+                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" value="{{ old('notes') }}" class="form-control input-lg"></textarea>
                                         <i>notes</i>
                                     </div>
 

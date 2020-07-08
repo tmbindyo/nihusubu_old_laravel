@@ -241,7 +241,8 @@ class PermissionTableSeeder extends Seeder
         $permission = Permission::create(['name' => 'add role','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'view role','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'view roles','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
-        $permission = Permission::create(['name' => 'revoke role permission','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'user assign role','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'user revoke role','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'edit role','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'delete role','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
 

@@ -50,6 +50,11 @@
                                 <div class="col-md-12">
                                     <br>
                                     {{--  Product returnable  --}}
+                                    @if ($errors->has('is_percentage'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('is_percentage') }}</strong>
+                                        </span>
+                                    @endif
                                     <div class="checkbox">
                                         <input id="is_percentage" name="is_percentage" type="checkbox">
                                         <label for="is_percentage">
@@ -59,12 +64,22 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required placeholder="Name" class="form-control input-lg">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="text" id="name" name="name" required placeholder="Name" value="{{ old('name') }}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" name="amount" class="select form-control input-lg" placeholder="Amount" required>
+                                        @if ($errors->has('amount'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('amount') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="number" name="amount" class="select form-control input-lg" value="{{ old('amount') }}" placeholder="Amount" required>
                                         <i>amount</i>
                                     </div>
 

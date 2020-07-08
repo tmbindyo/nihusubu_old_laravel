@@ -66,11 +66,21 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('amount'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('amount') }}</strong>
+                                            </span>
+                                        @endif
                                         <input type="number" id="amount" name="amount" required="required" value="{{$withdrawal->amount}}" class="form-control input-lg" readonly>
                                         <i>amount</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
+                                        @if ($errors->has('date'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('date') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="input-group date">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
@@ -82,6 +92,11 @@
                                     </div>
                                     <br>
                                     <div class="has-warning" readonly>
+                                        @if ($errors->has('account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('account') }}</strong>
+                                            </span>
+                                        @endif
                                         <select name="account" class="select2_demo_tag form-control input-lg">
                                             <option value="{{$withdrawal->account->id}}">{{$withdrawal->account->name}} [{{$withdrawal->account->balance}}]</option>
                                         </select>
@@ -89,6 +104,11 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('about'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('about') }}</strong>
+                                            </span>
+                                        @endif
                                         <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg" readonly>{{$withdrawal->about}}</textarea>
                                         <i>about withdrawal</i>
                                     </div>

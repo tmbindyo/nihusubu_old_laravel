@@ -75,6 +75,11 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('is_lead'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('is_lead') }}</strong>
+                                            </span>
+                                            @endif
                                             <input type="checkbox" name="is_lead" class="js-switch_3" @if($contact->is_lead == True) checked @endif/>
                                             <i>lead</i>
                                         </div>
@@ -82,6 +87,11 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('title'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('title') }}</strong>
+                                            </span>
+                                            @endif
                                             <select required="required" name="title" class="select2_demo_title form-control input-lg">
                                                 <option></option>
                                                 @foreach($titles as $title)
@@ -95,6 +105,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('first_name'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('first_name') }}</strong>
+                                            </span>
+                                                @endif
                                                 <input type="text" id="first_name" name="first_name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$contact->first_name}}">
                                                 <i>first name</i>
                                             </div>
@@ -102,6 +117,11 @@
 
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('last_name'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('last_name') }}</strong>
+                                            </span>
+                                                @endif
                                                 <input type="text" id="last_name" name="last_name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$contact->last_name}}">
                                                 <i>last name</i>
                                             </div>
@@ -111,6 +131,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('phone_number'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('phone_number') }}</strong>
+                                            </span>
+                                                @endif
                                                 <input type="text" id="phone_number" name="phone_number" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$contact->phone_number}}">
                                                 <i>phone number</i>
                                             </div>
@@ -118,6 +143,11 @@
 
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('email'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                                @endif
                                                 <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$contact->email}}">
                                                 <i>email</i>
                                             </div>
@@ -126,6 +156,11 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('organization'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('organization') }}</strong>
+                                            </span>
+                                            @endif
                                             <select name="organization" class="select2_demo_organization form-control input-lg">
                                                 <option></option>
                                                 @foreach($organizations as $organization)
@@ -135,6 +170,11 @@
                                             <i>organization</i>
                                         </div>
                                         <div class="col-md-6">
+                                            @if ($errors->has('contact_types'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('contact_types') }}</strong>
+                                            </span>
+                                            @endif
                                             <select required="required" name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple>
                                                 <option></option>
                                                 @foreach($contactTypes as $contactType)
@@ -147,6 +187,11 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            @if ($errors->has('lead_source'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('lead_source') }}</strong>
+                                            </span>
+                                            @endif
                                             <select name="lead_source" class="select2_demo_lead_source form-control input-lg">
                                                 <option></option>
                                                 @foreach($leadSources as $leadSource)
@@ -158,6 +203,11 @@
 
                                         <div class="col-md-6">
                                             <div class="has-warning">
+                                                @if ($errors->has('campaign'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('campaign') }}</strong>
+                                            </span>
+                                                @endif
                                                 <select name="campaign" class="select2_demo_campaign form-control input-lg">
                                                     <option></option>
                                                     @foreach($campaigns as $campaign)
@@ -172,6 +222,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="has-warning">
+                                                @if ($errors->has('about'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('about') }}</strong>
+                                            </span>
+                                                @endif
                                                 <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required">{{$contact->about}}</textarea>
                                             </div>
                                         </div>

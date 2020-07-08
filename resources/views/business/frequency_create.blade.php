@@ -50,11 +50,21 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                        @endif
+                                        <input type="text" id="name" name="name" required="required" placeholder="Name" value="{{ old('name') }}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('type'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('type') }}</strong>
+                                        </span>
+                                        @endif
                                         <select name="type" class="select2_demo_type form-control input-lg" required="required">
                                             <option></option>
                                             <option value="day">day</option>
@@ -66,7 +76,12 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="frequency" name="frequency" required="required" placeholder="Frequency" class="form-control input-lg">
+                                        @if ($errors->has('frequency'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('frequency') }}</strong>
+                                        </span>
+                                        @endif
+                                        <input type="number" id="frequency" name="frequency" value="{{ old('frequency') }}" required="required" placeholder="Frequency" class="form-control input-lg">
                                         <i>frequency</i>
                                     </div>
 

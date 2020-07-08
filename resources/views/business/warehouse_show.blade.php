@@ -59,6 +59,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="has-warning">
+                                                @if ($errors->has('name'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('name') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" id="name" name="name" required="required" value="{{$warehouse->name}}" class="form-control input-lg">
                                                 <i>name</i>
                                             </div>
@@ -69,6 +74,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="">
+                                                @if ($errors->has('street'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('street') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" id="street" name="street" required="required" value="{{$warehouse->address->street}}" class="form-control input-lg">
                                                 <i>street</i>
                                             </div>
@@ -76,6 +86,11 @@
 
                                         <div class="col-md-6">
                                             <div class="">
+                                                @if ($errors->has('town'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('town') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" name="town" id="town" class="form-control input-lg" value="{{$warehouse->address->town}}">
                                                 <i>town</i>
                                             </div>
@@ -86,6 +101,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="">
+                                                @if ($errors->has('po_box'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('po_box') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" id="po_box" name="po_box" required="required" value="{{$warehouse->address->po_box}}" class="form-control input-lg">
                                                 <i>po box</i>
                                             </div>
@@ -93,6 +113,11 @@
 
                                         <div class="col-md-6">
                                             <div class="">
+                                                @if ($errors->has('postal_code'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('postal_code') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" name="postal_code" id="postal_code" class="form-control input-lg" value="{{$warehouse->address->postal_code}}">
                                                 <i>postal code</i>
                                             </div>
@@ -103,6 +128,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="">
+                                                @if ($errors->has('address_line_1'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('address_line_1') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" id="address_line_1" name="address_line_1" required="required" value="{{$warehouse->address->address_line_1}}" class="form-control input-lg">
                                                 <i>address line 1</i>
                                             </div>
@@ -110,6 +140,11 @@
 
                                         <div class="col-md-6">
                                             <div class="">
+                                                @if ($errors->has('address_line_2'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('address_line_2') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" name="address_line_2" id="address_line_2" class="form-control input-lg" value="{{$warehouse->address->address_line_2}}">
                                                 <i>address line 2</i>
                                             </div>
@@ -120,6 +155,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="">
+                                                @if ($errors->has('email'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('email') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" id="email" name="email" required="required" value="{{$warehouse->address->email}}" class="form-control input-lg">
                                                 <i>email</i>
                                             </div>
@@ -127,6 +167,11 @@
 
                                         <div class="col-md-6">
                                             <div class="">
+                                                @if ($errors->has('phone_number'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('phone_number') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <input type="text" name="phone_number" id="phone_number" class="form-control input-lg" value="{{$warehouse->address->phone_number}}">
                                                 <i>phone number</i>
                                             </div>
