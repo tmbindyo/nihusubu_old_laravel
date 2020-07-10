@@ -16,8 +16,7 @@ class ServiceTypePricingTableSeeder extends Seeder
             'description' => 'Free for all.',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('service_type_pricings')->insert([
@@ -26,8 +25,7 @@ class ServiceTypePricingTableSeeder extends Seeder
             'description' => 'Standard fee.',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('service_type_pricings')->insert([
@@ -36,8 +34,7 @@ class ServiceTypePricingTableSeeder extends Seeder
             'description' => 'Dependent on number of users.',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('service_type_pricings')->insert([
@@ -46,8 +43,7 @@ class ServiceTypePricingTableSeeder extends Seeder
             'description' => 'Complimentary if one pays for another.',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('service_type_pricings')->insert([
@@ -56,8 +52,7 @@ class ServiceTypePricingTableSeeder extends Seeder
             'description' => 'Complimentary discounted if one pays for another.',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
     }

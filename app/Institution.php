@@ -18,6 +18,10 @@ class Institution extends Model implements Auditable
     {
         return $this->belongsTo('App\Address');
     }
+    public function commerceTemplate()
+    {
+        return $this->belongsTo('App\CommerceTemplate');
+    }
     public function currency()
     {
         return $this->belongsTo('App\Currency');

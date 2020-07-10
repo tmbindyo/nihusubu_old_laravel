@@ -17,8 +17,7 @@ class ReasonTableSeeder extends Seeder
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('reasons')->insert([
@@ -27,8 +26,7 @@ class ReasonTableSeeder extends Seeder
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('reasons')->insert([
@@ -37,8 +35,7 @@ class ReasonTableSeeder extends Seeder
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('reasons')->insert([
@@ -47,8 +44,7 @@ class ReasonTableSeeder extends Seeder
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('reasons')->insert([
@@ -57,8 +53,7 @@ class ReasonTableSeeder extends Seeder
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('reasons')->insert([
@@ -67,8 +62,7 @@ class ReasonTableSeeder extends Seeder
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('reasons')->insert([
@@ -77,8 +71,7 @@ class ReasonTableSeeder extends Seeder
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'institution_id' => 'ce8a6a8a-03a2-4c97-9cd7-863c7fc48c68',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
 

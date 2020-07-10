@@ -18,8 +18,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 3,
             'is_institution' => true,
             'is_user' => false,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         // Expense expense accounts
@@ -30,8 +29,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => true,
             'is_user' => false,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         // Income accounts
@@ -42,8 +40,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => true,
             'is_user' => false,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         // Stock accounts
@@ -54,8 +51,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => true,
             'is_user' => false,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
 
@@ -70,8 +66,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -81,8 +76,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -92,8 +86,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -103,8 +96,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -114,8 +106,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -125,8 +116,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -136,8 +126,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -147,8 +136,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -158,8 +146,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -169,8 +156,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -180,8 +166,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -191,8 +176,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -202,8 +186,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('account_types')->insert([
@@ -213,8 +196,7 @@ class AccountTypeTableSeeder extends Seeder
             'user_id' => 1,
             'is_institution' => false,
             'is_user' => true,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
     }
 }

@@ -16,8 +16,7 @@ class UserTypeTableSeeder extends Seeder
             'name' => 'Admin',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('user_types')->insert([
@@ -25,8 +24,7 @@ class UserTypeTableSeeder extends Seeder
             'name' => 'Personal',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('user_types')->insert([
@@ -34,8 +32,7 @@ class UserTypeTableSeeder extends Seeder
             'name' => 'Business',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
     }
 }

@@ -15,8 +15,7 @@ class IncomeTypeTableSeeder extends Seeder
             'name' => 'Billing',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('income_types')->insert([
@@ -24,8 +23,7 @@ class IncomeTypeTableSeeder extends Seeder
             'name' => 'Shipping',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('income_types')->insert([
@@ -33,8 +31,7 @@ class IncomeTypeTableSeeder extends Seeder
             'name' => 'User',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
     }

@@ -64,13 +64,41 @@ class RoleController extends Controller
 
     public function roleStore(Request $request, $portal)
     {
-        //  return $request;
         // User
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
+        // role name
+        $roleName = $institution->portal.' '.$request->name;
+        // check if role exists
+        $roleNameExists = Role::where('name',$roleName)->first();
+        if ($roleNameExists){
+            return back()->withWarning('Role '.$request->name.' exists!');
+        }
         // Create role
-        $role = Role::create(['name' => $request->name, 'institution_id' => $institution->id]);
+        $role = Role::create(['name' => $roleName, 'institution_id' => $institution->id]);
+
+        return redirect()->route('business.role.show',['portal'=>$institution->portal, 'id'=>$role->id])->withSuccess('Role '.$role->name.' successfully created!');
+    }
+
+    public function roleUpdate(Request $request, $portal, $role_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Get the navbar values
+        $institution = $this->getInstitution($portal);
+        // role name
+        $roleName = $institution->portal.' '.$request->name;
+        // check if role exists
+        $roleNameExists = Role::where('name',$roleName)->first();
+        if ($roleNameExists){
+            return back()->withWarning('Role '.$request->name.' exists!');
+        }else{
+            // update role
+            $role = Role::where('id',$role_id)->first();
+            $role->name = $roleName;
+            $role->save();
+        }
 
         return redirect()->route('business.role.show',['portal'=>$institution->portal, 'id'=>$role->id])->withSuccess('Role '.$role->name.' successfully created!');
     }

@@ -37,4 +37,12 @@ trait InstitutionTrait
 
     }
 
+    public function getPublicInstitution($portal)
+    {
+
+        $institution = Institution::where('portal',$portal)->with('currency','address','plan','commerceTemplate.commerceTemplateFiles')->first();
+        return $institution;
+
+    }
+
 }

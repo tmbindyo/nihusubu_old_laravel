@@ -15,8 +15,7 @@ class UploadTypeTableSeeder extends Seeder
             'name' => 'avatar',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('service_types')->insert([
@@ -24,8 +23,7 @@ class UploadTypeTableSeeder extends Seeder
             'name' => 'product',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('service_types')->insert([
@@ -33,8 +31,7 @@ class UploadTypeTableSeeder extends Seeder
             'name' => 'file',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
 

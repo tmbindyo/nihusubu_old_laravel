@@ -196,7 +196,7 @@ class HomeController extends Controller
     private function institutionAdminRoleSeeder ($request, $user, $institution){
 
         // create role
-        $role = Role::create(['name' => $institution->name.' admin','institution_id' => $institution->id]);
+        $role = Role::create(['name' => $institution->portal.' admin','institution_id' => $institution->id]);
 
         // get institution modules
         $institutionModules = InstitutionModule::where('institution_id',$institution->id)->select('module_id')->get()->toArray();

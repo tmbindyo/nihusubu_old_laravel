@@ -67,7 +67,7 @@
                                                                 <strong>{{ $errors->first('name') }}</strong>
                                                             </span>
                                                         @endif
-                                                        <input type="text" id="name" name="name" required="required" value="{{$role->name}}" class="form-control input-lg">
+                                                        <input type="text" id="name" name="name" required="required" value="{{str_replace($institution->portal.' ', "", $role->name)}}" class="form-control input-lg">
                                                         <i>name</i>
                                                     </div>
 
@@ -195,6 +195,11 @@
                         <div class="ibox">
                             <div class="ibox-title">
                                 <h5 class="text-center">{{$institutionModule->module->name}}</h5>
+
+                                <div class="ibox-tools">
+                                    {{-- todo add way to grant all permissions of module --}}
+{{--                                    <input type="checkbox" class="pull-right js-switch-{{$institutionModule->id}}" />--}}
+                                </div>
                             </div>
                             <div class="ibox-content">
                                 <div class="row">
@@ -252,6 +257,9 @@
     <!-- Select2 -->
     <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
+    <!-- Switchery -->
+    <script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
+
     <style>
 
         .grid .ibox {
@@ -284,6 +292,14 @@
                 placeholder: "Select User",
                 allowClear: true
             });
+
+            var elem = document.querySelector('.js-switch-2c4f7085-b137-4717-8f00-5e1a3be905c1');
+            var switchery = new Switchery(elem, { color: '#1AB394' });
+
+            @foreach($institutionModules as $institutionModule)
+                var elem = document.querySelector('.js-switch-{{$institutionModule->id}}');
+                var switchery = new Switchery(elem, { color: '#1AB394' });
+            @endforeach
 
         });
 

@@ -18,8 +18,7 @@ class UserTableSeeder extends Seeder
             'phone_number' => '+254708085122',
             'email_verified_at' => now(),
             'password' => Hash::make('RoBANdoREfeRNiaN'),
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('users')->insert([
@@ -28,8 +27,7 @@ class UserTableSeeder extends Seeder
             'phone_number' => '+254708085121',
             'email_verified_at' => now(),
             'password' => Hash::make('WaveNDCUsEZonEbE'),
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
 
         DB::table('users')->insert([
@@ -38,8 +36,7 @@ class UserTableSeeder extends Seeder
             'phone_number' => '+254740338642',
             'email_verified_at' => now(),
             'password' => Hash::make('rSubSouStORtIcti'),
-            'created_at' => now(),
-            'updated_at' => now()
+            'created_at' => now()
         ]);
     }
 }

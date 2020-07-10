@@ -25,6 +25,10 @@ class CreateInstitutionsTable extends Migration
             $table->string('location', 200)->nullable();
             $table->date('inventory_start_date')->nullable();
 
+            $table->string('instagram', 200)->nullable();
+            $table->string('facebook', 200)->nullable();
+            $table->string('twitter', 200)->nullable();
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('plan_id');
@@ -35,6 +39,7 @@ class CreateInstitutionsTable extends Migration
             $table->uuid('language_id')->nullable();
             $table->uuid('timezone_id')->nullable();
             $table->uuid('primary_contact_id')->nullable();
+            $table->uuid('commerce_template_id')->nullable();
 
             $table->boolean('is_active');
 

@@ -150,7 +150,7 @@
         <!-- /page content -->
 
         <!-- footer -->
-    @include('business.layouts.navbars.footer')
+        @include('business.layouts.navbars.footer')
         <!-- /footer -->
 
     </div>
