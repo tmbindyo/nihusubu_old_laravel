@@ -68,7 +68,7 @@
                                                 <strong>{{ $errors->first('amount') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$refund->amount}}" class="form-control input-lg" readonly>
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$refund->amount}}" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}" readonly>
                                         <i>amount</i>
                                     </div>
                                     <br>
@@ -82,7 +82,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" class="form-control input-lg" value="{{$refund->date}}" readonly>
+                                            <input type="text" required="required" name="date" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" value="{{$refund->date}}" readonly>
                                         </div>
                                         <i>date</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -94,7 +94,7 @@
                                                 <strong>{{ $errors->first('account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="account" class="select2_demo_tag form-control input-lg" readonly>
+                                        <select name="account" class="select2_demo_tag form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}" readonly>
                                             <option selected value="{{$refund->account->id}}">{{$refund->account->name}} [{{$refund->account->balance}}]</option>
                                         </select>
                                         <i>account</i>
@@ -106,7 +106,7 @@
                                                 <strong>{{ $errors->first('about') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" id="about" name="about" required="required" class="form-control input-lg" readonly>{{$refund->notes}}</textarea>
+                                        <textarea rows="5" id="about" name="about" required="required" class="form-control input-lg {{ $errors->has('about') ? ' is-invalid' : '' }}" readonly>{{$refund->notes}}</textarea>
                                         <i>notes</i>
                                     </div>
                                     @can('edit refund')
@@ -135,27 +135,53 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$refund->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$refund->status->label}}">{{$refund->status->name}}</span></dd>
-                                    </dl>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$refund->user->name}}</dd>
-                                    </dl>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$refund->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$refund->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$refund->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$refund->created_at}} </dd>
-                                    </dl>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$refund->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$refund->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -249,7 +275,7 @@
 
 @endsection
 
-@include('business.layouts.modals.refund_to_do')
+@include('business.layouts.modals.to_do_create')
 
 @section('js')
 
@@ -414,6 +440,34 @@
         document.getElementById("end_time").value = time_curr;
 
         // Set time
+    });
+
+</script>
+
+{{-- to do start time and end time --}}
+<script>
+    $(document).ready(function() {
+        $('.enableEndDate').on('click',function(){
+
+            if (document.getElementById('is_end_date').checked) {
+                // enable end_time input
+                document.getElementById("end_date").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_date").disabled = true;
+            }
+
+        });
+
+        $('.enableEndTime').on('click',function(){
+            if (document.getElementById('is_end_time').checked) {
+                // enable end_time input
+                document.getElementById("end_time").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_time").disabled = true;
+            }
+        });
     });
 
 </script>
@@ -662,6 +716,8 @@
             placeholder: "Select Categories",
             allowClear: true
         });
+
+        $('.chosen-select').chosen({width: "100%"});
 
 
     });

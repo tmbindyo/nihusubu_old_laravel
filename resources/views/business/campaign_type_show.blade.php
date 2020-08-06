@@ -58,7 +58,7 @@
                                                         <strong>{{ $errors->first('name') }}</strong>
                                                     </span>
                                             @endif
-                                            <input type="name" name="name" value="{{$campaignType->name}}" class="form-control input-lg">
+                                            <input type="name" name="name" value="{{$campaignType->name}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                             <i>name</i>
                                         </div>
 
@@ -76,6 +76,59 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="widget style1 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-user fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h3 class="font-bold">{{$campaignType->user->name}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="widget style1 {{$campaignType->status->label}}">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h3 class="font-bold">{{$campaignType->status->name}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="widget style1 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-plus-square fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h3 class="font-bold">{{$campaignType->created_at}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="widget style1 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-scissors fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h3 class="font-bold">{{$campaignType->updated_at}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
             @can('view campaigns')
                 <div class="row">
                     <div class="col-lg-12">

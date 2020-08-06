@@ -72,7 +72,7 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" value="{{$campaign->name}}" class="form-control input-lg">
+                                        <input type="text" id="name" name="name" required="required" value="{{$campaign->name}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                         <i>name</i>
                                     </div>
                                     <br>
@@ -88,7 +88,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" required="required" name="start_date" class="form-control input-lg" value="{{$campaign->start_date}}">
+                                                    <input type="text" required="required" name="start_date" class="form-control input-lg {{ $errors->has('start_date') ? ' is-invalid' : '' }}" value="{{$campaign->start_date}}">
                                                 </div>
                                                 <i>What is the start date of the event?</i>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -105,7 +105,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" required="required" name="end_date" class="form-control input-lg" value="{{$campaign->end_date}}">
+                                                    <input type="text" required="required" name="end_date" class="form-control input-lg {{ $errors->has('end_date') ? ' is-invalid' : '' }}" value="{{$campaign->end_date}}">
                                                 </div>
                                                 <i>What is the end date of the event?</i>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -121,7 +121,7 @@
                                                         <strong>{{ $errors->first('type') }}</strong>
                                                     </span>
                                                 @endif
-                                                <select name="type" class="select2_demo_campaign_type form-control input-lg">
+                                                <select name="type" class="select2_demo_campaign_type form-control input-lg {{ $errors->has('type') ? ' is-invalid' : '' }}">
                                                     <option></option>
                                                     @foreach ($campaignTypes as $campaignType)
                                                         <option @if($campaign->campaign_type_id == $campaignType->id) selected @endif value="{{$campaignType->id}}">{{$campaignType->name}}</option>
@@ -138,7 +138,7 @@
                                                         <strong>{{ $errors->first('expected_revenue') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="expected_revenue" name="expected_revenue" required="required" value="{{$campaign->expected_revenue}}" class="form-control input-lg">
+                                                <input type="number" id="expected_revenue" name="expected_revenue" required="required" value="{{$campaign->expected_revenue}}" class="form-control input-lg {{ $errors->has('expected_revenue') ? ' is-invalid' : '' }}">
                                                 <i>expected revenue</i>
                                             </div>
                                         </div>
@@ -152,7 +152,7 @@
                                                         <strong>{{ $errors->first('actual_cost') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="actual_cost" name="actual_cost" required="required" value="{{$campaign->actual_cost}}" class="form-control input-lg" readonly>
+                                                <input type="number" id="actual_cost" name="actual_cost" required="required" value="{{$campaign->actual_cost}}" class="form-control input-lg {{ $errors->has('actual_cost') ? ' is-invalid' : '' }}" readonly>
                                                 <i>actual cost</i>
                                             </div>
                                         </div>
@@ -163,7 +163,7 @@
                                                         <strong>{{ $errors->first('budgeted_cost') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" value="{{$campaign->budgeted_cost}}" class="form-control input-lg">
+                                                <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" value="{{$campaign->budgeted_cost}}" class="form-control input-lg {{ $errors->has('budgeted_cost') ? ' is-invalid' : '' }}">
                                                 <i>budgeted cost</i>
                                             </div>
                                         </div>
@@ -177,7 +177,7 @@
                                                         <strong>{{ $errors->first('description') }}</strong>
                                                     </span>
                                                 @endif
-                                                <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$campaign->description}}</textarea>
+                                                <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg {{ $errors->has('description') ? ' is-invalid' : '' }}">{{$campaign->description}}</textarea>
                                                 <i>Give a brief description on what the project is about</i>
                                             </div>
                                         </div>
@@ -188,7 +188,7 @@
                                                         <strong>{{ $errors->first('expected_response') }}</strong>
                                                     </span>
                                                 @endif
-                                                <textarea rows="5" id="expected_response" name="expected_response" required="required" class="form-control input-lg">{{$campaign->expected_response}}</textarea>
+                                                <textarea rows="5" id="expected_response" name="expected_response" required="required" class="form-control input-lg {{ $errors->has('expected_response') ? ' is-invalid' : '' }}">{{$campaign->expected_response}}</textarea>
                                                 <i>Give a the expected response</i>
                                             </div>
                                         </div>
@@ -219,30 +219,59 @@
                 <div class="wrapper wrapper-content animated fadeInUp">
                     <div class="ibox">
                         <div class="ibox-content">
+
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$campaign->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$campaign->status->label}}">{{$campaign->status->name}}</span></dd>
-                                    </dl>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$campaign->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$campaign->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$campaign->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$campaign->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
+                            <br>
 
-                                        <dt>Created by:</dt> <dd>{{$campaign->user->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$campaign->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$campaign->created_at}} </dd>
-                                    </dl>
-                                </div>
-                            </div>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                 <div class="panel blank-panel">
@@ -516,7 +545,7 @@
 
 @endsection
 
-@include('business.layouts.modals.campaign_to_do')
+@include('business.layouts.modals.to_do_create')
 
 @section('js')
 
@@ -1040,7 +1069,12 @@
             placeholder: "Select Campaign Type",
             allowClear: true
         });
+        $(".select2_campaign").select2({
+            placeholder: "Select Campaign",
+            allowClear: true
+        });
 
+        $('.chosen-select').chosen({width: "100%"});
 
     });
 

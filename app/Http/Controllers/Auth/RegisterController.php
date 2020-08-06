@@ -97,7 +97,8 @@ class RegisterController extends Controller
 
     public function createInstitution(Request $request)
     {
-        // return $request;
+
+
         // user account validation
         $validatedUserData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -167,7 +168,7 @@ class RegisterController extends Controller
             $institutionModule = new InstitutionModule();
 
             $institutionModule->module_id = $module->id;
-            $institutionModule->instituion_id = $institution->id;
+            $institutionModule->institution_id = $institution->id;
 
             $institutionModule->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
             $institutionModule->user_id = $user->id;
@@ -183,6 +184,7 @@ class RegisterController extends Controller
 
         // get institution modules
         $institutionModules = InstitutionModule::where('institution_id',$institution->id)->select('module_id')->get()->toArray();
+
         $permissions = Permission::whereIn('module_id',$institutionModules)->get();
         $role->syncPermissions($permissions);
 

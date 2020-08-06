@@ -60,7 +60,7 @@
                                                 <strong>{{ $errors->first('name') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="name" name="name" value="{{$leadSource->name}}" class="form-control input-lg">
+                                        <input type="name" name="name" value="{{$leadSource->name}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                         <i>name</i>
                                     </div>
                                     @can('edit lead source')
@@ -76,6 +76,58 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$leadSource->user->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 {{$leadSource->status->label}}">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-ellipsis-v fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$leadSource->status->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-plus-square fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$leadSource->created_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-scissors fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$leadSource->updated_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
 
         @can('view contacts')
             <div class="row">

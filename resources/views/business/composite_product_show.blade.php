@@ -140,29 +140,56 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$compositeProduct->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$compositeProduct->status->label}}">{{$compositeProduct->status->name}}</span></dd>
-                                    </dl>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$compositeProduct->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$compositeProduct->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$compositeProduct->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$compositeProduct->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$compositeProduct->user->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$compositeProduct->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> 	{{$compositeProduct->created_at}} </dd>
-                                    </dl>
-                                </div>
-                            </div>
+                            <hr>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                     <div class="panel blank-panel">

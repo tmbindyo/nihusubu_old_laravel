@@ -65,7 +65,7 @@ class AuthController extends Controller
 
 
     public function createInstitution(Request $request){
-        // return $request;
+//         return $request;
         // user account validation
         $validatedUserData = $request->validate([
             'name' => ['required', 'string', 'max:255'],

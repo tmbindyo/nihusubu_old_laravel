@@ -2,29 +2,34 @@
 
 namespace App\Http\Controllers\Business;
 
-use App\CompositeProduct;
-use App\CompositeProductProduct;
-use App\CompositeProductTax;
-use App\ProductGroup;
-use App\ProductGroupTax;
+use App\ProductSubCategory;
 use DB;
-use App\Account;
-use App\ExpenseAccount;
-use App\Inventory;
-use App\Product;
-use App\ProductDiscount;
-use App\ProductImage;
-use App\ProductTax;
-use App\Restock;
 use App\Tax;
-use App\Traits\InstitutionTrait;
-use App\Traits\UserTrait;
 use App\Unit;
+use App\Brand;
 use App\Upload;
+use App\Product;
+use App\Account;
+use App\Restock;
+use App\Inventory;
 use App\Warehouse;
+use App\ProductTax;
+use App\ProductGroup;
+use App\ProductImage;
+use App\ExpenseAccount;
+use App\ProductGroupTax;
+use App\ProductDiscount;
+use App\ProductCategory;
+use App\Traits\UserTrait;
+use App\CompositeProductTax;
 use Illuminate\Http\Request;
+use App\CompositeProductProduct;
+use App\Traits\InstitutionTrait;
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use App\Traits\DocumentExtensionTrait;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductController extends Controller
@@ -32,6 +37,7 @@ class ProductController extends Controller
 
     use UserTrait;
     use institutionTrait;
+    use DocumentExtensionTrait;
 
     public function __construct()
     {
@@ -46,10 +52,11 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get product groups
-        $productGroups = ProductGroup::where('institution_id', $institution->id)->with('status')->withCount('products')->get();
+        $productGroups = Product::where('institution_id', $institution->id)->where('is_product_group', True)->with('status')->withCount('productGroupProducts')->get();
 
         return view('business.product_groups', compact('user', 'institution', 'productGroups'));
     }
+
     public function productGroupCreate($portal)
     {
         // User
@@ -60,14 +67,19 @@ class ProductController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get institution units
         $units = Unit::where('institution_id', $institution->id)->get();
+        // Get institution brands
+        $brands = Brand::where('institution_id', $institution->id)->get();
+        // product categories
+        $productSubCategories = ProductSubCategory::where('institution_id', $institution->id)->get();
         // Get institution accounts
         $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
         $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
         $costOfGoodsSoldAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'ee1f1b2d-9485-4d03-993a-e27d5ee210f5')->with('accountType')->get();
         $stockAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
 
-        return view('business.product_group_create', compact('user', 'institution', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts'));
+        return view('business.product_group_create', compact('user', 'institution', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'brands', 'productSubCategories'));
     }
+
     public function productGroupStore(Request $request, $portal)
     {
 
@@ -89,7 +101,7 @@ class ProductController extends Controller
         // }
 
         // Register product group
-        $productGroup = new ProductGroup();
+        $productGroup = new Product();
         if($request->product_type == "services") {
             $productGroup->is_service = true;
         }else{
@@ -97,12 +109,14 @@ class ProductController extends Controller
 
             $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
             if(!$warehouse){
-                return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
+                return back()->withWarning(__('Please add a warehouse to register a product.'));
             }
 
         }
         $productGroup->name = $request->product_name;
         $productGroup->description = $request->description;
+        $productGroup->product_sub_category_id = $request->product_sub_category;
+        $productGroup->brand_id = $request->brand;
         $productGroup->attributes = $attributes;
         $productGroup->attribute_options = $attribute_options;
 
@@ -119,23 +133,39 @@ class ProductController extends Controller
         $productGroup->creation_time = $request->creation_time;
         $productGroup->creation_cost = $request->creation_cost;
 
+        $productGroup->selling_price = 0;
+
+        if($request->product_type == "services") {
+            $productGroup->is_service = true;
+        }else{
+            $productGroup->is_service = false;
+        }
+
         $productGroup->user_id = $user->id;
         $productGroup->unit_id = $request->unit;
         $productGroup->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
         $productGroup->institution_id = $institution->id;
+        $productGroup->is_product_group = true;
 
         if ($request->is_returnable == "on"){
             $productGroup->is_returnable = true;
         }else{
             $productGroup->is_returnable = false;
         }
+        if ($request->is_inventory == "on"){
+            $productGroup->is_inventory = true;
+        }else{
+            $productGroup->is_inventory = false;
+        }
+        $productGroup->is_composite_product = false;
+        $productGroup->is_product_group_child = false;
         $productGroup->save();
 
         // Product taxes
         if ($request->taxes){
             foreach ($request->taxes as $productProductTax){
-                $productGroupTax = new ProductGroupTax();
-                $productGroupTax->product_group_id = $productGroup->id;
+                $productGroupTax = new ProductTax();
+                $productGroupTax->product_id = $productGroup->id;
                 $productGroupTax->tax_id = $productProductTax;
                 $productGroupTax->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
                 $productGroupTax->user_id = $user->id;
@@ -154,7 +184,7 @@ class ProductController extends Controller
                 $product->is_service = false;
             }
             $product->name = $productGroupProduct['name'];
-            $product->attribute = $attributes;
+            $product->attributes = $attributes;
             $product->description = $request->description;
             $product->unit_id = $request->unit;
             // Check if the product is eligible for sales return
@@ -179,11 +209,17 @@ class ProductController extends Controller
             $product->creation_time = $request->creation_time;
             $product->creation_cost = $request->creation_cost;
             $product->inventory_account_id = $request->inventory_account;
-            $product->opening_stock = $productGroupProduct['opening_stock'];
-            $product->opening_stock_value = $productGroupProduct['opening_stock_value'];
-            $product->reorder_level = $productGroupProduct['reorder_level'];
+            if ($request->is_inventory == "on"){
+                $product->is_inventory = true;
+                $product->opening_stock = $productGroupProduct['opening_stock'];
+                $product->opening_stock_value = $productGroupProduct['opening_stock_value'];
+                $product->reorder_level = $productGroupProduct['reorder_level'];
+            }else{
+                $product->is_inventory = false;
+            }
 
-            $product->is_product_group = true;
+            $product->is_product_group = false;
+            $product->is_product_group_child = true;
             $product->is_composite_product = false;
 
             $product->product_group_id = $productGroup->id;
@@ -279,8 +315,8 @@ class ProductController extends Controller
         // Get institution accounts
         $accounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->get();
         // Get product groups
-        $productGroup = ProductGroup::findOrFail($product_group_id);
-        $productGroup = ProductGroup::where('id', $product_group_id)->with('products')->first();
+        $productGroup = Product::findOrFail($product_group_id);
+        $productGroup = Product::where('id', $product_group_id)->with('productGroupProducts')->first();
 
         return view('business.product_group_show', compact('user', 'institution', 'productGroup', 'taxes', 'units', 'accounts'));
     }
@@ -294,6 +330,10 @@ class ProductController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get institution units
         $units = Unit::where('institution_id', $institution->id)->get();
+        // Get institution brands
+        $brands = Brand::where('institution_id', $institution->id)->get();
+        // product categories
+        $productSubCategories = ProductSubCategory::where('institution_id', $institution->id)->get();
         // Get institution accounts
         $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
         $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
@@ -310,7 +350,7 @@ class ProductController extends Controller
         }
         $productAttributes = implode(", ", $productAttributes);
 
-        return view('business.product_group_edit', compact('user', 'institution', 'taxes', 'units', 'productGroup', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'productAttributes'));
+        return view('business.product_group_edit', compact('user', 'institution', 'taxes', 'units', 'productGroup', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'productAttributes', 'brands', 'productSubCategories'));
     }
 
     public function productGroupUpdate(Request $request, $portal, $product_group_id)
@@ -685,7 +725,7 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution products
-        $products = Product::where('institution_id', $institution->id)->with('status', 'unit', 'inventory', 'stock_on_hand')->where('is_product_group', false)->where('is_composite_product', false)->where('status_id', 'f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
+        $products = Product::where('institution_id', $institution->id)->with('status', 'unit', 'inventory', 'stock_on_hand')->where('is_product_group', false)->where('is_product_group_child', false)->where('is_composite_product', false)->where('status_id', 'f6654b11-8f04-4ac9-993f-116a8a6ecaae')->get();
 
 //        return $products;
 
@@ -698,7 +738,11 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get institution units
-        $units = Unit::where('institution_id', $institution->id)->get();
+        $units = Unit::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
+        // Get institution units
+        $brands = Brand::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
+        // product categories
+        $productSubCategories = ProductSubCategory::where('institution_id', $institution->id)->get();
         // Get institution accounts
         $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
         $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
@@ -708,11 +752,13 @@ class ProductController extends Controller
         // Get institution taxes
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
 
-        return view('business.product_create', compact('user', 'units', 'taxes', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'institution'));
+        return view('business.product_create', compact('user', 'units', 'taxes', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'institution', 'brands', 'productSubCategories'));
     }
 
     public function productStore(Request $request, $portal)
     {
+
+
         // User
         $user = $this->getUser();
         // Institution
@@ -726,23 +772,37 @@ class ProductController extends Controller
             $product->is_service = false;
             $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
             if(!$warehouse){
-                return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
+                return back()->withWarning(__('Please add a warehouse to register a product.'));
             }
         }
 
         $product->name = $request->name;
         $product->description = $request->description;
         $product->unit_id = $request->unit;
+        $product->product_sub_category_id = $request->product_sub_category;
+        $product->brand_id = $request->brand;
+
         // Check if the product is eligible for sales return
         if ($request->is_returnable == "on"){
             $product->is_returnable = true;
         }else{
             $product->is_returnable = false;
         }
+
+        if ($request->is_inventory == "on"){
+            $product->is_inventory = true;
+            $product->opening_stock = $request->opening_stock;
+            $product->opening_stock_value = $request->opening_stock_value;
+            $product->reorder_level = $request->reorder_level;
+        }else{
+            $product->is_inventory = false;
+        }
+
         $product->selling_account_id = $request->selling_account;
         $product->purchase_account_id = $request->purchase_account;
         $product->selling_price = $request->selling_price;
         $product->purchase_price = $request->purchase_price;
+
         // Check if the product is has been value added
         if ($request->is_created == "on"){
             $product->is_created = true;
@@ -752,11 +812,9 @@ class ProductController extends Controller
         $product->creation_time = $request->creation_time;
         $product->creation_cost = $request->creation_cost;
         $product->inventory_account_id = $request->inventory_account;
-        $product->opening_stock = $request->opening_stock;
-        $product->opening_stock_value = $request->opening_stock_value;
-        $product->reorder_level = $request->reorder_level;
 
         $product->is_product_group = false;
+        $product->is_product_group_child = false;
         $product->is_composite_product = false;
 
         $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
@@ -764,7 +822,7 @@ class ProductController extends Controller
         $product->institution_id = $institution->id;
         $product->save();
 
-        if($request->product_type != "services") {
+        if($request->product_type != "services" && $request->is_inventory == "on") {
 
             // todo create stock tables for product
             // Get primary warehouse
@@ -832,6 +890,83 @@ class ProductController extends Controller
             }
         }
 
+        // product images
+        if($request->file){
+            foreach ($request->file as $file){
+
+                // folder name
+                $folderName = str_replace(' ', '', $institution->portal."/product/".$product->name."/");
+                $pixel500FolderName = str_replace(' ', '', $institution->portal."/product/".$product->name."/500/");
+                $pixel1000FolderName = str_replace(' ', '', $institution->portal."/product/".$product->name."/1000/");
+                $file_name_extension = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                // upload image
+                $file->storeAs($folderName, $file->getClientOriginalName());
+                $path = public_path()."/storage/".$folderName.$file_name_extension;
+                $file_name = pathinfo($file, PATHINFO_FILENAME);
+                $image_name = $file_name.'.'.$extension;
+                $width = Image::make( $file )->width();
+                $height = Image::make( $file )->height();
+                $size = $file->getClientSize();
+                $extensionType = $this->uploadExtension($extension);
+                // smaller image
+                if ($width > $height) { //landscape
+
+                    $orientation = "landscape";
+
+                    $small_image = Image::make( $file )->resize(500, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->encode();
+                    Storage::put($pixel500FolderName.$file->getClientOriginalName(), $small_image);
+
+                    $large_image = Image::make( $file )->resize(1000, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->encode();
+                    Storage::put($pixel1000FolderName.$file->getClientOriginalName(), $large_image);
+
+                } else {
+
+                    $orientation = "portrait";
+
+                    $small_image = Image::make( $file )->resize(null, 500, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->encode();
+                    Storage::put($pixel500FolderName.$file->getClientOriginalName(), $small_image);
+
+                    $large_image = Image::make( $file )->resize(null, 1000, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->encode();
+                    Storage::put($pixel1000FolderName.$file->getClientOriginalName(), $large_image);
+
+                }
+
+                // product image store
+                // upload record
+                $upload = new Upload();
+                $upload->name = $file_name_extension;
+                $upload->extension = $extension;
+                $upload->size = $size;
+                $upload->original = $folderName.$image_name;
+                $upload->file_type = $extensionType;
+                $upload->small_thumbnail = $pixel500FolderName.$file->getClientOriginalName();
+                $upload->large_thumbnail = $pixel1000FolderName.$file->getClientOriginalName();
+                $upload->institution_id = $institution->id;
+                $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $upload->upload_type_id = "b2004522-e7aa-41dd-b033-7252d0a642b7";
+                $upload->user_id = $user->id;
+                $upload->save();
+
+                // product image
+                $productImage = new ProductImage();
+                $productImage->upload_id = $upload->id;
+                $productImage->product_id = $product->id;
+                $productImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $productImage->user_id = $user->id;
+                $productImage->save();
+            }
+        }
+
+
 
 
         return redirect()->route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])->withSuccess(__('Product successfully saved.'));
@@ -845,8 +980,8 @@ class ProductController extends Controller
         $institution = $this->getInstitution($portal);
 
         $productExists = Product::findOrFail($product_id);
-        $product = Product::where('institution_id', $institution->id)->where('id', $product_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'orderProducts', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts')->withCount('orderProducts', 'saleProducts', 'restock')->first();
-        // return $product;
+        $product = Product::where('institution_id', $institution->id)->where('id', $product_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload')->withCount('saleProducts', 'restock')->first();
+//         return $product;
 
         return view('business.product_show', compact('product', 'user', 'institution'));
     }
@@ -863,6 +998,10 @@ class ProductController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get institution units
         $units = Unit::where('institution_id', $institution->id)->get();
+        // Get institution brands
+        $brands = Brand::where('institution_id', $institution->id)->get();
+        // product categories
+        $productSubCategories = ProductSubCategory::where('institution_id', $institution->id)->get();
         // Get institution accounts
         $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
         $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', 'b3e71a37-eb71-4ebc-b448-e4f9daf6bbcd')->with('accountType')->get();
@@ -873,7 +1012,7 @@ class ProductController extends Controller
         $product = Product::where('id', $product_id)->with('status', 'product_discounts', 'productTaxes', 'productImages.upload')->first();
 
 //        return $product;
-        return view('business.product_edit', compact('user', 'institution', 'product', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts'));
+        return view('business.product_edit', compact('user', 'institution', 'product', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'brands', 'productSubCategories'));
     }
 
     public function productUpdate(Request $request, $portal, $product_id)
@@ -886,9 +1025,9 @@ class ProductController extends Controller
         $product = Product::findOrFail($product_id);
 
         // check if product is a service or a good
-        if($request->product_type == "services") {
+        if ($request->product_type == "services") {
             $product->is_service = true;
-        }else{
+        } else {
             $product->is_service = false;
         }
 
@@ -896,27 +1035,32 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->unit_id = $request->unit;
         // Check if the product is eligible for sales return
-        if ($request->is_returnable == "on"){
+        if ($request->is_returnable == "on") {
             $product->is_returnable = true;
-        }else{
+        } else {
             $product->is_returnable = false;
+        }
+        if ($request->is_inventory == "on") {
+            $product->is_inventory = true;
+            $product->opening_stock = $request->opening_stock;
+            $product->opening_stock_value = $request->opening_stock_value;
+            $product->reorder_level = $request->reorder_level;
+        } else {
+            $product->is_inventory = false;
         }
         $product->selling_account_id = $request->selling_account;
         $product->purchase_account_id = $request->purchase_account;
         $product->selling_price = $request->selling_price;
         $product->purchase_price = $request->purchase_price;
         // Check if the product is has been value added
-        if ($request->is_created == "on"){
+        if ($request->is_created == "on") {
             $product->is_created = true;
-        }else{
+        } else {
             $product->is_created = false;
         }
         $product->creation_time = $request->creation_time;
         $product->creation_cost = $request->creation_cost;
         $product->inventory_account_id = $request->inventory_account;
-        $product->opening_stock = $request->opening_stock;
-        $product->opening_stock_value = $request->opening_stock_value;
-        $product->reorder_level = $request->reorder_level;
 
         $product->is_product_group = false;
 
@@ -925,32 +1069,32 @@ class ProductController extends Controller
         $product->institution_id = $institution->id;
         $product->save();
 
-        // todo create stock tables for product
-        // Get primary warehouse
-        $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
+        if($request->product_type != "services" && $request->is_inventory == "on") {
+            // todo create stock tables for product
+            // Get primary warehouse
+            $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('is_primary', true)->first();
 
-        // todo, it refactors it to the value put here which will erare the current stock value
-        // create inventory
-        $inventory = Inventory::where('warehouse_id', $warehouse->id)->where('product_id', $product->id)->first();
-        $inventory->quantity = $request->opening_stock;
-        $inventory->save();
+            // todo, it refactors it to the value put here which will erare the current stock value
+            // create inventory
+            $inventory = Inventory::where('warehouse_id', $warehouse->id)->where('product_id', $product->id)->first();
+            $inventory->quantity = $request->opening_stock;
+            $inventory->save();
 
-        // Create record for inventory, tracking the stock input
-        $restock = Restock::where('warehouse_id', $warehouse->id)->where('product_id', $product->id)->where('is_opening_stock', true)->first();
-        $restock->initial_warehouse_amount = 0;
-        $restock->subsequent_warehouse_amount = $request->opening_stock;
-        // getting unit value
-        if (doubleval($request->opening_stock) > 0 ){
-            $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+            // Create record for inventory, tracking the stock input
+            $restock = Restock::where('warehouse_id', $warehouse->id)->where('product_id', $product->id)->where('is_opening_stock', true)->first();
+            $restock->initial_warehouse_amount = 0;
+            $restock->subsequent_warehouse_amount = $request->opening_stock;
+            // getting unit value
+            if (doubleval($request->opening_stock) > 0) {
+                $unit_value = floatval($request->opening_stock_value) / floatval($request->opening_stock);
+            } else {
+                $unit_value = 0;
+            }
+            $restock->unit_value = $unit_value;
+            $restock->total_value = $request->opening_stock_value;
+            $restock->quantity = $request->opening_stock;
+            $restock->save();
         }
-        else{
-            $unit_value = 0;
-        }
-        $restock->unit_value = $unit_value;
-        $restock->total_value = $request->opening_stock_value;
-        $restock->quantity = $request->opening_stock;
-        $restock->save();
-
 
 
         // Product taxes update
@@ -972,11 +1116,87 @@ class ProductController extends Controller
             }
         }
 
+        // product images
+        if($request->file){
+            foreach ($request->file as $file){
+
+                // folder name
+                $folderName = str_replace(' ', '', $institution->portal."/product/".$product->name."/");
+                $pixel500FolderName = str_replace(' ', '', $institution->portal."/product/".$product->name."/500/");
+                $pixel1000FolderName = str_replace(' ', '', $institution->portal."/product/".$product->name."/1000/");
+                $extension = $file->getClientOriginalExtension();
+                $file_name_extension = $file->getClientOriginalName();
+                // upload image
+                $file->storeAs($folderName, $file->getClientOriginalName());
+                $path = public_path()."/storage/".$folderName.$file_name_extension;
+                $file_name = pathinfo($file, PATHINFO_FILENAME);
+                $image_name = $file_name.'.'.$extension;
+                $width = Image::make( $file )->width();
+                $height = Image::make( $file )->height();
+                $size = $file->getClientSize();
+                $extensionType = $this->uploadExtension($extension);
+                // smaller image
+                if ($width > $height) { //landscape
+
+                    $orientation = "landscape";
+
+                    $small_image = Image::make( $file )->resize(500, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->encode();
+                    Storage::put($pixel500FolderName.$file->getClientOriginalName(), $small_image);
+
+                    $large_image = Image::make( $file )->resize(1000, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->encode();
+                    Storage::put($pixel1000FolderName.$file->getClientOriginalName(), $large_image);
+
+                } else {
+
+                    $orientation = "portrait";
+
+                    $small_image = Image::make( $file )->resize(null, 500, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->encode();
+                    Storage::put($pixel500FolderName.$file->getClientOriginalName(), $small_image);
+
+                    $large_image = Image::make( $file )->resize(null, 1000, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->encode();
+                    Storage::put($pixel1000FolderName.$file->getClientOriginalName(), $large_image);
+
+                }
+
+                // product image store
+                // upload record
+                $upload = new Upload();
+                $upload->name = $file_name_extension;
+                $upload->extension = $extension;
+                $upload->size = $size;
+                $upload->original = $folderName.$image_name;
+                $upload->file_type = $extensionType;
+                $upload->small_thumbnail = $pixel500FolderName.$file->getClientOriginalName();
+                $upload->large_thumbnail = $pixel1000FolderName.$file->getClientOriginalName();
+                $upload->institution_id = $institution->id;
+                $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $upload->upload_type_id = "b2004522-e7aa-41dd-b033-7252d0a642b7";
+                $upload->user_id = $user->id;
+                $upload->save();
+
+                // product image
+                $productImage = new ProductImage();
+                $productImage->upload_id = $upload->id;
+                $productImage->product_id = $product->id;
+                $productImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $productImage->user_id = $user->id;
+                $productImage->save();
+            }
+        }
+
         $productTaxesIds = ProductTax::where('product_id', $product_id)->whereNotIn('tax_id', $productRequestTaxes)->select('id')->get()->toArray();
         DB::table('product_taxes')->whereIn('id', $productTaxesIds)->delete();
 
 
-        return back()->withSuccess(__('Product successfully updated.'));
+        return redirect()->route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])->withSuccess(__('Product successfully updated.'));
     }
 
     public function productDelete($portal, $product_id)
@@ -1036,14 +1256,18 @@ class ProductController extends Controller
         $institution = $this->getInstitution($portal);
         // Get institution units
         $units = Unit::where('institution_id', $institution->id)->get();
+        // Get institution units
+        $brands = Brand::where('institution_id', $institution->id)->get();
+        // product categories
+        $productSubCategories = ProductSubCategory::where('institution_id', $institution->id)->get();
         // Get institution accounts
         $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
         // Get institution taxes
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Products
-        $products = Product::where('institution_id', $institution->id)->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->get();
 
-        return view('business.composite_product_create', compact('user', 'institution', 'taxes', 'salesAccounts', 'units', 'products'));
+        return view('business.composite_product_create', compact('user', 'institution', 'taxes', 'salesAccounts', 'units', 'products', 'brands', 'productSubCategories'));
     }
 
     public function compositeProductStore(Request $request, $portal)
@@ -1064,7 +1288,7 @@ class ProductController extends Controller
             $product->is_service = false;
             $warehouse = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
             if(!$warehouse){
-                return back()->withWarning(__('Please add a warehouse to register a prodduct.'));
+                return back()->withWarning(__('Please add a warehouse to register a product.'));
             }
         }
         if ($request->is_returnable == "on"){
@@ -1074,13 +1298,17 @@ class ProductController extends Controller
         }
         $product->unit_id = $request->unit;
         $product->name = $request->product_name;
+        $product->product_sub_category_id = $request->product_sub_category;
+        $product->brand_id = $request->brand;
         $product->stock_keeping_unit = $request->unit;
         $product->selling_price = $request->selling_price;
         $product->selling_account_id = $request->selling_account;
 
+        $product->is_inventory = false;
         $product->is_created = false;
         $product->is_composite_product = true;
         $product->is_product_group = false;
+        $product->is_product_group_child = false;
 
         $product->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
         $product->user_id = $user->id;
@@ -1123,7 +1351,7 @@ class ProductController extends Controller
         $institution = $this->getInstitution($portal);
 
         $compositeProduct = Product::findOrFail($composite_product_id);
-        $compositeProduct = Product::where('institution_id', $institution->id)->where('id', $composite_product_id)->withCount('orderProducts', 'saleProducts', 'compositeProductProducts')->with('compositeProductProducts.product', 'productTaxes', 'user', 'status')->first();
+        $compositeProduct = Product::where('institution_id', $institution->id)->where('id', $composite_product_id)->withCount('saleProducts', 'compositeProductProducts')->with('compositeProductProducts.product', 'productTaxes', 'user', 'status')->first();
         $compositeProductProducts = CompositeProductProduct::where('composite_product_id', $compositeProduct->id)->with('product')->get();
 //         return $compositeProduct->compositeProductProducts;
         return view('business.composite_product_show', compact('user', 'institution', 'compositeProduct', 'compositeProductProducts'));
@@ -1137,6 +1365,10 @@ class ProductController extends Controller
         $institution = $this->getInstitution($portal);
         // Get institution units
         $units = Unit::where('institution_id', $institution->id)->get();
+        // Get institution brands
+        $brands = Brand::where('institution_id', $institution->id)->get();
+        // product categories
+        $productSubCategories = ProductSubCategory::where('institution_id', $institution->id)->get();
         // Get institution accounts
         $salesAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('account_type_id', '798077ba-ae21-4df0-8079-5a7c82afd90e')->with('accountType')->get();
         // Get institution taxes
@@ -1146,11 +1378,11 @@ class ProductController extends Controller
         // check if exists
         $compositeProduct = Product::findOrFail($composite_product_id);
         // get composite product
-        $compositeProduct = Product::where('id', $composite_product_id)->withCount('orderProducts', 'saleProducts', 'compositeProductProducts')->with('compositeProductProducts', 'productTaxes', 'user', 'status')->first();
+        $compositeProduct = Product::where('id', $composite_product_id)->withCount('saleProducts', 'compositeProductProducts')->with('compositeProductProducts', 'productTaxes', 'user', 'status')->first();
         $compositeProductProducts = CompositeProductProduct::where('composite_product_id', $compositeProduct->id)->with('product')->get();
         // return $compositeProductProducts;
 
-        return view('business.composite_product_edit', compact('user', 'institution', 'compositeProduct', 'compositeProductProducts', 'units', 'salesAccounts', 'taxes', 'products'));
+        return view('business.composite_product_edit', compact('user', 'institution', 'compositeProduct', 'compositeProductProducts', 'units', 'salesAccounts', 'taxes', 'products', 'brands', 'productSubCategories'));
     }
 
     public function compositeProductUpdate(Request $request, $portal, $product_id)

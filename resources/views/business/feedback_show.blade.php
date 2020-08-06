@@ -63,7 +63,7 @@
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </span>
                                         @endif
-                                        <input type="text" id="name" name="name" required="required" value="{{$feedback->name}}" class="form-control input-lg">
+                                        <input type="text" id="name" name="name" required="required" value="{{$feedback->name}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                         <i>name</i>
                                     </div>
                                     <br>
@@ -73,7 +73,7 @@
                                             <strong>{{ $errors->first('description') }}</strong>
                                         </span>
                                         @endif
-                                        <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$feedback->description}}</textarea>
+                                        <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg {{ $errors->has('description') ? ' is-invalid' : '' }}">{{$feedback->description}}</textarea>
                                         <i>description</i>
                                     </div>
 

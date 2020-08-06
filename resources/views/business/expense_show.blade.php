@@ -198,6 +198,57 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$expense->user->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 {{$expense->status->label}}">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-ellipsis-v fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$expense->status->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-plus-square fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$expense->created_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-scissors fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$expense->updated_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
 
         <div class="row">
             <div class="col-lg-12">
@@ -425,7 +476,7 @@
 
 @endsection
 
-@include('business.layouts.modals.expense_to_do')
+@include('business.layouts.modals.to_do_create')
 
 @section('js')
 
@@ -681,6 +732,34 @@
         document.getElementById("end_time").value = time_curr;
 
         // Set time
+    });
+
+</script>
+
+{{-- to do start time and end time --}}
+<script>
+    $(document).ready(function() {
+        $('.enableEndDate').on('click',function(){
+
+            if (document.getElementById('is_end_date').checked) {
+                // enable end_time input
+                document.getElementById("end_date").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_date").disabled = true;
+            }
+
+        });
+
+        $('.enableEndTime').on('click',function(){
+            if (document.getElementById('is_end_time').checked) {
+                // enable end_time input
+                document.getElementById("end_time").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_time").disabled = true;
+            }
+        });
     });
 
 </script>
@@ -971,6 +1050,8 @@
             placeholder: "Select Asset Action",
             allowClear: true
         });
+
+        $('.chosen-select').chosen({width: "100%"});
 
 
         $(".touchspin1").TouchSpin({

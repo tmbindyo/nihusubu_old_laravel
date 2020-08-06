@@ -40,45 +40,45 @@
                 <div class="ibox-content">
 
                     <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($units as $unit)
-                    <tr class="gradeX">
-                        <td>{{$unit->name}}</td>
-                        <td>{{$unit->user->name}}</td>
-                        <td>
-                            <span class="unit {{$unit->status->unit}}">{{$unit->status->name}}</span>
-                        </td>
-                        <td class="text-right">
-                            <div class="btn-group">
-                                @can('view unit')
-                                    <a href="{{ route('business.unit.show', ['portal'=>$institution->portal, 'id'=>$unit->id]) }}" class="btn-white btn btn-xs">View</a>
-                                @endcan
-                                @can('delete unit')
-                                    <a href="{{ route('business.unit.delete', ['portal'=>$institution->portal, 'id'=>$unit->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                @endcan
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
-                </tr>
-                </tfoot>
-                </table>
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($units as $unit)
+                                    <tr class="gradeX">
+                                        <td>{{$unit->name}}</td>
+                                        <td>{{$unit->user->name}}</td>
+                                        <td>
+                                            <span class="unit {{$unit->status->unit}}">{{$unit->status->name}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                @can('view unit')
+                                                    <a href="{{ route('business.unit.show', ['portal'=>$institution->portal, 'id'=>$unit->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                @endcan
+                                                @can('delete unit')
+                                                    <a href="{{ route('business.unit.delete', ['portal'=>$institution->portal, 'id'=>$unit->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                @endcan
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
 
                 </div>

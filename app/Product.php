@@ -60,10 +60,19 @@ class Product extends Model implements Auditable
     {
         return $this->belongsTo('App\Brand');
     }
+    public function productSubCategory()
+    {
+        return $this->belongsTo('App\ProductSubCategory');
+    }
     public function productGroup()
     {
         return $this->belongsTo('App\ProductGroup');
     }
+    public function productGroupProduct()
+    {
+        return $this->belongsTo('App\Product', 'product_group_id');
+    }
+
 
     // Children
     public function transferOrderProducts()
@@ -94,6 +103,10 @@ class Product extends Model implements Auditable
     {
         return $this->hasMany('App\ProductReturn');
     }
+    public function productGroupProducts()
+    {
+        return $this->hasMany('App\Product', 'product_group_id');
+    }
     public function restock()
     {
         return $this->hasMany('App\Restock');
@@ -123,5 +136,14 @@ class Product extends Model implements Auditable
         return $this->hasMany('App\Inventory')
             ->selectRaw('product_id,SUM(quantity) as stock_on_hand')
             ->groupBy('product_id');
+    }
+
+    public function productGroupProductMin()
+    {
+        return $this->productGroupProducts()->orderBy('selling_price', 'desc')->take(1);
+    }
+    public function productGroupProductMax()
+    {
+        return $this->productGroupProducts()->orderBy('selling_price', 'asc')->take(1);
     }
 }

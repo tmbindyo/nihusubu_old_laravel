@@ -93,6 +93,14 @@ class Institution extends Model implements Auditable
     {
         return $this->hasMany('App\Expense');
     }
+    public function institutionModules()
+    {
+        return $this->hasMany('App\InstitutionModule');
+    }
+    public function institutionModuleNames()
+    {
+        return $this->hasMany('App\InstitutionModule')->with('module');
+    }
     public function institutionSubIndustries()
     {
         return $this->hasMany('App\InstitutionSubIndustry');

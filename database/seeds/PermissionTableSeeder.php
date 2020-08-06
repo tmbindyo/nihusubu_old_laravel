@@ -101,6 +101,7 @@ class PermissionTableSeeder extends Seeder
         $permission = Permission::create(['name' => 'view estimate','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'view estimates','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'print estimate','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $permission = Permission::create(['name' => 'send estimate','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'convert to invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'edit estimate','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'delete estimate','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
@@ -110,6 +111,7 @@ class PermissionTableSeeder extends Seeder
         $permission = Permission::create(['name' => 'view invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'view invoices','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'print invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $permission = Permission::create(['name' => 'send invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'convert to sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'edit invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'delete invoice','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
@@ -119,9 +121,19 @@ class PermissionTableSeeder extends Seeder
         $permission = Permission::create(['name' => 'view sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'view sales','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'print sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $permission = Permission::create(['name' => 'send sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'add sale payment','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'edit sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
         $permission = Permission::create(['name' => 'delete sale','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+
+        // orders
+        $permission = Permission::create(['name' => 'view order','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $permission = Permission::create(['name' => 'view orders','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $permission = Permission::create(['name' => 'print order','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $permission = Permission::create(['name' => 'send order','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $permission = Permission::create(['name' => 'add order payment','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $permission = Permission::create(['name' => 'edit order','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
+        $permission = Permission::create(['name' => 'delete order','module_id' => '9acedca8-5320-4b4e-b088-ec44467344a0']);
 
         // accounts
         $permission = Permission::create(['name' => 'add account','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
@@ -187,6 +199,16 @@ class PermissionTableSeeder extends Seeder
         $permission = Permission::create(['name' => 'edit transfer','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
         $permission = Permission::create(['name' => 'delete transfer','module_id' => '803a3317-6f4c-4ba7-aa2f-60ff01477be7']);
 
+        // settings
+        $permission = Permission::create(['name' => 'view settings', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+
+        // brands
+        $permission = Permission::create(['name' => 'add brand', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'view brand', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'view brands', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'edit brand', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'delete brand', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+
         // campaign types
         $permission = Permission::create(['name' => 'add campaign type', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'view campaign type', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
@@ -214,6 +236,20 @@ class PermissionTableSeeder extends Seeder
         $permission = Permission::create(['name' => 'view lead sources', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'edit lead source', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'delete lead source', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+
+        // product categories
+        $permission = Permission::create(['name' => 'add product category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'view product category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'view product categories', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'edit product category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'delete product category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+
+        // product sub categories
+        $permission = Permission::create(['name' => 'add product sub category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'view product sub category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'view product sub categories', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'edit product sub category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'delete product sub category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
 
         // taxes
         $permission = Permission::create(['name' => 'add tax', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
@@ -253,7 +289,9 @@ class PermissionTableSeeder extends Seeder
         $permission = Permission::create(['name' => 'edit user','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'delete user','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
 
-
+        // institution
+        $permission = Permission::create(['name' => 'view institution','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'edit institution','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
 
     }
 }

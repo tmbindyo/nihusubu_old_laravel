@@ -53,7 +53,7 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$loan->balance}}" class="form-control input-lg">
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$loan->balance}}" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}">
                                         <i>amount</i>
                                     </div>
                                     <br>
@@ -62,14 +62,14 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date_acquired" id="date_acquired" class="form-control input-lg">
+                                            <input type="text" required="required" name="date_acquired" id="date_acquired" class="form-control input-lg {{ $errors->has('date_acquired') ? ' is-invalid' : '' }}">
                                         </div>
                                         <i>Date paid</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_account form-control input-lg">
+                                        <select name="account" class="select2_account form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}">
                                             <option></option>
                                             @foreach ($accounts as $account)
                                                 <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
@@ -79,7 +79,7 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg {{ $errors->has('notes') ? ' is-invalid' : '' }}"></textarea>
                                         <i>notes</i>
                                     </div>
                                     <br>
@@ -87,7 +87,7 @@
                                         <div class="col-md-2">
                                             <div class="has-warning">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <input name="is_loan" type="checkbox" class="js-switch_2" checked />
+                                                    <input name="is_loan" type="checkbox" class="js-switch_2 {{ $errors->has('is_loan') ? ' is-invalid' : '' }}" checked />
                                                     <br>
                                                     <i>check if loan.</i>
                                                 </div>
@@ -95,7 +95,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="has-warning">
-                                                <select name="loan" class="select2_loan form-control input-lg">
+                                                <select name="loan" class="select2_loan form-control input-lg {{ $errors->has('loan') ? ' is-invalid' : '' }}">
                                                     <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
                                                 </select>
                                                 <i>loan</i>

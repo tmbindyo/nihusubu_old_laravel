@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Business;
 
+use App\Address;
+use App\Currency;
+use App\Institution;
 use App\Mail\BusinessInviteUser;
+use App\Module;
+use App\Plan;
 use App\User;
 use App\UserAccount;
 use App\Traits\UserTrait;
@@ -37,6 +42,16 @@ class RoleController extends Controller
         return view('business.roles', compact('roles', 'user', 'institution'));
     }
 
+    public function roleCreate($portal)
+    {
+        // User
+        $user = $this->getUser();
+        // Get the navbar values
+        $institution = $this->getInstitution($portal);
+
+        return view('business.role_create', compact( 'user', 'institution'));
+    }
+
     public function roleShow($portal, $role_id)
     {
         // User
@@ -44,7 +59,7 @@ class RoleController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get role
-        $role = Role::where('id', $role_id)->where('institution_id', $institution->id)->with('permissions')->first();
+        $role = Role::where('id', decrypt($role_id))->where('institution_id', $institution->id)->with('permissions')->first();
         $rolePermissionNames = $role->getPermissionNames()->toArray();
 //        return $rolePermissionNames;
         // role users
@@ -78,7 +93,8 @@ class RoleController extends Controller
         // Create role
         $role = Role::create(['name' => $roleName, 'institution_id' => $institution->id]);
 
-        return redirect()->route('business.role.show',['portal'=>$institution->portal, 'id'=>$role->id])->withSuccess('Role '.$role->name.' successfully created!');
+        $active = 'roles';
+        return redirect()->route('business.settings',$institution->portal)->withSuccess(__('Role '.$role->name.' successfully created!'))->with( ['active' => $active] );
     }
 
     public function roleUpdate(Request $request, $portal, $role_id)
@@ -211,7 +227,7 @@ class RoleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Users
-        $users = UserAccount::where('institution_id',$institution->id)->with('user')->get();
+        $users = UserAccount::where('institution_id',$institution->id)->with('user', 'roles')->get();
 //        return $user;
 //        return $user->activeUserAccount->userType->name;
         return view('business.users', compact('user', 'institution', 'users'));
@@ -284,7 +300,151 @@ class RoleController extends Controller
             // send user email
             Mail::to($request->email)->send(new BusinessInviteUser($userAccount));
         }
+
+        // get role
+        $role = Role::where('id', decrypt($request->role))->where('institution_id', $institution->id)->with('permissions')->first();
+
+        // role assign permissions based on modules
+        $user->assignRole($role);
+
         return back()->withSuccess(__('User has been invited to your organization!'));
     }
+
+    public function userDelete($portal, $user_account_id)
+    {
+
+        $userAccount = UserAccount::findOrFail($user_account_id);
+        $userAccount->status_id = "d35b4cee-5594-4cfd-ad85-e489c9dcdeff";
+        $userAccount->save();
+        // Users
+        $users = UserAccount::where('id',$userAccount->id)->with('user')->get();
+
+        return back()->withSuccess(__('Brand '.$userAccount->user->name.' successfully deleted.'));
+    }
+
+    public function userRestore($portal, $user_account_id)
+    {
+
+        $userAccount = UserAccount::findOrFail($user_account_id);
+        $userAccount->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $userAccount->restore();
+        // Users
+        $users = UserAccount::where('id',$userAccount->id)->with('user')->get();
+
+        return back()->withSuccess(__('Brand '.$userAccount->user->name.' successfully restored.'));
+    }
+
+
+    public function institutionShow($portal)
+    {
+        // User
+        $user = $this->getUser();
+        // Get the navbar values
+        $institution = $this->getInstitution($portal);
+        // plans
+        $plans = Plan::get();
+        // currency
+        $currencies = Currency::get();
+
+        return view('business.institution_show', compact('user', 'institution', 'plans', 'currencies'));
+    }
+
+    public function institutionUpdate(Request $request, $portal, $role_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Get the navbar values
+        $institution = $this->getInstitution($portal);
+
+        // update institution
+        $institutionUpdate = Institution::findOrFail($institution->id);
+        $institutionUpdate->name = $request->name;
+        $institutionUpdate->portal = $request->portal;
+        $institutionUpdate->email = $request->email;
+        $institutionUpdate->phone_number = $request->phone_number;
+        $institutionUpdate->user_id = $user->id;
+        $institutionUpdate->plan_id = $request->plan;
+        $institutionUpdate->currency_id = $request->currency;
+        $institutionUpdate->user_id = $user->id;
+        $institutionUpdate->save();
+
+        // address update
+        $address = Address::where('id',$institution->address_id)->first();
+        $address->address_line_1 = $request->address_line_1;
+        $address->address_line_2 = $request->address_line_2;
+        $address->postal_code = $request->postal_code;
+        $address->po_box = $request->po_box;
+        $address->town = $request->city;
+        $address->street = $request->street;
+        $address->user_id = $user->id;
+        $address->save();
+
+        $active = 'institution';
+        return redirect()->route('business.settings',$institution->portal)->withSuccess('Role '.$institution->name.' successfully updated!')->with( ['active' => $active] );
+    }
+
+    public function moduleSubscribe($portal, $module_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Get the navbar values
+        $institution = $this->getInstitution($portal);
+        // check if module exists
+        $module = Module::findOrFail($module_id);
+        // get module institution module record
+        $institutionModule = InstitutionModule::where('institution_id',$institution->id)->where('module_id',$module->id)->first();
+        if (is_null($institutionModule)){
+            // create new record
+            $institutionModule = new InstitutionModule();
+
+            $institutionModule->module_id = $module->id;
+            $institutionModule->institution_id = $institution->id;
+
+            $institutionModule->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+            $institutionModule->user_id = $user->id;
+            $institutionModule->save();
+        }
+        // remove module permissions from institution roles
+        $institutionRoles = Role::where('institution_id',$institution->id)->get();
+        // get module permissions
+        $permissions = Permission::where('module_id',$module->id)->get();
+        // get all roles
+        foreach ($institutionRoles as $role){
+            foreach ($permissions as $permission){
+                $role->givePermissionTo($permission);
+            }
+        }
+
+        $active = 'modules';
+        return redirect()->route('business.settings',$institution->portal)->withSuccess('Role '.$module->name.' successfully subscribed!')->with( ['active' => $active] );
+    }
+
+    public function moduleUnsubscribe($portal, $module_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Get the navbar values
+        $institution = $this->getInstitution($portal);
+        // check if module exists
+        $module = Module::findOrFail($module_id);
+        // get module institution module record
+        $institutionModule = InstitutionModule::where('institution_id',$institution->id)->where('module_id',$module->id)->first();
+        // remove module permissions from institution roles
+        $institutionRoles = Role::where('institution_id',$institution->id)->get();
+        // get module permissions
+        $permissions = Permission::where('module_id',$module->id)->get();
+        // get all roles
+        foreach ($institutionRoles as $role){
+            foreach ($permissions as $permission){
+                $role->revokePermissionTo($permission);
+            }
+        }
+        $institutionModuleDelete = InstitutionModule::where('id',$institutionModule->id)->forceDelete();
+
+        $active = 'modules';
+        return redirect()->route('business.settings',$institution->portal)->withSuccess('Role '.$module->name.' successfully unsubscribed!')->with( ['active' => $active] );
+    }
+
+
 
 }

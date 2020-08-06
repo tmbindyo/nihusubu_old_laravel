@@ -34,7 +34,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         {{--  foreach  --}}
-        @foreach($productGroup->products as $product)
+        @foreach($productGroup->productGroupProducts as $product)
             <div class="col-md-4">
                 <div class="ibox ">
                     <div class="ibox-title">

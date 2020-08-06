@@ -55,7 +55,7 @@
                                                 <strong>{{ $errors->first('name') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="text" id="name" name="name" required="required" value="{{ old('name') }}" placeholder="Name" class="form-control input-lg">
+                                        <input type="text" id="name" name="name" required="required" value="{{ old('name') }}" placeholder="Name" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                         <i>name</i>
                                     </div>
                                     <br>
@@ -65,7 +65,7 @@
                                                 <strong>{{ $errors->first('balance') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="balance" name="balance" required="required" value="{{ old('balance') }}" placeholder="Balance" class="form-control input-lg">
+                                        <input type="number" id="balance" name="balance" required="required" value="{{ old('balance') }}" placeholder="Balance" class="form-control input-lg {{ $errors->has('balance') ? ' is-invalid' : '' }}">
                                         <i>balance</i>
                                     </div>
                                     <br>
@@ -75,7 +75,7 @@
                                                 <strong>{{ $errors->first('notes') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" name="notes" class="form-control input-lg" placeholder="Notes" >{{ old('notes') }}</textarea>
+                                        <textarea rows="5" name="notes" class="form-control input-lg {{ $errors->has('notes') ? ' is-invalid' : '' }}" placeholder="Notes" >{{ old('notes') }}</textarea>
                                         <i>notes</i>
                                     </div>
 

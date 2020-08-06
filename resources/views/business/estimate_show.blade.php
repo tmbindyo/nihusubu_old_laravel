@@ -36,6 +36,9 @@
                             <a href="{{route('business.invoice.show',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Invoice </a>
                         @endcan
                     @endif
+                    @can('send estimate')
+                        <a href="{{route('business.estimate.compose',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-send-o"></i> Send </a>
+                    @endcan
                     @can('print estimate')
                         <a href="{{route('business.estimate.print',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
                     @endcan

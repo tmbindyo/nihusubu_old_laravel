@@ -58,7 +58,7 @@
                                                 <strong>{{ $errors->first('amount') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="amount" name="amount" required="required" placeholder="Amount" value="{{ old('amount') }}" class="form-control input-lg">
+                                        <input type="number" id="amount" name="amount" required="required" placeholder="Amount" value="{{ old('amount') }}" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}">
                                         <i>amount</i>
                                     </div>
                                     <br>
@@ -72,7 +72,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg">
+                                            <input type="text" required="required" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}">
                                         </div>
                                         <i>What is the start date of the event?</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -84,7 +84,7 @@
                                                 <strong>{{ $errors->first('account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="account" class="select2_account form-control input-lg">
+                                        <select name="account" class="select2_account form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}">
                                             <option></option>
                                             @foreach ($accounts as $account)
                                                 <option @isset($accountExists) @if($accountExists->id == $account->id) selected @endif @endisset value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
@@ -99,7 +99,7 @@
                                                 <strong>{{ $errors->first('about') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg">{{ old('about') }}"</textarea>
+                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg {{ $errors->has('about') ? ' is-invalid' : '' }}">{{ old('about') }}</textarea>
                                         <i>about deposit</i>
                                     </div>
 

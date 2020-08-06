@@ -58,7 +58,7 @@
                                                 <strong>{{ $errors->first('name') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="text" id="name" name="name" required="required" value="{{ old('name') }}" placeholder="Name" class="form-control input-lg">
+                                        <input type="text" id="name" name="name" required="required" value="{{ old('name') }}" placeholder="Name" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                         <i>name</i>
                                     </div>
                                     <br>
@@ -74,7 +74,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" required="required" name="start_date" id="start_date" value="{{ old('start_date') }}" class="form-control input-lg">
+                                                    <input type="text" required="required" name="start_date" id="start_date" value="{{ old('start_date') }}" class="form-control input-lg {{ $errors->has('start_date') ? ' is-invalid' : '' }}">
                                                 </div>
                                                 <i>What is the start date of the campaign?</i>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -91,7 +91,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" required="required" name="end_date" id="end_date" value="{{ old('end_date') }}" class="form-control input-lg">
+                                                    <input type="text" required="required" name="end_date" id="end_date" value="{{ old('end_date') }}" class="form-control input-lg {{ $errors->has('end_date') ? ' is-invalid' : '' }}">
                                                 </div>
                                                 <i>What is the end date of the campaign?</i>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -107,7 +107,7 @@
                                                         <strong>{{ $errors->first('expected_revenue') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="expected_revenue" name="expected_revenue" value="{{ old('expected_revenue') }}" required="required" placeholder="Expected Revenue" class="form-control input-lg">
+                                                <input type="number" id="expected_revenue" name="expected_revenue" value="{{ old('expected_revenue') }}" required="required" placeholder="Expected Revenue" class="form-control input-lg {{ $errors->has('expected_revenue') ? ' is-invalid' : '' }}">
                                                 <i>expected revenue</i>
                                             </div>
                                         </div>
@@ -118,14 +118,14 @@
                                                         <strong>{{ $errors->first('budgeted_cost') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="budgeted_cost" name="budgeted_cost" value="{{ old('budgeted_cost') }}" required="required" placeholder="Budgeted Cost" class="form-control input-lg">
+                                                <input type="number" id="budgeted_cost" name="budgeted_cost" value="{{ old('budgeted_cost') }}" required="required" placeholder="Budgeted Cost" class="form-control input-lg {{ $errors->has('budgeted_cost') ? ' is-invalid' : '' }}">
                                                 <i>budgeted cost</i>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="type" class="select2_demo_campaign_type form-control input-lg" required>
+                                        <select name="type" class="select2_demo_campaign_type form-control input-lg {{ $errors->has('type') ? ' is-invalid' : '' }}" required>
                                             <option></option>
                                             @foreach ($campaignTypes as $campaignType)
                                                 <option @isset($campaignTypeExists) @if($campaignTypeExists->id == $campaignType->id) selected @endif @endisset() value="{{$campaignType->id}}">{{$campaignType->name}}</option>
@@ -140,7 +140,7 @@
                                                 <strong>{{ $errors->first('description') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg">{{ old('description') }}</textarea>
+                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg {{ $errors->has('description') ? ' is-invalid' : '' }}">{{ old('description') }}</textarea>
                                         <i>Give a brief description on what the project is about</i>
                                     </div>
                                     <br>
@@ -150,7 +150,7 @@
                                                 <strong>{{ $errors->first('expected_response') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" id="expected_response" name="expected_response" required="required" placeholder="Expected response" class="form-control input-lg">{{ old('expected_response') }}</textarea>
+                                        <textarea rows="5" id="expected_response" name="expected_response" required="required" placeholder="Expected response" class="form-control input-lg {{ $errors->has('expected_response') ? ' is-invalid' : '' }}">{{ old('expected_response') }}</textarea>
                                         <i>Give a the expected response</i>
                                     </div>
 

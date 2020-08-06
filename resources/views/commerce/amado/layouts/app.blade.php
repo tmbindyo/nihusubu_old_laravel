@@ -23,6 +23,16 @@
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
 
+{{--    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8FFXhb8U-H-NRDEyefX6uNjgqsjXXmCs&libraries=places"></script>--}}
+
+
+    <script>
+        var input = document.getElementById('city');
+        var autocomplete = new google.maps.places.Autocomplete(input,{types: ['(cities)']});
+        google.maps.event.addListener(autocomplete, 'place_changed', function(){
+            var place = autocomplete.getPlace();
+        })
+    </script>
 
     <!-- Favicon  -->
     <link rel="icon" href="{{ asset('e_commerce/amado') }}/img/core-img/favicon.ico">
@@ -30,6 +40,8 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{ asset('e_commerce/amado') }}/css/core-style.css">
     <link rel="stylesheet" href="{{ asset('e_commerce/amado') }}/style.css">
+
+    @yield('css')
 
 </head>
 
@@ -82,6 +94,10 @@
 <script src="{{ asset('e_commerce/amado') }}/js/plugins.js"></script>
 <!-- Active js -->
 <script src="{{ asset('e_commerce/amado') }}/js/active.js"></script>
+
+<!-- js content -->
+@yield ('js')
+<!-- /js content -->
 
 </body>
 

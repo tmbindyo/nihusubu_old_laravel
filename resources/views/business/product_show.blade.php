@@ -71,7 +71,7 @@
                         </div>
                         <div class="col-xs-8 text-right">
                             <span> Stock On Hand </span>
-                            @if($product->is_service == "1")
+                            @if($product->is_service == "1" || $product->is_inventory == "0")
                                 <h2 class="font-bold">N/A</h2>
                             @else
                                         <h2 class="font-bold">{{$product->stock_on_hand->first()->stock_on_hand}}</h2>
@@ -124,42 +124,29 @@
                 <div class="ibox-content">
 
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-4">
 
-
-                            <div class="product-images">
-
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 1]
-                                    </div>
+                            <div class="carousel slide" id="carousel1">
+                                <div class="carousel-inner">
+                                @foreach($product->productImages as $image)
+                                        <div class="item @if ($loop->first) active @endif">
+                                            <img alt="image" class="img-responsive" src="{{asset('storage')}}/{{$image->upload->small_thumbnail}}">
+                                            <div class="carousel-caption">
+                                                <a class="" href=""><i class="fa fa-trash fa-3x"></i> </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 2]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 3]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 4]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 5]
-                                    </div>
-                                </div>
-
-
+                                <a data-slide="prev" href="#carousel1" class="left carousel-control">
+                                    <span class="icon-prev"></span>
+                                </a>
+                                <a data-slide="next" href="#carousel1" class="right carousel-control">
+                                    <span class="icon-next"></span>
+                                </a>
                             </div>
 
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-8">
 
                             <h2 class="font-bold m-b-xs">
                                 {{$product->name}}
@@ -199,12 +186,6 @@
                     </div>
 
                 </div>
-                <div class="ibox-footer">
-                    <span class="pull-right">
-                        Full stock - <i class="fa fa-clock-o"></i> 14.04.2016 10:04 pm
-                    </span>
-                    The generated Lorem Ipsum is therefore always free
-                </div>
             </div>
 
         </div>
@@ -218,32 +199,56 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="m-b-md">
-                                {{--  <h2>Contract with Zender Company</h2>  --}}
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-user fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$product->user->name}}</h3>
+                                    </div>
+                                </div>
                             </div>
-                            <dl class="dl-horizontal">
-                                <dt>Status:</dt> <dd><span class="label {{$product->status->label}}">{{$product->status->name}}</span></dd>
-                            </dl>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 {{$product->status->label}}">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-ellipsis-v fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$product->status->name}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-plus-square fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$product->created_at}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-scissors fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$product->updated_at}}</h3>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <dl class="dl-horizontal">
-
-                                <dt>Created by:</dt> <dd>{{$product->user->name}}</dd>
-                                <dt>Stock Keeping Unit:</dt> <dd>  {{$product->unit->name}}</dd>
-                            </dl>
-                        </div>
-                        <div class="col-lg-7" id="cluster_info">
-                            <dl class="dl-horizontal" >
-
-                                <dt>Last Updated:</dt> <dd>{{$product->updated_at}}</dd>
-                                <dt>Created:</dt> <dd> 	{{$product->created_at}} </dd>
-
-                            </dl>
-                        </div>
-                    </div>
+                    <hr>
                     <div class="row m-t-sm">
                         <div class="col-lg-12">
                             <div class="panel blank-panel">
@@ -524,6 +529,13 @@
 
 <!-- slick carousel-->
 <script src="{{ asset('inspinia') }}/js/plugins/slick/slick.min.js"></script>
+{{-- slider --}}
+<script src="{{ asset('inspinia') }}/js/plugins/silder-master/jssor.slider.min.js"></script>
+
+<script>
+    var options = { $AutoPlay: 1 };
+    var jssor_1_slider = new $JssorSlider$("jssor_1", options);
+</script>
 
 <!-- Page-Level Scripts -->
 <script>

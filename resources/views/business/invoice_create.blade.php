@@ -57,7 +57,7 @@
                                                         <strong>{{ $errors->first('contact') }}</strong>
                                                     </span>
                                                 @endif
-                                                <select name="contact" class="select2_contact form-control required input-lg" required="required">
+                                                <select name="contact" class="select2_contact form-control required input-lg {{ $errors->has('contact') ? ' is-invalid' : '' }}" required="required">
                                                     <option></option>
                                                     @foreach($contacts as $contact)
                                                         <option value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
@@ -77,7 +77,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" required>
+                                                            <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" required>
                                                         </div>
                                                         <i> invoice date.</i>
                                                     </div>
@@ -93,7 +93,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="due_date" id="due_date" value="{{ old('due_date') }}" class="form-control input-lg" required>
+                                                            <input type="text" name="due_date" id="due_date" value="{{ old('due_date') }}" class="form-control input-lg {{ $errors->has('due_date') ? ' is-invalid' : '' }}" required>
                                                         </div>
                                                         <i> due date.</i>
                                                     </div>
@@ -120,15 +120,19 @@
                                                     <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_product form-control input-lg item-select" style = "width: 100%">
                                                         <option></option>
                                                         @foreach($products as $product)
-                                                            @if($product->is_service == 0)
-                                                                @if($product->is_composite_product == 1)
-                                                                    <option value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
+                                                            @if($product->is_inventory == 1)
+                                                                @if($product->is_service == 0)
+                                                                    @if($product->is_composite_product == 1)
+                                                                        <option value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
+                                                                    @else
+                                                                        @foreach($product->inventory as $inventory)
+                                                                            <option value="{{$product->id}}:{{$inventory->id}}" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
+                                                                        @endforeach
+                                                                    @endif
                                                                 @else
-                                                                    @foreach($product->inventory as $inventory)
-                                                                        <option value="{{$product->id}}:{{$inventory->id}}" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
-                                                                    @endforeach
+                                                                    <option value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
                                                                 @endif
-                                                            @else
+                                                            @elseif ($product->is_inventory == 0 or $product->is_service == 0)
                                                                 <option value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
                                                             @endif
                                                         @endforeach
@@ -194,7 +198,7 @@
                                                         <strong>{{ $errors->first('customer_notes') }}</strong>
                                                     </span>
                                             @endif
-                                            <textarea required name="customer_notes" placeholder="Notes" class="form-control" rows="7">{{ old('customer_notes') }}</textarea>
+                                            <textarea required name="customer_notes" placeholder="Notes" class="form-control {{ $errors->has('customer_notes') ? ' is-invalid' : '' }}" rows="7">{{ old('customer_notes') }}</textarea>
                                         </div>
 
                                         <div class="col-md-6">
@@ -203,7 +207,7 @@
                                                     <strong>{{ $errors->first('terms_and_conditions') }}</strong>
                                                 </span>
                                             @endif
-                                            <textarea required name="terms_and_conditions" placeholder="Terms and Conditions" class="form-control" rows="7">{{ old('terms_and_conditions') }}</textarea>
+                                            <textarea required name="terms_and_conditions" placeholder="Terms and Conditions" class="form-control {{ $errors->has('terms_and_conditions') ? ' is-invalid' : '' }}" rows="7">{{ old('terms_and_conditions') }}</textarea>
                                         </div>
                                     </div>
                                     <br>
@@ -409,6 +413,7 @@
         firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_product form-control input-lg select-product item-select' style = 'width: 100%'>"+
             "<option selected disabled>Select Item</option>"+
             "@foreach($products as $product)"+
+            "@if($product->is_inventory == 1)"+
             "@if($product->is_service == 0)"+
 
             "@if($product->is_composite_product == 1)"+
@@ -421,6 +426,9 @@
 
             "@endif"+
             "@else"+
+            "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}}</option>"+
+            "@endif"+
+            "@elseif ($product->is_inventory == 0 or $product->is_service == 0)"+
             "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}}</option>"+
             "@endif"+
             "@endforeach"+

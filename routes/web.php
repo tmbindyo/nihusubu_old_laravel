@@ -94,3 +94,6 @@ Route::post('/business/add/store', 'HomeController@addInstitution')->name('busin
 Route::get('/personal/signup', 'Business\AuthController@personalSignup')->name('personal.signup');
 Route::get('/add/personal/account', 'HomeController@addPersonal')->name('add.personal.account');
 
+
+Route::get('/view/order/{order_id}', 'Landing\LandingController@viewOrder')->name('view.order');
+Route::get('/print/order/{order_id}', 'Landing\LandingController@printOrder')->name('print.order');

@@ -30,35 +30,72 @@
     <div class="wrapper wrapper-content animated fadeInRight">
 
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="wrapper wrapper-content animated fadeInUp">
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$inventoryAdjustment->user->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$inventoryAdjustment->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$inventoryAdjustment->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$inventoryAdjustment->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$inventoryAdjustment->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
                                 <div class="col-lg-12">
                                     <div class="m-b-md">
-                                        <h2>{{$inventoryAdjustment->inventory_adjustment_number}}</h2>
+                                        <h2>Reference #{{$inventoryAdjustment->inventory_adjustment_number}}</h2>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label label-primary">{{$inventoryAdjustment->status->name}}</span></dd>
-                                    </dl>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-5">
                                     <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$inventoryAdjustment->user->name}}</dd>
                                         <dt>Reason:</dt> <dd>  {{$inventoryAdjustment->reason->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        @if($inventoryAdjustment->updated_at != $inventoryAdjustment->created_at)
-                                            <dt>Last Updated:</dt> <dd>{{$inventoryAdjustment->updated_at}}</dd>
-                                        @endif
-                                        <dt>Created:</dt> <dd> {{$inventoryAdjustment->created_at}} </dd>
                                     </dl>
                                 </div>
                             </div>

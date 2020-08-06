@@ -188,7 +188,7 @@ class InventoryController extends Controller
         // Warehouse
         $warehouses = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->get();
         // Products
-        $products = Product::where('institution_id', $institution->id)->with('inventory')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory')->get();
 
 
         return view('business.transfer_order_create', compact('user', 'institution', 'accounts', 'warehouses', 'products'));
@@ -220,7 +220,6 @@ class InventoryController extends Controller
         foreach ($request->item_details as $transfer){
 
             $sourceWarehouse = Inventory::where('warehouse_id', $request->source_warehouse)->where('product_id', $transfer['product_id'])->first();
-
 
             $destinationWarehouse = Inventory::where('warehouse_id', $request->destination_warehouse)->where('product_id', $transfer['product_id'])->first();
 

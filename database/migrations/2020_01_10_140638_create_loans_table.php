@@ -24,6 +24,7 @@ class CreateLoansTable extends Migration
             $table->decimal('interest',20,8)->nullable();
             $table->decimal('interest_amount',20,8)->nullable();
             $table->decimal('paid',20,2)->nullable();
+            $table->decimal('balance',20,2)->nullable();
 
             $table->date('date');
             $table->date('due_date');
@@ -38,6 +39,7 @@ class CreateLoansTable extends Migration
             $table->uuid('account_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('contact_id')->nullable();
+            $table->uuid('loan_type_id')->nullable();
 
 
             $table->timestamps();

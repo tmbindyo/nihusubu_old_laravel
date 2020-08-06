@@ -21,6 +21,7 @@ class CreateSalesTable extends Migration
             $table->longText('terms_and_conditions')->nullable();
             $table->date('date');
             $table->date('due_date');
+            $table->date('expiry_date')->nullable();
 
             $table->double('subtotal', 20,2);
             $table->double('discount', 20,2);

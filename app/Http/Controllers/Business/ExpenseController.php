@@ -816,20 +816,26 @@ class ExpenseController extends Controller
             $payment->sale_id = $request->sale;
             // update sale as paid
             $sale = Sale::findOrFail($request->sale);
-            $paid = doubleval($request->amount) + doubleval($sale->paid);
+            $paid = doubleval($request->amount);
             $balance = doubleval($sale->total) - doubleval($paid);
             $sale->balance = $balance;
             $sale->paid = $paid;
             $sale->save();
 
+            $accountBalance = doubleval($account->balance) + doubleval($paid);
+
             // reduce stock
             $saleProducts = SaleProduct::where('sale_id', $sale->id)->get();
+            // check if inventory is being tracked
+
             foreach($saleProducts as $saleProduct){
-                // return $saleProduct;
-                $inventory = Inventory::where('product_id', $saleProduct->product_id)->where('warehouse_id', $saleProduct->warehouse_id)->first();
-                $quantity = doubleval($inventory->quantity) - doubleval($saleProduct->quantity);
-                $inventory->quantity = $quantity;
-                $inventory->save();
+                if($saleProduct->is_inventory == 1){
+                    // return $saleProduct;
+                    $inventory = Inventory::where('product_id', $saleProduct->product_id)->where('warehouse_id', $saleProduct->warehouse_id)->first();
+                    $quantity = doubleval($inventory->quantity) - doubleval($saleProduct->quantity);
+                    $inventory->quantity = $quantity;
+                    $inventory->save();
+                }
             }
 
         }else{

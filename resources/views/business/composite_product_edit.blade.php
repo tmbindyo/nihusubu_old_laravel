@@ -33,7 +33,7 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="">
-                            <form method="post" action="{{ route('business.composite.product.update',['portal'=>$institution->portal, 'id'=>$compositeProduct->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" enctype="multipart/form-data" action="{{ route('business.composite.product.update',['portal'=>$institution->portal, 'id'=>$compositeProduct->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -47,7 +47,7 @@
                                 @endif
                                 {{--  Product  --}}
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         {{--  Product type  --}}
                                         @if ($errors->has('product_type'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -56,11 +56,11 @@
                                         @endif
                                         <p>Product Type</p>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="goods" value="goods" name="product_type" checked="" @if($compositeProduct->is_service == 1) checked @endif>
+                                            <input type="radio" id="goods" value="goods" name="product_type" checked="" class="{{ $errors->has('product_type') ? ' is-invalid' : '' }}" @if($compositeProduct->is_service == 1) checked @endif>
                                             <label for="goods"> Goods </label>
                                         </div>
                                         <div class="radio radio-inline">
-                                            <input type="radio" id="services" value="services" name="product_type" @if($compositeProduct->is_service == 0) checked @endif>
+                                            <input type="radio" id="services" value="services" name="product_type" class="{{ $errors->has('product_type') ? ' is-invalid' : '' }}" @if($compositeProduct->is_service == 0) checked @endif>
                                             <label for="services"> Service </label>
                                         </div>
                                         {{--  Product name  --}}
@@ -72,7 +72,7 @@
                                                 <strong>{{ $errors->first('product_name') }}</strong>
                                             </span>
                                             @endif
-                                            <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg" value="{{$compositeProduct->name}}">
+                                            <input type="text" id="product_name" name="product_name" required="required" class="form-control input-lg {{ $errors->has('product_name') ? ' is-invalid' : '' }}" value="{{$compositeProduct->name}}">
                                             <i>name</i>
                                         </div>
                                         {{--  Product Unit  --}}
@@ -83,7 +83,7 @@
                                                 <strong>{{ $errors->first('unit') }}</strong>
                                             </span>
                                             @endif
-                                            <select name="unit" class="select2_unit form-control input-lg" required>
+                                            <select name="unit" class="select2_unit form-control input-lg {{ $errors->has('unit') ? ' is-invalid' : '' }}" required>
                                                 <option disabled>Select Unit</option>
                                                 @foreach($units as $unit)
                                                     <option @if($compositeProduct->unit_id == $unit->id) selected @endif value="{{$unit->id}}">{{$unit->name}}</option>
@@ -91,6 +91,51 @@
                                             </select>
                                             <i>unit</i>
                                         </div>
+                                        <br>
+                                        <div class="row">
+                                            @if ($errors->has('brand'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('brand') }}</strong>
+                                            </span>
+                                            @endif
+                                            <div class="col-lg-11">
+                                                <div class="has-warning">
+                                                    <select name="brand" class="select2_brand form-control input-lg {{ $errors->has('brand') ? ' is-invalid' : '' }}">
+                                                        <option></option>
+                                                        @foreach($brands as $brand)
+                                                            <option @if($compositeProduct->brand_id == $brand->id) selected @endif value="{{$brand->id}}">{{$brand->name}}</option>
+                                                        @endforeach()
+                                                    </select>
+                                                    <i>brand</i>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a brand." class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            @if ($errors->has('product_category'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('product_category') }}</strong>
+                                            </span>
+                                            @endif
+                                            <div class="col-lg-11">
+                                                <div class="has-warning">
+                                                    <select name="product_sub_category" class="select2_product_sub_category form-control input-lg {{ $errors->has('product_sub_category') ? ' is-invalid' : '' }}">
+                                                        <option></option>
+                                                        @foreach($productSubCategories as $productSubCategory)
+                                                            <option @if($compositeProduct->product_sub_category_id == $productSubCategory->id) selected @endif value="{{$productSubCategory->id}}">{{$productSubCategory->name}}</option>
+                                                        @endforeach()
+                                                    </select>
+                                                    <i>product sub category</i>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a product category." class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            </div>
+                                        </div>
+                                        <br>
                                         {{--  Product returnable  --}}
                                         @if ($errors->has('returnable'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -98,7 +143,7 @@
                                             </span>
                                         @endif
                                         <div class="checkbox">
-                                            <input id="returnable" name="returnable" type="checkbox" @if($compositeProduct->is_returnable == 1) checked @endif>
+                                            <input id="returnable" name="returnable" type="checkbox" class="{{ $errors->has('returnable') ? ' is-invalid' : '' }}" @if($compositeProduct->is_returnable == 1) checked @endif>
                                             <label for="returnable">
                                                 Returnable Product
                                             </label>
@@ -106,8 +151,12 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4">
-                                        {{--  TODO Thumbnail  --}}
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="file-loading">
+                                                <input id="file-1" type="file" name="file[]" multiple class="file {{ $errors->has('file') ? ' is-invalid' : '' }}" data-overwrite-initial="false" data-min-file-count="1">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
@@ -124,7 +173,7 @@
                                                 <strong>{{ $errors->first('selling_price') }}</strong>
                                             </span>
                                             @endif
-                                            <input type="text" id="selling_price" name="selling_price" required="required" value="{{$compositeProduct->selling_price}}" class="form-control input-lg">
+                                            <input type="text" id="selling_price" name="selling_price" required="required" value="{{$compositeProduct->selling_price}}" class="form-control input-lg {{ $errors->has('selling_price') ? ' is-invalid' : '' }}">
                                             <i>selling price</i>
                                         </div>
                                     </div>
@@ -141,7 +190,7 @@
                                             </div>
                                             <div class="col-md-11">
                                                 <div class="has-warning">
-                                                    <select name="selling_account" class="select2_selling_account form-control input-lg" required>
+                                                    <select name="selling_account" class="select2_selling_account form-control input-lg {{ $errors->has('selling_account') ? ' is-invalid' : '' }}" required>
                                                         <option value="" selected disabled>Select Selling Account</option>
                                                         @foreach($salesAccounts as $account)
                                                             <option @if($compositeProduct->selling_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
@@ -162,7 +211,7 @@
                                                 <strong>{{ $errors->first('taxes') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="taxes[]" class="select2_taxes form-control input-lg" multiple required>
+                                        <select name="taxes[]" class="select2_taxes form-control input-lg {{ $errors->has('taxes') ? ' is-invalid' : '' }}" multiple required>
                                             <option disabled>Select tax</option>
                                             @foreach($taxes as $tax)
                                                 @foreach($compositeProduct->productTaxes as $productTax)
@@ -221,14 +270,6 @@
                                                     @endphp
                                                 @endforeach
                                             </tbody>
-                                            {{-- <tfoot>
-                                            <tr>
-                                                <th>Product Details</th>
-                                                <th width="210px">Quantity</th>
-                                                <th width="210px">Unit Price</th>
-                                                <th width="210px">Total Price</th>
-                                            </tr>
-                                            </tfoot> --}}
                                         </table>
                                         <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                                     </div>
@@ -316,6 +357,31 @@
 
     <!-- SUMMERNOTE -->
     <script src="{{ asset('inspinia') }}/js/plugins/summernote/summernote.min.js"></script>
+
+
+    {{-- FILEINPUT --}}
+    <script src="{{ asset('inspinia') }}/js/plugins/fileinput/fileinput.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/fileinput/theme.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/popper/popper.min.js"></script>
+
+    <script type="text/javascript">
+        $("#file-1").fileinput({
+            theme: 'fa',
+            uploadUrl: "/image-view",
+            uploadExtraData: function() {
+                return {
+                    _token: $("input[name='_token']").val(),
+                };
+            },
+            allowedFileExtensions: ['jpg', 'png', 'gif'],
+            overwriteInitial: false,
+            maxFileSize:2000,
+            maxFilesNum: 10,
+            slugCallback: function (filename) {
+                return filename.replace('(', '_').replace(']', '_');
+            }
+        });
+    </script>
 
     <script>
         $(document).ready(function(){
@@ -633,6 +699,14 @@
         });
         $(".select2_unit").select2({
             placeholder: "Select Unit",
+            allowClear: true
+        });
+        $(".select2_brand").select2({
+            placeholder: "Select Brand",
+            allowClear: true
+        });
+        $(".select2_product_sub_category").select2({
+            placeholder: "Select Product Category",
             allowClear: true
         });
 

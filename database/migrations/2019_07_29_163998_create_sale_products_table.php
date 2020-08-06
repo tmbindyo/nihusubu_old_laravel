@@ -25,7 +25,7 @@ class CreateSaleProductsTable extends Migration
             $table->uuid('status_id');
             $table->uuid('sale_id');
             $table->uuid('product_id');
-            $table->uuid('warehouse_id');
+            $table->uuid('warehouse_id')->nullable();
 
             $table->boolean('is_product');
             $table->boolean('is_returned');

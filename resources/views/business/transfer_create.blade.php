@@ -58,7 +58,7 @@
                                                 <strong>{{ $errors->first('amount') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="amount" name="amount" value="{{ old('amount') }}" required="required" placeholder="Amount" class="form-control input-lg">
+                                        <input type="number" id="amount" name="amount" value="{{ old('amount') }}" required="required" placeholder="Amount" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}">
                                         <i>amount</i>
                                     </div>
                                     <br>
@@ -72,7 +72,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" aria-required="true">
+                                            <input type="text" required="required" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" aria-required="true">
                                         </div>
                                         <i>What is the start date of the transfer?</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -84,7 +84,7 @@
                                                 <strong>{{ $errors->first('source_account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="source_account" class="select2_source_account form-control input-lg" required>
+                                        <select name="source_account" class="select2_source_account form-control input-lg {{ $errors->has('source_account') ? ' is-invalid' : '' }}" required>
                                             <option></option>
                                             @foreach ($accounts as $sourceAccount)
                                                 <option value="{{$sourceAccount->id}}">{{$sourceAccount->name}} [{{$sourceAccount->balance}}]</option>
@@ -99,7 +99,7 @@
                                                 <strong>{{ $errors->first('destination_account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="destination_account" class="select2_destination_account form-control input-lg" required>
+                                        <select name="destination_account" class="select2_destination_account form-control input-lg {{ $errors->has('destination_account') ? ' is-invalid' : '' }}" required>
                                             <option></option>
                                             @foreach ($accounts as $destinationAccount)
                                                 <option value="{{$destinationAccount->id}}">{{$destinationAccount->name}} [{{$destinationAccount->balance}}]</option>
@@ -115,7 +115,7 @@
                                                 <strong>{{ $errors->first('notes') }}</strong>
                                             </span>
                                             @endif
-                                            <textarea id="notes" rows="5" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="About...">{{ old('notes') }}</textarea>
+                                            <textarea id="notes" rows="5" name="notes" class="resizable_textarea form-control input-lg {{ $errors->has('notes') ? ' is-invalid' : '' }}" required="required" placeholder="About...">{{ old('notes') }}</textarea>
                                         </div>
                                     </div>
 

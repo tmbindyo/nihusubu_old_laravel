@@ -68,7 +68,7 @@
                                                 <strong>{{ $errors->first('principal') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" @if (empty(old('principal'))) value="0" @else value="{{ old('principal') }}" @endif class="form-control input-lg">
+                                        <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" @if (empty(old('principal'))) value="0" @else value="{{ old('principal') }}" @endif class="form-control input-lg {{ $errors->has('principal') ? ' is-invalid' : '' }}">
                                         <i>principal</i>
                                     </div>
                                     <br>
@@ -80,7 +80,7 @@
                                                         <strong>{{ $errors->first('interest') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" @if (empty(old('interest'))) value="0" @else value="{{ old('interest') }}" @endif max="100" step="0.00001" class="form-control input-lg">
+                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" @if (empty(old('interest'))) value="0" @else value="{{ old('interest') }}" @endif max="100" step="0.00001" class="form-control input-lg {{ $errors->has('interest') ? ' is-invalid' : '' }}">
                                                 <i>key in interest in percentage</i>
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                                         <strong>{{ $errors->first('interest_amount') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" @if (empty(old('interest_amount'))) value="0" @else value="{{ old('interest_amount') }}" @endif class="form-control input-lg">
+                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" @if (empty(old('interest_amount'))) value="0" @else value="{{ old('interest_amount') }}" @endif class="form-control input-lg {{ $errors->has('interest_amount') ? ' is-invalid' : '' }}">
                                                 <i>key in interest amount</i>
                                             </div>
                                         </div>
@@ -102,7 +102,7 @@
                                                         <strong>{{ $errors->first('total') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="total" name="total" required="required" readonly @if (empty(old('total'))) value="0" @else value="{{ old('total') }}" @endif class="form-control input-lg">
+                                                <input type="number" id="total" name="total" required="required" readonly @if (empty(old('total'))) value="0" @else value="{{ old('total') }}" @endif class="form-control input-lg {{ $errors->has('total') ? ' is-invalid' : '' }}">
                                                 <i>total</i>
                                             </div>
                                         </div>
@@ -118,7 +118,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg">
+                                            <input type="text" required="required" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}">
                                         </div>
                                         <i>date</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -134,7 +134,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="due_date" id="due_date" value="{{ old('due_date') }}" class="form-control input-lg">
+                                            <input type="text" required="required" name="due_date" id="due_date" value="{{ old('due_date') }}" class="form-control input-lg {{ $errors->has('due_date') ? ' is-invalid' : '' }}">
                                         </div>
                                         <i>due date</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -146,7 +146,7 @@
                                                 <strong>{{ $errors->first('account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="account" class="select2_account form-control input-lg" required>
+                                        <select name="account" class="select2_account form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}" required>
                                             <option></option>
                                             @foreach ($accounts as $account)
                                                 <option @isset($loanAccount) @if($loanAccount->id == $account->id) selected @endif @endisset value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
@@ -161,7 +161,7 @@
                                                 <strong>{{ $errors->first('loan_type') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="loan_type" class="select2_loan_type form-control input-lg" required>
+                                        <select name="loan_type" class="select2_loan_type form-control input-lg {{ $errors->has('loan_type') ? ' is-invalid' : '' }}" required>
                                             <option></option>
                                             @foreach ($loanTypes as $loanType)
                                                 <option value="{{$loanType->id}}">{{$loanType->name}}</option>
@@ -176,7 +176,7 @@
                                                 <strong>{{ $errors->first('contact') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="contact" class="select2_contact form-control input-lg" required>
+                                        <select name="contact" class="select2_contact form-control input-lg {{ $errors->has('contact') ? ' is-invalid' : '' }}" required>
                                             <option></option>
                                             @foreach ($contacts as $contact)
                                                 <option @isset($loanContact) @if($loanContact->id == $contact->id) selected @endif @endisset value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
@@ -191,7 +191,7 @@
                                                 <strong>{{ $errors->first('about') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg">{{ old('name') }}</textarea>
+                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg {{ $errors->has('about') ? ' is-invalid' : '' }}">{{ old('name') }}</textarea>
                                         <i>Give a brief description on what the project is about</i>
                                     </div>
 

@@ -78,7 +78,7 @@
                                                 <strong>{{ $errors->first('paid') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="paid" name="paid" required="required" value="{{$payment->amount}}" class="form-control input-lg" readonly>
+                                        <input type="number" id="paid" name="paid" required="required" value="{{$payment->amount}}" class="form-control input-lg {{ $errors->has('paid') ? ' is-invalid' : '' }}" readonly>
                                         <i>paid</i>
                                     </div>
                                     <br>
@@ -92,7 +92,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" class="form-control input-lg" value="{{$payment->date}}" readonly>
+                                            <input type="text" required="required" name="date" id="date" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" value="{{$payment->date}}" readonly>
                                         </div>
                                         <i>date</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -104,7 +104,7 @@
                                                 <strong>{{ $errors->first('account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="account" class="select2_demo_tag form-control input-lg">
+                                        <select name="account" class="select2_demo_tag form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}">
                                             <option value="{{$payment->account->id}}">{{$payment->account->name}} [{{$payment->account->balance}}]</option>
                                         </select>
                                         <i>account</i>
@@ -116,7 +116,7 @@
                                                 <strong>{{ $errors->first('warning') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" id="about" name="about" required="required" class="form-control input-lg" readonly>{{$payment->notes}}</textarea>
+                                        <textarea rows="5" id="about" name="about" required="required" class="form-control input-lg {{ $errors->has('about') ? ' is-invalid' : '' }}" readonly>{{$payment->notes}}</textarea>
                                         <i>notes</i>
                                     </div>
 
@@ -145,29 +145,56 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$payment->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$payment->status->label}}">{{$payment->status->name}}</span></dd>
-                                    </dl>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$payment->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$payment->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$payment->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$payment->updated_at}}</h3>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$payment->user->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$payment->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$payment->created_at}} </dd>
-                                    </dl>
-                                </div>
                             </div>
+                            <hr>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                 <div class="panel blank-panel">
@@ -335,7 +362,7 @@
 
 @endsection
 
-@include('business.layouts.modals.payment_to_do')
+@include('business.layouts.modals.to_do_create')
 
 @section('js')
 
@@ -500,6 +527,34 @@
         document.getElementById("end_time").value = time_curr;
 
         // Set time
+    });
+
+</script>
+
+{{-- to do start time and end time --}}
+<script>
+    $(document).ready(function() {
+        $('.enableEndDate').on('click',function(){
+
+            if (document.getElementById('is_end_date').checked) {
+                // enable end_time input
+                document.getElementById("end_date").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_date").disabled = true;
+            }
+
+        });
+
+        $('.enableEndTime').on('click',function(){
+            if (document.getElementById('is_end_time').checked) {
+                // enable end_time input
+                document.getElementById("end_time").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_time").disabled = true;
+            }
+        });
     });
 
 </script>
@@ -799,6 +854,7 @@
             allowClear: true
         });
 
+        $('.chosen-select').chosen({width: "100%"});
 
     });
 

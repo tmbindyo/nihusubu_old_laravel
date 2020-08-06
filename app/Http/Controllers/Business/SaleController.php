@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Business;
 
 use App\Account;
+use App\Mail\OrderSummary;
+use App\Mail\SendSaleEmail;
+use App\SaleEmail;
 use DB;
 use App\Address;
 use App\AlbumTag;
@@ -25,6 +28,7 @@ use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Payment;
+use Illuminate\Support\Facades\Mail;
 
 class SaleController extends Controller
 {
@@ -63,7 +67,7 @@ class SaleController extends Controller
         // Getting taxes
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
         // Get Inventory
@@ -74,6 +78,7 @@ class SaleController extends Controller
 
     public function estimateStore(Request $request, $portal)
     {
+
         // User
         $user = $this->getUser();
         // Institution
@@ -157,45 +162,6 @@ class SaleController extends Controller
             $estimateProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
             $estimateProduct->user_id = $user->id;
             $estimateProduct->save();
-            if (isset($item["item"])){
-                $data = $item['item'];
-                if (strpos($data, ':') !== false){
-                    list($product_id, $inventory_id,) = explode(":", $data);
-                    $warehouse_id = Inventory::where('id', $inventory_id)->first()->warehouse_id;
-                }else{
-                    $product_id = $data;
-                    $warehouse_id = '';
-                }
-
-                // Check if product has taxes
-                $taxes = ProductTax::where('product_id', $product_id)->with('tax')->get();
-                if ($taxes){
-                    foreach ($taxes as $product_tax){
-                        $product_tax_value = doubleval($product_tax->tax->amount) * 0.01 * $item['amount'];
-                        $tax = doubleval($tax) + doubleval($product_tax_value);
-                    }
-                }
-
-                $estimateProduct =  new SaleProduct();
-                $estimateProduct->rate = $item['rate'];
-                $estimateProduct->quantity = $item['quantity'];
-                $estimateProduct->amount = $item['amount'];
-                $estimateProduct->sale_id = $estimate->id;
-                $estimateProduct->refund_amount = 0;
-                $estimateProduct->warehouse_id = $warehouse_id;
-                $estimateProduct->is_product = true;
-                $estimateProduct->is_refunded = false;
-                $estimateProduct->is_returned = false;
-                $estimateProduct->product_id = $product_id;
-                $estimateProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
-                $estimateProduct->user_id = $user->id;
-                $estimateProduct->save();
-            }
-            else
-            {
-                ## TODO: Perhaps have some validation if no item is selected, instead of just skipping over item
-                continue;
-            }
         }
         // Set estimate tax
         $estimateTaxSet = Sale::findOrFail($estimate->id);
@@ -212,19 +178,8 @@ class SaleController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        // Get contacts
-        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_lead', false)->with('organization', 'title')->get();
-        // Getting taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
-        // Get Inventory
-        // Getting Products
-        $products = Product::where('institution_id', $institution->id)->with('inventory.warehouse')->get();
-
-        $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
-        $inventories = Inventory::with('product', 'warehouse')->get();
         // Get estimate
         $estimate = Sale::where('id', $estimate_id)->with('status', 'user', 'contact.organization', 'saleProducts.product.productTaxes')->withCount('saleProducts')->first();
-        // return $estimate;
 
         return view('business.estimate_show', compact('user', 'institution', 'estimate'));
     }
@@ -241,7 +196,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product', 'warehouse')->get();
@@ -375,6 +330,44 @@ class SaleController extends Controller
         return back()->withSuccess(__('Estimate product successfully deleted.'));
     }
 
+    public function estimateCompose($portal, $sale_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get sale
+        $sale = Sale::where('id', $sale_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
+        return view('business.estimate_send', compact('user', 'institution', 'sale'));
+
+    }
+
+    public function estimateSend(Request $request, $portal, $sale_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get sale
+        $sale = Sale::where('id', $sale_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
+        $saleEmail = new SaleEmail();
+        $saleEmail->to = $request->email;
+        $saleEmail->subject = $request->subject;
+        $saleEmail->body = $request->body;
+        $saleEmail->user_id = $user->id;
+        $saleEmail->sale_id = $sale->id;
+        $saleEmail->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $saleEmail->save();
+        $saleEmailDetails = SaleEmail::where('id',$saleEmail->id)->with('sale.saleProducts', 'sale.institution.currency')->first();
+//        return $saleEmailDetails;
+
+        // send email
+        Mail::to($request->email)->send(new SendSaleEmail($saleEmailDetails));
+
+        return redirect()->route('business.estimate.show',['portal'=>$institution->portal,'id'=>$sale->id]);
+
+    }
+
     public function estimatePrint($portal, $estimate_id)
     {
         // User
@@ -413,7 +406,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product', 'warehouse')->get();
@@ -533,7 +526,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product', 'warehouse')->get();
@@ -555,7 +548,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product', 'warehouse')->get();
@@ -702,7 +695,43 @@ class SaleController extends Controller
         return view('business.invoice_print', compact('user', 'institution', 'invoice'));
     }
 
+    public function invoiceCompose($portal, $sale_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get sale
+        $sale = Sale::where('id', $sale_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
+        return view('business.invoice_send', compact('user', 'institution', 'sale'));
 
+    }
+
+    public function invoiceSend(Request $request, $portal, $sale_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get sale
+        $sale = Sale::where('id', $sale_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
+        $saleEmail = new SaleEmail();
+        $saleEmail->to = $request->email;
+        $saleEmail->subject = $request->subject;
+        $saleEmail->body = $request->body;
+        $saleEmail->user_id = $user->id;
+        $saleEmail->sale_id = $sale->id;
+        $saleEmail->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $saleEmail->save();
+        $saleEmailDetails = SaleEmail::where('id',$saleEmail->id)->with('sale.saleProducts', 'sale.institution.currency')->first();
+//        return $saleEmailDetails;
+
+        // send email
+        Mail::to($request->email)->send(new SendSaleEmail($saleEmailDetails));
+
+        return redirect()->route('business.invoice.show',['portal'=>$institution->portal,'id'=>$sale->id]);
+
+    }
 
 
     public function sales($portal)
@@ -730,7 +759,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product', 'warehouse')->get();
@@ -875,7 +904,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
 
         $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product', 'warehouse')->get();
@@ -900,17 +929,41 @@ class SaleController extends Controller
 
     }
 
-    public function saleSend(Request $request, $portal, $invoice_id)
+    public function saleCompose($portal, $sale_id)
     {
         // User
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        // return $institution;
         // Get sale
-        $sale = Sale::where('id', $invoice_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
-//        return $sale;
-        return view('business.sale_print', compact('user', 'institution', 'sale'));
+        $sale = Sale::where('id', $sale_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
+        return view('business.sale_send', compact('user', 'institution', 'sale'));
+
+    }
+
+    public function saleSend(Request $request, $portal, $sale_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get sale
+        $sale = Sale::where('id', $sale_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
+        $saleEmail = new SaleEmail();
+        $saleEmail->to = $request->email;
+        $saleEmail->subject = $request->subject;
+        $saleEmail->body = $request->body;
+        $saleEmail->user_id = $user->id;
+        $saleEmail->sale_id = $sale->id;
+        $saleEmail->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $saleEmail->save();
+        $saleEmailDetails = SaleEmail::where('id',$saleEmail->id)->with('sale.saleProducts', 'sale.institution.currency')->first();
+//        return $saleEmailDetails;
+
+        // send email
+        Mail::to($request->email)->send(new SendSaleEmail($saleEmailDetails));
+
+        return redirect()->route('business.sale.show',['portal'=>$institution->portal,'id'=>$sale->id]);
 
     }
 
@@ -1067,6 +1120,186 @@ class SaleController extends Controller
         $sale->save();
 
         return back()->withSuccess(__('Payment successfully received.'));
+    }
+
+
+    public function orders($portal)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Invoices
+        $orders = Sale::where('institution_id', $institution->id)->where('is_order', true)->with('status', 'contact')->get();
+
+        return view('business.orders', compact('user', 'institution', 'orders'));
+    }
+
+    public function orderShow($portal, $order_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get contacts
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_lead', false)->with('organization', 'title')->get();
+        // Getting taxes
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
+        // Get Inventory
+        // Getting Products
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
+
+        $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
+        $inventories = Inventory::with('product', 'warehouse')->get();
+        // Get order
+        $order = Sale::where('id', $order_id)->with('status', 'user', 'contact', 'saleProducts.product.productTaxes')->withCount('saleProducts')->first();
+        // payments
+        $payments = Payment::where('sale_id', $order->id)->with('user', 'status', 'account')->get();
+        return view('business.order_show', compact('user', 'institution', 'order', 'payments'));
+    }
+
+    public function orderEdit($portal, $order_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get contacts
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_lead', false)->with('organization', 'title')->get();
+        // Getting taxes
+        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
+        // Get Inventory
+        // Getting Products
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
+
+        $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
+        $inventories = Inventory::with('product', 'warehouse')->get();
+        // Get order
+        $order = Sale::where('id', $order_id)->with('status', 'user', 'contact', 'saleProducts.product.productTaxes')->withCount('saleProducts')->first();
+
+        return view('business.order_edit', compact('user', 'institution', 'contacts', 'products', 'inventories', 'order'));
+    }
+
+    public function orderUpdate(Request $request, $portal, $order_id)
+    {
+
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Create order
+        $order = Sale::where('id', $order_id)->first();
+        $order->customer_notes = $request->customer_notes;
+        $order->terms_and_conditions = $request->terms_and_conditions;
+        $order->date = date('Y-m-d', strtotime($request->date));
+        $order->due_date = date('Y-m-d', strtotime($request->due_date));
+        $order->subtotal = $request->subtotal;
+        $order->discount = $request->discount;
+        $order->total = $request->grand_total;
+
+
+        // Todo impliment uploads for attachments
+        $order->has_uploads = false;
+        // Check if draft
+        if ($request->is_draft == "on"){
+            $order->is_draft = true;
+            $order->status_id = "14efab17-4306-449b-bfc8-3e156b872a6d";
+        }else{
+            $order->is_draft = false;
+            $order->status_id = "3033d8f4-88e0-4ca9-9ed1-62e0b9c61547";
+        }
+        $order->contact_id = $request->contact;
+        $order->user_id = $user->id;
+        $order->save();
+        $tax = 0;
+
+
+        $orderProducts =array();
+        // Invoice products
+        foreach ($request->item_details as $item) {
+            $data = $item['item'];
+            if (strpos($data, ':') !== false){
+                list($product_id, $inventory_id,) = explode(":", $data);
+                $warehouse_id = Inventory::where('id', $inventory_id)->first()->warehouse_id;
+            }else{
+                $product_id = $data;
+                $warehouse_id = '';
+            }
+            $orderProducts[]['id'] = $product_id;
+
+            // Check if product has taxes
+            $taxes = ProductTax::where('product_id', $product_id)->with('tax')->get();
+            if ($taxes){
+                foreach ($taxes as $product_tax){
+                    $product_tax_value = doubleval($product_tax->tax->amount) * 0.01 * $item['amount'];
+                    $tax = doubleval($tax) + doubleval($product_tax_value);
+                }
+            }
+
+            // Check if album tag exists
+            $saleProductExists = SaleProduct::where('sale_id', $order->id)->where('product_id', $product_id)->first();
+
+            if($saleProductExists === null) {
+
+                $orderProduct = new SaleProduct();
+                $orderProduct->rate = $item['rate'];
+                $orderProduct->quantity = $item['quantity'];
+                $orderProduct->amount = $item['amount'];
+                $orderProduct->sale_id = $order->id;
+                $orderProduct->warehouse_id = $warehouse_id;
+                $orderProduct->product_id = $product_id;
+                $orderProduct->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+                $orderProduct->user_id = $user->id;
+                $orderProduct->save();
+            }
+        }
+
+        // Parse the deleted album tags into an array
+        $orderProductsIds = SaleProduct::where('sale_id', $order->id)->whereNotIn('product_id', $orderProducts)->select('id')->get()->toArray();
+
+        // Delete removed album tags
+        DB::table('saleProducts')->whereIn('id', $orderProductsIds)->delete();
+
+        // Set order tax
+        $orderTaxSet = Sale::findOrFail($order->id);
+        $orderTaxSet->tax = $tax;
+        $orderTaxSet->total = $orderTaxSet->total + $tax;
+        $orderTaxSet->save();
+
+        return back()->withSuccess(__('Invoice successfully updated.'));
+
+    }
+
+    public function orderDelete($portal, $order_id)
+    {
+        return back()->withSuccess(__('Invoice successfully deleted.'));
+    }
+
+    public function orderProductDelete($portal, $order_product_id)
+    {
+//        return $order_product_id;
+        $orderProduct = SaleProduct::findOrFail($order_product_id);
+
+        // update order
+        $order = Sale::where('id', $orderProduct->sale_id)->first();
+        $order->total = floatval($order->total)-floatval($orderProduct->amount);
+        $order->subtotal =  floatval($order->subtotal)-floatval($orderProduct->amount);
+        $order->save();
+
+        $orderProduct->delete();
+        return back()->withSuccess(__('Invoice product successfully deleted.'));
+    }
+
+    public function orderPrint($portal, $order_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get order
+        $order = Sale::where('id', $order_id)->with('status', 'user', 'contact', 'saleProducts.product')->withCount('saleProducts')->first();
+//        return $order;
+        return view('business.order_print', compact('user', 'institution', 'order'));
     }
 
 }

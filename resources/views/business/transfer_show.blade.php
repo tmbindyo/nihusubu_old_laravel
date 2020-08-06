@@ -64,30 +64,50 @@
                                     <br>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$transfer->amount}}" class="form-control input-lg">
+                                        @if ($errors->has('amount'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('amount') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$transfer->amount}}" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}">
                                         <i>amount</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
                                         <div class="input-group date">
+                                            @if ($errors->has('date'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('date') }}</strong>
+                                                </span>
+                                            @endif
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" class="form-control input-lg" value="{{$transfer->date}}">
+                                            <input type="text" required="required" name="date" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" value="{{$transfer->date}}">
                                         </div>
                                         <i>What is the start date of the transfer?</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="source_account" class="select2_demo_tag form-control input-lg">
+                                        @if ($errors->has('source_account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('source_account') }}</strong>
+                                            </span>
+                                        @endif
+                                        <select name="source_account" class="select2_demo_tag form-control input-lg {{ $errors->has('source_account') ? ' is-invalid' : '' }}">
                                             <option value="{{$transfer->sourceAccount->id}}">{{$transfer->sourceAccount->name}} [{{$transfer->sourceAccount->balance}}]</option>
                                         </select>
                                         <i>source account</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="destination_account" class="select2_demo_tag form-control input-lg">
+                                        @if ($errors->has('destination_account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('destination_account') }}</strong>
+                                            </span>
+                                        @endif
+                                        <select name="destination_account" class="select2_demo_tag form-control input-lg {{ $errors->has('destination_account') ? ' is-invalid' : '' }}">
                                             <option value="{{$transfer->destinationAccount->id}}">{{$transfer->destinationAccount->name}} [{{$transfer->destinationAccount->balance}}]</option>
                                         </select>
                                         <i>destination account</i>
@@ -118,29 +138,56 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$transfer->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$transfer->status->label}}">{{$transfer->status->name}}</span></dd>
-                                    </dl>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$transfer->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$transfer->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$transfer->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$transfer->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$transfer->user->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$transfer->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$transfer->created_at}} </dd>
-                                    </dl>
-                                </div>
-                            </div>
+                            <hr>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                 <div class="panel blank-panel">
@@ -335,7 +382,7 @@
 
 @endsection
 
-@include('business.layouts.modals.transfer_to_do')
+@include('business.layouts.modals.to_do_create')
 
 @section('js')
 
@@ -573,6 +620,34 @@
 
 </script>
 
+{{-- to do start time and end time --}}
+<script>
+    $(document).ready(function() {
+        $('.enableEndDate').on('click',function(){
+
+            if (document.getElementById('is_end_date').checked) {
+                // enable end_time input
+                document.getElementById("end_date").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_date").disabled = true;
+            }
+
+        });
+
+        $('.enableEndTime').on('click',function(){
+            if (document.getElementById('is_end_time').checked) {
+                // enable end_time input
+                document.getElementById("end_time").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_time").disabled = true;
+            }
+        });
+    });
+
+</script>
+
 <script>
     $(document).ready(function(){
 
@@ -759,6 +834,8 @@
             placeholder: "Select Categories",
             allowClear: true
         });
+
+        $('.chosen-select').chosen({width: "100%"});
 
 
     });

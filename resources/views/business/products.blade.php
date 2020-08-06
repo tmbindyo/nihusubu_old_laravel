@@ -58,7 +58,7 @@
                                             <td>{{$product->name}}</td>
                                             <td>{{$product->unit->name}}</td>
 
-                                            @if($product->is_service == "1")
+                                            @if($product->is_service == "1" || $product->is_inventory == "0")
                                                 <td>N/A</td>
                                             @else
                                                 <td>{{$product->stock_on_hand->first()->stock_on_hand}}</td>

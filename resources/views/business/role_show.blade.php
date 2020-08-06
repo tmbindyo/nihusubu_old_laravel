@@ -67,7 +67,7 @@
                                                                 <strong>{{ $errors->first('name') }}</strong>
                                                             </span>
                                                         @endif
-                                                        <input type="text" id="name" name="name" required="required" value="{{str_replace($institution->portal.' ', "", $role->name)}}" class="form-control input-lg">
+                                                        <input type="text" id="name" name="name" required="required" value="{{str_replace($institution->portal.' ', "", $role->name)}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                                         <i>name</i>
                                                     </div>
 

@@ -185,7 +185,7 @@ class HomeController extends Controller
             $institutionModule = new InstitutionModule();
 
             $institutionModule->module_id = $module->id;
-            $institutionModule->instituion_id = $institution->id;
+            $institutionModule->institution_id = $institution->id;
 
             $institutionModule->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
             $institutionModule->user_id = $user->id;

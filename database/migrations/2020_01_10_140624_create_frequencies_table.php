@@ -24,6 +24,7 @@ class CreateFrequenciesTable extends Migration
             $table->uuid('institution_id')->nullable();
             $table->boolean('is_institution');
             $table->boolean('is_user');
+            $table->uuid('status_id')->default('c670f7a2-b6d1-4669-8ab5-9c764a1e403e');
 
             $table->timestamps();
             $table->softDeletes();

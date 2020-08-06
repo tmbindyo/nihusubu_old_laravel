@@ -54,7 +54,7 @@
                                                         <strong>{{ $errors->first('expense_account') }}</strong>
                                                     </span>
                                                 @endif
-                                                <select name="expense_account" class="select2_expense_account form-control input-lg" required>
+                                                <select name="expense_account" class="select2_expense_account form-control input-lg {{ $errors->has('expense_account') ? ' is-invalid' : '' }}" required>
                                                     <option></option>
                                                     @foreach($expenseAccounts as $expenseAccount)
                                                         <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
@@ -74,7 +74,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" required>
+                                                    <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" required>
                                                 </div>
                                                 <i> expense date.</i>
                                             </div>
@@ -90,7 +90,7 @@
                                                         <strong>{{ $errors->first('account') }}</strong>
                                                     </span>
                                                 @endif
-                                                <select name="account" class="select2_account form-control input-lg" required>
+                                                <select name="account" class="select2_account form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}" required>
                                                     <option></option>
                                                     @foreach($accounts as $account)
                                                         <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
@@ -106,7 +106,7 @@
                                                     </span>
                                             @endif
                                             <div class="checkbox checkbox-info">
-                                                <input id="is_paid" name="is_paid" type="checkbox" checked>
+                                                <input id="is_paid" name="is_paid" type="checkbox" checked class="{{ $errors->has('is_paid') ? ' is-invalid' : '' }}">
                                                 <label for="is_paid">
                                                     Paid
                                                 </label>
@@ -195,7 +195,7 @@
                                                 <div class="col-md-4">
                                                     {{--  Customer  --}}
                                                     <div class="checkbox checkbox-info">
-                                                        <input id="is_sale" name="is_sale" @isset($saleExists) checked @endisset type="checkbox">
+                                                        <input id="is_sale" name="is_sale" @isset($saleExists) checked @endisset type="checkbox" class="enableSale {{ $errors->has('is_sale') ? ' is-invalid' : '' }}">
                                                         <label for="is_sale">
                                                             Sale
                                                         </label>
@@ -204,7 +204,7 @@
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
                                                         <div class="has-warning">
-                                                            <select name="sale" @isset($saleExists) required @endisset class="select2_sale form-control input-lg">
+                                                            <select name="sale" id="sale" @isset($saleExists) required @endisset class="select2_sale form-control input-lg {{ $errors->has('sale') ? ' is-invalid' : '' }}" disabled>
                                                                 <option></option>
                                                                 @foreach($sales as $sale)
                                                                     <option @isset($saleExists) @if($saleExists->id == $sale->id) selected @endif @endisset value="{{$sale->id}}" >{{$sale->reference}} [{{$sale->total}}] ({{$sale->created_at}})</option>
@@ -224,7 +224,7 @@
                                                 @endif
                                                 <div class="col-md-4">
                                                     <div class="checkbox checkbox-info">
-                                                        <input id="is_liability" name="is_liability" @isset($liabilityExists) checked @endisset type="checkbox">
+                                                        <input id="is_liability" name="is_liability" @isset($liabilityExists) checked @endisset type="checkbox" class="enableLiability {{ $errors->has('is_liability') ? ' is-invalid' : '' }}">
                                                         <label for="is_liability">
                                                             Liability
                                                         </label>
@@ -233,7 +233,7 @@
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
                                                         <div class="has-warning">
-                                                            <select name="liability" @isset($liabilityExists) required @endisset class="select2_liability form-control input-lg">
+                                                            <select name="liability" id="liability" @isset($liabilityExists) required @endisset class="select2_liability form-control input-lg {{ $errors->has('liability') ? ' is-invalid' : '' }}" disabled>
                                                                 <option></option>
                                                                 @foreach($liabilities as $liability)
                                                                     <option @isset($liabilityExists) @if($liabilityExists->id == $liability->id) selected @endif @endisset value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
@@ -258,7 +258,7 @@
                                                 <div class="col-md-4">
                                                     {{--  Customer  --}}
                                                     <div class="checkbox checkbox-info">
-                                                        <input id="is_transfer" name="is_transfer" @isset($transferExists) checked @endisset type="checkbox">
+                                                        <input id="is_transfer" name="is_transfer" @isset($transferExists) checked @endisset type="checkbox" class="enableTransfer {{ $errors->has('is_transfer') ? ' is-invalid' : '' }}">
                                                         <label for="is_transfer">
                                                             Transfer
                                                         </label>
@@ -267,7 +267,7 @@
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
                                                         <div class="has-warning">
-                                                            <select name="transfer" @isset($transferExists) required @endisset class="select2_transfer form-control input-lg">
+                                                            <select name="transfer" id="transfer" @isset($transferExists) required @endisset class="select2_transfer form-control input-lg {{ $errors->has('transfer') ? ' is-invalid' : '' }}" disabled>
                                                                 <option></option>
                                                                 @foreach($transfers as $transfer)
                                                                     <option @isset($transferExists) @if($transferExists->id == $transfer->id) selected @endif @endisset value="{{$transfer->id}}" >{{$transfer->reference}} [{{$transfer->amount}}] ({{$transfer->date}})</option>
@@ -288,7 +288,7 @@
                                                 <div class="col-md-4">
                                                     {{--  Customer  --}}
                                                     <div class="checkbox checkbox-info">
-                                                        <input id="is_campaign" name="is_campaign" @isset($campaignExists) checked @endisset type="checkbox">
+                                                        <input id="is_campaign" name="is_campaign" @isset($campaignExists) checked @endisset type="checkbox" class="enableCampaign{{ $errors->has('is_campaign') ? ' is-invalid' : '' }}">
                                                         <label for="is_campaign">
                                                             Campaign
                                                         </label>
@@ -297,7 +297,7 @@
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
                                                         <div class="has-warning">
-                                                            <select name="campaign" @isset($campaignExists) required @endisset class="select2_campaign form-control input-lg">
+                                                            <select name="campaign" id="campaign" @isset($campaignExists) required @endisset class="select2_campaign form-control input-lg {{ $errors->has('campaign') ? ' is-invalid' : '' }}" disabled>
                                                                 <option></option>
                                                                 {{-- @isset($campaign)
                                                                     <option value="{{$campaign->id}}" >{{$campaign->name}}</option>
@@ -327,7 +327,7 @@
                                                 @endif
                                                 <div class="col-md-4">
                                                     <div class="checkbox checkbox-info">
-                                                        <input id="is_recurring" name="is_recurring" type="checkbox">
+                                                        <input id="is_recurring" name="is_recurring" type="checkbox" class="enableRecurring {{ $errors->has('is_recurring') ? ' is-invalid' : '' }}">
                                                         <label for="is_recurring">
                                                             Recurring
                                                         </label>
@@ -336,7 +336,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
-                                                        <select name="frequency" class="select2_frequency form-control input-lg">
+                                                        <select name="frequency" id="frequency" class="select2_frequency form-control input-lg {{ $errors->has('frequency') ? ' is-invalid' : '' }}" disabled>
                                                             <option></option>
                                                             @foreach($frequencies as $frequency)
                                                                 <option value="{{$frequency->id}}" >{{$frequency->name}}</option>
@@ -359,7 +359,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="start_date" id="start_date" value="{{ old('start_date') }}" class="form-control input-lg">
+                                                            <input type="text" name="start_date" id="start_date" value="{{ old('start_date') }}" class="form-control input-lg {{ $errors->has('start_date') ? ' is-invalid' : '' }}" disabled>
                                                         </div>
                                                         <i> start date.</i>
                                                     </div>
@@ -375,7 +375,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="end_date" id="end_date" value="{{ old('end_date') }}" class="form-control input-lg">
+                                                            <input type="text" name="end_date" id="end_date" value="{{ old('end_date') }}" class="form-control input-lg {{ $errors->has('end_date') ? ' is-invalid' : '' }}" disabled>
                                                         </div>
                                                         <i> end date (leave blank if no end date)</i>
                                                     </div>
@@ -395,7 +395,7 @@
                                                 @endif
                                                 <div class="col-md-11">
                                                     <div class="has-warning">
-                                                        <select name="status" class="select2_status form-control input-lg" required>
+                                                        <select name="status" class="select2_status form-control input-lg {{ $errors->has('status') ? ' is-invalid' : '' }}" required>
                                                             <option></option>
                                                             @foreach($expenseStatuses as $status)
                                                                 <option value="{{$status->id}}" >{{$status->name}}</option>
@@ -411,7 +411,7 @@
                                             <br>
                                             {{--  Customer  --}}
                                             <div class="checkbox checkbox-info">
-                                                <input id="is_draft" name="is_draft" type="checkbox">
+                                                <input id="is_draft" name="is_draft" type="checkbox" class="{{ $errors->has('is_draft') ? ' is-invalid' : '' }}">
                                                 <label for="is_draft">
                                                     Save As Draft
                                                 </label>
@@ -428,7 +428,7 @@
                                                     <strong>{{ $errors->first('notes') }}</strong>
                                                 </span>
                                                 @endif
-                                                <textarea required name="notes" placeholder="Notes" class="form-control" rows="7">{{ old('name') }}</textarea>
+                                                <textarea required name="notes" placeholder="Notes" class="form-control {{ $errors->has('notes') ? ' is-invalid' : '' }}" rows="7">{{ old('name') }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -513,7 +513,6 @@
 <script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
 
 <!-- Select2 -->
-
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
 <!-- TouchSpin -->
@@ -626,6 +625,68 @@
             autoclose: true
         });
 
+
+
+    });
+
+</script>
+
+{{-- to do start time and end time --}}
+<script>
+    $(document).ready(function() {
+        $('.enableRecurring').on('click',function(){
+
+            if (document.getElementById('is_recurring').checked) {
+                // enable end_time input
+                document.getElementById("frequency").disabled = false;
+                document.getElementById("start_date").disabled = false;
+                document.getElementById("end_date").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("frequency").disabled = true;
+                document.getElementById("start_date").disabled = true;
+                document.getElementById("end_date").disabled = true;
+            }
+        });
+        $('.enableSale').on('click',function(){
+            if (document.getElementById('is_sale').checked) {
+                // enable end_time input
+                document.getElementById("sale").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("sale").disabled = true;
+            }
+        });
+        $('.enableLiability').on('click',function(){
+
+            if (document.getElementById('is_liability').checked) {
+                // enable end_time input
+                document.getElementById("liability").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("liability").disabled = true;
+            }
+        });
+        $('.enableTransfer').on('click',function(){
+
+            if (document.getElementById('is_transfer').checked) {
+                // enable end_time input
+                document.getElementById("transfer").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("transfer").disabled = true;
+            }
+        });
+        $('.enableCampaign').on('click',function(){
+
+            if (document.getElementById('is_campaign').checked) {
+                // enable end_time input
+                document.getElementById("campaign").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("campaign").disabled = true;
+            }
+        });
 
 
     });

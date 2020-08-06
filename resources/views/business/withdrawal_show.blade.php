@@ -71,7 +71,7 @@
                                                 <strong>{{ $errors->first('amount') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$withdrawal->amount}}" class="form-control input-lg" readonly>
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$withdrawal->amount}}" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}" readonly>
                                         <i>amount</i>
                                     </div>
                                     <br>
@@ -85,7 +85,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" class="form-control input-lg" value="{{$withdrawal->date}}" readonly>
+                                            <input type="text" required="required" name="date" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" value="{{$withdrawal->date}}" readonly>
                                         </div>
                                         <i>What is the start date of the event?</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -97,7 +97,7 @@
                                                 <strong>{{ $errors->first('account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="account" class="select2_demo_tag form-control input-lg">
+                                        <select name="account" class="select2_demo_tag form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}">
                                             <option value="{{$withdrawal->account->id}}">{{$withdrawal->account->name}} [{{$withdrawal->account->balance}}]</option>
                                         </select>
                                         <i>type</i>
@@ -109,7 +109,7 @@
                                                 <strong>{{ $errors->first('about') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg" readonly>{{$withdrawal->about}}</textarea>
+                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg {{ $errors->has('about') ? ' is-invalid' : '' }}" readonly>{{$withdrawal->about}}</textarea>
                                         <i>about withdrawal</i>
                                     </div>
                                     @can('edit withdrawal')
@@ -138,29 +138,56 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$withdrawal->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$withdrawal->status->label}}">{{$withdrawal->status->name}}</span></dd>
-                                    </dl>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$withdrawal->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$withdrawal->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$withdrawal->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$withdrawal->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$withdrawal->user->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$withdrawal->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$withdrawal->created_at}} </dd>
-                                    </dl>
-                                </div>
-                            </div>
+                            <br>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                 <div class="panel blank-panel">
@@ -330,7 +357,7 @@
 
 @endsection
 
-@include('business.layouts.modals.withdrawal_to_do')
+@include('business.layouts.modals.to_do_create')
 
 @section('js')
 
@@ -495,6 +522,34 @@
         document.getElementById("end_time").value = time_curr;
 
         // Set time
+    });
+
+</script>
+
+{{-- to do start time and end time --}}
+<script>
+    $(document).ready(function() {
+        $('.enableEndDate').on('click',function(){
+
+            if (document.getElementById('is_end_date').checked) {
+                // enable end_time input
+                document.getElementById("end_date").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_date").disabled = true;
+            }
+
+        });
+
+        $('.enableEndTime').on('click',function(){
+            if (document.getElementById('is_end_time').checked) {
+                // enable end_time input
+                document.getElementById("end_time").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_time").disabled = true;
+            }
+        });
     });
 
 </script>
@@ -795,6 +850,8 @@
             placeholder: "Select Categories",
             allowClear: true
         });
+
+        $('.chosen-select').chosen({width: "100%"});
 
 
     });

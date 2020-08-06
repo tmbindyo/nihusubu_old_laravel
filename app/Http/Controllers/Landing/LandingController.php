@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Landing;
 use App\InstitutionModule;
+use App\Sale;
 use App\UserAccount;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -71,9 +72,25 @@ class LandingController extends Controller
     {
         return view('landing.coming_soon');
     }
-    public function termsAndConditions()
+
+    public function viewOrder($order_id)
     {
-        return view('landing.terms_and_conditions');
+        // Get sale
+        $sale = Sale::findOrFail($order_id);
+        $sale = Sale::where('id', $order_id)->with('status', 'user', 'contact', 'saleProducts.product.productTaxes', 'paymentsReceived.status')->withCount('saleProducts')->first();
+        // get institution
+        $institution = Institution::where('id', $sale->institution_id)->first();
+        return view('landing.sale_show', compact( 'institution', 'sale'));
+    }
+
+    public function printOrder($order_id)
+    {
+        // Get sale
+        $sale = Sale::findOrFail($order_id);
+        $sale = Sale::where('id', $order_id)->with('status', 'user', 'contact', 'saleProducts.product.productTaxes', 'paymentsReceived.status')->withCount('saleProducts')->first();
+        // get institution
+        $institution = Institution::where('id', $sale->institution_id)->first();
+        return view('landing.sale_print', compact( 'institution', 'sale'));
     }
 
     public function emailSubscribe(Request $request)

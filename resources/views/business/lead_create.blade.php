@@ -52,7 +52,7 @@
 
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <input type="checkbox" name="is_lead" class="js-switch_3" checked/>
+                                        <input type="checkbox" name="is_lead" class="js-switch_3 {{ $errors->has('is_lead') ? ' is-invalid' : '' }}" checked/>
                                         <i>lead</i>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                                     <strong>{{ $errors->first('title') }}</strong>
                                                 </span>
                                             @endif
-                                            <select required="required" name="title" class="select2_title form-control input-lg" aria-required="true">
+                                            <select required="required" name="title" class="select2_title form-control input-lg {{ $errors->has('title') ? ' is-invalid' : '' }}" aria-required="true">
                                                 <option></option>
                                                 @foreach($titles as $title)
                                                     <option value="{{$title->id}}">{{$title->name}}</option>
@@ -84,7 +84,7 @@
                                                     <strong>{{ $errors->first('first_name') }}</strong>
                                                 </span>
                                             @endif
-                                            <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="First Name">
+                                            <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg {{ $errors->has('first_name') ? ' is-invalid' : '' }}" required="required" placeholder="First Name">
                                             <i>first name</i>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                                     <strong>{{ $errors->first('last_name') }}</strong>
                                                 </span>
                                             @endif
-                                            <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Last Name">
+                                            <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg {{ $errors->has('last_name') ? ' is-invalid' : '' }}" required="required" placeholder="Last Name">
                                             <i>last name</i>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                                     <strong>{{ $errors->first('phone_number') }}</strong>
                                                 </span>
                                             @endif
-                                            <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Phone number">
+                                            <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg {{ $errors->has('phone_number') ? ' is-invalid' : '' }}" required="required" placeholder="Phone number">
                                             <i>phone number</i>
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
                                                     <strong>{{ $errors->first('email') }}</strong>
                                                 </span>
                                             @endif
-                                            <input type="email" id="email" name="email" value="{{ old('email') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Email">
+                                            <input type="email" id="email" name="email" value="{{ old('email') }}" required="required" class="form-control col-md-7 col-xs-12 input-lg {{ $errors->has('email') ? ' is-invalid' : '' }}" required="required" placeholder="Email">
                                             <i>test</i>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@
                                                 <strong>{{ $errors->first('organization') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="organization" class="select2_organization form-control input-lg">
+                                        <select name="organization" class="select2_organization form-control input-lg {{ $errors->has('organization') ? ' is-invalid' : '' }}">
                                             <option></option>
                                             @foreach($organizations as $organization)
                                                 <option value="{{$organization->id}}">{{$organization->name}}</option>
@@ -151,7 +151,7 @@
                                                     <strong>{{ $errors->first('contact_types') }}</strong>
                                                 </span>
                                             @endif
-                                            <select required="required" name="contact_types[]" class="select2_contact_type form-control input-lg" multiple>
+                                            <select required="required" name="contact_types[]" class="select2_contact_type form-control input-lg {{ $errors->has('contact_types') ? ' is-invalid' : '' }}" multiple>
                                                 <option></option>
                                                 @foreach($contactTypes as $contactType)
                                                     <option value="{{$contactType->id}}">{{$contactType->name}}</option>
@@ -169,7 +169,7 @@
                                                 <strong>{{ $errors->first('lead_source') }}</strong>
                                             </span>
                                         @endif
-                                        <select required="required" name="lead_source" class="select2_lead_source form-control input-lg">
+                                        <select required="required" name="lead_source" class="select2_lead_source form-control input-lg {{ $errors->has('lead_source') ? ' is-invalid' : '' }}">
                                             <option></option>
                                             @foreach($leadSources as $leadSource)
                                                 <option value="{{$leadSource->id}}">{{$leadSource->name}}</option>
@@ -185,7 +185,7 @@
                                                     <strong>{{ $errors->first('campaign') }}</strong>
                                                 </span>
                                             @endif
-                                            <select name="campaign" class="select2_campaign form-control input-lg">
+                                            <select name="campaign" class="select2_campaign form-control input-lg {{ $errors->has('campaign') ? ' is-invalid' : '' }}">
                                                 <option></option>
                                                 @foreach($campaigns as $campaign)
                                                     <option value="{{$campaign->id}}">{{$campaign->name}}</option>
@@ -204,7 +204,7 @@
                                                     <strong>{{ $errors->first('about') }}</strong>
                                                 </span>
                                             @endif
-                                            <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required" placeholder="About...">{{ old('name') }}</textarea>
+                                            <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg {{ $errors->has('about') ? ' is-invalid' : '' }}" required="required" placeholder="About...">{{ old('name') }}</textarea>
                                         </div>
                                     </div>
 

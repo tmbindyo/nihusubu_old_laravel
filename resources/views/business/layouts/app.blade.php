@@ -10,6 +10,8 @@
     <link rel="shortcut icon" href="{{ asset('nihusubu.ico') }}" >
     <title>Nihusubu | @yield('title')</title>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     {{--  google analytics  --}}
     @include('layouts.google_analytics')
 
@@ -25,8 +27,27 @@
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
 
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="{{ asset('inspinia/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('inspinia/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('inspinia/css/plugins/file-input/fileinput.css') }}" rel="stylesheet">
+    <link href="{{ asset('inspinia/css/plugins/font-awesome/font-awesome.min.css') }}" rel="stylesheet">
+
+    <style type="text/css">
+
+        .main-section{
+            margin:0 auto;
+            padding: 20px;
+            margin-top: 100px;
+            background-color: #fff;
+            box-shadow: 0px 0px 20px #c1c1c1;
+        }
+        .fileinput-remove,
+
+        .fileinput-upload{
+            display: none;
+        }
+
+    </style>
 
     <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">

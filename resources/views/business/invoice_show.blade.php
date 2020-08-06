@@ -36,9 +36,12 @@
                             <a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Sale </a>
                         @endcan
                     @endif
-                        @can('print invoice')
+                    @can('send invoice')
+                        <a href="{{route('business.invoice.compose',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-send-o"></i> Send </a>
+                    @endcan
+                    @can('print invoice')
                         <a href="{{route('business.invoice.print',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
-                        @endcan
+                    @endcan
                 </div>
             </div>
         </div>
