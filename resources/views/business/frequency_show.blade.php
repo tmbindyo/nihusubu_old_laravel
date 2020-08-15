@@ -9,13 +9,13 @@
             <h2>Frequencies</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.frequencies',$institution->portal)}}">Frequencies</a>
+                    <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Frequency Create</strong>
+                    <strong>Frequency Show</strong>
                 </li>
             </ol>
         </div>

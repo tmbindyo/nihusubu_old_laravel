@@ -8,10 +8,13 @@
             <h2>Sale</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
-                    <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
+                    Sales
+                </li>
+                <li>
+                    <strong><a href="{{route('business.sales',$institution->portal)}}">Sales</a></strong>
                 </li>
                 <li class="active">
                     <strong>Sale</strong>
@@ -28,7 +31,7 @@
                     <a href="{{route('business.sale.compose',['portal'=>$institution->portal, 'id'=>$sale->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-send-o"></i> Send </a>
                 @endcan
                 @can('print sale')
-                    <a href="{{route('business.sale.print',['portal'=>$institution->portal, 'id'=>$sale->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Invoice </a>
+                    <a href="{{route('business.sale.print',['portal'=>$institution->portal, 'id'=>$sale->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
                 @endcan
                 @can('add contact')
                     <a href="{{route('business.contact.show',['portal'=>$institution->portal, 'id'=>$sale->contact_id])}}" class="btn btn-success btn-outline"><i class="fa fa-eye"></i> Contact </a>
@@ -74,6 +77,10 @@
                                     <span><strong>Invoice Date:</strong> {{$sale->date}} </span><br/>
                                     <span><strong>Due Date:</strong> {{$sale->due_date}} </span>
                                 </p>
+
+                                @if($sale->payment_schedule_id)
+                                    <h5 class="text-navy">{{$sale->paymentSchedule->name}} [{{$sale->paymentSchedule->period}}]</h5>
+                                @endif
                             </div>
                         </div>
 
@@ -118,7 +125,7 @@
                                 <td>{{$sale->tax}}</td>
                             </tr>
                             <tr>
-                                <td><strong>Discount :</strong></td>
+                                <td><strong>Adjustment :</strong></td>
                                 <td>{{$sale->discount}}</td>
                             </tr>
                             <tr>
@@ -141,6 +148,96 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+            @can('view payments')
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Payments</h5>
+
+                            </div>
+                            <div class="ibox-content">
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                        <tr>
+                                            <th>Reference</th>
+                                            <th>Amount</th>
+                                            <th>Initial</th>
+                                            <th>Subsequent</th>
+                                            <th>Date</th>
+                                            <th>Account</th>
+                                            <th>For</th>
+                                            <th>User</th>
+                                            <th>Status</th>
+                                            <th class="text-right" width="80em" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($sale->payments as $payment)
+                                            <tr class="gradeX">
+                                                <td>
+                                                    {{$payment->reference}}
+                                                    <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                </td>
+                                                <td>{{$payment->amount}}</td>
+                                                <td>{{$payment->initial_balance}}</td>
+                                                <td>{{$payment->current_balance}}</td>
+                                                <td>{{$payment->date}}</td>
+                                                <td>{{$payment->account->name}}</td>
+                                                <td>
+                                                    @if($payment->is_order == 1)
+                                                        <span class="label label-success">Order: {{$payment->order->reference}}</span>
+                                                    @elseif($payment->is_quote == 1)
+                                                        <span class="label label-success">Quote: {{$payment->quote->reference}}</span>
+                                                    @elseif($payment->is_asset_action == 1)
+                                                        <span class="label label-success">Asset Action: {{$payment->asset_action->reference}}</span>
+                                                    @elseif($payment->is_loan == 1)
+                                                        <span class="label label-success">Loan: {{$payment->loan->reference}}</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{$payment->user->name}}</td>
+                                                <td>
+                                                    <span class="label {{$payment->status->label}}">{{$payment->status->name}}</span>
+                                                </td>
+
+                                                <td class="text-right">
+                                                    <div class="btn-group">
+                                                        @can('view payment')
+                                                            <a href="{{ route('business.payment.show', ['portal'=>$institution->portal, 'id'=>$payment->id]) }}" class="btn-default btn btn-xs">Show</a>
+                                                        @endcan
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Reference</th>
+                                            <th>Amount</th>
+                                            <th>Initial</th>
+                                            <th>Subsequent</th>
+                                            <th>Date</th>
+                                            <th>Account</th>
+                                            <th>For</th>
+                                            <th>User</th>
+                                            <th>Status</th>
+                                            <th class="text-right" width="80em" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endcan
         </div>
     </div>
 

@@ -60,6 +60,10 @@ class Product extends Model implements Auditable
     {
         return $this->belongsTo('App\Brand');
     }
+    public function taxMethod()
+    {
+        return $this->belongsTo('App\TaxMethod');
+    }
     public function productSubCategory()
     {
         return $this->belongsTo('App\ProductSubCategory');
@@ -75,41 +79,9 @@ class Product extends Model implements Auditable
 
 
     // Children
-    public function transferOrderProducts()
-    {
-        return $this->hasMany('App\TransferOrderProduct');
-    }
-    public function inventoryAdjustmentProducts()
-    {
-        return $this->hasMany('App\InventoryAdjustmentProduct');
-    }
-    public function inventory()
-    {
-        return $this->hasMany('App\Inventory');
-    }
-    public function productImages()
-    {
-        return $this->hasMany('App\ProductImage');
-    }
-    public function saleProducts()
-    {
-        return $this->hasMany('App\SaleProduct');
-    }
     public function compositeProductProducts()
     {
         return $this->hasMany('App\CompositeProductProduct', 'composite_product_id');
-    }
-    public function productReturns()
-    {
-        return $this->hasMany('App\ProductReturn');
-    }
-    public function productGroupProducts()
-    {
-        return $this->hasMany('App\Product', 'product_group_id');
-    }
-    public function restock()
-    {
-        return $this->hasMany('App\Restock');
     }
     public function estimateProducts()
     {
@@ -119,25 +91,42 @@ class Product extends Model implements Auditable
     {
         return $this->hasMany('App\InvoiceProduct');
     }
+    public function items()
+    {
+        return $this->hasMany('App\Item');
+    }
+    public function inventoryAdjustmentProducts()
+    {
+        return $this->hasMany('App\InventoryAdjustmentProduct');
+    }
+    public function inventory()
+    {
+        return $this->hasMany('App\Inventory');
+    }
+    public function itemProducts()
+    {
+        return $this->hasMany('App\ItemProduct', 'item_id');
+    }
     public function orderProducts()
     {
         return $this->hasMany('App\OrderProduct');
     }
-    public function productTaxes()
+    public function productGroupProducts()
     {
-        return $this->hasMany('App\ProductTax');
+        return $this->hasMany('App\Product', 'product_group_id');
     }
     public function product_discounts()
     {
         return $this->hasMany('App\ProductDiscount');
     }
-    public function stock_on_hand()
+    public function productImages()
     {
-        return $this->hasMany('App\Inventory')
-            ->selectRaw('product_id,SUM(quantity) as stock_on_hand')
-            ->groupBy('product_id');
+        return $this->hasMany('App\ProductImage');
     }
-
+    public function productReturns()
+    {
+        return $this->hasMany('App\ProductReturn');
+    }
     public function productGroupProductMin()
     {
         return $this->productGroupProducts()->orderBy('selling_price', 'desc')->take(1);
@@ -145,5 +134,31 @@ class Product extends Model implements Auditable
     public function productGroupProductMax()
     {
         return $this->productGroupProducts()->orderBy('selling_price', 'asc')->take(1);
+    }
+    public function productTaxes()
+    {
+        return $this->hasMany('App\ProductTax');
+    }
+    public function productItems()
+    {
+        return $this->hasMany('App\ProductItem');
+    }
+    public function restock()
+    {
+        return $this->hasMany('App\Restock');
+    }
+    public function saleProducts()
+    {
+        return $this->hasMany('App\SaleProduct');
+    }
+    public function stock_on_hand()
+    {
+        return $this->hasMany('App\Inventory')
+            ->selectRaw('product_id,SUM(quantity) as stock_on_hand')
+            ->groupBy('product_id');
+    }
+    public function transferOrderProducts()
+    {
+        return $this->hasMany('App\TransferOrderProduct');
     }
 }

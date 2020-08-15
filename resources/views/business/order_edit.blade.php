@@ -1,24 +1,27 @@
 @extends('business.layouts.app')
 
-@section('title', ' Order Create')
+@section('title', ' Order #'.$order->reference.' Edit')
 
 @section('content')
 
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>Order Edit</h2>
+                <h2>Order #{{$order->reference}} Edit</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                        <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                     </li>
                     <li>
-                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
+                        Sales
                     </li>
                     <li>
-                        <a href="{{route('business.orders',$institution->portal)}}">Orders</a>
+                        <strong><a href="{{route('business.orders',$institution->portal)}}">Orders</a></strong>
+                    </li>
+                    <li>
+                        <strong><a href="{{route('business.order.show',['portal'=>$institution->portal, 'id'=>$order->id])}}">Order</a></strong>
                     </li>
                     <li class="active">
-                        <strong>Order Edit</strong>
+                        <strong>Order #{{$order->reference}} Edit</strong>
                     </li>
                 </ol>
             </div>
@@ -49,7 +52,7 @@
                                     <br>
                                     {{--  Product  --}}
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
                                                 @if ($errors->has('contact'))
@@ -57,47 +60,60 @@
                                                         <strong>{{ $errors->first('contact') }}</strong>
                                                     </span>
                                                 @endif
-                                                <select name="contact" class="select2_contact form-control input-lg">
+                                                <select name="contact" class="select2_demo_contact form-control input-lg {{ $errors->has('contact') ? ' is-invalid' : '' }}" required>
                                                     <option></option>
                                                     @foreach($contacts as $contact)
                                                         <option @if($contact->id == $order->contact_id)selected @endif value="{{$contact->id}}"> @if($contact->organization){{$contact->organization->name}}: @endif{{$contact->last_name}}, {{$contact->first_name}}</option>
                                                     @endforeach
                                                 </select>
+                                                <i>contact</i>
                                             </div>
                                             <br>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="has-warning" id="data_1">
-                                                        @if ($errors->has('date'))
-                                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                                <strong>{{ $errors->first('date') }}</strong>
-                                                            </span>
-                                                        @endif
-                                                        <div class="input-group date">
-                                                            <span class="input-group-addon">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </span>
-                                                            <input type="text" value="{{$order->date}}" name="date" id="date" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" required>
-                                                        </div>
-                                                        <i> order date.</i>
-                                                    </div>
+                                            <div class="has-warning" id="data_1">
+                                                @if ($errors->has('date'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('date') }}</strong>
+                                                    </span>
+                                                @endif
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                    <input type="text" value="{{$order->date}}" name="date" id="date" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" required>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="has-warning" id="data_1">
-                                                        @if ($errors->has('due_date'))
-                                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                                <strong>{{ $errors->first('due_date') }}</strong>
-                                                            </span>
-                                                        @endif
-                                                        <div class="input-group date">
-                                                            <span class="input-group-addon">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </span>
-                                                            <input type="text" value="{{$order->due_date}}" name="due_date" id="due_date" class="form-control input-lg {{ $errors->has('due_date') ? ' is-invalid' : '' }}" required>
-                                                        </div>
-                                                        <i> due date.</i>
-                                                    </div>
+                                                <i> order date.</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{--  Customer  --}}
+                                            <div class="has-warning">
+                                                @if ($errors->has('payment_schedule'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('payment_schedule') }}</strong>
+                                                </span>
+                                                @endif
+                                                <select name="payment_schedule" class="select2_demo_payment_schedule form-control input-lg {{ $errors->has('payment_schedule') ? ' is-invalid' : '' }}">
+                                                    <option></option>
+                                                    @foreach($paymentSchedules as $paymentSchedule)
+                                                        <option @if($order->payment_schedule_id == $paymentSchedule->id) selected @endif value="{{$paymentSchedule->id}}"> {{$paymentSchedule->name}} [{{$paymentSchedule->period}}]</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>payment schedule</i> <span><i data-toggle="tooltip" data-placement="right" title="Select this if this order will have a payment schedule." class="fa fa-x text-warning fa-question-circle"></i></span>
+                                            </div>
+                                            <br>
+                                            <div class="has-warning" id="data_1">
+                                                @if ($errors->has('due_date'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('due_date') }}</strong>
+                                                    </span>
+                                                @endif
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                    <input type="text" value="{{$order->due_date}}" name="due_date" id="due_date" class="form-control input-lg {{ $errors->has('due_date') ? ' is-invalid' : '' }}" required>
                                                 </div>
+                                                <i> due date.</i>
                                             </div>
                                         </div>
                                     </div>
@@ -123,12 +139,20 @@
                                                     <td>
                                                         <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[{{$product_index}}][item]" class="select2 form-control input-lg item-select" style = "width: 100%">
                                                             @foreach($products as $product)
-                                                                @if($product->is_service == 0)
-                                                                    @foreach($product->inventory as $inventory)
-                                                                        <option @if($saleProduct->product->id == $product->id) selected @endif value="{{$product->id}}:{{$inventory->id}}" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
-                                                                    @endforeach
-                                                                @else
-                                                                    <option @if($saleProduct->product->id == $product->id) selected @endif value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->selling_price}}">{{$product->name}}</option>
+                                                                @if($product->is_inventory == 1)
+                                                                    @if($product->is_inventory == 1)
+                                                                        @if($product->is_service == 0)
+                                                                            @foreach($product->inventory as $inventory)
+                                                                                <option @if($saleProduct->product->id == $product->id) selected @endif value="{{$product->id}}:{{$inventory->id}}" data-product-quantity = "{{$inventory->quantity}}" data-product-selling-price = "{{$product->taxed_selling_price}}">{{$product->name}} [{{$inventory->warehouse->name}}]</option>
+                                                                            @endforeach
+                                                                        @else
+                                                                            <option @if($saleProduct->product->id == $product->id) selected @endif value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->taxed_selling_price}}">{{$product->name}}</option>
+                                                                        @endif
+                                                                    @else
+                                                                        <option @if($saleProduct->product->id == $product->id) selected @endif value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->taxed_selling_price}}">{{$product->name}}</option>
+                                                                    @endif
+                                                                @elseif ($product->is_inventory == 0 or $product->is_service == 0)
+                                                                    <option @if($saleProduct->product->id == $product->id) selected @endif value="{{$product->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$product->taxed_selling_price}}">{{$product->name}}</option>
                                                                 @endif
                                                             @endforeach
                                                         </select>
@@ -157,63 +181,38 @@
 
                                     {{--sub totals--}}
                                     <div class="row">
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <label>Sub Total</label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input name="subtotal" type = "number" class="pull-right form-control" id = "items-subtotal" readonly value="{{$order->subtotal}}">
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-1 col-md-offset-5">
-                                                <label>Adjustment</label>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control" id = "adjustment-value" value = "{{$order->discount}}">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <p class="pull-right" id = "adjustment-text">0</p>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <p>Total ()</p>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control" value = "{{$order->total}}" readonly>
-                                            </div>
+                                        <div class="col-md-4 col-md-offset-8">
+                                            <input name="subtotal" type = "number" class="pull-right form-control input-lg" id = "items-subtotal" readonly value="{{$order->subtotal}}">
+                                            <i>sub Total</i>
                                         </div>
                                     </div>
-                                    <hr>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            @if ($errors->has('customer_notes'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('customer_notes') }}</strong>
-                                                </span>
-                                            @endif
-                                            <textarea required name="customer_notes" placeholder="Notes" class="form-control {{ $errors->has('customer_notes') ? ' is-invalid' : '' }}" rows="7">{{ $order->customer_notes }}</textarea>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            @if ($errors->has('terms_and_conditions'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('terms_and_conditions') }}</strong>
-                                                </span>
-                                            @endif
-                                            <textarea required name="terms_and_conditions" placeholder="Terms and Conditions" class="form-control {{ $errors->has('terms_and_conditions') ? ' is-invalid' : '' }}" rows="7">{{ $order->terms_and_conditions }}</textarea>
+                                        <div class="col-md-4 col-md-offset-8">
+                                            <input name="discount" oninput = "itemTotalChange()" type="number" class="form-control input-lg" id = "adjustment-value" value = "{{$order->discount}}">
+                                            <i>adjustment</i>
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="row">
+                                        <div class="col-md-4 col-md-offset-8">
+                                            <input type = "number" name = "grand_total" id = "grand-total" class="pull-right form-control input-lg" value = "{{$order->total}}" readonly>
+                                            <i>grand total</i>
+                                        </div>
+                                    </div>
 
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <textarea name="customer_notes" placeholder="Notes" class="form-control" rows="7">{{$order->customer_notes}}</textarea>
+                                            <i>notes</i>
+                                        </div>
 
+                                        <div class="col-md-6">
+                                            <textarea name="terms_and_conditions" placeholder="Terms and Conditions" class="form-control" rows="7">{{$order->terms_and_conditions}}</textarea>
+                                            <i>terms and conditions</i>
+                                        </div>
+                                    </div>
                                     <hr>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>
@@ -251,21 +250,30 @@
 <!-- Data picker -->
 <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
+<!-- Chosen -->
+<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
+
 <!-- Image cropper -->
 <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
 
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
-<!-- Chosen -->
-<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
-
 <script>
     $(document).ready(function(){
 
-
         $(".select2_contact").select2({
             placeholder: "Select Contact",
+            allowClear: true
+        });
+
+        $(".select2_product").select2({
+            placeholder: "Select Product",
+            allowClear: true
+        });
+
+        $(".select2_payment_schedule").select2({
+            placeholder: "Select Payment Schedule",
             allowClear: true
         });
 
@@ -309,6 +317,16 @@
         });
 
         $(".select2").select2();
+
+        $(".select2_demo_contact").select2({
+            placeholder: "Select Contact",
+            allowClear: true
+        });
+
+        $(".select2_demo_payment_schedule").select2({
+            placeholder: "Select Contact",
+            allowClear: true
+        });
 
     });
 
@@ -402,15 +420,19 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2 form-control input-lg item-select' style = 'width: 100%'>"+
-                                "<option selected disabled>Select Item</option>"+
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_product form-control input-lg item-select' style = 'width: 100%'>"+
+                                "<option></option>"+
                                 "@foreach($products as $product)"+
                                 "@if($product->is_service == 0)"+
+                                "@if($product->is_inventory == 1)"+
                                 "@foreach($product->inventory as $inventory)"+
-                                "<option value='{{$product->id}}:{{$inventory->id}}' data-product-quantity = '{{$inventory->quantity}}' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}} [{{$inventory->warehouse->name}}]</option>"+
+                                "<option value='{{$product->id}}:{{$inventory->id}}' data-product-quantity = '{{$inventory->quantity}}' data-product-selling-price = '{{$product->taxed_selling_price}}'>{{$product->name}} [{{$inventory->warehouse->name}}]</option>"+
                                 "@endforeach"+
                                 "@else"+
-                                "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->selling_price}}'>{{$product->name}}</option>"+
+                                "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->taxed_selling_price}}'>{{$product->name}}</option>"+
+                                "@endif"+
+                                "@elseif ($product->is_inventory == 0 or $product->is_service == 0)"+
+                                "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->taxed_selling_price}}'>{{$product->name}}</option>"+
                                 "@endif"+
                                 "@endforeach"+
                                 "</select>";
@@ -421,7 +443,10 @@
         fifthCell.setAttribute("style", "width: 1em;")
         tableValueArrayIndex++;
 
-        $(".select2").select2();
+        $(".select2_product").select2({
+            placeholder: "Select Product",
+            allowClear: true
+        });
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;

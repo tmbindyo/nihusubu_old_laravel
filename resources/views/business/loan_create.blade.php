@@ -9,23 +9,23 @@
             <h2>Loan's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
                     Accounting
                 </li>
                 @isset($loanAccount)
                     <li class="active">
-                        <a href="{{ route('business.account.show',['portal'=>$institution->portal, 'id'=>$loanAccount->id]) }}">Account</a>
+                        <strong><a href="{{ route('business.account.show',['portal'=>$institution->portal, 'id'=>$loanAccount->id]) }}">Account</a></strong>
                     </li>
                 @endisset
                 @isset($loanContact)
                     <li class="active">
-                        <a href="{{ route('business.account.show',['portal'=>$institution->portal, 'id'=>$loanContact->id]) }}">Account</a>
+                        <strong><a href="{{ route('business.account.show',['portal'=>$institution->portal, 'id'=>$loanContact->id]) }}">Account</a></strong>
                     </li>
                 @endisset
                 <li class="active">
-                    <a href="{{route('business.loans',$institution->portal)}}">Loan's</a>
+                    <strong><a href="{{route('business.loans',$institution->portal)}}">Loan's</a></strong>
                 </li>
                 <li class="active">
                     <strong>Loan Create</strong>
@@ -68,12 +68,12 @@
                                                 <strong>{{ $errors->first('principal') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" @if (empty(old('principal'))) value="0" @else value="{{ old('principal') }}" @endif class="form-control input-lg {{ $errors->has('principal') ? ' is-invalid' : '' }}">
+                                        <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" @if (empty(old('principal'))) value="0" step="0.00001" @else value="{{ old('principal') }}" @endif class="form-control input-lg {{ $errors->has('principal') ? ' is-invalid' : '' }}">
                                         <i>principal</i>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="has-warning">
                                                 @if ($errors->has('interest'))
                                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -84,25 +84,25 @@
                                                 <i>key in interest in percentage</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="has-warning">
                                                 @if ($errors->has('interest_amount'))
                                                     <span class="invalid-feedback" style="display: block;" role="alert">
                                                         <strong>{{ $errors->first('interest_amount') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" @if (empty(old('interest_amount'))) value="0" @else value="{{ old('interest_amount') }}" @endif class="form-control input-lg {{ $errors->has('interest_amount') ? ' is-invalid' : '' }}">
+                                                <input type="number" id="interest_amount" name="interest_amount" step="0.00001" oninput="getPercentFromAmount();" required="required" @if (empty(old('interest_amount'))) value="0" @else value="{{ old('interest_amount') }}" @endif class="form-control input-lg {{ $errors->has('interest_amount') ? ' is-invalid' : '' }}">
                                                 <i>key in interest amount</i>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="has-warning">
                                                 @if ($errors->has('total'))
                                                     <span class="invalid-feedback" style="display: block;" role="alert">
                                                         <strong>{{ $errors->first('total') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="total" name="total" required="required" readonly @if (empty(old('total'))) value="0" @else value="{{ old('total') }}" @endif class="form-control input-lg {{ $errors->has('total') ? ' is-invalid' : '' }}">
+                                                <input type="number" id="total" name="total" required="required" step="0.00001" readonly @if (empty(old('total'))) value="0" @else value="{{ old('total') }}" @endif class="form-control input-lg {{ $errors->has('total') ? ' is-invalid' : '' }}">
                                                 <i>total</i>
                                             </div>
                                         </div>
@@ -167,7 +167,7 @@
                                                 <option value="{{$loanType->id}}">{{$loanType->name}}</option>
                                             @endforeach
                                         </select>
-                                        <i>loan type</i>
+                                            <i>loan type</i> <span><i data-toggle="tooltip" data-placement="right" title="Select loanee if you are the borrower and loaner if you are " class="fa fa-question-circle fa-x text-warning"></i></span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
@@ -179,7 +179,7 @@
                                         <select name="contact" class="select2_contact form-control input-lg {{ $errors->has('contact') ? ' is-invalid' : '' }}" required>
                                             <option></option>
                                             @foreach ($contacts as $contact)
-                                                <option @isset($loanContact) @if($loanContact->id == $contact->id) selected @endif @endisset value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
+                                                <option @isset($contactExists) @if($contactExists->id == $contact->id) selected @endif @endisset value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                                             @endforeach
                                         </select>
                                         <i>contact</i>

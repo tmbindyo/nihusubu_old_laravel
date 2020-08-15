@@ -122,7 +122,7 @@ class RegisterController extends Controller
             'portal' => ['required', 'string', 'max:255', 'unique:institutions'],
         ]);
 
-        // create instiution
+        // create institution
         $institution = $this->institutionSeeder($request, $user);
         // create units
         $institutionUnits = $this->unitSeeder($request, $user, $institution);

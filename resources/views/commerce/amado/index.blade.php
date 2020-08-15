@@ -21,9 +21,9 @@
                         <div class="hover-content">
                             <div class="line"></div>
                             @if ($product->is_product_group == 1)
-                                <p>From {{$institution->currency->name}} {{$product->productGroupProductMin[0]->selling_price}}</p>
+                                <p>From {{$institution->currency->name}} {{$product->productGroupProductMin[0]->taxed_selling_price}}</p>
                             @else
-                                <p>{{$institution->currency->name}} {{$product->selling_price}}</p>
+                                <p>{{$institution->currency->name}} {{$product->taxed_selling_price}}</p>
                             @endif
                             <h4>{{$product->name}}</h4>
                         </div>

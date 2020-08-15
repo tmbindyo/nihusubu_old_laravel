@@ -41,6 +41,13 @@ class PermissionTableSeeder extends Seeder
         $permission = Permission::create(['name' => 'edit composite product','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
         $permission = Permission::create(['name' => 'delete composite product','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
 
+        // items
+        $permission = Permission::create(['name' => 'add item','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $permission = Permission::create(['name' => 'view item','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $permission = Permission::create(['name' => 'view items','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $permission = Permission::create(['name' => 'edit item','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+        $permission = Permission::create(['name' => 'delete item','module_id' => 'b018d16c-4ef2-44dc-9c5e-be8e7d896bf3']);
+
         // stock
         $permission = Permission::create(['name' => 'view stock','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
         $permission = Permission::create(['name' => 'view restock','module_id' => '2d89966e-c6f2-4967-b278-f65df98448db']);
@@ -81,13 +88,6 @@ class PermissionTableSeeder extends Seeder
         $permission = Permission::create(['name' => 'view contacts','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
         $permission = Permission::create(['name' => 'edit contact','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
         $permission = Permission::create(['name' => 'delete contact','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
-
-        // leads
-        $permission = Permission::create(['name' => 'add lead','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
-        $permission = Permission::create(['name' => 'view lead','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
-        $permission = Permission::create(['name' => 'view leads','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
-        $permission = Permission::create(['name' => 'edit lead','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
-        $permission = Permission::create(['name' => 'delete lead','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
 
         // organizations
         $permission = Permission::create(['name' => 'add organization','module_id' => '406cdcdc-d1c0-4a57-b7fc-18a1fa20aaca']);
@@ -243,6 +243,13 @@ class PermissionTableSeeder extends Seeder
         $permission = Permission::create(['name' => 'view product categories', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'edit product category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'delete product category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+
+        // payment schedules
+        $permission = Permission::create(['name' => 'add payment schedule', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'view payment schedule', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'view payment schedules', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'edit payment schedule', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+        $permission = Permission::create(['name' => 'delete payment schedule', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
 
         // product sub categories
         $permission = Permission::create(['name' => 'add product sub category', 'module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);

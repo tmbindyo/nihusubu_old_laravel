@@ -54,11 +54,11 @@ class InventoryController extends Controller
         // Get institution accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // Get reasons
-        $reasons = Reason::where('institution_id', $institution->id)->get();
+        $reasons = Reason::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Warehouse
         $warehouses = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->get();
         // Products
-        $products = Product::where('institution_id', $institution->id)->with('inventory')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_service',0)->where('is_inventory',1)->with('inventory')->get();
 
         return view('business.inventory_adjustment_create', compact('user', 'institution', 'accounts', 'reasons', 'warehouses', 'products'));
     }
@@ -77,12 +77,7 @@ class InventoryController extends Controller
 
         // Inventory adjustment
         $inventoryAdjustment = new InventoryAdjustment();
-        if ($request->mode_of_adjustment == "value"){
-            $inventoryAdjustment->is_value_adjustment = true;
-        }else{
-            $inventoryAdjustment->is_value_adjustment = false;
-        }
-        // Generate inventory adjustment number
+        $inventoryAdjustment->is_value_adjustment = false;
         $inventoryAdjustment->inventory_adjustment_number = $reference;
         $inventoryAdjustment->account_id = $request->account;
         $inventoryAdjustment->reason_id = $request->reason;
@@ -110,20 +105,14 @@ class InventoryController extends Controller
             $inventoryAdjustmentProduct->save();
 
 
-            if ($request->mode_of_adjustment == "quantity"){
-                // Quantity adjustment
-                // Adjust inventory
-                // return $itemDetail['new_on_hand'];
-                $inventory = Inventory::where('product_id', $product->id)->where('warehouse_id', $request->warehouse)->first();
-                $inventories = Inventory::all();
-                // return $inventories;
-                $inventory->quantity = doubleval($itemDetail['new_on_hand']);
-                $inventory->save();
-            }elseif ($request->mode_of_adjustment == "value"){
+            // Quantity adjustment
+            // Adjust inventory
+            $inventory = Inventory::where('product_id', $product->id)->where('warehouse_id', $request->warehouse)->first();
+            $inventories = Inventory::all();
 
-            }
+            $inventory->quantity = doubleval($itemDetail['new_on_hand']);
+            $inventory->save();
 
-            // Value adjustment
         }
 
 
@@ -170,8 +159,7 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        // Get inventory adjustments
-        $institutionWarehouses = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->select('id')->get()->toArray();
+        // Get transfer orders
         $transferOrders = TransferOrder::where('institution_id', $institution->id)->with('sourceWarehouse', 'destinationWarehouse', 'user', 'status')->get();
 
 //        return $transferOrders;
@@ -183,13 +171,17 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
+        // check if there are more than one warehouses
+        $warehouseCount = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->count();
+        if($warehouseCount<2){
+            return back()->withWarning(__('You need more than one warehouse to make a transfer order.'));
+        }
         // Get institution accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // Warehouse
         $warehouses = Warehouse::where('institution_id', $institution->id)->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->get();
         // Products
-        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory')->get();
-
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->where('is_inventory',true)->with('inventory')->get();
 
         return view('business.transfer_order_create', compact('user', 'institution', 'accounts', 'warehouses', 'products'));
     }
@@ -259,7 +251,7 @@ class InventoryController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-        $transferOrder = TransferOrder::findOrFail($transfer_order_id);
+        TransferOrder::findOrFail($transfer_order_id);
         $transferOrder = TransferOrder::where('id', $transfer_order_id)->with('sourceWarehouse.user', 'destinationWarehouse.user', 'transferOrderProducts.product')->withCount('transferOrderProducts')->first();
         return view('business.transfer_order_show', compact('user', 'institution', 'transferOrder'));
     }
@@ -335,7 +327,7 @@ class InventoryController extends Controller
 
         // Add inventory records for each warehouse and each product at 0
         // Get products
-        $productIds = Product::select('id')->get();
+        $productIds = Product::select('id')->where('institution_id',$institution->id)->where('is_inventory',true)->where('is_product_group',false)->get();
         foreach ($productIds as $productId){
             // Inventory record
             $inventory = new Inventory();

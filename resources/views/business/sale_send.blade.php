@@ -1,24 +1,66 @@
 @extends('business.layouts.app')
 
-@section('title', ' Sale')
+
+@if($sale->is_estimate ==1)
+    @section('title', ' Mail Estimate '.$sale->reference)
+@elseif($sale->is_invoice ==1)
+    @section('title', ' Mail Invoice '.$sale->reference)
+@elseif($sale->is_sale==1)
+    @section('title', ' Mail Sale '.$sale->reference)
+@elseif($sale->is_order==1)
+    @section('title', ' Mail Order '.$sale->reference)
+@else
+    @section('title', ' Mail Sale '.$sale->reference)
+@endif
 
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-6">
-            <h2>Sale</h2>
+            <h2>@if($sale->is_estimate ==1) Estimate @elseif($sale->is_invoice ==1) Invoice @elseif($sale->is_sale==1) Sale @elseif($sale->is_order==1) Order @else Sale @endif</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
-                    <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
+                    Sales
                 </li>
-                <li>
-                    <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}">Sale</a>
-                </li>
-                <li class="active">
-                    <strong>Sale</strong>
-                </li>
+                @if($sale->is_estimate ==1)
+                    <li>
+                        <strong><a href="{{route('business.invoices',$institution->portal)}}">Estimates</a></strong>
+                    </li>
+                    <li>
+                        <strong><a href="{{ route('business.invoice.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}">Estimate</a></strong>
+                    </li>
+                @elseif($sale->is_invoice ==1)
+                    <li>
+                        <strong><a href="{{route('business.invoices',$institution->portal)}}">Invoices</a></strong>
+                    </li>
+                    <li>
+                        <strong><a href="{{ route('business.invoice.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}">Invoice</a></strong>
+                    </li>
+                @elseif($sale->is_sale==1)
+                    <li>
+                        <strong><a href="{{route('business.sales',$institution->portal)}}">Sales</a></strong>
+                    </li>
+                    <li>
+                        <strong><a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}">Sale</a></strong>
+                    </li>
+                @elseif($sale->is_order == 1)
+                    <li>
+                        <strong><a href="{{route('business.orders',$institution->portal)}}">Orders</a></strong>
+                    </li>
+                    <li>
+                        <strong><a href="{{ route('business.order.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}">Order</a></strong>
+                    </li>
+                @else
+                    <li>
+                        <strong><a href="{{route('business.sales',$institution->portal)}}">Sales</a></strong>
+                    </li>
+                    <li>
+                        <strong><a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}">Sale</a></strong>
+                    </li>
+                @endif
+
             </ol>
         </div>
         <div class="col-lg-6">
@@ -76,7 +118,7 @@
                                 @endif
                                 <label class="col-sm-2 control-label">Subject:</label>
                                 <div class="col-sm-10">
-                                    <input name="subject" type="text" class="form-control {{ $errors->has('subject') ? ' is-invalid' : '' }}" value="Sale ref #{{$sale->reference}}">
+                                    <input name="subject" type="text" class="form-control {{ $errors->has('subject') ? ' is-invalid' : '' }}" value="@if($sale->is_estimate ==1) Estimate @elseif($sale->is_invoice ==1) Invoice @elseif($sale->is_sale==1) Sale @elseif($sale->is_order==1) Order @else Sale @endif ref #{{$sale->reference}}">
                                 </div>
                             </div>
                         </div>
@@ -88,7 +130,7 @@
                                 </span>
                             @endif
                             <textarea class="summernote {{ $errors->has('body') ? ' is-invalid' : '' }}" name="body">
-                                <h3>Hello Jonathan! </h3>
+                                <h3>Hello {{$sale->contact->first_name}} {{$sale->contact->last_name}}! </h3>
                                 dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
                                 when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
                                 typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with

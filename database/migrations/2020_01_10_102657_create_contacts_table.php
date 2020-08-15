@@ -39,8 +39,6 @@ class CreateContactsTable extends Migration
             $table->uuid('lead_source_id')->nullable();
             $table->uuid('campaign_id')->nullable();
 
-            $table->boolean('is_lead');
-
             $table->timestamps();
             $table->softDeletes();
         });

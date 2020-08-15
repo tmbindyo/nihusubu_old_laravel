@@ -86,16 +86,6 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="checkbox" name="is_lead" class="js-switch_3" />
-                                        <i>lead</i>
-                                    </div>
-                                    <div class="col-md-6">
-
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-6">
                                         <select required="required" name="title" class="select2_demo_title form-control input-lg">
                                             <option></option>
                                             @foreach($titles as $title)

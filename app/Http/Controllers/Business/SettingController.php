@@ -12,9 +12,12 @@ use App\Currency;
 use App\Frequency;
 use App\InstitutionModule;
 use App\Module;
+use App\PaymentSchedule;
 use App\Plan;
+use App\Product;
 use App\ProductCategory;
 use App\ProductSubCategory;
+use App\ProductTax;
 use App\UserAccount;
 use Auth;
 use App\Unit;
@@ -34,66 +37,6 @@ class SettingController extends Controller
     use UserTrait;
     use institutionTrait;
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    public function organizationProfile($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution($portal);
-
-        return view('business.organization.profile', compact('user', 'institution'));
-    }
-
-    public function openingBalances($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution($portal);
-
-        return view('business.opening_balances', compact('user', 'institution'));
-    }
-    public function usersAndRoles($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution($portal);
-
-        return view('business.users_and_roles', compact('user', 'institution'));
-    }
-    public function currencies($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution($portal);
-
-        return view('business.currencies', compact('user', 'institution'));
-    }
-    public function emails($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution($portal);
-
-        return view('business.emails', compact('user', 'institution'));
-    }
-    public function reminders($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution($portal);
-
-        return view('business.reminders', compact('user', 'institution'));
-    }
 
 
     // brands
@@ -126,15 +69,19 @@ class SettingController extends Controller
         // deleted lead sources
         $deletedLeadSources = LeadSource::where("status_id", "d35b4cee-5594-4cfd-ad85-e489c9dcdeff")->with('user', 'status')->where('institution_id', $institution->id)->get();
         // product categories
-        $productCategories = ProductCategory::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
+        $productCategories = ProductCategory::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
         // deleted product categories
         $deletedProductCategories = ProductCategory::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user')->get();
+        // payment schedules
+        $paymentSchedules = PaymentSchedule::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
+        // deleted payment schedules
+        $deletedPaymentSchedules = PaymentSchedule::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user')->get();
         // product sub categories
-        $productSubCategories = ProductSubCategory::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user','productCategory')->get();
+        $productSubCategories = ProductSubCategory::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user','productCategory')->get();
         // deleted product sub categories
         $deletedProductSubCategories = ProductSubCategory::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user','productCategory')->get();
         // Taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
+        $taxes = Tax::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
         // deleted taxes
         $deletedTaxes = Tax::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user')->get();
         // get titles
@@ -159,24 +106,9 @@ class SettingController extends Controller
         $modules = Module::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_business',true)->get();
         // get institution modules
         $institutionModulesIds = InstitutionModule::where('institution_id',$institution->id)->pluck('module_id')->toArray();
-        return view('business.settings', compact('brands', 'user', 'institution', 'brands', 'deletedBrands', 'campaignTypes', 'deletedCampaignTypes', 'contactTypes', 'deletedContactTypes', 'frequencies', 'deletedFrequencies', 'leadSources', 'deletedLeadSources', 'productCategories', 'deletedProductCategories', 'productSubCategories', 'deletedProductSubCategories', 'taxes', 'deletedTaxes', 'titles', 'deletedTitles', 'units', 'deletedUnits', 'roles', 'users', 'deletedUsers', 'plans', 'currencies', 'modules', 'institutionModulesIds'));
+        return view('business.settings', compact('brands', 'user', 'institution', 'brands', 'deletedBrands', 'campaignTypes', 'deletedCampaignTypes', 'contactTypes', 'deletedContactTypes', 'frequencies', 'deletedFrequencies', 'leadSources', 'deletedLeadSources', 'productCategories', 'deletedProductCategories', 'productSubCategories', 'deletedProductSubCategories', 'taxes', 'deletedTaxes', 'titles', 'deletedTitles', 'units', 'deletedUnits', 'roles', 'users', 'deletedUsers', 'plans', 'currencies', 'modules', 'institutionModulesIds', 'paymentSchedules' ,'deletedPaymentSchedules'));
     }
 
-
-    // brands
-    public function brands($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution($portal);
-        // get brands
-        $brands = Brand::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('user', 'status')->get();
-        // get deleted brands
-        $deletedBrands = Brand::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('user', 'status')->get();
-
-        return view('business.brands', compact('brands', 'user', 'institution', 'brands', 'deletedBrands'));
-    }
 
     public function brandCreate($portal)
     {
@@ -253,21 +185,6 @@ class SettingController extends Controller
     }
 
 
-
-    // campaign types
-    public function campaignTypes($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Get institutions
-        $institution = $this->getInstitution($portal);
-        // get campaign types
-        $campaignTypes = CampaignType::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('user', 'status')->get();
-        // get campaign types
-        $deletedCampaignTypes = CampaignType::where('status_id', "d35b4cee-5594-4cfd-ad85-e489c9dcdeff")->where('institution_id', $institution->id)->with('user', 'status')->get();
-        return view('business.campaign_types', compact('campaignTypes', 'user', 'institution', 'deletedCampaignTypes'));
-    }
-
     public function campaignTypeCreate($portal)
     {
         // User
@@ -304,8 +221,7 @@ class SettingController extends Controller
         $institution = $this->getInstitution($portal);
         // Get campaign type
         $campaignType = CampaignType::with('user', 'status', 'campaigns.user')->where('id', $campaign_type_id)->withCount('campaigns')->first();
-        $campaigns = Campaign::with('user', 'status', 'campaignType')->where('institution_id', $institution->id)->where('campaign_type_id', $campaignType->id)->get();
-        return view('business.campaign_type_show', compact('campaignType', 'user', 'institution', 'campaigns'));
+        return view('business.campaign_type_show', compact('campaignType', 'user', 'institution'));
     }
 
     public function campaignTypeCampaignCreate($portal, $campaign_type_id)
@@ -321,7 +237,7 @@ class SettingController extends Controller
         $institution = $this->getInstitution($portal);
         // campaign types
         $campaignType = CampaignType::with('user', 'status', 'campaigns.user')->where('id', $campaign_type_id)->withCount('campaigns')->first();
-        $campaignTypes = CampaignType::where('institution_id', $institution->id)->get();
+        $campaignTypes = CampaignType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         return view('business.campaign_create', compact('campaignTypeExists', 'user', 'institution', 'campaignTypes', 'campaignType'));
 
     }
@@ -356,20 +272,6 @@ class SettingController extends Controller
         return back()->withSuccess(__('Campaign type '.$campaignType->name.' successfully restored.'));
     }
 
-
-    // contact types
-    public function contactTypes($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Get institutions
-        $institution = $this->getInstitution($portal);
-        // contact types
-        $contactTypes = ContactType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user', 'status')->where('institution_id', $institution->id)->where('is_institution', true)->get();
-        // deleted contact types
-        $deletedContactTypes = ContactType::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->with('user', 'status')->where('institution_id', $institution->id)->where('is_institution', true)->get();
-        return view('business.contact_types', compact('contactTypes', 'user', 'institution', 'deletedContactTypes'));
-    }
 
     public function contactTypeCreate($portal)
     {
@@ -427,13 +329,13 @@ class SettingController extends Controller
         // get contacts
         $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user', 'status', 'contactType')->where('is_institution', true)->get();
         // get contact types
-        $contactTypes = ContactType::where('institution_id', $institution->id)->get();
+        $contactTypes = ContactType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get organizations
-        $organizations = Organization::where('institution_id', $institution->id)->get();
+        $organizations = Organization::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get titles
-        $titles = Title::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $titles = Title::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get lead sources
-        $leadSources = LeadSource::where('institution_id', $institution->id)->get();
+        $leadSources = LeadSource::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get campaigns
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         return view('business.contact_create', compact('contactTypeExists', 'contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns'));
@@ -625,9 +527,9 @@ class SettingController extends Controller
     public function leadSourceContactCreate($portal, $lead_source_id)
     {
         // get Campaign
-        $contactLeadSource = LeadSource::findOrFail($lead_source_id);
-        if ( $contactLeadSource->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
-            return back()->withWarning(__('Campaign '.$contactLeadSource->name.' is deleted.'));
+        $leadSourceExists = LeadSource::findOrFail($lead_source_id);
+        if ( $leadSourceExists->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
+            return back()->withWarning(__('Campaign '.$leadSourceExists->name.' is deleted.'));
         }
         // User
         $user = $this->getUser();
@@ -636,16 +538,16 @@ class SettingController extends Controller
         // get contacts
         $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'contactType')->get();
         // get contact types
-        $contactTypes = ContactType::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $contactTypes = ContactType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get organizations
-        $organizations = Organization::where('institution_id', $institution->id)->get();
+        $organizations = Organization::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get titles
-        $titles = Title::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $titles = Title::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get lead sources
-        $leadSources = LeadSource::where('institution_id', $institution->id)->get();
+        $leadSources = LeadSource::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get campaigns
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
-        return view('business.contact_create', compact('contactCampaign', 'contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns'));
+        return view('business.contact_create', compact( 'contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns', 'leadSourceExists'));
     }
 
     public function leadSourceUpdate(Request $request, $portal, $lead_source_id)
@@ -776,7 +678,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Taxes
-        $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
+        $taxes = Tax::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
         // deleted taxes
         $deletedTaxes = Tax::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user')->get();
         return view('business.taxes', compact('user', 'institution', 'taxes', 'deletedTaxes'));
@@ -847,7 +749,37 @@ class SettingController extends Controller
         }
         $tax->user_id = $user->id;
         $tax->save();
-        return back()->withSuccess(__('Tax '.$tax->name.' successfully updated.'));
+
+        // update all products that use this tax
+        // get all products with this as tax
+        $productsWithTax = ProductTax::where('tax_id',$tax->id)->with('product.productTaxes.tax')->get();
+        foreach ($productsWithTax as $product){
+            $taxAmount = 0;
+            foreach ($product->product->productTaxes as $productTax){
+                $productTaxUpdate = Product::findOrFail($product->product->id);
+//                return $productTax;
+                $tax = Tax::findOrFail($productTax->tax_id);
+                if ($tax->is_percentage){
+                    $percentageTax = $tax->amount/100 * $productTaxUpdate->selling_price;
+                    $taxAmount += $percentageTax;
+                }else{
+                    // amount
+                    $taxAmount += $tax->amount;
+                }
+            }
+            // set tax selling
+
+
+            if($request->tax_method_id = 'b2004522-e7aa-41dd-b033-7252d0a642b7'){
+                $productTaxUpdate->taxed_selling_price = ceil(floatval($taxAmount+$productTaxUpdate->selling_price));
+                $productTaxUpdate->tax_amount = ceil(floatval($taxAmount));
+            }else{
+                $productTaxUpdate->taxed_selling_price = $productTaxUpdate->selling_price;
+                $productTaxUpdate->tax_amount = ceil(floatval($taxAmount));
+            }
+            $productTaxUpdate->save();
+        }
+        return back()->withSuccess(__('Tax '.$tax->name.' successfully updated and all relevant product selling prices.'));
     }
 
     public function taxDelete($portal, $tax_id)
@@ -878,7 +810,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // product categories
-        $productCategories = ProductCategory::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
+        $productCategories = ProductCategory::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
         // deleted product categories
         $deletedProductCategories = ProductCategory::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user')->get();
         return view('business.product_categories', compact('user', 'institution', 'productCategories', 'deletedProductCategories'));
@@ -958,6 +890,96 @@ class SettingController extends Controller
         return back()->withSuccess(__('Product category successfully restored.'));
     }
 
+    // payment schedules
+    public function paymentSchedules($portal)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // payment schedules
+        $paymentSchedules = PaymentSchedule::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user')->get();
+        // deleted payment schedules
+        $deletedPaymentSchedules = PaymentSchedule::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user')->get();
+        return view('business.payment_schedules', compact('user', 'institution', 'paymentSchedules', 'deletedPaymentSchedules'));
+    }
+
+    public function paymentScheduleCreate($portal)
+    {
+
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        return view('business.payment_schedule_create', compact('user', 'institution'));
+    }
+
+    public function paymentScheduleStore(Request $request, $portal)
+    {
+
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Create payment schedule
+        $paymentSchedule = new PaymentSchedule();
+        $paymentSchedule->name = $request->name;
+        $paymentSchedule->period = $request->period;
+        $paymentSchedule->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $paymentSchedule->institution_id = $institution->id;
+        $paymentSchedule->user_id = $user->id;
+        $paymentSchedule->save();
+        $active = 'paymentSchedules';
+        return redirect()->route('business.settings',$institution->portal)->withSuccess(__('Payment schedule '.$paymentSchedule->name.' successfully created.'))->with( ['active'=>$active]);
+    }
+
+    public function paymentScheduleShow($portal, $payment_schedule_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Get payment schedule
+        $paymentSchedule = PaymentSchedule::where('id', $payment_schedule_id)->with('status', 'user', 'expenses', 'sales')->first();
+
+        return view('business.payment_schedule_show', compact('user', 'institution', 'paymentSchedule'));
+    }
+
+    public function paymentScheduleUpdate(Request $request, $portal,  $payment_schedule_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // Create payment schedule
+        $paymentSchedule = PaymentSchedule::findOrFail($payment_schedule_id);
+        $paymentSchedule->name = $request->name;
+        $paymentSchedule->period = $request->period;
+        $paymentSchedule->user_id = $user->id;
+        $paymentSchedule->save();
+        return back()->withSuccess(__('Payment schedule '.$paymentSchedule->name.' successfully updated.'));
+    }
+
+    public function paymentScheduleDelete($portal, $payment_schedule_id)
+    {
+
+        // delete the payment schedule
+        $paymentSchedule = PaymentSchedule::findOrFail($payment_schedule_id);
+        $paymentSchedule->status_id = "d35b4cee-5594-4cfd-ad85-e489c9dcdeff";
+        $paymentSchedule->save();
+
+        return back()->withSuccess(__('Payment schedule successfully deleted.'));
+    }
+
+    public function paymentScheduleRestore($portal, $payment_schedule_id)
+    {
+        // restore the payment schedule
+        $paymentSchedule = PaymentSchedule::findOrFail($payment_schedule_id);
+        $paymentSchedule->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $paymentSchedule->restore();
+        return back()->withSuccess(__('Payment schedule successfully restored.'));
+    }
+
     // product sub categories
     public function productSubCategories($portal)
     {
@@ -966,7 +988,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // product sub categories
-        $productSubCategories = ProductSubCategory::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user','productCategory')->get();
+        $productSubCategories = ProductSubCategory::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->with('status', 'user','productCategory')->get();
         // deleted product sub categories
         $deletedProductSubCategories = ProductSubCategory::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user','productCategory')->get();
         return view('business.product_sub_categories', compact('user', 'institution', 'productSubCategories', 'deletedProductSubCategories'));
@@ -1010,7 +1032,7 @@ class SettingController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // product categories
-        $productCategories = ProductCategory::where('institution_id',$institution->id)->with('user','status')->get();
+        $productCategories = ProductCategory::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->with('user','status')->get();
         // Get product category
         $productSubCategory = ProductSubCategory::where('id', $product_sub_category_id)->with('status', 'user', 'products')->first();
 

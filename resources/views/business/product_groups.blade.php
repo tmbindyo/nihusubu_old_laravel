@@ -9,10 +9,10 @@
         <h2>Product Groups</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
             </li>
             <li>
-                <a href="{{route('business.products',$institution->portal)}}">Products</a>
+                <a href="#">Products</a>
             </li>
             <li class="active">
                 <strong>Product Groups</strong>
@@ -56,7 +56,7 @@
                         <tbody>
                             @foreach($productGroups as $productGroup)
                                 <tr class="gradeA">
-                                        <td>{{$productGroup->name}} <label class="badge badge-circle badge-info">{{$productGroup->products_count}} products</label></td>
+                                        <td>{{$productGroup->name}}</td>
                                         <td>{{$productGroup->attributes}}</td>
                                         <td>{{$productGroup->attribute_options}}</td>
                                         <td>

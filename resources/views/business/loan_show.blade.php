@@ -187,7 +187,7 @@
                                         <select name="loan_type" class="select2_loan_type form-control input-lg {{ $errors->has('loan_type') ? ' is-invalid' : '' }}" disabled>
                                             <option selected value="{{$loan->loanType->id}}">{{$loan->loanType->name}}</option>
                                         </select>
-                                        <i>account</i>
+                                        <i>loan type</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">

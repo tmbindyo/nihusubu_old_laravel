@@ -30,72 +30,141 @@
 
 
         <div class="row">
-            @foreach($warehouses as $warehouse)
-                <div class="col-lg-3">
-                    <div class="contact-box center-version">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Warehouses</h5>
+                    </div>
+                    <div class="ibox-content">
 
-                        <a @can('view warehouse') href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$warehouse->id])}}" @endcan>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Town</th>
+                                    <th>Street</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($warehouses as $warehouse)
+                                    <tr class="gradeX">
+                                        <td>
+                                            {{$warehouse->name}}
+                                        </td>
+                                        <td>{{$warehouse->address->town}}</td>
+                                        <td>{{$warehouse->address->street}}</td>
+                                        <td>{{$warehouse->address->phone_number}}</td>
+                                        <td>{{$warehouse->address->email}}</td>
+                                        <td>{{$warehouse->user->name}}</td>
+                                        <td>
+                                            <span class="label {{$warehouse->status->label}}">{{$warehouse->status->name}}</span>
+                                        </td>
 
-                            <span class="fa fa-4x fa-database"></span>
-
-
-                            <h3 class="m-b-xs"><strong>{{$warehouse->name}}</strong></h3>
-                            <address class="m-t-md">
-                                {{$warehouse->address->town}}, {{$warehouse->address->street}}<br>
-                                P. O. Box {{$warehouse->address->po_box}}, {{$warehouse->address->postal_code}}.<br>
-                                <abbr title="Phone">P:</abbr> {{$warehouse->address->phone_number}}<br>
-                                <abbr title="Email">E:</abbr> {{$warehouse->address->email}}
-                            </address>
-
-                        </a>
-                        @can('view warehouse')
-                            <div class="contact-box-footer">
-                                <div class="">
-                                    <a href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$warehouse->id])}}" class="btn btn-md btn-block btn-outline btn-primary"> View </a>
-                                </div>
-                            </div>
-                        @endcan
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                @can('add warehouse')
+                                                    <a href="{{ route('business.warehouse.show', ['portal'=>$institution->portal, 'id'=>$warehouse->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                @endcan
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Town</th>
+                                    <th>Street</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
 
                     </div>
                 </div>
-            @endforeach
-
+            </div>
         </div>
-        @if($deletedWarehouses)
+
+        @if(count($deletedWarehouses))
             <div class="row">
-                @foreach($deletedWarehouses as $warehouse)
-                    <div class="col-lg-3">
-                        <div class="contact-box center-version">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Warehouses</h5>
+                        </div>
+                        <div class="ibox-content">
 
-                            <a href="profile.html">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Town</th>
+                                        <th>Street</th>
+                                        <th>Phone Number</th>
+                                        <th>Email</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($deletedWarehouses as $warehouse)
+                                        <tr class="gradeX">
+                                            <td>
+                                                {{$warehouse->name}}
+                                            </td>
+                                            <td>{{$warehouse->address->town}}</td>
+                                            <td>{{$warehouse->address->street}}</td>
+                                            <td>{{$warehouse->address->phone_number}}</td>
+                                            <td>{{$warehouse->address->email}}</td>
+                                            <td>{{$warehouse->user->name}}</td>
+                                            <td>
+                                                <span class="label {{$warehouse->status->label}}">{{$warehouse->status->name}}</span>
+                                            </td>
 
-                                <span class="fa fa-4x fa-database"></span>
-
-
-
-                                <h3 class="m-b-xs"><strong>{{$warehouse->name}}</strong></h3>
-                                <address class="m-t-md">
-                                    {{$warehouse->address->town}}, {{$warehouse->address->street}}<br>
-                                    P. O. Box {{$warehouse->address->po_box}}, {{$warehouse->address->postal_code}}.<br>
-                                    <abbr title="Phone">P:</abbr> {{$warehouse->address->phone_number}}<br>
-                                    <abbr title="Email">E:</abbr> {{$warehouse->address->email}}
-                                </address>
-                                <br>
-                                <label class="label label-danger">Deleted</label>
-
-                            </a>
-                            <div class="contact-box-footer">
-                                <div class="m-t-xs btn-group">
-                                    <a href="{{route('business.warehouse.show',['portal'=>$institution->portal, 'id'=>$warehouse->id])}}" class="btn btn-xs btn-outline btn-primary"> View </a>
-                                    <a href="{{route('business.warehouse.restore',['portal'=>$institution->portal, 'id'=>$warehouse->id])}}" class="btn btn-xs btn-outline btn-warning"><i class="fa fa-cross"></i> Restore</a>
-                                </div>
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    @can('view warehouse')
+                                                        <a href="{{ route('business.warehouse.show', ['portal'=>$institution->portal, 'id'=>$warehouse->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                    @endcan
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Town</th>
+                                        <th>Street</th>
+                                        <th>Phone Number</th>
+                                        <th>Email</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
                             </div>
 
                         </div>
                     </div>
-                @endforeach
+                </div>
             </div>
         @endif
+
     </div>
 
 @endsection
@@ -113,14 +182,66 @@
     <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
+    <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
+
     <!-- FooTable -->
     <script src="{{ asset('inspinia') }}/js/plugins/footable/footable.all.min.js"></script>
 
     <!-- Page-Level Scripts -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel',
+                        title: 'Warehouses',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
+                    {extend: 'pdf',
+                        title: 'Warehouses',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                        }
+                    },
 
-            $('.footable').footable();
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
 
         });
 

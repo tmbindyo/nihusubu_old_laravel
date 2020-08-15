@@ -66,9 +66,9 @@
                             <div class="product-meta-data">
                                 <div class="line"></div>
                                 @if ($product->is_product_group == 1)
-                                    <p>From {{$institution->currency->name}} {{$product->productGroupProductMin[0]->selling_price}}</p>
+                                    <p>From {{$institution->currency->name}} {{$product->productGroupProductMin[0]->taxed_selling_price}}</p>
                                 @else
-                                    <p>{{$institution->currency->name}} {{$product->selling_price}}</p>
+                                    <p>{{$institution->currency->name}} {{$product->taxed_selling_price}}</p>
                                 @endif
                                 <a href="product-details.html">
                                     <h6>{{$product->name}}</h6>
@@ -115,7 +115,7 @@
                                             <div class="col-12 mb-3">
                                                 <select name="product" class="w-100" id="country">
                                                     @foreach($product->productGroupProducts as $product)
-                                                        <option data-fid="" value="{{$product->id}}">{{$product->name}} {{$institution->currency->name}} {{$product->selling_price}}</option>
+                                                        <option data-fid="" value="{{$product->id}}">{{$product->name}} {{$institution->currency->name}} {{$product->taxed_selling_price}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

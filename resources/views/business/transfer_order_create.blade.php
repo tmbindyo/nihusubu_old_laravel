@@ -697,7 +697,7 @@
                 var thirdCell = row.insertCell(2);
                 var fourthCell = row.insertCell(3)
                 firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_item form-control input-lg items-select'"+
-                                        "name = 'item_details["+tableValueArrayIndex+"][product_id]' style = 'width: 100%'></select>";
+                                        "name = 'item_details["+tableValueArrayIndex+"][product_id]' style = 'width: 100%'><option></option></select>";
                 secondCell.innerHTML = "<div class='row'>"+
                                         "<div class='col-md-6'>"+
                                         "<small class='control-label'>Source Stock</small>"+

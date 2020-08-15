@@ -6,16 +6,16 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Payment's</h2>
+            <h2>Payment Create</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
-                    CRM
+                    Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payments',$institution->portal)}}">Payments</a>
+                    <strong><a href="{{route('business.payments',$institution->portal)}}">Payments</a></strong>
                 </li>
                 <li class="active">
                     <strong>Payment Create</strong>

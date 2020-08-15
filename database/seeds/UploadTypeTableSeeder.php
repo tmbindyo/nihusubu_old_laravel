@@ -34,6 +34,23 @@ class UploadTypeTableSeeder extends Seeder
             'created_at' => now()
         ]);
 
+        // tax methods
+        DB::table('tax_methods')->insert([
+            'id' => '49ff607b-257a-4289-aaed-4deb03f6edc6',
+            'name' => 'Inclusive',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now()
+        ]);
+
+        DB::table('tax_methods')->insert([
+            'id' => 'b2004522-e7aa-41dd-b033-7252d0a642b7',
+            'name' => 'Exclusive',
+            'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'user_id' => 1,
+            'created_at' => now()
+        ]);
+
 
     }
 }

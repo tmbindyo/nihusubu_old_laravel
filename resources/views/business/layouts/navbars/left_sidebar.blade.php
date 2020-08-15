@@ -91,6 +91,13 @@
                             </a>
                         </li>
                     @endcan
+                    @can('view items')
+                        <li class="nav-item {{ Route::currentRouteNamed( 'business.items',$institution->portal ) ?  'active' : '' }}">
+                            <a itemprop="url" class="nav-link" href="{{route( 'business.items',$institution->portal)}}">
+                                Items
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </li>
 
@@ -145,13 +152,6 @@
                         <li class="nav-item {{ Route::currentRouteNamed( 'business.contacts',$institution->portal ) ?  'active' : '' }}">
                             <a itemprop="url" class="nav-link" href="{{route( 'business.contacts',$institution->portal)}}">
                                 Contacts
-                            </a>
-                        </li>
-                    @endcan
-                    @can('view leads')
-                        <li class="nav-item {{ Route::currentRouteNamed( 'business.leads',$institution->portal ) ?  'active' : '' }}">
-                            <a itemprop="url" class="nav-link" href="{{route( 'business.leads',$institution->portal)}}">
-                                Leads
                             </a>
                         </li>
                     @endcan

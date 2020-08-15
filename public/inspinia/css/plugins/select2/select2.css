@@ -58,6 +58,10 @@
   width: 100%;
   z-index: 1051; }
 
+.select2-dropdown .has-warning .form-control {
+    border-color: #f8ac59;
+}
+
 .select2-results {
   display: block; }
 
@@ -197,7 +201,7 @@
 .select2-container--default .select2-selection--multiple {
   background-color: white;
   border: 1px solid #aaa;
-  border-radius: 4px;
+  border-radius: 1px;
   cursor: text; }
   .select2-container--default .select2-selection--multiple .select2-selection__rendered {
     box-sizing: border-box;

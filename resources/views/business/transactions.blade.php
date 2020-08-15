@@ -9,10 +9,13 @@
             <h2>Transaction (Expense Payments)</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
-                    <a href="{{route('business.transactions',$institution->portal)}}">Transactions</a>
+                    Accounting
+                </li>
+                <li>
+                    <strong><a href="{{route('business.expenses',$institution->portal)}}">Expenses</a></strong>
                 </li>
                 <li class="active">
                     <strong>Transaction</strong>
@@ -88,6 +91,7 @@
                                     <th>Date</th>
                                     <th>Created</th>
                                     <th>Amount</th>
+                                    <th>Status</th>
                                     <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                 </tr>
                                 </tfoot>

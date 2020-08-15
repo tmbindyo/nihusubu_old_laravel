@@ -9,16 +9,13 @@
             <h2>Role's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
-                </li>
-                <li>
-                    Settings
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.roles',$institution->portal)}}">Role's</a>
+                    <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Role Create</strong>
+                    <strong>Role {{str_replace($institution->portal.' ', "", $role->name)}}</strong>
                 </li>
             </ol>
         </div>
@@ -166,7 +163,7 @@
                                         <td class="text-right">
                                             <div class="btn-group">
                                                 @can('user revoke role')
-                                                    <a href="{{ route('business.user.revoke.role', ['portal'=>$institution->portal, 'id'=>encrypt($user->id), 'role_id'=>$role->id]) }}" class="btn-success btn-danger btn btn-xs">Revoke</a>
+                                                    <a href="{{ route('business.user.revoke.role', ['portal'=>$institution->portal, 'id'=>encrypt($user->id), 'role_id'=>encrypt($role->id)]) }}" class="btn-success btn-danger btn btn-xs">Revoke</a>
                                                 @endcan
                                             </div>
                                         </td>
@@ -189,9 +186,9 @@
 
         {{--  details  --}}
         <div class="row">
-            <div class="grid" >
+            <div class="">
                 @foreach($institutionModules as $institutionModule)
-                    <div class="grid-item">
+                    <div class="">
                         <div class="ibox">
                             <div class="ibox-title">
                                 <h5 class="text-center">{{$institutionModule->module->name}}</h5>
@@ -204,7 +201,7 @@
                             <div class="ibox-content">
                                 <div class="row">
                                     @foreach($institutionModule->module->permissions as $permission)
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-2">
                                             <div class="checkbox checkbox-primary">
                                                 <input class="updateRolePermission" data-portal="{{$institution->portal}}" data-permission_id="{{encrypt($permission->id)}}" data-role_id="{{encrypt($role->id)}}" id="{{$permission->name}}" type="checkbox" @if(in_array($permission->name, $rolePermissionNames)) checked="true" @endif >
                                                 <label for="{{$permission->name}}">

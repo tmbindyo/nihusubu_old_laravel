@@ -94,7 +94,7 @@ class RoleController extends Controller
         $role = Role::create(['name' => $roleName, 'institution_id' => $institution->id]);
 
         $active = 'roles';
-        return redirect()->route('business.settings',$institution->portal)->withSuccess(__('Role '.$role->name.' successfully created!'))->with( ['active' => $active] );
+        return redirect()->route('business.settings',$institution->portal)->withSuccess(__('Role '.str_replace($institution->portal.' ', "", $role->name).' successfully created!'))->with( ['active' => $active] );
     }
 
     public function roleUpdate(Request $request, $portal, $role_id)
@@ -116,7 +116,7 @@ class RoleController extends Controller
             $role->save();
         }
 
-        return redirect()->route('business.role.show',['portal'=>$institution->portal, 'id'=>$role->id])->withSuccess('Role '.$role->name.' successfully created!');
+        return redirect()->route('business.role.show',['portal'=>$institution->portal, 'id'=>$role->id])->withSuccess('Role '.str_replace($institution->portal.' ', "", $role->name).' successfully created!');
     }
 
     public function userRevokeRole($portal, $user_id, $role_id)
@@ -128,10 +128,10 @@ class RoleController extends Controller
         $institution = $this->getInstitution($portal);
         // revoke user
         $revokedUser = User::findOrFail(decrypt($user_id));
-        $role = Role::findOrFail($role_id);
+        $role = Role::findOrFail(decrypt($role_id));
         $revokedUser->removeRole($role->id);
 
-        return redirect()->route('business.role.show',['portal'=>$institution->portal, 'id'=>$role_id])->withSuccess('User '.$revokedUser->name.' successfully revoked!');
+        return redirect()->route('business.role.show',['portal'=>$institution->portal, 'id'=>encrypt($role->id)])->withSuccess('User '.$revokedUser->name.' successfully revoked!');
     }
 
     public function userAssignRole(Request $request, $portal, $role_id)
@@ -146,7 +146,7 @@ class RoleController extends Controller
         $role = Role::findOrFail($role_id);
         $AddedUser->assignRole($role->id);
 
-        return redirect()->route('business.role.show',['portal'=>$institution->portal, 'id'=>$role_id])->withSuccess('User '.$AddedUser->name.' successfully assigned role '.$role->name.'!');
+        return redirect()->route('business.role.show',['portal'=>$institution->portal, 'id'=>$role_id])->withSuccess('User '.$AddedUser->name.' successfully assigned role '.str_replace($institution->portal.' ', "", $role->name).'!');
     }
 
     public function updateRolePermission($portal, $role_id, $permission_id)
@@ -310,6 +310,54 @@ class RoleController extends Controller
         return back()->withSuccess(__('User has been invited to your organization!'));
     }
 
+    public function userShow($portal, $user_id){
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution($portal);
+        // get user
+        $userExists = User::findOrFail(decrypt($user_id));
+        $institutionUser = User::where('id',$userExists->id)->with('roles')->first();
+        // get user account
+        $userAccount = UserAccount::where('institution_id',$institution->id)->where('user_type_id','07c99d10-8e09-4861-83df-fdd3700d7e48')->where('is_institution',1)->where('user_id',$userExists->id)->with('registerer')->first();
+        // get pending roles
+        $userRoles = $institutionUser->getRoleNames();
+        $pendingRoles = Role::where('institution_id',$institution->id)->whereNotIn('name',$userRoles)->get();
+
+        return view('business.user_show', compact('user', 'institution', 'institutionUser', 'userAccount', 'pendingRoles'));
+    }
+
+    public function userAddRole(Request $request, $portal, $user_id)
+    {
+
+        // User
+        $user = $this->getUser();
+        // Get the navbar values
+        $institution = $this->getInstitution($portal);
+        // get user
+        $AddedUser = User::findOrFail(decrypt($user_id));
+        // get role
+        $role = Role::findOrFail(decrypt($request->role));
+        $AddedUser->assignRole($role->id);
+
+        return redirect()->route('business.user.show',['portal'=>$institution->portal, 'id'=>encrypt($AddedUser->id)])->withSuccess('User '.$AddedUser->name.' successfully assigned role '.str_replace($institution->portal.' ', "", $role->name).'!');
+    }
+
+    public function userDelistRole($portal, $user_id, $role_id)
+    {
+
+        // User
+        $user = $this->getUser();
+        // Get the navbar values
+        $institution = $this->getInstitution($portal);
+        // revoke user
+        $revokedUser = User::findOrFail(decrypt($user_id));
+        $role = Role::findOrFail(decrypt($role_id));
+        $revokedUser->removeRole($role->id);
+
+        return redirect()->route('business.user.show',['portal'=>$institution->portal, 'id'=>encrypt($revokedUser->id)])->withSuccess('User '.$revokedUser->name.' does not have access to '.str_replace($institution->portal.' ', "", $role->name).'!');
+    }
+
     public function userDelete($portal, $user_account_id)
     {
 
@@ -319,7 +367,7 @@ class RoleController extends Controller
         // Users
         $users = UserAccount::where('id',$userAccount->id)->with('user')->get();
 
-        return back()->withSuccess(__('Brand '.$userAccount->user->name.' successfully deleted.'));
+        return back()->withSuccess(__('User '.$userAccount->user->name.' successfully deleted.'));
     }
 
     public function userRestore($portal, $user_account_id)

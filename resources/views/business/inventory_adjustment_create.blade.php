@@ -9,10 +9,13 @@
         <h2>Inventory Adjustment</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
             </li>
             <li>
-                <a href="{{route('business.inventory.adjustments',$institution->portal)}}">Inventory Adjustments</a>
+                Inventory
+            </li>
+            <li>
+                <strong><a href="{{route('business.inventory.adjustments',$institution->portal)}}">Inventory Adjustments</a></strong>
             </li>
             <li class="active">
                 <strong>Inventory Adjustment Create</strong>
@@ -55,44 +58,23 @@
                         {{--  Product  --}}
                         <div class="row">
                             <div class="col-md-12">
-                                {{--  Mode of adjustment  --}}
-                                {{--  todo only one should be selectable  --}}
-                                @if ($errors->has('mode_of_adjustment'))
-                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                        <strong>{{ $errors->first('mode_of_adjustment') }}</strong>
-                                    </span>
-                                @endif
-                                <p>Mode of adjustment</p>
-                                <div class="radio radio-inline">
-                                    <input type="radio" id="value" value="value" name="mode_of_adjustment" onclick = "adjustmentTypeSelected(this)" class="{{ $errors->has('mode_of_adjustment') ? ' is-invalid' : '' }}">
-                                    <label for="value"> Value </label>
-                                </div>
-                                <div class="radio radio-inline">
-                                    <input type="radio" id="quantity" value="quantity" name="mode_of_adjustment" onclick = "adjustmentTypeSelected(this)" class="{{ $errors->has('mode_of_adjustment') ? ' is-invalid' : '' }}">
-                                    <label for="quantity"> Quantity </label>
-                                </div>
-                                <br>
-                                <br>
 
-
-
-                                <br>
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        {{--  Account  --}}
+                                        {{--  Warehouse  --}}
                                         <div class="has-warning">
-                                            @if ($errors->has('account'))
+                                            @if ($errors->has('warehouse'))
                                                 <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('account') }}</strong>
+                                                    <strong>{{ $errors->first('warehouse') }}</strong>
                                                 </span>
                                             @endif
-                                            <select name="account"  class="select2_account form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}">
+                                            <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="select2_warehouse form-control input-lg {{ $errors->has('warehouse') ? ' is-invalid' : '' }}">
                                                 <option></option>
-                                                @foreach($accounts as $account)
-                                                    <option value="{{$account->id}}">{{$account->name}}</option>
+                                                @foreach($warehouses as $warehouse)
+                                                    <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                                 @endforeach
                                             </select>
-                                            <i>account</i>
+                                            <i>warehouse</i>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -130,23 +112,7 @@
                                             <i>reason</i>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        {{--  Warehouse  --}}
-                                        <div class="has-warning">
-                                            @if ($errors->has('warehouse'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('warehouse') }}</strong>
-                                                </span>
-                                            @endif
-                                            <select onchange = "selectWarehouseToAdjust(this)" onfocus = "this.selectedIndex = 0" name="warehouse"  class="select2_warehouse form-control input-lg {{ $errors->has('warehouse') ? ' is-invalid' : '' }}">
-                                                <option></option>
-                                                @foreach($warehouses as $warehouse)
-                                                    <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <i>warehouse</i>
-                                        </div>
-                                    </div>
+
                                 </div>
 
                                 <br>

@@ -116,19 +116,13 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                @if ($errors->has('type'))
+                                                @if ($errors->has('expected_response'))
                                                     <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('type') }}</strong>
-                                                    </span>
+                                                    <strong>{{ $errors->first('expected_response') }}</strong>
+                                                </span>
                                                 @endif
-                                                <select name="type" class="select2_demo_campaign_type form-control input-lg {{ $errors->has('type') ? ' is-invalid' : '' }}">
-                                                    <option></option>
-                                                    @foreach ($campaignTypes as $campaignType)
-                                                        <option @if($campaign->campaign_type_id == $campaignType->id) selected @endif value="{{$campaignType->id}}">{{$campaignType->name}}</option>
-                                                    @endforeach
-
-                                                </select>
-                                                <i>type</i>
+                                                <input type="number" id="expected_response" name="expected_response" required="required" value="{{$campaign->expected_response}}" class="form-control input-lg {{ $errors->has('expected_response') ? ' is-invalid' : '' }}">
+                                                <i>Give a the expected response</i>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -169,8 +163,24 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="has-warning">
+                                        @if ($errors->has('type'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('type') }}</strong>
+                                                    </span>
+                                        @endif
+                                        <select name="type" class="select2_demo_campaign_type form-control input-lg {{ $errors->has('type') ? ' is-invalid' : '' }}">
+                                            <option></option>
+                                            @foreach ($campaignTypes as $campaignType)
+                                                <option @if($campaign->campaign_type_id == $campaignType->id) selected @endif value="{{$campaignType->id}}">{{$campaignType->name}}</option>
+                                            @endforeach
+
+                                        </select>
+                                        <i>type</i>
+                                    </div>
+                                    <br>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="has-warning">
                                                 @if ($errors->has('description'))
                                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -179,17 +189,6 @@
                                                 @endif
                                                 <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg {{ $errors->has('description') ? ' is-invalid' : '' }}">{{$campaign->description}}</textarea>
                                                 <i>Give a brief description on what the project is about</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                @if ($errors->has('expected_response'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                        <strong>{{ $errors->first('expected_response') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <textarea rows="5" id="expected_response" name="expected_response" required="required" class="form-control input-lg {{ $errors->has('expected_response') ? ' is-invalid' : '' }}">{{$campaign->expected_response}}</textarea>
-                                                <i>Give a the expected response</i>
                                             </div>
                                         </div>
                                     </div>

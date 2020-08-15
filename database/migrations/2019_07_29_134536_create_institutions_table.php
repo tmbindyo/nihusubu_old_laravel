@@ -24,6 +24,7 @@ class CreateInstitutionsTable extends Migration
             $table->string('website', 200)->nullable();
             $table->string('location', 200)->nullable();
             $table->date('inventory_start_date')->nullable();
+            $table->string('kra')->nullable();
 
             $table->string('instagram', 200)->nullable();
             $table->string('facebook', 200)->nullable();

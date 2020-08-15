@@ -9,7 +9,7 @@
             <h2>Inventory Adjustments</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
                     Inventory
@@ -57,7 +57,7 @@
                                     <tbody>
                                     @foreach($inventoryAdjustments as $inventoryAdjustment)
                                         <tr class="gradeA">
-                                            <td>{{$inventoryAdjustment->created_at}}</td>
+                                            <td>{{$inventoryAdjustment->created_at->format('d/m/Y')}}</td>
                                             <td>{{$inventoryAdjustment->reason->name}}</td>
                                             <td>{{$inventoryAdjustment->inventory_adjustment_number}}</td>
                                             <td>

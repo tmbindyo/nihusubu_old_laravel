@@ -254,6 +254,7 @@
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a href="#contacts" data-toggle="tab">Contacts</a></li>
+                                            <li class=""><a href="#sales" data-toggle="tab">Sales</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -276,18 +277,18 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach($organization->contacts as $contact)
+                                                            @foreach($organization->contacts as $organizationContact)
                                                                 <tr class="gradeX">
-                                                                    <td>{{$contact->first_name}} {{$contact->last_name}}</td>
-                                                                    <td>{{$contact->email}}</td>
-                                                                    <td>{{$contact->phone_number}}</td>
-                                                                    <td>{{$contact->user->name}}</td>
+                                                                    <td>{{$organizationContact->first_name}} {{$organizationContact->last_name}}</td>
+                                                                    <td>{{$organizationContact->email}}</td>
+                                                                    <td>{{$organizationContact->phone_number}}</td>
+                                                                    <td>{{$organizationContact->user->name}}</td>
                                                                     <td>
-                                                                        <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
+                                                                        <span class="label {{$organizationContact->status->label}}">{{$organizationContact->status->name}}</span>
                                                                     </td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                            <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$organizationContact->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -304,6 +305,70 @@
                                                             </tr>
                                                         </tfoot>
                                                     </table>
+                                                </div>
+                                            @endcan
+                                        </div>
+                                        <div class="tab-pane" id="sales">
+                                            @can('view sales')
+                                                <div class="table-responsive">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover dataTables-sales" >
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Sale #</th>
+                                                                <th>Date</th>
+                                                                <th>Due Date</th>
+                                                                <th>Customer</th>
+                                                                <th>Amount</th>
+                                                                <th>Paid</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @foreach($organization->contactSales as $sale)
+                                                                <tr class="gradeA">
+                                                                    <td>{{$sale->reference}}</td>
+                                                                    <td>{{$sale->date}}</td>
+                                                                    <td>{{$sale->due_date}}</td>
+
+                                                                    <td>
+                                                                        @if(isset($sale->contact))
+                                                                            {{$sale->contact->first_name}} {{$sale->contact->last_name}}
+                                                                        @else
+                                                                            <span class="label label-info"> NaN </span>
+                                                                        @endif
+                                                                    </td>
+
+                                                                    <td>{{$sale->total}}</td>
+                                                                    <td>{{$sale->paid}}</td>
+                                                                    <td>
+                                                                        <p><span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></p>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <div class="btn-group">
+                                                                            @can('view sale')
+                                                                                <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            @endcan
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th>Sale #</th>
+                                                                <th>Date</th>
+                                                                <th>Due Date</th>
+                                                                <th>Customer</th>
+                                                                <th>Amount</th>
+                                                                <th>Paid</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             @endcan
                                         </div>
@@ -667,6 +732,65 @@
             "New row" ] );
 
     }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.dataTables-sales').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$organization->name}} Sales',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                    }
+                },
+                {extend: 'pdf',
+                    title: '{{$organization->name}} Sales',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                    }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
 </script>
 
 <script>

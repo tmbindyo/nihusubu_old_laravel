@@ -9,13 +9,10 @@
         <h2>Campaign Type's</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
-            </li>
-            <li>
-                <a href="#">Settings</a>
+                <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
             </li>
             <li class="active">
-                <a href="{{route('business.campaign.types',$institution->portal)}}">Campaign Type's</a>
+                <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
             </li>
             <li class="active">
                 <strong>Campaign Type</strong>
@@ -152,7 +149,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($campaigns as $campaign)
+                                            @foreach($campaignType->campaigns as $campaign)
                                                 <tr class="gradeX">
                                                     <td>{{$campaign->name}}</td>
                                                     <td>{{$campaign->campaignType->name}}</td>

@@ -31,6 +31,7 @@ class CreateOrganizationsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('institution_id')->nullable();
+            $table->uuid('payment_schedule_id')->nullable();
             $table->uuid('campaign_id')->nullable();
             $table->uuid('parent_organization_id')->nullable();
 

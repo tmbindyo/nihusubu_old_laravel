@@ -129,7 +129,7 @@ class HomeController extends Controller
         // create address
         $address = $this->addressSeeder($request, $user);
 
-        // create instiution
+        // create institution
         $institution = new Institution();
         $institution->name = $request->business_name;
         $institution->portal = $request->portal;

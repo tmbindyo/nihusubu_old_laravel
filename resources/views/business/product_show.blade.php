@@ -1,20 +1,23 @@
 @extends('business.layouts.app')
 
-@section('title', 'Product Show')
+@section('title', 'Product '.$product->name)
 
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-8">
-        <h2>Product View</h2>
+        <h2>Product {{$product->name}}</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
+            </li>
+            <li>
+                <a href="#">Products</a>
             </li>
             <li>
                 <a href="{{route('business.products',$institution->portal)}}">Products</a>
             </li>
             <li class="active">
-                <strong>Product View</strong>
+                <strong>Product {{$product->name}}</strong>
             </li>
         </ol>
     </div>
@@ -153,7 +156,7 @@
                             </h2>
                             <small>{{$product->unit->name}}</small>
                             <div class="m-t-md">
-                                <h2 class="product-main-price">{{$institution->currency->name}} {{$product->selling_price}} <small class="text-muted">Exclude Tax</small> </h2>
+                                <h2 class="product-main-price">{{$institution->currency->name}} {{$product->taxed_selling_price}} <small class="text-muted">{{$product->taxMethod->name}} [{{$product->selling_price}}]</small> </h2>
                             </div>
                             <hr>
 

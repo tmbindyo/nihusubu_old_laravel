@@ -9,7 +9,7 @@
             <h2>Products</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
                     <strong>Products</strong>
@@ -64,7 +64,7 @@
                                                 <td>{{$product->stock_on_hand->first()->stock_on_hand}}</td>
                                             @endif
 
-                                            <td class="center">{{$product->reorder_level}}</td>
+                                            <td class="center">@if($product->reorder_level) {{$product->reorder_level}} @else N/A @endif</td>
                                             <td class="center">
                                                 <p>@if ($product->is_service==1) Service: @elseif($product->is_service==0)Product: @endif <span class="label {{$product->status->label}}">{{$product->status->name}}</span></p>
                                             </td>

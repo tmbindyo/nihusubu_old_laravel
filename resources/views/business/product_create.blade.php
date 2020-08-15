@@ -1,18 +1,21 @@
 @extends('business.layouts.app')
 
-@section('title', 'Products')
+@section('title', 'Product Create')
 
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
-            <h2>Products</h2>
+            <h2>Product Create</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.products',$institution->portal)}}">Products</a>
+                    <strong><a href="{{route('business.products',$institution->portal)}}">Products</a></strong>
+                </li>
+                <li class="active">
+                    <strong><a href="{{route('business.products',$institution->portal)}}">Product Create</a></strong>
                 </li>
             </ol>
         </div>
@@ -24,12 +27,7 @@
             <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Products</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
+                    <h5>Product Create</h5>
                 </div>
                 <div class="ibox-content">
 
@@ -51,6 +49,33 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <br>
+                                    <div class="row">
+                                        <div class="col-md-6 b-r">
+
+                                            <div class="radio radio-inline">
+                                                <input type="radio" id="goods" value="goods" class="{{ $errors->has('product_type') ? ' is-invalid' : '' }}" name="product_type" checked="" onclick = "productTypeSelected(this)">
+                                                <label for="goods"> Goods </label>
+                                            </div>
+                                            <div class="radio radio-inline">
+                                                <input type="radio" id="services" value="services" class="{{ $errors->has('product_type') ? ' is-invalid' : '' }}" name="product_type" onclick = "productTypeSelected(this)">
+                                                <label for="services"> Service </label>
+                                            </div>
+                                            <br>
+                                            <i>product type</i>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @if ($errors->has('is_returnable'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('is_returnable') }}</strong>
+                                                </span>
+                                            @endif
+                                            <div class="checkbox">
+                                                <input id="is_returnable" name="is_returnable" type="checkbox" class="{{ $errors->has('is_returnable') ? ' is-invalid' : '' }}">
+                                                <label for="is_returnable">Returnable Product</label> <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-x text-warning fa-question-circle"></i></span>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                     {{--  Product type  --}}
                                     {{--  todo only one should be selectable  --}}
                                     @if ($errors->has('product_type'))
@@ -58,15 +83,7 @@
                                             <strong>{{ $errors->first('product_type') }}</strong>
                                         </span>
                                     @endif
-                                    <label>Product Type</label><br>
-                                    <div class="radio radio-inline">
-                                        <input type="radio" id="goods" value="goods" class="{{ $errors->has('product_type') ? ' is-invalid' : '' }}" name="product_type" checked="" onclick = "productTypeSelected(this)">
-                                        <label for="goods"> Goods </label>
-                                    </div>
-                                    <div class="radio radio-inline">
-                                        <input type="radio" id="services" value="services" class="{{ $errors->has('product_type') ? ' is-invalid' : '' }}" name="product_type" onclick = "productTypeSelected(this)">
-                                        <label for="services"> Service </label>
-                                    </div>
+
                                     <br>
                                     <br>
                                     <div class="has-warning">
@@ -85,7 +102,7 @@
                                                 <strong>{{ $errors->first('unit') }}</strong>
                                             </span>
                                         @endif
-                                        <div class="col-lg-11">
+                                        <div class="col-lg-12">
                                             <div class="has-warning">
                                                 <select name="unit" class="select2_unit form-control input-lg {{ $errors->has('unit') ? ' is-invalid' : '' }}" required>
                                                     <option></option>
@@ -93,11 +110,8 @@
                                                         <option value="{{$unit->id}}">{{$unit->name}}</option>
                                                     @endforeach()
                                                 </select>
-                                                <i>unit</i>
+                                                <i>unit</i> <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-x text-warning"></i></span>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-1">
-                                            <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                         </div>
                                     </div>
                                     <br>
@@ -107,7 +121,7 @@
                                                 <strong>{{ $errors->first('brand') }}</strong>
                                             </span>
                                         @endif
-                                        <div class="col-lg-11">
+                                        <div class="col-lg-12">
                                             <div class="has-warning">
                                                 <select name="brand" class="select2_brand form-control input-lg {{ $errors->has('brand') ? ' is-invalid' : '' }}">
                                                     <option></option>
@@ -115,11 +129,8 @@
                                                         <option value="{{$brand->id}}">{{$brand->name}}</option>
                                                     @endforeach()
                                                 </select>
-                                                <i>brand</i>
+                                                <i>brand</i> <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a brand." class="fa fa-question-circle fa-x text-warning"></i></span>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-1">
-                                            <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a brand." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                         </div>
                                     </div>
                                     <br>
@@ -129,7 +140,7 @@
                                                 <strong>{{ $errors->first('product_category') }}</strong>
                                             </span>
                                         @endif
-                                        <div class="col-lg-11">
+                                        <div class="col-lg-12">
                                             <div class="has-warning">
                                                 <select name="product_sub_category" class="select2_product_sub_category form-control input-lg {{ $errors->has('product_sub_category') ? ' is-invalid' : '' }}">
                                                     <option></option>
@@ -137,31 +148,24 @@
                                                         <option value="{{$productSubCategory->id}}">{{$productSubCategory->name}}</option>
                                                     @endforeach()
                                                 </select>
-                                                <i>product category</i>
+                                                <i>product category</i> <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a product category." class="fa fa-question-circle fa-x text-warning"></i></span>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-1">
-                                            <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a product category." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                         </div>
                                     </div>
                                     <br>
-                                    @if ($errors->has('is_returnable'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('is_returnable') }}</strong>
-                                        </span>
-                                    @endif
-                                    <div class="checkbox">
-                                        <input id="is_returnable" name="is_returnable" type="checkbox" class="{{ $errors->has('is_returnable') ? ' is-invalid' : '' }}">
-                                        <label for="is_returnable">
-                                            Returnable Product
-                                        </label>
-                                        <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-2x fa-question-circle"></i></span>
-                                    </div>
+
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <div class="file-loading">
-                                            <input id="file-1" type="file" name="file[]" multiple class="file  {{ $errors->has('file') ? ' is-invalid' : '' }}" data-overwrite-initial="false" data-min-file-count="1">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            Product Images
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-groups">
+                                                <div class="file-loading">
+                                                    <input id="file-1" type="file" name="file[]" multiple class="file {{ $errors->has('file') ? ' is-invalid' : '' }}" data-overwrite-initial="false" data-min-file-count="1">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -206,17 +210,14 @@
                                                 <strong>{{ $errors->first('selling_account') }}</strong>
                                             </span>
                                         @endif
-                                        <div class="col-md-11">
+                                        <div class="col-md-12">
                                             <select name="selling_account" class="select2_selling_account form-control input-lg {{ $errors->has('selling_account') ? ' is-invalid' : '' }}" required>
                                                 <option></option>
                                                 @foreach($salesAccounts as $account)
                                                     <option value="{{$account->id}}">{{$account->name}}</option>
                                                 @endforeach()
                                             </select>
-                                            <i>selling account</i>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            <i>selling account</i> <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-x text-warning"></i></span>
                                         </div>
 
                                     </div>
@@ -230,7 +231,7 @@
                                                 <strong>{{ $errors->first('purchase_account') }}</strong>
                                             </span>
                                         @endif
-                                        <div class="col-md-11">
+                                        <div class="col-md-12">
                                             <div class="has-warning">
                                                 <select name="purchase_account" class="select2_purchase_account form-control input-lg {{ $errors->has('purchase_account') ? ' is-invalid' : '' }}" required>
                                                     <option></option>
@@ -247,11 +248,8 @@
                                                     </optgroup>
 
                                                 </select>
-                                                <i>purchase account</i>
+                                                <i>purchase account</i> <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-x text-warning"></i></span>
                                             </div>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you purchase will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
                                         </div>
                                     </div>
                                 </div>
@@ -300,46 +298,93 @@
                                     </select>
                                     <i>taxes</i>
                                 </div>
+                                <div class="col-md-6">
+                                    {{--  Product Tax  --}}
+                                    @if ($errors->has('tax_method'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('tax_method') }}</strong>
+                                        </span>
+                                    @endif
+                                    <select name="tax_method" class="tax_method-select form-control input-lg {{ $errors->has('tax_method') ? ' is-invalid' : '' }}">
+                                        <option></option>
+                                        @foreach($taxMethods as $taxMethod)
+                                            <option value="{{$taxMethod->id}}">{{$taxMethod->name}}</option>
+                                        @endforeach()
+                                    </select>
+                                    <i>tax method</i>
+                                </div>
                             </div>
                             <br>
                             <hr>
                             <div class="row">
                                 <h3 class="text-center">PRODUCT CREATION INFORMATION</h3>
                                 <div class="col-md-6">
+
+
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-2">
                                     @if ($errors->has('is_created'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('is_created') }}</strong>
                                         </span>
                                     @endif
                                     <div class="checkbox checkbox-info">
-                                        <input id="is_created" name="is_created" type="checkbox" class="{{ $errors->has('is_created') ? ' is-invalid' : '' }}">
-                                        <label for="is_created">
-                                            Product Manufactured/Created
-                                        </label>
-                                        <span><i data-toggle="tooltip" data-placement="right" title="Check this option if the product is manufactured, created or a period of time is used by this business to add value to it." class="fa fa-2x fa-question-circle"></i></span>
+                                        <input id="is_created" name="is_created" type="checkbox" class="enableCreationInformation {{ $errors->has('is_created') ? ' is-invalid' : '' }}">
+                                        <label for="is_created">Created?</label> <span><i data-toggle="tooltip" data-placement="right" title="Check this option if the product is manufactured, created or a period of time is used by this business to add value to it." class="fa fa-x text-warning fa-question-circle"></i></span>
                                     </div>
-
                                 </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     @if ($errors->has('creation_time'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('creation_time') }}</strong>
                                         </span>
                                     @endif
-                                    <input type="number" id="creation_time" name="creation_time" placeholder="Creation/Value addition time" value="{{ old('creation_time') }}" class="form-control input-lg  {{ $errors->has('creation_time') ? ' is-invalid' : '' }}">
+                                    <input type="number" id="creation_time" name="creation_time" placeholder="Creation/Value addition time" value="{{ old('creation_time') }}" class="form-control input-lg  {{ $errors->has('creation_time') ? ' is-invalid' : '' }}" disabled>
                                     <i>Average time taken to manufacture/create or add value to it in minutes.</i>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     @if ($errors->has('creation_cost'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('creation_cost') }}</strong>
                                         </span>
                                     @endif
-                                    <input type="number" id="creation_cost" name="creation_cost" value="{{ old('creation_cost') }}" placeholder="Average Creation/Value Addition cost" class="form-control input-lg {{ $errors->has('creation_cost') ? ' is-invalid' : '' }}">
+                                    <input type="number" id="creation_cost" name="creation_cost" value="{{ old('creation_cost') }}" placeholder="Average Creation/Value Addition cost" class="form-control input-lg {{ $errors->has('creation_cost') ? ' is-invalid' : '' }}" disabled>
                                     <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered" id = "estimate_table">
+                                        <thead>
+                                        <tr>
+                                            <th>Item Details</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_product_initial form-control input-lg select-product item-select" style = "width: 100%">
+                                                    <option></option>
+                                                    @foreach($items as $item)
+                                                        <option value="{{$item->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$item->taxed_selling_price}}">{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
+                                            </td>
+                                            <td>
+                                                <span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <label class="btn btn-small btn-primary" onclick = "addTableRow()" dis>+ Add Another Line</label>
                                 </div>
                             </div>
                             <hr>
@@ -358,31 +403,35 @@
                             <div class="row" name = "inventory_information_label">
                                 <div class="col-md-6">
                                     {{--  Inventory account  --}}
+                                    @if ($errors->has('inventory_account'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('inventory_account') }}</strong>
+                                        </span>
+                                    @endif
+                                    <div class="has-warning">
+                                        <select name="inventory_account" name="inventory_account"  class="select2_inventory_account form-control input-lg {{ $errors->has('inventory_account') ? ' is-invalid' : '' }}" required>
+                                            <option></option>
+                                            @foreach($stockAccounts as $account)
+                                                <option value="{{$account->id}}">{{$account->name}}</option>
+                                            @endforeach()
+                                        </select>
+                                        <i>inventory account</i> <span><i data-toggle="tooltip" data-placement="right" title="All inventory related transactions will be displayed in this account" class="fa fa-question-circle fa-x text-warning"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    {{--  Reorder Level  --}}
                                     <div class="row">
-                                        @if ($errors->has('inventory_account'))
+                                        @if ($errors->has('reorder_level'))
                                             <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('inventory_account') }}</strong>
+                                                <strong>{{ $errors->first('reorder_level') }}</strong>
                                             </span>
                                         @endif
-                                        <div class="col-md-11">
-                                            <div class="has-warning">
-                                                <select name="inventory_account" name="inventory_account"  class="select2_inventory_account form-control input-lg {{ $errors->has('inventory_account') ? ' is-invalid' : '' }}" required>
-                                                    <option></option>
-                                                    @foreach($stockAccounts as $account)
-                                                        <option value="{{$account->id}}">{{$account->name}}</option>
-                                                    @endforeach()
-                                                </select>
-                                            </div>
-                                            <i>inventory account</i>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <span><i data-toggle="tooltip" data-placement="right" title="All inventory related transactions will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                        <div class="col-md-12">
+                                            <input type="number" id="reorder_level" name="reorder_level" value="{{ old('reorder_level') }}" required="required" class="form-control input-lg inventory  {{ $errors->has('reorder_level') ? ' is-invalid' : '' }}" placeholder="Reorder Level">
+                                            <i>reorder level</i> <span><i data-toggle="tooltip" data-placement="right" title="Reorder level refers to the quantity of an item below which, an item is considered to be low on stock." class="fa fa-question-circle fa-x text-warning"></i></span>
                                         </div>
 
                                     </div>
-
-                                </div>
-                                <div class="col-md-6">
                                 </div>
                             </div>
                             <br>
@@ -395,12 +444,9 @@
                                                 <strong>{{ $errors->first('opening_stock') }}</strong>
                                             </span>
                                         @endif
-                                        <div class="col-md-11">
+                                        <div class="col-md-12">
                                             <input type="number" id="opening_stock" name="opening_stock" value="{{ old('opening_stock') }}" required="required" class="form-control input-lg inventory {{ $errors->has('opening_stock') ? ' is-invalid' : '' }}" placeholder="Opening Stock">
-                                            <i>opening stock</i>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            <i>opening stock</i> <span><i data-toggle="tooltip" data-placement="right" title="Opening stock refers to the quantity of the item on hand before you start tracking inventory for the item." class="fa fa-question-circle fa-x text-warning"></i></span>
                                         </div>
 
                                     </div>
@@ -414,12 +460,9 @@
                                                 <strong>{{ $errors->first('opening_stock_value') }}</strong>
                                             </span>
                                         @endif
-                                        <div class="col-md-11">
+                                        <div class="col-md-12">
                                             <input type="number" id="opening_stock_value" name="opening_stock_value" value="{{ old('opening_stock_value') }}" required="required" class="form-control input-lg inventory {{ $errors->has('opening_stock_value') ? ' is-invalid' : '' }}" placeholder="Opening Stock Value">
-                                            <i>opening stock value</i>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <span><i data-toggle="tooltip" data-placement="right" title="Opening stock value refers to the average purchase price of your opening stock. (Per unit in KES)" class="fa fa-question-circle fa-3x text-warning"></i></span>
+                                            <i>opening stock value</i> <span><i data-toggle="tooltip" data-placement="right" title="Opening stock value refers to the average purchase price of your opening stock. (Per unit in KES)" class="fa fa-question-circle fa-x text-warning"></i></span>
                                         </div>
 
                                     </div>
@@ -428,22 +471,7 @@
                             <br>
                             <div class="row" name = "inventory_information">
                                 <div class="col-md-6">
-                                    {{--  Reorder Level  --}}
-                                    <div class="row">
-                                        @if ($errors->has('reorder_level'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('reorder_level') }}</strong>
-                                            </span>
-                                        @endif
-                                        <div class="col-md-11">
-                                            <input type="number" id="reorder_level" name="reorder_level" value="{{ old('reorder_level') }}" required="required" class="form-control input-lg inventory  {{ $errors->has('reorder_level') ? ' is-invalid' : '' }}" placeholder="Reorder Level">
-                                            <i>reorder level</i>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <span><i data-toggle="tooltip" data-placement="right" title="Reorder level refers to the quantity of an item below which, an item is considered to be low on stock." class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                        </div>
 
-                                    </div>
                                 </div>
                                 <div class="col-md-6">
 
@@ -576,6 +604,26 @@
     </script>
 
     <script>
+        $(document).ready(function() {
+
+            $('.enableCreationInformation').on('click',function(){
+                if (document.getElementById('is_created').checked) {
+                    // enable end_time input
+                    document.getElementById("creation_time").disabled = false;
+                    document.getElementById("creation_cost").disabled = false;
+                } else {
+                    // disable input
+                    document.getElementById("creation_time").disabled = true;
+                    document.getElementById("creation_cost").disabled = true;
+                }
+            });
+
+
+        });
+
+    </script>
+
+    <script>
         $(document).ready(function(){
             Dropzone.options.myDropzone= {
                 url: 'upload.php',
@@ -631,6 +679,10 @@
                     {no_results_text:'Oops, nothing found!'},
                     {width:"95%"}
                 );
+                // reorder level
+                document.getElementById("reorder_level").disabled = false
+                // is inventory checkbox
+                document.getElementById("is_inventory").disabled = false
                 // Changing the inventory information section heading
                 var inventoryHeading = document.getElementsByName("inventory_information_header")[0]
                 inventoryHeading.innerHTML = "INVENTORY INFORMATION"
@@ -644,6 +696,10 @@
                         inputElement.setAttribute("readonly", true)
                     }
                 }
+                // reorder level
+                document.getElementById("reorder_level").disabled = true;
+                // is inventory checkbox
+                document.getElementById("is_inventory").disabled = true
                 // Destroying the instance of chosen that was making it hard to disable the inventory account select element
                 $(".inventory-account-chosen").chosen("destroy");
                 // Disabling the select element
@@ -681,6 +737,8 @@
                     {no_results_text:'Oops, nothing found!'},
                     {width:"95%"}
                 );
+                // reorder level
+                document.getElementById("reorder_level").disabled = false;
                 // Changing the inventory information section heading
                 var inventoryHeading = document.getElementsByName("inventory_information_header")[0]
                 inventoryHeading.innerHTML = "INVENTORY INFORMATION"
@@ -694,6 +752,8 @@
                         inputElement.setAttribute("readonly", true)
                     }
                 }
+                // reorder level
+                document.getElementById("reorder_level").disabled = true;
                 // Destroying the instance of chosen that was making it hard to disable the inventory account select element
                 $(".inventory-account-chosen").chosen("destroy");
                 // Disabling the select element
@@ -708,10 +768,156 @@
     </script>
 
     <script>
+        var subTotal = [];
+        var adjustedValue;
+        function itemSelected (e) {
+            var selectedItemQuantity = e.options[e.selectedIndex].getAttribute("data-product-quantity");
+            var selectItemPrice = e.options[e.selectedIndex].getAttribute("data-product-selling-price");
+            var selectedParentTd = e.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var itemQuantity = selectedTr.getElementsByClassName("item-quantity");
+            var itemRate = selectedTr.getElementsByClassName("item-rate");
+            // -20 is an arbitrary value set to indicate that an item is a service and so has no limit
+            if (selectedItemQuantity === "-20") {
+                itemQuantity[0].setAttribute("max", 100000000);
+            } else {
+                itemQuantity[0].setAttribute("max", selectedItemQuantity);
+            };
+            itemRate[0].value = selectItemPrice;
+        };
+        function changeItemQuantity (e) {
+            var quantityValue;
+            if (e.value.isEmpty) {
+                quantityValue = 0;
+            } else {
+                quantityValue = e.value;
+            };
+            var selectedParentTd = e.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var itemRateInputField = selectedTr.getElementsByClassName("item-rate");
+            var itemTotalInputField = selectedTr.getElementsByClassName("item-total");
+            var itemRate;
+            if (itemRateInputField[0].value.isEmpty) {
+                itemRate = 0;
+            } else {
+                itemRate = itemRateInputField[0].value;
+            };
+            itemTotalInputField[0].value = quantityValue * itemRate;
+            itemTotalChange();
+        };
+        function changeItemRate (e) {
+            var itemRate;
+            if (e.value.isEmpty) {
+                itemRate = 0;
+            } else {
+                itemRate = e.value;
+            };
+            var selectedParentTd = e.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var itemQuantityInputField = selectedTr.getElementsByClassName("item-quantity");
+            var itemTotalInputField = selectedTr.getElementsByClassName("item-total");
+            var quantityValue;
+            if (itemQuantityInputField[0].value.isEmpty) {
+                quantityValue = 0;
+            } else {
+                quantityValue = itemQuantityInputField[0].value;
+            };
+            itemTotalInputField[0].value = quantityValue * itemRate;
+            itemTotalChange();
+        };
+        var tableValueArrayIndex = 1;
+        function addTableRow () {
+            var table = document.getElementById("estimate_table");
+            var row = table.insertRow();
+            var firstCell = row.insertCell(0);
+            var secondCell = row.insertCell(1);
+            var thirdCell = row.insertCell(2);
+            firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_product form-control input-lg select-product item-select' style = 'width: 100%'>"+
+                "<option></option>"+
+                "@foreach($items as $item)"+
+                    "<option value='{{$item->id}}' data-product-quantity = '-20' >{{$item->name}}</option>"+
+                "@endforeach"+
+                "</select>";
+            secondCell.innerHTML = "<input name='item_details["+tableValueArrayIndex+"][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
+            thirdCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+            thirdCell.setAttribute("style", "width: 1em;")
+            tableValueArrayIndex++;
+
+            $(".select2_product").select2({
+                placeholder: "Select Product",
+                allowClear: true
+            });
+        };
+        function removeSelectedRow (e) {
+            var selectedParentTd = e.parentElement.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var selectedTable = selectedTr.parentElement;
+            var removed = selectedTr.getElementsByClassName("item-select")[0].getAttribute("name");
+            adjustTableInputFieldsIndex(removed);
+            selectedTable.removeChild(selectedTr);
+            tableValueArrayIndex--;
+            itemTotalChange();
+        };
+        function adjustTableInputFieldsIndex (removedFieldName) {
+            // Fields whose values are submitted are:
+            // 1. item_details[][item]
+            // 2. item_details[][quantity]
+            // 3. item_details[][rate]
+            // 4. item_details[][amount]
+            var displacement = 0;
+            var removedIndex;
+            while (displacement < tableValueArrayIndex) {
+                if (removedFieldName == "item_details["+displacement+"][item]"){
+                    removedIndex = displacement;
+                } else {
+                    var itemField = document.getElementsByName("item_details["+displacement+"][item]");
+                    var quantityField = document.getElementsByName("item_details["+displacement+"][quantity]");
+                    var rateField = document.getElementsByName("item_details["+displacement+"][rate]");
+                    var amountField = document.getElementsByName("item_details["+displacement+"][amount]");
+                    if (removedIndex) {
+                        if (displacement > removedIndex) {
+                            var newIndex = displacement - 1;
+                            itemField[0].setAttribute("name", "item_details["+newIndex+"][item]");
+                            quantityField[0].setAttribute("name", "item_details["+newIndex+"][quantity]");
+                            rateField[0].setAttribute("name", "item_details["+newIndex+"][rate]");
+                            amountField[0].setAttribute("name", "item_details["+newIndex+"][amount]");
+                        };
+                    };
+                };
+                displacement++;
+            };
+        };
+        function itemTotalChange () {
+            subTotal = [];
+            var itemTotals = document.getElementsByClassName("item-total");
+            for (singleTotal of itemTotals) {
+                subTotal.push(Number(singleTotal.value));
+            };
+            var itemSubTotal = subTotal.reduce((a, b) => a + b, 0);
+            document.getElementById("items-subtotal").value = itemSubTotal;
+            document.getElementById("grand-total").innerHTML = itemSubTotal;
+            var adjustedValueInputValue = document.getElementById("adjustment-value").value;
+            if (adjustedValueInputValue.isEmpty) {
+                adjustedValue = 0
+            } else {
+                adjustedValue = adjustedValueInputValue;
+            };
+            document.getElementById("adjustment-value").innerHTML = adjustedValue;
+            var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
+            document.getElementById("grand-total").value = adjustedTotal;
+        };
+    </script>
+
+    <script>
         $(document).ready(function(){
 
             $(".select2_unit").select2({
                 placeholder: "Select Unit",
+                allowClear: true
+            });
+
+            $(".select2_product_initial").select2({
+                placeholder: "Select Product",
                 allowClear: true
             });
 
@@ -738,6 +944,11 @@
             $(".select2_taxes").select2({
                 placeholder: "Select Taxes",
                 allowClear: true
+            });
+
+            $('.tax_method-select').select2({
+                theme: "default",
+                placeholder: "Select tax method",
             });
 
             $(".select2_inventory_account").select2({

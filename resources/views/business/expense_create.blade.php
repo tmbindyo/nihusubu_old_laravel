@@ -9,10 +9,13 @@
                 <h2>Expenses</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                        <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                     </li>
                     <li>
-                        <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
+                        <a href="#">Accounting</a>
+                    </li>
+                    <li>
+                        <strong><a href="{{route('business.expenses',$institution->portal)}}">Expenses</a></strong>
                     </li>
                     <li class="active">
                         <strong>Expense Create</strong>
@@ -110,7 +113,7 @@
                                                 <label for="is_paid">
                                                     Paid
                                                 </label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="If checked, the selected account is deducted from the selected account." class="fa fa-2x fa-question-circle"></i></span>
+                                                <span><i data-toggle="tooltip" data-placement="right" title="If checked, the selected account is deducted from the selected account." class="fa fa-x text-warning fa-question-circle"></i></span>
                                             </div>
                                         </div>
                                     </div>
@@ -149,36 +152,23 @@
 
                                     {{--sub totals--}}
                                     <div class="row">
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <label>Sub Total</label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input name="subtotal" type = "number" class="pull-right input-lg form-control" id = "items-subtotal" readonly value="0">
-                                            </div>
+                                        <div class="col-md-4 col-md-offset-8">
+                                            <input name="subtotal" type = "number" class="pull-right input-lg form-control" id = "items-subtotal" readonly value="0">
+                                            <i>subtotal</i>
                                         </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-2  col-md-offset-5">
-                                                <label>Adjustment</label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
-                                            <div class="col-md-2 col-md-offset-1">
-                                                <input name="adjustment" oninput = "itemTotalChange()" type="number" class="form-control input-lg" id = "adjustment-value" value = "0">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <p class="pull-right" id = "adjustment-text">0</p>
-                                            </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-4 col-md-offset-8">
+                                            <input name="adjustment" oninput = "itemTotalChange()" type="number" class="form-control input-lg" id = "adjustment-value" value = "0">
+                                            <i>adjustment</i>
                                         </div>
-                                        <hr>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <p>Total</p>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type = "number" name = "grand_total" id = "grand-total" class="pull-right input-lg form-control" value = "0" readonly>
-                                            </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-4 col-md-offset-8">
+                                            <input type = "number" name = "grand_total" id = "grand-total" class="pull-right input-lg form-control" value = "0" readonly>
+                                            <i>total</i>
                                         </div>
                                     </div>
                                     <hr>
@@ -196,15 +186,13 @@
                                                     {{--  Customer  --}}
                                                     <div class="checkbox checkbox-info">
                                                         <input id="is_sale" name="is_sale" @isset($saleExists) checked @endisset type="checkbox" class="enableSale {{ $errors->has('is_sale') ? ' is-invalid' : '' }}">
-                                                        <label for="is_sale">
-                                                            Sale
-                                                        </label>
+                                                        <label for="is_sale">Sale </label> <span><i data-toggle="tooltip" data-placement="right" title="Check this if you want to tie the expense to a sale, then select the sale in the dropdown." class="fa fa-x text-warning fa-question-circle"></i></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
                                                         <div class="has-warning">
-                                                            <select name="sale" id="sale" @isset($saleExists) required @endisset class="select2_sale form-control input-lg {{ $errors->has('sale') ? ' is-invalid' : '' }}" disabled>
+                                                            <select name="sale" id="sale" @isset($saleExists) required @endisset class="select2_sale form-control input-lg {{ $errors->has('sale') ? ' is-invalid' : '' }}" @if (@isset($saleExists) == false) disabled @endif>
                                                                 <option></option>
                                                                 @foreach($sales as $sale)
                                                                     <option @isset($saleExists) @if($saleExists->id == $sale->id) selected @endif @endisset value="{{$sale->id}}" >{{$sale->reference}} [{{$sale->total}}] ({{$sale->created_at}})</option>
@@ -217,26 +205,25 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="row">
-                                                @if ($errors->has('liability'))
+                                                @if ($errors->has('campaign'))
                                                     <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('liability') }}</strong>
+                                                    <strong>{{ $errors->first('campaign') }}</strong>
                                                 </span>
                                                 @endif
                                                 <div class="col-md-4">
+                                                    {{--  Customer  --}}
                                                     <div class="checkbox checkbox-info">
-                                                        <input id="is_liability" name="is_liability" @isset($liabilityExists) checked @endisset type="checkbox" class="enableLiability {{ $errors->has('is_liability') ? ' is-invalid' : '' }}">
-                                                        <label for="is_liability">
-                                                            Liability
-                                                        </label>
+                                                        <input id="is_campaign" name="is_campaign" @isset($campaignExists) checked @endisset type="checkbox" class="enableCampaign{{ $errors->has('is_campaign') ? ' is-invalid' : '' }}" >
+                                                        <label for="is_campaign">Campaign </label> <span><i data-toggle="tooltip" data-placement="right" title="Check this if you want to tie the expense to a campaign, then select the campaign in the dropdown." class="fa fa-x text-warning fa-question-circle"></i></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
                                                         <div class="has-warning">
-                                                            <select name="liability" id="liability" @isset($liabilityExists) required @endisset class="select2_liability form-control input-lg {{ $errors->has('liability') ? ' is-invalid' : '' }}" disabled>
+                                                            <select name="campaign" id="campaign" @isset($campaignExists) required @endisset class="select2_campaign form-control input-lg {{ $errors->has('campaign') ? ' is-invalid' : '' }}" @if (@isset($campaignExists) == false) disabled @endif>
                                                                 <option></option>
-                                                                @foreach($liabilities as $liability)
-                                                                    <option @isset($liabilityExists) @if($liabilityExists->id == $liability->id) selected @endif @endisset value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
+                                                                @foreach($campaigns as $campaign)
+                                                                    <option @isset($campaignExists) @if($campaignExists->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}" >{{$campaign->name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -259,15 +246,13 @@
                                                     {{--  Customer  --}}
                                                     <div class="checkbox checkbox-info">
                                                         <input id="is_transfer" name="is_transfer" @isset($transferExists) checked @endisset type="checkbox" class="enableTransfer {{ $errors->has('is_transfer') ? ' is-invalid' : '' }}">
-                                                        <label for="is_transfer">
-                                                            Transfer
-                                                        </label>
+                                                        <label for="is_transfer">Transfer </label> <span><i data-toggle="tooltip" data-placement="right" title="Check this if you want to tie the expense to a transfer, then select the transfer in the dropdown." class="fa fa-x text-warning fa-question-circle"></i></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
                                                         <div class="has-warning">
-                                                            <select name="transfer" id="transfer" @isset($transferExists) required @endisset class="select2_transfer form-control input-lg {{ $errors->has('transfer') ? ' is-invalid' : '' }}" disabled>
+                                                            <select name="transfer" id="transfer" @isset($transferExists) required @endisset class="select2_transfer form-control input-lg {{ $errors->has('transfer') ? ' is-invalid' : '' }}" @if (@isset($transferExists) == false) disabled @endif>
                                                                 <option></option>
                                                                 @foreach($transfers as $transfer)
                                                                     <option @isset($transferExists) @if($transferExists->id == $transfer->id) selected @endif @endisset value="{{$transfer->id}}" >{{$transfer->reference}} [{{$transfer->amount}}] ({{$transfer->date}})</option>
@@ -278,39 +263,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="row">
-                                                @if ($errors->has('campaign'))
-                                                    <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('campaign') }}</strong>
-                                                </span>
-                                                @endif
-                                                <div class="col-md-4">
-                                                    {{--  Customer  --}}
-                                                    <div class="checkbox checkbox-info">
-                                                        <input id="is_campaign" name="is_campaign" @isset($campaignExists) checked @endisset type="checkbox" class="enableCampaign{{ $errors->has('is_campaign') ? ' is-invalid' : '' }}">
-                                                        <label for="is_campaign">
-                                                            Campaign
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="has-warning">
-                                                        <div class="has-warning">
-                                                            <select name="campaign" id="campaign" @isset($campaignExists) required @endisset class="select2_campaign form-control input-lg {{ $errors->has('campaign') ? ' is-invalid' : '' }}" disabled>
-                                                                <option></option>
-                                                                {{-- @isset($campaign)
-                                                                    <option value="{{$campaign->id}}" >{{$campaign->name}}</option>
-                                                                @endisset --}}
-                                                                @foreach($campaigns as $campaign)
-                                                                    <option @isset($campaignExists) @if($campaignExists->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}" >{{$campaign->name}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <br>
                                     <hr>
@@ -328,10 +281,7 @@
                                                 <div class="col-md-4">
                                                     <div class="checkbox checkbox-info">
                                                         <input id="is_recurring" name="is_recurring" type="checkbox" class="enableRecurring {{ $errors->has('is_recurring') ? ' is-invalid' : '' }}">
-                                                        <label for="is_recurring">
-                                                            Recurring
-                                                        </label>
-                                                        <span><i data-toggle="tooltip" data-placement="right" title="Check this option if you want to save this as a draft for further editing." class="fa fa-2x fa-question-circle"></i></span>
+                                                        <label for="is_recurring">Recurring</label> <span><i data-toggle="tooltip" data-placement="right" title="Check this option if it's a recurring expense." class="fa fa-x text-warning fa-question-circle"></i></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
@@ -342,6 +292,7 @@
                                                                 <option value="{{$frequency->id}}" >{{$frequency->name}}</option>
                                                             @endforeach
                                                         </select>
+                                                        <i>frequency</i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -383,40 +334,44 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
                                             {{--  Customer  --}}
-                                            <div class="row">
+                                            <div class="has-warning">
                                                 @if ($errors->has('status'))
                                                     <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('status') }}</strong>
-                                            </span>
+                                                        <strong>{{ $errors->first('status') }}</strong>
+                                                    </span>
                                                 @endif
-                                                <div class="col-md-11">
-                                                    <div class="has-warning">
-                                                        <select name="status" class="select2_status form-control input-lg {{ $errors->has('status') ? ' is-invalid' : '' }}" required>
-                                                            <option></option>
-                                                            @foreach($expenseStatuses as $status)
-                                                                <option value="{{$status->id}}" >{{$status->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                                <div class="has-warning">
+                                                    <select name="status" class="select2_status form-control input-lg {{ $errors->has('status') ? ' is-invalid' : '' }}" required>
+                                                        <option></option>
+                                                        @foreach($expenseStatuses as $status)
+                                                            <option value="{{$status->id}}" >{{$status->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>status</i> <span><i data-toggle="tooltip" data-placement="right" title="Billable means that the cost can be at the clients expense, non billable however is charged to the business account selected." class="fa fa-x text-warning fa-question-circle"></i></span>
                                                 </div>
-                                                <div class="col-md-1">
-                                                    <span><i data-toggle="tooltip" data-placement="right" title="Billable means that the cost is charged to a customer, non billable is charged to the business account selected." class="fa fa-2x fa-question-circle"></i></span>
+                                                <br>
+                                                <div class="has-warning">
+                                                    @if ($errors->has('payment_schedule'))
+                                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                                            <strong>{{ $errors->first('payment_schedule') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                    <select name="payment_schedule" class="select2_payment_schedule form-control input-lg {{ $errors->has('payment_schedule') ? ' is-invalid' : '' }}">
+                                                        <option></option>
+                                                        @foreach($paymentSchedules as $paymentSchedule)
+                                                            <option value="{{$paymentSchedule->id}}"> {{$paymentSchedule->name}} [{{$paymentSchedule->period}}]</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>payment schedule</i> <span><i data-toggle="tooltip" data-placement="right" title="Select this if this estimate will have a payment schedule." class="fa fa-x text-warning fa-question-circle"></i></span>
                                                 </div>
+
                                             </div>
 
-                                            <br>
-                                            {{--  Customer  --}}
-                                            <div class="checkbox checkbox-info">
-                                                <input id="is_draft" name="is_draft" type="checkbox" class="{{ $errors->has('is_draft') ? ' is-invalid' : '' }}">
-                                                <label for="is_draft">
-                                                    Save As Draft
-                                                </label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Check this option if you want to save this as a draft for further editing." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
                                             <br>
 
 
@@ -429,6 +384,7 @@
                                                 </span>
                                                 @endif
                                                 <textarea required name="notes" placeholder="Notes" class="form-control {{ $errors->has('notes') ? ' is-invalid' : '' }}" rows="7">{{ old('name') }}</textarea>
+                                                <i>notes</i>
                                             </div>
                                         </div>
                                     </div>
@@ -560,16 +516,16 @@
             placeholder: "Select Campaign",
             allowClear: true
         });
+        $(".select2_payment_schedule").select2({
+            placeholder: "Select Payment Schedule",
+            allowClear: true
+        });
         $(".select2_expense_account").select2({
             placeholder: "Select Expense Account",
             allowClear: true
         });
         $(".select2_frequency").select2({
             placeholder: "Select Frequency",
-            allowClear: true
-        });
-        $(".select2_liability").select2({
-            placeholder: "Select Liability",
             allowClear: true
         });
         $(".select2_sale").select2({
@@ -657,16 +613,6 @@
                 document.getElementById("sale").disabled = true;
             }
         });
-        $('.enableLiability').on('click',function(){
-
-            if (document.getElementById('is_liability').checked) {
-                // enable end_time input
-                document.getElementById("liability").disabled = false;
-            } else {
-                // disable input
-                document.getElementById("liability").disabled = true;
-            }
-        });
         $('.enableTransfer').on('click',function(){
 
             if (document.getElementById('is_transfer').checked) {
@@ -687,7 +633,6 @@
                 document.getElementById("campaign").disabled = true;
             }
         });
-
 
     });
 
@@ -822,7 +767,7 @@
         } else {
             adjustedValue = adjustedValueInputValue;
         };
-        document.getElementById("adjustment-text").innerHTML = adjustedValue;
+        document.getElementById("adjustment-value").innerHTML = adjustedValue;
         var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
         document.getElementById("grand-total").value = adjustedTotal;
     };

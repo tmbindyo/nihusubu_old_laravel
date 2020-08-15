@@ -125,6 +125,16 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
+                                        @if ($errors->has('expected_response'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('expected_response') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="number" id="expected_response" name="expected_response" value="{{ old('expected_response') }}" required="required" placeholder="Expected Response" class="form-control input-lg {{ $errors->has('expected_response') ? ' is-invalid' : '' }}">
+                                        <i>expected response</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
                                         <select name="type" class="select2_demo_campaign_type form-control input-lg {{ $errors->has('type') ? ' is-invalid' : '' }}" required>
                                             <option></option>
                                             @foreach ($campaignTypes as $campaignType)
@@ -143,17 +153,6 @@
                                         <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg {{ $errors->has('description') ? ' is-invalid' : '' }}">{{ old('description') }}</textarea>
                                         <i>Give a brief description on what the project is about</i>
                                     </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        @if ($errors->has('expected_response'))
-                                            <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('expected_response') }}</strong>
-                                            </span>
-                                        @endif
-                                        <textarea rows="5" id="expected_response" name="expected_response" required="required" placeholder="Expected response" class="form-control input-lg {{ $errors->has('expected_response') ? ' is-invalid' : '' }}">{{ old('expected_response') }}</textarea>
-                                        <i>Give a the expected response</i>
-                                    </div>
-
 
                                     <br>
                                     <hr>

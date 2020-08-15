@@ -9,13 +9,13 @@
             <h2>Title's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.titles',$institution->portal)}}">Title's</a>
+                    <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Title Create</strong>
+                    <strong>Title {{$title->name}}</strong>
                 </li>
             </ol>
         </div>

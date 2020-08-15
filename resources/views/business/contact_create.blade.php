@@ -12,7 +12,7 @@
                     <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                 </li>
                 <li>
-                    <a href="#">Settings</a>
+                    <a href="#">CRM</a>
                 </li>
                 <li class="active">
                     <a href="{{route('business.contacts',$institution->portal)}}">Contacts</a>
@@ -50,21 +50,6 @@
                                     </div>
                                 @endif
 
-                                <div class="row">
-                                    @if ($errors->has('is_lead'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('is_lead') }}</strong>
-                                            </span>
-                                    @endif
-                                    <div class="col-md-6">
-                                        <input type="checkbox" name="is_lead" class="js-switch_3 {{ $errors->has('is_lead') ? ' is-invalid' : '' }}" />
-                                        <i>lead</i>
-                                    </div>
-                                    <div class="col-md-6">
-
-                                    </div>
-                                </div>
-                                <br>
                                 <div class="row">
                                     <div class="col-md-6">
                                         @if ($errors->has('title'))
@@ -158,7 +143,7 @@
                                         <select name="contact_types[]" class="select2_demo_contact_type form-control input-lg {{ $errors->has('contact_types') ? ' is-invalid' : '' }}" multiple required="required">
                                             <option></option>
                                             @foreach($contactTypes as $contactType)
-                                                <option @isset($contactContactType) @if($contactContactType->id == $contactType->id) selected @endif @endisset value="{{$contactType->id}}">{{$contactType->name}}</option>
+                                                <option @isset($contactTypeExists) @if($contactTypeExists->id == $contactType->id) selected @endif @endisset value="{{$contactType->id}}">{{$contactType->name}}</option>
                                             @endforeach
                                         </select>
                                         <i>contact types</i>
@@ -175,7 +160,7 @@
                                         <select name="lead_source" class="select2_demo_lead_source form-control input-lg {{ $errors->has('lead_source') ? ' is-invalid' : '' }}">
                                             <option></option>
                                             @foreach($leadSources as $leadSource)
-                                                <option @isset($contactLeadSource) @if($contactLeadSource->id == $leadSource->id) selected @endif @endisset value="{{$leadSource->id}}">{{$leadSource->name}}</option>
+                                                <option @isset($leadSourceExists) @if($leadSourceExists->id == $leadSource->id) selected @endif @endisset value="{{$leadSource->id}}">{{$leadSource->name}}</option>
                                             @endforeach
                                         </select>
                                         <i>lead source</i>
@@ -190,7 +175,7 @@
                                             <select name="campaign" class="select2_demo_campaign form-control input-lg {{ $errors->has('campaign') ? ' is-invalid' : '' }}">
                                                 <option></option>
                                                 @foreach($campaigns as $campaign)
-                                                    <option @isset($contactCampaign) @if($contactCampaign->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}">{{$campaign->name}}</option>
+                                                    <option @isset($campaignExists) @if($campaignExists->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}">{{$campaign->name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>campaign</i>

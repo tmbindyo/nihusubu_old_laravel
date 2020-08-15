@@ -22,7 +22,8 @@
         <div class="col-md-3">
             <div class="title-action">
                 @can('add account')
-                    <a href="{{route('business.account.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account </a>
+                    <a data-toggle="modal" data-target="#accountRegistration" class="btn btn-primary pull-right btn-round btn-outline"> <span class="fa fa-plus"></span> Account </a>
+{{--                    <a href="{{route('business.account.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account </a>--}}
                 @endcan
             </div>
         </div>
@@ -154,6 +155,8 @@
 
 
 @endsection
+
+@include('business.layouts.modals.account_create')
 
 @section('js')
 

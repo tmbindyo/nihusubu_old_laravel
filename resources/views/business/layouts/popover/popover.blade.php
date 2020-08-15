@@ -1,3 +1,4 @@
+<br>
 <div class="x_content bs-example-popovers">
     @if (session('success'))
         <div class="alert alert-success alert-dismissable">

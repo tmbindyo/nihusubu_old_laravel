@@ -9,13 +9,13 @@
             <h2>Product Categories</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.product.categories',$institution->portal)}}">Product Categories</a>
+                    <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Product Category Create</strong>
+                    <strong>Product Category {{$productCategory->name}}</strong>
                 </li>
             </ol>
         </div>

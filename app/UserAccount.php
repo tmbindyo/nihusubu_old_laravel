@@ -26,6 +26,10 @@ class UserAccount extends Model implements Auditable
     {
         return $this->belongsTo('App\User');
     }
+    public function registerer()
+    {
+        return $this->belongsTo('App\User', 'registerer_id');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');

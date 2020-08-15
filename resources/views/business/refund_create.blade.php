@@ -62,7 +62,7 @@
                                             </span>
                                         @endif
                                         <input type="number" id="amount" name="amount" value="{{ old('amount') }}" required="required" value="{{$payment->amount}}" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}">
-                                        <i>amount</i>
+                                        <i>amount [amount paid: {{$payment->amount}}]</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">

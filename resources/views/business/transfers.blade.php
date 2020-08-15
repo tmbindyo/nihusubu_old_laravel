@@ -78,7 +78,7 @@
 
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                @can('add transfer')
+                                                @can('view transfer')
                                                     <a href="{{ route('business.transfer.show', ['portal'=>$institution->portal, 'id'=>$transfer->id]) }}" class="btn-white btn btn-xs">View</a>
                                                 @endcan
                                             </div>

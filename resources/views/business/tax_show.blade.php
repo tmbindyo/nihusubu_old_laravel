@@ -9,16 +9,13 @@
             <h2>Tax's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
-                </li>
-                <li>
-                    CRM
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.taxes',$institution->portal)}}">Tax's</a>
+                    <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Tax Create</strong>
+                    <strong>Tax {{$tax->name}}</strong>
                 </li>
             </ol>
         </div>
@@ -66,7 +63,7 @@
                                         <label for="is_percentage">
                                             percentage
                                         </label>
-                                        <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the tax charged is a percentage of the price." class="fa fa-2x fa-question-circle"></i></span>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the tax charged is a percentage of the price." class="fa fa-x text-warning fa-question-circle"></i></span>
                                     </div>
                                     <br>
                                     <div class="has-warning">

@@ -57,6 +57,9 @@
                                 <span><strong>Invoice Date:</strong> {{$sale->date}} </span><br/>
                                 <span><strong>Due Date:</strong> {{$sale->due_date}} </span>
                             </p>
+                            @if($sale->payment_schedule_id)
+                                <h5 class="text-navy">{{$sale->paymentSchedule->name}} [{{$sale->paymentSchedule->period}}]</h5>
+                            @endif
                         </div>
                     </div>
 

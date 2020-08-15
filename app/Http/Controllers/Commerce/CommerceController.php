@@ -86,7 +86,7 @@ class CommerceController extends Controller
             // get the commerce file
             $commerceFile = CommerceTemplateFile::where('commerce_template_id',$institution->commerce_template_id)->where('type','index')->first();
             // get institution products
-            $products = Product::where('institution_id',$institution->id)->where('is_product_group_child',false)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'orderProducts', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'productGroupProducts', 'productGroupProductMax', 'productGroupProductMin')->take(9)->get();
+            $products = Product::where('institution_id',$institution->id)->where('is_product_group_child',false)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'productGroupProducts', 'productGroupProductMax', 'productGroupProductMin')->take(9)->get();
             return view($commerceFile->view,compact('institution','products'));
         }
     }
@@ -110,7 +110,7 @@ class CommerceController extends Controller
             // get the
             $commerceFile = CommerceTemplateFile::where('commerce_template_id',$institution->commerce_template_id)->where('type','product-details')->first();
             // get institution products
-            $product = Product::where('id',$product_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'orderProducts', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'productGroupProducts', 'productGroupProductMax', 'productGroupProductMin', 'productSubCategory.productCategory')->take(9)->first();
+            $product = Product::where('id',$product_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'productGroupProducts', 'productGroupProductMax', 'productGroupProductMin', 'productSubCategory.productCategory')->take(9)->first();
             return view($commerceFile->view,compact('institution', 'product'));
         }
     }
@@ -162,7 +162,6 @@ class CommerceController extends Controller
             $contact->is_institution = true;
             $contact->institution_id = $institution->id;
             $contact->is_chama = False;
-            $contact->is_lead = False;
             $contact->about = '';
             $contact->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
             $contact->save();
@@ -221,16 +220,21 @@ class CommerceController extends Controller
         $order->is_refunded = False;
 //        $order->is_paid = False;
         $order->is_draft = False;
-        $order->tax = 0;
         $order->paid = 0;
         $order->user_id = 1;
         $order->balance = $total;
         $order->has_uploads = false;
-
+        $tax = 0;
+        $order->tax = $tax;
         $order->save();
 
 
         foreach ($cart as $item){
+
+            // get product
+            $estimateSaleProduct = Product::findOrFail($item->attributes['id']);
+            // get the product taxes
+            $tax += doubleval($estimateSaleProduct->tax_amount);
 
             // order product
             $orderProduct = new SaleProduct();
@@ -248,6 +252,12 @@ class CommerceController extends Controller
             $orderProduct->user_id = 1;
             $orderProduct->save();
         }
+
+        // Set estimate tax
+        $estimateTaxSet = Sale::findOrFail($order->id);
+        $estimateTaxSet->tax = $tax;
+        $estimateTaxSet->subtotal = $estimateTaxSet->total-$tax;
+        $estimateTaxSet->save();
 
         // clear cart
 //        \Cart::session($cookie)->clear();
@@ -331,11 +341,11 @@ class CommerceController extends Controller
         if($request->product){
             // Get product
             $product = Product::findOrFail($request->product);
-            $product = Product::where('id',$request->product)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'orderProducts', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'productGroupProducts', 'productGroupProductMax', 'productGroupProductMin', 'productSubCategory.productCategory')->first();
+            $product = Product::where('id',$request->product)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'productGroupProducts', 'productGroupProductMax', 'productGroupProductMin', 'productSubCategory.productCategory')->first();
         }else{
             // Get product
             $product = Product::findOrFail($product_id);
-            $product = Product::where('id',$product_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'orderProducts', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'productGroupProducts', 'productGroupProductMax', 'productGroupProductMin', 'productSubCategory.productCategory')->first();
+            $product = Product::where('id',$product_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'productGroupProducts', 'productGroupProductMax', 'productGroupProductMin', 'productSubCategory.productCategory')->first();
         }
 
 
@@ -357,7 +367,7 @@ class CommerceController extends Controller
                     $options = array();
 
                     // add to cart
-                    \Cart::session($cookie)->add(uniqid(), $product->id, $product->selling_price, $request->quantity, $product);
+                    \Cart::session($cookie)->add(uniqid(), $product->id, $product->taxed_selling_price, $request->quantity, $product);
                 }
             }
         } else {
@@ -367,7 +377,7 @@ class CommerceController extends Controller
             $options = array();
 
             // add to cart
-            \Cart::session($cookie)->add(uniqid(), $product->id, $product->selling_price, $request->quantity, $product);
+            \Cart::session($cookie)->add(uniqid(), $product->id, $product->taxed_selling_price, $request->quantity, $product);
         }
 
         return back()->withSuccess(__('Item added to cart successfully.'));
@@ -385,6 +395,7 @@ class CommerceController extends Controller
 
         // get item
         $item = \Cart::session($cookie)->get($item_id);
+        return $item;
 
         if ($item->quantity == 1){
             \Cart::session($cookie)->remove($item_id);

@@ -98,7 +98,7 @@
                                                 <strong>{{ $errors->first('brand') }}</strong>
                                             </span>
                                             @endif
-                                            <div class="col-lg-11">
+                                            <div class="col-lg-12">
                                                 <div class="has-warning">
                                                     <select name="brand" class="select2_brand form-control input-lg {{ $errors->has('brand') ? ' is-invalid' : '' }}">
                                                         <option></option>
@@ -106,11 +106,8 @@
                                                             <option @if($compositeProduct->brand_id == $brand->id) selected @endif value="{{$brand->id}}">{{$brand->name}}</option>
                                                         @endforeach()
                                                     </select>
-                                                    <i>brand</i>
+                                                    <i>brand </i><span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a brand." class="fa fa-question-circle fa-x text-warning"></i></span>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-1">
-                                                <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a brand." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
                                         </div>
                                         <br>
@@ -120,7 +117,7 @@
                                                 <strong>{{ $errors->first('product_category') }}</strong>
                                             </span>
                                             @endif
-                                            <div class="col-lg-11">
+                                            <div class="col-lg-12">
                                                 <div class="has-warning">
                                                     <select name="product_sub_category" class="select2_product_sub_category form-control input-lg {{ $errors->has('product_sub_category') ? ' is-invalid' : '' }}">
                                                         <option></option>
@@ -128,11 +125,8 @@
                                                             <option @if($compositeProduct->product_sub_category_id == $productSubCategory->id) selected @endif value="{{$productSubCategory->id}}">{{$productSubCategory->name}}</option>
                                                         @endforeach()
                                                     </select>
-                                                    <i>product sub category</i>
+                                                    <i>product sub category</i> <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a product category." class="fa fa-question-circle fa-x text-warning"></i></span>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-1">
-                                                <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a product category." class="fa fa-question-circle fa-3x text-warning"></i></span>
                                             </div>
                                         </div>
                                         <br>
@@ -147,16 +141,24 @@
                                             <label for="returnable">
                                                 Returnable Product
                                             </label>
-                                            <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-question-circle fa-2x"></i></span>
+                                            <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-question-circle fa-x"></i></span>
                                         </div>
 
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <div class="file-loading">
-                                                <input id="file-1" type="file" name="file[]" multiple class="file {{ $errors->has('file') ? ' is-invalid' : '' }}" data-overwrite-initial="false" data-min-file-count="1">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                Product Images
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-groups">
+                                                    <div class="file-loading">
+                                                        <input id="file-1" type="file" name="file[]" multiple class="file {{ $errors->has('file') ? ' is-invalid' : '' }}" data-overwrite-initial="false" data-min-file-count="1">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <hr>
@@ -185,10 +187,7 @@
                                                 <strong>{{ $errors->first('selling_account') }}</strong>
                                             </span>
                                             @endif
-                                            <div class="col-md-1">
-                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you sell will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
-                                            <div class="col-md-11">
+                                            <div class="col-md-12">
                                                 <div class="has-warning">
                                                     <select name="selling_account" class="select2_selling_account form-control input-lg {{ $errors->has('selling_account') ? ' is-invalid' : '' }}" required>
                                                         <option value="" selected disabled>Select Selling Account</option>
@@ -196,7 +195,7 @@
                                                             <option @if($compositeProduct->selling_account_id == $account->id) selected @endif value="{{$account->id}}">{{$account->name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <i>selling account</i>
+                                                    <i>selling account</i> <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you sell will be displayed in this account" class="fa fa-question-circle fa-x text-warning"></i></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -215,13 +214,27 @@
                                             <option disabled>Select tax</option>
                                             @foreach($taxes as $tax)
                                                 @foreach($compositeProduct->productTaxes as $productTax)
-                                                    <option @if($productTax->tax_id == $tax->id) selected @endif value="{{$tax->id}}">{{$tax->name}}</option>
+                                                    <option @if($productTax->tax_id == $tax->id) selected @endif value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
                                                 @endforeach
                                             @endforeach
                                         </select>
                                         <i>taxes</i>
                                     </div>
-
+                                    <div class="col-md-6">
+                                        {{--  Product Tax  --}}
+                                        @if ($errors->has('tax_method'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('tax_method') }}</strong>
+                                                </span>
+                                        @endif
+                                        <select name="tax_method" class="tax_method-select form-control input-lg {{ $errors->has('tax_method') ? ' is-invalid' : '' }}">
+                                            <option></option>
+                                            @foreach($taxMethods as $taxMethod)
+                                                <option @if($compositeProduct->tax_method_id == $taxMethod->id) selected @endif value="{{$taxMethod->id}}">{{$taxMethod->name}}</option>
+                                            @endforeach()
+                                        </select>
+                                        <i>tax method</i>
+                                    </div>
                                 </div>
 
                                 <br>
@@ -248,8 +261,8 @@
                                                 @foreach($compositeProductProducts as $compositeProductProduct)
                                                     <tr>
                                                         <td>
-                                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select2 form-control input-lg select-product" style = "width: 100%">
-                                                                <option>Select Product</option>
+                                                            <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select2_product form-control input-lg select-product" style = "width: 100%">
+                                                                <option></option>
                                                                 @foreach($products as $product)
                                                                     <option @if($compositeProductProduct->product_id ==$product->id) selected @endif value="{{$product->id}}" data-product-unit-price="{{$product->selling_price}}">{{$product->name}}</option>
                                                                 @endforeach
@@ -459,8 +472,8 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='select2 form-control input-lg select-product' style = 'width: 100%'>"+
-                                "<option>Select Product</option>"+
+        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='select2_product_add form-control input-lg select-product' style = 'width: 100%'>"+
+                                "<option></option>"+
                                 "@foreach($products as $product)"+
                                 "<option value='{{$product->id}}' data-product-unit-price='{{$product->selling_price}}'>{{$product->name}}</option>"+
                                 "@endforeach"+
@@ -472,7 +485,10 @@
         fifthCell.setAttribute("style", "width: 1em;");
         tableValueArrayIndex++;
 
-        $(".select2").select2();
+        $(".select2_product_add").select2({
+            placeholder: "Select Product",
+            allowClear: true
+        });
     };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;
@@ -697,6 +713,10 @@
             placeholder: "Select Taxes",
             allowClear: true
         });
+        $('.tax_method-select').select2({
+            theme: "default",
+            placeholder: "Select tax method",
+        });
         $(".select2_unit").select2({
             placeholder: "Select Unit",
             allowClear: true
@@ -707,6 +727,10 @@
         });
         $(".select2_product_sub_category").select2({
             placeholder: "Select Product Category",
+            allowClear: true
+        });
+        $(".select2_product").select2({
+            placeholder: "Select Product",
             allowClear: true
         });
 

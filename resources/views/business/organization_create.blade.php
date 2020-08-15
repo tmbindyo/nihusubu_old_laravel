@@ -9,13 +9,13 @@
             <h2>Organization's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('business.organizations',$institution->portal)}}">Organization's</a>
+                    <strong><a href="{{route('business.organizations',$institution->portal)}}">Organization's</a></strong>
                 </li>
                 @isset($campaignExists)
                     <li class="active">
@@ -142,7 +142,7 @@
                                             <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg {{ $errors->has('parent_organization') ? ' is-invalid' : '' }}">
                                                 <option></option>
                                                 @foreach ($organizations as $organization)
-                                                    <option @isset($organizationOrganization) @if($organizationOrganization->id == $campaign->id) selected @endif @endisset value="{{$organization->id}}">{{$organization->name}}</option>
+                                                    <option @isset($organizationExists) @if($organizationExists->id == $campaign->id) selected @endif @endisset value="{{$organization->id}}">{{$organization->name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>parent organization</i>
@@ -159,7 +159,7 @@
                                             <select name="campaign" class="select2_campaign form-control input-lg {{ $errors->has('campaign') ? ' is-invalid' : '' }}">
                                                 <option></option>
                                                 @foreach ($campaigns as $campaign)
-                                                    <option @isset($organizationCampaign) @if($organizationCampaign->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}">{{$campaign->name}}</option>
+                                                    <option @isset($campaignExists) @if($campaignExists->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}">{{$campaign->name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>campaign</i>
@@ -173,7 +173,7 @@
                                             </span>
                                         @endif
                                         <textarea rows="5" id="description" name="description" required="required" placeholder="Description" class="form-control input-lg {{ $errors->has('description') ? ' is-invalid' : '' }}">{{ old('description') }}</textarea>
-                                        <i>description</i>
+                                        <i>about</i>
                                     </div>
 
                                     <hr>

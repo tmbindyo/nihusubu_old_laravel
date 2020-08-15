@@ -5,30 +5,36 @@
 @section('content')
 
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-8">
+            <div class="col-lg-5">
                 <h2>Order</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                        <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                     </li>
                     <li>
-                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
+                        <a href="#">Sales</a>
                     </li>
                     <li>
-                        <a href="{{route('business.orders',$institution->portal)}}">Orders</a>
+                        <strong><a href="{{route('business.orders',$institution->portal)}}">Orders</a></strong>
                     </li>
                     <li class="active">
                         <strong>Order</strong>
                     </li>
                 </ol>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-7">
                 <div class="title-action">
+                    @can('view contact')
+                        <a href="{{route('business.contact.show',['portal'=>$institution->portal, 'id'=>$order->contact->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                    @endcan
                     @can('add payment')
                         <a href="{{route('business.sale.payment.create',['portal'=>$institution->portal, 'id'=>$order->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Payment </a>
                     @endcan
+                    @can('edit order')
+                        <a href="{{route('business.order.edit',['portal'=>$institution->portal, 'id'=>$order->id])}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                    @endcan
                     @can('send order')
-                        <a href="{{route('business.order.compose',['portal'=>$institution->portal, 'id'=>$order->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-send-o"></i> Send </a>
+                        <a href="{{route('business.sale.compose',['portal'=>$institution->portal, 'id'=>$order->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-send-o"></i> Send </a>
                     @endcan
                     @can('print order')
                         <a href="{{route('business.order.print',['portal'=>$institution->portal, 'id'=>$order->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
@@ -105,7 +111,7 @@
                                 </table>
                             </div><!-- /table-responsive -->
 
-                            <table class="table order-total">
+                            <table class="table invoice-total">
                                 <tbody>
                                 <tr>
                                     <td><strong>Sub Total :</strong></td>
@@ -171,7 +177,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($payments as $payment)
+                                        @foreach($order->payments as $payment)
                                             <tr class="gradeX">
                                                 <td>
                                                     {{$payment->reference}}

@@ -1,24 +1,24 @@
 @extends('business.layouts.app')
 
-@section('title', ' Composite Product')
+@section('title', ' Composite Product '.$compositeProduct->name)
 
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Composite Product</h2>
+            <h2>Composite Product {{$compositeProduct->name}}</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
-                    <a href="{{route('business.products',$institution->portal)}}">Products</a>
+                    <a href="#">Products</a>
                 </li>
                 <li>
-                    <a href="{{route('business.composite.products',$institution->portal)}}">Composite Products</a>
+                    <strong><a href="{{route('business.composite.products',$institution->portal)}}">Composite Products</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Composite Product Products</strong>
+                    <strong>Composite Product {{$compositeProduct->name}}</strong>
                 </li>
             </ol>
         </div>
@@ -34,63 +34,6 @@
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            @foreach($compositeProduct->compositeProductProducts as $product)
-                <div class="col-md-4">
-                    <div class="ibox ">
-                        <div class="ibox-title">
-                            <h5 class="text-center">{{$product->product->name}}</h5>
-                        </div>
-                        <div>
-                            <div class="ibox-content no-padding border-left-right">
-    {{--                            <img alt="image" class="img-fluid" src="img/profile_big.jpg">--}}
-                            </div>
-                            <div class="ibox-content profile-content">
-                                <h4><strong>{{$institution->currency->name}} {{$product->product->selling_price}}</strong></h4>
-                                @isset($product->product->unit_id)
-                                    <p><i class="fa fa-map-marker"></i> {{$product->product->unit->name}}</p>
-                                @endisset
-                                <h5>
-                                    About
-                                </h5>
-                                <p>
-                                    {!! \Illuminate\Support\Str::limit($product->product->name, 205, $end='...') !!}
-                                </p>
-{{--                                todo graph of product details--}}
-{{--                                <div class="row m-t-lg">--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <span class="bar">5,3,9,6,5,9,7,3,5,2</span>--}}
-{{--                                        <h5><strong>169</strong> Sales</h5>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <span class="line">5,3,9,6,5,9,7,3,5,2</span>--}}
-{{--                                        <h5><strong>28</strong> Views</h5>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <span class="bar">5,3,2,-1,-3,-2,2,3,5,2</span>--}}
-{{--                                        <h5><strong>240</strong> Followers</h5>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-                                <br>
-                                <div class="user-button">
-                                    <div class="row">
-                                        <div class="col-md-6">
-{{--                                            <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message</button>--}}
-                                        </div>
-                                        <div class="col-md-6">
-                                            @can('view product')
-                                                <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->product->id])}}" type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-arrow-right"></i> View</a>
-                                            @endcan
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-
-        </div>
 
         <div class="row">
             <div class="col-lg-3">
@@ -133,6 +76,129 @@
                 </div>
             </div>
         </div>
+        <br>
+        {{-- product description --}}
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="ibox product-detail">
+                    <div class="ibox-content">
+
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <div class="carousel slide" id="carousel1">
+                                    <div class="carousel-inner">
+                                        @foreach($compositeProduct->productImages as $image)
+                                            <div class="item @if ($loop->first) active @endif">
+                                                <img alt="image" class="img-responsive" src="{{asset('storage')}}/{{$image->upload->small_thumbnail}}">
+                                                <div class="carousel-caption">
+                                                    <a class="" href=""><i class="fa fa-trash fa-3x"></i> </a>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <a data-slide="prev" href="#carousel1" class="left carousel-control">
+                                        <span class="icon-prev"></span>
+                                    </a>
+                                    <a data-slide="next" href="#carousel1" class="right carousel-control">
+                                        <span class="icon-next"></span>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="col-md-8">
+
+                                <h2 class="font-bold m-b-xs">
+                                    {{$compositeProduct->name}}
+                                </h2>
+                                <small>{{$compositeProduct->unit->name}}</small>
+                                <div class="m-t-md">
+                                    <h2 class="product-main-price">{{$institution->currency->name}} {{$compositeProduct->taxed_selling_price}} <small class="text-muted">{{$compositeProduct->taxMethod->name}} [{{$compositeProduct->selling_price}}]</small> </h2>
+                                </div>
+                                <hr>
+
+                                <h4>Product description</h4>
+
+                                <div class="small text-muted">
+                                    {!!$compositeProduct->description!!}
+                                </div>
+                                <hr>
+
+                                {{--  todo time to complete a service  --}}
+
+                                <div>
+                                    <div class="btn-group">
+                                        {{-- <button class="btn btn-primary btn-sm"><i class="fa fa-cart-plus"></i> Schedule Delivery</button> --}}
+                                        {{-- <a href="{{route('business.expense.create',$institution->portal)}}" class="btn btn-warning btn-sm"><i class="fa fa-cart-plus"></i> Update stock</a> --}}
+                                        @can('delete product')
+                                            @if ($compositeProduct->status_id == 'bc6170bf-299a-44f5-8362-8cdeed1f47b0')
+                                                <a href="{{ route('business.product.restore', ['portal'=>$institution->portal, 'id'=>$compositeProduct->id]) }}" class="btn btn-warning btn-sm"><i class="fa fa-check"></i> Restore </a>
+                                            @else
+                                                <a href="{{ route('business.product.delete', ['portal'=>$institution->portal, 'id'=>$compositeProduct->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Deactivate </a>
+                                            @endif
+                                        @endcan
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+{{--    composite products    --}}
+        <div class="row">
+            @foreach($compositeProduct->compositeProductProducts as $compositeProductProduct)
+                <div class="col-md-4">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5 class="text-center">{{$compositeProductProduct->product->name}}</h5>
+                            <div class="ibox-tools">
+                                @can('view product')
+                                    <a href="{{route('business.product.show',['portal'=>$institution->portal, 'id'=>$compositeProductProduct->product->id])}}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View</a>
+                                @endcan
+                            </div>
+                        </div>
+                        <div>
+                            <div class="ibox-content no-padding border-left-right">
+    {{--                            <img alt="image" class="img-fluid" src="img/profile_big.jpg">--}}
+                            </div>
+                            <div class="ibox-content profile-content">
+                                <h1 class="no-margins">{{$institution->currency->name}} {{$compositeProductProduct->product->selling_price}}</h1>
+                                <small>{{$compositeProductProduct->product->name}}</small>
+                                <p>
+                                    {!! \Illuminate\Support\Str::limit($compositeProductProduct->product->description, 205, $end='...') !!}
+                                </p>
+{{--                                todo graph of product details--}}
+{{--                                <div class="row m-t-lg">--}}
+{{--                                    <div class="col-md-4">--}}
+{{--                                        <span class="bar">5,3,9,6,5,9,7,3,5,2</span>--}}
+{{--                                        <h5><strong>{{$compositeProductProduct->saleProducts_count}}</strong> Sales</h5>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-md-4">--}}
+{{--                                        <span class="line">5,3,9,6,5,9,7,3,5,2</span>--}}
+{{--                                        <h5><strong>{{$compositeProductProduct->views}}</strong> Views</h5>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-md-4">--}}
+{{--                                        <span class="bar">5,3,2,-1,-3,-2,2,3,5,2</span>--}}
+{{--                                        <h5><strong>240</strong> Followers</h5>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
+
+
         {{-- Product details  --}}
         <div class="row">
             <div class="col-lg-12">

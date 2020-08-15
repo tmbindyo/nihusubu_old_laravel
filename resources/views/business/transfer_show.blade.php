@@ -95,7 +95,7 @@
                                                 <strong>{{ $errors->first('source_account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="source_account" class="select2_demo_tag form-control input-lg {{ $errors->has('source_account') ? ' is-invalid' : '' }}">
+                                        <select name="source_account" class="select2_demo_tag form-control input-lg {{ $errors->has('source_account') ? ' is-invalid' : '' }}" readonly>
                                             <option value="{{$transfer->sourceAccount->id}}">{{$transfer->sourceAccount->name}} [{{$transfer->sourceAccount->balance}}]</option>
                                         </select>
                                         <i>source account</i>
@@ -107,7 +107,7 @@
                                                 <strong>{{ $errors->first('destination_account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="destination_account" class="select2_demo_tag form-control input-lg {{ $errors->has('destination_account') ? ' is-invalid' : '' }}">
+                                        <select name="destination_account" class="select2_demo_tag form-control input-lg {{ $errors->has('destination_account') ? ' is-invalid' : '' }}" readonly>
                                             <option value="{{$transfer->destinationAccount->id}}">{{$transfer->destinationAccount->name}} [{{$transfer->destinationAccount->balance}}]</option>
                                         </select>
                                         <i>destination account</i>

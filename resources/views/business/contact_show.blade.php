@@ -8,10 +8,13 @@
             <h2>Contact's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
+                </li>
+                <li>
+                    <a href="#">CRM</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.contacts',$institution->portal)}}">Contacts</a>
+                    <strong><a href="{{route('business.contacts',$institution->portal)}}">Contacts</a></strong>
                 </li>
                 <li class="active">
                     <strong>Contact</strong>
@@ -73,18 +76,6 @@
                                         </div>
                                     @endif
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            @if ($errors->has('is_lead'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('is_lead') }}</strong>
-                                            </span>
-                                            @endif
-                                            <input type="checkbox" name="is_lead" class="js-switch_3 {{ $errors->has('is_lead') ? ' is-invalid' : '' }}" @if($contact->is_lead == True) checked @endif/>
-                                            <i>lead</i>
-                                        </div>
-                                    </div>
-                                    <br>
                                     <div class="row">
                                         <div class="col-md-6">
                                             @if ($errors->has('title'))
@@ -631,6 +622,9 @@
             }
             if (mm < 10){
                 mm = '0'+mm;
+            }
+            if (m < 10){
+                m = '0'+m;
             }
             var date_today = mm + '/' + dd + '/' + yyyy;
             var time_curr = h + ':' + m;

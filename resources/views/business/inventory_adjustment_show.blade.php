@@ -9,13 +9,13 @@
             <h2>Inventory Adjustment</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
                     Inventory
                 </li>
                 <li class="active">
-                    <a href="{{route('business.inventory.adjustments',$institution->portal)}}">Inventory Adjustments</a>
+                    <strong><a href="{{route('business.inventory.adjustments',$institution->portal)}}">Inventory Adjustments</a></strong>
                 </li>
                 <li class="active">
                     <strong>Inventory Adjustment</strong>

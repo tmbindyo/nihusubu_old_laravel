@@ -31,6 +31,7 @@
                             <li class="@if(session()->get( 'active' ) == 'contactTypes') active @endif"><a data-toggle="tab" href="#contactTypes">Contact Types</a></li>
                             <li class="@if(session()->get( 'active' ) == 'frequencies') active @endif"><a data-toggle="tab" href="#frequencies">Frequencies</a></li>
                             <li class="@if(session()->get( 'active' ) == 'leadSources') active @endif"><a data-toggle="tab" href="#leadSources">Lead Sources</a></li>
+                            <li class="@if(session()->get( 'active' ) == 'paymentSchedules') active @endif"><a data-toggle="tab" href="#paymentSchedules">Payment Schedules</a></li>
                             <li class="@if(session()->get( 'active' ) == 'productCategories') active @endif"><a data-toggle="tab" href="#productCategories">Product Categories</a></li>
                             <li class="@if(session()->get( 'active' ) == 'productSubCategories') active @endif"><a data-toggle="tab" href="#productSubCategories">Product Sub Categories</a></li>
                             <li class="@if(session()->get( 'active' ) == 'taxes') active @endif"><a data-toggle="tab" href="#taxes">Taxes</a></li>
@@ -669,6 +670,116 @@
 
                                 </div>
                             </div>
+                            <div id="paymentSchedules" class="tab-pane @if(session()->get( 'active' ) == 'paymentSchedules') active @endif">
+                                <div class="panel-body">
+
+                                    @can('add payment schedule')
+                                        <a data-toggle="modal" data-target="#paymentSchedulesRegistration" class="btn btn-primary pull-right btn-round btn-outline"> <span class="fa fa-plus"></span> Payment Schedule </a>
+                                    @endcan
+                                    <br>
+                                    <br>
+                                    <br>
+
+                                    @can('view payment schedules')
+                                        {{-- product categories --}}
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Period</th>
+                                                    <th>User</th>
+                                                    <th>Status</th>
+                                                    <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($paymentSchedules as $paymentSchedule)
+                                                    <tr class="gradeX">
+                                                        <td>{{$paymentSchedule->name}}</td>
+                                                        <td>{{$paymentSchedule->period}}</td>
+                                                        <td>{{$paymentSchedule->user->name}}</td>
+                                                        <td>
+                                                            <span class="label {{$paymentSchedule->status->label}}">{{$paymentSchedule->status->name}}</span>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="btn-group">
+                                                                @can('view payment schedule')
+                                                                    <a href="{{ route('business.payment.schedule.show', ['portal'=>$institution->portal, 'id'=>$paymentSchedule->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                @endcan
+                                                                @can('delete payment schedule')
+                                                                    <a href="{{ route('business.payment.schedule.delete', ['portal'=>$institution->portal, 'id'=>$paymentSchedule->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                @endcan
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Period</th>
+                                                    <th>User</th>
+                                                    <th>Status</th>
+                                                    <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+
+                                        {{-- deleted product categories --}}
+                                        @if($deletedPaymentSchedules->count())
+                                            <h3 class="text-center">Deleted Product category</h3>
+                                            <br>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Period</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($deletedPaymentSchedules as $paymentSchedule)
+                                                        <tr class="gradeX">
+                                                            <td>{{$paymentSchedule->name}}</td>
+                                                            <td>{{$paymentSchedule->period}}</td>
+                                                            <td>{{$paymentSchedule->user->name}}</td>
+                                                            <td>
+                                                                <span class="label {{$paymentSchedule->status->label}}">{{$paymentSchedule->status->name}}</span>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <div class="btn-group">
+                                                                    @can('view payment schedule')
+                                                                        <a href="{{ route('business.payment.schedule.show', ['portal'=>$institution->portal, 'id'=>$paymentSchedule->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @endcan
+                                                                    @can('delete payment schedule')
+                                                                        <a href="{{ route('business.payment.schedule.delete', ['portal'=>$institution->portal, 'id'=>$paymentSchedule->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                    @endcan
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Period</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        @endif
+                                    @endcan
+
+                                </div>
+                            </div>
                             <div id="productSubCategories" class="tab-pane @if(session()->get( 'active' ) == 'productSubCategories') active @endif">
                                 <div class="panel-body">
 
@@ -1187,10 +1298,10 @@
                                                         <td class="text-right">
                                                             <div class="btn-group">
                                                                 @can('view user')
-                                                                    <a href="{{ route('business.user.show', ['portal'=>$institution->portal, 'id'=>$institutionUser->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('business.user.show', ['portal'=>$institution->portal, 'id'=>encrypt($institutionUser->user->id)]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @endcan
                                                                 @can('delete user')
-                                                                    <a href="{{ route('business.user.delete', ['portal'=>$institution->portal, 'id'=>$institutionUser->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                    <a href="{{ route('business.user.delete', ['portal'=>$institution->portal, 'id'=>encrypt($institutionUser->user->id)]) }}" class="btn-danger btn btn-xs">Delete</a>
                                                                 @endcan
                                                             </div>
                                                         </td>

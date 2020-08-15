@@ -38,13 +38,12 @@
                     <span>To:</span>
                     <address>
                         <strong>{{$order->contact->last_name}} {{$order->contact->first_name}}</strong><br>
-                        <abbr title="Phone">P:</abbr> {{$order->contact->phone_number}}<br>
-                        <abbr title="Email">E:</abbr> {{$order->contact->email}}
+                        <abbr title="Phone">tell:</abbr> {{$order->contact->phone_number}}<br>
+                        <abbr title="Email">email:</abbr> {{$order->contact->email}}
                     </address>
                 @endif
                 <p>
                     <span><strong>Order Date:</strong> {{$order->date}} </span><br/>
-                    <span><strong>Due Date:</strong> {{$order->due_date}}</span>
                 </p>
             </div>
         </div>
@@ -82,7 +81,7 @@
             </table>
         </div><!-- /table-responsive -->
 
-        <table class="table order-total">
+        <table class="table invoice-total">
             <tbody>
             <tr>
                 <td><strong>Sub Total :</strong></td>

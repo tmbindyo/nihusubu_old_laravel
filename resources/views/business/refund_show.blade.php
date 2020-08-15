@@ -9,16 +9,16 @@
             <h2>Refund's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payments',$institution->portal)}}">Payments</a>
+                    <strong><a href="{{route('business.payments',$institution->portal)}}">Payments</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payment.show',['portal'=>$institution->portal, 'id'=>$refund->payment_id])}}">Payment</a>
+                    <strong><a href="{{route('business.payment.show',['portal'=>$institution->portal, 'id'=>$refund->payment_id])}}">Payment</a></strong>
                 </li>
                 <li class="active">
                     <strong>Refund Show</strong>
@@ -94,7 +94,7 @@
                                                 <strong>{{ $errors->first('account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="account" class="select2_demo_tag form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}" readonly>
+                                        <select name="account" class="select2_demo_tag form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}" disabled>
                                             <option selected value="{{$refund->account->id}}">{{$refund->account->name}} [{{$refund->account->balance}}]</option>
                                         </select>
                                         <i>account</i>
@@ -109,14 +109,14 @@
                                         <textarea rows="5" id="about" name="about" required="required" class="form-control input-lg {{ $errors->has('about') ? ' is-invalid' : '' }}" readonly>{{$refund->notes}}</textarea>
                                         <i>notes</i>
                                     </div>
-                                    @can('edit refund')
-                                        <br>
-                                        <hr>
+{{--                                    @can('edit refund')--}}
+{{--                                        <br>--}}
+{{--                                        <hr>--}}
 
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
-                                        </div>
-                                    @endcan
+{{--                                        <div class="text-center">--}}
+{{--                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>--}}
+{{--                                        </div>--}}
+{{--                                    @endcan--}}
                                 </div>
 
 

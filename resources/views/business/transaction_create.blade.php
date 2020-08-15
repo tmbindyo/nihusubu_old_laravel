@@ -1,12 +1,12 @@
 @extends('business.layouts.app')
 
-@section('title', ' Transaction Create')
+@section('title', ' Expense Payment Create')
 
 @section('content')
 
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>Transactions</h2>
+                <h2>Expense Payments</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
@@ -18,7 +18,7 @@
                         <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
                     </li>
                     <li class="active">
-                        <strong>Transaction Create</strong>
+                        <strong>Expense Payment Create</strong>
                     </li>
                 </ol>
             </div>
@@ -97,7 +97,7 @@
                                                     </span>
                                                 @endif
                                                 <input type="number" name="amount" id="amount" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}" @if($expense) value="{{$expense->total-$expense->paid}}" max="{{$expense->total}}" @endif required>
-                                                <i> amount.</i>
+                                                <i> amount @if($expense->paid) Paid:{{$expense->paid}} @endif</i>
                                             </div>
                                         </div>
                                         <br>

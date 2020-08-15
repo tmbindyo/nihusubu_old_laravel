@@ -60,6 +60,8 @@
                             </ul>
                             <div class="cart-btn mt-100">
                                 <a href="{{route('commerce.checkout',$institution->portal)}}" class="btn amado-btn w-100">Checkout</a>
+                                <br>
+                                <a href="{{route('clear.cart',$institution->portal)}}" class="btn amado-btn w-100">Clear Cart</a>
                             </div>
                         </div>
                     </div>

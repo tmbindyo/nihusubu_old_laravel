@@ -42,9 +42,13 @@ class Expense extends Model implements Auditable
     {
         return $this->belongsTo('App\InventoryAdjustment');
     }
-    public function liability()
+    public function loan()
     {
-        return $this->belongsTo('App\Liability');
+        return $this->belongsTo('App\Loan');
+    }
+    public function paymentSchedule()
+    {
+        return $this->belongsTo('App\PaymentSchedule');
     }
     public function sale()
     {

@@ -9,13 +9,13 @@
             <h2>Payment's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
                     Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payments',$institution->portal)}}">Payments</a>
+                    <strong><a href="{{route('business.payments',$institution->portal)}}">Payments</a></strong>
                 </li>
                 <li class="active">
                     <strong>Payment Create</strong>
@@ -31,7 +31,7 @@
                 @endif
                 @if($payment->sale_id)
                     @can('view sale')
-                        <a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$payment->sale_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Sale </a>
+                        <a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$payment->sale_id])}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Sale </a>
                     @endcan
                 @endif
                 @can('add refund')
@@ -120,13 +120,13 @@
                                         <i>notes</i>
                                     </div>
 
-                                    @can('edit payment')
-                                        <hr>
+{{--                                    @can('edit payment')--}}
+{{--                                        <hr>--}}
 
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
-                                        </div>
-                                    @endcan
+{{--                                        <div class="text-center">--}}
+{{--                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>--}}
+{{--                                        </div>--}}
+{{--                                    @endcan--}}
                                 </div>
 
 

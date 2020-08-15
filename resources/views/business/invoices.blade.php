@@ -9,10 +9,10 @@
                 <h2>Invoices</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                        <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                     </li>
                     <li>
-                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
+                        <a href="#">Sales</a>
                     </li>
                     <li class="active">
                         <strong>Invoices</strong>
@@ -21,7 +21,7 @@
             </div>
             <div class="col-lg-2">
                 <div class="title-action">
-                    @can('view invoice')
+                    @can('add invoice')
                         <a href="{{route('business.invoice.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Invoice </a>
                     @endcan
                 </div>

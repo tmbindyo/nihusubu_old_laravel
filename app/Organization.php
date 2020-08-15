@@ -18,6 +18,10 @@ class Organization extends Model implements Auditable
     {
         return $this->hasMany('App\Contact');
     }
+    public function contactSales()
+    {
+        return $this->hasManyThrough('App\Sale','App\Contact')->with('contact');
+    }
     public function toDos()
     {
         return $this->hasMany('App\ToDo');

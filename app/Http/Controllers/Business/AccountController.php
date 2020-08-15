@@ -55,16 +55,6 @@ class AccountController extends Controller
         return view('business.accounts', compact('accounts', 'user', 'institution', 'deletedAccounts'));
     }
 
-    public function accountCreate($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Get the navbar values
-        $institution = $this->getInstitution($portal);
-
-        return view('business.account_create', compact('user', 'institution'));
-    }
-
     public function accountStore(Request $request, $portal)
     {
 //        return $request;
@@ -249,7 +239,7 @@ class AccountController extends Controller
         // Get the navbar values
         $institution = $this->getInstitution($portal);
         // get accounts
-        $accounts = Account::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get account
         $accountExists = Account::findOrFail($account_id);
         $account = Account::where('id', $account_id)->where('is_institution', true)->where('institution_id', $institution->id)->first();
@@ -272,7 +262,10 @@ class AccountController extends Controller
         $reference = $this->getRandomString($size);
 
         // get account
-        $account = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('id', $request->account)->where('is_institution', true)->where('institution_id', $institution->id)->first();
+        $account = Account::where('id', $request->account)->where('is_institution', true)->where('institution_id', $institution->id)->first();
+        if($account->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
+            return back()->withWarning(__('Account '.$account->name.' is deleted.'));
+        }
         $accountAdjustment = new AccountAdjustment();
 
         if($request->is_deposit == "on"){
@@ -534,7 +527,7 @@ class AccountController extends Controller
         // get accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get deposit
-        $deposit = Deposit::with('user', 'status', 'account', 'accountAdjustments')->where('is_institution', true)->where('institution_id', $institution->id)->where('id', $deposit_id)->first();
+        $deposit = Deposit::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user', 'status', 'account', 'accountAdjustments')->where('is_institution', true)->where('institution_id', $institution->id)->where('id', $deposit_id)->first();
         // get account
         $accountExists = Account::findOrFail($deposit->account_id);
         $account = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('id', $deposit->account_id)->where('is_institution', true)->where('institution_id', $institution->id)->first();
@@ -743,170 +736,6 @@ class AccountController extends Controller
     }
 
 
-    //liabilities
-    public function liabilities($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Get the navbar values
-        $institution = $this->getInstitution($portal);
-        $liabilities = Liability::with('user', 'status', 'account', 'account')->where('institution_id', $institution->id)->where('is_institution', true)->get();
-        return view('business.liabilities', compact('liabilities', 'user', 'institution'));
-    }
-
-    public function liabilityCreate($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Get the navbar values
-        $institution = $this->getInstitution($portal);
-        // get accounts
-        $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
-        // get contacts
-        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('organization')->where('is_institution', true)->where('institution_id', $institution->id)->get();
-        return view('business.liability_create', compact('user', 'institution', 'accounts', 'contacts'));
-    }
-
-    public function liabilityStore(Request $request, $portal)
-    {
-
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution($portal);
-        // generate reference
-        $size = 5;
-        $reference = $this->getRandomString($size);
-
-        // calculations
-        $account = Account::findOrFail($request->account);
-        $accountBalance = doubleval($account->balance) + doubleval($request->total);
-
-        // store liability record
-        $liability = new Liability();
-        $liability->reference = $reference;
-        $liability->about = $request->about;
-
-        $liability->total = $request->total;
-        $liability->principal = $request->principal;
-        $liability->interest = $request->interest;
-        $liability->interest_amount = $request->interest_amount;
-        $liability->paid = 0;
-
-        $liability->date = date('Y-m-d', strtotime($request->date));
-        $liability->due_date = date('Y-m-d', strtotime($request->due_date));
-
-        $liability->contact_id = $request->contact;
-        $liability->account_id = $request->account;
-
-        $liability->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $liability->user_id = $user->id;
-        $liability->is_user = false;
-        $liability->is_institution = true;
-        $liability->institution_id = $institution->id;
-        $liability->is_chama = false;
-        $liability->save();
-
-        // update accounts balance
-        $account->balance = $accountBalance;
-        $account->user_id = $user->id;
-        $account->save();
-
-        return redirect()->route('business.liability.show',['portal'=>$institution->portal, 'id'=>$liability->id])->withSuccess('Liability created!');
-    }
-
-    public function liabilityShow($portal, $liability_id)
-    {
-        // Check if contact type exists
-        $liabilityExists = Liability::findOrFail($liability_id);
-        // User
-        $user = $this->getUser();
-        // Get the navbar values
-        $institution = $this->getInstitution($portal);
-        // get accounts
-        $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
-        // get contacts
-        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('organization')->where('is_institution', true)->where('institution_id', $institution->id)->get();
-        // Get contact type
-        $liability = Liability::with('user', 'status', 'account', 'contact.organization', 'expenses.transactions')->where('is_institution', true)->where('institution_id', $institution->id)->where('id', $liability_id)->first();
-        // Pending to dos
-        $pendingToDos = ToDo::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'liability')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('liability_id', $liability->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'liability')->where('status_id', '2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('liability_id', $liability->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'liability')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('liability_id', $liability->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'liability')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('liability_id', $liability->id)->get();
-
-        return view('business.liability_show', compact('overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'accounts', 'contacts', 'liability', 'user', 'institution'));
-    }
-
-    // TODO expense for liability
-    public function liabilityExpenseCreate($portal, $liability_id)
-    {
-        // Check if contact type exists
-        $liabilityExists = Liability::findOrFail($liability_id);
-        if($liabilityExists->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
-            return back()->withWarning(__('Liability '.$liabilityExists->name.' is deleted.'));
-        }
-        // User
-        $user = $this->getUser();
-        // Institution
-        $institution = $this->getInstitution($portal);
-        // expense accounts
-        $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->get();
-        // get sales
-        $sales = Sale::where('institution_id', $institution->id)->with('status')->get();
-        // expense statuses
-        $expenseStatuses = Status::where('status_type_id', '7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
-        // get transfers
-        $transfers = Transfer::where('institution_id', $institution->id)->where('is_institution', true)->get();
-        // get campaign
-        $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
-        // get liabilities
-        $liability = Liability::where('id', $liability_id)->where('is_institution', true)->where('institution_id', $institution->id)->first();
-        // get liabilities
-        $liabilities = Liability::where('institution_id', $institution->id)->where('is_institution', true)->get();
-        // get frequencies
-        $frequencies = Frequency::where("status_id", "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->where('is_institution', true)->get();
-        // accounts
-        $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
-
-        return view('business.expense_create', compact('liabilities', 'accounts', 'liabilityExists', 'campaigns', 'sales', 'user', 'institution', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses'));
-    }
-
-    public function liabilityUpdate(Request $request, $portal, $liability_id)
-    {
-
-        $liability = Liability::findOrFail($liability_id);
-
-        $liability->date = date('Y-m-d', strtotime($request->date));
-        $liability->due_date = date('Y-m-d', strtotime($request->due_date));
-
-        $liability->about = $request->about;
-        $liability->save();
-
-        return back()->withSuccess(__('Liability '.$liability->reference.' successfully updated.'));
-    }
-
-    public function liabilityDelete($portal, $liability_id)
-    {
-
-        $liability = Liability::findOrFail($portal, $liability_id);
-        $liability->delete();
-
-        return back()->withSuccess(__('Liability '.$liability->name.' successfully deleted.'));
-    }
-    public function liabilityRestore($portal, $liability_id)
-    {
-
-        $liability = Liability::withTrashed()->findOrFail($liability_id);
-        $liability->restore();
-
-        return back()->withSuccess(__('Liability '.$liability->name.' successfully restored.'));
-    }
-
-
     // loans
     public function loans($portal)
     {
@@ -1039,6 +868,13 @@ class AccountController extends Controller
     {
 
         $loan = Loan::findOrFail($loan_id);
+        return $loan;
+
+        $loan->about = $request->about;
+
+        $loan->date = date('Y-m-d', strtotime($request->date));
+        $loan->due_date = date('Y-m-d', strtotime($request->due_date));
+
         return back();
 
     }
@@ -1068,7 +904,7 @@ class AccountController extends Controller
         $user = $this->getUser();
         // Get the navbar values
         $institution = $this->getInstitution($portal);
-        $transfers = Transfer::with('user', 'status', 'sourceAccount', 'destinationAccount')->where('is_institution', true)->where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $transfers = Transfer::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user', 'status', 'sourceAccount', 'destinationAccount')->where('is_institution', true)->where('institution_id', $institution->id)->where('is_institution', true)->get();
         return view('business.transfers', compact('transfers', 'user', 'institution'));
     }
 
@@ -1173,23 +1009,21 @@ class AccountController extends Controller
         // expense statuses
         $expenseStatuses = Status::where('status_type_id', '7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
         // expense accounts
-        $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $expenseAccounts = ExpenseAccount::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get sales
         $sales = Sale::where('institution_id', $institution->id)->with('status')->get();
-        // get liabilities
-        $liabilities = Liability::where('institution_id', $institution->id)->where('is_institution', true)->get();
         // Get transfer
         $transfer = Transfer::with('user', 'status', 'sourceAccount', 'destinationAccount', 'expenses')->where('is_institution', true)->where('institution_id', $institution->id)->where('id', $transfer_id)->first();
         // get transfers
-        $transfers = Transfer::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $transfers = Transfer::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get campaign
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get frequencies
         $frequencies = Frequency::where("status_id", "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->where('is_institution', true)->get();
 
-        return view('business.expense_create', compact('transferExists', 'accounts', 'frequencies', 'campaigns', 'transfers', 'liabilities', 'sales', 'transfer', 'user', 'institution', 'expenseStatuses', 'expenseAccounts', 'transfer'));
+        return view('business.expense_create', compact('transferExists', 'accounts', 'frequencies', 'campaigns', 'transfers', 'sales', 'transfer', 'user', 'institution', 'expenseStatuses', 'expenseAccounts', 'transfer'));
     }
 
     public function transferUpdate(Request $request, $portal, $transfer_id)

@@ -9,7 +9,7 @@
             <h2>Organizations</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
                     CRM
@@ -113,7 +113,7 @@
                                             <th>Website</th>
                                             <th>Members</th>
                                             <th>Status</th>
-                                            <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                            <th class="text-right" width="80em" data-sort-ignore="true">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -147,7 +147,7 @@
                                             <th>Website</th>
                                             <th>Members</th>
                                             <th>Status</th>
-                                            <th class="text-right" width="70em" data-sort-ignore="true">Action</th>
+                                            <th class="text-right" width="80em" data-sort-ignore="true">Action</th>
                                         </tr>
                                     </tfoot>
                                 </table>

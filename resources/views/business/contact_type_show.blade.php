@@ -9,10 +9,10 @@
             <h2>Contact Type</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.contact.types',$institution->portal)}}">Contact Types</a>
+                    <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
                 </li>
                 <li class="active">
                     <strong>Contact Type Show</strong>
@@ -131,7 +131,7 @@
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Contact Type Contacts ({{$contactType->contacts_count}})</h5>
+                        <h5>Contact Type Contacts ({{$contactType->contact_type_contacts_count}})</h5>
                     </div>
                     <div class="ibox-content">
 

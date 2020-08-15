@@ -57,7 +57,7 @@
 
                                     <div class="icon">
                                         @if($upload->file_type == "image")
-                                            <img alt="image" class="img-responsive" src="{{ asset('') }}{{ $upload->name }}">
+                                            <img alt="image" class="img-responsive" src="{{asset('storage')}}/{{$upload->original}}">
                                         @elseif($upload->file_type == "document")
                                             <i class="fa fa-bar-chart-o"></i>
                                         @elseif($upload->file_type == "video")
