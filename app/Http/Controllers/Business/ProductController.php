@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Business;
 
 use App\Item;
+use App\ProductItem;
 use App\ProductSubCategory;
 use App\TaxMethod;
+use App\Traits\ReferenceNumberTrait;
 use DB;
 use App\Tax;
 use App\Unit;
@@ -39,6 +41,7 @@ class ProductController extends Controller
 
     use UserTrait;
     use institutionTrait;
+    use ReferenceNumberTrait;
     use DocumentExtensionTrait;
 
     public function __construct()
@@ -80,8 +83,10 @@ class ProductController extends Controller
         $stockAccounts = ExpenseAccount::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
         // Get tax methods
         $taxMethods = TaxMethod::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->get();
+        // Getting items
+        $items = Product::where('institution_id', $institution->id)->where('is_item',true)->with('inventory.warehouse')->get();
 
-        return view('business.product_group_create', compact('user', 'institution', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'brands', 'productSubCategories', 'taxMethods'));
+        return view('business.product_group_create', compact('user', 'institution', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'brands', 'productSubCategories', 'taxMethods', 'items'));
     }
 
     public function productGroupStore(Request $request, $portal)
@@ -93,6 +98,8 @@ class ProductController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
+        $size = 5;
+        $reference = $this->getRandomString($size);
         // Convert array to string
         $attributes = implode(' ', array_values($request->attribute));
         $attribute_options = implode(' ', array_values($request->attribute_options));
@@ -115,6 +122,7 @@ class ProductController extends Controller
             }
         }
         $productGroup->name = $request->product_name;
+        $productGroup->code = $reference;
         $productGroup->description = $request->description;
         $productGroup->product_sub_category_id = $request->product_sub_category;
         $productGroup->brand_id = $request->brand;
@@ -164,6 +172,21 @@ class ProductController extends Controller
         $productGroup->is_item = false;
         $productGroup->save();
 
+        // Check if the product is has been value added
+        if ($request->is_created == "on"){
+            foreach ($request->item_details as $item_detail){
+                // create product item
+                $productItem = new ProductItem();
+                $productItem->product_id = $productGroup->id;
+                $productItem->item_id = $item_detail['item'];
+                $productItem->user_id = $user->id;
+                $productItem->quantity = $item_detail['amount'];
+                $productItem->institution_id = $institution->id;
+                $productItem->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $productItem->save();
+            }
+        }
+
         // Product taxes
         if ($request->taxes){
             foreach ($request->taxes as $productProductTax){
@@ -179,6 +202,8 @@ class ProductController extends Controller
 
         foreach ($request->products as $productGroupProduct){
 
+            $size = 5;
+            $reference = $this->getRandomString($size);
             $product = new Product;
             // check if product is a service or a good
             if($request->product_type == "services") {
@@ -187,6 +212,7 @@ class ProductController extends Controller
                 $product->is_service = false;
             }
             $product->name = $productGroupProduct['name'];
+            $product->code = $reference;
             $product->attributes = $attributes;
             $product->description = $request->description;
             $product->unit_id = $request->unit;
@@ -238,6 +264,20 @@ class ProductController extends Controller
 
             $taxAmount = 0;
 
+            // Check if the product is has been value added
+            if ($request->is_created == "on"){
+                foreach ($request->item_details as $item_detail){
+                    // create product item
+                    $productItem = new ProductItem();
+                    $productItem->product_id = $product->id;
+                    $productItem->item_id = $item_detail['item'];
+                    $productItem->user_id = $user->id;
+                    $productItem->quantity = $item_detail['amount'];
+                    $productItem->institution_id = $institution->id;
+                    $productItem->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                    $productItem->save();
+                }
+            }
 
             // Create inventory records if product is a good
             if($request->product_type == "goods" and $request->is_inventory == "on") {
@@ -250,8 +290,8 @@ class ProductController extends Controller
                 $inventory = new Inventory();
                 $inventory->date = date('Y-m-d');
                 $inventory->quantity = $productGroupProduct['opening_stock'];
-                $inventory->is_item = false;
-                $inventory->is_product = true;
+                // $inventory->is_item = false;
+                // $inventory->is_product = true;
                 $inventory->warehouse_id = $warehouse->id;
                 $inventory->product_id = $product->id;
                 $inventory->user_id = $user->id;
@@ -267,8 +307,8 @@ class ProductController extends Controller
                     // Inventory record
                     $inventory = new Inventory();
                     $inventory->quantity = 0;
-                    $inventory->is_item = false;
-                    $inventory->is_product = true;
+                    // $inventory->is_item = false;
+                    // $inventory->is_product = true;
                     $inventory->product_id = $product->id;
                     $inventory->warehouse_id = $warehouseId->id;
                     $inventory->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -291,8 +331,8 @@ class ProductController extends Controller
                 $restock->unit_value = $unit_value;
                 $restock->total_value = $productGroupProduct['opening_stock_value'];
                 $restock->quantity = $productGroupProduct['opening_stock'];
-                $restock->is_item = false;
-                $restock->is_product = true;
+                // $restock->is_item = false;
+                // $restock->is_product = true;
                 $restock->warehouse_id = $warehouse->id;
                 $restock->product_id = $product->id;
                 $restock->is_opening_stock = true;
@@ -457,9 +497,11 @@ class ProductController extends Controller
         $stockAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->where('account_type_id', '4be20a9a-aee3-414c-b8ba-dcacf859cc9c')->with('accountType')->get();
         // Get product groups
         $productGroup = Product::findOrFail($product_group_id);
-        $productGroup = Product::where('id', $product_group_id)->with('productGroupProducts', 'productTaxes')->first();
+        $productGroup = Product::where('id', $product_group_id)->with('productGroupProducts', 'productTaxes', 'productItems')->first();
         // Get tax methods
         $taxMethods = TaxMethod::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->get();
+        // Getting items
+        $items = Product::where('institution_id', $institution->id)->where('is_item',true)->with('inventory.warehouse')->get();
 
         $productAttributes = array();
         foreach ($productGroup->productGroupProducts as $product) {
@@ -467,7 +509,7 @@ class ProductController extends Controller
         }
         $productAttributes = implode(", ", $productAttributes);
 
-        return view('business.product_group_edit', compact('user', 'institution', 'taxes', 'units', 'productGroup', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'productAttributes', 'brands', 'productSubCategories', 'taxMethods'));
+        return view('business.product_group_edit', compact('user', 'institution', 'taxes', 'units', 'productGroup', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'productAttributes', 'brands', 'productSubCategories', 'taxMethods', 'items'));
     }
 
     public function productGroupUpdate(Request $request, $portal, $product_group_id)
@@ -526,6 +568,33 @@ class ProductController extends Controller
         }
         $productGroup->save();
 
+        // Check if the product is has been value added
+        if ($request->is_created == "on"){
+            $productGroupRequestItems =array();
+            foreach ($request->item_details as $item_detail){
+                // Append to array
+                $productGroupRequestTaxes[]['id'] = $item_detail['item'];
+
+                // Check if product tax exists
+                $productGroupItem = ProductItem::where('product_id', $productGroup->id)->where('item_id', $item_detail['item'])->first();
+
+                if($productGroupItem === null) {
+                    $productItem = new ProductItem();
+                    $productItem->product_id = $productGroup->id;
+                    $productItem->item_id = $item_detail['item'];
+                    $productItem->user_id = $user->id;
+                    $productItem->quantity = $item_detail['amount'];
+                    $productItem->institution_id = $institution->id;
+                    $productItem->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                    $productItem->save();
+                }
+                // get product items from the product group
+            }
+            $productGroupItemIds = ProductTax::where('product_id', $product_group_id)->whereNotIn('item_id', $productGroupRequestItems)->select('id')->get()->toArray();
+            DB::table('product_items')->whereIn('id', $productGroupItemIds)->delete();
+        }
+
+
         // Product taxes update
         $productGroupRequestTaxes =array();
         foreach ($request->taxes as $productGroupProductTax){
@@ -543,7 +612,6 @@ class ProductController extends Controller
                 $productGroupTax->user_id = $user->id;
                 $productGroupTax->save();
             }
-
         }
 
         $productGroupTaxesIds = ProductTax::where('product_id', $product_group_id)->whereNotIn('tax_id', $productGroupRequestTaxes)->select('id')->get()->toArray();
@@ -611,6 +679,30 @@ class ProductController extends Controller
                 $product->save();
 
                 $taxAmount = 0;
+
+                // Check if the product is has been value added
+                if ($request->is_created == "on"){
+                    $productGroupRequestItems =array();
+                    foreach ($request->item_details as $item_detail){
+                        // Append to array
+                        $productGroupRequestTaxes[]['id'] = $item_detail['item'];
+
+                        // Check if product tax exists
+                        $productGroupItem = ProductItem::where('product_id', $product->id)->where('item_id', $item_detail['item'])->first();
+
+                        if($productGroupItem === null) {
+                            $productItem = new ProductItem();
+                            $productItem->product_id = $product->id;
+                            $productItem->item_id = $item_detail['item'];
+                            $productItem->user_id = $user->id;
+                            $productItem->quantity = $item_detail['amount'];
+                            $productItem->institution_id = $institution->id;
+                            $productItem->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                            $productItem->save();
+                        }
+                        // get product items from the product group
+                    }
+                }
 
                 // Create inventory records if product is a good
                 if($request->product_type != "services") {
@@ -1005,7 +1097,7 @@ class ProductController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get tax methods
         $taxMethods = TaxMethod::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->get();
-        // Getting Products
+        // Getting items
         $items = Product::where('institution_id', $institution->id)->where('is_item',true)->with('inventory.warehouse')->get();
 
 
@@ -1015,12 +1107,14 @@ class ProductController extends Controller
     public function productStore(Request $request, $portal)
     {
 
+//        return $request;
 
         // User
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-
+        $size = 5;
+        $reference = $this->getRandomString($size);
         $product = new Product;
         // check if product is a service or a good
         if($request->product_type == "services") {
@@ -1034,6 +1128,7 @@ class ProductController extends Controller
         }
 
         $product->name = $request->name;
+        $product->code = $reference;
         $product->description = $request->description;
         $product->unit_id = $request->unit;
         $product->product_sub_category_id = $request->product_sub_category;
@@ -1082,6 +1177,21 @@ class ProductController extends Controller
         $product->save();
 
         $taxAmount = 0;
+
+        // Check if the product is has been value added
+        if ($request->is_created == "on"){
+            foreach ($request->item_details as $item_detail){
+                // create product item
+                $productItem = new ProductItem();
+                $productItem->product_id = $product->id;
+                $productItem->item_id = $item_detail['item'];
+                $productItem->user_id = $user->id;
+                $productItem->quantity = $item_detail['amount'];
+                $productItem->institution_id = $institution->id;
+                $productItem->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $productItem->save();
+            }
+        }
 
         if($request->product_type == "goods" && $request->is_inventory == "on") {
 
@@ -1259,7 +1369,7 @@ class ProductController extends Controller
         $institution = $this->getInstitution($portal);
 
         Product::findOrFail($product_id);
-        $product = Product::where('institution_id', $institution->id)->where('id', $product_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'taxMethod')->withCount('saleProducts', 'restock')->first();
+        $product = Product::where('institution_id', $institution->id)->where('id', $product_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'taxMethod', 'productItems.item')->withCount('saleProducts', 'restock')->first();
 //         return $product;
 
         return view('business.product_show', compact('product', 'user', 'institution'));
@@ -1291,9 +1401,11 @@ class ProductController extends Controller
         $product = Product::where('id', $product_id)->with('status', 'product_discounts', 'productTaxes', 'productImages.upload')->first();
         // Get tax methods
         $taxMethods = TaxMethod::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->get();
+        // Getting items
+        $items = Product::where('institution_id', $institution->id)->where('is_item',true)->with('inventory.warehouse')->get();
 
 //        return $product;
-        return view('business.product_edit', compact('user', 'institution', 'product', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'brands', 'productSubCategories', 'taxMethods'));
+        return view('business.product_edit', compact('user', 'institution', 'product', 'taxes', 'units', 'salesAccounts', 'expenseAccounts', 'costOfGoodsSoldAccounts', 'stockAccounts', 'brands', 'productSubCategories', 'taxMethods', 'items'));
     }
 
     public function productUpdate(Request $request, $portal, $product_id)
@@ -1353,6 +1465,34 @@ class ProductController extends Controller
 
         $taxAmount = 0;
 
+        $productRequestItems =array();
+        // Check if the product is has been value added
+        if ($request->is_created == "on"){
+            foreach ($request->item_details as $item_detail){
+                // Append to array
+                $productRequestItems[]['id'] = $item_detail['item'];
+                // Check if product tax exists
+                $productItemExists = ProductItem::where('product_id', $product->id)->where('item_id', $item_detail['item'])->first();
+                if($productItemExists === null) {
+                    // create product item
+                    $productItem = new ProductItem();
+                    $productItem->product_id = $product->id;
+                    $productItem->item_id = $item_detail['item'];
+                    $productItem->user_id = $user->id;
+                    $productItem->quantity = $item_detail['amount'];
+                    $productItem->institution_id = $institution->id;
+                    $productItem->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                    $productItem->save();
+
+                }else{
+                    $productItemExists->quantity = $item_detail['amount'];
+                    $productItemExists->save();
+                }
+
+            }
+        }
+
+        // inventory information
         if($request->product_type != "services" && $request->is_inventory == "on") {
             // todo create stock tables for product
             // Get primary warehouse
@@ -1499,8 +1639,13 @@ class ProductController extends Controller
         }
         $productTax->save();
 
+        // delete removed taxes
         $productTaxesIds = ProductTax::where('product_id', $product_id)->whereNotIn('tax_id', $productRequestTaxes)->select('id')->get()->toArray();
         DB::table('product_taxes')->whereIn('id', $productTaxesIds)->delete();
+
+        // delete removed items
+        $productItemIds = ProductItem::where('product_id', $product_id)->whereNotIn('item_id', $productRequestItems)->select('id')->get()->toArray();
+        DB::table('product_items')->whereIn('id', $productItemIds)->delete();
 
 
         return redirect()->route('business.product.show',['portal'=>$institution->portal, 'id'=>$product->id])->withSuccess(__('Product successfully updated.'));
@@ -1588,7 +1733,8 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-
+        $size = 5;
+        $reference = $this->getRandomString($size);
         // Create composite product
         $product = new Product();
         if($request->product_type == "services") {
@@ -1613,6 +1759,7 @@ class ProductController extends Controller
         $product->tax_method_id = $request->tax_method;
         $product->unit_id = $request->unit;
         $product->name = $request->product_name;
+        $product->code = $reference;
         $product->product_sub_category_id = $request->product_sub_category;
         $product->brand_id = $request->brand;
         $product->stock_keeping_unit = $request->unit;
@@ -2035,7 +2182,8 @@ class ProductController extends Controller
         $user = $this->getUser();
         // Institution
         $institution = $this->getInstitution($portal);
-
+        $size = 5;
+        $reference = $this->getRandomString($size);
         $item = new Product();
         // check if there is a warehouse
         if($request->is_inventory = "on") {
@@ -2046,6 +2194,7 @@ class ProductController extends Controller
         }
 
         $item->name = $request->name;
+        $item->code = $reference;
         $item->unit_id = $request->unit;
 
         if ($request->is_inventory == "on"){
@@ -2144,7 +2293,8 @@ class ProductController extends Controller
         $institution = $this->getInstitution($portal);
         // Check if item exists
         Product::findOrFail($item_id);
-        $item = Product::where('institution_id', $institution->id)->where('id', $item_id)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'user')->withCount( 'restock')->first();
+        $item = Product::where('institution_id', $institution->id)->where('id', $item_id)->with('status', 'inventory.warehouse', 'inventory.status', 'inventory.product', 'restock', 'unit', 'user', 'itemProducts.product')->withCount( 'restock')->first();
+//        return $item;
         return view('business.item_show', compact('item', 'user', 'institution'));
     }
 

@@ -144,10 +144,12 @@
                                                 <td>
                                                     <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
                                                 </td>
+                                                <td><span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span></td>
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
+                                        <button type="button" class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line </button>
+                                        <button type="button" class="btn btn-small btn-primary" onclick = "addTableProductItemRow()">+ Add Product/Item </button>
                                     </div>
 
                                     {{--sub totals--}}
@@ -713,11 +715,51 @@
         fifthCell.setAttribute("style", "width: 1em;")
         tableValueArrayIndex++;
     };
+    function addTableProductItemRow () {
+        var table = document.getElementById("expense_table");
+        var row = table.insertRow();
+        var firstCell = row.insertCell(0);
+        var secondCell = row.insertCell(1);
+        var thirdCell = row.insertCell(2);
+        var fourthCell = row.insertCell(3);
+        var fifthCell = row.insertCell(4);
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_product form-control input-lg item-select'>"+
+            "<option></option>"+
+            "@foreach($products as $product)"+
+            "@if($product->is_inventory == 1)"+
+            "@if($product->is_service == 0)"+
+            "@if($product->is_composite_product == 1)"+
+            "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->purchase_price}}'>{{$product->name}}</option>"+
+            "@else"+
+            "@foreach($product->inventory as $inventory)"+
+            "<option value='{{$product->id}}:{{$inventory->id}}' data-product-quantity = '{{$inventory->quantity}}' data-product-selling-price = '{{$product->purchase_price}}'>{{$product->name}} [{{$inventory->warehouse->name}}: {{$inventory->quantity}}]</option>"+
+            "@endforeach"+
+            "@endif"+
+            "@else"+
+            "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->purchase_price}}'>{{$product->name}}</option>"+
+            "@endif"+
+            "@elseif ($product->is_inventory == 0 or $product->is_service == 0)"+
+            "<option value='{{$product->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$product->purchase_price}}'>{{$product->name}}</option>"+
+            "@endif"+
+            "@endforeach"+
+            "</select>";
+        secondCell.innerHTML = "<input oninput = 'changeItemQuantity(this)' name='item_details["+tableValueArrayIndex+"][quantity]' type='number' class='form-control input-lg item-quantity' value = '0' min = '0'>";
+        thirdCell.innerHTML = "<input oninput = 'changeItemRate(this)' name='item_details["+tableValueArrayIndex+"][rate]' type='number' class='form-control input-lg item-rate' placeholder='E.g +10, -10' value = '0' min = '0'>";
+        fourthCell.innerHTML = "<input name='item_details["+tableValueArrayIndex+"][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
+        fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+        fifthCell.setAttribute("style", "width: 1em;")
+        tableValueArrayIndex++;
+
+        $(".select2_product").select2({
+            placeholder: "Select Product",
+            allowClear: true
+        });
+    };
     function removeSelectedRow (e) {
         var selectedParentTd = e.parentElement.parentElement;
         var selectedTr = selectedParentTd.parentElement;
         var selectedTable = selectedTr.parentElement;
-        var removed = selectedTr.getElementsByClassName("item-select")[0].getAttribute("name");
+        var removed = selectedTr.getElementsByClassName("item-detail")[0].getAttribute("name");
         adjustTableInputFieldsIndex(removed);
         selectedTable.removeChild(selectedTr);
         tableValueArrayIndex--;

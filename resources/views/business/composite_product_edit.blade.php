@@ -463,7 +463,7 @@
         var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
         totalPriceInputField[0].value = quantityValue * unitPrice;
     };
-    var tableValueArrayIndex = 1;
+    var tableValueArrayIndex = {{$itemIndex}};
     function addTableRow () {
         var table = document.getElementById("adjustment_table");
         var row = table.insertRow();

@@ -77,9 +77,13 @@ class Institution extends Model implements Auditable
     {
         return $this->hasMany('App\Budget');
     }
+    public function campaigns()
+    {
+        return $this->hasMany('App\Campaign');
+    }
     public function compositeProducts()
     {
-        return $this->hasMany('App\CompositeProduct');
+        return $this->hasMany('App\Product')->where('is_composite_product', true);
     }
     public function contacts()
     {
@@ -87,7 +91,7 @@ class Institution extends Model implements Auditable
     }
     public function estimates()
     {
-        return $this->hasMany('App\Estimate');
+        return $this->hasMany('App\Sale')->where('is_estimate', true);
     }
     public function expenses()
     {
@@ -111,11 +115,31 @@ class Institution extends Model implements Auditable
     }
     public function invoices()
     {
-        return $this->hasMany('App\Invoice');
+        return $this->hasMany('App\Sale')->where('is_invoice', true);
+    }
+    public function inventoryAdjustments()
+    {
+        return $this->hasMany('App\InventoryAdjustment');
+    }
+    public function items()
+    {
+        return $this->hasMany('App\Product')->where('is_item', true);
+    }
+    public function loans()
+    {
+        return $this->hasMany('App\Loan');
     }
     public function manufacturers()
     {
         return $this->hasMany('App\Manufacturer');
+    }
+    public function payments()
+    {
+        return $this->hasMany('App\Payment');
+    }
+    public function refunds()
+    {
+        return $this->hasMany('App\Refund');
     }
     public function roles()
     {
@@ -123,7 +147,15 @@ class Institution extends Model implements Auditable
     }
     public function sales()
     {
-        return $this->hasMany('App\Sale');
+        return $this->hasMany('App\Sale')->where('is_sale', true);
+    }
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Subscription');
+    }
+    public function transfers()
+    {
+        return $this->hasMany('App\Transfer');
     }
     public function units()
     {
@@ -147,7 +179,7 @@ class Institution extends Model implements Auditable
     }
     public function productGroups()
     {
-        return $this->hasMany('App\ProductGroup');
+        return $this->hasMany('App\Product')->where('is_product_group', True)->where('is_product_group_child', False);
     }
     public function manualJournals()
     {
@@ -155,7 +187,11 @@ class Institution extends Model implements Auditable
     }
     public function orders()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany('App\Sale')->where('is_order', true);
+    }
+    public function organizations()
+    {
+        return $this->hasMany('App\organization');
     }
     public function paymentTerms()
     {
@@ -183,14 +219,12 @@ class Institution extends Model implements Auditable
     }
     public function products()
     {
-        return $this->hasMany('App\Product');
+        return $this->hasMany('App\Product')->where('is_product_group', false)->where('is_item', false)->where('is_product_group_child', false)->where('is_composite_product', false);
     }
-
     public function reasons()
     {
         return $this->hasMany('App\Reason');
     }
-
     public function transferOrders()
     {
         return $this->hasMany('App\TransferOrder');

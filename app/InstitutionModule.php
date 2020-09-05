@@ -27,4 +27,20 @@ class InstitutionModule extends Model implements Auditable
         return $this->belongsTo('App\Status');
     }
 
+    public function subscriptionModules()
+    {
+        return $this->hasMany('App\SubscriptionModule');
+    }
+    public function totalSubsciption()
+    {
+        return $this->hasMany('App\SubscriptionModule')
+            ->selectRaw('subscription_id,SUM(amount) as totalSubsciption')
+            ->groupBy('subscription_id');
+    }
+    public function groupTry()
+    {
+        return $this->hasMany('App\SubscriptionModule')
+            ->groupBy('subscription_id');
+    }
+
 }

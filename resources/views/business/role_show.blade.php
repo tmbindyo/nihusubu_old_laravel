@@ -68,12 +68,15 @@
                                                         <i>name</i>
                                                     </div>
 
-                                                    @can('edit role')
-                                                        <hr>
-                                                        <div class="text-center">
-                                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
-                                                        </div>
-                                                    @endcan
+
+                                                    @if(str_replace($institution->portal.' ', "", $role->name) != "admin" )
+                                                        @can('edit role')
+                                                            <hr>
+                                                            <div class="text-center">
+                                                                <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
+                                                            </div>
+                                                        @endcan
+                                                    @endif
                                                 </div>
 
 
@@ -86,7 +89,7 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <form method="post" action="{{ route('business.user.assign.role',['portal'=>$institution->portal,'role_id'=>$role->id]) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                            <form method="post" action="{{ route('business.user.assign.role',['portal'=>$institution->portal,'role_id'=>encrypt($role->id)]) }}" autocomplete="off" class="form-horizontal form-label-left">
                                                 @csrf
 
                                                 @if ($errors->any())
@@ -157,7 +160,9 @@
                                         <td>{{$user->name}}</td>
                                         <td>
                                             @foreach ($user->roles as $role)
-                                                <span class="label label-primary">{{$role->name}} </span>
+                                                @if(in_array($role->name, $roleNames))
+                                                    <span class="label label-primary">{{$role->name}} </span>
+                                                @endif
                                             @endforeach
                                         </td>
                                         <td class="text-right">
@@ -223,6 +228,8 @@
 
 @endsection
 
+@include('business.layouts.modals.user_add')
+
 @section('js')
 
     <!-- Mainly scripts -->
@@ -284,6 +291,8 @@
 
     <script>
         $(document).ready(function(){
+
+            $('.chosen-select').chosen({width: "100%"});
 
             $(".select2_user").select2({
                 placeholder: "Select User",

@@ -107,16 +107,18 @@
                                     </thead>
                                     <tbody>
                                     @foreach($institutionUser->roles as $role)
-                                        <tr class="gradeX">
-                                            <td>{{str_replace($institution->portal.' ', "", $role->name)}}</td>
-                                            <td class="text-right">
-                                                <div class="btn-group">
-                                                    @can('user assign role')
-                                                        <a href="{{ route('business.user.delist.role', ['portal'=>$institution->portal, 'id'=>encrypt($institutionUser->id), 'role_id'=>encrypt($role->id)]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                    @endcan
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @if(in_array($role->name, $roleNames))
+                                            <tr class="gradeX">
+                                                <td>{{str_replace($institution->portal.' ', "", $role->name)}}</td>
+                                                <td class="text-right">
+                                                    <div class="btn-group">
+                                                        @can('user assign role')
+                                                            <a href="{{ route('business.user.delist.role', ['portal'=>$institution->portal, 'id'=>encrypt($institutionUser->id), 'role_id'=>encrypt($role->id)]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                        @endcan
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                     </tbody>
                                     <tfoot>

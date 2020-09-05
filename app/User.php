@@ -345,6 +345,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany('App\UserAccount');
     }
+    public function currentUserAccounts()
+    {
+        return $this->hasMany('App\UserAccount')->where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e');
+    }
     public function activeUserAccount()
     {
         return $this->hasOne('App\UserAccount')->where('is_active', true);

@@ -411,7 +411,7 @@
         itemTotalInputField[0].value = quantityValue * itemRate;
         itemTotalChange();
     };
-    var tableValueArrayIndex = 1;
+    var tableValueArrayIndex = {{$product_index}};
     function addTableRow () {
         var table = document.getElementById("order_table");
         var row = table.insertRow();

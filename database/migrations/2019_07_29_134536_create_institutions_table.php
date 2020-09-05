@@ -19,6 +19,7 @@ class CreateInstitutionsTable extends Migration
             $table->string('name', 200);
             $table->string('portal', 200);
             $table->string('kra_pin_number', 200)->nullable();
+            $table->string('sale_format', 200)->nullable();
             $table->string('email', 200)->nullable();
             $table->string('phone_number', 200)->nullable();
             $table->string('website', 200)->nullable();
@@ -43,6 +44,8 @@ class CreateInstitutionsTable extends Migration
             $table->uuid('commerce_template_id')->nullable();
 
             $table->boolean('is_active');
+            $table->boolean('is_sale_tax');
+            $table->boolean('is_sale_random');
 
             $table->timestamps();
             $table->softDeletes();

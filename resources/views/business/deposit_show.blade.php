@@ -28,7 +28,7 @@
         <div class="col-md-7">
             <div class="title-action">
                 @can('add account adjustment')
-                    <a href="{{route('business.deposit.account.adjustment.create',['portal'=>$institution->portal, 'id'=>$deposit->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Account Adjustment </a>
+                    <a href="{{route('business.deposit.account.adjustment.create',['portal'=>$institution->portal, 'id'=>$deposit->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Deposit Adjustment </a>
                 @endcan
                 @can('add to do')
                     <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> To Do </a>
@@ -112,14 +112,14 @@
                                         <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg {{ $errors->has('about') ? ' is-invalid' : '' }}" readonly>{{$deposit->about}}</textarea>
                                         <i>about deposit</i>
                                     </div>
-                                    @can('edit deposit')
-                                        <br>
-                                        <hr>
+{{--                                    @can('edit deposit')--}}
+{{--                                        <br>--}}
+{{--                                        <hr>--}}
 
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('UPDATE') }}</button>
-                                        </div>
-                                    @endcan
+{{--                                        <div class="text-center">--}}
+{{--                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('UPDATE') }}</button>--}}
+{{--                                        </div>--}}
+{{--                                    @endcan--}}
                                 </div>
 
 

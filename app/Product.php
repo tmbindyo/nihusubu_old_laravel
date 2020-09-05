@@ -105,7 +105,7 @@ class Product extends Model implements Auditable
     }
     public function itemProducts()
     {
-        return $this->hasMany('App\ItemProduct', 'item_id');
+        return $this->hasMany('App\ProductItem', 'item_id');
     }
     public function orderProducts()
     {

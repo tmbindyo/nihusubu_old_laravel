@@ -14,59 +14,44 @@
 
 //Dashboard
 
-// Route::get('/dashboard', 'Admin\DashboardController@dashboard')->name('admin.dashboard');
+ Route::get('/dashboard', 'Admin\DashboardController@dashboard')->name('admin.dashboard');
+
+ Route::get('/institutions', 'Admin\InstitutionController@institutions')->name('admin.institutions');
+ Route::get('/institution/show/{institution_id}', 'Admin\InstitutionController@institutionShow')->name('admin.institution.show');
+
+ Route::get('/modules', 'Admin\ModuleController@modules')->name('admin.modules');
+ Route::get('/module/show/{module_id}', 'Admin\ModuleController@moduleShow')->name('admin.module.show');
+ Route::post('/module/update/{module_id}', 'Admin\ModuleController@moduleUpdate')->name('admin.module.update');
+
+ Route::get('/payments', 'Admin\PaymentController@payments')->name('admin.payments');
+ Route::get('/payment/show/{payment_id}', 'Admin\PaymentController@paymentShow')->name('admin.payment.show');
 
 
-// //Calendar
-// Route::get('/calendar', 'Admin\CalendarController@calendar')->name('admin.calendar');
-// Route::post('/calendar/store', 'Admin\CalendarController@calendarStore')->name('admin.calendar.store');
+ // roles
+Route::get('/roles', 'Admin\RoleController@roles')->name('admin.roles');
+Route::get('/role/create', 'Admin\RoleController@roleCreate')->name('admin.role.create');
+Route::post('/role/store', 'Admin\RoleController@roleStore')->name('admin.role.store');
+Route::get('/role/show/{role_id}', 'Admin\RoleController@roleShow')->name('admin.role.show');
+
+Route::get('/role/update/{role_id}/permission/{permission_id}', 'Admin\RoleController@updateRolePermission')->name('admin.role.update.permission');
+
+Route::get('/revoke/user/{user_id}/role/{role_id}', 'Admin\RoleController@userRevokeRole')->name('admin.user.revoke.role');
+Route::post('/assign/user/role/{role_id}', 'Admin\RoleController@userAssignRole')->name('admin.user.assign.role');
+
+Route::post('/role/update/{role_id}', 'Admin\RoleController@roleUpdate')->name('admin.role.update');
+Route::get('/role/delete/{role_id}', 'Admin\RoleController@roleDelete')->name('admin.role.delete');
+Route::get('/role/restore/{role_id}', 'Admin\RoleController@roleRestore')->name('admin.role.restore');
 
 
-// // To Do
-// Route::get('/to/dos', 'Admin\ToDoController@toDos')->name('admin.to.dos');
-// Route::post('/to/do/store', 'Admin\ToDoController@toDoStore')->name('admin.to.do.store');
-// Route::post('/to/do/update/{todo_id}', 'Admin\ToDoController@toDoUpdate')->name('admin.to.do.update');
-// Route::get('/to/do/set/in/progress/{todo_id}', 'Admin\ToDoController@toDoSetInProgress')->name('admin.to.do.set.in.progress');
-// Route::get('/to/do/set/completed/{todo_id}', 'Admin\ToDoController@toDoSetCompleted')->name('admin.to.do.set.completed');
-// Route::get('/to/do/delete/{todo_id}', 'Admin\ToDoController@toDoDelete')->name('admin.to.do.delete');
+// users
+Route::get('/users', 'Admin\RoleController@users')->name('admin.users');
+Route::get('/user/create', 'Admin\RoleController@userCreate')->name('admin.user.create');
+Route::post('/user/store', 'Admin\RoleController@userStore')->name('admin.user.store');
+Route::get('/user/show/{user_id}', 'Admin\RoleController@userShow')->name('admin.user.show');
 
+Route::post('/user/add/role/{user_id}', 'Admin\RoleController@userAddRole')->name('admin.user.add.role');
+Route::get('/delist/user/{user_id}/role/{role_id}', 'Admin\RoleController@userDelistRole')->name('admin.user.delist.role');
 
-// // businesses
-// Route::get('/businesses', 'Admin\ProductController@businesses')->name('admin.businesses');
-// Route::get('/business/create', 'Admin\ProductController@businessCreate')->name('admin.business.create');
-// Route::post('/business/store', 'Admin\ProductController@businessStore')->name('admin.business.store');
-// Route::get('/business/show/{business_id}', 'Admin\ProductController@businessShow')->name('admin.business.show');
-// Route::get('/business/edit/{business_id}', 'Admin\ProductController@businessEdit')->name('admin.business.edit');
-// Route::post('/business/update/{business_id}', 'Admin\ProductController@businessUpdate')->name('admin.business.update');
-// Route::get('/business/delete/{business_id}', 'Admin\ProductController@businessDelete')->name('admin.business.delete');
-// Route::get('/business/restore/{business_id}', 'Admin\ProductController@businessRestore')->name('admin.business.restore');
-
-
-// // menus
-// Route::get('/menus', 'Admin\ProductController@menus')->name('admin.menus');
-// Route::get('/menu/create', 'Admin\ProductController@menuCreate')->name('admin.menu.create');
-// Route::post('/menu/store', 'Admin\ProductController@menuStore')->name('admin.menu.store');
-// Route::get('/menu/show/{menu_id}', 'Admin\ProductController@menuShow')->name('admin.menu.show');
-// Route::post('/menu/update/{menu_id}', 'Admin\ProductController@menuUpdate')->name('admin.menu.update');
-// Route::get('/menu/delete/{menu_id}', 'Admin\ProductController@menuDelete')->name('admin.menu.delete');
-// Route::get('/menu/restore/{menu_id}', 'Admin\ProductController@menuRestore')->name('admin.menu.restore');
-
-
-// // features
-// Route::get('/features', 'Admin\ProductController@features')->name('admin.features');
-// Route::get('/feature/create', 'Admin\ProductController@featureCreate')->name('admin.feature.create');
-// Route::post('/feature/store', 'Admin\ProductController@featureStore')->name('admin.feature.store');
-// Route::get('/feature/show/{feature_id}', 'Admin\ProductController@featureShow')->name('admin.feature.show');
-// Route::post('/feature/update/{feature_id}', 'Admin\ProductController@featureUpdate')->name('admin.feature.update');
-// Route::get('/feature/delete/{feature_id}', 'Admin\ProductController@featureDelete')->name('admin.feature.delete');
-// Route::get('/feature/restore/{feature_id}', 'Admin\ProductController@featureRestore')->name('admin.feature.restore');
-
-
-// // sections
-// Route::get('/sections', 'Admin\ProductController@sections')->name('admin.sections');
-// Route::get('/section/create', 'Admin\ProductController@sectionCreate')->name('admin.section.create');
-// Route::post('/section/store', 'Admin\ProductController@sectionStore')->name('admin.section.store');
-// Route::get('/section/show/{section_id}', 'Admin\ProductController@sectionShow')->name('admin.section.show');
-// Route::post('/section/update/{section_id}', 'Admin\ProductController@sectionUpdate')->name('admin.section.update');
-// Route::get('/section/delete/{section_id}', 'Admin\ProductController@sectionDelete')->name('admin.section.delete');
-// Route::get('/section/restore/{section_id}', 'Admin\ProductController@sectionRestore')->name('admin.section.restore');
+Route::post('/user/update/{user_id}', 'Admin\RoleController@userUpdate')->name('admin.user.update');
+Route::get('/user/delete/{user_id}', 'Admin\RoleController@userDelete')->name('admin.user.delete');
+Route::get('/user/restore/{user_id}', 'Admin\RoleController@userRestore')->name('admin.user.restore');

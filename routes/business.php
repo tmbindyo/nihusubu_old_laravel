@@ -423,13 +423,6 @@ Route::get('/{portal}/earning/policy/store', 'Business\EmployeeController@earnin
 Route::get('/{portal}/earning/policy/update/{holiday_id}', 'Business\EmployeeController@earningPolicyUpdate')->name('business.earning.policy.update');
 Route::get('/{portal}/earning/policy/delete/{holiday_id}', 'Business\EmployeeController@earningPolicyDelete')->name('business.earning.policy.delete');
 
-// Settings
-Route::get('/{portal}/organization/profile', 'Business\SettingController@organizationProfile')->name('business.organization.profile');
-Route::get('/{portal}/opening/balances', 'Business\SettingController@openingBalances')->name('business.opening.balances');
-Route::get('/{portal}/users/roles', 'Business\SettingController@usersAndRoles')->name('business.users.roles');
-Route::get('/{portal}/currencies', 'Business\SettingController@currencies')->name('business.currencies');
-Route::get('/{portal}/emails', 'Business\SettingController@emails')->name('business.emails');
-Route::get('/{portal}/reminders', 'Business\SettingController@reminders')->name('business.reminders');
 
 // settings
 Route::get('/{portal}/settings', 'Business\SettingController@settings')->name('business.settings');
@@ -569,6 +562,10 @@ Route::post('/{portal}/institution/update/{institution_id}', 'Business\RoleContr
 Route::get('/{portal}/module/subscribe/{module_id}', 'Business\RoleController@moduleSubscribe')->name('business.module.subscribe');
 Route::get('/{portal}/module/unsubscribe/{module_id}', 'Business\RoleController@moduleUnsubscribe')->name('business.module.unsubscribe');
 
+//
+Route::get('/{portal}/commerce/templates', 'Business\CommerceController@commerceTemplates')->name('business.commerce.templates');
+
+
 // users
 Route::get('/{portal}/users', 'Business\RoleController@users')->name('business.users');
 Route::get('/{portal}/user/create', 'Business\RoleController@userCreate')->name('business.user.create');
@@ -595,3 +592,21 @@ Route::get('/{portal}/feedback/restore/{unit_id}', 'Business\FeedbackController@
 Route::get('/{portal}/feedback/uploads/{feedback_id}', 'Business\FeedbackController@feedbackUploads')->name('business.feedback.uploads');
 Route::post('/{portal}/feedback/upload/store/{feedback_id}', 'Business\FeedbackController@feedbackUploadStore')->name('business.feedback.upload.store');
 Route::get('/{portal}/feedback/upload/download/{upload_id}', 'Business\FeedbackController@feedbackUploadDownload')->name('business.feedback.upload.download');
+
+
+
+
+
+
+// POS
+Route::get('/{portal}/pos/landing', 'POS\POSController@landing')->name('pos.landing');
+Route::get('/{portal}/pos/login', 'POS\POSController@login')->name('pos.login');
+Route::get('/{portal}/pos/dashboard', 'POS\POSController@dashboard')->name('pos.dasboard');
+Route::get('/{portal}/pos', 'POS\POSController@pos')->name('pos.pos');
+Route::get('/{portal}/view/bill/{bill_id}', 'POS\POSController@viewBill')->name('pos.view.bill');
+Route::get('/{portal}/product/category/products/{category_id}', 'POS\POSController@productCategoryCategories')->name('pos.product.category.products');
+
+
+//Route::get('/{portal}/ajax/subcategory/products/', 'POS\POSController@ajaxProductTest')->name('pos.ajax.subcategory.products');
+Route::get('/{portal}/ajax/subcategory/products/{category_id}/tcp/{tcp}', 'POS\POSController@ajaxProducts')->name('pos.ajax.subcategory.products');
+Route::get('/{portal}/ajax/product', 'POS\POSController@getProduct')->name('pos.ajax.product');

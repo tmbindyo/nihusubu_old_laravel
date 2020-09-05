@@ -215,7 +215,7 @@
                                             <strong>{{ $errors->first('purchase_account') }}</strong>
                                         </span>
                                     @endif
-                                    <select name="purchase_account" class="select2_purchase_account form-control input-lg {{ $errors->has('purchase_account') ? ' is-invalid' : '' }}" required>
+                                    <select name="purchase_account" id="purchase_account" class="select2_purchase_account form-control input-lg {{ $errors->has('purchase_account') ? ' is-invalid' : '' }}" required @if($productGroup->is_created) disabled @endif>
                                         <option></option>
 
                                         <optgroup label="Exepense">
@@ -307,6 +307,66 @@
                                 @endif
                                 <input type="number" id="creation_cost" name="creation_cost" required="required" value="{{$productGroup->creation_cost}}" class="form-control input-lg  {{ $errors->has('creation_cost') ? ' is-invalid' : '' }}" @if($productGroup->is_created == 0) disabled @endif>
                                 <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered" id = "estimate_table">
+                                    <thead>
+                                    <tr>
+                                        <th>Item Details</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if(count($productGroup->productItems))
+                                        @php
+                                            $product_index = 0
+                                        @endphp
+                                        @foreach($productGroup->productItems as $productItem)
+                                            <tr>
+                                                <td>
+                                                    <select id="item_details[{{$product_index}}]" data-placement="Select" name="item_details[{{$product_index}}][item]" class="select2_item_initial form-control input-lg item-select" style = "width: 100%">
+                                                        <option></option>
+                                                        @foreach($items as $item)
+                                                            <option @if($productItem->item_id == $item->id) selected @endif value="{{$item->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$item->taxed_selling_price}}">{{$item->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input  id="item_quantity[{{$product_index}}]" onchange = "this.oninput()" name="item_details[{{$product_index}}][amount]" type="number" class="form-control input-lg item-total" value="{{$productItem->quantity}}" min = "0">
+                                                </td>
+                                                <td>
+                                                    <span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>
+                                                </td>
+                                            </tr>
+                                            @php
+                                                $product_index++
+                                            @endphp
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td>
+                                                <select id="item_details" disabled data-placement="Select" name="item_details[0][item]" class="select2_item_initial form-control input-lg item-select" style = "width: 100%">
+                                                    <option></option>
+                                                    @foreach($items as $item)
+                                                        <option value="{{$item->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$item->taxed_selling_price}}">{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input id="item_quantity" disabled onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
+                                            </td>
+                                            <td>
+                                                <button ><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></button>
+                                            </td>
+                                        </tr>
+                                    @endif
+
+                                    </tbody>
+                                </table>
+                                <button type="button" id="add_new_item_row" id="add_new_item_row" class="btn btn-small btn-primary" @if(!$productGroup->is_created) disabled @endif onclick = "addTableRow()" dis>+ Add Another Line</button>
                             </div>
                         </div>
                         <br>
@@ -587,10 +647,18 @@
                     // enable input
                     document.getElementById("creation_time").disabled = false;
                     document.getElementById("creation_cost").disabled = false;
+                    // document.getElementById("item_details").disabled = false;
+                    // document.getElementById("item_quantity").disabled = false;
+                    document.getElementById("add_new_item_row").disabled = false;
+                    document.getElementById("purchase_account").disabled = true;
                 } else {
                     // disable input
                     document.getElementById("creation_time").disabled = true;
                     document.getElementById("creation_cost").disabled = true;
+                    // document.getElementById("item_details").disabled = true;
+                    // document.getElementById("item_quantity").disabled = true;
+                    document.getElementById("add_new_item_row").disabled = true;
+                    document.getElementById("purchase_account").disabled = false;
                 }
             });
             $('.enableInventory').on('click',function(){

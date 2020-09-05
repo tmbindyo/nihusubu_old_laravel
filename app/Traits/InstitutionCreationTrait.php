@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Subscription;
+use App\SubscriptionModule;
 use Auth;
 use App\Tax;
 use App\Unit;
@@ -36,8 +38,24 @@ trait InstitutionCreationTrait
 
     public function institutionModuleSeeder ($user, $institution){
 
+        // create subscription record
+        $subscription = new Subscription();
+        $subscription->trial_duration = 90;
+        $subscription->amount = 0;
+        $subscription->start_date = now();
+        $subscription->month = now()->format('m');
+        $subscription->year = now()->format('yy');
+        $subscription->is_institution = true;
+        $subscription->is_user = false;
+        $subscription->is_active = true;
+        $subscription->institution_id = $institution->id;
+        $subscription->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $subscription->user_id = $user->id;
+        $subscription->is_paid = false;
+        $subscription->save();
+
         // get modules
-        $modules = Module::all();
+        $modules = Module::where('is_business',true)->get();
         foreach ($modules as $module){
             $institutionModule = new InstitutionModule();
 
@@ -47,7 +65,25 @@ trait InstitutionCreationTrait
             $institutionModule->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
             $institutionModule->user_id = $user->id;
             $institutionModule->save();
+
+
+            // create institution module subscription tracker
+            $subscriptionModule = new SubscriptionModule();
+            $subscriptionModule->amount = 0;
+            $subscriptionModule->month = now()->format('m');
+            $subscriptionModule->year = now()->format('yy');
+            $subscriptionModule->last_updated = date('Y-m-d', strtotime(now()));
+            $subscriptionModule->start_date = now();
+            $subscriptionModule->module_id = $module->id;
+            $subscriptionModule->subscription_id = $subscription->id;
+            $subscriptionModule->institution_module_id = $institutionModule->id;
+            $subscriptionModule->institution_id = $institution->id;
+            $subscriptionModule->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+            $subscriptionModule->user_id = $user->id;
+            $subscriptionModule->is_active = true;
+            $subscriptionModule->save();
         }
+
         return $modules;
     }
 
@@ -74,6 +110,8 @@ trait InstitutionCreationTrait
         $institution->user_id = $user->id;
         $institution->plan_id = $request->plan;
         $institution->is_active = true;
+        $institution->is_sale_tax = true;
+        $institution->is_sale_random = true;
         $institution->address_id = $address->id;
         $institution->currency_id = "0839e6c9-20b3-4442-b3b6-5137a4d309ec";
         $institution->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -139,6 +177,14 @@ trait InstitutionCreationTrait
         $unit = new Unit();
         $unit->name = 'KG';
         $unit->description = 'KiloGrams';
+        $unit->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+        $unit->institution_id = $institution->id;
+        $unit->user_id = $user->id;
+        $unit->save();
+
+        $unit = new Unit();
+        $unit->name = 'Piece';
+        $unit->description = 'A single Piece';
         $unit->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $unit->institution_id = $institution->id;
         $unit->user_id = $user->id;
@@ -1045,7 +1091,7 @@ trait InstitutionCreationTrait
         $userAccount->institution_id = $institution->id;
         $userAccount->user_type_id = '07c99d10-8e09-4861-83df-fdd3700d7e48';
         $userAccount->save();
-
+        return $userAccount;
     }
 
 }

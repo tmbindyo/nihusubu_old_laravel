@@ -38,6 +38,8 @@ class CreateContactsTable extends Migration
             $table->uuid('title_id')->nullable();
             $table->uuid('lead_source_id')->nullable();
             $table->uuid('campaign_id')->nullable();
+            $table->boolean('is_chama');
+            $table->uuid('chama_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

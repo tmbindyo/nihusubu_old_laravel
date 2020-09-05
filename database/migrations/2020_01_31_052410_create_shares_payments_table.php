@@ -23,7 +23,8 @@ class CreateSharesPaymentsTable extends Migration
             $table->date('date');
 
             $table->integer('user_id')->unsigned();
-            $table->integer('member_id')->unsigned();
+            $table->uuid('member_id');
+            $table->uuid('account_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('chama_id');
 

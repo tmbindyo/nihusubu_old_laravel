@@ -68,7 +68,7 @@ class SaleController extends Controller
         // Getting taxes
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->where('is_item',false)->with('inventory.warehouse')->get();
 
         // payment schedules
         $paymentSchedules = PaymentSchedule::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->orderBy('period')->get();
@@ -86,8 +86,14 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Generate reference
-        $size = 5;
-        $reference = $this->getRandomString($size);
+        if($institution->is_sale_random){
+            $size = 5;
+            $reference = $this->getRandomString($size);
+        }else{
+            // get institution sale count
+            $saleCount = Sale::where('institution_id',$institution->id)->count();
+            $reference = $institution->sale_format + $saleCount;
+        }
         // Create estimate
         $estimate = new Sale();
         $estimate->reference = $reference;
@@ -197,7 +203,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->where('is_item',false)->with('inventory.warehouse')->get();
 
         // payment schedules
         $paymentSchedules = PaymentSchedule::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->orderBy('period')->get();
@@ -417,7 +423,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->where('is_item',false)->with('inventory.warehouse')->get();
 
         // payment schedules
         $paymentSchedules = PaymentSchedule::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->orderBy('period')->get();
@@ -434,9 +440,14 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
-        // Generate reference
-        $size = 5;
-        $reference = $this->getRandomString($size);
+        if($institution->is_sale_random){
+            $size = 5;
+            $reference = $this->getRandomString($size);
+        }else{
+            // get institution sale count
+            $saleCount = Sale::where('institution_id',$institution->id)->count();
+            $reference = $institution->sale_format + $saleCount;
+        }
 
         // Create invoice
         $invoice = new Sale();
@@ -548,7 +559,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->where('is_item',false)->with('inventory.warehouse')->get();
 
         // payment schedules
         $paymentSchedules = PaymentSchedule::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->orderBy('period')->get();
@@ -769,7 +780,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->where('is_item',false)->with('inventory.warehouse')->get();
 
         // payment schedules
         $paymentSchedules = PaymentSchedule::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->orderBy('period')->get();
@@ -787,9 +798,17 @@ class SaleController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
 
+        if($institution->is_sale_random){
+            $size = 5;
+            $reference = $this->getRandomString($size);
+        }else{
+            // get institution sale count
+            $saleCount = Sale::where('institution_id',$institution->id)->count();
+            $reference = $institution->sale_format + $saleCount;
+        }
+
         // Generate reference
-        $size = 5;
-        $reference = $this->getRandomString($size);
+
 
         // Create sale
         $sale = new Sale();
@@ -1176,7 +1195,7 @@ class SaleController extends Controller
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get Inventory
         // Getting Products
-        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->where('is_item',false)->with('inventory.warehouse')->get();
 
         // payment schedules
         $paymentSchedules = PaymentSchedule::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->orderBy('period')->get();

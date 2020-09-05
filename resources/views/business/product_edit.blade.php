@@ -235,7 +235,7 @@
                                                 @endif
                                                 <div class="col-md-12">
                                                     <div class="has-warning">
-                                                        <select name="purchase_account" class="select2_purchase_account form-control input-lg {{ $errors->has('purchase_account') ? ' is-invalid' : '' }}" required>
+                                                        <select name="purchase_account" class="select2_purchase_account form-control input-lg {{ $errors->has('purchase_account') ? ' is-invalid' : '' }}" required @if($product->is_created) disabled @endif>
                                                             <option></option>
                                                             <optgroup label="Exepense">
                                                                 @foreach($expenseAccounts as $account)
@@ -279,7 +279,7 @@
                                                         <strong>{{ $errors->first('purchase_price') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="text" id="purchase_price" name="purchase_price" required="required" value="{{$product->purchase_price}}" class="form-control input-lg {{ $errors->has('purchase_price') ? ' is-invalid' : '' }}">
+                                                <input type="text" id="purchase_price" name="purchase_price" required="required" value="{{$product->purchase_price}}" class="form-control input-lg {{ $errors->has('purchase_price') ? ' is-invalid' : '' }}" @if($product->is_created) disabled @endif>
                                                 <i>purchase price</i>
                                             </div>
                                         </div>
@@ -338,7 +338,7 @@
                                                     <strong>{{ $errors->first('creation_time') }}</strong>
                                                 </span>
                                             @endif
-                                            <input type="number" id="creation_time" name="creation_time" value="{{$product->creation_time}}" class="form-control input-lg {{ $errors->has('creation_time') ? ' is-invalid' : '' }}" @if(!$product->creation_time) disabled @endif>
+                                            <input type="number" id="creation_time" name="creation_time" value="{{$product->creation_time}}" class="form-control input-lg {{ $errors->has('creation_time') ? ' is-invalid' : '' }}" @if(!$product->is_created) disabled @endif>
                                             <i>Average time taken to manufacture/create or add value to it in minutes.</i>
                                         </div>
                                         <div class="col-md-5">
@@ -347,8 +347,68 @@
                                                     <strong>{{ $errors->first('creation_cost') }}</strong>
                                                 </span>
                                             @endif
-                                            <input type="number" id="creation_cost" name="creation_cost" value="{{$product->creation_cost}}" class="form-control input-lg {{ $errors->has('creation_cost') ? ' is-invalid' : '' }}" @if(!$product->acquired) disabled @endif>
+                                            <input type="number" id="creation_cost" name="creation_cost" value="{{$product->creation_cost}}" class="form-control input-lg {{ $errors->has('creation_cost') ? ' is-invalid' : '' }}" @if(!$product->is_created) disabled @endif>
                                             <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-bordered" id = "estimate_table">
+                                                <thead>
+                                                <tr>
+                                                    <th>Item Details</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @if(count($product->productItems))
+                                                    @php
+                                                        $product_index = 0
+                                                    @endphp
+                                                    @foreach($product->productItems as $productItem)
+                                                        <tr>
+                                                            <td>
+                                                                <select id="item_details[{{$product_index}}]" data-placement="Select" name="item_details[{{$product_index}}][item]" class="select2_item_initial form-control input-lg item-select" style = "width: 100%">
+                                                                    <option></option>
+                                                                    @foreach($items as $item)
+                                                                        <option @if($productItem->item_id == $item->id) selected @endif value="{{$item->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$item->taxed_selling_price}}">{{$item->name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <input  id="item_quantity[{{$product_index}}]" onchange = "this.oninput()" name="item_details[{{$product_index}}][amount]" type="number" class="form-control input-lg item-total" value="{{$productItem->quantity}}" min = "0">
+                                                            </td>
+                                                            <td>
+                                                                <span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>
+                                                            </td>
+                                                        </tr>
+                                                        @php
+                                                            $product_index++
+                                                        @endphp
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td>
+                                                            <select id="item_details" disabled data-placement="Select" name="item_details[0][item]" class="select2_item_initial form-control input-lg item-select" style = "width: 100%">
+                                                                <option></option>
+                                                                @foreach($items as $item)
+                                                                    <option value="{{$item->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$item->taxed_selling_price}}">{{$item->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input id="item_quantity" disabled onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
+                                                        </td>
+                                                        <td>
+                                                            <span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+
+                                                </tbody>
+                                            </table>
+                                            <button type="button" id="add_new_item_row" class="btn btn-small btn-primary" @if(!$product->is_created) disabled @endif onclick = "addTableRow()" dis>+ Add Another Line</button>
                                         </div>
                                     </div>
 
@@ -556,6 +616,112 @@
 <script>
     $(document).ready(function(){
 
+        $(".select2_unit").select2({
+            placeholder: "Select Unit",
+            allowClear: true
+        });
+
+        $(".select2_item_initial").select2({
+            placeholder: "Select Item",
+            allowClear: true
+        });
+
+        $(".select2_selling_account").select2({
+            placeholder: "Select Selling Account",
+            allowClear: true
+        });
+
+        $(".select2_purchase_account").select2({
+            placeholder: "Select Purchase Account",
+            allowClear: true
+        });
+
+        $(".select2_brand").select2({
+            placeholder: "Select Brand",
+            allowClear: true
+        });
+
+        $(".select2_product_sub_category").select2({
+            placeholder: "Select Product Sub Category",
+            allowClear: true
+        });
+
+        $(".select2_taxes").select2({
+            placeholder: "Select Taxes",
+            allowClear: true
+        });
+
+        $('.tax_method-select').select2({
+            theme: "default",
+            placeholder: "Select tax method",
+        });
+
+        $(".select2_inventory_account").select2({
+            placeholder: "Select Inventory Account",
+            allowClear: true
+        });
+
+
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+        $('#data_2 .input-group.date').datepicker({
+            startView: 1,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+
+        $('#data_3 .input-group.date').datepicker({
+            startView: 2,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
+        });
+
+        $('#data_4 .input-group.date').datepicker({
+            minViewMode: 1,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        $('#data_5 .input-daterange').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
+        });
+
+
+        $(".select2_demo_1").select2();
+        $(".select2_demo_2").select2();
+        $(".select2_demo_3").select2({
+            placeholder: "Select a state",
+            allowClear: true
+        });
+
+
+
+    });
+
+    $(".select2").select2();
+
+
+</script>
+
+<script>
+    $(document).ready(function(){
+
         Dropzone.options.dropzone =
             {
                 maxFilesize: 12,
@@ -624,10 +790,20 @@
                 // enable end_time input
                 document.getElementById("creation_time").disabled = false;
                 document.getElementById("creation_cost").disabled = false;
+                document.getElementById("item_details").disabled = false;
+                document.getElementById("item_quantity").disabled = false;
+                document.getElementById("add_new_item_row").disabled = false;
+                document.getElementById("purchase_price").disabled = true;
+                document.getElementById("purchase_account").disabled = true;
             } else {
                 // disable input
                 document.getElementById("creation_time").disabled = true;
                 document.getElementById("creation_cost").disabled = true;
+                document.getElementById("item_details").disabled = true;
+                document.getElementById("item_quantity").disabled = true;
+                document.getElementById("add_new_item_row").disabled = true;
+                document.getElementById("purchase_price").disabled = false;
+                document.getElementById("purchase_account").disabled = false;
             }
         });
 
@@ -637,336 +813,72 @@
 </script>
 
 <script>
-    $(document).ready(function(){
+    var subTotal = [];
+    var adjustedValue;
+    var tableValueArrayIndex = {{$product_index}};
+    function addTableRow () {
+        if (document.getElementById('is_created').checked) {
+            var table = document.getElementById("estimate_table");
+            var row = table.insertRow();
+            var firstCell = row.insertCell(0);
+            var secondCell = row.insertCell(1);
+            var thirdCell = row.insertCell(2);
+            firstCell.innerHTML = "<select data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_item form-control input-lg item-select' style = 'width: 100%'>"+
+                "<option></option>"+
+                "@foreach($items as $item)"+
+                "<option value='{{$item->id}}' data-product-quantity = '-20' >{{$item->name}} </option>"+
+                "@endforeach"+
+                "</select>";
+            secondCell.innerHTML = "<input name='item_details["+tableValueArrayIndex+"][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
+            thirdCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+            thirdCell.setAttribute("style", "width: 1em;")
+            tableValueArrayIndex++;
 
-        $(".select2_unit").select2({
-            placeholder: "Select Unit",
-            allowClear: true
-        });
-
-        $(".select2_selling_account").select2({
-            placeholder: "Select Selling Account",
-            allowClear: true
-        });
-
-        $(".select2_purchase_account").select2({
-            placeholder: "Select Purchase Account",
-            allowClear: true
-        });
-
-        $(".select2_brand").select2({
-            placeholder: "Select Brand",
-            allowClear: true
-        });
-
-        $(".select2_product_sub_category").select2({
-            placeholder: "Select Product Sub Category",
-            allowClear: true
-        });
-
-        $(".select2_taxes").select2({
-            placeholder: "Select Taxes",
-            allowClear: true
-        });
-
-        $('.tax_method-select').select2({
-            theme: "default",
-            placeholder: "Select tax method",
-        });
-
-        $(".select2_inventory_account").select2({
-            placeholder: "Select Inventory Account",
-            allowClear: true
-        });
-
-        var $image = $(".image-crop > img")
-        $($image).cropper({
-            aspectRatio: 1.618,
-            preview: ".img-preview",
-            done: function(data) {
-                // Output the result data for cropping image.
-            }
-        });
-
-        var $inputImage = $("#inputImage");
-        if (window.FileReader) {
-            $inputImage.change(function() {
-                var fileReader = new FileReader(),
-                    files = this.files,
-                    file;
-
-                if (!files.length) {
-                    return;
-                }
-
-                file = files[0];
-
-                if (/^image\/\w+$/.test(file.type)) {
-                    fileReader.readAsDataURL(file);
-                    fileReader.onload = function () {
-                        $inputImage.val("");
-                        $image.cropper("reset", true).cropper("replace", this.result);
-                    };
-                } else {
-                    showMessage("Please choose an image file.");
-                }
+            $(".select2_item").select2({
+                placeholder: "Select Item",
+                allowClear: true
             });
-        } else {
-            $inputImage.addClass("hide");
+        }else{
+            alert("Please mark the product as created to continue.");
         }
+    };
+    function removeSelectedRow (e) {
+        var selectedParentTd = e.parentElement.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var selectedTable = selectedTr.parentElement;
+        var removed = selectedTr.getElementsByClassName("item-select")[0].getAttribute("name");
+        adjustTableInputFieldsIndex(removed);
+        selectedTable.removeChild(selectedTr);
+        tableValueArrayIndex--;
 
-        $("#download").click(function() {
-            window.open($image.cropper("getDataURL"));
-        });
-
-        $("#zoomIn").click(function() {
-            $image.cropper("zoom", 0.1);
-        });
-
-        $("#zoomOut").click(function() {
-            $image.cropper("zoom", -0.1);
-        });
-
-        $("#rotateLeft").click(function() {
-            $image.cropper("rotate", 45);
-        });
-
-        $("#rotateRight").click(function() {
-            $image.cropper("rotate", -45);
-        });
-
-        $("#setDrag").click(function() {
-            $image.cropper("setDragMode", "crop");
-        });
-
-        $('#data_1 .input-group.date').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
-        });
-
-        $('#data_2 .input-group.date').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "dd/mm/yyyy"
-        });
-
-        $('#data_3 .input-group.date').datepicker({
-            startView: 2,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true
-        });
-
-        $('#data_4 .input-group.date').datepicker({
-            minViewMode: 1,
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            todayHighlight: true
-        });
-
-        $('#data_5 .input-daterange').datepicker({
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true
-        });
-
-        var elem = document.querySelector('.js-switch');
-        var switchery = new Switchery(elem, { color: '#1AB394' });
-
-        var elem_2 = document.querySelector('.js-switch_2');
-        var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
-
-        var elem_3 = document.querySelector('.js-switch_3');
-        var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
-
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green'
-        });
-
-        $('.demo1').colorpicker();
-
-        var divStyle = $('.back-change')[0].style;
-        $('#demo_apidemo').colorpicker({
-            color: divStyle.backgroundColor
-        }).on('changeColor', function(ev) {
-            divStyle.backgroundColor = ev.color.toHex();
-        });
-
-        $('.clockpicker').clockpicker();
-
-        $('input[name="daterange"]').daterangepicker();
-
-        $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
-
-        $('#reportrange').daterangepicker({
-            format: 'MM/DD/YYYY',
-            startDate: moment().subtract(29, 'days'),
-            endDate: moment(),
-            minDate: '01/01/2012',
-            maxDate: '12/31/2015',
-            dateLimit: { days: 60 },
-            showDropdowns: true,
-            showWeekNumbers: true,
-            timePicker: false,
-            timePickerIncrement: 1,
-            timePicker12Hour: true,
-            ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            },
-            opens: 'right',
-            drops: 'down',
-            buttonClasses: ['btn', 'btn-sm'],
-            applyClass: 'btn-primary',
-            cancelClass: 'btn-default',
-            separator: ' to ',
-            locale: {
-                applyLabel: 'Submit',
-                cancelLabel: 'Cancel',
-                fromLabel: 'From',
-                toLabel: 'To',
-                customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                firstDay: 1
-            }
-        }, function(start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        });
-
-        $(".select2_demo_1").select2();
-        $(".select2_demo_2").select2();
-        $(".select2_demo_3").select2({
-            placeholder: "Select a state",
-            allowClear: true
-        });
-
-
-        $(".touchspin1").TouchSpin({
-            buttondown_class: 'btn btn-white',
-            buttonup_class: 'btn btn-white'
-        });
-
-        $(".touchspin2").TouchSpin({
-            min: 0,
-            max: 100,
-            step: 0.1,
-            decimals: 2,
-            boostat: 5,
-            maxboostedstep: 10,
-            postfix: '%',
-            buttondown_class: 'btn btn-white',
-            buttonup_class: 'btn btn-white'
-        });
-
-        $(".touchspin3").TouchSpin({
-            verticalbuttons: true,
-            buttondown_class: 'btn btn-white',
-            buttonup_class: 'btn btn-white'
-        });
-
-
-    });
-
-    $(".select2").select2();
-
-    $("#ionrange_1").ionRangeSlider({
-        min: 0,
-        max: 5000,
-        type: 'double',
-        prefix: "$",
-        maxPostfix: "+",
-        prettify: false,
-        hasGrid: true
-    });
-
-    $("#ionrange_2").ionRangeSlider({
-        min: 0,
-        max: 10,
-        type: 'single',
-        step: 0.1,
-        postfix: " carats",
-        prettify: false,
-        hasGrid: true
-    });
-
-    $("#ionrange_3").ionRangeSlider({
-        min: -50,
-        max: 50,
-        from: 0,
-        postfix: "°",
-        prettify: false,
-        hasGrid: true
-    });
-
-    $("#ionrange_4").ionRangeSlider({
-        values: [
-            "January", "February", "March",
-            "April", "May", "June",
-            "July", "August", "September",
-            "October", "November", "December"
-        ],
-        type: 'single',
-        hasGrid: true
-    });
-
-    $("#ionrange_5").ionRangeSlider({
-        min: 10000,
-        max: 100000,
-        step: 100,
-        postfix: " km",
-        from: 55000,
-        hideMinMax: true,
-        hideFromTo: false
-    });
-
-    $(".dial").knob();
-
-    $("#basic_slider").noUiSlider({
-        start: 40,
-        behaviour: 'tap',
-        connect: 'upper',
-        range: {
-            'min':  20,
-            'max':  80
-        }
-    });
-
-    $("#range_slider").noUiSlider({
-        start: [ 40, 60 ],
-        behaviour: 'drag',
-        connect: true,
-        range: {
-            'min':  20,
-            'max':  80
-        }
-    });
-
-    $("#drag-fixed").noUiSlider({
-        start: [ 40, 60 ],
-        behaviour: 'drag-fixed',
-        connect: true,
-        range: {
-            'min':  20,
-            'max':  80
-        }
-    });
-
+    };
+    function adjustTableInputFieldsIndex (removedFieldName) {
+        // Fields whose values are submitted are:
+        // 1. item_details[][item]
+        // 2. item_details[][quantity]
+        // 3. item_details[][rate]
+        // 4. item_details[][amount]
+        var displacement = 0;
+        var removedIndex;
+        while (displacement < tableValueArrayIndex) {
+            if (removedFieldName == "item_details["+displacement+"][item]"){
+                removedIndex = displacement;
+            } else {
+                var itemField = document.getElementsByName("item_details["+displacement+"][item]");
+                var amountField = document.getElementsByName("item_details["+displacement+"][amount]");
+                if (removedIndex) {
+                    if (displacement > removedIndex) {
+                        var newIndex = displacement - 1;
+                        itemField[0].setAttribute("name", "item_details["+newIndex+"][item]");
+                        amountField[0].setAttribute("name", "item_details["+newIndex+"][amount]");
+                    };
+                };
+            };
+            displacement++;
+        };
+    };
 </script>
+
 
 <script>
 

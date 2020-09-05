@@ -421,6 +421,17 @@ class LandingController extends Controller
 //        return $userAccount;
     }
 
+    public function adminUserInvitation(Request $request, $user_id)
+    {
+        $user = User::findOrFail(decrypt($user_id));
+
+        $userAccount = UserAccount::where('user_id',$user->id)->where('is_admin', true)->first();
+
+        // update user password and phone number and verified_at
+        return view('auth.admin_add_user', compact('user','institution'));
+//        return $userAccount;
+    }
+
     public function businessStoreUserAccount(Request $request, $user_id ,$institution_id)
     {
         $user = User::findOrFail(decrypt($user_id));
@@ -447,6 +458,41 @@ class LandingController extends Controller
         $userUserAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => false]);
 
         $userAccount = UserAccount::where('user_id',$user->id)->where('institution_id',$institution->id)->first();
+        $userAccount->is_active = true;
+        $userAccount->save();
+
+        // log in user
+        auth()->login($user);
+        // update user password and phone number and verified_at
+        return redirect('home');
+//        return $userAccount;
+    }
+
+    public function adminStoreUserAccount(Request $request, $user_id )
+    {
+        $user = User::findOrFail(decrypt($user_id));
+
+        if ($user->phone_number != $request->phone_number){
+            $validatedUserData = $request->validate([
+                'phone_number' => ['required', 'string', 'max:255', 'unique:users'],
+            ]);
+            $user->phone_number = $request->phone_number;
+        }
+        $validatedUserData = $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        // update user verified_at, set user password
+        $user->email_verified_at = now();
+        $user->name = $request->name;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        // set user account active
+        $user = User::findOrFail(decrypt($user_id));
+        $userUserAccounts = UserAccount::where('user_id',$user->id)->update(['is_active' => false]);
+
+        $userAccount = UserAccount::where('user_id',$user->id)->where('is_admin', true)->first();
         $userAccount->is_active = true;
         $userAccount->save();
 

@@ -39,12 +39,6 @@
         <td class="display-block padding" width="100%" height="29" style="line-height:1px;"></td>
     </tr>
     <tr>
-        <td width="100%" align="center" valign="middle" style="margin:0px; padding:0px; font-size:12px; color:#111111; font-family: 'Open Sans', Helvetica, Arial, Verdana, sans-serif; font-weight:normal; line-height:24px;">Lorem ipsum dolor sit amet, consectetur <br>adipisicing elit, sed do eiusmod.</td>
-    </tr>
-    <tr>
-        <td class="display-block padding" width="100%" height="22" style="line-height:1px;"></td>
-    </tr>
-    <tr>
         <td width="100%" align="center" valign="middle">
             <table class="width_90percent" align="center" border="0" cellpadding="0" cellspacing="0" width="255" style="border-collapse:collapse; max-width:100%; -webkit-border-radius:30px; border-radius:30px;" bgcolor="#ffc600">
                 <tbody>

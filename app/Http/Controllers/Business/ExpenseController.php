@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Business;
 
 use App\PaymentSchedule;
+use App\Product;
+use App\Restock;
 use DB;
 use App\Loan;
 use App\Sale;
@@ -75,8 +77,10 @@ class ExpenseController extends Controller
         $frequencies = Frequency::where("status_id", "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
+        // Getting Products
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
 
-        return view('business.expense_create', compact( 'campaigns', 'sales', 'user', 'institution', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses', 'accounts', 'paymentSchedules'));
+        return view('business.expense_create', compact( 'campaigns', 'sales', 'user', 'institution', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses', 'accounts', 'paymentSchedules', 'products'));
     }
 
     public function expenseStore(Request $request, $portal)
@@ -158,6 +162,7 @@ class ExpenseController extends Controller
             $expense->is_recurring = false;
         }
 
+        $expense->is_restock = false;
         $expense->paid = 0;
         $expense->sub_total = $request->subtotal;
         $expense->adjustment = $request->adjustment;
@@ -236,18 +241,94 @@ class ExpenseController extends Controller
         // item details
         foreach ($request->item_details as $item)
         {
-            // item details
-            $expenseItem = new ExpenseItem();
-            $expenseItem->name = $item['item'];
-            $expenseItem->quantity = $item['quantity'];
-            $expenseItem->rate = $item['rate'];
-            $expenseItem->amount = $item['amount'];
-            $expenseItem->user_id = $user->id;
-            $expenseItem->expense_id = $expense->id;
-            $expenseItem->status_id = $request->status;
-            $expenseItem->is_institution = true;
-            $expenseItem->is_user = false;
-            $expenseItem->save();
+            $data = $item['item'];
+            if (strpos($data, ':') !== false){
+                list($product_id, $inventory_id,) = explode(":", $data);
+                $inventory = Inventory::where('id', $inventory_id)->with('product')->first();
+                $warehouse_id = $inventory->warehouse_id;
+
+                $current_quantity = $inventory->quantity;
+                $new_quantity = $inventory->quantity+$item['quantity'];
+                // restock record
+                // Create record for inventory, tracking the stock input
+                $restock = new Restock();
+                $restock->date = date('Y-m-d');
+                $restock->initial_warehouse_amount = $current_quantity;
+                $restock->subsequent_warehouse_amount = $new_quantity;
+
+                // getting unit value
+                if (doubleval($request->opening_stock) > 0 ){
+                    $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+                }
+                else{
+                    $unit_value = 0;
+                }
+                $restock->unit_value = $item['rate'];
+                $restock->total_value = $item['amount'];
+                $restock->quantity = $item['quantity'];
+                $restock->warehouse_id = $inventory->warehouse_id;
+                $restock->product_id = $product_id;
+                $restock->is_opening_stock = false;
+                $restock->user_id = $user->id;
+                $restock->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
+                $restock->save();
+
+                // update inventory
+                $inventory->quantity = $new_quantity;
+                $inventory->save();
+
+                // expense item
+                $expenseItem = new ExpenseItem();
+                $expenseItem->name = $inventory->product->name;
+                $expenseItem->quantity = $item['quantity'];
+                $expenseItem->rate = $item['rate'];
+                $expenseItem->amount = $item['amount'];
+                $expenseItem->user_id = $user->id;
+                $expenseItem->expense_id = $expense->id;
+                $expenseItem->status_id = $request->status;
+                $expenseItem->restock_id = $restock->id;
+                $expenseItem->is_restock = true;
+                $expenseItem->is_product = true;
+                $expenseItem->is_institution = true;
+                $expenseItem->is_user = false;
+                $expenseItem->save();
+
+            }else{
+                $product_id = $data;
+                $product = Product::where('id',$product_id)->first();
+                if($product){
+                    // item details
+                    $expenseItem = new ExpenseItem();
+                    $expenseItem->name = $product->name;
+                    $expenseItem->quantity = $item['quantity'];
+                    $expenseItem->rate = $item['rate'];
+                    $expenseItem->amount = $item['amount'];
+                    $expenseItem->user_id = $user->id;
+                    $expenseItem->expense_id = $expense->id;
+                    $expenseItem->status_id = $request->status;
+                    $expenseItem->is_restock = false;
+                    $expenseItem->is_product = true;
+                    $expenseItem->product_id = $product->id;
+                    $expenseItem->is_institution = true;
+                    $expenseItem->is_user = false;
+                    $expenseItem->save();
+                }else{
+                    // item details
+                    $expenseItem = new ExpenseItem();
+                    $expenseItem->name = $item['item'];
+                    $expenseItem->quantity = $item['quantity'];
+                    $expenseItem->rate = $item['rate'];
+                    $expenseItem->amount = $item['amount'];
+                    $expenseItem->user_id = $user->id;
+                    $expenseItem->expense_id = $expense->id;
+                    $expenseItem->status_id = $request->status;
+                    $expenseItem->is_restock = false;
+                    $expenseItem->is_product = false;
+                    $expenseItem->is_institution = true;
+                    $expenseItem->is_user = false;
+                    $expenseItem->save();
+                }
+            }
         }
 
         return redirect()->route('business.expense.show',['portal'=>$institution->portal, 'id'=>$expense->id])->withSuccess('Expense '.$expense->reference.' successfully created!');

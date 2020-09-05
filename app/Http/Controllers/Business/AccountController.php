@@ -40,6 +40,7 @@ class AccountController extends Controller
 
     public function accounts($portal)
     {
+
         // User
         $user = $this->getUser();
         // return $user;

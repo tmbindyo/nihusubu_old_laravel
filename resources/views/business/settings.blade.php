@@ -30,17 +30,17 @@
                             <li class="@if(session()->get( 'active' ) == 'campaignTypes') active @endif"><a data-toggle="tab" href="#campaignTypes">Campaign Types</a></li>
                             <li class="@if(session()->get( 'active' ) == 'contactTypes') active @endif"><a data-toggle="tab" href="#contactTypes">Contact Types</a></li>
                             <li class="@if(session()->get( 'active' ) == 'frequencies') active @endif"><a data-toggle="tab" href="#frequencies">Frequencies</a></li>
+                            <li class="@if(session()->get( 'active' ) == 'institution') active @endif"><a data-toggle="tab" href="#institution">Institution</a></li>
                             <li class="@if(session()->get( 'active' ) == 'leadSources') active @endif"><a data-toggle="tab" href="#leadSources">Lead Sources</a></li>
+                            <li class="@if(session()->get( 'active' ) == 'modules') active @endif"><a data-toggle="tab" href="#modules">Modules</a></li>
                             <li class="@if(session()->get( 'active' ) == 'paymentSchedules') active @endif"><a data-toggle="tab" href="#paymentSchedules">Payment Schedules</a></li>
                             <li class="@if(session()->get( 'active' ) == 'productCategories') active @endif"><a data-toggle="tab" href="#productCategories">Product Categories</a></li>
                             <li class="@if(session()->get( 'active' ) == 'productSubCategories') active @endif"><a data-toggle="tab" href="#productSubCategories">Product Sub Categories</a></li>
+                            <li class="@if(session()->get( 'active' ) == 'roles') active @endif"><a data-toggle="tab" href="#roles">Roles</a></li>
                             <li class="@if(session()->get( 'active' ) == 'taxes') active @endif"><a data-toggle="tab" href="#taxes">Taxes</a></li>
                             <li class="@if(session()->get( 'active' ) == 'titles') active @endif"><a data-toggle="tab" href="#titles">Titles</a></li>
                             <li class="@if(session()->get( 'active' ) == 'units') active @endif"><a data-toggle="tab" href="#units">Units</a></li>
-                            <li class="@if(session()->get( 'active' ) == 'roles') active @endif"><a data-toggle="tab" href="#roles">Roles</a></li>
                             <li class="@if(session()->get( 'active' ) == 'users') active @endif"><a data-toggle="tab" href="#users">Users</a></li>
-                            <li class="@if(session()->get( 'active' ) == 'institution') active @endif"><a data-toggle="tab" href="#institution">Institution</a></li>
-                            <li class="@if(session()->get( 'active' ) == 'modules') active @endif"><a data-toggle="tab" href="#modules">Modules</a></li>
                         </ul>
                         <div class="tab-content ">
                             <div id="brands" class="tab-pane @if(session()->get( 'active' ) == 'brands') active @elseif(is_null(session()->get( 'active' ))) active @endif">
@@ -1241,9 +1241,11 @@
                                                                 @can('view role')
                                                                     <a href="{{ route('business.role.show', ['portal'=>$institution->portal, 'id'=>encrypt($role->id)]) }}" class="btn-white btn btn-xs">View</a>
                                                                 @endcan
-                                                                @can('delete role')
-                                                                    <a href="{{ route('business.role.delete', ['portal'=>$institution->portal, 'id'=>$role->id]) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                @endcan
+                                                                @if(str_replace($institution->portal.' ', "", $role->name) != "admin" )
+                                                                    @can('delete role')
+                                                                        <a href="{{ route('business.role.delete', ['portal'=>$institution->portal, 'id'=>$role->id]) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                    @endcan
+                                                                @endif
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -1291,7 +1293,9 @@
                                                         <td>{{$institutionUser->user->email}}</td>
                                                         <td>
                                                             @foreach($institutionUser->user->roles as $role)
-                                                                <label class="label label-default">{{$role->name}}</label>
+                                                                @if(in_array($role->name, $roleNames))
+                                                                    <label class="label label-default">{{$role->name}}</label>
+                                                                @endif
                                                             @endforeach
                                                         </td>
                                                         <td>{{ $institutionUser->created_at->format('d/m/Y H:i') }}</td>
@@ -1533,6 +1537,31 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-lg-2">
+                                                            <div class="has-warning">
+                                                                @if ($errors->has('sale_format'))
+                                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                                        <strong>{{ $errors->first('sale_format') }}</strong>
+                                                                    </span>
+                                                                @endif
+                                                                <input name="is_sale_random" id="is_sale_random" type="checkbox" @if($institution->is_sale_random) checked @endif class="enablerandomReference {{ $errors->has('is_sale_random') ? ' is-invalid' : '' }}" />
+                                                                <i>sale reference random</i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="has-warning">
+                                                                @if ($errors->has('sale_format'))
+                                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                                        <strong>{{ $errors->first('sale_format') }}</strong>
+                                                                    </span>
+                                                                @endif
+                                                                <input type="text" id="sale_format" name="sale_format" required="required" placeholder="Sale format" value="{{$institution->sale_format}}" class="form-control input-lg" @if($institution->is_sale_random) disabled @endif>
+                                                                <i>sale format</i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
 
                                                     @can('edit institution')
@@ -1766,6 +1795,26 @@
         });
 
     </script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.enablerandomReference').on('click',function(){
+            if (document.getElementById('is_sale_random').checked) {
+                // enable end_time input
+                document.getElementById("sale_format").disabled = true;
+
+            } else {
+                // disable input
+                document.getElementById("sale_format").disabled = false;
+
+            }
+        });
+
+
+    });
+
+</script>
 
     <!-- Page-Level Scripts -->
     <script>

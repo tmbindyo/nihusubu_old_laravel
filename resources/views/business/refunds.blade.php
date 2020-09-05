@@ -38,61 +38,61 @@
                 <div class="ibox-content">
 
                     <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Reference</th>
-                    <th>Amount</th>
-                    <th>Initial</th>
-                    <th>Subsequent</th>
-                    <th>Date</th>
-                    <th>Account</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($refunds as $refund)
-                    <tr class="gradeX">
-                        <td>
-                            {{$refund->reference}}
-                            <span><i data-toggle="tooltip" data-placement="right" title="{{$refund->notes}}." class="fa fa-facebook-messenger"></i></span>
-                        </td>
-                        <td>{{$refund->amount}}</td>
-                        <td>{{$refund->initial_amount}}</td>
-                        <td>{{$refund->subsequent_amount}}</td>
-                        <td>{{$refund->date}}</td>
-                        <td>{{$refund->account->name}}</td>
-                        <td>{{$refund->user->name}}</td>
-                        <td>
-                            <span class="label {{$refund->status->label}}">{{$refund->status->name}}</span>
-                        </td>
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Amount</th>
+                                    <th>Initial</th>
+                                    <th>Subsequent</th>
+                                    <th>Date</th>
+                                    <th>Account</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                        @foreach($refunds as $refund)
+                            <tr class="gradeX">
+                                <td>
+                                    {{$refund->reference}}
+                                    <span><i data-toggle="tooltip" data-placement="right" title="{{$refund->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                </td>
+                                <td>{{$refund->amount}}</td>
+                                <td>{{$refund->initial_amount}}</td>
+                                <td>{{$refund->subsequent_amount}}</td>
+                                <td>{{$refund->date}}</td>
+                                <td>{{$refund->account->name}}</td>
+                                <td>{{$refund->user->name}}</td>
+                                <td>
+                                    <span class="label {{$refund->status->label}}">{{$refund->status->name}}</span>
+                                </td>
 
-                        <td class="text-right">
-                            <div class="btn-group">
-                                @can('view refund')
-                                    <a href="{{ route('business.refund.show', ['portal'=>$institution->portal, 'id'=>$refund->id]) }}" class="btn-white btn btn-xs">View</a>
-                                @endcan
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Reference</th>
-                    <th>Amount</th>
-                    <th>Initial</th>
-                    <th>Subsequent</th>
-                    <th>Date</th>
-                    <th>Account</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
-                </tr>
-                </tfoot>
-                </table>
+                                <td class="text-right">
+                                    <div class="btn-group">
+                                        @can('view refund')
+                                            <a href="{{ route('business.refund.show', ['portal'=>$institution->portal, 'id'=>$refund->id]) }}" class="btn-white btn btn-xs">View</a>
+                                        @endcan
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Amount</th>
+                                    <th>Initial</th>
+                                    <th>Subsequent</th>
+                                    <th>Date</th>
+                                    <th>Account</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
 
                 </div>

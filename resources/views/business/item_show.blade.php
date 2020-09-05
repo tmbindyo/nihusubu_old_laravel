@@ -77,7 +77,7 @@
                             @if($item->is_inventory == "0")
                                 <h2 class="font-bold">N/A</h2>
                             @else
-                                <h2 class="font-bold">{{$item->stock_on_hand->first()->stock_on_hand}}</h2>
+                                <h2 class="font-bold">{{$item->stock_on_hand->first()->stock_on_hand}} {{$item->unit->name}}</h2>
                             @endif
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                             </div>
                             <div class="col-xs-8 text-right">
                                 <span> Reorder Level </span>
-                                <h2 class="font-bold">{{$item->reorder_level}}</h2>
+                                <h2 class="font-bold">{{$item->reorder_level}} {{$item->unit->name}}</h2>
                             </div>
                         </div>
                     </div>
@@ -241,6 +241,7 @@
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a href="#stock" data-toggle="tab">Stock</a></li>
+                                            <li class=""><a href="#products" data-toggle="tab">Products</a></li>
                                             <li class=""><a href="#restock" data-toggle="tab">Restock</a></li>
                                             <li class=""><a href="#inventory-adjustments" data-toggle="tab">Inventory Adjustments</a></li>
                                             <li class=""><a href="#transfer-orders" data-toggle="tab">Transfer Orders</a></li>
@@ -328,6 +329,51 @@
                                                             <th>Total Value</th>
                                                             <th>Subsequent Quantity</th>
                                                             <th>Restock</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
+                                        </div>
+                                        <div class="tab-pane" id="products">
+                                            @can('view products')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-product" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>SKU</th>
+                                                            <th>Quantity</th>
+                                                            <th>Status</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($item->itemProducts as $product)
+                                                            <tr class="gradeA">
+                                                                <td>{{$product->product->name}}</td>
+                                                                <td>{{$product->product->unit->name}}</td>
+                                                                <td>{{$product->quantity}}</td>
+                                                                <td class="center">
+                                                                    <p>@if ($product->product->is_service==1) Service: @elseif($product->product->is_service==0)Product: @endif <span class="label {{$product->product->status->label}}">{{$product->product->status->name}}</span></p>
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        @can('view product')
+                                                                            <a href="{{ route('business.product.show', ['portal'=>$institution->portal, 'id'=>$product->product->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>SKU</th>
+                                                            <th>Quantity</th>
+                                                            <th>Status</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
                                                         </tr>
                                                         </tfoot>
                                                     </table>
@@ -498,6 +544,73 @@
                     title: '{{$item->name}}',
                     exportOptions: {
                             columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-product').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$item->name}} Products',
+                    exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$item->name}} Products',
+                    exportOptions: {
+                            columns: [ 0, 1, 2 ]
                         }
                 },
 

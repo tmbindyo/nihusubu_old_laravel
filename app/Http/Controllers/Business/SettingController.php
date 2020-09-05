@@ -37,7 +37,10 @@ class SettingController extends Controller
     use UserTrait;
     use institutionTrait;
 
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     // brands
     public function settings($portal)
@@ -94,6 +97,9 @@ class SettingController extends Controller
         $deletedUnits = Unit::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->with('status', 'user')->get();
         // Get roles
         $roles = Role::where('institution_id', $institution->id)->with('permissions')->get();
+        $roleNames = Role::where('institution_id', $institution->id)->pluck('name')->toArray();
+        // return $roleNames;
+        // return $roles;
         // users
         $users = UserAccount::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id',$institution->id)->with('user.roles')->get();
         // deleted users
@@ -105,8 +111,8 @@ class SettingController extends Controller
         // modules
         $modules = Module::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_business',true)->get();
         // get institution modules
-        $institutionModulesIds = InstitutionModule::where('institution_id',$institution->id)->pluck('module_id')->toArray();
-        return view('business.settings', compact('brands', 'user', 'institution', 'brands', 'deletedBrands', 'campaignTypes', 'deletedCampaignTypes', 'contactTypes', 'deletedContactTypes', 'frequencies', 'deletedFrequencies', 'leadSources', 'deletedLeadSources', 'productCategories', 'deletedProductCategories', 'productSubCategories', 'deletedProductSubCategories', 'taxes', 'deletedTaxes', 'titles', 'deletedTitles', 'units', 'deletedUnits', 'roles', 'users', 'deletedUsers', 'plans', 'currencies', 'modules', 'institutionModulesIds', 'paymentSchedules' ,'deletedPaymentSchedules'));
+        $institutionModulesIds = InstitutionModule::where('status_id', "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id',$institution->id)->pluck('module_id')->toArray();
+        return view('business.settings', compact('brands', 'user', 'institution', 'brands', 'deletedBrands', 'campaignTypes', 'deletedCampaignTypes', 'contactTypes', 'deletedContactTypes', 'frequencies', 'deletedFrequencies', 'leadSources', 'deletedLeadSources', 'productCategories', 'deletedProductCategories', 'productSubCategories', 'deletedProductSubCategories', 'taxes', 'deletedTaxes', 'titles', 'deletedTitles', 'units', 'deletedUnits', 'roles', 'users', 'deletedUsers', 'plans', 'currencies', 'modules', 'institutionModulesIds', 'paymentSchedules' ,'deletedPaymentSchedules', 'roleNames'));
     }
 
 

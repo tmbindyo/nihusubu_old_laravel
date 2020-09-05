@@ -84,6 +84,7 @@ class InventoryController extends Controller
         $inventoryAdjustment->warehouse_id = $request->warehouse;
         $inventoryAdjustment->description = $request->description;
         $inventoryAdjustment->user_id = $user->id;
+        $inventoryAdjustment->institution_id = $institution->id;
         $inventoryAdjustment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $inventoryAdjustment->save();
 

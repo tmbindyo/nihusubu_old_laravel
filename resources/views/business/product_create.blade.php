@@ -233,7 +233,7 @@
                                         @endif
                                         <div class="col-md-12">
                                             <div class="has-warning">
-                                                <select name="purchase_account" class="select2_purchase_account form-control input-lg {{ $errors->has('purchase_account') ? ' is-invalid' : '' }}" required>
+                                                <select name="purchase_account" id="purchase_account" class="select2_purchase_account form-control input-lg {{ $errors->has('purchase_account') ? ' is-invalid' : '' }}" required>
                                                     <option></option>
                                                     <optgroup label="Exepense">
                                                         @foreach($expenseAccounts as $account)
@@ -342,7 +342,7 @@
                                             <strong>{{ $errors->first('creation_time') }}</strong>
                                         </span>
                                     @endif
-                                    <input type="number" id="creation_time" name="creation_time" placeholder="Creation/Value addition time" value="{{ old('creation_time') }}" class="form-control input-lg  {{ $errors->has('creation_time') ? ' is-invalid' : '' }}" disabled>
+                                    <input type="number" id="creation_time" name="creation_time" placeholder="Creation/Value addition time" required value="{{ old('creation_time') }}" class="form-control input-lg  {{ $errors->has('creation_time') ? ' is-invalid' : '' }}" disabled >
                                     <i>Average time taken to manufacture/create or add value to it in minutes.</i>
                                 </div>
                                 <div class="col-md-5">
@@ -351,7 +351,7 @@
                                             <strong>{{ $errors->first('creation_cost') }}</strong>
                                         </span>
                                     @endif
-                                    <input type="number" id="creation_cost" name="creation_cost" value="{{ old('creation_cost') }}" placeholder="Average Creation/Value Addition cost" class="form-control input-lg {{ $errors->has('creation_cost') ? ' is-invalid' : '' }}" disabled>
+                                    <input type="number" id="creation_cost" name="creation_cost" value="{{ old('creation_cost') }}" placeholder="Average Creation/Value Addition cost" required class="form-control input-lg {{ $errors->has('creation_cost') ? ' is-invalid' : '' }}" disabled >
                                     <i>Average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
                                 </div>
                             </div>
@@ -368,7 +368,7 @@
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_product_initial form-control input-lg select-product item-select" style = "width: 100%">
+                                                <select id="item_details" disabled data-placement="Select" name="item_details[0][item]" class="select2_item_initial form-control input-lg select-product item-select" style = "width: 100%">
                                                     <option></option>
                                                     @foreach($items as $item)
                                                         <option value="{{$item->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$item->taxed_selling_price}}">{{$item->name}}</option>
@@ -376,7 +376,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
+                                                <input id="item_quantity" disabled onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
                                             </td>
                                             <td>
                                                 <span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>
@@ -384,7 +384,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <label class="btn btn-small btn-primary" onclick = "addTableRow()" dis>+ Add Another Line</label>
+                                    <button type="button" class="btn btn-small btn-primary" id="add_new_item_row" disabled onclick = "addTableRow()">+ Add Another Line</button>
                                 </div>
                             </div>
                             <hr>
@@ -469,14 +469,6 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="row" name = "inventory_information">
-                                <div class="col-md-6">
-
-                                </div>
-                                <div class="col-md-6">
-
-                                </div>
-                            </div>
                             <hr>
                             <br />
 
@@ -610,11 +602,22 @@
                 if (document.getElementById('is_created').checked) {
                     // enable end_time input
                     document.getElementById("creation_time").disabled = false;
+                    document.getElementById("creation_time").required = true;
                     document.getElementById("creation_cost").disabled = false;
+                    document.getElementById("item_details").disabled = false;
+                    document.getElementById("item_quantity").disabled = false;
+                    document.getElementById("add_new_item_row").disabled = false;
+                    document.getElementById("purchase_price").disabled = true;
+                    document.getElementById("purchase_account").disabled = true;
                 } else {
                     // disable input
                     document.getElementById("creation_time").disabled = true;
                     document.getElementById("creation_cost").disabled = true;
+                    document.getElementById("item_details").disabled = true;
+                    document.getElementById("item_quantity").disabled = true;
+                    document.getElementById("add_new_item_row").disabled = true;
+                    document.getElementById("purchase_price").disabled = false;
+                    document.getElementById("purchase_account").disabled = false;
                 }
             });
 
@@ -770,83 +773,32 @@
     <script>
         var subTotal = [];
         var adjustedValue;
-        function itemSelected (e) {
-            var selectedItemQuantity = e.options[e.selectedIndex].getAttribute("data-product-quantity");
-            var selectItemPrice = e.options[e.selectedIndex].getAttribute("data-product-selling-price");
-            var selectedParentTd = e.parentElement;
-            var selectedTr = selectedParentTd.parentElement;
-            var itemQuantity = selectedTr.getElementsByClassName("item-quantity");
-            var itemRate = selectedTr.getElementsByClassName("item-rate");
-            // -20 is an arbitrary value set to indicate that an item is a service and so has no limit
-            if (selectedItemQuantity === "-20") {
-                itemQuantity[0].setAttribute("max", 100000000);
-            } else {
-                itemQuantity[0].setAttribute("max", selectedItemQuantity);
-            };
-            itemRate[0].value = selectItemPrice;
-        };
-        function changeItemQuantity (e) {
-            var quantityValue;
-            if (e.value.isEmpty) {
-                quantityValue = 0;
-            } else {
-                quantityValue = e.value;
-            };
-            var selectedParentTd = e.parentElement;
-            var selectedTr = selectedParentTd.parentElement;
-            var itemRateInputField = selectedTr.getElementsByClassName("item-rate");
-            var itemTotalInputField = selectedTr.getElementsByClassName("item-total");
-            var itemRate;
-            if (itemRateInputField[0].value.isEmpty) {
-                itemRate = 0;
-            } else {
-                itemRate = itemRateInputField[0].value;
-            };
-            itemTotalInputField[0].value = quantityValue * itemRate;
-            itemTotalChange();
-        };
-        function changeItemRate (e) {
-            var itemRate;
-            if (e.value.isEmpty) {
-                itemRate = 0;
-            } else {
-                itemRate = e.value;
-            };
-            var selectedParentTd = e.parentElement;
-            var selectedTr = selectedParentTd.parentElement;
-            var itemQuantityInputField = selectedTr.getElementsByClassName("item-quantity");
-            var itemTotalInputField = selectedTr.getElementsByClassName("item-total");
-            var quantityValue;
-            if (itemQuantityInputField[0].value.isEmpty) {
-                quantityValue = 0;
-            } else {
-                quantityValue = itemQuantityInputField[0].value;
-            };
-            itemTotalInputField[0].value = quantityValue * itemRate;
-            itemTotalChange();
-        };
         var tableValueArrayIndex = 1;
         function addTableRow () {
-            var table = document.getElementById("estimate_table");
-            var row = table.insertRow();
-            var firstCell = row.insertCell(0);
-            var secondCell = row.insertCell(1);
-            var thirdCell = row.insertCell(2);
-            firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_product form-control input-lg select-product item-select' style = 'width: 100%'>"+
-                "<option></option>"+
-                "@foreach($items as $item)"+
+            if (document.getElementById('is_created').checked) {
+                var table = document.getElementById("estimate_table");
+                var row = table.insertRow();
+                var firstCell = row.insertCell(0);
+                var secondCell = row.insertCell(1);
+                var thirdCell = row.insertCell(2);
+                firstCell.innerHTML = "<select data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_item form-control input-lg select-product item-select' style = 'width: 100%'>"+
+                    "<option></option>"+
+                    "@foreach($items as $item)"+
                     "<option value='{{$item->id}}' data-product-quantity = '-20' >{{$item->name}}</option>"+
-                "@endforeach"+
-                "</select>";
-            secondCell.innerHTML = "<input name='item_details["+tableValueArrayIndex+"][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
-            thirdCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
-            thirdCell.setAttribute("style", "width: 1em;")
-            tableValueArrayIndex++;
+                    "@endforeach"+
+                    "</select>";
+                secondCell.innerHTML = "<input name='item_details["+tableValueArrayIndex+"][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
+                thirdCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+                thirdCell.setAttribute("style", "width: 1em;")
+                tableValueArrayIndex++;
 
-            $(".select2_product").select2({
-                placeholder: "Select Product",
-                allowClear: true
-            });
+                $(".select2_item").select2({
+                    placeholder: "Select Item",
+                    allowClear: true
+                });
+            }else{
+                alert("Please mark the product as created to continue.");
+            }
         };
         function removeSelectedRow (e) {
             var selectedParentTd = e.parentElement.parentElement;
@@ -856,7 +808,6 @@
             adjustTableInputFieldsIndex(removed);
             selectedTable.removeChild(selectedTr);
             tableValueArrayIndex--;
-            itemTotalChange();
         };
         function adjustTableInputFieldsIndex (removedFieldName) {
             // Fields whose values are submitted are:
@@ -887,25 +838,6 @@
                 displacement++;
             };
         };
-        function itemTotalChange () {
-            subTotal = [];
-            var itemTotals = document.getElementsByClassName("item-total");
-            for (singleTotal of itemTotals) {
-                subTotal.push(Number(singleTotal.value));
-            };
-            var itemSubTotal = subTotal.reduce((a, b) => a + b, 0);
-            document.getElementById("items-subtotal").value = itemSubTotal;
-            document.getElementById("grand-total").innerHTML = itemSubTotal;
-            var adjustedValueInputValue = document.getElementById("adjustment-value").value;
-            if (adjustedValueInputValue.isEmpty) {
-                adjustedValue = 0
-            } else {
-                adjustedValue = adjustedValueInputValue;
-            };
-            document.getElementById("adjustment-value").innerHTML = adjustedValue;
-            var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
-            document.getElementById("grand-total").value = adjustedTotal;
-        };
     </script>
 
     <script>
@@ -916,8 +848,8 @@
                 allowClear: true
             });
 
-            $(".select2_product_initial").select2({
-                placeholder: "Select Product",
+            $(".select2_item_initial").select2({
+                placeholder: "Select Item",
                 allowClear: true
             });
 

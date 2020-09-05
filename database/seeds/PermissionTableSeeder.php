@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 class PermissionTableSeeder extends Seeder
@@ -299,6 +300,76 @@ class PermissionTableSeeder extends Seeder
         // institution
         $permission = Permission::create(['name' => 'view institution','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
         $permission = Permission::create(['name' => 'edit institution','module_id' => 'eaa241d4-0834-4ec3-80b1-e8e416cc324b']);
+
+
+        $role = Role::create(['name' => 'admin']);
+
+        $permission = Permission::create(['name' => 'admin view composite products']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view product groups']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view products']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view items']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view warehouses']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view transfer orders']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view inventory adjustments']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view campaigns']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view contacts']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view organizations']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view estimates']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view invoices']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view sales']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view orders']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view expenses']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view loans']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view payments']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view refunds']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view transfers']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin create role']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view roles']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view role']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin delete role']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin create user']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view users']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view user']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin delete user']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin assign role']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view dashboard']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view institutions']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view modules']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view nihusubu payments']);
+        $role->givePermissionTo($permission);
+        $permission = Permission::create(['name' => 'admin view payment']);
+        $role->givePermissionTo($permission);
 
     }
 }

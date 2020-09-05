@@ -231,7 +231,7 @@
                                     @endif
                                     <div class="col-md-12">
                                         <div class="has-warning">
-                                            <select name="purchase_account" class="select2_purchase_account form-control input-lg {{ $errors->has('purchase_account') ? ' is-invalid' : '' }}" required>
+                                            <select name="purchase_account" id="purchase_account" class="select2_purchase_account form-control input-lg {{ $errors->has('purchase_account') ? ' is-invalid' : '' }}" required>
                                                 <option></option>
                                                 <optgroup label="Exepense">
                                                     @foreach($expenseAccounts as $account)
@@ -318,6 +318,38 @@
                                 @endif
                                 <input type="number" id="creation_cost" name="creation_cost" value="{{ old('creation_cost') }}" placeholder="Average Creation/Value Addition cost" class="form-control input-lg {{ $errors->has('creation_cost') ? ' is-invalid' : '' }}" disabled>
                                 <i>average cost of manufacturing/creation or value addition process. Include items acquired and cost of time.</i>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered" id = "estimate_table">
+                                    <thead>
+                                    <tr>
+                                        <th>Item Details</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <select id="item_details" disabled data-placement="Select" name="item_details[0][item]" class="select2_item_initial form-control input-lg select-product item-select" style = "width: 100%">
+                                                <option></option>
+                                                @foreach($items as $item)
+                                                    <option value="{{$item->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$item->taxed_selling_price}}">{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input oninput = "itemTotalChange()" id="item_quantity" disabled onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
+                                        </td>
+                                        <td>
+                                            <span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <button type="button" class="btn btn-small btn-primary" id="add_new_item_row" disabled onclick = "addTableRow()">+ Add Another Line</button>
                             </div>
                         </div>
                         <br>
@@ -548,10 +580,18 @@
                     // enable input
                     document.getElementById("creation_time").disabled = false;
                     document.getElementById("creation_cost").disabled = false;
+                    document.getElementById("item_details").disabled = false;
+                    document.getElementById("item_quantity").disabled = false;
+                    document.getElementById("add_new_item_row").disabled = false;
+                    document.getElementById("purchase_account").disabled = true;
                 } else {
                     // disable input
                     document.getElementById("creation_time").disabled = true;
                     document.getElementById("creation_cost").disabled = true;
+                    document.getElementById("item_details").disabled = true;
+                    document.getElementById("item_quantity").disabled = true;
+                    document.getElementById("add_new_item_row").disabled = true;
+                    document.getElementById("purchase_account").disabled = false;
                 }
             });
             $('.enableInventory').on('click',function(){
@@ -580,6 +620,76 @@
 
         });
 
+    </script>
+
+    <script>
+        var subTotal = [];
+        var adjustedValue;
+        var tableValueArrayIndex = 1;
+        function addTableRow () {
+            if (document.getElementById('is_created').checked) {
+                var table = document.getElementById("estimate_table");
+                var row = table.insertRow();
+                var firstCell = row.insertCell(0);
+                var secondCell = row.insertCell(1);
+                var thirdCell = row.insertCell(2);
+                firstCell.innerHTML = "<select data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_item form-control input-lg select-product item-select' style = 'width: 100%'>"+
+                    "<option></option>"+
+                    "@foreach($items as $item)"+
+                    "<option value='{{$item->id}}' data-product-quantity = '-20' >{{$item->name}}</option>"+
+                    "@endforeach"+
+                    "</select>";
+                secondCell.innerHTML = "<input name='item_details["+tableValueArrayIndex+"][amount]' type='number' class='form-control input-lg item-total' placeholder='E.g +10, -10' value = '0' min = '0'>";
+                thirdCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+                thirdCell.setAttribute("style", "width: 1em;")
+                tableValueArrayIndex++;
+
+                $(".select2_item").select2({
+                    placeholder: "Select Item",
+                    allowClear: true
+                });
+            }else{
+                alert("Please mark the product as created to continue.");
+            }
+        };
+        function removeSelectedRow (e) {
+            var selectedParentTd = e.parentElement.parentElement;
+            var selectedTr = selectedParentTd.parentElement;
+            var selectedTable = selectedTr.parentElement;
+            var removed = selectedTr.getElementsByClassName("item-select")[0].getAttribute("name");
+            adjustTableInputFieldsIndex(removed);
+            selectedTable.removeChild(selectedTr);
+            tableValueArrayIndex--;
+        };
+        function adjustTableInputFieldsIndex (removedFieldName) {
+            // Fields whose values are submitted are:
+            // 1. item_details[][item]
+            // 2. item_details[][quantity]
+            // 3. item_details[][rate]
+            // 4. item_details[][amount]
+            var displacement = 0;
+            var removedIndex;
+            while (displacement < tableValueArrayIndex) {
+                if (removedFieldName == "item_details["+displacement+"][item]"){
+                    removedIndex = displacement;
+                } else {
+                    var itemField = document.getElementsByName("item_details["+displacement+"][item]");
+                    var quantityField = document.getElementsByName("item_details["+displacement+"][quantity]");
+                    var rateField = document.getElementsByName("item_details["+displacement+"][rate]");
+                    var amountField = document.getElementsByName("item_details["+displacement+"][amount]");
+                    if (removedIndex) {
+                        if (displacement > removedIndex) {
+                            var newIndex = displacement - 1;
+                            itemField[0].setAttribute("name", "item_details["+newIndex+"][item]");
+                            quantityField[0].setAttribute("name", "item_details["+newIndex+"][quantity]");
+                            rateField[0].setAttribute("name", "item_details["+newIndex+"][rate]");
+                            amountField[0].setAttribute("name", "item_details["+newIndex+"][amount]");
+                        };
+                    };
+                };
+                displacement++;
+            };
+        };
     </script>
 
     {{--  Tag script  --}}
@@ -674,6 +784,10 @@
             $('.taxes-select').select2({
                 theme: "default",
                 placeholder: "Select taxes",
+            });
+            $(".select2_item_initial").select2({
+                placeholder: "Select Item",
+                allowClear: true
             });
             $('.tax_method-select').select2({
                 theme: "default",

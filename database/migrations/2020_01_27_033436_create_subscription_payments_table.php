@@ -21,6 +21,7 @@ class CreateSubscriptionPaymentsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('subscription_type_id');
+            $table->uuid('subscription_id');
 
             $table->timestamps();
             $table->softDeletes();

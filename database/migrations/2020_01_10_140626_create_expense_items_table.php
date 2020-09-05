@@ -27,6 +27,11 @@ class CreateExpenseItemsTable extends Migration
             $table->boolean('is_institution');
             $table->boolean('is_user');
 
+            $table->boolean('is_product');
+            $table->uuid('product_id')->nullable();
+            $table->boolean('is_restock');
+            $table->uuid('restock_id')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

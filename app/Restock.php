@@ -32,6 +32,6 @@ class Restock extends Model implements Auditable
     }
     public function expenseItem()
     {
-        return $this->belongsTo('App\ExpenseItem')->with('expense');
+        return $this->hasOne('App\ExpenseItem')->with('expense');
     }
 }

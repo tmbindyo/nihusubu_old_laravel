@@ -86,7 +86,7 @@ class CommerceController extends Controller
             // get the commerce file
             $commerceFile = CommerceTemplateFile::where('commerce_template_id',$institution->commerce_template_id)->where('type','index')->first();
             // get institution products
-            $products = Product::where('institution_id',$institution->id)->where('is_product_group_child',false)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'productGroupProducts', 'productGroupProductMax', 'productGroupProductMin')->take(9)->get();
+            $products = Product::where('institution_id',$institution->id)->where('is_product_group_child',false)->where('is_item',false)->with('status', 'inventory.warehouse', 'inventory.status', 'restock', 'unit', 'saleProducts', 'user', 'inventoryAdjustmentProducts', 'transferOrderProducts', 'productImages.upload', 'productGroupProducts', 'productGroupProductMax', 'productGroupProductMin')->take(9)->get();
             return view($commerceFile->view,compact('institution','products'));
         }
     }
