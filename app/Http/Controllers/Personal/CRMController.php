@@ -41,9 +41,9 @@ class CRMController extends Controller
         // User
         $user = $this->getUser();
         // Get contacts
-        $contacts = Contact::where('user_id', $user->id)->where('is_user', true)->where('is_lead', false)->with('status', 'contactType', 'title')->get();
+        $contacts = Contact::where('user_id', $user->id)->where('is_user', true)->with('status', 'contactType', 'title')->get();
         // Get deleted contacts
-        $deletedContacts = Contact::where('user_id', $user->id)->where('is_user', true)->where('is_lead', false)->with('status', 'contactType', 'title')->onlyTrashed()->get();
+        $deletedContacts = Contact::where('user_id', $user->id)->where('is_user', true)->with('status', 'contactType', 'title')->onlyTrashed()->get();
 
         return view('personal.contacts', compact('contacts', 'user', 'deletedContacts'));
     }
@@ -83,11 +83,6 @@ class CRMController extends Controller
             $contact->is_organization = true;
         }else{
             $contact->is_organization = false;
-        }
-        if($request->is_lead == "on"){
-            $contact->is_lead = true;
-        }else{
-            $contact->is_lead = false;
         }
 
         $contact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -257,18 +252,6 @@ class CRMController extends Controller
         DB::table('contact_contact_types')->whereIn('id', $contactContactTypeIds)->delete();
 
 
-        return redirect()->route('personal.contact.show', $contact->id)->withSuccess('Contact updated!');
-    }
-
-    public function contactUpdateLeadToContact($contact_id)
-    {
-
-        // User
-        $user = $this->getUser();
-
-        $contact = Contact::findOrFail($contact_id);
-        $contact->is_lead = true;
-        $contact->save();
         return redirect()->route('personal.contact.show', $contact->id)->withSuccess('Contact updated!');
     }
 

@@ -38,14 +38,18 @@
                     <span>To:</span>
                     <address>
                         <strong>{{$sale->contact->last_name}} {{$sale->contact->first_name}}</strong><br>
-                        <abbr title="Phone">P:</abbr> {{$sale->contact->phone_number}}<br>
-                        <abbr title="Email">E:</abbr> {{$sale->contact->email}}
+                        <abbr title="Phone">tell:</abbr> {{$sale->contact->phone_number}}<br>
+                        <abbr title="Email">email:</abbr> {{$sale->contact->email}}
                     </address>
                 @endif
                 <p>
                     <span><strong>Sale Date:</strong> {{$sale->date}} </span><br/>
                     <span><strong>Due Date:</strong> {{$sale->due_date}}</span>
                 </p>
+
+                @if($sale->payment_schedule_id)
+                    <h5 class="text-navy">{{$sale->paymentSchedule->name}} [{{$sale->paymentSchedule->period}}]</h5>
+                @endif
             </div>
         </div>
 

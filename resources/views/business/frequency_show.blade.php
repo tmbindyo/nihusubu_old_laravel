@@ -9,13 +9,13 @@
             <h2>Frequencies</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.frequencies',$institution->portal)}}">Frequencies</a>
+                    <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Frequency Create</strong>
+                    <strong>Frequency Show</strong>
                 </li>
             </ol>
         </div>
@@ -60,7 +60,7 @@
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </span>
                                         @endif
-                                        <input type="name" name="name" value="{{$frequency->name}}" class="form-control input-lg">
+                                        <input type="name" name="name" value="{{$frequency->name}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                         <i>name</i>
                                     </div>
                                     <br>
@@ -70,7 +70,7 @@
                                             <strong>{{ $errors->first('type') }}</strong>
                                         </span>
                                         @endif
-                                        <select name="type" class="select2_demo_type form-control input-lg">
+                                        <select name="type" class="select2_demo_type form-control input-lg {{ $errors->has('type') ? ' is-invalid' : '' }}">
                                             <option></option>
                                             <option @if($frequency->type == "day")selected @endif value="day">day</option>
                                             <option @if($frequency->type == "week")selected @endif value="week">week</option>
@@ -86,7 +86,7 @@
                                             <strong>{{ $errors->first('frequency') }}</strong>
                                         </span>
                                         @endif
-                                        <input type="number" id="frequency" name="frequency" required="required" value="{{$frequency->frequency}}" class="form-control input-lg">
+                                        <input type="number" id="frequency" name="frequency" required="required" value="{{$frequency->frequency}}" class="form-control input-lg {{ $errors->has('frequency') ? ' is-invalid' : '' }}">
                                         <i>frequency</i>
                                     </div>
                                     @can('edit frequency')
@@ -102,6 +102,46 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$frequency->user->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-plus-square fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$frequency->created_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-scissors fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$frequency->updated_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
 
         @can('view expenses')
             <div class="row">

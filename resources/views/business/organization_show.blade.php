@@ -75,7 +75,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="text" id="name" name="name" required="required" value="{{$organization->name}}" class="form-control input-lg">
+                                                <input type="text" id="name" name="name" required="required" value="{{$organization->name}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                                 <i>name</i>
                                             </div>
                                         </div>
@@ -85,7 +85,7 @@
                                                 <strong>{{ $errors->first('parent_organization') }}</strong>
                                             </span>
                                             @endif
-                                            <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg">
+                                            <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg {{ $errors->has('parent_organization') ? ' is-invalid' : '' }}">
                                                 <option></option>
                                                 @foreach ($organizations as $parent_organization)
                                                     <option @if($parent_organization->parent_organization_id ==$parent_organization->id)selected @endif @if($organization->id ==$parent_organization->id)disabled @endif value="{{$parent_organization->id}}">{{$parent_organization->name}}</option>
@@ -104,7 +104,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="text" id="phone_number" name="phone_number" required="required" value="{{$organization->phone_number}}" class="form-control input-lg">
+                                                <input type="text" id="phone_number" name="phone_number" required="required" value="{{$organization->phone_number}}" class="form-control input-lg {{ $errors->has('phone_number') ? ' is-invalid' : '' }}">
                                                 <i>phone number</i>
                                             </div>
                                         </div>
@@ -115,7 +115,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="email" id="email" name="email" required="required" value="{{$organization->email}}" class="form-control input-lg">
+                                                <input type="email" id="email" name="email" required="required" value="{{$organization->email}}" class="form-control input-lg {{ $errors->has('email') ? ' is-invalid' : '' }}">
                                                 <i>email</i>
                                             </div>
                                         </div>
@@ -129,7 +129,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="text" id="street" name="street" required="required" value="{{$organization->street}}" class="form-control input-lg">
+                                                <input type="text" id="street" name="street" required="required" value="{{$organization->street}}" class="form-control input-lg {{ $errors->has('street') ? ' is-invalid' : '' }}">
                                                 <i>street</i>
                                             </div>
                                         </div>
@@ -140,7 +140,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="text" id="city" name="city" required="required" value="{{$organization->city}}" class="form-control input-lg">
+                                                <input type="text" id="city" name="city" required="required" value="{{$organization->city}}" class="form-control input-lg {{ $errors->has('city') ? ' is-invalid' : '' }}">
                                                 <i>city</i>
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@
                                                 <strong>{{ $errors->first('website') }}</strong>
                                             </span>
                                             @endif
-                                            <input type="text" id="website" name="website" required="required" value="{{$organization->website}}" class="form-control input-lg">
+                                            <input type="text" id="website" name="website" required="required" value="{{$organization->website}}" class="form-control input-lg {{ $errors->has('website') ? ' is-invalid' : '' }}">
                                             <i>website</i>
                                         </div>
                                     </div>
@@ -166,7 +166,7 @@
                                                     <strong>{{ $errors->first('description') }}</strong>
                                                 </span>
                                                 @endif
-                                                <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$organization->description}}</textarea>
+                                                <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg {{ $errors->has('description') ? ' is-invalid' : '' }}">{{$organization->description}}</textarea>
                                                 <i>description</i>
                                             </div>
                                         </div>
@@ -197,29 +197,56 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$organization->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$organization->status->label}}">{{$organization->status->name}}</span></dd>
-                                    </dl>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$organization->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$organization->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$organization->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$organization->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$organization->user->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$organization->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$organization->created_at}} </dd>
-                                    </dl>
-                                </div>
-                            </div>
+                            <hr>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                 <div class="panel blank-panel">
@@ -227,6 +254,7 @@
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a href="#contacts" data-toggle="tab">Contacts</a></li>
+                                            <li class=""><a href="#sales" data-toggle="tab">Sales</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -249,18 +277,18 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach($organization->contacts as $contact)
+                                                            @foreach($organization->contacts as $organizationContact)
                                                                 <tr class="gradeX">
-                                                                    <td>{{$contact->first_name}} {{$contact->last_name}}</td>
-                                                                    <td>{{$contact->email}}</td>
-                                                                    <td>{{$contact->phone_number}}</td>
-                                                                    <td>{{$contact->user->name}}</td>
+                                                                    <td>{{$organizationContact->first_name}} {{$organizationContact->last_name}}</td>
+                                                                    <td>{{$organizationContact->email}}</td>
+                                                                    <td>{{$organizationContact->phone_number}}</td>
+                                                                    <td>{{$organizationContact->user->name}}</td>
                                                                     <td>
-                                                                        <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
+                                                                        <span class="label {{$organizationContact->status->label}}">{{$organizationContact->status->name}}</span>
                                                                     </td>
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$contact->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                            <a href="{{ route('business.contact.show', ['portal'=>$institution->portal, 'id'=>$organizationContact->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -277,6 +305,70 @@
                                                             </tr>
                                                         </tfoot>
                                                     </table>
+                                                </div>
+                                            @endcan
+                                        </div>
+                                        <div class="tab-pane" id="sales">
+                                            @can('view sales')
+                                                <div class="table-responsive">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover dataTables-sales" >
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Sale #</th>
+                                                                <th>Date</th>
+                                                                <th>Due Date</th>
+                                                                <th>Customer</th>
+                                                                <th>Amount</th>
+                                                                <th>Paid</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @foreach($organization->contactSales as $sale)
+                                                                <tr class="gradeA">
+                                                                    <td>{{$sale->reference}}</td>
+                                                                    <td>{{$sale->date}}</td>
+                                                                    <td>{{$sale->due_date}}</td>
+
+                                                                    <td>
+                                                                        @if(isset($sale->contact))
+                                                                            {{$sale->contact->first_name}} {{$sale->contact->last_name}}
+                                                                        @else
+                                                                            <span class="label label-info"> NaN </span>
+                                                                        @endif
+                                                                    </td>
+
+                                                                    <td>{{$sale->total}}</td>
+                                                                    <td>{{$sale->paid}}</td>
+                                                                    <td>
+                                                                        <p><span class="label {{$sale->status->label}}">{{$sale->status->name}}</span></p>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <div class="btn-group">
+                                                                            @can('view sale')
+                                                                                <a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                            @endcan
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th>Sale #</th>
+                                                                <th>Date</th>
+                                                                <th>Due Date</th>
+                                                                <th>Customer</th>
+                                                                <th>Amount</th>
+                                                                <th>Paid</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             @endcan
                                         </div>
@@ -312,7 +404,7 @@
                                         @if($pendingToDo->is_design === 1)
                                             <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
                                         @endif
-                                        <a href="{{route('business.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                        <a href="{{route('business.to.do.set.in.progress',['portal'=>$institution->portal, 'id'=>$pendingToDo->id])}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                                     </div>
                                 </li>
                             @endforeach
@@ -378,7 +470,7 @@
 
 @endsection
 
-@include('business.layouts.modals.organization_to_do')
+@include('business.layouts.modals.to_do_create')
 
 @section('js')
 
@@ -521,6 +613,34 @@
 
     </script>
 
+{{-- to do start time and end time --}}
+<script>
+    $(document).ready(function() {
+        $('.enableEndDate').on('click',function(){
+
+            if (document.getElementById('is_end_date').checked) {
+                // enable end_time input
+                document.getElementById("end_date").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_date").disabled = true;
+            }
+
+        });
+
+        $('.enableEndTime').on('click',function(){
+            if (document.getElementById('is_end_time').checked) {
+                // enable end_time input
+                document.getElementById("end_time").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_time").disabled = true;
+            }
+        });
+    });
+
+</script>
+
 <style>
 
     .grid .ibox {
@@ -612,6 +732,65 @@
             "New row" ] );
 
     }
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.dataTables-sales').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$organization->name}} Sales',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                    }
+                },
+                {extend: 'pdf',
+                    title: '{{$organization->name}} Sales',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                    }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
 </script>
 
 <script>
@@ -800,6 +979,8 @@
             placeholder: "Select Categories",
             allowClear: true
         });
+
+        $('.chosen-select').chosen({width: "100%"});
 
 
     });

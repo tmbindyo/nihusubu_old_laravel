@@ -9,16 +9,16 @@
                 <h2>Invoice</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                        <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                     </li>
                     <li>
-                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
+                        <a href="#">Sales</a>
                     </li>
                     <li>
-                        <a href="{{route('business.invoices',$institution->portal)}}">Invoices</a>
+                        <strong><a href="{{route('business.invoices',$institution->portal)}}">Invoices</a></strong>
                     </li>
                     <li class="active">
-                        <strong>Invoice</strong>
+                        <strong>Invoice #{{$invoice->reference}}</strong>
                     </li>
                 </ol>
             </div>
@@ -36,9 +36,12 @@
                             <a href="{{route('business.sale.show',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Sale </a>
                         @endcan
                     @endif
-                        @can('print invoice')
+                    @can('send invoice')
+                        <a href="{{route('business.sale.compose',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-send-o"></i> Send </a>
+                    @endcan
+                    @can('print invoice')
                         <a href="{{route('business.invoice.print',['portal'=>$institution->portal, 'id'=>$invoice->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
-                        @endcan
+                    @endcan
                 </div>
             </div>
         </div>
@@ -82,6 +85,9 @@
                                         <span><strong>Invoice Date:</strong> {{$invoice->date}} </span><br/>
                                         <span><strong>Due Date:</strong> {{$invoice->due_date}} </span>
                                     </p>
+                                    @if($invoice->payment_schedule_id)
+                                        <h5 class="text-navy">{{$invoice->paymentSchedule->name}} [{{$invoice->paymentSchedule->period}}]</h5>
+                                    @endif
                                 </div>
                             </div>
 
@@ -122,7 +128,7 @@
                                     <td>{{$invoice->tax}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Discount :</strong></td>
+                                    <td><strong>Adjustment :</strong></td>
                                     <td>{{$invoice->discount}}</td>
                                 </tr>
                                 <tr>

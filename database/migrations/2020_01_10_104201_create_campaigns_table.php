@@ -26,7 +26,7 @@ class CreateCampaignsTable extends Migration
             $table->string('budgeted_cost');
             $table->longText('actual_cost');
 
-            $table->longText('expected_response');
+            $table->integer('expected_response')->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

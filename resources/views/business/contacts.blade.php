@@ -9,7 +9,10 @@
             <h2>Contact's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
+                </li>
+                <li>
+                    CRM
                 </li>
                 <li class="active">
                     <strong>Contacts</strong>

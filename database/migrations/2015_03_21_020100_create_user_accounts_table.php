@@ -17,6 +17,7 @@ class CreateUserAccountsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->integer('user_id')->unsigned();
+            $table->integer('registerer_id')->unsigned();
             $table->uuid('institution_id')->nullable();
             $table->uuid('status_id');
             $table->uuid('user_type_id');

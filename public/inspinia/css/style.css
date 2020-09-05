@@ -168,6 +168,7 @@ h5 {
 }
 .nav > li.active {
     border-left: 4px solid #19aa8d;
+    /*background: #808080;*/
     background: #293846;
 }
 .nav.nav-second-level > li.active {
@@ -8332,6 +8333,7 @@ body.md-skin {
 }
 .md-skin .navbar-static-side .nav > li > a:focus,
 .md-skin .navbar-static-side .nav > li > a:hover {
+    /*background-color: #fff3cd;*/
     background-color: inherit;
 }
 .md-skin .navbar-top-links .dropdown-menu li a {

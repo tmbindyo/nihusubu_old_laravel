@@ -58,7 +58,7 @@
                                                 <strong>{{ $errors->first('account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="account" class="select2_account form-control input-lg">
+                                        <select name="account" class="select2_account form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}">
                                             <option></option>
                                             @foreach ($accounts as $account)
                                                 <option @isset($depositExists) @if($depositExists->account_id == $account->id) selected @endif @endisset value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
@@ -71,7 +71,7 @@
                                         <div class="row">
                                             <div class="col-md-10">
                                                 <div class="has-warning">
-                                                    <select name="deposit" class="select2_deposit form-control input-lg">
+                                                    <select name="deposit" class="select2_deposit form-control input-lg {{ $errors->has('deposit') ? ' is-invalid' : '' }}">
                                                         <option value="{{$depositExists->id}}" >{{$depositExists->reference}}[{{$depositExists->amount}}]</option>
                                                     </select>
                                                     <i> deposit.</i>
@@ -79,7 +79,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="has-warning">
-                                                    <input type="checkbox" name="is_deposit" class="js-switch_3" aria-readonly="true" checked/>
+                                                    <input type="checkbox" name="is_deposit" class="js-switch_3 {{ $errors->has('is_deposit') ? ' is-invalid' : '' }}" aria-readonly="true" checked/>
                                                     <br>
                                                     <i>is deposit</i>
                                                 </div>
@@ -94,7 +94,7 @@
                                                 <strong>{{ $errors->first('amount') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" name="amount" value="{{ old('amount') }}" id="amount" class="form-control input-lg" required>
+                                        <input type="number" name="amount" value="{{ old('amount') }}" id="amount" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}" required>
                                         <i> adjustment amount @isset($depositExists) [deposit amount ({{$depositExists->amount}})] @endisset.</i>
                                     </div>
                                     <br>
@@ -110,7 +110,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </span>
-                                                <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" required>
+                                                <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" required>
                                             </div>
                                             <i> adjustment date.</i>
                                         </div>
@@ -123,7 +123,7 @@
                                                 <strong>{{ $errors->first('notes') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea name="notes" placeholder="Notes" required class="form-control" rows="7">{{ old('notes') }}</textarea>
+                                        <textarea name="notes" placeholder="Notes" required class="form-control {{ $errors->has('notes') ? ' is-invalid' : '' }}" rows="7">{{ old('notes') }}</textarea>
                                         <i> notes.</i>
                                     </div>
                                     <br>

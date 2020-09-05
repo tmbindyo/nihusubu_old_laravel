@@ -55,7 +55,7 @@
                                                 <strong>{{ $errors->first('name') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="text" id="name" name="name" required="required" placeholder="Name" value="{{ old('name') }}" class="form-control input-lg">
+                                        <input type="text" id="name" name="name" required="required" placeholder="Name" value="{{ old('name') }}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                         <i>name</i>
                                     </div>
                                     <br>
@@ -65,7 +65,7 @@
                                             <strong>{{ $errors->first('description') }}</strong>
                                         </span>
                                         @endif
-                                        <textarea name="description" rows="5" class="select form-control input-lg" placeholder="Description">{{ old('name') }}</textarea>
+                                        <textarea name="description" rows="5" class="select form-control input-lg {{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="Description">{{ old('name') }}</textarea>
                                     </div>
                                     <br>
                                     <hr>

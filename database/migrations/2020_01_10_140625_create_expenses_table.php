@@ -23,6 +23,7 @@ class CreateExpensesTable extends Migration
             $table->double('adjustment',20,2);
             $table->double('total',20,2);
             $table->double('paid',20,2);
+            $table->double('balance',20,2)->nullable();
 
             $table->date('date');
             $table->date('start_repeat')->nullable();
@@ -40,15 +41,13 @@ class CreateExpensesTable extends Migration
             $table->uuid('campaign_id')->nullable();
             $table->boolean('is_sale');
             $table->uuid('sale_id')->nullable();
-            $table->boolean('is_liability');
-            $table->uuid('liability_id')->nullable();
             $table->boolean('is_transfer');
             $table->uuid('transfer_id')->nullable();
             $table->boolean('is_transaction');
             $table->uuid('transaction_id')->nullable();
 
-            $table->boolean('is_draft');
             $table->boolean('is_recurring');
+            $table->boolean('is_restock');
 
             $table->boolean('is_user');
             $table->integer('user_id')->unsigned();
@@ -58,6 +57,7 @@ class CreateExpensesTable extends Migration
             $table->uuid('expense_account_id');
             $table->uuid('account_id');
             $table->uuid('frequency_id')->nullable();
+            $table->uuid('payment_schedule_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

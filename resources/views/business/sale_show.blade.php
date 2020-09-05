@@ -8,10 +8,13 @@
             <h2>Sale</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
-                    <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
+                    Sales
+                </li>
+                <li>
+                    <strong><a href="{{route('business.sales',$institution->portal)}}">Sales</a></strong>
                 </li>
                 <li class="active">
                     <strong>Sale</strong>
@@ -24,8 +27,11 @@
                 @can('add payment')
                     <a href="{{route('business.sale.payment.create',['portal'=>$institution->portal, 'id'=>$sale->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Payment </a>
                 @endcan
+                @can('send sale')
+                    <a href="{{route('business.sale.compose',['portal'=>$institution->portal, 'id'=>$sale->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-send-o"></i> Send </a>
+                @endcan
                 @can('print sale')
-                    <a href="{{route('business.sale.print',['portal'=>$institution->portal, 'id'=>$sale->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print Invoice </a>
+                    <a href="{{route('business.sale.print',['portal'=>$institution->portal, 'id'=>$sale->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
                 @endcan
                 @can('add contact')
                     <a href="{{route('business.contact.show',['portal'=>$institution->portal, 'id'=>$sale->contact_id])}}" class="btn btn-success btn-outline"><i class="fa fa-eye"></i> Contact </a>
@@ -71,6 +77,10 @@
                                     <span><strong>Invoice Date:</strong> {{$sale->date}} </span><br/>
                                     <span><strong>Due Date:</strong> {{$sale->due_date}} </span>
                                 </p>
+
+                                @if($sale->payment_schedule_id)
+                                    <h5 class="text-navy">{{$sale->paymentSchedule->name}} [{{$sale->paymentSchedule->period}}]</h5>
+                                @endif
                             </div>
                         </div>
 
@@ -115,7 +125,7 @@
                                 <td>{{$sale->tax}}</td>
                             </tr>
                             <tr>
-                                <td><strong>Discount :</strong></td>
+                                <td><strong>Adjustment :</strong></td>
                                 <td>{{$sale->discount}}</td>
                             </tr>
                             <tr>
@@ -139,23 +149,22 @@
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="wrapper wrapper-content animated fadeInRight">
-        @can('view payments')
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Payments</h5>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            @can('view payments')
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Payments</h5>
 
-                        </div>
-                        <div class="ibox-content">
+                            </div>
+                            <div class="ibox-content">
 
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                    <thead>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
                                         <tr>
                                             <th>Reference</th>
                                             <th>Amount</th>
@@ -168,9 +177,9 @@
                                             <th>Status</th>
                                             <th class="text-right" width="80em" data-sort-ignore="true">Action</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($payments as $payment)
+                                        </thead>
+                                        <tbody>
+                                        @foreach($sale->payments as $payment)
                                             <tr class="gradeX">
                                                 <td>
                                                     {{$payment->reference}}
@@ -206,8 +215,8 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                    </tbody>
-                                    <tfoot>
+                                        </tbody>
+                                        <tfoot>
                                         <tr>
                                             <th>Reference</th>
                                             <th>Amount</th>
@@ -220,16 +229,19 @@
                                             <th>Status</th>
                                             <th class="text-right" width="80em" data-sort-ignore="true">Action</th>
                                         </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+                                        </tfoot>
+                                    </table>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endcan
+            @endcan
+        </div>
     </div>
+
+
 @endsection
 
 

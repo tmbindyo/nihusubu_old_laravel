@@ -10,13 +10,13 @@
             <h2>Expense</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
-                    <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
+                    <a href="#">Accounting</a>
                 </li>
                 <li class="active">
-                    <strong>Expense</strong>
+                    <strong>Expenses</strong>
                 </li>
             </ol>
         </div>

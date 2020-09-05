@@ -12,9 +12,10 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mt-50">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Furniture</a></li>
-                                <li class="breadcrumb-item"><a href="#">Chairs</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">white modern chair</li>
+                                @if ($product->productSubCategory)
+                                    <li class="breadcrumb-item"><a href="#">{{$product->productSubCategory->productCategory->name}}</a></li>
+                                    <li class="breadcrumb-item"><a href="#">{{$product->productSubCategory->name}}</a></li>
+                                @endif
                             </ol>
                         </nav>
                     </div>
@@ -64,9 +65,13 @@
                             <!-- Product Meta Data -->
                             <div class="product-meta-data">
                                 <div class="line"></div>
-                                <p class="product-price">$180</p>
+                                @if ($product->is_product_group == 1)
+                                    <p>From {{$institution->currency->name}} {{$product->productGroupProductMin[0]->taxed_selling_price}}</p>
+                                @else
+                                    <p>{{$institution->currency->name}} {{$product->taxed_selling_price}}</p>
+                                @endif
                                 <a href="product-details.html">
-                                    <h6>White Modern Chair</h6>
+                                    <h6>{{$product->name}}</h6>
                                 </a>
                                 <!-- Ratings & Review -->
                                 <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
@@ -82,16 +87,21 @@
                                     </div>
                                 </div>
                                 <!-- Avaiable -->
-                                <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
+                                @if($product->is_inventory == true)
+                                    <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
+                                    <p class="low_stock"><i class="fa fa-circle"></i> Running Low On Stock</p>
+                                    <p class="in_avaibility"><i class="fa fa-circle"></i> Out Of Stock</p>
+                                @endif
                             </div>
 
                             <div class="short_overview my-5">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quae eveniet culpa officia quidem mollitia impedit iste asperiores nisi reprehenderit consequatur, autem, nostrum pariatur enim?</p>
+                                <p>{!! $product->description !!}</p>
                             </div>
 
                             <!-- Add to Cart Form -->
-                            <form class="cart clearfix" method="post">
-                                <div class="cart-btn d-flex mb-50">
+                            <form class="cart clearfix" method="post" action="{{ route('add.cart', ['portal'=>$institution->portal,'product_id'=>$product->id]) }}">
+                                @csrf
+                                <div class="cart-btn d-flex mb-15">
                                     <p>Qty</p>
                                     <div class="quantity">
                                         <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
@@ -99,6 +109,19 @@
                                         <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
+                                @if($product->productGroupProducts->count() > 0)
+                                    <div class="cart-btn d-flex mb-50">
+                                        <div class="row">
+                                            <div class="col-12 mb-3">
+                                                <select name="product" class="w-100" id="country">
+                                                    @foreach($product->productGroupProducts as $product)
+                                                        <option data-fid="" value="{{$product->id}}">{{$product->name}} {{$institution->currency->name}} {{$product->taxed_selling_price}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                                 <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
                             </form>
 

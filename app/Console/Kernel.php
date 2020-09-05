@@ -29,6 +29,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('recurring:institution_expense')->daily();
         $schedule->command('recurring:expense')->daily();
         $schedule->command('recurring:income')->daily();
+        $schedule->command('freetrial:checker')->daily();
+        $schedule->command('subscriptioncounter:institution')->daily();
+        // $schedule->command('subscription:renewal')->lastDayOfMonth('17.00');
+
     }
 
     /**

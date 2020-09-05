@@ -26,6 +26,10 @@ class Sale extends Model implements Auditable
     {
         return $this->belongsTo('App\Institution');
     }
+    public function paymentSchedule()
+    {
+        return $this->belongsTo('App\PaymentSchedule');
+    }
     public function project()
     {
         return $this->belongsTo('App\Project');
@@ -48,6 +52,10 @@ class Sale extends Model implements Auditable
     {
         return $this->hasMany('App\SaleProduct');
     }
+    public function saleEmails()
+    {
+        return $this->hasMany('App\SaleEmail');
+    }
     public function paymentsReceived()
     {
         return $this->hasMany('App\PaymentReceived');
@@ -55,5 +63,9 @@ class Sale extends Model implements Auditable
     public function productReturns()
     {
         return $this->hasMany('App\ProductReturn');
+    }
+    public function payments()
+    {
+        return $this->hasMany('App\Payment');
     }
 }

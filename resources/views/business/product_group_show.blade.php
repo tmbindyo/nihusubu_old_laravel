@@ -1,23 +1,23 @@
 @extends('business.layouts.app')
 
-@section('title', ' Product Group')
+@section('title', ' Product Group '.$productGroup->name)
 
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-8">
-        <h2>Product Group</h2>
+        <h2>Product Group {{$productGroup->name}}</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
             </li>
             <li>
-                <a href="{{route('business.products',$institution->portal)}}">Products</a>
+                <a href="#">Products</a>
             </li>
             <li>
-                <a href="{{route('business.product.groups',$institution->portal)}}">Product Groups</a>
+                <strong><a href="{{route('business.product.groups',$institution->portal)}}">Product Groups</a></strong>
             </li>
             <li class="active">
-                <strong>Product Group Products</strong>
+                <strong>Product Group {{$productGroup->name}}</strong>
             </li>
         </ol>
     </div>
@@ -34,7 +34,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         {{--  foreach  --}}
-        @foreach($productGroup->products as $product)
+        @foreach($productGroup->productGroupProducts as $product)
             <div class="col-md-4">
                 <div class="ibox ">
                     <div class="ibox-title">
@@ -45,7 +45,7 @@
                             {{--                            <img alt="image" class="img-fluid" src="img/profile_big.jpg">--}}
                         </div>
                         <div class="ibox-content profile-content">
-                            <h4><strong>{{$institution->currency->name}} {{$product->selling_price}}</strong></h4>
+                            <h4><strong>{{$institution->currency->name}} {{$product->taxed_selling_price}}</strong></h4>
                             @isset($product->unit_id)
                                 <p><i class="fa fa-map-marker"></i> {{$product->unit->name}}</p>
                             @endisset

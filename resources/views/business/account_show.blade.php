@@ -76,7 +76,7 @@
                                         </span>
                                         @endif
                                         <div class="has-warning">
-                                            <input type="name" name="name" value="{{$account->name}}" class="form-control input-lg">
+                                            <input type="name" name="name" value="{{$account->name}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                         </div>
                                         <i>name</i>
                                     </div>
@@ -88,7 +88,7 @@
                                         </span>
                                         @endif
                                         <div class="has-warning">
-                                            <input type="number" name="balance" value="{{$account->balance}}" class="form-control input-lg" readonly>
+                                            <input type="number" name="balance" value="{{$account->balance}}" class="form-control input-lg {{ $errors->has('balance') ? ' is-invalid' : '' }}" readonly>
                                         </div>
                                         <i>balance</i>
                                     </div>
@@ -100,7 +100,7 @@
                                         </span>
                                         @endif
                                         <div class="has-warning">
-                                            <textarea rows="5" name="notes" class="form-control input-lg" >{{$account->notes}}</textarea>
+                                            <textarea rows="5" name="notes" class="form-control input-lg {{ $errors->has('notes') ? ' is-invalid' : '' }}" >{{$account->notes}}</textarea>
                                         </div>
                                         <i>notes</i>
                                     </div>
@@ -125,27 +125,56 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$account->status->label}}">{{$account->status->name}}</span></dd>
-                                    </dl>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$account->user->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$account->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$account->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$account->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$account->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$account->user->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$account->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$account->created_at}} </dd>
-                                    </dl>
-                                </div>
-                            </div>
+                            <hr>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                 <div class="panel blank-panel">
@@ -239,21 +268,21 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($account->deposits as $deposit)
+                                                    @foreach($account->deposits as $deposits)
                                                         <tr class="gradeX">
                                                             <td>
-                                                                {{$deposit->reference}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$deposit->about}}." class="fa fa-facebook-messenger"></i></span>
+                                                                {{$deposits->reference}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$deposits->about}}." class="fa fa-facebook-messenger"></i></span>
                                                             </td>
-                                                            <td>{{$deposit->amount}}</td>
-                                                            <td>{{$deposit->user->name}}</td>
+                                                            <td>{{$deposits->amount}}</td>
+                                                            <td>{{$deposits->user->name}}</td>
                                                             <td>
-                                                                <span class="label {{$deposit->status->label}}">{{$deposit->status->name}}</span>
+                                                                <span class="label {{$deposits->status->label}}">{{$deposits->status->name}}</span>
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     @can('view deposit')
-                                                                        <a href="{{ route('business.deposit.show', ['portal'=>$institution->portal, 'id'=>$deposit->id]) }}" class="btn-white btn btn-xs">View</a>
+                                                                        <a href="{{ route('business.deposit.show', ['portal'=>$institution->portal, 'id'=>$deposits->id]) }}" class="btn-white btn btn-xs">View</a>
                                                                     @endcan
                                                                 </div>
                                                             </td>
@@ -809,7 +838,7 @@
 
 @endsection
 
-@include('business.layouts.modals.account_to_do')
+@include('business.layouts.modals.to_do_create')
 
 @section('js')
 
@@ -819,61 +848,109 @@
     <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
 
-    <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
+    <!-- ChartJS-->
+    <script src="{{ asset('inspinia') }}/js/plugins/chartJs/Chart.min.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
     <!-- Chosen -->
-<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
 
-<!-- JSKnob -->
-<script src="{{ asset('inspinia') }}/js/plugins/jsKnob/jquery.knob.js"></script>
+    <!-- blueimp gallery -->
+    <script src="{{ asset('inspinia') }}/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
 
-<!-- Input Mask-->
-<script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <!-- DROPZONE -->
+    <script src="{{ asset('inspinia') }}/js/plugins/dropzone/dropzone.js"></script>
 
-<!-- Data picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <!-- Switchery -->
+    <script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
 
-<!-- NouSlider -->
-<script src="{{ asset('inspinia') }}/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+    <!-- Image cropper -->
+    <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
 
-<!-- Switchery -->
-<script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
+    <!-- Data picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-<!-- IonRangeSlider -->
-<script src="{{ asset('inspinia') }}/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
 
-<!-- iCheck -->
-<script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
+    <!-- Date range picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
 
-<!-- MENU -->
-<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
 
-<!-- Color picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
 
-<!-- Clock picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
+    <!-- JSKnob -->
+    <script src="{{ asset('inspinia') }}/js/plugins/jsKnob/jquery.knob.js"></script>
 
-<!-- Image cropper -->
-<script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
+    <!-- Input Mask-->
+    <script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
-<!-- Date range use moment.js same as full calendar plugin -->
-<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
+    <!-- NouSlider -->
+    <script src="{{ asset('inspinia') }}/js/plugins/nouslider/jquery.nouislider.min.js"></script>
 
-<!-- Date range picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- IonRangeSlider -->
+    <script src="{{ asset('inspinia') }}/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
 
-<!-- Select2 -->
-<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+    <!-- iCheck -->
+    <script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
 
-<!-- TouchSpin -->
-<script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <!-- MENU -->
+    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Clock picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
+
+    <!-- Select2 -->
+    <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+    <!-- TouchSpin -->
+    <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+    <!-- Masonry -->
+    <script src="{{ asset('inspinia') }}/js/plugins/masonary/masonry.pkgd.min.js"></script>
+
+    <!-- Chosen -->
+    <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
+
+    <!-- Input Mask-->
+    <script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+    <!-- Data picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+    <!-- Switchery -->
+    <script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
+
+    <!-- iCheck -->
+    <script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- MENU -->
+    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Color picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+    <!-- Clock picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
+
+    <!-- Image cropper -->
+    <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
+
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
+
+    <!-- Date range picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+    <!-- Select2 -->
+    <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+
 
 
 {{--  Get due date to populate   --}}
@@ -907,6 +984,35 @@
     });
 
 </script>
+
+
+    {{-- to do start time and end time --}}
+    <script>
+        $(document).ready(function() {
+            $('.enableEndDate').on('click',function(){
+
+                if (document.getElementById('is_end_date').checked) {
+                    // enable end_time input
+                    document.getElementById("end_date").disabled = false;
+                } else {
+                    // disable input
+                    document.getElementById("end_date").disabled = true;
+                }
+
+            });
+
+            $('.enableEndTime').on('click',function(){
+                if (document.getElementById('is_end_time').checked) {
+                    // enable end_time input
+                    document.getElementById("end_time").disabled = false;
+                } else {
+                    // disable input
+                    document.getElementById("end_time").disabled = true;
+                }
+            });
+        });
+
+    </script>
 
     <!-- Page-Level Scripts -->
     <script>
@@ -1609,7 +1715,12 @@
                 placeholder: "Select Tags",
                 allowClear: true
             });
+            $(".select2_account").select2({
+                placeholder: "Select Account",
+                allowClear: true
+            });
 
+            $('.chosen-select').chosen({width: "100%"});
 
             $(".touchspin1").TouchSpin({
                 buttondown_class: 'btn btn-white',

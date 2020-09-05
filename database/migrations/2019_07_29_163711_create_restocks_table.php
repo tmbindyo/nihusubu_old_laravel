@@ -25,6 +25,7 @@ class CreateRestocksTable extends Migration
             $table->date('date');
 
             $table->uuid('warehouse_id');
+            $table->uuid('expense_id')->nullable();
             $table->uuid('product_id');
             $table->uuid('expense_item_id')->nullable();
             $table->integer('user_id')->unsigned();

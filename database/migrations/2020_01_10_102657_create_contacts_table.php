@@ -21,7 +21,7 @@ class CreateContactsTable extends Migration
             $table->string('email');
             $table->string('phone_number');
             $table->string('website')->nullable();
-            $table->longText('about');
+            $table->longText('about')->nullable();
 
             // address
             $table->string('street')->nullable();
@@ -38,8 +38,8 @@ class CreateContactsTable extends Migration
             $table->uuid('title_id')->nullable();
             $table->uuid('lead_source_id')->nullable();
             $table->uuid('campaign_id')->nullable();
-
-            $table->boolean('is_lead');
+            $table->boolean('is_chama');
+            $table->uuid('chama_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

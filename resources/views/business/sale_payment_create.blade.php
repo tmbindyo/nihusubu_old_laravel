@@ -1,7 +1,10 @@
 @extends('business.layouts.app')
 
-@section('title', 'Payment Create')
-
+@if($sale->is_order)
+    @section('title', 'Order Payment Create')
+@elseif($sale->is_sale)
+    @section('title', 'Sale Payment Create')
+@endif
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -9,16 +12,28 @@
             <h2>Payment's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
-                    CRM
+                    Sales
                 </li>
+                @if($sale->is_order)
+                    <li class="active">
+                        <strong><a href="{{route('business.orders',$institution->portal)}}">Orders</a></strong>
+                    </li>
+                    <li class="active">
+                        <strong><a href="{{ route('business.order.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}">Order #{{$sale->reference}}</a></strong>
+                    </li>
+                @elseif($sale->is_sale)
+                    <li class="active">
+                        <strong><a href="{{route('business.sales',$institution->portal)}}">Sales</a></strong>
+                    </li>
+                    <li class="active">
+                        <strong><a href="{{ route('business.sale.show', ['portal'=>$institution->portal, 'id'=>$sale->id]) }}">Sale #{{$sale->reference}}</a></strong>
+                    </li>
+                @endif
                 <li class="active">
-                    <a href="{{route('business.payments',$institution->portal)}}">Payments</a>
-                </li>
-                <li class="active">
-                    <strong>Payment Create</strong>
+                    Payment Create
                 </li>
             </ol>
         </div>
@@ -26,7 +41,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-12">
+            <div class="col-lg-6 col-lg-offset-3 col-md-12">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Payment Registration <small>Form</small></h5>
@@ -53,23 +68,38 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$sale->total}}" class="form-control input-lg">
+                                        @if ($errors->has('amount'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('amount') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$sale->total}}" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}">
                                         <i>amount</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
+                                        @if ($errors->has('date_acquired'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('date_acquired') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="input-group date">
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date_acquired" id="date_acquired" class="form-control input-lg">
+                                            <input type="text" required="required" name="date_acquired" id="date_acquired" class="form-control input-lg {{ $errors->has('date_acquired') ? ' is-invalid' : '' }}">
                                         </div>
                                         <i>Date paid</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_account form-control input-lg" required>
+                                        @if ($errors->has('account'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('account') }}</strong>
+                                            </span>
+                                        @endif
+                                        <select name="account" class="select2_account form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}" required>
                                             <option></option>
                                             @foreach ($accounts as $account)
                                                 <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
@@ -79,26 +109,45 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        @if ($errors->has('notes'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('notes') }}</strong>
+                                            </span>
+                                        @endif
+                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg {{ $errors->has('notes') ? ' is-invalid' : '' }}">@if($sale->is_order)Order #{{$sale->reference}} payment @elseif($sale->is_sale)Sale #{{$sale->reference}} payment @endif</textarea>
                                         <i>notes</i>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-4">
                                             <div class="has-warning">
+                                                @if ($errors->has('is_sale'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('is_sale') }}</strong>
+                                                    </span>
+                                                @endif
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <input name="is_sale" type="checkbox" class="js-switch_3" checked/>
+                                                    <input name="is_sale" type="checkbox" class="js-switch_3 {{ $errors->has('is_sale') ? ' is-invalid' : '' }}" checked required/>
                                                     <br>
                                                     <i>check if sale.</i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-8">
                                             <div class="has-warning">
-                                                <select name="sale" class="select2_demo_tag form-control input-lg">
+                                                @if ($errors->has('sale'))
+                                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                                        <strong>{{ $errors->first('sale') }}</strong>
+                                                    </span>
+                                                @endif
+                                                <select name="sale" class="select2_demo_tag form-control input-lg {{ $errors->has('sale') ? ' is-invalid' : '' }}" required>
                                                     <option value="{{$sale->id}}">{{$sale->reference}} [{{$sale->total}}]</option>
                                                 </select>
-                                                <i>sale</i>
+                                                @if($sale->is_order)
+                                                    <i>order</i>
+                                                @elseif($sale->is_sale)
+                                                    <i>sale</i>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -374,7 +423,11 @@
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
         $(".select2_demo_tag").select2({
-            placeholder: "Select Tags",
+            @if($sale->is_order)
+                placeholder: "Select Order",
+            @elseif($sale->is_sale)
+                placeholder: "Select Sale",
+            @endif
             allowClear: true
         });
         $(".select2_demo_category").select2({

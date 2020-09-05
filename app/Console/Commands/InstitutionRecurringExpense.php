@@ -80,7 +80,10 @@ class InstitutionRecurringExpense extends Command
                     $transaction->is_user = false;
                     $transaction->is_institution = true;
                     $transaction->save();
+
+                    // TODO send notification of generation
                 }
+
             }
         }
         $this->info('Recurring expenses regenerated');

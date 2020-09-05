@@ -17,6 +17,7 @@ class CreateLoanTypesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name', 200);
+            $table->longText('label')->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

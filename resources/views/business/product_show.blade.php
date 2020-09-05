@@ -1,20 +1,23 @@
 @extends('business.layouts.app')
 
-@section('title', 'Product Show')
+@section('title', 'Product '.$product->name)
 
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-8">
-        <h2>Product View</h2>
+        <h2>Product {{$product->name}}</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
+            </li>
+            <li>
+                <a href="#">Products</a>
             </li>
             <li>
                 <a href="{{route('business.products',$institution->portal)}}">Products</a>
             </li>
             <li class="active">
-                <strong>Product View</strong>
+                <strong>Product {{$product->name}}</strong>
             </li>
         </ol>
     </div>
@@ -71,10 +74,10 @@
                         </div>
                         <div class="col-xs-8 text-right">
                             <span> Stock On Hand </span>
-                            @if($product->is_service == "1")
+                            @if($product->is_service == "1" || $product->is_inventory == "0")
                                 <h2 class="font-bold">N/A</h2>
                             @else
-                                        <h2 class="font-bold">{{$product->stock_on_hand->first()->stock_on_hand}}</h2>
+                                        <h2 class="font-bold">{{$product->stock_on_hand->first()->stock_on_hand}} {{$product->unit->name}}</h2>
                             @endif
                         </div>
                     </div>
@@ -90,7 +93,7 @@
                             </div>
                             <div class="col-xs-8 text-right">
                                 <span> Reorder Level </span>
-                                <h2 class="font-bold">{{$product->reorder_level}}</h2>
+                                <h2 class="font-bold">{{$product->reorder_level}} {{$product->unit->name}}</h2>
                             </div>
                         </div>
                     </div>
@@ -124,49 +127,36 @@
                 <div class="ibox-content">
 
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-4">
 
-
-                            <div class="product-images">
-
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 1]
-                                    </div>
+                            <div class="carousel slide" id="carousel1">
+                                <div class="carousel-inner">
+                                @foreach($product->productImages as $image)
+                                        <div class="item @if ($loop->first) active @endif">
+                                            <img alt="image" class="img-responsive" src="{{asset('storage')}}/{{$image->upload->small_thumbnail}}">
+                                            <div class="carousel-caption">
+                                                <a class="" href=""><i class="fa fa-trash fa-3x"></i> </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 2]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 3]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 4]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 5]
-                                    </div>
-                                </div>
-
-
+                                <a data-slide="prev" href="#carousel1" class="left carousel-control">
+                                    <span class="icon-prev"></span>
+                                </a>
+                                <a data-slide="next" href="#carousel1" class="right carousel-control">
+                                    <span class="icon-next"></span>
+                                </a>
                             </div>
 
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-8">
 
                             <h2 class="font-bold m-b-xs">
                                 {{$product->name}}
                             </h2>
                             <small>{{$product->unit->name}}</small>
                             <div class="m-t-md">
-                                <h2 class="product-main-price">{{$institution->currency->name}} {{$product->selling_price}} <small class="text-muted">Exclude Tax</small> </h2>
+                                <h2 class="product-main-price">{{$institution->currency->name}} {{$product->taxed_selling_price}} <small class="text-muted">{{$product->taxMethod->name}} [{{$product->selling_price}}]</small> </h2>
                             </div>
                             <hr>
 
@@ -199,12 +189,6 @@
                     </div>
 
                 </div>
-                <div class="ibox-footer">
-                    <span class="pull-right">
-                        Full stock - <i class="fa fa-clock-o"></i> 14.04.2016 10:04 pm
-                    </span>
-                    The generated Lorem Ipsum is therefore always free
-                </div>
             </div>
 
         </div>
@@ -218,42 +202,67 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="m-b-md">
-                                {{--  <h2>Contract with Zender Company</h2>  --}}
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-user fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$product->user->name}}</h3>
+                                    </div>
+                                </div>
                             </div>
-                            <dl class="dl-horizontal">
-                                <dt>Status:</dt> <dd><span class="label {{$product->status->label}}">{{$product->status->name}}</span></dd>
-                            </dl>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 {{$product->status->label}}">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-ellipsis-v fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$product->status->name}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-plus-square fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$product->created_at}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-scissors fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$product->updated_at}}</h3>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <dl class="dl-horizontal">
-
-                                <dt>Created by:</dt> <dd>{{$product->user->name}}</dd>
-                                <dt>Stock Keeping Unit:</dt> <dd>  {{$product->unit->name}}</dd>
-                            </dl>
-                        </div>
-                        <div class="col-lg-7" id="cluster_info">
-                            <dl class="dl-horizontal" >
-
-                                <dt>Last Updated:</dt> <dd>{{$product->updated_at}}</dd>
-                                <dt>Created:</dt> <dd> 	{{$product->created_at}} </dd>
-
-                            </dl>
-                        </div>
-                    </div>
+                    <hr>
                     <div class="row m-t-sm">
                         <div class="col-lg-12">
                             <div class="panel blank-panel">
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#stock" data-toggle="tab">Stock</a></li>
+                                            <li class="active"><a href="#inventory-adjustments" data-toggle="tab">Inventory Adjustments</a></li>
+                                            <li class=""><a href="#item" data-toggle="tab">Items</a></li>
+                                            <li class=""><a href="#stock" data-toggle="tab">Stock</a></li>
                                             <li class=""><a href="#sales" data-toggle="tab">Sales</a></li>
                                             <li class=""><a href="#restock" data-toggle="tab">Restock</a></li>
-                                            <li class=""><a href="#inventory-adjustments" data-toggle="tab">Inventory Adjustments</a></li>
                                             <li class=""><a href="#transfer-orders" data-toggle="tab">Transfer Orders</a></li>
                                         </ul>
                                     </div>
@@ -263,7 +272,117 @@
 
                                     <div class="tab-content">
                                         {{--  to do show stock from different warehouses  --}}
-                                        <div class="tab-pane active" id="stock">
+                                        <div class="tab-pane active" id="inventory-adjustments">
+                                            @can('view inventory adjustments')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-inventory-adjustments" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Initial</th>
+                                                            <th>Adjustment</th>
+                                                            <th>Subsequent</th>
+                                                            <th>Adjustment Type</th>
+                                                            <th>Adjustment</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($product->inventoryAdjustmentProducts as $inventory_adjustment_product)
+                                                            <tr class="gradeX">
+                                                                <td>{{$inventory_adjustment_product->created_at}}</td>
+                                                                {{--  Quantity based  --}}
+                                                                @if($inventory_adjustment_product->inventoryAdjustment->is_value_adjustment == 0)
+                                                                    <td>{{$inventory_adjustment_product->initial_quantity}}</td>
+                                                                    <td>{{$inventory_adjustment_product->subsequent_quantity}}</td>
+                                                                    <td>{{$inventory_adjustment_product->quantity}}</td>
+                                                                    <td><p><span class="label label-info">Quantity Based</span></p></td>
+                                                                    {{--  Value based  --}}
+                                                                @else
+                                                                    <td>{{$inventory_adjustment_product->initial_warehouse_value}}</td>
+                                                                    <td>{{$inventory_adjustment_product->subsequent_warehouse_value}}</td>
+                                                                    <td>{{$inventory_adjustment_product->value}}</td>
+                                                                    <td><p><span class="label label-info">Value Based</span></p></td>
+                                                                @endif
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        <a href="{{ route('business.inventory.adjustment.show', ['portal'=>$institution->portal, 'id'=>$inventory_adjustment_product->inventory_adjustment_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Initial</th>
+                                                            <th>Adjustment</th>
+                                                            <th>Subsequent</th>
+                                                            <th>Adjustment Type</th>
+                                                            <th>Adjustment</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
+                                        </div>
+                                        <div class="tab-pane" id="item">
+                                            @can('view item')
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-item" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Qty</th>
+                                                            <th>SKU</th>
+                                                            <th>Stock on Hand</th>
+                                                            <th>Reorder Level</th>
+                                                            <th>Status</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($product->productItems as $item)
+                                                            <tr class="gradeA">
+                                                                <td>{{$item->item->name}}</td>
+                                                                <td>{{$item->quantity}}</td>
+                                                                <td>{{$item->item->unit->name}}</td>
+
+                                                                @if($item->item->is_service == "1" || $item->item->is_inventory == "0")
+                                                                    <td>N/A</td>
+                                                                @else
+                                                                    <td>{{$item->item->stock_on_hand->first()->stock_on_hand}}</td>
+                                                                @endif
+
+                                                                <td class="center">@if($item->item->reorder_level) {{$item->item->reorder_level}} @else N/A @endif</td>
+                                                                <td class="center">
+                                                                    <p>@if ($item->item->is_service==1) Service: @elseif($item->item->is_service==0)Item: @endif <span class="label {{$item->item->status->label}}">{{$item->item->status->name}}</span></p>
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        @can('view item')
+                                                                            <a href="{{ route('business.item.show', ['portal'=>$institution->portal, 'id'=>$item->item->id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                        @endcan
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Qty</th>
+                                                            <th>SKU</th>
+                                                            <th>Stock on Hand</th>
+                                                            <th>Reorder Level</th>
+                                                            <th>Status</th>
+                                                            <th class="text-right" width="13em" data-sort-ignore="true">Action</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            @endcan
+                                        </div>
+                                        <div class="tab-pane" id="stock">
                                             @can('view stock')
                                                 <div class="table-responsive">
                                                     <table class="table table-striped table-bordered table-hover dataTables-stock" >
@@ -386,59 +505,7 @@
                                                 </div>
                                             @endcan
                                         </div>
-                                        <div class="tab-pane" id="inventory-adjustments">
-                                            @can('view inventory adjustments')
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped table-bordered table-hover dataTables-inventory-adjustments" >
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Date</th>
-                                                            <th>Initial</th>
-                                                            <th>Adjustment</th>
-                                                            <th>Subsequent</th>
-                                                            <th>Adjustment Type</th>
-                                                            <th>Adjustment</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @foreach($product->inventoryAdjustmentProducts as $inventory_adjustment_product)
-                                                            <tr class="gradeX">
-                                                                <td>{{$inventory_adjustment_product->created_at}}</td>
-                                                                {{--  Quantity based  --}}
-                                                                @if($inventory_adjustment_product->inventoryAdjustment->is_value_adjustment == 0)
-                                                                    <td>{{$inventory_adjustment_product->initial_quantity}}</td>
-                                                                    <td>{{$inventory_adjustment_product->subsequent_quantity}}</td>
-                                                                    <td>{{$inventory_adjustment_product->quantity}}</td>
-                                                                    <td><p><span class="label label-info">Quantity Based</span></p></td>
-                                                                {{--  Value based  --}}
-                                                                @else
-                                                                    <td>{{$inventory_adjustment_product->initial_warehouse_value}}</td>
-                                                                    <td>{{$inventory_adjustment_product->subsequent_warehouse_value}}</td>
-                                                                    <td>{{$inventory_adjustment_product->value}}</td>
-                                                                    <td><p><span class="label label-info">Value Based</span></p></td>
-                                                                @endif
-                                                                <td class="text-right">
-                                                                    <div class="btn-group">
-                                                                        <a href="{{ route('business.inventory.adjustment.show', ['portal'=>$institution->portal, 'id'=>$inventory_adjustment_product->inventory_adjustment_id]) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                        </tbody>
-                                                        <tfoot>
-                                                        <tr>
-                                                            <th>Date</th>
-                                                            <th>Initial</th>
-                                                            <th>Adjustment</th>
-                                                            <th>Subsequent</th>
-                                                            <th>Adjustment Type</th>
-                                                            <th>Adjustment</th>
-                                                        </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                </div>
-                                            @endcan
-                                        </div>
+
                                         <div class="tab-pane" id="transfer-orders">
                                             @can('view transfer orders')
                                                 <div class="table-responsive">
@@ -524,6 +591,13 @@
 
 <!-- slick carousel-->
 <script src="{{ asset('inspinia') }}/js/plugins/slick/slick.min.js"></script>
+{{-- slider --}}
+<script src="{{ asset('inspinia') }}/js/plugins/silder-master/jssor.slider.min.js"></script>
+
+<script>
+    var options = { $AutoPlay: 1 };
+    var jssor_1_slider = new $JssorSlider$("jssor_1", options);
+</script>
 
 <!-- Page-Level Scripts -->
 <script>
@@ -543,6 +617,73 @@
                     title: '{{$product->name}}',
                     exportOptions: {
                             columns: [ 0, 1, 2, 3 ]
+                        }
+                },
+
+                {extend: 'print',
+                    customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable( '../example_ajax.php', {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition( this )[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        } );
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData( [
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row" ] );
+
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dataTables-item').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel',
+                    title: '{{$product->name}} Items',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5 ]
+                        }
+                },
+                {extend: 'pdf',
+                    title: '{{$product->name}} Items',
+                    exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 5 ]
                         }
                 },
 

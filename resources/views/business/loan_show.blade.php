@@ -71,7 +71,7 @@
                                                         <strong>{{ $errors->first('paid') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="paid" name="paid" required="required" value="{{$loan->paid}}" class="form-control input-lg">
+                                                <input type="number" id="paid" name="paid" required="required" value="{{$loan->paid}}" class="form-control input-lg {{ $errors->has('paid') ? ' is-invalid' : '' }}">
                                                 <i>paid</i>
                                             </div>
                                         </div>
@@ -82,7 +82,7 @@
                                                         <strong>{{ $errors->first('balance') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="balance" name="balance" required="required" value="{{$loan->balance}}" class="form-control input-lg">
+                                                <input type="number" id="balance" name="balance" required="required" value="{{$loan->balance}}" class="form-control input-lg {{ $errors->has('balance') ? ' is-invalid' : '' }}">
                                                 <i>balance</i>
                                             </div>
                                         </div>
@@ -94,7 +94,7 @@
                                                 <strong>{{ $errors->first('principal') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" value="{{$loan->principal}}" class="form-control input-lg">
+                                        <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" value="{{$loan->principal}}" class="form-control input-lg {{ $errors->has('principal') ? ' is-invalid' : '' }}">
                                         <i>principal</i>
                                     </div>
                                     <br>
@@ -106,7 +106,7 @@
                                                         <strong>{{ $errors->first('interest') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="{{$loan->interest}}" max="100" step="0.00001" class="form-control input-lg">
+                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="{{$loan->interest}}" max="100" step="0.00001" class="form-control input-lg {{ $errors->has('interest') ? ' is-invalid' : '' }}">
                                                 <i>key in interest in percentage</i>
                                             </div>
                                         </div>
@@ -117,7 +117,7 @@
                                                         <strong>{{ $errors->first('interest_amount') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="{{$loan->interest_amount}}" class="form-control input-lg">
+                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="{{$loan->interest_amount}}" class="form-control input-lg {{ $errors->has('interest_amount') ? ' is-invalid' : '' }}">
                                                 <i>key in interest amount</i>
                                             </div>
                                         </div>
@@ -128,7 +128,7 @@
                                                         <strong>{{ $errors->first('total') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" id="total" name="total" required="required" readonly value="{{$loan->total}}" class="form-control input-lg">
+                                                <input type="number" id="total" name="total" required="required" readonly value="{{$loan->total}}" class="form-control input-lg {{ $errors->has('total') ? ' is-invalid' : '' }}">
                                                 <i>total</i>
                                             </div>
                                         </div>
@@ -144,7 +144,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" class="form-control input-lg" value="{{$loan->date}}">
+                                            <input type="text" required="required" name="date" id="date" class="form-control input-lg {{ $errors->has('daye') ? ' is-invalid' : '' }}" value="{{$loan->date}}">
                                         </div>
                                         <i>date</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -160,7 +160,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="due_date" class="form-control input-lg" value="{{$loan->due_date}}">
+                                            <input type="text" required="required" name="due_date" class="form-control input-lg {{ $errors->has('due_date') ? ' is-invalid' : '' }}" value="{{$loan->due_date}}">
                                         </div>
                                         <i>due date</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -172,7 +172,7 @@
                                                 <strong>{{ $errors->first('account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="account" class="select2_account form-control input-lg" disabled>
+                                        <select name="account" class="select2_account form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}" disabled>
                                             <option selected value="{{$loan->account->id}}">{{$loan->account->name}} [{{$loan->account->balance}}]</option>
                                         </select>
                                         <i>account</i>
@@ -184,10 +184,10 @@
                                                 <strong>{{ $errors->first('loan_type') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="loan_type" class="select2_loan_type form-control input-lg" disabled>
+                                        <select name="loan_type" class="select2_loan_type form-control input-lg {{ $errors->has('loan_type') ? ' is-invalid' : '' }}" disabled>
                                             <option selected value="{{$loan->loanType->id}}">{{$loan->loanType->name}}</option>
                                         </select>
-                                        <i>account</i>
+                                        <i>loan type</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
@@ -196,7 +196,7 @@
                                                 <strong>{{ $errors->first('contact') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="contact" class="select2_contact form-control input-lg" disabled>
+                                        <select name="contact" class="select2_contact form-control input-lg {{ $errors->has('contact') ? ' is-invalid' : '' }}" disabled>
                                             <option selected value="{{$loan->contact->id}}">{{$loan->contact->first_name}} {{$loan->contact->last_name}} @if($loan->contact->organization)[{{$loan->contact->organization->name}}]@endif</option>
                                         </select>
                                         <i>contact</i>
@@ -208,7 +208,7 @@
                                                 <strong>{{ $errors->first('about') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" id="about" name="about" required="required" class="form-control input-lg">{{$loan->about}}</textarea>
+                                        <textarea rows="5" id="about" name="about" required="required" class="form-control input-lg {{ $errors->has('about') ? ' is-invalid' : '' }}">{{$loan->about}}</textarea>
                                         <i>Give a brief description on what the project is about</i>
                                     </div>
 
@@ -240,29 +240,56 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$loan->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$loan->status->label}}">{{$loan->status->name}}</span></dd>
-                                    </dl>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$loan->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$loan->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$loan->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$loan->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$loan->user->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$loan->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$loan->created_at}} </dd>
-                                    </dl>
-                                </div>
-                            </div>
+                            <hr>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                 <div class="panel blank-panel">
@@ -423,7 +450,7 @@
 
 @endsection
 
-@include('business.layouts.modals.loan_to_do')
+@include('business.layouts.modals.to_do_create')
 
 @section('js')
 
@@ -568,6 +595,34 @@
     });
 
 </script>
+
+    {{-- to do start time and end time --}}
+    <script>
+        $(document).ready(function() {
+            $('.enableEndDate').on('click',function(){
+
+                if (document.getElementById('is_end_date').checked) {
+                    // enable end_time input
+                    document.getElementById("end_date").disabled = false;
+                } else {
+                    // disable input
+                    document.getElementById("end_date").disabled = true;
+                }
+
+            });
+
+            $('.enableEndTime').on('click',function(){
+                if (document.getElementById('is_end_time').checked) {
+                    // enable end_time input
+                    document.getElementById("end_time").disabled = false;
+                } else {
+                    // disable input
+                    document.getElementById("end_time").disabled = true;
+                }
+            });
+        });
+
+    </script>
 
 <script>
     $(document).ready(function(){
@@ -756,6 +811,7 @@
             allowClear: true
         });
 
+        $('.chosen-select').chosen({width: "100%"});
 
     });
 

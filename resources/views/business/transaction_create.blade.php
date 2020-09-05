@@ -1,12 +1,12 @@
 @extends('business.layouts.app')
 
-@section('title', ' Transaction Create')
+@section('title', ' Expense Payment Create')
 
 @section('content')
 
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>Transactions</h2>
+                <h2>Expense Payments</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
@@ -18,7 +18,7 @@
                         <a href="{{route('business.expenses',$institution->portal)}}">Expenses</a>
                     </li>
                     <li class="active">
-                        <strong>Transaction Create</strong>
+                        <strong>Expense Payment Create</strong>
                     </li>
                 </ol>
             </div>
@@ -60,7 +60,7 @@
                                         @endif
                                         <div class="row">
                                             <div class="has-warning">
-                                                <select name="status" class="select2_status form-control input-lg" required>
+                                                <select name="status" class="select2_status form-control input-lg {{ $errors->has('status') ? ' is-invalid' : '' }}" required>
                                                     <option></option>
                                                     @foreach($transactionStatuses as $status)
                                                         <option value="{{$status->id}}" >{{$status->name}}</option>
@@ -78,7 +78,7 @@
                                                         <strong>{{ $errors->first('account') }}</strong>
                                                     </span>
                                                 @endif
-                                                <select name="account" class="select2_account form-control input-lg" required>
+                                                <select name="account" class="select2_account form-control input-lg  {{ $errors->has('account') ? ' is-invalid' : '' }}" required>
                                                     <option></option>
                                                     @foreach($accounts as $account)
                                                         <option value="{{$account->id}}" >{{$account->name}} [{{$account->balance}}]</option>
@@ -96,8 +96,8 @@
                                                         <strong>{{ $errors->first('amount') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="number" name="amount" id="amount" class="form-control input-lg" @if($expense) value="{{$expense->total-$expense->paid}}" max="{{$expense->total}}" @endif required>
-                                                <i> amount.</i>
+                                                <input type="number" name="amount" id="amount" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}" @if($expense) value="{{$expense->total-$expense->paid}}" max="{{$expense->total}}" @endif required>
+                                                <i> amount @if($expense->paid) Paid:{{$expense->paid}} @endif</i>
                                             </div>
                                         </div>
                                         <br>
@@ -112,7 +112,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="date" id="date" class="form-control input-lg" value="{{$expense->date}}" required>
+                                                    <input type="text" name="date" id="date" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" value="{{$expense->date}}" required>
                                                 </div>
                                                 <i> expense date.</i>
                                             </div>
@@ -125,7 +125,7 @@
                                                         <strong>{{ $errors->first('notes') }}</strong>
                                                     </span>
                                                 @endif
-                                                <textarea name="notes" required placeholder="Notes" value="{{ old('notes') }}" class="form-control" rows="7"></textarea>
+                                                <textarea name="notes" required placeholder="Notes" value="{{ old('notes') }}" class="form-control {{ $errors->has('notes') ? ' is-invalid' : '' }}" rows="7"></textarea>
                                                 <i> notes.</i>
                                             </div>
                                         </div>
@@ -137,7 +137,7 @@
                                                         <strong>{{ $errors->first('expense') }}</strong>
                                                     </span>
                                                 @endif
-                                                <select name="expense" class="select2_expense form-control input-lg">
+                                                <select name="expense" class="select2_expense form-control input-lg {{ $errors->has('expense') ? ' is-invalid' : '' }}">
                                                     <option selected value="{{$expense->id}}" >{{$expense->reference}}|Ksh. {{$expense->total}}</option>
                                                 </select>
                                                 <i> expense.</i>

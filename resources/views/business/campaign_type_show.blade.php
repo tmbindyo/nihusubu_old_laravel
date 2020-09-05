@@ -9,13 +9,10 @@
         <h2>Campaign Type's</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
-            </li>
-            <li>
-                <a href="#">Settings</a>
+                <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
             </li>
             <li class="active">
-                <a href="{{route('business.campaign.types',$institution->portal)}}">Campaign Type's</a>
+                <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
             </li>
             <li class="active">
                 <strong>Campaign Type</strong>
@@ -58,7 +55,7 @@
                                                         <strong>{{ $errors->first('name') }}</strong>
                                                     </span>
                                             @endif
-                                            <input type="name" name="name" value="{{$campaignType->name}}" class="form-control input-lg">
+                                            <input type="name" name="name" value="{{$campaignType->name}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                             <i>name</i>
                                         </div>
 
@@ -76,6 +73,59 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="widget style1 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-user fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h3 class="font-bold">{{$campaignType->user->name}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="widget style1 {{$campaignType->status->label}}">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h3 class="font-bold">{{$campaignType->status->name}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="widget style1 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-plus-square fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h3 class="font-bold">{{$campaignType->created_at}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="widget style1 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-scissors fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h3 class="font-bold">{{$campaignType->updated_at}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
             @can('view campaigns')
                 <div class="row">
                     <div class="col-lg-12">
@@ -99,7 +149,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($campaigns as $campaign)
+                                            @foreach($campaignType->campaigns as $campaign)
                                                 <tr class="gradeX">
                                                     <td>{{$campaign->name}}</td>
                                                     <td>{{$campaign->campaignType->name}}</td>

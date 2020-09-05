@@ -21,6 +21,7 @@ class CreateSalesTable extends Migration
             $table->longText('terms_and_conditions')->nullable();
             $table->date('date');
             $table->date('due_date');
+            $table->date('expiry_date')->nullable();
 
             $table->double('subtotal', 20,2);
             $table->double('discount', 20,2);
@@ -35,6 +36,7 @@ class CreateSalesTable extends Migration
             $table->uuid('institution_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('payment_schedule_id')->nullable();
 
             $table->boolean('is_sample');
             $table->boolean('is_returned');
@@ -46,8 +48,8 @@ class CreateSalesTable extends Migration
 
             $table->boolean('is_estimate');
             $table->boolean('is_invoice');
-            $table->boolean('is_order');
             $table->boolean('is_sale');
+            $table->boolean('is_order');
 
             $table->timestamps();
             $table->softDeletes();

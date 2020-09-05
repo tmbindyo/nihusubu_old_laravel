@@ -7,122 +7,29 @@
     <div class="products-catagories-area clearfix">
         <div class="amado-pro-catagory clearfix">
 
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="{{route('commerce.shop',$institution->portal)}}">
-                    <img src="{{ asset('e_commerce/amado') }}/img/bg-img/1.jpg" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $180</p>
-                        <h4>Modern Chair</h4>
-                    </div>
-                </a>
-            </div>
+            @foreach($products as $product)
+                <!-- Single Catagory -->
+                <div class="single-products-catagory clearfix">
+                    <a href="{{route('commerce.product.detail',['portal'=>$institution->portal,'product_id'=>$product->id])}}">
+                        @if($product->productImages->count() > 0)
+                            <img src="{{asset('storage')}}/{{$product->productImages[1]->upload->small_thumbnail}}" alt="">
+                        @else
+                            <img src="{{ asset('e_commerce/amado') }}/img/bg-img/2.jpg" alt="">
 
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="{{route('commerce.shop',$institution->portal)}}">
-                    <img src="{{ asset('e_commerce/amado') }}/img/bg-img/2.jpg" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $180</p>
-                        <h4>Minimalistic Plant Pot</h4>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="{{route('commerce.shop',$institution->portal)}}">
-                    <img src="{{ asset('e_commerce/amado') }}/img/bg-img/3.jpg" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $180</p>
-                        <h4>Modern Chair</h4>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="{{route('commerce.shop',$institution->portal)}}">
-                    <img src="{{ asset('e_commerce/amado') }}/img/bg-img/4.jpg" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $180</p>
-                        <h4>Night Stand</h4>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="{{route('commerce.shop',$institution->portal)}}">
-                    <img src="{{ asset('e_commerce/amado') }}/img/bg-img/5.jpg" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $18</p>
-                        <h4>Plant Pot</h4>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="{{route('commerce.shop',$institution->portal)}}">
-                    <img src="{{ asset('e_commerce/amado') }}/img/bg-img/6.jpg" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $320</p>
-                        <h4>Small Table</h4>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="{{route('commerce.shop',$institution->portal)}}">
-                    <img src="{{ asset('e_commerce/amado') }}/img/bg-img/7.jpg" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $318</p>
-                        <h4>Metallic Chair</h4>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="{{route('commerce.shop',$institution->portal)}}">
-                    <img src="{{ asset('e_commerce/amado') }}/img/bg-img/8.jpg" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $318</p>
-                        <h4>Modern Rocking Chair</h4>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
-                <a href="{{route('commerce.shop',$institution->portal)}}">
-                    <img src="{{ asset('e_commerce/amado') }}/img/bg-img/9.jpg" alt="">
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <div class="line"></div>
-                        <p>From $318</p>
-                        <h4>Home Deco</h4>
-                    </div>
-                </a>
-            </div>
+                        @endif
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            @if ($product->is_product_group == 1)
+                                <p>From {{$institution->currency->name}} {{$product->productGroupProductMin[0]->taxed_selling_price}}</p>
+                            @else
+                                <p>{{$institution->currency->name}} {{$product->taxed_selling_price}}</p>
+                            @endif
+                            <h4>{{$product->name}}</h4>
+                        </div>
+                    </a>
+                </div>
+                @endforeach
         </div>
     </div>
     <!-- Product Catagories Area End -->

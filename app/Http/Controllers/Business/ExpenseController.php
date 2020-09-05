@@ -2,21 +2,25 @@
 
 namespace App\Http\Controllers\Business;
 
-use App\Account;
-use App\Campaign;
-use App\Expense;
-use App\ExpenseAccount;
-use App\ExpenseItem;
-use App\Frequency;
-use App\Liability;
+use App\PaymentSchedule;
+use App\Product;
+use App\Restock;
+use DB;
 use App\Loan;
-use App\LoanType;
 use App\Sale;
 use App\Status;
 use App\Refund;
 use App\Payment;
+use App\Expense;
+use App\Account;
 use App\Transfer;
+use App\LoanType;
+use App\Campaign;
+use App\Frequency;
+use App\Liability;
 use App\Transaction;
+use App\ExpenseItem;
+use App\ExpenseAccount;
 use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Traits\InstitutionTrait;
@@ -67,14 +71,16 @@ class ExpenseController extends Controller
         $transfers = Transfer::where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get campaign
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
-        // get liabilities
-        $liabilities = Liability::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        // payment schedules
+        $paymentSchedules = PaymentSchedule::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->orderBy('period')->get();
         // get frequencies
         $frequencies = Frequency::where("status_id", "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
+        // Getting Products
+        $products = Product::where('institution_id', $institution->id)->where('is_product_group',false)->with('inventory.warehouse')->get();
 
-        return view('business.expense_create', compact('liabilities', 'campaigns', 'sales', 'user', 'institution', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses', 'accounts'));
+        return view('business.expense_create', compact( 'campaigns', 'sales', 'user', 'institution', 'frequencies', 'expenseAccounts', 'transfers', 'expenseStatuses', 'accounts', 'paymentSchedules', 'products'));
     }
 
     public function expenseStore(Request $request, $portal)
@@ -130,13 +136,6 @@ class ExpenseController extends Controller
         }else{
             $expense->is_sale = false;
         }
-        if ($request->is_liability == "on")
-        {
-            $expense->is_liability = true;
-            $expense->liability_id = $request->liability;
-        }else{
-            $expense->is_liability = false;
-        }
         if ($request->is_transfer == "on")
         {
             $expense->is_transfer = true;
@@ -152,7 +151,6 @@ class ExpenseController extends Controller
             $expense->is_transaction = false;
         }
 
-
         if ($request->is_recurring == "on")
         {
             $expense->is_recurring = true;
@@ -163,14 +161,8 @@ class ExpenseController extends Controller
         {
             $expense->is_recurring = false;
         }
-        if ($request->is_draft == "on")
-        {
-            $expense->is_draft = true;
-        }else
-        {
-            $expense->is_draft = false;
-        }
 
+        $expense->is_restock = false;
         $expense->paid = 0;
         $expense->sub_total = $request->subtotal;
         $expense->adjustment = $request->adjustment;
@@ -178,6 +170,7 @@ class ExpenseController extends Controller
 
         $expense->notes = $request->notes;
 
+        $expense->payment_schedule_id = $request->payment_schedule;
         $expense->expense_account_id = $request->expense_account;
         $expense->user_id = $user->id;
         $expense->institution_id = $institution->id;
@@ -217,18 +210,13 @@ class ExpenseController extends Controller
             // update expense paid
             $expense->paid = doubleval(0)+doubleval($request->grand_total);
             $expense->save();
-            // if liability
-            if ($expense->is_liability == 1){
-                $liability = Liability::findOrFail($expense->liability_id);
-                $liability->paid = doubleval($liability->paid)+doubleval($request->amount);
-                $liability->save();
-            }
+
             // sale
-            if ($expense->is_sale == 1){
-                $sale = Sale::findOrFail($expense->sale_id);
-                $sale->paid = doubleval($sale->paid)+doubleval($request->amount);
-                $sale->save();
-            }
+//            if ($expense->is_sale == 1){
+//                $sale = Sale::findOrFail($expense->sale_id);
+//                $sale->paid = doubleval($sale->paid)+doubleval($request->amount);
+//                $sale->save();
+//            }
             // campaign
             if ($expense->is_campaign == 1){
                 $campaign = Campaign::findOrFail($expense->campaign_id);
@@ -248,27 +236,99 @@ class ExpenseController extends Controller
             // update account balance
             $account->balance = doubleval($account->balance)-doubleval($request->grand_total);
             $account->save();
-
-
         }
-
-
 
         // item details
         foreach ($request->item_details as $item)
         {
-            // item details
-            $expenseItem = new ExpenseItem();
-            $expenseItem->name = $item['item'];
-            $expenseItem->quantity = $item['quantity'];
-            $expenseItem->rate = $item['rate'];
-            $expenseItem->amount = $item['amount'];
-            $expenseItem->user_id = $user->id;
-            $expenseItem->expense_id = $expense->id;
-            $expenseItem->status_id = $request->status;
-            $expenseItem->is_institution = true;
-            $expenseItem->is_user = false;
-            $expenseItem->save();
+            $data = $item['item'];
+            if (strpos($data, ':') !== false){
+                list($product_id, $inventory_id,) = explode(":", $data);
+                $inventory = Inventory::where('id', $inventory_id)->with('product')->first();
+                $warehouse_id = $inventory->warehouse_id;
+
+                $current_quantity = $inventory->quantity;
+                $new_quantity = $inventory->quantity+$item['quantity'];
+                // restock record
+                // Create record for inventory, tracking the stock input
+                $restock = new Restock();
+                $restock->date = date('Y-m-d');
+                $restock->initial_warehouse_amount = $current_quantity;
+                $restock->subsequent_warehouse_amount = $new_quantity;
+
+                // getting unit value
+                if (doubleval($request->opening_stock) > 0 ){
+                    $unit_value = floatval($request->opening_stock_value)/floatval($request->opening_stock);
+                }
+                else{
+                    $unit_value = 0;
+                }
+                $restock->unit_value = $item['rate'];
+                $restock->total_value = $item['amount'];
+                $restock->quantity = $item['quantity'];
+                $restock->warehouse_id = $inventory->warehouse_id;
+                $restock->product_id = $product_id;
+                $restock->is_opening_stock = false;
+                $restock->user_id = $user->id;
+                $restock->status_id = "f6654b11-8f04-4ac9-993f-116a8a6ecaae";
+                $restock->save();
+
+                // update inventory
+                $inventory->quantity = $new_quantity;
+                $inventory->save();
+
+                // expense item
+                $expenseItem = new ExpenseItem();
+                $expenseItem->name = $inventory->product->name;
+                $expenseItem->quantity = $item['quantity'];
+                $expenseItem->rate = $item['rate'];
+                $expenseItem->amount = $item['amount'];
+                $expenseItem->user_id = $user->id;
+                $expenseItem->expense_id = $expense->id;
+                $expenseItem->status_id = $request->status;
+                $expenseItem->restock_id = $restock->id;
+                $expenseItem->is_restock = true;
+                $expenseItem->is_product = true;
+                $expenseItem->is_institution = true;
+                $expenseItem->is_user = false;
+                $expenseItem->save();
+
+            }else{
+                $product_id = $data;
+                $product = Product::where('id',$product_id)->first();
+                if($product){
+                    // item details
+                    $expenseItem = new ExpenseItem();
+                    $expenseItem->name = $product->name;
+                    $expenseItem->quantity = $item['quantity'];
+                    $expenseItem->rate = $item['rate'];
+                    $expenseItem->amount = $item['amount'];
+                    $expenseItem->user_id = $user->id;
+                    $expenseItem->expense_id = $expense->id;
+                    $expenseItem->status_id = $request->status;
+                    $expenseItem->is_restock = false;
+                    $expenseItem->is_product = true;
+                    $expenseItem->product_id = $product->id;
+                    $expenseItem->is_institution = true;
+                    $expenseItem->is_user = false;
+                    $expenseItem->save();
+                }else{
+                    // item details
+                    $expenseItem = new ExpenseItem();
+                    $expenseItem->name = $item['item'];
+                    $expenseItem->quantity = $item['quantity'];
+                    $expenseItem->rate = $item['rate'];
+                    $expenseItem->amount = $item['amount'];
+                    $expenseItem->user_id = $user->id;
+                    $expenseItem->expense_id = $expense->id;
+                    $expenseItem->status_id = $request->status;
+                    $expenseItem->is_restock = false;
+                    $expenseItem->is_product = false;
+                    $expenseItem->is_institution = true;
+                    $expenseItem->is_user = false;
+                    $expenseItem->save();
+                }
+            }
         }
 
         return redirect()->route('business.expense.show',['portal'=>$institution->portal, 'id'=>$expense->id])->withSuccess('Expense '.$expense->reference.' successfully created!');
@@ -281,7 +341,7 @@ class ExpenseController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // get expense
-        $expense = Expense::where('institution_id', $institution->id)->where('is_institution', true)->where('id', $expense_id)->with('transfer', 'status', 'expenseItems', 'transaction', 'expenseAccount', 'frequency', 'user', 'account', 'campaign', 'contact', 'expenseAccount', 'inventoryAdjustment', 'liability', 'sale', 'sale', 'warehouse')->withCount('expenseItems')->first();
+        $expense = Expense::where('institution_id', $institution->id)->where('is_institution', true)->where('id', $expense_id)->with('transfer', 'status', 'expenseItems', 'transaction', 'expenseAccount', 'frequency', 'user', 'account', 'campaign', 'contact', 'expenseAccount', 'inventoryAdjustment', 'sale', 'sale', 'warehouse', 'paymentSchedule')->withCount('expenseItems')->first();
         // get payments
         $payments = Transaction::where('institution_id', $institution->id)->where('is_institution', true)->where('expense_id', $expense->id)->where('status_id', '2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense', 'account', 'status')->get();
         // get pending payments
@@ -314,16 +374,16 @@ class ExpenseController extends Controller
         $transfers = Transfer::where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get campaign
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
-        // get liabilities
-        $liabilities = Liability::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        // payment schedules
+        $paymentSchedules = PaymentSchedule::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->orderBy('period')->get();
         // get frequencies
         $frequencies = Frequency::where("status_id", "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get expense
-        $expense = Expense::where('institution_id', $institution->id)->where('is_institution', true)->where('id', $expense_id)->with('transfer', 'status', 'expenseItems', 'transaction', 'expenseAccount', 'frequency', 'user', 'account', 'campaign', 'contact', 'expenseAccount', 'inventoryAdjustment', 'liability', 'sale', 'sale', 'warehouse')->withCount('expenseItems')->first();
+        $expense = Expense::where('institution_id', $institution->id)->where('is_institution', true)->where('id', $expense_id)->with('transfer', 'status', 'expenseItems', 'transaction', 'expenseAccount', 'frequency', 'user', 'account', 'campaign', 'contact', 'expenseAccount', 'inventoryAdjustment', 'sale', 'sale', 'warehouse')->withCount('expenseItems')->first();
         // accounts
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
 
-        return view('business.expense_edit', compact('liabilities', 'campaigns', 'expense', 'user', 'institution', 'expenseAccounts', 'sales', 'expenseStatuses', 'transfers', 'frequencies', 'accounts'));
+        return view('business.expense_edit', compact('campaigns', 'expense', 'user', 'institution', 'expenseAccounts', 'sales', 'expenseStatuses', 'transfers', 'frequencies', 'accounts', 'paymentSchedules'));
     }
 
     public function expenseUpdate(Request $request, $portal, $expense_id)
@@ -340,33 +400,48 @@ class ExpenseController extends Controller
         $expense->reference = $reference;
         $expense->expense_account_id = $request->expense_account;
         $expense->date = date('Y-m-d', strtotime($request->date));
-        if ($request->is_order == "on")
+        $expense->payment_schedule_id = $request->payment_schedule;
+        if ($request->is_sale == "on")
         {
-            $expense->is_order = true;
-            $expense->order_id = $request->order;
+            $expense->is_sale = true;
+            $expense->sale_id = $request->sale;
         }else{
-            $expense->is_order = false;
+            $expense->is_sale = false;
         }
-        if ($request->is_album == "on")
+        if ($request->is_inventory_adjustment == "on")
         {
-            $expense->is_album = true;
-            $expense->album_id = $request->album;
+            $expense->is_inventory_adjustment = true;
+            $expense->inventory_adjustment_id = $request->inventory_adjustment;
         }else{
-            $expense->is_album = false;
+            $expense->is_inventory_adjustment = false;
         }
-        if ($request->is_project == "on")
+        if ($request->is_transfer_order == "on")
         {
-            $expense->is_project = true;
-            $expense->project_id = $request->project;
+            $expense->is_transfer_order = true;
+            $expense->transfer_order_id = $request->transfer_order;
         }else{
-            $expense->is_project = false;
+            $expense->is_transfer_order = false;
         }
-        if ($request->is_design == "on")
+        if ($request->is_warehouse == "on")
         {
-            $expense->is_design = true;
-            $expense->design_id = $request->design;
+            $expense->is_warehouse = true;
+            $expense->warehouse_id = $request->warehouse;
         }else{
-            $expense->is_design = false;
+            $expense->is_warehouse = false;
+        }
+        if ($request->is_campaign == "on")
+        {
+            $expense->is_campaign = true;
+            $expense->campaign_id = $request->campaign;
+        }else{
+            $expense->is_campaign = false;
+        }
+        if ($request->is_sale == "on")
+        {
+            $expense->is_sale = true;
+            $expense->sale_id = $request->sale;
+        }else{
+            $expense->is_sale = false;
         }
         if ($request->is_transfer == "on")
         {
@@ -382,27 +457,7 @@ class ExpenseController extends Controller
         }else{
             $expense->is_transaction = false;
         }
-        if ($request->is_campaign == "on")
-        {
-            $expense->is_campaign = true;
-            $expense->campaign_id = $request->campaign;
-        }else{
-            $expense->is_campaign = false;
-        }
-        if ($request->is_asset == "on")
-        {
-            $expense->is_asset = true;
-            $expense->asset_id = $request->asset;
-        }else{
-            $expense->is_asset = false;
-        }
-        if ($request->is_liability == "on")
-        {
-            $expense->is_liability = true;
-            $expense->liability_id = $request->liability;
-        }else{
-            $expense->is_liability = false;
-        }
+
         if ($request->is_recurring == "on")
         {
             $expense->is_recurring = true;
@@ -412,13 +467,6 @@ class ExpenseController extends Controller
         }else
         {
             $expense->is_recurring = false;
-        }
-        if ($request->is_draft == "on")
-        {
-            $expense->is_draft = true;
-        }else
-        {
-            $expense->is_draft = false;
         }
 
         $expense->sub_total = $request->subtotal;
@@ -784,11 +832,11 @@ class ExpenseController extends Controller
             if  ($loanType->name == 'Loaner'){
                 $accountBalance = doubleval($account->balance) + doubleval($request->amount);
                 $paid = doubleval($request->amount) + doubleval($loan->paid);
-                $balance = doubleval($loan->principal) - $paid;
+                $balance = doubleval($loan->total) - $paid;
             } else {
                 $accountBalance = doubleval($account->balance) - doubleval($request->amount);
                 $paid = doubleval($request->amount) + doubleval($loan->paid);
-                $balance = doubleval($loan->principal) - $paid;
+                $balance = doubleval($loan->total) - $paid;
             }
 
             $loan->balance = $balance;
@@ -816,20 +864,26 @@ class ExpenseController extends Controller
             $payment->sale_id = $request->sale;
             // update sale as paid
             $sale = Sale::findOrFail($request->sale);
-            $paid = doubleval($request->amount) + doubleval($sale->paid);
+            $paid = doubleval($request->amount);
             $balance = doubleval($sale->total) - doubleval($paid);
             $sale->balance = $balance;
             $sale->paid = $paid;
             $sale->save();
 
+            $accountBalance = doubleval($account->balance) + doubleval($paid);
+
             // reduce stock
             $saleProducts = SaleProduct::where('sale_id', $sale->id)->get();
+            // check if inventory is being tracked
+
             foreach($saleProducts as $saleProduct){
-                // return $saleProduct;
-                $inventory = Inventory::where('product_id', $saleProduct->product_id)->where('warehouse_id', $saleProduct->warehouse_id)->first();
-                $quantity = doubleval($inventory->quantity) - doubleval($saleProduct->quantity);
-                $inventory->quantity = $quantity;
-                $inventory->save();
+                if($saleProduct->is_inventory == 1){
+                    // return $saleProduct;
+                    $inventory = Inventory::where('product_id', $saleProduct->product_id)->where('warehouse_id', $saleProduct->warehouse_id)->first();
+                    $quantity = doubleval($inventory->quantity) - doubleval($saleProduct->quantity);
+                    $inventory->quantity = $quantity;
+                    $inventory->save();
+                }
             }
 
         }else{

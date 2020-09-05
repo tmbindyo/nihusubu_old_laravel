@@ -140,7 +140,7 @@
                         color: '#E0AFA0',
                     @endif
                     @if($toDo->is_organization == 1)
-                        color: '#F4F3EE',
+                        color: '#3777EE',
                     @endif
                     @if($toDo->is_campaign == 1)
                         color: '#070707',
@@ -161,7 +161,7 @@
                         color: '#826aed',
                     @endif
                     @if($toDo->is_withdrawal == 1)
-                        color: '#F4F4F9',
+                        color: '#a1F1a1',
                     @endif
                     @if($toDo->is_expense == 1)
                         color: '#C7CB85',

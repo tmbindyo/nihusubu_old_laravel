@@ -30,9 +30,6 @@
                                         <a class="nav-link" href="{{route('commerce.shop',$institution->portal)}}">Shop</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{route('commerce.product.detail',$institution->portal)}}">Product</a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a class="nav-link" href="{{route('commerce.cart',$institution->portal)}}">Cart</a>
                                     </li>
                                     <li class="nav-item">

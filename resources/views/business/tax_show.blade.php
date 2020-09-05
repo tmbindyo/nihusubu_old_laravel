@@ -9,16 +9,13 @@
             <h2>Tax's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
-                </li>
-                <li>
-                    CRM
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.taxes',$institution->portal)}}">Tax's</a>
+                    <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Tax Create</strong>
+                    <strong>Tax {{$tax->name}}</strong>
                 </li>
             </ol>
         </div>
@@ -62,11 +59,11 @@
                                         </span>
                                     @endif
                                     <div class="checkbox">
-                                        <input id="is_percentage" name="is_percentage" @if($tax->is_percentage == 1) checked @endif type="checkbox">
+                                        <input id="is_percentage" name="is_percentage" @if($tax->is_percentage == 1) checked @endif type="checkbox" class=" {{ $errors->has('is_percentage') ? ' is-invalid' : '' }}">
                                         <label for="is_percentage">
                                             percentage
                                         </label>
-                                        <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the tax charged is a percentage of the price." class="fa fa-2x fa-question-circle"></i></span>
+                                        <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the tax charged is a percentage of the price." class="fa fa-x text-warning fa-question-circle"></i></span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
@@ -75,7 +72,7 @@
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </span>
                                         @endif
-                                        <input type="text" id="name" name="name" required="required" value="{{$tax->name}}" class="form-control input-lg">
+                                        <input type="text" id="name" name="name" required="required" value="{{$tax->name}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                         <i>name</i>
                                     </div>
                                     <br>
@@ -85,7 +82,7 @@
                                             <strong>{{ $errors->first('amount') }}</strong>
                                         </span>
                                         @endif
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$tax->amount}}" class="form-control input-lg">
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$tax->amount}}" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}">
                                         <i>amount</i>
                                     </div>
                                     @can('edit tax')
@@ -113,29 +110,56 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$tax->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$tax->status->label}}">{{$tax->status->name}}</span></dd>
-                                    </dl>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$tax->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$tax->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$tax->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$tax->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$tax->user->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$tax->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$tax->created_at}} </dd>
-                                    </dl>
-                                </div>
-                            </div>
+                            <hr>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                     <div class="panel blank-panel">

@@ -12,7 +12,8 @@ trait UserTrait
     public function getAdmin()
     {
         // Get user
-        $user = Auth::user();
+        $userCheck = Auth::user();
+        $user = User::where('id',$userCheck->id)->with('userAccounts.status','userAccounts.userType','userAccounts.institution','activeUserAccount.userType','activeUserAccount.institution','inactiveUserAccount.userType','inactiveUserAccount.institution','currentUserAccounts.userType','currentUserAccounts.institution')->withCount('userAccounts')->first();
         return $user;
     }
 
@@ -26,7 +27,7 @@ trait UserTrait
         if(!$userActiveAccount){
             return redirect()->route('view.user.accounts');
         }else{
-            $user = User::where('id',$userCheck->id)->with('userAccounts.status','userAccounts.userType','userAccounts.institution','activeUserAccount.userType','activeUserAccount.institution','inactiveUserAccount.userType','inactiveUserAccount.institution')->withCount('userAccounts')->first();
+            $user = User::where('id',$userCheck->id)->with('userAccounts.status','userAccounts.userType','userAccounts.institution','activeUserAccount.userType','activeUserAccount.institution','inactiveUserAccount.userType','inactiveUserAccount.institution','currentUserAccounts.userType','currentUserAccounts.institution')->withCount('userAccounts')->first();
             return $user;
         }
 

@@ -10,11 +10,10 @@
     <!-- Amado Nav -->
     <nav class="amado-nav">
         <ul>
-            <li class="active"><a href="{{route('commerce.index',$institution->portal)}}">Home</a></li>
-            <li><a href="{{route('commerce.shop',$institution->portal)}}">Shop</a></li>
-            <li><a href="{{route('commerce.product.detail',$institution->portal)}}">Product</a></li>
-            <li><a href="{{route('commerce.cart',$institution->portal)}}">Cart</a></li>
-            <li><a href="{{route('commerce.checkout',$institution->portal)}}">Checkout</a></li>
+            <li class="{{ Route::currentRouteNamed( 'commerce.index',$institution->portal ) ?  'active' : '' }}"><a href="{{route('commerce.index',$institution->portal)}}">Home</a></li>
+            <li class="{{ Route::currentRouteNamed( 'commerce.shop',$institution->portal ) ?  'active' : '' }}"><a href="{{route('commerce.shop',$institution->portal)}}">Shop</a></li>
+            <li class="{{ Route::currentRouteNamed( 'commerce.cart',$institution->portal ) ?  'active' : '' }}"><a href="{{route('commerce.cart',$institution->portal)}}">Cart</a></li>
+            <li class="{{ Route::currentRouteNamed( 'commerce.checkout',$institution->portal ) ?  'active' : '' }}"><a href="{{route('commerce.checkout',$institution->portal)}}">Checkout</a></li>
         </ul>
     </nav>
     <!-- Button Group -->
@@ -30,9 +29,14 @@
     </div>
     <!-- Social Button -->
     <div class="social-info d-flex justify-content-between">
-        <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        @if($institution->instagram)
+            <a target="_blank" href="http://instagram.com/{{$institution->instagram}}"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+        @endif
+        @if($institution->facebook)
+            <a target="_blank" href="http://facebook.com/{{$institution->facebook}}"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+        @if($institution->twitter)
+        @endif
+            <a target="_blank" href="http://twitter.com/{{$institution->twitter}}"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        @endif
     </div>
 </header>

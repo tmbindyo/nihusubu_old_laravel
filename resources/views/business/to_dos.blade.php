@@ -372,7 +372,6 @@
         // Set date
 
         var today = new Date();
-        console.log(today);
         var dd = today.getDate();
         var mm = today.getMonth();
         var yyyy = today.getFullYear();
@@ -391,13 +390,40 @@
         var date_today = mm + '/' + dd + '/' + yyyy;
         var time_curr = h + ':' + m;
 
-        console.log(time_curr);
         document.getElementById("start_date").value = date_today;
         document.getElementById("end_date").value = date_today;
         document.getElementById("start_time").value = time_curr;
         document.getElementById("end_time").value = time_curr;
 
         // Set time
+    });
+
+</script>
+
+{{-- to do start time and end time --}}
+<script>
+    $(document).ready(function() {
+        $('.enableEndDate').on('click',function(){
+
+            if (document.getElementById('is_end_date').checked) {
+                // enable end_time input
+                document.getElementById("end_date").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_date").disabled = true;
+            }
+
+        });
+
+        $('.enableEndTime').on('click',function(){
+            if (document.getElementById('is_end_time').checked) {
+                // enable end_time input
+                document.getElementById("end_time").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_time").disabled = true;
+            }
+        });
     });
 
 </script>
@@ -557,20 +583,9 @@
 
         var elem_18 = document.querySelector('.js-switch_18');
         var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
-        console.log(switchery_18)
 
         var elem_19 = document.querySelector('.js-switch_19');
         var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
-
-        function EnableDisableTextBox(is_end_date) {
-            console.log(is_end_date)
-            var end_date = document.getElementById("end_date");
-            end_date.disabled = is_end_date.checked ? false : true;
-            if (!end_date.disabled) {
-                end_date.focus();
-
-            }
-        }
 
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
@@ -622,7 +637,6 @@
                 firstDay: 1
             }
         }, function(start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         });
 

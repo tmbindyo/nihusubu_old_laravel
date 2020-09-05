@@ -6,16 +6,16 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Payment's</h2>
+            <h2>Payment Create</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
-                    CRM
+                    Accounting
                 </li>
                 <li class="active">
-                    <a href="{{route('business.payments',$institution->portal)}}">Payments</a>
+                    <strong><a href="{{route('business.payments',$institution->portal)}}">Payments</a></strong>
                 </li>
                 <li class="active">
                     <strong>Payment Create</strong>
@@ -64,7 +64,7 @@
                                                 <div class="col-md-4">
                                                     <div class="has-warning">
                                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                                            <input name="is_loan" type="checkbox" class="js-switch_2" />
+                                                            <input name="is_loan" type="checkbox" class="js-switch_2 {{ $errors->has('is_loan') ? ' is-invalid' : '' }}" />
                                                             <br>
                                                             <i>check if loan.</i>
                                                         </div>
@@ -72,7 +72,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
-                                                        <select name="loan" class="select2_loan form-control input-lg">
+                                                        <select name="loan" class="select2_loan form-control input-lg {{ $errors->has('loan') ? ' is-invalid' : '' }}">
                                                             <option></option>
                                                             @foreach ($loans as $loan)
                                                                 <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->principal}}]</option>
@@ -93,7 +93,7 @@
                                                 <div class="col-md-4">
                                                     <div class="has-warning">
                                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                                            <input name="is_sale" type="checkbox" class="js-switch_3" />
+                                                            <input name="is_sale" type="checkbox" class="js-switch_3 {{ $errors->has('is_sale') ? ' is-invalid' : '' }}" />
                                                             <br>
                                                             <i>check if sale.</i>
                                                         </div>
@@ -101,7 +101,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
-                                                        <select name="sale" class="select2_sale form-control input-lg">
+                                                        <select name="sale" class="select2_sale form-control input-lg {{ $errors->has('sale') ? ' is-invalid' : '' }}">
                                                             <option></option>
                                                             @foreach ($sales as $sale)
                                                                 <option value="{{$sale->id}}">{{$sale->reference}} [{{$sale->total}}]</option>
@@ -121,7 +121,7 @@
                                                 <strong>{{ $errors->first('amount') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="number" id="amount" name="amount" value="{{ old('date') }}" required="required" placeholder="Paid" class="form-control input-lg">
+                                        <input type="number" id="amount" name="amount" value="{{ old('date') }}" required="required" placeholder="Paid" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}">
                                         <i>amount</i>
                                     </div>
                                     <br>
@@ -135,7 +135,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date_acquired" id="date_acquired" value="{{ old('date_acquired') }}" class="form-control input-lg">
+                                            <input type="text" required="required" name="date_acquired" id="date_acquired" value="{{ old('date_acquired') }}" class="form-control input-lg {{ $errors->has('date_acquired') ? ' is-invalid' : '' }}">
                                         </div>
                                         <i>Date paid</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -147,7 +147,7 @@
                                                 <strong>{{ $errors->first('account') }}</strong>
                                             </span>
                                         @endif
-                                        <select name="account" class="select2_account form-control input-lg">
+                                        <select name="account" class="select2_account form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}">
                                             <option></option>
                                             @foreach ($accounts as $account)
                                                 <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
@@ -162,7 +162,7 @@
                                                 <strong>{{ $errors->first('notes') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" value="{{ old('notes') }}" class="form-control input-lg"></textarea>
+                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" value="{{ old('notes') }}" class="form-control input-lg {{ $errors->has('notes') ? ' is-invalid' : '' }}"></textarea>
                                         <i>notes</i>
                                     </div>
 

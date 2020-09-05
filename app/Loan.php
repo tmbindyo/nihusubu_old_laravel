@@ -14,6 +14,10 @@ class Loan extends Model implements Auditable
     public $incrementing = false;
 
     // Children
+    public function expenses()
+    {
+        return $this->hasMany('App\Expense');
+    }
     public function payments()
     {
         return $this->hasMany('App\Payment');

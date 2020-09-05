@@ -68,7 +68,7 @@
                                     <div class="input-group date">
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i></span>
-                                        <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg">
+                                        <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}">
                                     </div>
                                     <i>date</i>
                                 </div>
@@ -80,7 +80,7 @@
                                             <strong>{{ $errors->first('reason') }}</strong>
                                         </span>
                                     @endif
-                                    <textarea rows="5" name="reason" required class="select form-control input-lg" placeholder="Reason">{{ old('name') }}</textarea>
+                                    <textarea rows="5" name="reason" required class="select form-control input-lg {{ $errors->has('reason') ? ' is-invalid' : '' }}" placeholder="Reason">{{ old('name') }}</textarea>
                                     <i>description</i>
                                 </div>
                             </div>
@@ -98,8 +98,8 @@
                                     </span>
                                 @endif
                                 <div class="has-warning">
-                                    <select onchange = "returnWarehouseDetails(this)" onfocus = "this.selectedIndex = 0" name="source_warehouse" class="select2 form-control input-lg">
-                                        <option disabled>Select Source Warehouse</option>
+                                    <select onchange = "returnWarehouseDetails(this)" onfocus = "this.selectedIndex = 0" name="source_warehouse" class="select2_source_warehouse form-control input-lg {{ $errors->has('source_warehouse') ? ' is-invalid' : '' }}">
+                                        <option></option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                         @endforeach
@@ -114,8 +114,8 @@
                                     </span>
                                 @endif
                                 <div class="has-warning">
-                                    <select onchange = "destinationwarehouseSelected(this)" onfocus = "this.selectedIndex = 0" name="destination_warehouse" class="select2 form-control input-lg">
-                                        <option disabled>Select Destination Warehouse</option>
+                                    <select onchange = "destinationwarehouseSelected(this)" onfocus = "this.selectedIndex = 0" name="destination_warehouse" class="select2_destination_warehouse form-control input-lg {{ $errors->has('destination_warehouse') ? ' is-invalid' : '' }}">
+                                        <option></option>
                                         @foreach($warehouses as $warehouse)
                                             <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                         @endforeach
@@ -142,9 +142,8 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <select onchange = "returnProductDetails(this)" class="select2 form-control input-lg items-select" name = "item_details[0][product_id]" style = "width: 100%">
-                                                <option>Select Item</option>
-                                                {{-- <option value="Bahamas">Bahamas</option> --}}
+                                            <select onchange = "returnProductDetails(this)" class="select2_item form-control input-lg items-select" name = "item_details[0][product_id]" style = "width: 100%">
+                                                 <option></option>
                                                 @foreach($products as $product)
                                                     <option value = "{{$product->id}}" data-product-source-quantity = "-20" data-product-destination-quantity = "-20">{{$product->name}}</option>
                                                 @endforeach
@@ -476,6 +475,19 @@
 
         $(".select2").select2();
 
+        $(".select2_source_warehouse").select2({
+            placeholder: "Select Source Warehouse",
+            allowClear: true
+        });
+        $(".select2_destination_warehouse").select2({
+            placeholder: "Select Destination Warehouse",
+            allowClear: true
+        });
+        $(".select2_item").select2({
+            placeholder: "Select Item",
+            allowClear: true
+        });
+
         /*$("#ionrange_1").ionRangeSlider({
             min: 0,
             max: 5000,
@@ -684,8 +696,8 @@
                 var secondCell = row.insertCell(1);
                 var thirdCell = row.insertCell(2);
                 var fourthCell = row.insertCell(3)
-                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2 form-control input-lg items-select'"+
-                                        "name = 'item_details["+tableValueArrayIndex+"][product_id]' style = 'width: 100%'></select>";
+                firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' class='select2_item form-control input-lg items-select'"+
+                                        "name = 'item_details["+tableValueArrayIndex+"][product_id]' style = 'width: 100%'><option></option></select>";
                 secondCell.innerHTML = "<div class='row'>"+
                                         "<div class='col-md-6'>"+
                                         "<small class='control-label'>Source Stock</small>"+
@@ -710,7 +722,10 @@
                 populateDropdownOptionsWithProducts(selectElement[0]);
                 tableValueArrayIndex++;
 
-                $(".select2").select2();
+                $(".select2_item").select2({
+                    placeholder: "Select Item",
+                    allowClear: true
+                });
             };
         };
         function removeSelectedRow (e) {

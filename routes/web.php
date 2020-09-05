@@ -33,8 +33,10 @@ Route::get('/deactivate/user/accounts', 'HomeController@deactivateUserAccounts')
 Route::get('/create/user/account', 'HomeController@createUserAccount')->name('create.user.account');
 
 Route::get('/user/{user_id}/institution/{institution_id}/invitation', 'Landing\LandingController@businessUserInvitation')->name('user.invitation');
+Route::get('/user/{user_id}/admin/invitation', 'Landing\LandingController@adminUserInvitation')->name('user.admin.invitation');
 Route::post('/business/add/user/account', 'Business\AuthController@businessAddUserAccount')->name('business.add.user.account');
 Route::post('/business/store/user/{user_id}/institution/{institution_id}/account', 'Landing\LandingController@businessStoreUserAccount')->name('business.store.user.account');
+Route::post('/admin/store/user/{user_id}/admin/account', 'Landing\LandingController@adminStoreUserAccount')->name('admin.store.user.account');
 
 
 Route::get('/address/population', 'Landing\LandingController@addressPopulation')->name('address.population');
@@ -94,3 +96,6 @@ Route::post('/business/add/store', 'HomeController@addInstitution')->name('busin
 Route::get('/personal/signup', 'Business\AuthController@personalSignup')->name('personal.signup');
 Route::get('/add/personal/account', 'HomeController@addPersonal')->name('add.personal.account');
 
+
+Route::get('/view/order/{order_id}', 'Landing\LandingController@viewOrder')->name('view.order');
+Route::get('/print/order/{order_id}', 'Landing\LandingController@printOrder')->name('print.order');

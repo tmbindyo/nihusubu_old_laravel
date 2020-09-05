@@ -41,5 +41,7 @@ class RecurringIncome extends Command
         // Date today
         $today = date('Y-m-d');
 
+
+        // TODO send notification of generation
     }
 }

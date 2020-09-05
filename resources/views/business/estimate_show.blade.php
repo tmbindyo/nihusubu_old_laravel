@@ -12,7 +12,7 @@
                         <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
+                        <a href="#">Sales</a>
                     </li>
                     <li>
                         <a href="{{route('business.estimates',$institution->portal)}}">Estimates</a>
@@ -36,6 +36,9 @@
                             <a href="{{route('business.invoice.show',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> View Invoice </a>
                         @endcan
                     @endif
+                    @can('send estimate')
+                        <a href="{{route('business.sale.compose',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-send-o"></i> Send </a>
+                    @endcan
                     @can('print estimate')
                         <a href="{{route('business.estimate.print',['portal'=>$institution->portal, 'id'=>$estimate->id])}}" target="_blank" class="btn btn-success btn-outline"><i class="fa fa-print"></i> Print </a>
                     @endcan
@@ -85,6 +88,10 @@
                                             <span><strong>Invoice Date:</strong> {{$estimate->date}} </span><br/>
                                             <span><strong>Due Date:</strong> {{$estimate->due_date}} </span>
                                         </p>
+
+                                        @if($estimate->payment_schedule_id)
+                                            <h5 class="text-navy">{{$estimate->paymentSchedule->name}} [{{$estimate->paymentSchedule->period}}]</h5>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -125,7 +132,7 @@
                                         <td>{{$estimate->tax}}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Discount :</strong></td>
+                                        <td><strong>Adjustment :</strong></td>
                                         <td>{{$estimate->discount}}</td>
                                     </tr>
                                     <tr>

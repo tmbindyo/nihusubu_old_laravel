@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Business;
 
 use App\LoanType;
+use App\PaymentSchedule;
 use DB;
 use App\Tax;
 use App\Loan;
@@ -47,44 +48,6 @@ class CRMController extends Controller
         $this->middleware('auth');
     }
 
-    // leads
-    public function leads($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Get institution
-        $institution = $this->getInstitution($portal);
-        // Get contact types
-        $contactTypes = ContactType::where('institution_id', $institution->id)->get();
-        // Get contacts
-        $leads = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->where('is_lead', true)->with('status', 'contactType', 'title')->get();
-        // Get contacts
-        $deletedLeads = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->where('is_lead', true)->with('status', 'contactType', 'title')->get();
-
-        return view('business.leads', compact('leads', 'user', 'contactTypes', 'institution', 'deletedLeads'));
-    }
-
-    public function leadCreate($portal)
-    {
-        // User
-        $user = $this->getUser();
-        // Get institution
-        $institution = $this->getInstitution($portal);
-        // get contacts
-        $contacts = Contact::with('user', 'status', 'contactType')->where('institution_id', $institution->id)->where('is_institution', true)->get();
-        // get contact types
-        $contactTypes = ContactType::where('institution_id', $institution->id)->get();
-        // get organizations
-        $organizations = Organization::where('institution_id', $institution->id)->get();
-        // get titles
-        $titles = Title::where('institution_id', $institution->id)->where('is_institution', true)->get();
-        // get lead sources
-        $leadSources = LeadSource::where('institution_id', $institution->id)->get();
-        // get campaigns
-        $campaigns = Campaign::where('institution_id', $institution->id)->get();
-        return view('business.lead_create', compact('contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns'));
-    }
-
     // campaigns
     public function campaigns($portal)
     {
@@ -109,7 +72,7 @@ class CRMController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // campaign types
-        $campaignTypes = CampaignType::where('institution_id', $institution->id)->get();
+        $campaignTypes = CampaignType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         return view('business.campaign_create', compact('user', 'institution', 'campaignTypes'));
 
     }
@@ -149,7 +112,7 @@ class CRMController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // get campaign types
-        $campaignTypes = CampaignType::where('institution_id', $institution->id)->get();
+        $campaignTypes = CampaignType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get campaigns
         $campaign = Campaign::where('institution_id', $institution->id)->with('user', 'status', 'campaignType', 'campaignUploads', 'contacts', 'expenses', 'organizations', 'toDos')->withCount('campaignUploads', 'contacts', 'expenses', 'organizations', 'toDos')->where('id', $campaign_id)->first();
         // Pending to dos
@@ -167,9 +130,9 @@ class CRMController extends Controller
     public function campaignContactCreate($portal, $campaign_id)
     {
         // get Campaign
-        $contactCampaign = Campaign::findOrFail($campaign_id);
-        if($contactCampaign->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
-            return back()->withWarning(__('Campaign '.$contactCampaign->name.' is deleted.'));
+        $campaignExists = Campaign::findOrFail($campaign_id);
+        if($campaignExists->status_id == "d35b4cee-5594-4cfd-ad85-e489c9dcdeff"){
+            return back()->withWarning(__('Campaign '.$campaignExists->name.' is deleted.'));
         }
         // User
         $user = $this->getUser();
@@ -178,16 +141,16 @@ class CRMController extends Controller
         // get contacts
         $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'contactType')->get();
         // get contact types
-        $contactTypes = ContactType::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $contactTypes = ContactType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get organizations
-        $organizations = Organization::where('institution_id', $institution->id)->get();
+        $organizations = Organization::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get titles
-        $titles = Title::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $titles = Title::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get lead sources
-        $leadSources = LeadSource::where('institution_id', $institution->id)->get();
+        $leadSources = LeadSource::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get campaigns
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
-        return view('business.contact_create', compact('contactCampaign', 'contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns'));
+        return view('business.contact_create', compact('campaignExists', 'contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns'));
     }
 
     public function campaignExpenseCreate($portal, $campaign_id)
@@ -202,7 +165,7 @@ class CRMController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // expense accounts
-        $expenseAccounts = ExpenseAccount::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $expenseAccounts = ExpenseAccount::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get orders
         $sales = Sale::where('institution_id', $institution->id)->with('status')->get();
         // expense statuses
@@ -217,12 +180,10 @@ class CRMController extends Controller
         $accounts = Account::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get sales
         $sales = Sale::where('institution_id', $institution->id)->with('status')->get();
-        // get liabilities
-        $liabilities = Liability::where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get transfers
         $transfers = Transfer::where('institution_id', $institution->id)->where('is_institution', true)->get();
 
-        return view('business.expense_create', compact('campaignExists', 'campaign', 'user', 'institution', 'frequencies', 'expenseAccounts', 'expenseStatuses', 'accounts', 'sales', 'liabilities', 'transfers', 'campaigns'));
+        return view('business.expense_create', compact('campaignExists', 'campaign', 'user', 'institution', 'frequencies', 'expenseAccounts', 'expenseStatuses', 'accounts', 'sales', 'transfers', 'campaigns'));
     }
 
     public function campaignOrganizationCreate($portal, $campaign_id)
@@ -237,7 +198,7 @@ class CRMController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // organizations
-        $organizations = Organization::where('institution_id', $institution->id)->get();
+        $organizations = Organization::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get campaign
         $campaign = Campaign::where('institution_id', $institution->id)->where('id', $campaign_id)->first();
         // campaigns
@@ -255,7 +216,7 @@ class CRMController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // get campaign types
-        $campaignTypes = CampaignType::where('institution_id', $institution->id)->get();
+        $campaignTypes = CampaignType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get campaigns
         $campaign = Campaign::where('institution_id', $institution->id)->with('user', 'status', 'campaignType', 'campaignUploads', 'contacts', 'expenses', 'organizations', 'toDos')->withCount('campaignUploads', 'contacts', 'expenses', 'organizations', 'toDos')->where('id', $campaign_id)->first();
         // Campaign uploads
@@ -273,7 +234,7 @@ class CRMController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // get campaign types
-        $campaignTypes = CampaignType::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $campaignTypes = CampaignType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // Get campaigns
         $campaign = Campaign::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'campaignType', 'campaign_upload', 'contacts', 'expenses', 'organizations', 'toDos')->withCount('campaign_upload', 'contacts', 'expenses', 'organizations', 'toDos')->where('id', $campaign_id)->first();
         // Campaign uploads
@@ -299,21 +260,21 @@ class CRMController extends Controller
         $campaign = Campaign::where('institution_id', $institution->id)->where('id', $campaign_id)->first();
         $originalFolderName = str_replace(' ', '', $portal.'/campaigns/'.$campaign->name."/");
 
-        return $originalFolderName;
+//        return $originalFolderName;
 
         $file = $request->file('file');
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        Storage::disk('local')->putFileAs(
-            $originalFolderName,
-            $file,
-            $file_name_extension
-        );
+        $file->storeAs($originalFolderName, $file->getClientOriginalName());
+
+//        Storage::disk('local')->putFileAs(
+//            $originalFolderName,
+//            $file,
+//            $file_name_extension
+//        );
 
         $path = public_path().$originalFolderName.$file_name_extension;
-
-        return $path;
 
         $size = $request->file('file')->getSize();
         $file_name = pathinfo($path, PATHINFO_FILENAME);
@@ -324,6 +285,7 @@ class CRMController extends Controller
         $extensionType = $this->uploadExtension($extension);
         $upload->file_type = $extensionType;
 
+        $upload->original = $originalFolderName.$image_name;
         $upload->name = $file_name;
         $upload->extension = $extension;
         $upload->size = $size;
@@ -342,13 +304,7 @@ class CRMController extends Controller
     public function campaignUploadDownload($portal, $upload_id)
     {
         $uploadExists = Upload::findOrFail($upload_id);
-        $upload = Upload::where('id', $upload_id)->first();
-
-        // return $upload->original;
-        $file_path = public_path($upload->original);
-        // return asset('storage/'.$upload->original);
-
-        return response()->download($file_path);
+        return Storage::download($uploadExists->original);
     }
 
     public function campaignUpdate(Request $request, $portal, $campaign_id)
@@ -402,11 +358,11 @@ class CRMController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // Get contact types
-        $contactTypes = ContactType::where('institution_id', $institution->id)->get();
+        $contactTypes = ContactType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // Get contacts
-        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->where('is_lead', false)->with('status', 'contactType', 'title')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->with('status', 'contactType', 'title')->get();
         // Get deleted contacts
-        $deletedContacts = Contact::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->where('is_institution', true)->where('is_lead', false)->with('status', 'contactType', 'title')->get();
+        $deletedContacts = Contact::where('status_id', 'd35b4cee-5594-4cfd-ad85-e489c9dcdeff')->where('institution_id', $institution->id)->where('is_institution', true)->with('status', 'contactType', 'title')->get();
 
         return view('business.contacts', compact('contacts', 'user', 'contactTypes', 'institution', 'deletedContacts'));
     }
@@ -420,13 +376,13 @@ class CRMController extends Controller
         // get contacts
         $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('user', 'status', 'contactType')->where('is_institution', true)->get();
         // get contact types
-        $contactTypes = ContactType::where('institution_id', $institution->id)->get();
+        $contactTypes = ContactType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get organizations
-        $organizations = Organization::where('institution_id', $institution->id)->get();
+        $organizations = Organization::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get titles
-        $titles = Title::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $titles = Title::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get lead sources
-        $leadSources = LeadSource::where('institution_id', $institution->id)->get();
+        $leadSources = LeadSource::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get campaigns
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         return view('business.contact_create', compact('contacts', 'user', 'contactTypes', 'institution', 'organizations', 'titles', 'leadSources', 'campaigns'));
@@ -456,11 +412,6 @@ class CRMController extends Controller
             $contact->is_organization = true;
         }else{
             $contact->is_organization = false;
-        }
-        if($request->is_lead == "on"){
-            $contact->is_lead = true;
-        }else{
-            $contact->is_lead = false;
         }
 
         $contact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -532,19 +483,17 @@ class CRMController extends Controller
         // contacts
         $contact = Contact::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status')->where('id', $contact_id)->first();
         // contact types
-        $contactTypes = ContactType::where('institution_id', $institution->id)->get();
+        $contactTypes = ContactType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get organizations
-        $organizations = Organization::where('institution_id', $institution->id)->get();
+        $organizations = Organization::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get titles
-        $titles = Title::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $titles = Title::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get lead sources
-        $leadSources = LeadSource::where('institution_id', $institution->id)->get();
+        $leadSources = LeadSource::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get campaigns
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // contact sales
         $sales = Sale::where('institution_id', $institution->id)->with('status', 'saleProducts', 'contact.organization')->withCount('saleProducts')->where('contact_id', $contact_id)->get();
-        // ontact owed liability
-        $liabilities = Liability::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'account')->where('contact_id', $contact_id)->get();
         // contact loans
         $loans = Loan::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'loanType')->where('contact_id', $contact_id)->get();
         // contact contact types
@@ -557,7 +506,7 @@ class CRMController extends Controller
         $completedToDos = ToDo::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'contact')->where('status_id', 'facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('contact_id', $contact->id)->get();
         // Overdue to dos
         $overdueToDos = ToDo::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'contact')->where('status_id', '99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('contact_id', $contact->id)->get();
-        return view('business.contact_show', compact('loans', 'overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'contactContactTypes', 'liabilities', 'sales', 'campaigns', 'leadSources', 'titles', 'organizations', 'contact', 'user', 'contactTypes', 'institution', 'loans'));
+        return view('business.contact_show', compact('loans', 'overdueToDos', 'completedToDos', 'inProgressToDos', 'pendingToDos', 'contactContactTypes', 'sales', 'campaigns', 'leadSources', 'titles', 'organizations', 'contact', 'user', 'contactTypes', 'institution', 'loans'));
     }
 
     public function contactLiabilityCreate($portal, $contact_id)
@@ -607,7 +556,7 @@ class CRMController extends Controller
         // Institution
         $institution = $this->getInstitution($portal);
         // Get contacts
-        $contacts = Contact::where('institution_id', $institution->id)->where('is_lead', false)->with('organization', 'title')->get();
+        $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->with('organization', 'title')->get();
         // Getting taxes
         $taxes = Tax::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // contacts
@@ -615,10 +564,12 @@ class CRMController extends Controller
         // Getting Products
         $products = Product::where('institution_id', $institution->id)->with('inventory.warehouse')->get();
 
+        // payment schedules
+        $paymentSchedules = PaymentSchedule::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id',$institution->id)->get();
         $productIds = Product::where('institution_id', $institution->id)->select('id')->get()->toArray();
         $inventories = Inventory::with('product', 'warehouse')->get();
 
-        return view('business.sale_create', compact('contactExists', 'contact', 'user', 'institution', 'products', 'inventories', 'contacts', 'taxes'));
+        return view('business.sale_create', compact('contactExists', 'contact', 'user', 'institution', 'products', 'inventories', 'contacts', 'taxes', 'paymentSchedules'));
     }
 
     public function contactUpdate(Request $request, $portal, $contact_id)
@@ -640,11 +591,6 @@ class CRMController extends Controller
         $contact->lead_source_id = $request->lead_source;
         $contact->organization_id = $request->organization;
         $contact->campaign_id = $request->campaign;
-        if($request->is_lead == "on"){
-            $contact->is_lead = true;
-        }else{
-            $contact->is_lead = false;
-        }
         $contact->save();
 
         // contact type contacts update
@@ -670,20 +616,6 @@ class CRMController extends Controller
         DB::table('contact_contact_types')->whereIn('id', $contactContactTypeIds)->delete();
 
 
-        return redirect()->route('business.contact.show',['portal'=>$institution->portal, 'id'=>$contact->id])->withSuccess('Contact updated!');
-    }
-
-    public function contactUpdateLeadToContact($portal, $contact_id)
-    {
-
-        // User
-        $user = $this->getUser();
-        // Get institution
-        $institution = $this->getInstitution($portal);
-
-        $contact = Contact::findOrFail($contact_id);
-        $contact->is_lead = false;
-        $contact->save();
         return redirect()->route('business.contact.show',['portal'=>$institution->portal, 'id'=>$contact->id])->withSuccess('Contact updated!');
     }
 
@@ -749,7 +681,7 @@ class CRMController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // organizations
-        $organizations = Organization::where('institution_id', $institution->id)->get();
+        $organizations = Organization::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // campaigns
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         return view('business.organization_create', compact('user', 'institution', 'organizations', 'campaigns'));
@@ -797,8 +729,8 @@ class CRMController extends Controller
         // Get institution
         $institution = $this->getInstitution($portal);
         // Get organization
-        $organization = Organization::where('institution_id', $institution->id)->with('user', 'status', 'contacts')->withCount('contacts')->where('id', $organization_id)->first();
-        $organizations = Organization::where('institution_id', $institution->id)->with('user', 'status', 'contacts')->withCount('contacts')->get();
+        $organization = Organization::where('institution_id', $institution->id)->with('user', 'status', 'contacts', 'contactSales')->withCount('contacts')->where('id', $organization_id)->first();
+        $organizations = Organization::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->with('user', 'status', 'contacts')->withCount('contacts')->get();
         // Pending to dos
         $pendingToDos = ToDo::where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'organization')->where('status_id', 'f3df38e3-c854-4a06-be26-43dff410a3bc')->where('organization_id', $organization->id)->get();
         // In progress to dos
@@ -825,17 +757,17 @@ class CRMController extends Controller
         // get contacts
         $contacts = Contact::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->with('user', 'status', 'contactType')->get();
         // get contact types
-        $contactTypes = ContactType::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $contactTypes = ContactType::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get organization
         $organization = Organization::findOrFail($organization_id);
         // get titles
-        $titles = Title::where('institution_id', $institution->id)->where('is_institution', true)->get();
+        $titles = Title::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->where('is_institution', true)->get();
         // get lead sources
-        $leadSources = LeadSource::where('institution_id', $institution->id)->get();
+        $leadSources = LeadSource::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // get campaigns
         $campaigns = Campaign::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         // organizations
-        $organizations = Organization::where('institution_id', $institution->id)->get();
+        $organizations = Organization::where('status_id', 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->where('institution_id', $institution->id)->get();
         return view('business.contact_create', compact('contactOrganization', 'contacts', 'user', 'contactTypes', 'institution', 'organization', 'titles', 'leadSources', 'campaigns', 'organizations'));
     }
 

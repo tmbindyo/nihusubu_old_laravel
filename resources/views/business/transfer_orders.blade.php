@@ -73,7 +73,6 @@
                                                     @can('view transfer order')
                                                         <a href="{{route('business.transfer.order.show',['portal'=>$institution->portal, 'id'=>$transferOrder->id])}}" class="btn-primary btn-outline btn btn-xs">View</a>
                                                     @endcan
-{{--                                                    <a href="{{route('business.transfer.order.edit',['portal'=>$institution->portal, 'id'=>$transferOrder->id])}}" class="btn-warning btn-outline btn btn-xs">Edit</a>--}}
                                                 </div>
                                             </td>
                                         </tr>

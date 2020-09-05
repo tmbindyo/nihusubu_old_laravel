@@ -18,6 +18,10 @@ class Module extends Model implements Auditable
     {
         return $this->hasMany('Spatie\Permission\Models\Permission');
     }
+    public function subscriptionModules()
+    {
+        return $this->hasMany('App\SubscriptionModule');
+    }
 
     // Parents
     public function status()

@@ -9,10 +9,10 @@
                 <h2>Estimates</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                        <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                     </li>
                     <li>
-                        <a href="{{route('business.sales',$institution->portal)}}">Sales</a>
+                        <a href="#">Sales</a>
                     </li>
                     <li class="active">
                         <strong>Estimates</strong>

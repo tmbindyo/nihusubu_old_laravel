@@ -9,20 +9,20 @@
             <h2>Lead Source's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.lead.sources',$institution->portal)}}">Lead Source's</a>
+                    <strong><a href="{{route('business.settings',$institution->portal)}}">Settings</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Lead Source Create</strong>
+                    <strong>Lead Source {{$leadSource->name}}</strong>
                 </li>
             </ol>
         </div>
         <div class="col-md-3">
             <div class="title-action">
                 @can('add contact')
-                    <a href="{{route('business.contact.create',$institution->portal)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
+                    <a href="{{route('business.lead.source.contact.create',['portal'=>$institution->portal,'id'=>$leadSource->id])}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
                 @endcan
             </div>
         </div>
@@ -60,7 +60,7 @@
                                                 <strong>{{ $errors->first('name') }}</strong>
                                             </span>
                                         @endif
-                                        <input type="name" name="name" value="{{$leadSource->name}}" class="form-control input-lg">
+                                        <input type="name" name="name" value="{{$leadSource->name}}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                         <i>name</i>
                                     </div>
                                     @can('edit lead source')
@@ -76,6 +76,58 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$leadSource->user->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 {{$leadSource->status->label}}">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-ellipsis-v fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$leadSource->status->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-plus-square fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$leadSource->created_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-scissors fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$leadSource->updated_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
 
         @can('view contacts')
             <div class="row">

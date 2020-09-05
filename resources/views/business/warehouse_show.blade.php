@@ -79,7 +79,7 @@
                                                         <strong>{{ $errors->first('street') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="text" id="street" name="street" required="required" value="{{$warehouse->address->street}}" class="form-control input-lg">
+                                                <input type="text" id="street" name="street" required="required" value="{{$warehouse->address->street}}" class="form-control input-lg {{ $errors->has('street') ? ' is-invalid' : '' }}">
                                                 <i>street</i>
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                                         <strong>{{ $errors->first('town') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="text" name="town" id="town" class="form-control input-lg" value="{{$warehouse->address->town}}">
+                                                <input type="text" name="town" id="town" class="form-control input-lg {{ $errors->has('town') ? ' is-invalid' : '' }}" value="{{$warehouse->address->town}}">
                                                 <i>town</i>
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@
                                                         <strong>{{ $errors->first('po_box') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="text" id="po_box" name="po_box" required="required" value="{{$warehouse->address->po_box}}" class="form-control input-lg">
+                                                <input type="text" id="po_box" name="po_box" required="required" value="{{$warehouse->address->po_box}}" class="form-control input-lg {{ $errors->has('po_box') ? ' is-invalid' : '' }}">
                                                 <i>po box</i>
                                             </div>
                                         </div>
@@ -118,7 +118,7 @@
                                                         <strong>{{ $errors->first('postal_code') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="text" name="postal_code" id="postal_code" class="form-control input-lg" value="{{$warehouse->address->postal_code}}">
+                                                <input type="text" name="postal_code" id="postal_code" class="form-control input-lg {{ $errors->has('postal_code') ? ' is-invalid' : '' }}" value="{{$warehouse->address->postal_code}}">
                                                 <i>postal code</i>
                                             </div>
                                         </div>
@@ -133,7 +133,7 @@
                                                         <strong>{{ $errors->first('address_line_1') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="text" id="address_line_1" name="address_line_1" required="required" value="{{$warehouse->address->address_line_1}}" class="form-control input-lg">
+                                                <input type="text" id="address_line_1" name="address_line_1" required="required" value="{{$warehouse->address->address_line_1}}" class="form-control input-lg {{ $errors->has('address_line_1') ? ' is-invalid' : '' }}">
                                                 <i>address line 1</i>
                                             </div>
                                         </div>
@@ -145,7 +145,7 @@
                                                         <strong>{{ $errors->first('address_line_2') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="text" name="address_line_2" id="address_line_2" class="form-control input-lg" value="{{$warehouse->address->address_line_2}}">
+                                                <input type="text" name="address_line_2" id="address_line_2" class="form-control input-lg {{ $errors->has('address_line_2') ? ' is-invalid' : '' }}" value="{{$warehouse->address->address_line_2}}">
                                                 <i>address line 2</i>
                                             </div>
                                         </div>
@@ -160,7 +160,7 @@
                                                         <strong>{{ $errors->first('email') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="text" id="email" name="email" required="required" value="{{$warehouse->address->email}}" class="form-control input-lg">
+                                                <input type="text" id="email" name="email" required="required" value="{{$warehouse->address->email}}" class="form-control input-lg {{ $errors->has('email') ? ' is-invalid' : '' }}">
                                                 <i>email</i>
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@
                                                         <strong>{{ $errors->first('phone_number') }}</strong>
                                                     </span>
                                                 @endif
-                                                <input type="text" name="phone_number" id="phone_number" class="form-control input-lg" value="{{$warehouse->address->phone_number}}">
+                                                <input type="text" name="phone_number" id="phone_number" class="form-control input-lg {{ $errors->has('phone_number') ? ' is-invalid' : '' }}" value="{{$warehouse->address->phone_number}}">
                                                 <i>phone number</i>
                                             </div>
                                         </div>
@@ -219,32 +219,56 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
-                                        {{--  <a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>  --}}
-                                        <h2>{{$warehouse->name}}</h2>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$warehouse->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label label-primary">{{$warehouse->status->name}}</span></dd>
-                                    </dl>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$warehouse->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$warehouse->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$warehouse->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$warehouse->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$user->name}}</dd>
-
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$warehouse->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd>{{$warehouse->created_at}}</dd>
-                                    </dl>
-                                </div>
-                            </div>
+                            <br>
                             {{--  <div class="row">
                                 <div class="col-lg-12">
                                     <dl class="dl-horizontal">

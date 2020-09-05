@@ -9,13 +9,13 @@
             <h2>Organization's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
                 </li>
                 <li>
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('business.organizations',$institution->portal)}}">Organization's</a>
+                    <strong><a href="{{route('business.organizations',$institution->portal)}}">Organization's</a></strong>
                 </li>
                 @isset($campaignExists)
                     <li class="active">
@@ -65,7 +65,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="text" id="name" name="name" required="required" placeholder="Name" value="{{ old('name') }}" class="form-control input-lg">
+                                                <input type="text" id="name" name="name" required="required" placeholder="Name" value="{{ old('name') }}" class="form-control input-lg {{ $errors->has('name') ? ' is-invalid' : '' }}">
                                                 <i>name</i>
                                             </div>
                                         </div>
@@ -76,7 +76,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required="required" placeholder="Phone Number" class="form-control input-lg">
+                                                <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" required="required" placeholder="Phone Number" class="form-control input-lg {{ $errors->has('phone_number') ? ' is-invalid' : '' }}">
                                                 <i>phone number</i>
                                             </div>
                                         </div>
@@ -90,7 +90,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="email" id="email" name="email" value="{{ old('email') }}" required="required" placeholder="Email" class="form-control input-lg">
+                                                <input type="email" id="email" name="email" value="{{ old('email') }}" required="required" placeholder="Email" class="form-control input-lg {{ $errors->has('email') ? ' is-invalid' : '' }}">
                                                 <i>email</i>
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="url" id="website" name="website" value="{{ old('website') }}" required="required" placeholder="Website" class="form-control input-lg">
+                                                <input type="url" id="website" name="website" value="{{ old('website') }}" required="required" placeholder="Website" class="form-control input-lg {{ $errors->has('website') ? ' is-invalid' : '' }}">
                                                 <i>website</i>
                                             </div>
                                         </div>
@@ -115,7 +115,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="text" id="street" name="street" value="{{ old('street') }}" required="required" placeholder="Street" class="form-control input-lg">
+                                                <input type="text" id="street" name="street" value="{{ old('street') }}" required="required" placeholder="Street" class="form-control input-lg {{ $errors->has('street') ? ' is-invalid' : '' }}">
                                                 <i>street</i>
                                             </div>
                                         </div>
@@ -126,7 +126,7 @@
                                             </span>
                                             @endif
                                             <div class="has-warning">
-                                                <input type="text" id="city" name="city" value="{{ old('city') }}" required="required" placeholder="City" class="form-control input-lg">
+                                                <input type="text" id="city" name="city" value="{{ old('city') }}" required="required" placeholder="City" class="form-control input-lg {{ $errors->has('city') ? ' is-invalid' : '' }}">
                                                 <i>city</i>
                                             </div>
                                         </div>
@@ -139,10 +139,10 @@
                                                 <strong>{{ $errors->first('parent_organization') }}</strong>
                                             </span>
                                             @endif
-                                            <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg">
+                                            <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg {{ $errors->has('parent_organization') ? ' is-invalid' : '' }}">
                                                 <option></option>
                                                 @foreach ($organizations as $organization)
-                                                    <option @isset($organizationOrganization) @if($organizationOrganization->id == $campaign->id) selected @endif @endisset value="{{$organization->id}}">{{$organization->name}}</option>
+                                                    <option @isset($organizationExists) @if($organizationExists->id == $campaign->id) selected @endif @endisset value="{{$organization->id}}">{{$organization->name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>parent organization</i>
@@ -156,10 +156,10 @@
                                                 <strong>{{ $errors->first('campaign') }}</strong>
                                             </span>
                                             @endif
-                                            <select name="campaign" class="select2_campaign form-control input-lg">
+                                            <select name="campaign" class="select2_campaign form-control input-lg {{ $errors->has('campaign') ? ' is-invalid' : '' }}">
                                                 <option></option>
                                                 @foreach ($campaigns as $campaign)
-                                                    <option @isset($organizationCampaign) @if($organizationCampaign->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}">{{$campaign->name}}</option>
+                                                    <option @isset($campaignExists) @if($campaignExists->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}">{{$campaign->name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>campaign</i>
@@ -172,8 +172,8 @@
                                                 <strong>{{ $errors->first('description') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Description" class="form-control input-lg">{{ old('description') }}</textarea>
-                                        <i>description</i>
+                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Description" class="form-control input-lg {{ $errors->has('description') ? ' is-invalid' : '' }}">{{ old('description') }}</textarea>
+                                        <i>about</i>
                                     </div>
 
                                     <hr>

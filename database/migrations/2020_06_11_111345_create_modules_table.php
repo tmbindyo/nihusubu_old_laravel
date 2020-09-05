@@ -17,10 +17,13 @@ class CreateModulesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name');
+            $table->text('description');
             $table->decimal('price',20,2);
+            $table->decimal('daily_price',20,2);
             $table->boolean('is_business');
             $table->boolean('is_admin');
             $table->boolean('is_user');
+            $table->boolean('is_paid');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

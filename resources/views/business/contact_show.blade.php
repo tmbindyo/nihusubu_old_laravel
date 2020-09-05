@@ -8,10 +8,13 @@
             <h2>Contact's</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('business.calendar',$institution->portal)}}">Home</a>
+                    <strong><a href="{{route('business.calendar',$institution->portal)}}">Home</a></strong>
+                </li>
+                <li>
+                    <a href="#">CRM</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('business.contacts',$institution->portal)}}">Contacts</a>
+                    <strong><a href="{{route('business.contacts',$institution->portal)}}">Contacts</a></strong>
                 </li>
                 <li class="active">
                     <strong>Contact</strong>
@@ -75,24 +78,12 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            @if ($errors->has('is_lead'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                <strong>{{ $errors->first('is_lead') }}</strong>
-                                            </span>
-                                            @endif
-                                            <input type="checkbox" name="is_lead" class="js-switch_3" @if($contact->is_lead == True) checked @endif/>
-                                            <i>lead</i>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
                                             @if ($errors->has('title'))
                                                 <span class="invalid-feedback" style="display: block;" role="alert">
                                                 <strong>{{ $errors->first('title') }}</strong>
                                             </span>
                                             @endif
-                                            <select required="required" name="title" class="select2_demo_title form-control input-lg">
+                                            <select required="required" name="title" class="select2_demo_title form-control input-lg {{ $errors->has('title') ? ' is-invalid' : '' }}">
                                                 <option></option>
                                                 @foreach($titles as $title)
                                                     <option @if($contact->title_id == $title->id) selected @endif value="{{$title->id}}">{{$title->name}}</option>
@@ -110,7 +101,7 @@
                                                 <strong>{{ $errors->first('first_name') }}</strong>
                                             </span>
                                                 @endif
-                                                <input type="text" id="first_name" name="first_name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$contact->first_name}}">
+                                                <input type="text" id="first_name" name="first_name" required="required" class="form-control col-md-7 col-xs-12 input-lg {{ $errors->has('first_name') ? ' is-invalid' : '' }}" required="required" value="{{$contact->first_name}}">
                                                 <i>first name</i>
                                             </div>
                                         </div>
@@ -122,7 +113,7 @@
                                                 <strong>{{ $errors->first('last_name') }}</strong>
                                             </span>
                                                 @endif
-                                                <input type="text" id="last_name" name="last_name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$contact->last_name}}">
+                                                <input type="text" id="last_name" name="last_name" required="required" class="form-control col-md-7 col-xs-12 input-lg {{ $errors->has('last_name') ? ' is-invalid' : '' }}" required="required" value="{{$contact->last_name}}">
                                                 <i>last name</i>
                                             </div>
                                         </div>
@@ -136,7 +127,7 @@
                                                 <strong>{{ $errors->first('phone_number') }}</strong>
                                             </span>
                                                 @endif
-                                                <input type="text" id="phone_number" name="phone_number" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$contact->phone_number}}">
+                                                <input type="text" id="phone_number" name="phone_number" required="required" class="form-control col-md-7 col-xs-12 input-lg {{ $errors->has('phone_number') ? ' is-invalid' : '' }}" required="required" value="{{$contact->phone_number}}">
                                                 <i>phone number</i>
                                             </div>
                                         </div>
@@ -148,7 +139,7 @@
                                                 <strong>{{ $errors->first('email') }}</strong>
                                             </span>
                                                 @endif
-                                                <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$contact->email}}">
+                                                <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12 input-lg {{ $errors->has('email') ? ' is-invalid' : '' }}" required="required" value="{{$contact->email}}">
                                                 <i>email</i>
                                             </div>
                                         </div>
@@ -161,7 +152,7 @@
                                                 <strong>{{ $errors->first('organization') }}</strong>
                                             </span>
                                             @endif
-                                            <select name="organization" class="select2_demo_organization form-control input-lg">
+                                            <select name="organization" class="select2_demo_organization form-control input-lg {{ $errors->has('organization') ? ' is-invalid' : '' }}">
                                                 <option></option>
                                                 @foreach($organizations as $organization)
                                                     <option @if($contact->organization_id == $organization->id) selected @endif value="{{$organization->id}}">{{$organization->name}}</option>
@@ -175,7 +166,7 @@
                                                 <strong>{{ $errors->first('contact_types') }}</strong>
                                             </span>
                                             @endif
-                                            <select required="required" name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple>
+                                            <select required="required" name="contact_types[]" class="select2_demo_contact_type form-control input-lg {{ $errors->has('contact_types') ? ' is-invalid' : '' }}" multiple>
                                                 <option></option>
                                                 @foreach($contactTypes as $contactType)
                                                     <option @foreach($contactContactTypes as $contactContactType) @if($contactType->id === $contactContactType->contactType->id) selected @endif @endforeach value="{{$contactType->id}}">{{$contactType->name}}</option>
@@ -192,7 +183,7 @@
                                                 <strong>{{ $errors->first('lead_source') }}</strong>
                                             </span>
                                             @endif
-                                            <select name="lead_source" class="select2_demo_lead_source form-control input-lg">
+                                            <select name="lead_source" class="select2_demo_lead_source form-control input-lg {{ $errors->has('lead_source') ? ' is-invalid' : '' }}">
                                                 <option></option>
                                                 @foreach($leadSources as $leadSource)
                                                     <option @if($contact->lead_source_id == $leadSource->id) selected @endif value="{{$leadSource->id}}">{{$leadSource->name}}</option>
@@ -208,7 +199,7 @@
                                                 <strong>{{ $errors->first('campaign') }}</strong>
                                             </span>
                                                 @endif
-                                                <select name="campaign" class="select2_demo_campaign form-control input-lg">
+                                                <select name="campaign" class="select2_demo_campaign form-control input-lg {{ $errors->has('campaign') ? ' is-invalid' : '' }}">
                                                     <option></option>
                                                     @foreach($campaigns as $campaign)
                                                         <option @if($contact->campaign_id == $campaign->id) selected @endif value="{{$campaign->id}}">{{$campaign->name}}</option>
@@ -227,7 +218,7 @@
                                                 <strong>{{ $errors->first('about') }}</strong>
                                             </span>
                                                 @endif
-                                                <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required">{{$contact->about}}</textarea>
+                                                <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg {{ $errors->has('about') ? ' is-invalid' : '' }}" required="required">{{$contact->about}}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -258,29 +249,56 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="m-b-md">
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$contact->user->name}}</h3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$contact->status->label}}">{{$contact->status->name}}</span></dd>
-                                    </dl>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 {{$contact->status->label}}">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ellipsis-v fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$contact->status->name}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-plus-square fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$contact->created_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-scissors fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h3 class="font-bold">{{$contact->updated_at}}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <dl class="dl-horizontal">
-
-                                        <dt>Created by:</dt> <dd>{{$contact->user->name}}</dd>
-                                    </dl>
-                                </div>
-                                <div class="col-lg-7" id="cluster_info">
-                                    <dl class="dl-horizontal" >
-
-                                        <dt>Last Updated:</dt> <dd>{{$contact->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$contact->created_at}} </dd>
-                                    </dl>
-                                </div>
-                            </div>
+                            <hr>
                             <div class="row m-t-sm">
                                 <div class="col-lg-12">
                                 <div class="panel blank-panel">
@@ -532,7 +550,7 @@
 
 @endsection
 
-@include('business.layouts.modals.contact_to_do')
+@include('business.layouts.modals.to_do_create')@include('business.layouts.modals.to_do_create')
 
 @section('js')
 
@@ -605,6 +623,9 @@
             if (mm < 10){
                 mm = '0'+mm;
             }
+            if (m < 10){
+                m = '0'+m;
+            }
             var date_today = mm + '/' + dd + '/' + yyyy;
             var time_curr = h + ':' + m;
             console.log(time_curr);
@@ -617,6 +638,34 @@
         });
 
     </script>
+
+{{-- to do start time and end time --}}
+<script>
+    $(document).ready(function() {
+        $('.enableEndDate').on('click',function(){
+
+            if (document.getElementById('is_end_date').checked) {
+                // enable end_time input
+                document.getElementById("end_date").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_date").disabled = true;
+            }
+
+        });
+
+        $('.enableEndTime').on('click',function(){
+            if (document.getElementById('is_end_time').checked) {
+                // enable end_time input
+                document.getElementById("end_time").disabled = false;
+            } else {
+                // disable input
+                document.getElementById("end_time").disabled = true;
+            }
+        });
+    });
+
+</script>
 
     <!-- Page-Level Scripts -->
     <script>
@@ -989,6 +1038,8 @@
             placeholder: "Select Campaign",
             allowClear: true
         });
+
+        $('.chosen-select').chosen({width: "100%"});
 
 
     });

@@ -62,7 +62,7 @@
                                                         <strong>{{ $errors->first('account') }}</strong>
                                                     </span>
                                                 @endif
-                                                <select name="account" class="select2_account form-control input-lg">
+                                                <select name="account" class="select2_account form-control input-lg {{ $errors->has('account') ? ' is-invalid' : '' }}">
                                                     <option></option>
                                                     @foreach($accounts as $accountSelected)
                                                         <option @if($accountSelected->id == $account->id) selected @endif value="{{$accountSelected->id}}" >{{$accountSelected->name}}[{{$accountSelected->balance}}]</option>
@@ -82,7 +82,7 @@
                                         @endif
                                         <div class="col-md-10">
                                             <div class="has-warning">
-                                                <select name="withdrawal" class="select2_withdrawal form-control input-lg">
+                                                <select name="withdrawal" class="select2_withdrawal form-control input-lg {{ $errors->has('withdrawal') ? ' is-invalid' : '' }}">
                                                     <option value="{{$withdrawal->id}}" >{{$withdrawal->reference}}[{{$withdrawal->amount}}]</option>
                                                 </select>
                                                 <i> withdrawal.</i>
@@ -90,7 +90,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="has-warning">
-                                                <input type="checkbox" name="is_withdrawal" class="js-switch_3" checked/>
+                                                <input type="checkbox" name="is_withdrawal" class="js-switch_3 {{ $errors->has('is_withdrawal') ? ' is-invalid' : '' }}" checked/>
                                                 <br>
                                                 <i>is withdrawal</i>
                                             </div>
@@ -108,7 +108,7 @@
                                                 @endif
                                                 <div class="col-md-12">
                                                     <div class="has-warning">
-                                                        <input type="number" name="amount" id="amount" value="{{ old('amount') }}" class="form-control input-lg" required>
+                                                        <input type="number" name="amount" id="amount" value="{{ old('amount') }}" class="form-control input-lg {{ $errors->has('amount') ? ' is-invalid' : '' }}" required>
                                                         <i> amount ({{$withdrawal->amount}}).</i>
                                                     </div>
                                                 </div>
@@ -130,7 +130,7 @@
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
                                                             </span>
-                                                            <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg" required>
+                                                            <input type="text" name="date" id="date" value="{{ old('date') }}" class="form-control input-lg {{ $errors->has('date') ? ' is-invalid' : '' }}" required>
                                                         </div>
                                                         <i> adjustment date.</i>
                                                     </div>
@@ -146,7 +146,7 @@
                                                 <strong>{{ $errors->first('notes') }}</strong>
                                             </span>
                                         @endif
-                                        <textarea name="notes" placeholder="Notes" class="form-control" rows="7">{{ old('notes') }}</textarea>
+                                        <textarea name="notes" placeholder="Notes" class="form-control {{ $errors->has('notes') ? ' is-invalid' : '' }}" rows="7">{{ old('notes') }}</textarea>
                                         <i> notes.</i>
                                     </div>
 

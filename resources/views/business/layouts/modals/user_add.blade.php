@@ -53,6 +53,20 @@
                         </div>
                     </div>
                     <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="has-warning">
+                                <select name="role" data-placeholder="Choose a role..." class="chosen-select"  tabindex="2">
+                                    <option></option>
+                                    @foreach($roles as $role)
+                                        <option value="{{encrypt($role->id)}}">{{str_replace($institution->portal.' ', "", $role->name)}}</option>
+                                    @endforeach()
+                                </select>
+                                <i>role</i>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
 
                     <hr>
 

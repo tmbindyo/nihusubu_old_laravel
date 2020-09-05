@@ -31,6 +31,7 @@ class CreateWithdrawalsTable extends Migration
             $table->uuid('institution_id')->nullable();
             $table->boolean('is_institution');
             $table->boolean('is_user');
+            $table->boolean('is_chama');
 
             $table->timestamps();
             $table->softDeletes();

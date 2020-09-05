@@ -28,9 +28,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Composite Product Create</h5>
+                    </div>
                     <div class="ibox-content">
                         <div class="">
-                            <form method="post" action="{{ route('business.composite.product.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
+                            <form method="post" enctype="multipart/form-data" action="{{ route('business.composite.product.store',$institution->portal) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -45,24 +48,46 @@
                                 {{--  Product  --}}
                                 <div class="row">
                                     <div class="col-md-6">
-                                        {{--  Product type  --}}
-                                        {{--  todo only one should be selectable  --}}
-                                        <div class="has-warning">
-                                            @if ($errors->has('product_type'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('product_type') }}</strong>
-                                                </span>
-                                            @endif
-                                            <p>Product Type</p>
-                                            <div class="radio radio-inline">
-                                                <input type="radio" id="goods" value="goods" name="product_type" checked="">
-                                                <label for="goods"> Goods </label>
+                                        <div class="row">
+                                            <div class="col-lg-6 b-r">
+                                                <div class="has-warning">
+                                                    @if ($errors->has('product_type'))
+                                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                                            <strong>{{ $errors->first('product_type') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                    <div class="radio radio-inline">
+                                                        <input type="radio" id="goods" value="goods" name="product_type" checked="" class="{{ $errors->has('product_type') ? ' is-invalid' : '' }}">
+                                                        <label for="goods"> Goods </label>
+                                                    </div>
+                                                    <div class="radio radio-inline">
+                                                        <input type="radio" id="services" value="services" name="product_type" class="product_type">
+                                                        <label for="services"> Service </label>
+                                                    </div>
+                                                        <br>
+                                                    <i>product type</i>
+                                                </div>
                                             </div>
-                                            <div class="radio radio-inline">
-                                                <input type="radio" id="services" value="services" name="product_type">
-                                                <label for="services"> Service </label>
+                                            <div class="col-lg-6">
+                                                <div class="has-warning">
+                                                    @if ($errors->has('returnable'))
+                                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                                    <strong>{{ $errors->first('returnable') }}</strong>
+                                                </span>
+                                                    @endif
+                                                    <div class="checkbox">
+                                                        <input id="returnable" name="returnable" type="checkbox" class="{{ $errors->has('returnable') ? ' is-invalid' : '' }}">
+                                                        <label for="returnable">
+                                                            Returnable Product
+                                                        </label>
+                                                        <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-question-circle fa-x text-warning"></i></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                        {{--  Product type  --}}
+                                        {{--  todo only one should be selectable  --}}
+
                                         {{--  Product name  --}}
                                         <br>
                                         <div class="has-warning">
@@ -71,7 +96,7 @@
                                                     <strong>{{ $errors->first('product_name') }}</strong>
                                                 </span>
                                             @endif
-                                            <input type="text" id="product_name" name="product_name" value="{{ old('product_name') }}" required="required" class="form-control input-lg" placeholder="Product name">
+                                            <input type="text" id="product_name" name="product_name" value="{{ old('product_name') }}" required="required" class="form-control input-lg {{ $errors->has('product_name') ? ' is-invalid' : '' }}" placeholder="Name">
                                             <i>name</i>
                                         </div>
                                         <br>
@@ -82,34 +107,73 @@
                                                     <strong>{{ $errors->first('unit') }}</strong>
                                                 </span>
                                             @endif
-                                            <select name="unit" class="select2_unit form-control input-lg" required>
+                                            <select name="unit" class="select2_unit form-control input-lg {{ $errors->has('unit') ? ' is-invalid' : '' }}" required>
                                                 <option></option>
                                                 @foreach($units as $unit)
                                                     <option value="{{$unit->id}}">{{$unit->name}}</option>
                                                 @endforeach
                                             </select>
-                                            <i>unit</i>
+                                            <i>unit</i> <span><i data-toggle="tooltip" data-placement="right" title="The item will be measured in terms of this unit (e.g.:kg,dozen,litres)" class="fa fa-question-circle fa-x text-warning"></i></span>
                                         </div>
+                                        <br>
+                                        <div class="row">
+                                            @if ($errors->has('brand'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('brand') }}</strong>
+                                            </span>
+                                            @endif
+                                            <div class="col-lg-12">
+                                                <div class="has-warning">
+                                                    <select name="brand" class="select2_brand form-control input-lg {{ $errors->has('brand') ? ' is-invalid' : '' }}">
+                                                        <option></option>
+                                                        @foreach($brands as $brand)
+                                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                                        @endforeach()
+                                                    </select>
+                                                    <i>brand</i> <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a brand." class="fa fa-question-circle fa-x text-warning"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            @if ($errors->has('product_category'))
+                                                <span class="invalid-feedback" style="display: block;" role="alert">
+                                                <strong>{{ $errors->first('product_category') }}</strong>
+                                            </span>
+                                            @endif
+                                            <div class="col-lg-12">
+                                                <div class="has-warning">
+                                                    <select name="product_sub_category" class="select2_product_sub_category form-control input-lg {{ $errors->has('product_sub_category') ? ' is-invalid' : '' }}">
+                                                        <option></option>
+                                                        @foreach($productSubCategories as $productSubCategory)
+                                                            <option value="{{$productSubCategory->id}}">{{$productSubCategory->name}}</option>
+                                                        @endforeach()
+                                                    </select>
+                                                    <i>product sub category</i> <span><i data-toggle="tooltip" data-placement="right" title="This depends on whether the item belongs to a product category." class="fa fa-question-circle fa-x text-warning"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
                                         {{--  Product returnable  --}}
                                         {{--todo description tooltip--}}
-                                        <div class="has-warning">
-                                            @if ($errors->has('returnable'))
-                                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                                    <strong>{{ $errors->first('returnable') }}</strong>
-                                                </span>
-                                            @endif
-                                            <div class="checkbox">
-                                                <input id="returnable" name="returnable" type="checkbox">
-                                                <label for="returnable">
-                                                    Returnable Product
-                                                </label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Enable this option if the item is eligible for sales return." class="fa fa-question-circle fa-2x"></i></span>
+
+
+
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                Product Images
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-groups">
+                                                    <div class="file-loading">
+                                                        <input id="file-1" type="file" name="file[]" multiple class="file {{ $errors->has('file') ? ' is-invalid' : '' }}" data-overwrite-initial="false" data-min-file-count="1">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                    </div>
-                                    <div class="col-md-4">
-                                        {{--  TODO Thumbnail  --}}
                                     </div>
                                 </div>
                                 <hr>
@@ -126,7 +190,7 @@
                                                     <strong>{{ $errors->first('selling_price') }}</strong>
                                                 </span>
                                             @endif
-                                            <input type="text" id="selling_price" name="selling_price" value="{{ old('selling_price') }}" required="required" placeholder="Selling Price" class="form-control input-lg">
+                                            <input type="text" id="selling_price" name="selling_price" value="{{ old('selling_price') }}" required="required" placeholder="Selling Price" class="form-control input-lg {{ $errors->has('selling_price') ? ' is-invalid' : '' }}">
                                             <i>selling price</i>
                                         </div>
                                     </div>
@@ -138,18 +202,15 @@
                                                     <strong>{{ $errors->first('selling_account') }}</strong>
                                                 </span>
                                             @endif
-                                            <div class="col-md-1">
-                                                <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you sell will be displayed in this account" class="fa fa-question-circle fa-3x text-warning"></i></span>
-                                            </div>
-                                            <div class="col-md-11">
+                                            <div class="col-md-12">
                                                 <div class="has-warning">
-                                                    <select name="selling_account" class="select2_selling_account form-control input-lg" required>
+                                                    <select name="selling_account" class="select2_selling_account form-control input-lg {{ $errors->has('selling_account') ? ' is-invalid' : '' }}" required>
                                                         <option></option>
                                                         @foreach($salesAccounts as $account)
                                                             <option value="{{$account->id}}">{{$account->name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <i>selling account</i>
+                                                    <i>selling account</i> <span><i data-toggle="tooltip" data-placement="right" title="All transactions related to the items you sell will be displayed in this account" class="fa fa-question-circle fa-x text-warning"></i></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -164,13 +225,28 @@
                                             </span>
                                         @endif
                                         {{--  Product Tax  --}}
-                                        <select name="taxes[]" class="select2_taxes form-control input-lg" multiple required>
+                                        <select name="taxes[]" class="select2_taxes form-control input-lg {{ $errors->has('tax') ? ' is-invalid' : '' }}" multiple required>
                                             <option></option>
                                             @foreach($taxes as $tax)
-                                                <option value="{{$tax->id}}">{{$tax->name}}</option>
+                                                <option value="{{$tax->id}}">{{$tax->name}}[{{$tax->amount}}@if($tax->is_percentage == True)%@endif]</option>
                                             @endforeach
                                         </select>
                                         <i>taxes</i>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{--  Product Tax  --}}
+                                        @if ($errors->has('tax_method'))
+                                            <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('tax_method') }}</strong>
+                                        </span>
+                                        @endif
+                                        <select name="tax_method" class="tax_method-select form-control input-lg {{ $errors->has('tax_method') ? ' is-invalid' : '' }}">
+                                            <option></option>
+                                            @foreach($taxMethods as $taxMethod)
+                                                <option value="{{$taxMethod->id}}">{{$taxMethod->name}}</option>
+                                            @endforeach()
+                                        </select>
+                                        <i>tax method</i>
                                     </div>
 
                                 </div>
@@ -196,7 +272,7 @@
                                             <tr>
                                                 <td>
                                                     <select onchange = "returnProductDetails(this)" name = "item_details[0][details]" class="select2_product form-control input-lg select-product" style = "width: 100%">
-                                                        <option>Select Product</option>
+                                                        <option></option>
                                                         @foreach($products as $product)
                                                             <option value="{{$product->id}}" data-product-unit-price="{{$product->selling_price}}">{{$product->name}}</option>
                                                         @endforeach
@@ -213,14 +289,6 @@
                                                 </td>
                                             </tr>
                                             </tbody>
-                                            {{-- <tfoot>
-                                            <tr>
-                                                <th>Product Details</th>
-                                                <th width="210px">Quantity</th>
-                                                <th width="210px">Unit Price</th>
-                                                <th width="210px">Total Price</th>
-                                            </tr>
-                                            </tfoot> --}}
                                         </table>
                                         <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
                                     </div>
@@ -309,6 +377,30 @@
     <!-- SUMMERNOTE -->
     <script src="{{ asset('inspinia') }}/js/plugins/summernote/summernote.min.js"></script>
 
+    {{-- FILEINPUT --}}
+    <script src="{{ asset('inspinia') }}/js/plugins/fileinput/fileinput.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/fileinput/theme.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/popper/popper.min.js"></script>
+
+    <script type="text/javascript">
+        $("#file-1").fileinput({
+            theme: 'fa',
+            uploadUrl: "/image-view",
+            uploadExtraData: function() {
+                return {
+                    _token: $("input[name='_token']").val(),
+                };
+            },
+            allowedFileExtensions: ['jpg', 'png', 'gif'],
+            overwriteInitial: false,
+            maxFileSize:2000,
+            maxFilesNum: 10,
+            slugCallback: function (filename) {
+                return filename.replace('(', '_').replace(']', '_');
+            }
+        });
+    </script>
+
     <script>
         $(document).ready(function(){
 
@@ -386,8 +478,8 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='select2_product form-control input-lg select-product' style = 'width: 100%'>"+
-                                "<option>Select Product</option>"+
+        firstCell.innerHTML = "<select onchange = 'returnProductDetails(this)' name = 'item_details["+tableValueArrayIndex+"][details]' class='select2_product_add form-control input-lg select-product' style = 'width: 100%'>"+
+                                "<option></option>"+
                                 "@foreach($products as $product)"+
                                 "<option value='{{$product->id}}' data-product-unit-price='{{$product->selling_price}}'>{{$product->name}}</option>"+
                                 "@endforeach"+
@@ -399,7 +491,7 @@
         fifthCell.setAttribute("style", "width: 1em;");
         tableValueArrayIndex++;
 
-        $(".select2_product").select2({
+        $(".select2_product_add").select2({
             placeholder: "Select Product",
             allowClear: true
         });
@@ -626,12 +718,24 @@
             placeholder: "Select Taxes",
             allowClear: true
         });
+        $('.tax_method-select').select2({
+            theme: "default",
+            placeholder: "Select tax method",
+        });
         $(".select2_unit").select2({
             placeholder: "Select Unit",
             allowClear: true
         });
         $(".select2_product").select2({
             placeholder: "Select Product",
+            allowClear: true
+        });
+        $(".select2_brand").select2({
+            placeholder: "Select Brand",
+            allowClear: true
+        });
+        $(".select2_product_sub_category").select2({
+            placeholder: "Select Product Category",
             allowClear: true
         });
 

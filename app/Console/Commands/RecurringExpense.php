@@ -3,10 +3,12 @@
 namespace App\Console\Commands;
 
 use App\Expense;
+use App\User;
 use App\Frequency;
 use App\Income;
 use App\IncomeDebit;
 use App\Transaction;
+use App\UserAccount;
 use Illuminate\Console\Command;
 
 class RecurringExpense extends Command
@@ -47,10 +49,11 @@ class RecurringExpense extends Command
         $today = date('Y-m-d');
 
         // get all users
-        $users = User::all();
-        foreach ($users as $user){
+        $userAccounts = UserAccount::where('user_type_id','5f29e668-9029-4278-a5e7-9ba9f96a20df')->with('user')->get();
+        // can be limited to users with user accounts
+        foreach ($userAccounts as $userAccount){
 
-            $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_user',true)->where('user_id',$user->id)->get();
+            $frequencies = Frequency::where("status_id","c670f7a2-b6d1-4669-8ab5-9c764a1e403e")->where('is_user',true)->where('user_id',$userAccount->user->id)->get();
 
             foreach ($frequencies as $frequency){
                 $datesum = date('d-m-Y', strtotime($today.' + '.$frequency->frequency.' '.$frequency->type));
@@ -66,9 +69,11 @@ class RecurringExpense extends Command
                     $incomeDebit->account_id = $income->account;
                     $incomeDebit->status_id = 'a40b5983-3c6b-4563-ab7c-20deefc1992b';
                     $incomeDebit->income_id = $income->id;
-                    $incomeDebit->user_id = $user->id;
+                    $incomeDebit->user_id = $userAccount->user->id;
                     $incomeDebit->is_debited = true;
                     $incomeDebit->save();
+
+                    // TODO send notification of generation
 
                 }
             }
