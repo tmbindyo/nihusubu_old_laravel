@@ -1,4 +1,4 @@
-@extends('admin.layouts.app_admin')
+@extends('admin.layouts.app')
 
 @section('title', 'Role Show')
 
