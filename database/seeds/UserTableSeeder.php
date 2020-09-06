@@ -43,10 +43,10 @@ class UserTableSeeder extends Seeder
             'created_at' => now()
         ]);
         // get user
-        $AddedUser = User::findOrFail(2);
+        $tomUser = User::findOrFail(3);
         // get role
         $role = Role::findOrFail(1);
-        $AddedUser->assignRole($role->id);
+        $tomUser->assignRole($role->id);
 
         DB::table('user_accounts')->insert([
             'id' => '7dd05c3c-7526-498b-9fbb-d0c766a678ac',
@@ -71,10 +71,10 @@ class UserTableSeeder extends Seeder
             'created_at' => now()
         ]);
         // get user
-        $AddedUser = User::findOrFail(4);
+        $rohniUser = User::findOrFail(4);
         // get role
         $role = Role::findOrFail(1);
-        $AddedUser->assignRole($role->id);
+        $rohniUser->assignRole($role->id);
 
         DB::table('user_accounts')->insert([
             'id' => '7e40f69e-7d3e-4db9-b781-be69cce2174b',
