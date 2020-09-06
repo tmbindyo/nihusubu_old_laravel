@@ -71,7 +71,7 @@ class UserTableSeeder extends Seeder
             'created_at' => now()
         ]);
         // get user
-        $AddedUser = User::findOrFail(3);
+        $AddedUser = User::findOrFail(4);
         // get role
         $role = Role::findOrFail(1);
         $AddedUser->assignRole($role->id);
