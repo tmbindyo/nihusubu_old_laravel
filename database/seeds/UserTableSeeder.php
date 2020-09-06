@@ -65,7 +65,7 @@ class UserTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Rohni Randiek',
             'email' => 'rrandiek@fluidtechglobal.com',
-            'phone_number' => '+254739896558‬',
+            'phone_number' => '+254739896558',
             'email_verified_at' => now(),
             'password' => Hash::make('NGIB9Iqq4B2imP$u'),
             'created_at' => now()
@@ -77,7 +77,7 @@ class UserTableSeeder extends Seeder
         $AddedUser->assignRole($role->id);
 
         DB::table('user_accounts')->insert([
-            'id' => '7dd05c3c-7526-498b-9fbb-d0c766a678ac',
+            'id' => '7e40f69e-7d3e-4db9-b781-be69cce2174b',
             'user_id' => '4',
             'user_type_id' => '4be20a9a-aee3-414c-b8ba-dcacf859cc9c',
             'registerer_id' => '1',
